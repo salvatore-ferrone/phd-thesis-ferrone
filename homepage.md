@@ -1,14 +1,17 @@
-# Stellar Streams
+# Streaming Galactic Globular Clusters
+
+## Foreward
+Thank you for considering reading this.
 
 ## Abstract
 
-$(pandoc -s -t markdown abstract.tex)
-
+Placeholder text for the abstract of my thesis.
 
 
 ## Table of Contents
 
-- [Introduction](docs/introduction.html)
-- [Theory](docs/theory.html)
-- [Numerics](docs/numerics.html)
-- [Results](docs/results.html)
+- [Introduction](introduction.html)
+- [Theory](theory.html)
+- [Numerics](numerics.html)
+- [Results](results.html)
+
