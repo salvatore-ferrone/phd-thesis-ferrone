@@ -1,10 +1,10 @@
-PDF_DIR=output/pdf
-HTML_DIR=output/html
+PDF_DIR=pdf
+HTML_DIR=docs
 CHAPTERS=chapters/introduction.tex chapters/numerics.tex chapters/results.tex chapters/theory.tex
 BIBLIOGRAPHY=mybib.bib
 CSL=chicago-author-date.csl
 # PANDOC_FLAGS=--standalone --mathjax --bibliography=$(BIBLIOGRAPHY) --csl=$(CSL) --citeproc
-PANDOC_FLAGS=--standalone --mathjax --bibliography=$(BIBLIOGRAPHY) --csl=$(CSL) --citeproc --filter pandoc-citeproc
+PANDOC_FLAGS=--standalone --mathjax --bibliography=$(BIBLIOGRAPHY) --csl=$(CSL) --citeproc 
 
 
 
