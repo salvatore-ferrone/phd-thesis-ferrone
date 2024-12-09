@@ -1,0 +1,53 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+
+
+
+\usepackage{natbib}
+\bibliographystyle{abbrvnat}
+\usepackage{aas_macros}
+
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{hyperref}
+
+
+\title{
+{Stellar Streams}\\
+{\large PSL. Sapienza}\\
+{\includegraphics[width=0.5\linewidth]{LOGO-PSL-nov-2017.png}}
+{\includegraphics[width=0.6\linewidth]{Uniroma1.png}}
+}
+\author{Salvatore Ferrone}
+\date{Day Month 2025}
+
+
+\begin{document}
+\maketitle
+
+\chapter*{Abstract}
+words
+
+\chapter*{Dedications}
+To the victims of WWII
+
+\tableofcontents
+
+\chapter{Introduction}
+\input{chapters/introduction}
+
+\chapter{Theory}
+\input{chapters/theory}
+
+\chapter{Numerics}
+\input{chapters/numerics}
+
+\chapter{Results}
+\input{chapters/results}
+
+
+
+\bibliography{mybib}
+\end{document}

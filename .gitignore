@@ -1,0 +1,23 @@
+# Ignore videos folder
+videos/
+
+# Ignore images folder
+images/
+
+# Ignore LaTeX auxiliary files
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+
+# Ignore Jupyter Notebook checkpoints
+notebooks/.ipynb_checkpoints/
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore Python compiled files
+*.pyc
+__pycache__/
