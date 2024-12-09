@@ -2,7 +2,7 @@
 videos/
 
 # Ignore images folder
-images/
+/images/
 
 # Ignore LaTeX auxiliary files
 *.aux
