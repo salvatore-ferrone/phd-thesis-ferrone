@@ -23,3 +23,5 @@ scrapnotebooks/
 # Ignore Python compiled files
 *.pyc
 __pycache__/
+
+/Template PhD PSL university (Paris Sciences et Lettres)_2/
