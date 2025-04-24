@@ -7,10 +7,18 @@ PANDOC_FLAGS=--standalone --mathjax --bibliography=$(BIBLIOGRAPHY) --csl=$(CSL) 
 
 all: pdf html
 
-pdf:
+dev:
+	pdflatex main.tex
+	bibtex main
+	pdflatex main.tex
+	pdflatex main.tex
+
+# Production build - builds in output directory
+pdf: 
 	mkdir -p $(PDF_DIR)
+	cp $(BIBLIOGRAPHY) $(PDF_DIR)/
 	pdflatex -output-directory=$(PDF_DIR) main.tex
-	bibtex $(PDF_DIR)/main
+	cd $(PDF_DIR) && bibtex main
 	pdflatex -output-directory=$(PDF_DIR) main.tex
 	pdflatex -output-directory=$(PDF_DIR) main.tex
 
