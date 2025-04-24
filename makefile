@@ -8,6 +8,19 @@ PANDOC_FLAGS=--standalone --mathjax --bibliography=$(BIBLIOGRAPHY) --csl=$(CSL) 
 all: pdf html
 
 
+# Draft mode - builds PDF without rendering images
+draft:
+	mkdir -p $(PDF_DIR)
+	# Copy bibliography file to output directory
+	cp $(BIBLIOGRAPHY) $(PDF_DIR)/
+	# First LaTeX pass with draft option to graphicx package
+	TEXINPUTS=.:./chapters: pdflatex -output-directory=$(PDF_DIR) "\PassOptionsToPackage{draft}{graphicx}\input{main}"
+	# Run BibTeX in the output directory
+	cd $(PDF_DIR) && bibtex main
+	# Run subsequent LaTeX passes
+	TEXINPUTS=.:./chapters: pdflatex -output-directory=$(PDF_DIR) "\PassOptionsToPackage{draft}{graphicx}\input{main}"
+	TEXINPUTS=.:./chapters: pdflatex -output-directory=$(PDF_DIR) "\PassOptionsToPackage{draft}{graphicx}\input{main}"
+
 pdf:
 	mkdir -p $(PDF_DIR)
 	# Copy bibliography file to output directory
