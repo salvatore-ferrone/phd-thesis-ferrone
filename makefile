@@ -7,20 +7,18 @@ PANDOC_FLAGS=--standalone --mathjax --bibliography=$(BIBLIOGRAPHY) --csl=$(CSL) 
 
 all: pdf html
 
-dev:
-	pdflatex main.tex
-	bibtex main
-	pdflatex main.tex
-	pdflatex main.tex
 
-# Production build - builds in output directory
-pdf: 
+pdf:
 	mkdir -p $(PDF_DIR)
+	# Copy bibliography file to output directory
 	cp $(BIBLIOGRAPHY) $(PDF_DIR)/
-	pdflatex -output-directory=$(PDF_DIR) main.tex
+	# First LaTeX pass - uses TEXINPUTS to find input files
+	TEXINPUTS=.:./chapters: pdflatex -output-directory=$(PDF_DIR) main.tex
+	# Run BibTeX in the output directory
 	cd $(PDF_DIR) && bibtex main
-	pdflatex -output-directory=$(PDF_DIR) main.tex
-	pdflatex -output-directory=$(PDF_DIR) main.tex
+	# Run subsequent LaTeX passes
+	TEXINPUTS=.:./chapters: pdflatex -output-directory=$(PDF_DIR) main.tex
+	TEXINPUTS=.:./chapters: pdflatex -output-directory=$(PDF_DIR) main.tex
 
 html: copy_images generate_homepage
 	mkdir -p $(HTML_DIR)
