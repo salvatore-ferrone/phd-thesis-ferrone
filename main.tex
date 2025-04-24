@@ -1,4 +1,4 @@
-\documentclass[12pt]{report}
+\documentclass[12pt]{book}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage[greek,english]{babel}
@@ -27,16 +27,15 @@
 
 
 \begin{document}
+\frontmatter
 \maketitle
-
 \chapter*{Abstract}
 \input{chapters/abstract}
-
 \chapter*{Forward}
 \input{chapters/foreward}
-
 \tableofcontents
 
+\mainmatter
 \chapter{Introduction}
 \input{chapters/introduction}
 
@@ -56,6 +55,6 @@
 \input{chapters/ongoing}
 
 
-
+\backmatter
 \bibliography{mybib}
 \end{document}
