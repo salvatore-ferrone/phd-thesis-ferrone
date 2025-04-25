@@ -17,6 +17,8 @@ notebooks/.ipynb_checkpoints/
 
 scrapnotebooks/
 
+**scrap**
+
 # Ignore macOS system files
 .DS_Store
 
