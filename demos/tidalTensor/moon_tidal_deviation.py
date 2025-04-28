@@ -225,27 +225,46 @@ def do_plot(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, qui
     AXIS2["ylim"]= (earthsOrbit[1,sim_index]-5*semi_major_axis, earthsOrbit[1,sim_index]+5*semi_major_axis)
     ax[1].legend()
     # turn off the label
-    new_SCAT_TIDAL = SCAT_TIDAL.copy()
-    new_SCAT_NON_TIDAL = SCAT_NONTIDAL.copy()
-    new_SCAT_TIDAL['label'] = None
-    new_SCAT_NON_TIDAL['label'] = None
+    # new_SCAT_TIDAL = SCAT_TIDAL.copy()
+    # new_SCAT_NON_TIDAL = SCAT_NONTIDAL.copy()
+    # new_SCAT_TIDAL['label'] = None
+    # new_SCAT_NON_TIDAL['label'] = None
     ax[0].quiver(X.flatten(), Y.flatten(), tidal_force[0]/tidal_force_magnitude, tidal_force[1]/tidal_force_magnitude,color=colors_tidal, **QUIV_TIDAL)
     ax[0].scatter(0,0, color='tab:blue', label=None)
     ax[0].plot(tidal_orbit[0,down_index:sim_index+1], tidal_orbit[1,down_index:sim_index+1], **PLOT_TIDAL)
-    ax[0].scatter(tidal_orbit[0,sim_index], tidal_orbit[1,sim_index], **new_SCAT_TIDAL)
+    ax[0].scatter(tidal_orbit[0,sim_index], tidal_orbit[1,sim_index], **SCAT_TIDAL)
     ax[0].plot(rotating_orbit[0,down_index:sim_index+1], rotating_orbit[1,down_index:sim_index+1], **PLOT_NONTIDAL)
-    ax[0].scatter(rotating_orbit[0,sim_index], rotating_orbit[1,sim_index], **new_SCAT_NON_TIDAL)
+    ax[0].scatter(rotating_orbit[0,sim_index], rotating_orbit[1,sim_index], **SCAT_NONTIDAL)
     # ax[0].legend()
 
     ax[1].set(**AXIS2);
     ax[0].set(**AXIS1);
+    # so the graph doesn't wobble when the x-ticks go to the right side
+    ax[1].yaxis.tick_right()
+    ax[1].yaxis.set_label_position("right")
     
     return fig, ax
 
 
 def plot_and_save(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, properties, output_path):
     """Wrapper function that calls do_plot and saves the result."""
+    figtitle="Tidal Induced Orbital Drift of the Moon"
     fig, ax = do_plot(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, properties)
+    fig.suptitle(figtitle, fontsize=16)
+    # fig.tight_layout()
+    dpi = 300
+
+    # Start with desired pixel dimensions (must be even)
+    desired_width_pixels = 3600  # Even number
+    desired_height_pixels = 1800  # Even number
+
+    # Convert to inches for matplotlib
+    width_inches = desired_width_pixels / dpi
+    height_inches = desired_height_pixels / dpi
+    
+    # Update figure size if needed
+    fig.set_size_inches(width_inches, height_inches)
+
     fig.savefig(output_path, dpi=300)
     plt.close(fig)  # Important to avoid memory leaks
     print(f"Saved {output_path}")
@@ -326,7 +345,7 @@ def main():
 
     ## BEGIN MULTIPROCESSING OVER THE FRAMES 
     frame_args = [ ]
-    for frame_index in range(0,20):
+    for frame_index in range(0,60):
         # compute down index to up index
         sim_index= coordinate_frame_to_simulation_index(frame_index, t_eval, FRAMES_PER_UNIT_TIME)
         down_index = sim_index - orbit_index_width
