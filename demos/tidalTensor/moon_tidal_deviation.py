@@ -7,6 +7,8 @@ from astropy import constants as const
 from scipy import integrate
 import thesis_rcparams
 import os
+import multiprocessing as mp
+import datetime
 
 def get_moons_orbital_elements():
     """build the initial conditions of the moon from https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html """
@@ -177,13 +179,13 @@ def set_plot_properties(semi_major_axis,):
         "ylim": (-1.5*semi_major_axis, 1.5*semi_major_axis),
         "xlabel": r"$x$ (Earth-Moon distance)",
         "ylabel": r"$y$ (Earth-Moon distance)",
-        "title": "Non-inertial frame",
+        "title": "Non-Inertial Frame with Tidal Field",
     }
     AXIS1['xticklabels'] = [f'{x:.1f}' for x in AXIS1['xticks']/semi_major_axis]
     AXIS1['yticklabels'] = [f'{y:.1f}' for y in AXIS1['yticks']/semi_major_axis]
     AXIS2 = {
-        "xticks": np.arange(-1.1,1.1,0.01),
-        "yticks": np.arange(-1.1,1.1,0.01),
+        "xticks": np.arange(-1.1,1.1,0.02),
+        "yticks": np.arange(-1.1,1.1,0.02),
         "xlabel": r"$x$ [au]",
         "ylabel": r"$y$ [au]",
         "title":"Inertial frame",
@@ -193,7 +195,7 @@ def set_plot_properties(semi_major_axis,):
     PLOT_NONTIDAL = {"color": "tab:orange", "label": None}
     SCAT_TIDAL = {"color": "tab:green", "s": 10, "label": "Including the tides","zorder":10}
     SCAT_NONTIDAL = {"color": "tab:orange", "s": 10, "label": "No tides","zorder":10}
-    QUIV_TIDAL = {"scale": 35, "label": "Tidal Field"}
+    QUIV_TIDAL = {"scale": 35, "label": None}
     QUIV_CENTRIFUGAL = {"scale": 35, "label": "Centrifugal Field"} 
     return AXIS1, AXIS2, PLOT_TIDAL, PLOT_NONTIDAL, SCAT_TIDAL, SCAT_NONTIDAL, QUIV_TIDAL, QUIV_CENTRIFUGAL
 
@@ -219,21 +221,21 @@ def do_plot(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, qui
     ax[1].scatter(earthsOrbit[0,sim_index], earthsOrbit[1,sim_index],  color='tab:blue', label='Earth')
     # set the xlim ylim for axis2
     semi_major_axis=AXIS1["xlim"][1] - AXIS1["xlim"][0]
-    # AXIS2["xlims"]= (earthsOrbit[0,sim_index]-5*semi_major_axis, earthsOrbit[0,sim_index]+5*semi_major_axis)
-    # AXIS2["ylims"]= (earthsOrbit[1,sim_index]-5*semi_major_axis, earthsOrbit[1,sim_index]+5*semi_major_axis)
+    AXIS2["xlim"]= (earthsOrbit[0,sim_index]-5*semi_major_axis, earthsOrbit[0,sim_index]+5*semi_major_axis)
+    AXIS2["ylim"]= (earthsOrbit[1,sim_index]-5*semi_major_axis, earthsOrbit[1,sim_index]+5*semi_major_axis)
     ax[1].legend()
     # turn off the label
-    SCAT_TIDAL["label"] = None
-    SCAT_NONTIDAL["label"] = None
+    new_SCAT_TIDAL = SCAT_TIDAL.copy()
+    new_SCAT_NON_TIDAL = SCAT_NONTIDAL.copy()
+    new_SCAT_TIDAL['label'] = None
+    new_SCAT_NON_TIDAL['label'] = None
     ax[0].quiver(X.flatten(), Y.flatten(), tidal_force[0]/tidal_force_magnitude, tidal_force[1]/tidal_force_magnitude,color=colors_tidal, **QUIV_TIDAL)
-
-    # plot the earth
     ax[0].scatter(0,0, color='tab:blue', label=None)
     ax[0].plot(tidal_orbit[0,down_index:sim_index+1], tidal_orbit[1,down_index:sim_index+1], **PLOT_TIDAL)
-    ax[0].scatter(tidal_orbit[0,sim_index], tidal_orbit[1,sim_index], **SCAT_TIDAL)
+    ax[0].scatter(tidal_orbit[0,sim_index], tidal_orbit[1,sim_index], **new_SCAT_TIDAL)
     ax[0].plot(rotating_orbit[0,down_index:sim_index+1], rotating_orbit[1,down_index:sim_index+1], **PLOT_NONTIDAL)
-    ax[0].scatter(rotating_orbit[0,sim_index], rotating_orbit[1,sim_index], **SCAT_NONTIDAL)
-    ax[0].legend()
+    ax[0].scatter(rotating_orbit[0,sim_index], rotating_orbit[1,sim_index], **new_SCAT_NON_TIDAL)
+    # ax[0].legend()
 
     ax[1].set(**AXIS2);
     ax[0].set(**AXIS1);
@@ -263,19 +265,19 @@ def main():
 
     #### Animation params  set some animation parametes
     FPS = 30
-    SECONDS_PER_UNIT_TIME = 12
+    SECONDS_PER_UNIT_TIME = 24 # which is that six seconds go by for each year 
     DURATION_IN_UNIT_TIME = t_eval[-1]
     TOTAL_SIM_INDEXES = len(t_eval)
-    DURATION_IN_SECONDS = DURATION_IN_UNIT_TIME *  SECONDS_PER_UNIT_TIME
+    DURATION_IN_SECONDS = DURATION_IN_UNIT_TIME*SECONDS_PER_UNIT_TIME
     TOTAL_FRAMES = int(DURATION_IN_SECONDS * FPS)
     FRAMES_PER_UNIT_TIME = int(FPS * SECONDS_PER_UNIT_TIME)
     print("TOTAL_FRAMES", TOTAL_FRAMES)
+    print("DURATION_IN_SECONDS", DURATION_IN_SECONDS)
     #### plotting params
     # width of the orbit back 
     orbit_index_width = 45
     # number of vectors to use in the vector field 
     nvec = 20    
-
 
     ### THE STUFF THAT DOESN'T CHANGE FRAME TO FRAME 
     # the units, sun earth and moon parameters 
@@ -287,8 +289,6 @@ def main():
     tidal_solution, rotating_two_body_solution = solve_moons_equation_of_motion(t_span=t_span, t_eval_n_points=t_eval_n_points)
     # translate the positions to the earth's position 
     earthsOrbit = obtain_earths_orbit(t_eval, Dearth, omega)
-    inertial_tidal_solution = tidal_solution.y[0:3] + earthsOrbit
-    inertial_rotating_solution =  rotating_two_body_solution.y[:3] + earthsOrbit
     # Load the tidal tensor
     unscaled_tidal_tensor_func = get_unscaled_kepler_tidal_tensor_func()
     # make a vector field about the earth 
@@ -303,9 +303,9 @@ def main():
     # load in the plot properties 
     AXIS1, AXIS2, PLOT_TIDAL, PLOT_NONTIDAL, SCAT_TIDAL, SCAT_NONTIDAL, QUIV_TIDAL, QUIV_CENTRIFUGAL = set_plot_properties(semi_major_axis)
 
+    # CREATE THE TIDAL TENSOR ONCE JUST TO GET THE PLOT PROPERTIES 
     frame_index = 0
     sim_index = coordinate_frame_to_simulation_index(frame_index, t_eval, FRAMES_PER_UNIT_TIME)
-    # CREATE THE TIDAL TENSOR ONCE JUST TO GET THE PLOT PROPERTIES 
     tidal_tensor=(G_val*M_sun/Dearth**3)*unscaled_tidal_tensor_func(np.linalg.norm(earthsOrbit[:,sim_index]), earthsOrbit[0,sim_index], earthsOrbit[1,sim_index], earthsOrbit[2,sim_index])
     # get the tidal tensor at each position
     tidal_force = tidal_tensor.dot(positions.T)
@@ -325,41 +325,52 @@ def main():
 
 
     ## BEGIN MULTIPROCESSING OVER THE FRAMES 
+    frame_args = [ ]
+    for frame_index in range(0,20):
+        # compute down index to up index
+        sim_index= coordinate_frame_to_simulation_index(frame_index, t_eval, FRAMES_PER_UNIT_TIME)
+        down_index = sim_index - orbit_index_width
+        up_index = sim_index 
+        if down_index < 0:
+            down_index = 0
+        if sim_index >=TOTAL_SIM_INDEXES:
+            up_index = TOTAL_SIM_INDEXES - 1    
 
-    # for frame_index in range(TOTAL_FRAMES):
-    # given a frame index, pick out the correct unit time 
-    frame_index = 50
-    # compute down index to up index
-    sim_index= coordinate_frame_to_simulation_index(frame_index, t_eval, FRAMES_PER_UNIT_TIME)
-    down_index = sim_index - orbit_index_width
-    up_index = sim_index 
-    if down_index < 0:
-        down_index = 0
-    if sim_index >=TOTAL_SIM_INDEXES:
-        up_index = TOTAL_SIM_INDEXES - 1    
+        # create the tidal tensor
+        tidal_tensor=(G_val*M_sun/Dearth**3)*unscaled_tidal_tensor_func(np.linalg.norm(earthsOrbit[:,sim_index]), earthsOrbit[0,sim_index], earthsOrbit[1,sim_index], earthsOrbit[2,sim_index])
+        # get the tidal tensor at each position
+        tidal_force = tidal_tensor.dot(positions.T)
+        # evaluate the centrifugal force
+        centrifugalforce= -np.cross(omega_vec, np.cross(omega_vec, positions)).T
+        # normalize the vectors
+        tidal_force_magnitude = np.linalg.norm(tidal_force, axis=0)
+        centrifugalforce_magnitude = np.linalg.norm(centrifugalforce, axis=0)
+        # update the frame for the earth since it's moving 
+        # pack up the arugments 
+        quiver = (X, Y, tidal_force, tidal_force_magnitude, colors_tidal)
+        PROPERTIES = (AXIS1, AXIS2, PLOT_TIDAL, PLOT_NONTIDAL, SCAT_TIDAL, SCAT_NONTIDAL, QUIV_TIDAL, QUIV_CENTRIFUGAL)
+        # pack up the arguments
+        tidal_orbit = tidal_solution.y[0:3]
+        rotating_orbit = rotating_two_body_solution.y[:3]
+        # pack up the arguments
+        frame_args.append((down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, PROPERTIES, outdir+f"frame_{frame_index:04d}.png"))
 
-    # create the tidal tensor
-    tidal_tensor=(G_val*M_sun/Dearth**3)*unscaled_tidal_tensor_func(np.linalg.norm(earthsOrbit[:,sim_index]), earthsOrbit[0,sim_index], earthsOrbit[1,sim_index], earthsOrbit[2,sim_index])
-    # get the tidal tensor at each position
-    tidal_force = tidal_tensor.dot(positions.T)
-    # evaluate the centrifugal force
-    centrifugalforce= -np.cross(omega_vec, np.cross(omega_vec, positions)).T
-    # normalize the vectors
-    tidal_force_magnitude = np.linalg.norm(tidal_force, axis=0)
-    centrifugalforce_magnitude = np.linalg.norm(centrifugalforce, axis=0)
-    # update the frame for the earth since it's moving 
-    AXIS2["xlim"]= (earthsOrbit[0,sim_index]-5*semi_major_axis, earthsOrbit[0,sim_index]+5*semi_major_axis)
-    AXIS2["ylim"]= (earthsOrbit[1,sim_index]-5*semi_major_axis, earthsOrbit[1,sim_index]+5*semi_major_axis)
-    # pack up the arugments 
-    quiver = (X, Y, tidal_force, tidal_force_magnitude, colors_tidal)
-    PROPERTIES = (AXIS1, AXIS2, PLOT_TIDAL, PLOT_NONTIDAL, SCAT_TIDAL, SCAT_NONTIDAL, QUIV_TIDAL, QUIV_CENTRIFUGAL)
-    # pack up the arguments
-    tidal_orbit = tidal_solution.y[0:3]
-    rotating_orbit = rotating_two_body_solution.y[:3]
-    plot_and_save(
-        down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, PROPERTIES,
-        output_path=outdir+f"frame_{frame_index:04d}.png"
-    )
+    print("ARGUMENTS LOADED ")
+    # use multiprocessing to plot the frames
+    starttime= datetime.datetime.now()
+    print("STARTING MULTIPROCESSING AT ", starttime)
 
+    ncpu = mp.cpu_count()
+    with mp.Pool(processes=ncpu) as pool:  # Use 4 processes
+        pool.starmap(plot_and_save, frame_args)
+
+        # plot_and_save(
+        #     down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, PROPERTIES,
+        #     output_path=outdir+f"frame_{frame_index:04d}.png"
+        # )
+    endtime= datetime.datetime.now()
+    print("FINISHED MULTIPROCESSING AT ", endtime)
+    print("TIME TAKEN FOR MULTIPROCESSING ", endtime-starttime)
+    print("time per frame", (endtime-starttime)/len(frame_args))
 if __name__ == "__main__":
     main()
