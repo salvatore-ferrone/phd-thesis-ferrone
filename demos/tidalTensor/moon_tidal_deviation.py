@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from astropy import units as u
 from astropy import constants as const
 from scipy import integrate
+import thesis_rcparams
 
 
 def get_moons_orbital_elements():
@@ -21,7 +22,7 @@ def set_units():
     unitV = unitL / unitT
     unitM = u.Msun
     unitG=unitV**2 * unitL / unitM
-    G_val=const.G.to(unitG)  
+    G_val=const.G.to(unitG).value
     return unitL, unitT, unitV, unitM, unitG, G_val  
 
 def compute_moons_initial_conditions(semi_major_axis,eccentricity,inclination,G_val,Mprimary):
@@ -58,8 +59,7 @@ def get_unscaled_kepler_tidal_tensor_func():
     unscaled_tidal_tensor_func = sp.lambdify((r, x, y, z), unscaled_tidal_tensor, "numpy")
     return unscaled_tidal_tensor_func
 
-
-def system_of_equations(t, y, G_val, Mearth, Dearth, omega, Msun, scaled_tidal_tensor_func):
+def system_of_equations(t, y, G_val, Mearth, Dearth, omega, M_sun, unscaled_tidal_tensor_func):
     # unpack the state of the system 
     position_moon = y[:3]
     velocity_moon = y[3:]
@@ -71,7 +71,7 @@ def system_of_equations(t, y, G_val, Mearth, Dearth, omega, Msun, scaled_tidal_t
     position_earth = np.array([x_earth, y_earth, z_earth])
     r_earth = np.linalg.norm(position_earth)
     # eval the tidal tensor at the position of the earth
-    tidal_tensor = -(G_val*Msun/r_earth**3)*scaled_tidal_tensor_func(r_earth, position_earth[0], position_earth[1], position_earth[2])
+    tidal_tensor = -(G_val*M_sun/r_earth**3)*unscaled_tidal_tensor_func(r_earth, position_earth[0], position_earth[1], position_earth[2])
     tidal_force = tidal_tensor.dot(position_moon)
     # evaluate the centrifugal force
     centrifugalforce = - np.cross(omega_vec, np.cross(omega_vec.T, position_moon.T).T)
@@ -100,6 +100,16 @@ def two_body_rotating_frame_system_of_equations(t, y, G_val, Mearth, omega):
     ydot = np.concatenate([velocity_moon, net_force])
     return ydot
 
+def sun_and_earth(unitL, unitT, unitM,):
+    # get the earth and sun 
+    Dearth = 1*unitL
+    omega = 2*np.pi/(1*unitT) 
+    M_sun = const.M_sun.to(unitM).value
+    Mearth = const.M_earth.to(unitM).value
+    Dearth = Dearth.to(unitL).value
+    omega = omega.value
+    return M_sun,  Mearth, Dearth, omega
+
 
 def solve_moons_equation_of_motion(
         t_span = (0, 4),
@@ -109,22 +119,18 @@ def solve_moons_equation_of_motion(
         method='RK45'
     ):
     
+
     # get the proper units 
     unitL, unitT, unitV, unitM, unitG, G_val = set_units()
     # get the earth and sun 
-    Dearth = 1*unitL
-    omega = 2*np.pi/(1*unitT) 
-    Msun = const.Msun.to(unitM).value
-    Mearth = const.Mearth.to(unitM).value
-    Dearth = Dearth.to(unitL).value
-    omega = omega.value
+    M_sun,  Mearth, Dearth, omega= sun_and_earth(unitL, unitT, unitM)
     # get the moons orbital elements 
     semi_major_axis, eccentricity, inclination = get_moons_orbital_elements()
     # convert to the proper units  
     semi_major_axis = semi_major_axis.to(unitL).value
     inclination = inclination.to(u.rad).value
     # compute the initial conditions 
-    position_moon, velocity_moon = compute_moons_initial_conditions(semi_major_axis,eccentricity,inclination,G_val,const.Msun.value)
+    position_moon, velocity_moon = compute_moons_initial_conditions(semi_major_axis,eccentricity,inclination,G_val,Mearth)
     # make the phase space 
     y0 = np.concatenate((position_moon, velocity_moon))
     # get the tidal tensor function
@@ -136,7 +142,7 @@ def solve_moons_equation_of_motion(
         system_of_equations,
         t_span,
         y0,
-        args=(G_val, Mearth, Dearth, omega, Msun, unscaled_tidal_tensor_func),
+        args=(G_val, Mearth, Dearth, omega, M_sun, unscaled_tidal_tensor_func),
         method=method,
         rtol=rtol,
         atol=atol,
@@ -153,3 +159,145 @@ def solve_moons_equation_of_motion(
         t_eval=t_eval
     )
     return tidal_solution, rotating_two_body_solution
+
+def obtain_earths_orbit(t_eval, Dearth, omega):
+    """
+    get the position of the earth as a function of time 
+    """
+    # get the position of the earth as a function of time 
+    x_earth = Dearth * np.cos(omega * t_eval)
+    y_earth = Dearth * np.sin(omega * t_eval)
+    z_earth = np.zeros_like(t_eval)
+    earthsOrbit=np.array([x_earth, y_earth, z_earth])
+    return earthsOrbit
+
+
+
+def set_plot_properties(semi_major_axis,):
+    AXIS1 = {
+        "xticks": np.arange(-1.5*semi_major_axis,1.5*semi_major_axis,semi_major_axis/2),
+        "yticks": np.arange(-1.5*semi_major_axis,1.5*semi_major_axis,semi_major_axis/2),
+        "xlim": (-1.5*semi_major_axis, 1.5*semi_major_axis),
+        "ylim": (-1.5*semi_major_axis, 1.5*semi_major_axis),
+        "xlabel": r"$x$ (Earth-Moon distance)",
+        "ylabel": r"$y$ (Earth-Moon distance)",
+        "title": "Non-inertial frame",
+    }
+    AXIS1['xticklabels'] = [f'{x:.1f}' for x in AXIS1['xticks']/semi_major_axis]
+    AXIS1['yticklabels'] = [f'{y:.1f}' for y in AXIS1['yticks']/semi_major_axis]
+    AXIS2 = {
+        "xticks": np.arange(-1.1,1.1,0.01),
+        "yticks": np.arange(-1.1,1.1,0.01),
+        "xlabel": r"$x$ [au]",
+        "ylabel": r"$y$ [au]",
+        "title":"Inertial frame",
+    }
+
+    PLOT_TIDAL = {"color": "tab:green", "label": None}
+    PLOT_NONTIDAL = {"color": "tab:orange", "label": None}
+    SCAT_TIDAL = {"color": "tab:green", "s": 10, "label": "Including the tides","zorder":10}
+    SCAT_NONTIDAL = {"color": "tab:orange", "s": 10, "label": "No tides","zorder":10}
+    QUIV_TIDAL = {"scale": 35, "label": "Tidal Field"}
+    QUIV_CENTRIFUGAL = {"scale": 35, "label": "Centrifugal Field"} 
+    return AXIS1, AXIS2, PLOT_TIDAL, PLOT_NONTIDAL, SCAT_TIDAL, SCAT_NONTIDAL, QUIV_TIDAL, QUIV_CENTRIFUGAL
+
+
+def main():
+
+
+    # simulation params 
+    t_span = (0, 4)
+    t_eval_n_points = 5000
+    t_eval = np.linspace(t_span[0], t_span[1], t_eval_n_points)
+
+    #### Animation params  set some animation parametes
+    FPS = 30
+    SECONDS_PER_UNIT_TIME = 12
+    DURATION_IN_UNIT_TIME = t_eval[-1]
+    DURATION_IN_SECONDS = DURATION_IN_UNIT_TIME *  SECONDS_PER_UNIT_TIME
+    TOTAL_FRAMES = int(DURATION_IN_SECONDS * FPS)
+    FRAMES_PER_UNIT_TIME = int(FPS * SECONDS_PER_UNIT_TIME)
+    print("TOTAL_FRAMES", TOTAL_FRAMES)
+    #### plotting params
+    # width of the orbit back 
+    orbit_index_width = 45
+    # number of vectors to use in the vector field 
+    nvec = 20    
+
+
+    ### THE STUFF THAT DOESN'T CHANGE FRAME TO FRAME 
+    # the units, sun earth and moon parameters 
+    unitL, unitT, unitV, unitM, unitG, G_val = set_units()
+    M_sun,  Mearth, Dearth, omega= sun_and_earth(unitL, unitT, unitM)
+    semi_major_axis, _, _= get_moons_orbital_elements()
+    semi_major_axis=semi_major_axis.to(unitL).value
+    # solve the equations of motion
+    tidal_solution, rotating_two_body_solution = solve_moons_equation_of_motion(t_span=t_span, t_eval_n_points=t_eval_n_points)
+    # translate the positions to the earth's position 
+    earthsOrbit = obtain_earths_orbit(t_eval, Dearth, omega)
+    inertial_tidal_solution = tidal_solution.y[0:3] + earthsOrbit
+    inertial_rotating_solution =  rotating_two_body_solution.y[:3] + earthsOrbit
+    # Load the tidal tensor
+    unscaled_tidal_tensor_func = get_unscaled_kepler_tidal_tensor_func()
+    # make a vector field about the earth 
+    xs= np.linspace(-1.5*semi_major_axis, 1.5*semi_major_axis, nvec)
+    ys= np.linspace(-1.5*semi_major_axis, 1.5*semi_major_axis, nvec)
+    X, Y = np.meshgrid(xs, ys)
+    Z = np.zeros_like(X)
+    # put the positions in a grid 
+    positions = np.array([X.flatten(), Y.flatten(), Z.flatten()]).T
+    omega_vec = np.array([0, 0, omega])    
+
+
+    # CREATE THE TIDAL TENSOR ONCE JUST TO GET THE PLOT PROPERTIES 
+    tidal_tensor=(G_val*M_sun/Dearth**3)*unscaled_tidal_tensor_func(np.linalg.norm(earthsOrbit[:,sim_index]), earthsOrbit[0,sim_index], earthsOrbit[1,sim_index], earthsOrbit[2,sim_index])
+    # get the tidal tensor at each position
+    tidal_force = tidal_tensor.dot(positions.T)
+    # evaluate the centrifugal force
+    centrifugalforce= -np.cross(omega_vec, np.cross(omega_vec, positions)).T
+    # normalize the vectors
+    tidal_force_magnitude = np.linalg.norm(tidal_force, axis=0)
+    centrifugalforce_magnitude = np.linalg.norm(centrifugalforce, axis=0)
+    # set the color map
+    vmax=np.max([centrifugalforce_magnitude.max(), tidal_force_magnitude.max()])
+    vmin=np.min([centrifugalforce_magnitude.min(), tidal_force_magnitude.min()])
+    cmap_tidal = mpl.colormaps.get_cmap('rainbow_r')
+    cmap_centrifugal = mpl.colormaps.get_cmap('gray')
+    norm = mpl.colors.LogNorm(vmin=vmin, vmax=vmax)
+    colors_tidal = cmap_tidal(norm(tidal_force_magnitude))
+    colors_centrifugal = cmap_centrifugal(norm(centrifugalforce_magnitude))
+
+
+    ## BEGIN MULTIPROCESSING OVER THE FRAMES 
+
+    # for frame_index in range(TOTAL_FRAMES):
+    # given a frame index, pick out the correct unit time 
+    frame_index = 500
+    SIM_TIME = frame_index / FRAMES_PER_UNIT_TIME
+    sim_index = np.argmin(np.abs(t_eval - SIM_TIME))
+    TOTAL_SIM_INDEXES = len(t_eval)
+    # compute down index to up index
+    down_index = sim_index - orbit_index_width
+    up_index = sim_index 
+    if down_index < 0:
+        down_index = 0
+    if sim_index >=TOTAL_SIM_INDEXES:
+        up_index = TOTAL_SIM_INDEXES - 1    
+
+
+
+    # create the tidal tensor
+    tidal_tensor=(G_val*M_sun/Dearth**3)*unscaled_tidal_tensor_func(np.linalg.norm(earthsOrbit[:,sim_index]), earthsOrbit[0,sim_index], earthsOrbit[1,sim_index], earthsOrbit[2,sim_index])
+    # get the tidal tensor at each position
+    tidal_force = tidal_tensor.dot(positions.T)
+    # evaluate the centrifugal force
+    centrifugalforce= -np.cross(omega_vec, np.cross(omega_vec, positions)).T
+    # normalize the vectors
+    tidal_force_magnitude = np.linalg.norm(tidal_force, axis=0)
+    centrifugalforce_magnitude = np.linalg.norm(centrifugalforce, axis=0)
+
+    # load the plot properties
+    AXIS1, AXIS2, PLOT_TIDAL, PLOT_NONTIDAL, SCAT_TIDAL, SCAT_NONTIDAL, QUIV_TIDAL, QUIV_CENTRIFUGAL = set_plot_properties(semi_major_axis)
+    
+    AXIS2["xlim"]= (earthsOrbit[0,sim_index]-5*semi_major_axis, earthsOrbit[0,sim_index]+5*semi_major_axis),
+    AXIS2["ylim"]= (earthsOrbit[1,sim_index]-5*semi_major_axis, earthsOrbit[1,sim_index]+5*semi_major_axis),
