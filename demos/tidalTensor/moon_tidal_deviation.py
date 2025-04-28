@@ -202,6 +202,57 @@ def set_plot_properties(semi_major_axis,):
     return AXIS1, AXIS2, PLOT_TIDAL, PLOT_NONTIDAL, SCAT_TIDAL, SCAT_NONTIDAL, QUIV_TIDAL, QUIV_CENTRIFUGAL
 
 
+
+
+def do_plot(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, PROPERTIES):
+
+    # unpack 
+    X, Y, tidal_force, tidal_force_magnitude,  colors_tidal= quiver
+    AXIS1, AXIS2, PLOT_TIDAL, PLOT_NONTIDAL, SCAT_TIDAL, SCAT_NONTIDAL, QUIV_TIDAL, QUIV_CENTRIFUGAL= PROPERTIES
+
+    # create the inertial orbit 
+    inertial_tidal_solution = np.zeros_like(tidal_orbit)
+    inertial_rotating_solution = np.zeros_like(rotating_orbit)
+    inertial_tidal_solution = tidal_orbit + earthsOrbit
+    inertial_rotating_solution = rotating_orbit + earthsOrbit
+    
+    # create the figure and axis
+    fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+    ax[1].plot(inertial_tidal_solution[0,down_index:sim_index+1], inertial_tidal_solution[1,down_index:sim_index+1], **PLOT_TIDAL)
+    ax[1].scatter(inertial_tidal_solution[0,sim_index], inertial_tidal_solution[1,sim_index], **SCAT_TIDAL)
+    ax[1].plot(inertial_rotating_solution[0,down_index:sim_index+1], inertial_rotating_solution[1,down_index:sim_index+1], **PLOT_NONTIDAL)
+    ax[1].scatter(inertial_rotating_solution[0,sim_index], inertial_rotating_solution[1,sim_index], **SCAT_NONTIDAL)
+    ax[1].plot(earthsOrbit[0,down_index:sim_index+1], earthsOrbit[1,down_index:sim_index+1],color='tab:blue', )
+    ax[1].scatter(earthsOrbit[0,sim_index], earthsOrbit[1,sim_index],  color='tab:blue', label='Earth')
+    # set the xlim ylim for axis2
+    semi_major_axis=AXIS1["xlim"][1] - AXIS1["xlim"][0]
+    # AXIS2["xlims"]= (earthsOrbit[0,sim_index]-5*semi_major_axis, earthsOrbit[0,sim_index]+5*semi_major_axis)
+    # AXIS2["ylims"]= (earthsOrbit[1,sim_index]-5*semi_major_axis, earthsOrbit[1,sim_index]+5*semi_major_axis)
+    ax[1].legend()
+    # turn off the label
+    SCAT_TIDAL["label"] = None
+    SCAT_NONTIDAL["label"] = None
+    ax[0].quiver(X.flatten(), Y.flatten(), tidal_force[0]/tidal_force_magnitude, tidal_force[1]/tidal_force_magnitude,color=colors_tidal, **QUIV_TIDAL)
+
+    # plot the earth
+    ax[0].scatter(0,0, color='tab:blue', label=None)
+    ax[0].plot(tidal_orbit[0,down_index:sim_index+1], tidal_orbit[1,down_index:sim_index+1], **PLOT_TIDAL)
+    ax[0].scatter(tidal_orbit[0,sim_index], tidal_orbit[1,sim_index], **SCAT_TIDAL)
+    ax[0].plot(rotating_orbit[0,down_index:sim_index+1], rotating_orbit[1,down_index:sim_index+1], **PLOT_NONTIDAL)
+    ax[0].scatter(rotating_orbit[0,sim_index], rotating_orbit[1,sim_index], **SCAT_NONTIDAL)
+    ax[0].legend()
+
+    ax[1].set(**AXIS2);
+    ax[0].set(**AXIS1);
+    
+    return fig, ax
+
+def coordinate_frame_to_simulation_index(frame_index, t_eval, FRAMES_PER_UNIT_TIME):
+    SIM_TIME = frame_index / FRAMES_PER_UNIT_TIME
+    sim_index = np.argmin(np.abs(t_eval - SIM_TIME))
+    return sim_index
+
+
 def main():
 
 
@@ -214,6 +265,7 @@ def main():
     FPS = 30
     SECONDS_PER_UNIT_TIME = 12
     DURATION_IN_UNIT_TIME = t_eval[-1]
+    TOTAL_SIM_INDEXES = len(t_eval)
     DURATION_IN_SECONDS = DURATION_IN_UNIT_TIME *  SECONDS_PER_UNIT_TIME
     TOTAL_FRAMES = int(DURATION_IN_SECONDS * FPS)
     FRAMES_PER_UNIT_TIME = int(FPS * SECONDS_PER_UNIT_TIME)
@@ -249,6 +301,8 @@ def main():
     omega_vec = np.array([0, 0, omega])    
 
 
+    frame_index = 0
+    sim_index = coordinate_frame_to_simulation_index(frame_index, t_eval, FRAMES_PER_UNIT_TIME)
     # CREATE THE TIDAL TENSOR ONCE JUST TO GET THE PLOT PROPERTIES 
     tidal_tensor=(G_val*M_sun/Dearth**3)*unscaled_tidal_tensor_func(np.linalg.norm(earthsOrbit[:,sim_index]), earthsOrbit[0,sim_index], earthsOrbit[1,sim_index], earthsOrbit[2,sim_index])
     # get the tidal tensor at each position
@@ -273,10 +327,8 @@ def main():
     # for frame_index in range(TOTAL_FRAMES):
     # given a frame index, pick out the correct unit time 
     frame_index = 500
-    SIM_TIME = frame_index / FRAMES_PER_UNIT_TIME
-    sim_index = np.argmin(np.abs(t_eval - SIM_TIME))
-    TOTAL_SIM_INDEXES = len(t_eval)
     # compute down index to up index
+    sim_index= coordinate_frame_to_simulation_index(frame_index, t_eval, FRAMES_PER_UNIT_TIME)
     down_index = sim_index - orbit_index_width
     up_index = sim_index 
     if down_index < 0:
@@ -299,5 +351,18 @@ def main():
     # load the plot properties
     AXIS1, AXIS2, PLOT_TIDAL, PLOT_NONTIDAL, SCAT_TIDAL, SCAT_NONTIDAL, QUIV_TIDAL, QUIV_CENTRIFUGAL = set_plot_properties(semi_major_axis)
     
-    AXIS2["xlim"]= (earthsOrbit[0,sim_index]-5*semi_major_axis, earthsOrbit[0,sim_index]+5*semi_major_axis),
-    AXIS2["ylim"]= (earthsOrbit[1,sim_index]-5*semi_major_axis, earthsOrbit[1,sim_index]+5*semi_major_axis),
+    AXIS2["xlim"]= (earthsOrbit[0,sim_index]-5*semi_major_axis, earthsOrbit[0,sim_index]+5*semi_major_axis)
+    AXIS2["ylim"]= (earthsOrbit[1,sim_index]-5*semi_major_axis, earthsOrbit[1,sim_index]+5*semi_major_axis)
+
+    # pack up the arugments 
+    quiver = (X, Y, tidal_force, tidal_force_magnitude, colors_tidal)
+    PROPERTIES = (AXIS1, AXIS2, PLOT_TIDAL, PLOT_NONTIDAL, SCAT_TIDAL, SCAT_NONTIDAL, QUIV_TIDAL, QUIV_CENTRIFUGAL)
+    # pack up the arguments
+    tidal_orbit = tidal_solution.y[0:3]
+    rotating_orbit = rotating_two_body_solution.y[:3]
+    fig,axis=do_plot(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, PROPERTIES)
+    
+    fig.savefig("FRAME{:0d}.png".format(frame_index), dpi=300)
+
+if __name__ == "__main__":
+    main()
