@@ -6,7 +6,7 @@ from astropy import units as u
 from astropy import constants as const
 from scipy import integrate
 import thesis_rcparams
-
+import os
 
 def get_moons_orbital_elements():
     """build the initial conditions of the moon from https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html """
@@ -240,6 +240,14 @@ def do_plot(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, qui
     
     return fig, ax
 
+
+def plot_and_save(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, properties, output_path):
+    """Wrapper function that calls do_plot and saves the result."""
+    fig, ax = do_plot(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, properties)
+    fig.savefig(output_path, dpi=300)
+    plt.close(fig)  # Important to avoid memory leaks
+    print(f"Saved {output_path}")
+    
 def coordinate_frame_to_simulation_index(frame_index, t_eval, FRAMES_PER_UNIT_TIME):
     SIM_TIME = frame_index / FRAMES_PER_UNIT_TIME
     sim_index = np.argmin(np.abs(t_eval - SIM_TIME))
@@ -247,6 +255,8 @@ def coordinate_frame_to_simulation_index(frame_index, t_eval, FRAMES_PER_UNIT_TI
 
 def main():
     # simulation params 
+    outdir = "../frames/"
+    os.makedirs(outdir, exist_ok=True)
     t_span = (0, 4)
     t_eval_n_points = 5000
     t_eval = np.linspace(t_span[0], t_span[1], t_eval_n_points)
@@ -290,6 +300,8 @@ def main():
     positions = np.array([X.flatten(), Y.flatten(), Z.flatten()]).T
     omega_vec = np.array([0, 0, omega])    
 
+    # load in the plot properties 
+    AXIS1, AXIS2, PLOT_TIDAL, PLOT_NONTIDAL, SCAT_TIDAL, SCAT_NONTIDAL, QUIV_TIDAL, QUIV_CENTRIFUGAL = set_plot_properties(semi_major_axis)
 
     frame_index = 0
     sim_index = coordinate_frame_to_simulation_index(frame_index, t_eval, FRAMES_PER_UNIT_TIME)
@@ -316,7 +328,7 @@ def main():
 
     # for frame_index in range(TOTAL_FRAMES):
     # given a frame index, pick out the correct unit time 
-    frame_index = 500
+    frame_index = 50
     # compute down index to up index
     sim_index= coordinate_frame_to_simulation_index(frame_index, t_eval, FRAMES_PER_UNIT_TIME)
     down_index = sim_index - orbit_index_width
@@ -325,8 +337,6 @@ def main():
         down_index = 0
     if sim_index >=TOTAL_SIM_INDEXES:
         up_index = TOTAL_SIM_INDEXES - 1    
-
-
 
     # create the tidal tensor
     tidal_tensor=(G_val*M_sun/Dearth**3)*unscaled_tidal_tensor_func(np.linalg.norm(earthsOrbit[:,sim_index]), earthsOrbit[0,sim_index], earthsOrbit[1,sim_index], earthsOrbit[2,sim_index])
@@ -337,22 +347,19 @@ def main():
     # normalize the vectors
     tidal_force_magnitude = np.linalg.norm(tidal_force, axis=0)
     centrifugalforce_magnitude = np.linalg.norm(centrifugalforce, axis=0)
-
-    # load the plot properties
-    AXIS1, AXIS2, PLOT_TIDAL, PLOT_NONTIDAL, SCAT_TIDAL, SCAT_NONTIDAL, QUIV_TIDAL, QUIV_CENTRIFUGAL = set_plot_properties(semi_major_axis)
-    
+    # update the frame for the earth since it's moving 
     AXIS2["xlim"]= (earthsOrbit[0,sim_index]-5*semi_major_axis, earthsOrbit[0,sim_index]+5*semi_major_axis)
     AXIS2["ylim"]= (earthsOrbit[1,sim_index]-5*semi_major_axis, earthsOrbit[1,sim_index]+5*semi_major_axis)
-
     # pack up the arugments 
     quiver = (X, Y, tidal_force, tidal_force_magnitude, colors_tidal)
     PROPERTIES = (AXIS1, AXIS2, PLOT_TIDAL, PLOT_NONTIDAL, SCAT_TIDAL, SCAT_NONTIDAL, QUIV_TIDAL, QUIV_CENTRIFUGAL)
     # pack up the arguments
     tidal_orbit = tidal_solution.y[0:3]
     rotating_orbit = rotating_two_body_solution.y[:3]
-    fig,axis=do_plot(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, PROPERTIES)
-    
-    fig.savefig("FRAME{:0d}.png".format(frame_index), dpi=300)
+    plot_and_save(
+        down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, PROPERTIES,
+        output_path=outdir+f"frame_{frame_index:04d}.png"
+    )
 
 if __name__ == "__main__":
     main()
