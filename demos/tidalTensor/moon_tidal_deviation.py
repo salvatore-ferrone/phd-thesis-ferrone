@@ -42,7 +42,6 @@ def compute_moons_initial_conditions(semi_major_axis,eccentricity,inclination,G_
     velocity_moon = np.dot(rotation_matrix, velocity_moon)
     return position_moon, velocity_moon
 
-
 def get_unscaled_kepler_tidal_tensor_func():
     r,x,y,z=sp.symbols('r x y z', real=True)
     T = -sp.Matrix(
@@ -110,7 +109,6 @@ def sun_and_earth(unitL, unitT, unitM,):
     omega = omega.value
     return M_sun,  Mearth, Dearth, omega
 
-
 def solve_moons_equation_of_motion(
         t_span = (0, 4),
         rtol=1e-10,
@@ -171,8 +169,6 @@ def obtain_earths_orbit(t_eval, Dearth, omega):
     earthsOrbit=np.array([x_earth, y_earth, z_earth])
     return earthsOrbit
 
-
-
 def set_plot_properties(semi_major_axis,):
     AXIS1 = {
         "xticks": np.arange(-1.5*semi_major_axis,1.5*semi_major_axis,semi_major_axis/2),
@@ -200,9 +196,6 @@ def set_plot_properties(semi_major_axis,):
     QUIV_TIDAL = {"scale": 35, "label": "Tidal Field"}
     QUIV_CENTRIFUGAL = {"scale": 35, "label": "Centrifugal Field"} 
     return AXIS1, AXIS2, PLOT_TIDAL, PLOT_NONTIDAL, SCAT_TIDAL, SCAT_NONTIDAL, QUIV_TIDAL, QUIV_CENTRIFUGAL
-
-
-
 
 def do_plot(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, PROPERTIES):
 
@@ -252,10 +245,7 @@ def coordinate_frame_to_simulation_index(frame_index, t_eval, FRAMES_PER_UNIT_TI
     sim_index = np.argmin(np.abs(t_eval - SIM_TIME))
     return sim_index
 
-
 def main():
-
-
     # simulation params 
     t_span = (0, 4)
     t_eval_n_points = 5000
