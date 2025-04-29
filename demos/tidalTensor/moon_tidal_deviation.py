@@ -272,7 +272,6 @@ def do_plot(t_eval, down_index, sim_index, tidal_orbit, rotating_orbit, earthsOr
     ax[1].set_yticklabels(new_ylabels)
     return fig, ax
 
-
 def plot_and_save(t_eval, down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, properties, output_path):
     """Wrapper function that calls do_plot and saves the result."""
     figtitle="Tidal Induced Orbital Drift of the Moon"
