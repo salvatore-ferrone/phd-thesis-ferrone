@@ -293,7 +293,8 @@ def plot_and_save(t_eval, down_index, sim_index, tidal_orbit, rotating_orbit, ea
 
     fig.savefig(output_path, dpi=300)
     plt.close(fig)  # Important to avoid memory leaks
-    print(f"Saved {output_path}")
+    if sim_index % 100 == 0:
+        print(f"saved {output_path}")
     
 def coordinate_frame_to_simulation_index(frame_index, t_eval, FRAMES_PER_UNIT_TIME):
     SIM_TIME = frame_index / FRAMES_PER_UNIT_TIME
