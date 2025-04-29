@@ -199,8 +199,15 @@ def set_plot_properties(semi_major_axis,):
     QUIV_CENTRIFUGAL = {"scale": 35, "label": "Centrifugal Field"} 
     return AXIS1, AXIS2, PLOT_TIDAL, PLOT_NONTIDAL, SCAT_TIDAL, SCAT_NONTIDAL, QUIV_TIDAL, QUIV_CENTRIFUGAL
 
-def do_plot(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, PROPERTIES):
+def do_plot(t_eval, down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, PROPERTIES):
 
+
+    # ficticious start date
+    ficticious_start_date = datetime.datetime(2022, 10, 1)
+    years_forward = t_eval[sim_index]
+    ficticious_date = ficticious_start_date + datetime.timedelta(days=365*years_forward)
+    # get string of just the month and year as YYYY MM 
+    ficticious_date_str = ficticious_date.strftime("%d %b %Y ")
     # unpack 
     X, Y, tidal_force, tidal_force_magnitude,  colors_tidal= quiver
     AXIS1, AXIS2, PLOT_TIDAL, PLOT_NONTIDAL, SCAT_TIDAL, SCAT_NONTIDAL, QUIV_TIDAL, QUIV_CENTRIFUGAL= PROPERTIES
@@ -243,7 +250,9 @@ def do_plot(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, qui
     ax[0].scatter(tidal_orbit[0,sim_index], tidal_orbit[1,sim_index], **SCAT_TIDAL)
     ax[0].plot(rotating_orbit[0,down_index:sim_index+1], rotating_orbit[1,down_index:sim_index+1], **PLOT_NONTIDAL)
     ax[0].scatter(rotating_orbit[0,sim_index], rotating_orbit[1,sim_index], **SCAT_NONTIDAL)
-    # ax[0].legend()
+    
+    # add the current time
+    ax[0].text(0.025, 0.95, f"{ficticious_date_str}", transform=ax[0].transAxes, ha='left', fontsize=12, bbox=dict(facecolor='white', alpha=0.75))
 
     ax[1].set(**AXIS2);
     ax[0].set(**AXIS1);
@@ -264,10 +273,10 @@ def do_plot(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, qui
     return fig, ax
 
 
-def plot_and_save(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, properties, output_path):
+def plot_and_save(t_eval, down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, properties, output_path):
     """Wrapper function that calls do_plot and saves the result."""
     figtitle="Tidal Induced Orbital Drift of the Moon"
-    fig, ax = do_plot(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, properties)
+    fig, ax = do_plot(t_eval, down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, properties)
     fig.suptitle(figtitle, fontsize=16)
 
     dpi = 300
@@ -362,7 +371,7 @@ def main():
 
     ## BEGIN MULTIPROCESSING OVER THE FRAMES 
     frame_args = [ ]
-    for frame_index in range(0,180):
+    for frame_index in range(0,240):
         # compute down index to up index
         sim_index= coordinate_frame_to_simulation_index(frame_index, t_eval, FRAMES_PER_UNIT_TIME)
         down_index = sim_index - orbit_index_width
@@ -389,7 +398,7 @@ def main():
         tidal_orbit = tidal_solution.y[0:3]
         rotating_orbit = rotating_two_body_solution.y[:3]
         # pack up the arguments
-        frame_args.append((down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, PROPERTIES, outdir+f"frame_{frame_index:04d}.png"))
+        frame_args.append((t_eval, down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, PROPERTIES, outdir+f"frame_{frame_index:04d}.png"))
 
     print("ARGUMENTS LOADED ")
     # use multiprocessing to plot the frames
