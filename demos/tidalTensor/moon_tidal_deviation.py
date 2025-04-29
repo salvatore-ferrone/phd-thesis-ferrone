@@ -371,7 +371,7 @@ def main():
 
     ## BEGIN MULTIPROCESSING OVER THE FRAMES 
     frame_args = [ ]
-    for frame_index in range(0,240):
+    for frame_index in range(0,TOTAL_FRAMES):
         # compute down index to up index
         sim_index= coordinate_frame_to_simulation_index(frame_index, t_eval, FRAMES_PER_UNIT_TIME)
         down_index = sim_index - orbit_index_width
