@@ -211,8 +211,16 @@ def do_plot(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, qui
     inertial_tidal_solution = tidal_orbit + earthsOrbit
     inertial_rotating_solution = rotating_orbit + earthsOrbit
     
-    # create the figure and axis
-    fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+    # Create figure with fixed dimensions
+    fig = plt.figure(figsize=(12, 6))
+    
+    # Create axes with fixed positions - these values leave room for all labels
+    # Format: [left, bottom, width, height] - all values are in figure fraction (0-1)
+    ax0 = fig.add_axes([0.10, 0.12, 0.38, 0.75])  # Left plot
+    ax1 = fig.add_axes([0.55, 0.12, 0.38, 0.75])  # Right plot
+    ax = [ax0, ax1]  # Create a list to maintain compatibility with your code
+    
+
     ax[1].plot(inertial_tidal_solution[0,down_index:sim_index+1], inertial_tidal_solution[1,down_index:sim_index+1], **PLOT_TIDAL)
     ax[1].scatter(inertial_tidal_solution[0,sim_index], inertial_tidal_solution[1,sim_index], **SCAT_TIDAL)
     ax[1].plot(inertial_rotating_solution[0,down_index:sim_index+1], inertial_rotating_solution[1,down_index:sim_index+1], **PLOT_NONTIDAL)
@@ -242,7 +250,17 @@ def do_plot(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, qui
     # so the graph doesn't wobble when the x-ticks go to the right side
     ax[1].yaxis.tick_right()
     ax[1].yaxis.set_label_position("right")
-    
+    ax[1].tick_params(axis='y', pad=10)
+    ylabels = [item.get_text() for item in ax[1].get_yticklabels()]
+    new_ylabels = []
+    # add white space for positive numbers 
+    for label in ylabels:
+        # If it doesn't start with '-', add a space to match width of negative numbers
+        if not label.startswith('-') and label.strip():
+            new_ylabels.append(' ' + label)
+        else:
+            new_ylabels.append(label)
+    ax[1].set_yticklabels(new_ylabels)
     return fig, ax
 
 
@@ -251,9 +269,8 @@ def plot_and_save(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbi
     figtitle="Tidal Induced Orbital Drift of the Moon"
     fig, ax = do_plot(down_index, sim_index, tidal_orbit, rotating_orbit, earthsOrbit, quiver, properties)
     fig.suptitle(figtitle, fontsize=16)
-    # fig.tight_layout()
-    dpi = 300
 
+    dpi = 300
     # Start with desired pixel dimensions (must be even)
     desired_width_pixels = 3600  # Even number
     desired_height_pixels = 1800  # Even number
@@ -345,7 +362,7 @@ def main():
 
     ## BEGIN MULTIPROCESSING OVER THE FRAMES 
     frame_args = [ ]
-    for frame_index in range(0,60):
+    for frame_index in range(0,180):
         # compute down index to up index
         sim_index= coordinate_frame_to_simulation_index(frame_index, t_eval, FRAMES_PER_UNIT_TIME)
         down_index = sim_index - orbit_index_width
