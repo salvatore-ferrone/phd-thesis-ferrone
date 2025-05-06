@@ -12,3 +12,4 @@ dependencies:
   - scipy
   - astropy
   - mplcairo
+  - meson 
