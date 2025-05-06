@@ -93,11 +93,11 @@ phi=grid[2]
 minPhi=phi.flatten().min()
 maxPhi=phi.flatten().max()
 normPhi=mpl.colors.Normalize(vmin=minPhi, vmax=maxPhi)
-cmapPhi=mpl.colormaps['rainbow_r']
+cmapPhi=mpl.colormaps['Greys_r']
 
 linthresh = abs(minPhi) * 0.01  # Use 1% of your min value, adjust as needed
 normPhi=mpl.colors.SymLogNorm(linthresh=linthresh, vmin=minPhi, vmax=vmax)
-normPhi=mpl.colors.Normalize(vmin=0.95*minPhi, vmax=vmax)
+normPhi=mpl.colors.Normalize(vmin=minPhi, vmax=vmax)
 
 quiverPARAMS = {
         "scale":25,
