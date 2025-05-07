@@ -193,7 +193,7 @@ def set_plot_properties(semi_major_axis,):
 
     PLOT_TIDAL = {"color": "tab:green", "label": None}
     PLOT_NONTIDAL = {"color": "tab:orange", "label": None}
-    SCAT_TIDAL = {"color": "tab:green", "s": 10, "label": "Including the tides","zorder":10}
+    SCAT_TIDAL = {"color": "tab:green", "s": 10, "label": "Tides","zorder":10}
     SCAT_NONTIDAL = {"color": "tab:orange", "s": 10, "label": "No tides","zorder":10}
     QUIV_TIDAL = {"scale": 35, "label": None}
     QUIV_CENTRIFUGAL = {"scale": 35, "label": "Centrifugal Field"} 
