@@ -1,17 +1,50 @@
-% What's the difference between a numerical and theoretical physicists? Physicists are defined in two ways, their area of study and what they produce. Some people argue that numerical is theoretical physics. However, this doesn't sit right with me since we are not on the fundamental behavior of the objects in question. At the same time, experimental physics doesn't feel right either since we are not studying the natural world directly. I think numerical physics is somewhere in between. I believe that are an intermediary. I would say that we are interpreters of theoretical physics, and we run numerical experiments on our computers. 
-
-% I envision this chapter in three broad sections. First,  there is the physics that I use explicitly in this thesis. Secondly, there is the physics that I ignore. Then, there is the implicit physics. Or rather, the physics that I don't build into my experiments explicitly, but emerges naturally arrises from equations of motion. This section thus provides an analytical approach to interpret our results. The second regarding the ignored physics discusses the consequences of ignoring such physics and thus the model limitation. For the physics that I use, I will present simplified cases here that build our interpretation, and then lead to the exact equations of motion that I solve. 
-
-% I will show some solutions explicitly, however, I will discuss the techniques for solving the equations numerically in the next chapter.
+Little introduction: 
+\begin{itemize}
+    \item Experimental and theoretical physicist, was the old distinction
+    \item The different categories of astronomy
+    \item The uniqueness of a computational astrophysicist
+    \item What is the job of a computational astrophysicist
+    \item How a computational astrophysicist is doing a “theoretical experiment”
+    \item How this thesis fits in that 
+\end{itemize}
 
 
 \section{The Explicit Physics}
-    \subsection*{My equations of Motion} \label{subsec:myEquationsOfMotion}
+    My simulations solve the \textit{restricted three body problem}. In essence
     \begin{figure}
         \centering
         \includegraphics[width=\linewidth]{images/restricted_three_body_set_up.png}
         \caption{Little sketch of my equations of motion. }
     \end{figure}
+    
+    \subsection{Equations of Motion} \label{subsec:myEquationsOfMotion}
+        I like to start with the \textit{Lagrangian}, which comes from the variational principle which states that particles with move along trajectories that minimize the difference, $ L = T-U $, which $L$ is the Lagrangian, $T$ is the kinetic energy and $U$ is the potential energy. Also, as is almost always the case in gravitational dynamics, we normalize by the mass and use \textit{specific} energy: 
+        \begin{equation}
+            \mathcal{L} = \frac{L}{m} = \frac{1}{2}\left(\dot{x}^2+\dot{y}^2+\dot{z}^2\right) - \Phi(x,y,z).
+        \end{equation}
+        However, Lagrange's equations give a system of three second order coupled ordinary differential equations. If we switch to Hamiltonain dynamics, we can object a set of six \textit{first} order ordinary differential equations, which is easier to implement computationally. Also, since we are using the specific energy, the momentum coordinates for Hamilton's equations are the same as the velocities from the Lagrangian: $ p_i = \frac{\partial \mathcal{L}}{\partial \dot{q}_i}$. Therefore, $p_i = \dot{q}_i$, where $i \in \left(x,y,z\right)$. The Hamilton is derived through the Legendre transform: $ \mathcal{H}=\sum_i p_i\dot{q}_i - \mathcal{L}$. Then, we can apply Hamilton's equations to obtain the set of equations: 
+        \begin{align}
+            \dot{p}_i &= -\frac{\partial \mathcal{H}}{\partial q_i} \\
+            \dot{q}_i &= \frac{\partial \mathcal{H}}{\partial p_i}
+        \end{align}
+
+        And when written explicity become: 
+        \begin{align}
+            \dot{p}_x &= -\frac{\partial \Phi}{\partial x} \\
+            \dot{p}_y &= -\frac{\partial \Phi}{\partial y} \\
+            \dot{p}_z &= -\frac{\partial \Phi}{\partial z} \\
+            \dot{x} &= p_x \\ 
+            \dot{y} &= p_y \\ 
+            \dot{z} &= p_z \\ 
+        \end{align}        
+
+
+
+
+        \subsubsection*{The Globular Cluster}
+            hello
+
+        \subsubsection*{The Star Particles}
 
     \subsection{Potential density pairs}
 
