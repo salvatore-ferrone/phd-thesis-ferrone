@@ -465,3 +465,5 @@ if __name__ == "__main__":
     axes[nrows-1].set_title("Drift in Moon Phase from Ignoring the Tides")
     fig.tight_layout()
     fig.savefig("../../images/"+"moon_tidal_simulation.png", dpi=300)
+    print("saved figure")
+    print("../../images/moon_tidal_simulation.png")
