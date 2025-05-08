@@ -39,8 +39,6 @@ Little introduction:
         \end{align}        
 
 
-
-
         \subsubsection*{The Globular Cluster}
             In the case of the Globular Clusters, they only feel the Galaxy. So their Hamiltonian becomes: 
             % \begin{equation}
@@ -61,23 +59,111 @@ Little introduction:
 \section{The Implicit Physics}
 
     \subsection{The circular restricted three body problem}
+        \begin{itemize}
+            \item The Lagrange points
+            \item Allowed regions 
+        \end{itemize}
 
     \subsection{The tidal tensor}
+        \begin{itemize}
+            \item Either the Hessian of the Potential
+            \item Or the Jacobian of the transform from position to force
+            \item I prefer Jacobian
+            \item We always use cartesian coordinates because if you do other systems, such as cylindrical or spherical, then you need to compute the cristoffer symbols. 
+            \item Positive eigen values is stretching
+            \item Negative eivenvalues is compression
+            \item Stetching is a stronger deformation than compression
+            \item For a spherical potential, the stretching deformation is parallel to the position vector. 
+        \end{itemize}
         
+        \begin{equation}
+            \text{J}(F)= \left(\begin{matrix}
+                \partial_x F_x & \partial_y F_x & \partial_z F_x \\
+                \partial_x F_y & \partial_y F_y & \partial_z F_y \\
+                \partial_x F_z & \partial_y F_z & \partial_z F_z 
+            \end{matrix}\right)
+        \end{equation}
+        
+        \subsubsection*{The Moon}
+
+
+            \begin{itemize}
+                \item If you talk about the tides, you have to start the conversation with the moon
+                \item Cite the NASA website and say how many different ways we can evoke the tides
+                \item since I do dynamics, I will discuss how the tides effect the orbit of the moon. 
+                \item show with this little film that the tides slow down the orbit of the moon, make its distance wobble, and if you ignore it and only solve the 2 body problem + a rotating reference frame, after about 3/4 years you'll be completely off about your prediction.
+                \item This is a cool point because the tides are even relevant on human time scales 
+                \item There is no darkside of the moon. 
+                \item cite the initial conditions from JPL
+                \item Note that the drift of the moon from the earth is actually caused by the ocean and not the sun. Kinda crazy.
+                \item Say this model is also an over simplification and that there's a whole field of study dedicated to all the librations of the moon with all the \textit{pertubations} from the simple two body problem. 
+            \end{itemize}
+
+            The tidal tensor for a keplerian potential: 
+            \begin{equation}
+                \mathcal{T}_{i,j}= \frac{GM_\odot}{r^3}\left(\begin{matrix}
+                    1-\frac{3x^2}{r^2} & -\frac{3xy}{r^2} & -\frac{3xz}{r^2} \\
+                    -\frac{3yx}{r^2} & 1-\frac{3y^2}{r^2} & -\frac{3yz}{r^2} \\
+                    -\frac{3zx}{r^2} & -\frac{3zy}{r^2} & 1-\frac{3z^2}{r^2}
+                \end{matrix}\right)
+            \end{equation}            
 \begin{verbatim}
 VIDEO: moon_tidal_simulation.mp4
 \end{verbatim}
 
-        \begin{figure}
-            \centering
-            \includegraphics[width=\linewidth]{images/moon_tidal_simulation.png}
-            \caption{The main potential used throughought the thesis}
-        \end{figure}
+            \begin{figure}
+                \centering
+                \includegraphics[width=\linewidth]{images/moon_tidal_simulation.png}
+                \caption{The main potential used throughought the thesis}
+            \end{figure}
 
-        \begin{itemize}
-            \item Show the motivating example of the moon. 
-            \item Show the tidal tensor moving around in the case of our galactic potential model 
-        \end{itemize}
+        \subsubsection*{Tides in the Galaxy}
+            \begin{itemize}
+                \item Show some positions of the tidal tensor and how it can change orientation based on it's altitude 
+                \item The tidal forces add together linearly, so show the Halo and the Disc example together. 
+            \end{itemize}
+
+            The Miyamoto Nagai potential is: 
+            \begin{eqnarray}
+                \Phi'   &= \frac{1}{D}\\
+                D       &= \sqrt{x^2 + y^2 + \beta^2(z)}\\
+                \beta(z)   &= 1 + \sqrt{z^2 + b^2}\\
+                \beta'(z) &= \frac{z}{\sqrt{z^2 + b^2}}\\
+                \beta''(z)  &= \frac{b^2}{\left(z^2 + b^2\right)^{3/2}}
+            \end{eqnarray}
+
+            The dimensionless tidal tensor then becomes: 
+
+            \begin{equation}
+                \mathcal{T}_{i,j}= \frac{1}{D^3}\left(\begin{matrix}
+                    1-\frac{3x^2}{D^2} & -\frac{3xy}{D^2} & -\frac{3x\beta \beta'}{D^2} \\
+                    \dots & 1-\frac{3y^2}{D^2} & -\frac{3y\beta \beta'}{D^2} \\
+                    \dots & \dots & \beta'^2 + \beta \beta'' -\frac{3\left(\beta\beta'\right)^2}{D^2}
+                \end{matrix}\right)
+            \end{equation}    
+            You can see immediately that multiplying the matrix by $\vec{v}=\lambda\left[x,y,z\right]$ does not return a vector that is parallel to the position vector, as it does for the spherical mass distribution. 
+
+            The Marto's halo has this mass distribution:
+            
+            \begin{equation}
+                M'_\text{enc}(s) = \frac{s^\gamma}{1+s^{\gamma-1}}
+            \end{equation}
+            The dimensionless tidal tensor is thus: 
+            \begin{equation}
+                \mathcal{T'}_{i,j}= \frac{M'_\text{enc}(s)}{s^3}\left(\begin{matrix}
+                    1-\frac{x^2}{s^2}f(s) & -\frac{xy}{s^2}f(s) & -\frac{xz}{s^2}f(s) \\
+                    -\frac{yx}{s^2}f(s) & 1-\frac{y^2}{s^2}f(s) & -\frac{yz}{s^2}f(s) \\
+                    -\frac{zx}{s^2}f(s) & -\frac{zy}{s^2}f(s) & 1-\frac{z^2}{s^2}f(s)
+                \end{matrix}\right)
+            \end{equation}  
+            where 
+            \begin{equation}
+                f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}
+            \end{equation}
+        \subsubsection*{Interesting case}
+            There is a non-physical case that is extremely interesting. When you have a halo with a mass disrtibution that increases in density with distance, which is non-physical, the tidal tensor changes sign. This means that the strongest deformation is not longer stretching but squishing. I would like to do a stellar stream in this example. It would be fascinating. In this limit, the lagrange points should be on the sides of the stream instead of parallel to the position vector. 
+
+
 
 
     \subsection{Phase mixing}
