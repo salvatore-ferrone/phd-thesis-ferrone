@@ -20,4 +20,9 @@
     \begin{equation}
         \rho(x,t) = \frac{1}{\sigma t \sqrt{2\pi} }\textrm{exp}\left(-\frac{1}{2}\left(\frac{x-\langle v \rangle t}{\sigma_v t}\right)^2\right)
     \end{equation}
-    
+
+    it's also useful to know the relative velocity of the impact site between one group and another. These things drift apart. How much faster does one group go ahead of another? 
+    \begin{equation}
+        \delta v_{ij} = \frac{x\prime}{t-iT} - \frac{x\prime}{t-jT}
+    \end{equation}
+    where $i,j$ are the indexes for the packet. Note that this only works for $t > nT$ where $T$ is the orbital period, or spacing between the impacts, $n$ is the number of pericenter passages. $t$ is the total simulation time. $x\prime$ is the position of the impact. It makes sense that the velocity of the particle is the position where the impact occured, divided by the time since it left the origin. 
