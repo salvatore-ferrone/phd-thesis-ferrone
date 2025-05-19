@@ -163,6 +163,7 @@ def make_stream(haloparams,orbitparams,isotropicplummer,dtfrac=1/50):
     # compute the data size and print it for fun 
     datasize = NP*6*NSTEP*4  # 4 bytes per float
     datasize = datasize*u.byte  # Convert to byte units
+    datasize= datasize.to(u.Gbyte)  # Convert to Gbyte
     print(f"Data size is {datasize:.2f} bytes")
     if datasize > MAXDATA:
         print(f"\t which is larger than {MAXDATA:.2f}.")
@@ -211,3 +212,135 @@ def make_stream(haloparams,orbitparams,isotropicplummer,dtfrac=1/50):
     hostorbit = (xt, yt, zt, vxt, vyt, vzt)
     
     return timesteps,  hostorbit, stream
+
+
+def get_tidal_vectors(pos,dx,gamma, n_vectors=25):
+    dxs,dys = np.linspace(-dx,dx,n_vectors), np.linspace(-dx,dx,n_vectors)
+    dXs, dYs = np.meshgrid(dxs,dys)
+    dXs,dYs  = dXs.flatten(), dYs.flatten()
+    dZs = np.zeros_like(dXs)
+    tidal_tensor = normalized_martos_tidal_tensor(pos,gamma)
+    F_tides = tidal_tensor @ np.array([dXs,dYs,dZs])
+    return dXs, dYs, F_tides
+
+
+def unscale(r_scale,v_scale, hostorbit,stream):
+    # unpack the orbit
+    xt,yt,zt,vx,vy,vz=hostorbit
+    xpt,ypt,zpt,vxpt,vypt,vzpt=stream
+    # scale everything 
+    xt_= xt/r_scale.value
+    yt_= yt/r_scale.value
+    zt_= zt/r_scale.value
+    
+    xt_= xt/r_scale.value
+    yt_= yt/r_scale.value
+    zt_= zt/r_scale.value
+    vxt_= vx/v_scale.value
+    vyt_= vy/v_scale.value
+    vzt_= vz/v_scale.value
+    # unscale everything 
+    xpt_ = xpt/r_scale.value
+    ypt_ = ypt/r_scale.value
+    zpt_ = zpt/r_scale.value
+    vxpt_ = vxpt/v_scale.value
+    vypt_ = vypt/v_scale.value
+    vzpt_ = vzpt/v_scale.value
+    
+    orbit = xt_, yt_, zt_, vxt_, vyt_, vzt_
+    stream = xpt_, ypt_, zpt_, vxpt_, vypt_, vzpt_
+    return orbit, stream
+
+def plot_martos_tidal_field(orbitxy,streamxy,tidal_stuff,ellipseCirlcle, cbarstuff,
+                       AXES1 = {"xlabel": r"$x$ [$r_h$]","ylabel": r"$y$ [$r_h$]","aspect": "equal",},
+                       AXES2 = {"xlabel": r"$x$ [$r_h$]","aspect": "equal",}):
+    # unpack the inputs
+    xt_, yt_ = orbitxy
+    dXs, dYs, F_tides,F_tides_mag,F_colors = tidal_stuff
+    xp,yp= streamxy
+    myellipse, circle = ellipseCirlcle
+    norm,cmap= cbarstuff
+
+    pos = np.array([xt_[-1],yt_[-1]])
+    # add the limits to the AXES2
+    AXES2["xlim"] = [pos[0]+dXs.min(), pos[0]+dXs.max()]
+    AXES2["ylim"] = [pos[1]+dYs.min(), pos[1]+dYs.max()]
+    # set the limits to the AXES1
+    dw = .01
+    AXES1["xlim"] = [(1+dw)*xt_.min(), (1+dw)*xt_.max()]
+    AXES1["ylim"] = [(1+dw)*yt_.min(), (1+dw)*yt_.max()]
+
+    # set up figure 
+    fig=plt.figure(figsize=(11.75-2,5))
+    gs = fig.add_gridspec(1, 3, width_ratios=[1, 1, 0.05], wspace=0.30)
+    axes = [ ]
+    axes.append(fig.add_subplot(gs[0, 0]))
+    axes.append(fig.add_subplot(gs[0, 1]))
+    caxis=fig.add_subplot(gs[0, 2])
+
+    axes[0].plot(xt_, yt_, color='gray', lw=0.5,)
+    axes[0].scatter(xp,yp, color='black', s=1, )
+    axes[0].quiver(pos[0], pos[1], -pos[0], -pos[1], color='black', scale=8)
+
+
+    axes[1].scatter(xp,yp, color='gray', s=1, zorder=0)
+    axes[1].plot(pos[0]+myellipse[0], pos[1]+myellipse[1], color='black', lw=1, label='Tidal deformation')
+    axes[1].plot(pos[0]+circle[0], pos[1]+circle[1], color='k', lw=1, linestyle=":")
+    axes[1].quiver(pos[0]+dXs, pos[1]+dYs, F_tides[0]/F_tides_mag, F_tides[1]/F_tides_mag,color=F_colors,scale=30, width=1/200,)
+    axes[1].quiver(pos[0], pos[1], -pos[0], -pos[1], color='black', scale=4, )
+
+    axes[0].set(**AXES1)
+    axes[1].set(**AXES2)
+    axes[1].legend(frameon=False)
+
+    cbar = fig.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap), cax=caxis)
+    cbar.set_label(r"$\left| \mathbf{F}_{\mathrm{tides}} \right|$", fontsize=12)
+    caxis.tick_params(labelsize=12)
+    caxis.yaxis.set_label_position("left")
+
+    # Make the colorbar the same height as axes[1]
+    pos_ax1 = axes[1].get_position()
+    pos_cax = caxis.get_position()
+    caxis.set_position([pos_cax.x0, pos_ax1.y0, pos_cax.width, pos_ax1.height])
+    return fig, axes
+
+
+
+def compute_and_make_plot(haloparams, isotropicplummer, orbitparams, norm, cmap, dx, r_scale, v_scale, n_vectors=25):
+    # unpack the params
+    G,halomass,haloradius,gamma,rcut = haloparams
+    G,cluster_mass,cluster_radius,NP = isotropicplummer
+    r0,eccen,num_orbits = orbitparams
+
+
+    figtitle = r"$\gamma, e, r_o$ = ({:.02f},{:.02f},{:.02f})".format(gamma,eccen,r0/r_scale.value)
+    fname = "../../images/martos_tidal_field_{:d}_{:d}_{:d}.png".format(int(100*gamma),int(eccen*100),int(100*r0/r_scale.value))
+
+    # do the simulation
+    timesteps,  hostorbit, freshstream=make_stream(haloparams,orbitparams, isotropicplummer)
+    # unscale the result 
+    orbit,stream= unscale(r_scale,v_scale, hostorbit,freshstream)
+    # get the position of the host
+    xt, yt, zt, vxt, vyt, vzt = orbit
+    xpt, ypt, zpt, vxpt, vypt, vzpt = stream
+    pos = np.array([xt[-1],yt[-1],zt[-1]])
+    myellipse,circle=get_dimensionless_deformed_ellipse(pos, dx/2,haloparams)
+    dXs, dYs, F_tides= get_tidal_vectors(pos,dx,gamma, n_vectors)
+    F_tides_mag = np.linalg.norm(F_tides,axis=0)
+    F_colors = cmap(norm(F_tides_mag))
+
+    # pack up the stream and orbit
+    orbitxy = xt, yt
+    streamxy = xpt[:,-1], ypt[:,-1]
+    tidal_stuff = dXs, dYs, F_tides,F_tides_mag,F_colors
+    ellipseCirlcle = myellipse, circle
+    cbarstuff = norm,cmap
+    # make the fig 
+    fig, axes = plot_martos_tidal_field(orbitxy, streamxy, tidal_stuff,
+                                ellipseCirlcle, cbarstuff)
+    axes[0].set_title(figtitle, fontsize="large", y=1)
+    fig.tight_layout()
+    fig.savefig(fname, dpi=300, bbox_inches='tight')
+    print("Saved figure to {}".format(fname))
+    plt.close(fig)
+    return None
