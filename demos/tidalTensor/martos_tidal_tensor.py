@@ -202,12 +202,14 @@ def make_stream(haloparams,orbitparams,isotropicplummer,dtfrac=1/50):
     tstrippy.integrator.setintegrationparameters(*integrationparameters)
     tstrippy.integrator.setinitialkinematics(*initial_conditions)
     tstrippy.integrator.inithostperturber(*inithostperturber)
-    xpt, ypt, zpt, vptx, vpty, vptz = tstrippy.integrator.leapfrogintime(NSTEP,NP)
+    # xpt, ypt, zpt, vptx, vpty, vptz = tstrippy.integrator.leapfrogintime(NSTEP,NP)
+    tstrippy.integrator.leapfrogtofinalpositions()
+    xf,yf,zf = tstrippy.integrator.xf.copy(),tstrippy.integrator.yf.copy(),tstrippy.integrator.zf.copy()
+    vxf,vyf,vzf=tstrippy.integrator.vxf.copy(),tstrippy.integrator.vyf.copy(),tstrippy.integrator.vzf.copy()
     tstrippy.integrator.deallocate()
     endtime=datetime.datetime.now()
     print("Time taken to integrate the orbit: ", endtime-starttime)
-
-    stream = (xpt, ypt, zpt, vptx, vpty, vptz)
+    stream = (xf,yf,zf,vxf,vyf,vzf)
     # get the host orbit
     hostorbit = (xt, yt, zt, vxt, vyt, vzt)
     
@@ -322,7 +324,7 @@ def compute_and_make_plot(haloparams, isotropicplummer, orbitparams, norm, cmap,
     orbit,stream= unscale(r_scale,v_scale, hostorbit,freshstream)
     # get the position of the host
     xt, yt, zt, vxt, vyt, vzt = orbit
-    xpt, ypt, zpt, vxpt, vypt, vzpt = stream
+    xp, yp, zp, vxp, vyp, vzp = stream
     pos = np.array([xt[-1],yt[-1],zt[-1]])
     myellipse,circle=get_dimensionless_deformed_ellipse(pos, dx/2,haloparams)
     dXs, dYs, F_tides= get_tidal_vectors(pos,dx,gamma, n_vectors)
@@ -331,7 +333,7 @@ def compute_and_make_plot(haloparams, isotropicplummer, orbitparams, norm, cmap,
 
     # pack up the stream and orbit
     orbitxy = xt, yt
-    streamxy = xpt[:,-1], ypt[:,-1]
+    streamxy = xp, yp
     tidal_stuff = dXs, dYs, F_tides,F_tides_mag,F_colors
     ellipseCirlcle = myellipse, circle
     cbarstuff = norm,cmap
