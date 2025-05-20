@@ -17,16 +17,25 @@ import datetime
 
 
 def f(s,gamma):
+    """
+    An important term in the tidal tensor
+    """
     numerator = gamma -1 
     denominator = 1 + s**(gamma-1)
     return 2 - numerator/denominator
 
 def mass_profile(s,gamma):
+    """
+    enclosed mass of the martos halo
+    """
     numerator = s**gamma
     denominator = 1 + s**(gamma-1)
     return numerator/denominator
 
 def compute_vcirc(haloparams, x0):
+    """ 
+    the circular velocity of the halo at a given radius
+    """
     G,Mo,rc,gamma,rcut = haloparams
     # get the initial veloicity
     Mr=mass_profile(x0/rc, gamma) * Mo 
@@ -100,22 +109,15 @@ def get_dimensionless_deformed_ellipse(r0,dr,haloparams,dtfactor=500):
     x = dr*np.cos(theta)
     y = dr*np.sin(theta)
     z = np.zeros_like(x)
-    xyz = np.vstack((x,y,z))
+    circle = np.vstack((x,y,z))
     # get the tidal force at each point
-    dF_circ = np.dot(tensor, xyz)
-    circle = np.zeros((3, len(theta)))
-    circle[0] =  x
-    circle[1] =  y
-    circle[2] =  z
+    dF_circ = np.dot(tensor, circle)
     # get the characteristic time to scale the force into distance 
     r0_mag = np.linalg.norm(r0)
     vcirc=compute_vcirc(haloparams,r0_mag)
     t_orbit = 2*np.pi*r0_mag/vcirc
     dtstep = t_orbit/dtfactor
-    myellipse =np.zeros((3, len(theta)))
-    myellipse[0] = x+np.sign(dF_circ[0])* (1/2)*np.sqrt(np.abs(dF_circ[0]*dtstep**2))
-    myellipse[1] = y+np.sign(dF_circ[1])* (1/2)*np.sqrt(np.abs(dF_circ[1]*dtstep**2))
-    myellipse[2] = z+np.sign(dF_circ[2])* (1/2)*np.sqrt(np.abs(dF_circ[2]*dtstep**2))
+    myellipse = circle + (1/2)*dF_circ*dtstep**2
     return myellipse,circle
 
 
@@ -149,7 +151,6 @@ def make_stream(haloparams,orbitparams,isotropicplummer,dtfrac=1/50):
 
 
     # get the initial conditions ofr the host orbit 
-    
     v_circ= compute_vcirc(haloparams,x0)
     x0,y0,z0  = x0,0.0,0.0
     vx0,vy0,vz0 = 0.0, (1-eccen) * v_circ, 0.0
@@ -258,10 +259,13 @@ def plot_martos_tidal_field(orbitxy,streamxy,tidal_stuff,ellipseCirlcle, cbarstu
                        AXES2 = {"xlabel": r"$x$ [$r_h$]","aspect": "equal",}):
     # unpack the inputs
     xt_, yt_ = orbitxy
-    dXs, dYs, F_tides,F_tides_mag,F_colors = tidal_stuff
+    dXs, dYs, F_tides = tidal_stuff
     xp,yp= streamxy
     myellipse, circle = ellipseCirlcle
     norm,cmap= cbarstuff
+
+    F_tides_mag = np.linalg.norm(F_tides,axis=0)
+    F_colors = cmap(norm(F_tides_mag))
 
     pos = np.array([xt_[-1],yt_[-1]])
     # add the limits to the AXES2
@@ -281,15 +285,21 @@ def plot_martos_tidal_field(orbitxy,streamxy,tidal_stuff,ellipseCirlcle, cbarstu
     caxis=fig.add_subplot(gs[0, 2])
 
     axes[0].plot(xt_, yt_, color='gray', lw=0.5,)
-    axes[0].scatter(xp,yp, color='black', s=1, )
-    axes[0].quiver(pos[0], pos[1], -pos[0], -pos[1], color='black', scale=8)
+    axes[0].scatter(xp,yp, color='black', s=10, )
 
 
-    axes[1].scatter(xp,yp, color='gray', s=1, zorder=0)
+    axes[1].scatter(xp,yp, color='k', s=2, zorder=0)
     axes[1].plot(pos[0]+myellipse[0], pos[1]+myellipse[1], color='black', lw=1, label='Tidal deformation')
     axes[1].plot(pos[0]+circle[0], pos[1]+circle[1], color='k', lw=1, linestyle=":")
     axes[1].quiver(pos[0]+dXs, pos[1]+dYs, F_tides[0]/F_tides_mag, F_tides[1]/F_tides_mag,color=F_colors,scale=30, width=1/200,)
-    axes[1].quiver(pos[0], pos[1], -pos[0], -pos[1], color='black', scale=4, )
+
+    # get the unit vector of the position 
+    unitPos = pos/np.linalg.norm(pos)
+    # make the unit vector the a resonable size 
+    len1 = (xt_.max()-xt_.min())/6
+    len2 = (dXs.max()-dXs.min())/6
+    axes[0].quiver(pos[0], pos[1], -len1*unitPos[0], -len1*unitPos[1],  color="k", units='xy', scale=1)
+    axes[1].quiver(pos[0], pos[1], -len2*unitPos[0], -len2*unitPos[1],  color="k", units='xy', scale=1)
 
     axes[0].set(**AXES1)
     axes[1].set(**AXES2)
@@ -308,7 +318,7 @@ def plot_martos_tidal_field(orbitxy,streamxy,tidal_stuff,ellipseCirlcle, cbarstu
 
 
 
-def compute_and_make_plot(haloparams, isotropicplummer, orbitparams, norm, cmap, dx, r_scale, v_scale, n_vectors=25):
+def compute_and_make_plot(haloparams, isotropicplummer, orbitparams, norm, cmap, dx, r_scale, v_scale, n_vectors=25, dtfactor=10):
     # unpack the params
     G,halomass,haloradius,gamma,rcut = haloparams
     G,cluster_mass,cluster_radius,NP = isotropicplummer
@@ -326,15 +336,13 @@ def compute_and_make_plot(haloparams, isotropicplummer, orbitparams, norm, cmap,
     xt, yt, zt, vxt, vyt, vzt = orbit
     xp, yp, zp, vxp, vyp, vzp = stream
     pos = np.array([xt[-1],yt[-1],zt[-1]])
-    myellipse,circle=get_dimensionless_deformed_ellipse(pos, dx/2,haloparams)
+    myellipse,circle=get_dimensionless_deformed_ellipse(haloradius*pos, dx/2,haloparams,dtfactor=dtfactor)
     dXs, dYs, F_tides= get_tidal_vectors(pos,dx,gamma, n_vectors)
-    F_tides_mag = np.linalg.norm(F_tides,axis=0)
-    F_colors = cmap(norm(F_tides_mag))
 
     # pack up the stream and orbit
     orbitxy = xt, yt
     streamxy = xp, yp
-    tidal_stuff = dXs, dYs, F_tides,F_tides_mag,F_colors
+    tidal_stuff = dXs, dYs, F_tides
     ellipseCirlcle = myellipse, circle
     cbarstuff = norm,cmap
     # make the fig 
