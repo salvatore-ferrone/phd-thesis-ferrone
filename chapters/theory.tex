@@ -135,7 +135,7 @@ VIDEO: moon_tidal_simulation.mp4
             The dimensionless tidal tensor then becomes: 
 
             \begin{equation}
-                \mathcal{T}_{i,j}= \frac{1}{D^3}\left(\begin{matrix}
+                \mathcal{T}_{i,j}=-\frac{1}{D^3}\left(\begin{matrix}
                     1-\frac{3x^2}{D^2} & -\frac{3xy}{D^2} & -\frac{3x\beta \beta'}{D^2} \\
                     \dots & 1-\frac{3y^2}{D^2} & -\frac{3y\beta \beta'}{D^2} \\
                     \dots & \dots & \beta'^2 + \beta \beta'' -\frac{3\left(\beta\beta'\right)^2}{D^2}
@@ -150,24 +150,49 @@ VIDEO: moon_tidal_simulation.mp4
             \end{equation}
             The dimensionless tidal tensor is thus: 
             \begin{equation}
-                \mathcal{T'}_{i,j}= \frac{M'_\text{enc}(s)}{s^3}\left(\begin{matrix}
+                \mathcal{T'}_{i,j}= -\frac{M'_\text{enc}(s)}{s^3}\left(\begin{matrix}
                     1-\frac{x^2}{s^2}f(s) & -\frac{xy}{s^2}f(s) & -\frac{xz}{s^2}f(s) \\
                     -\frac{yx}{s^2}f(s) & 1-\frac{y^2}{s^2}f(s) & -\frac{yz}{s^2}f(s) \\
                     -\frac{zx}{s^2}f(s) & -\frac{zy}{s^2}f(s) & 1-\frac{z^2}{s^2}f(s)
                 \end{matrix}\right)
             \end{equation}  
             where 
-            \begin{equation}
+            \begin{equation}\label{eq:martos_f_s}
                 f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}
             \end{equation}
 
         \subsubsection*{Interesting case}
-            There is a non-physical case that is extremely interesting. When you have a halo with a mass disrtibution that increases in density with distance, which is non-physical, the tidal tensor changes sign. This means that the strongest deformation is not longer stretching but squishing. I would like to do a stellar stream in this example. It would be fascinating. In this limit, the lagrange points should be on the sides of the stream instead of parallel to the position vector. 
+            There is an interesting area in the parameter space where the tidal forces would impede creating stellar streams instead of making them, as shown in Fig.~\ref{fig:martos_tidal_field_small_r}.
+
+            Taking the Martos tidal tensor in Eq.~\ref{eq:martos_f_s}, we can see that for $\gamma > 3$ 
+            
+            and $s \ll  1$, 
+            
+            then $f(s)< 0$. 
+            
+            Physically, this would be a sphere whose density increases with distance. This is not natural, as, in general, gravity sends the more massive objects towards the center. However, it's fun to indulge in this situation to learn some insight about the flexibility of tidal fields. The consequence of $f(s)< 0$ is that all terms in the tidal tensor are negative, which means that the force is compressive everywhere. Consequently, no stars escape from the cluster. 
+
+            In Fig.~\ref{fig:martos_tidal_field_small_r}, I present a small experiment demonstrating the consequence of such a tidal force on a globular cluster, which is that no tidal stream forms. Briefly, I created a plummer sphere of $10^6$~M$_\odot$ and half mass radius 20~pc and evolved it in a Martos halo potential of mass parameter $10^{12}$~M$_\odot$ a characteristic radius of $30$~kpc. Each cluster was placed at the same initial conditions, a distance of 1/4 the scale radius from the center of the potential. The initial velocity was made perpendicular to the position vector with a speed of $(1-e)v_\textrm{c}$. This is a pseudo-eccentricity, which was added to have a non-circular orbit to demonstrate how the trajectories change in the two cases. The top panel uses a $\gamma$ of 2.02, which is the same value in the model where the halo was originally presented, and the value I employ in this thesis. Next, the bottom panel uses $\gamma$ of 4.5, which corresponds to a density profile where $\rho(r) \propto r^{1.5}$. 
+
+            To get a feel for the strength of the tidal stretching and compression, I show a circle and the resulting ellipse after applying the tidal deformation. I computed the coordinates of the ellipse by adding $\vec{Ell} = \vec{C} + \frac{1}{2} t_\textrm{char}^2 \mathcal{T}\cdot \left(\vec{C} - \vec{r_o}\right)$. This way, force can be mapped to position space, and the strengths of the tidal forces can be seen visually. The characteristic time, $t_\textrm{char}$, was set to $\frac{1}{10} 2\pi r_\textrm{halo} / v_\textrm{c}$. 
             
             \begin{figure}
-                \includegraphics[width=\linewidth]{images/martos_tidal_field_2_50_50.png}
-                \caption{tidal field in normal martos potential }
+                \includegraphics[width=\linewidth]{images/martos_tidal_field_202_10_25.png}
+                \includegraphics[width=\linewidth]{images/martos_tidal_field_450_10_25.png}
+                \caption{The plots show two low-resolution streams (N = 1000) created by dissolving a Plummer sphere in the Martos halo potential. The units are scaled to the halo's characteristic radius. Gamma is the mass exponent and is the sole variable between the two simulations. The panels on the left show the orbit in gray and the stars in black. The black arrow points towards the center of the potential. The panels on the right show the tidal field, which is the tidal tensor evaluated at each position in space. The gray dotted circle is plotted with an arbitrary radius and is deformed by the tidal field into a black ellipse.}
+                \label{fig:martos_tidal_field_small_r}
             \end{figure}
+
+            \begin{figure}
+                \includegraphics[width=\linewidth]{images/martos_tidal_field_202_10_400.png}
+                \includegraphics[width=\linewidth]{images/martos_tidal_field_450_10_400.png}
+                \caption{The same experiment as Fig.~\ref{fig:martos_tidal_field_small_r}, but the cluster was placed at a larger distance of 4 $r_\textrm{halo}$, since we are beyond the characteristic radius, the tidal fields are the same, despite the different exponents $\gamma$.}
+                \label{fig:martos_tidal_field_big_r}
+            \end{figure}
+
+            In the case of Fig.~\ref{fig:martos_tidal_field_big_r}, the tidal field returns to the typical situation where one axis is compressive and the other stretches. Notice how the deformations are similar in magnitude, while in the case of $\gamma=2.02$ for the top panel of Fig.~\ref{fig:martos_tidal_field_small_r}, the compression is stronger than the expansion. Both of these are different than the keplerian tidal deformation where the stronger deformation is stretching and whose axis is parallel to the position vector. 
+
+
 
 
 
