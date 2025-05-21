@@ -124,17 +124,6 @@ def get_planar_velocity_vector(potential, params, pos, pseudo_e):
     return vo
 
 
-def get_initial_conditions(potential,params,distance,inclination,psuedo_e):
-    """
-    get the initial conditions for the simulation, no polar orbits here! 
-    """
-    # set up the mass profile
-    pos = distance*np.array([np.cos(np.radians(inclination)),0,np.sin(np.radians(inclination))])
-    # get the velocity vector
-    vo = get_planar_velocity_vector(potential, params, pos, psuedo_e)
-    initialkinematics = np.array([pos[0],pos[1],pos[2],vo[0],vo[1],vo[2]])
-    return initialkinematics
-
 
 def get_time_info(pos,vo,dtfactor,Ndyntime,):
     """
@@ -163,17 +152,6 @@ def get_initial_conditions(potential,params,distance,inclination,psuedo_e):
     return initialkinematics
 
 
-def get_time_info(pos,vo,dtfactor,Ndyntime,):
-    """
-    get the time step and number of steps
-    """
-    # get the time step 
-    t_dyn   = 2*np.pi*np.linalg.norm(pos)/np.linalg.norm(vo)
-    dt      = t_dyn*dtfactor
-    integrationtime = Ndyntime*t_dyn
-    # number of steps
-    Nsteps = int(integrationtime/dt)
-    return dt, Nsteps, t_dyn
 
 
 def create_local_coordinate_system(pos,vel):
@@ -201,9 +179,9 @@ def transform_surface(matrix,xs,ys,zs):
     # transform the points
     transformed_points = matrix @ points
     # reshape the points
-    xout= transformed_points[0].reshape(xs.shape)
-    yout= transformed_points[1].reshape(xs.shape)
-    zout= transformed_points[2].reshape(xs.shape)
+    xout= transformed_points[0,:].reshape(xs.shape)
+    yout= transformed_points[1,:].reshape(ys.shape)
+    zout= transformed_points[2,:].reshape(zs.shape)
     transformed_surface = np.array([xout,yout,zout])
     return transformed_surface
 
@@ -275,7 +253,11 @@ def do_axis2(ax2,elipsoid,factors,eigenvectors,view_init=(30,30)):
     # ax2.plot([little_factor*axislen*eigenvectors[0,0],-little_factor*axislen*eigenvectors[0,0]],
     #         [little_factor*axislen*eigenvectors[0,1],-little_factor*axislen*eigenvectors[0,1]],
     #         [little_factor*axislen*eigenvectors[0,2],-axislen*little_factor*eigenvectors[0,2]], color='r',)
+    ax2.set_xlim([-axislen,axislen])
+    ax2.set_ylim([-axislen,axislen])
+    ax2.set_zlim([-axislen,axislen])
     ax2.set_aspect('equal')
+    ax2.autoscale(enable=False)
     ax2.view_init(*view_init)
     return ax2
 
@@ -295,6 +277,9 @@ def do_axis3(ax3,ellipsoid_rot,factors,eigenvectors_rot,view_init=(30,30)):
     ax3.text(0,axislen,little_move, r'$\hat{v}$', fontsize="small")
     ax3.text(0,little_move,axislen,r'-$\hat{L}$', fontsize="small")
 
+    ax3.set_xlim([-axislen,axislen])
+    ax3.set_ylim([-axislen,axislen])    
+    ax3.set_zlim([-axislen,axislen])
     ax3.view_init(*view_init)
     ax3.set_aspect('equal')
     return ax3
@@ -329,12 +314,13 @@ def make_frame(index,params,orbit,dx,t_dyn,factors,AXIS,LIMS,plane,tail_indexes=
     # put the ellipsoid in the new coordinate system
     ellipsoid_rot   =transform_surface(R, x_ell,y_ell,z_ell)
     # transform the eigenvectors
-    eigenvectors_rot=transform_surface(R, eigenvectors[0],eigenvectors[1],eigenvectors[2])
+    eigenvectors_row = np.linalg.inv(R) @ eigenvectors
 
     # compute the axim and elev for the other axis
-    azim = (180/np.pi)*np.arctan2(pos_local[0],pos_local[1])
-    roll = (180/np.pi)*np.acos(np.dot([0,0,1],e3))
-    elev = 30
+    # azim = (180/np.pi)*np.arctan2(pos_local[0],pos_local[1])
+    # roll = (180/np.pi)*np.acos(np.dot([0,0,1],e3))
+    # elev = 30
+    elev,azim,roll = 30,30,0
 
 
     fig, ax1, ax2,ax3 = make_figure()
