@@ -16,3 +16,4 @@ dependencies:
   - mplcairo
   - meson 
   - gfortran>=11  # Critical for running the compiled code
+  - ipympl
