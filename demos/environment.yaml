@@ -17,3 +17,5 @@ dependencies:
   - meson 
   - gfortran>=11  # Critical for running the compiled code
   - ipympl
+  - plotly
+  - nbformat>4.2.0
