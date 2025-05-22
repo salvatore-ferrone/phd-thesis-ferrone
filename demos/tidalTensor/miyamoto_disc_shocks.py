@@ -1,3 +1,9 @@
+"""
+This script makes images of orbits in the Miyamoto-Nagai potential with shocks.
+The shocks are indicated with the eigenvectors of the tidal tensor 
+
+"""
+
 import tstrippy
 import numpy as np
 import matplotlib.pyplot as plt
