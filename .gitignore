@@ -3,6 +3,7 @@ videos/
 
 # Ignore images folder
 /images/
+tidalTensorImages/
 
 # Ignore LaTeX auxiliary files
 *.aux
