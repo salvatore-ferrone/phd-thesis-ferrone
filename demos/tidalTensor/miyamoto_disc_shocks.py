@@ -13,7 +13,8 @@ import pouliasis2017pii as p2017pii
 import multiprocessing as mp
 mpl.rcParams['text.usetex']=True
 
-pagewidth,pageheight=11.75,8.5
+pagewidth,pageheight=8.27,11.69
+horizontalmargin=2*1.73
 potential = tstrippy.potentials.miyamotonagai
 
 def get_tidal_eigenvalues_along_orbit(params,tensor_func,orbit,):
@@ -48,7 +49,7 @@ def make_and_save_figure(apocenter, inclination, pseudo_e, bp, dtfactor, Ndyntim
     )
     outfname = "../tidalTensorImages/miyamoto_disc_shocks_ab_rp_e_i_{:0.2f}_{:0.1f}_{:0.2f}_{:0.1f}.png".format(bp, apocenter, pseudo_e, inclination)
 
-    fig.subplots_adjust(bottom=0.15)  # Increase if needed
+    fig.subplots_adjust(left=0.18,bottom=0.25)  # Increase if needed
 
     fig.savefig(outfname, dpi=300)
     print(f"Saved figure to {outfname}")
@@ -111,12 +112,12 @@ def compute_orbit_and_shocks_and_make_figure(
     # get all disc crossings
     disccrossings, _ = signal.find_peaks(-np.abs(zt))
     # get the apocenters 
-    apocenters,_ = signal.find_peaks(np.abs(rt))    
+    pericenters,_ = signal.find_peaks(-np.abs(rt))    
     
 
 
     AXIS2 = {"xlabel": r"$\mathrm{R} [a]$","aspect": "equal","ylabel": r"$\mathrm{z} [a]$",}
-    fig = plt.figure(figsize=(pagewidth,4))
+    fig = plt.figure(figsize=(pagewidth-horizontalmargin,3))
     gs = fig.add_gridspec(1, 2, width_ratios=[2, 1], wspace=0.1)
     axis = fig.add_subplot(gs[0, 0])
     axis2 = fig.add_subplot(gs[0, 1])
@@ -124,25 +125,34 @@ def compute_orbit_and_shocks_and_make_figure(
 
     axis2.plot(Rt,zt, color="k",linewidth=1)
     axis2.set(**AXIS2)
+    axis2.yaxis.set_label_position("right")
+    axis2.yaxis.tick_right()
 
 
-    axis.plot(timesteps, np.abs(eigenvalues[:,2]), label=r'$|\lambda_2|$',color="tab:blue",linewidth=2)
-    axis.plot(timesteps, np.abs(eigenvalues[:,1]), label=r'$|\lambda_1|$',color="tab:red",linewidth=2,linestyle='-')
-    axis.plot(timesteps, np.abs(eigenvalues[:,0]), label=r'$\lambda_0$', color="tab:green",linewidth=2)
+    axis.plot(timesteps, np.abs(eigenvalues[:,2]), label=r'$|\lambda_2|$',color="Crimson",linewidth=1)
+    axis.plot(timesteps, np.abs(eigenvalues[:,1]), label=r'$|\lambda_1|$',color="MediumSeaGreen",linewidth=1,linestyle='-')
+    axis.plot(timesteps, np.abs(eigenvalues[:,0]), label=r'$\lambda_0$', color="RoyalBlue",linewidth=1)
     axis.set_yscale('log')
-    axis.legend(loc='upper right', bbox_to_anchor=(.9, 1))
+    # axis.legend(loc='upper left', bbox_to_anchor=(0, 1),ncol=3)
+    axis.legend(ncol=3)
     axis.set_xlabel(r'$\mathrm{Time} \left[ \sqrt{\frac{a^3}{GM}}\right]$')
     axis.set_ylabel(r'$\mathrm{Tidal}\ \mathrm{Magnitude} \left[\frac{GM}{a^3}\right]$')
     axis.grid(True, which='both', linestyle='--', alpha=0.3)
 
     # hard set the axis ylimits from inspection
-    axis.set_ylim(1e-5,5e0)
+    axis.set_ylim(3e-5,3e0)
 
-    for i in range(0,len(disccrossings),4):
-        axis.text(timesteps[disccrossings[i]],np.abs(eigenvalues[disccrossings[i],2]),r'$|z|_{\mathrm{min}}$',color='k',fontsize=8)
+    if inclination > 5:
+        for i in range(0,len(disccrossings),1):
+        #     axis.text(timesteps[disccrossings[i]],np.abs(eigenvalues[disccrossings[i],2]),r'$|z|_{\mathrm{min}}$',color='k',fontsize=8)
+            axis.scatter(timesteps[disccrossings[i]],np.abs(eigenvalues[disccrossings[i],2]),marker='*',c='MediumPurple',s=10,zorder=10)
+            axis2.scatter(Rt[disccrossings[i]],zt[disccrossings[i]],marker='*',c='MediumPurple',s=10,zorder=10)
 
-    for i in range(0,len(apocenters),6):
-        axis.text(timesteps[apocenters[i]],np.abs(eigenvalues[apocenters[i],2]) -2e-3,r'$r_{\mathrm{max}}$',color='k',fontsize=8)
+    if pseudo_e > 0.1:
+        for i in range(0,len(pericenters),1):
+            axis.scatter(timesteps[pericenters[i]],np.abs(eigenvalues[pericenters[i],0]),marker='o',color='DarkOrange',s=10,zorder=10)
+            axis2.scatter(Rt[pericenters[i]],zt[pericenters[i]],marker='o',color='DarkOrange',s=10,zorder=10)
+            # axis.text(timesteps[pericenters[i]],np.abs(eigenvalues[pericenters[i],2]) -2e-3,r'$r_{\mathrm{max}}$',color='k',fontsize=8)
 
     axis.set_xlim(timesteps[0],timesteps[-1])
     axis.set_title(orbitinfostring)
@@ -159,7 +169,7 @@ if __name__ == "__main__":
     pseudo_e = 0.5
     bp = 1/5
     dtfactor = 1/1000
-    Ndyntime = 4
+    Ndyntime = 2
     potentialname = 'miyamotonagai'
     initialtime = 0.0
     dx = 1/(50)
