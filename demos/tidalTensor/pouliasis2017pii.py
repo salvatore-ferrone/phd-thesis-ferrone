@@ -105,18 +105,20 @@ def tidally_deform_sphere(tidal_tensor,radius,t_dyn,npoints=30):
 
 ### ORBIT STUFF 
 
-def get_planar_velocity_vector(potential, params, pos, pseudo_e):
+def get_planar_velocity_vector(potential, params, apocenter, pseudo_e):
     """
     Sets a velocity vectors perpendicular to the radius vector and the orbital plane
+    It is assumed that you are giving a position vector AT PERICENTER.
+    This way, the dynamical time is the shortest time. 
     """
     # params          =   [1.0,1.0,1.0,bp] # G,M,a=1,1,1
-    vel_factor      =   np.sqrt((1-pseudo_e**2))
+    vel_factor      =   np.sqrt((1-pseudo_e)/(1+pseudo_e))
     # get the circular velocity
-    ax,ay,az,phi    =   potential(params, pos[0], pos[1], pos[2])
+    ax,ay,az,phi    =   potential(params, apocenter[0], apocenter[1], apocenter[2])
     F               =   np.array([ax,ay,az])
-    vcir            =   np.sqrt(np.linalg.norm(pos)*np.linalg.norm(F))
+    vcir            =   np.sqrt(np.linalg.norm(apocenter)*np.linalg.norm(F))
     # pick a velocity vector to be perpendicular to the radius vector and the z-axis
-    unitpos         =   pos/np.linalg.norm(pos)
+    unitpos         =   apocenter/np.linalg.norm(apocenter)
     v_perp          =   np.cross(unitpos, [0,0,1])
     v_perp          =   v_perp/np.linalg.norm(v_perp)
     # scale up the velocity vector
@@ -206,20 +208,46 @@ def make_figure(pagewidth=11.75, pageheight=8.5):
     return fig, ax1, ax2, ax3
 
 
+def zero_crossing_segments_indices(z):
+    """
+    Returns:
+        segments: list of index arrays for each segment between zero crossings
+        zpos: list of index arrays where z > 0
+        zneg: list of index arrays where z < 0
+    """
+    z = np.asarray(z)
+    sign_changes = np.where(np.diff(np.sign(z)) != 0)[0] + 1
+    indices = np.concatenate(([0], sign_changes, [len(z)]))
+    segments = [np.arange(indices[i], indices[i+1]) for i in range(len(indices)-1)]
+    zpos = [seg for seg in segments if np.all(z[seg] > 0)]
+    zneg = [seg for seg in segments if np.all(z[seg] < 0)]
+    return segments, zpos, zneg
+
 def do_axis1(ax1,LIMS,pos_local,plane,orbit_segment,basis_vectors,AXISPROPERTIES):
     # unpack the arguments 
     X_plane, Y_plane, Z_plane = plane
     xt,yt,zt = orbit_segment
     e1,e2,e3 = basis_vectors
     
-    ax1.plot(xt,yt,zt, color='black', lw=2)
+    # get the zero crossings 
+    _, zpos, zneg = zero_crossing_segments_indices(zt)
+    for i in range(len(zpos)):
+        ax1.plot(xt[zpos[i]], yt[zpos[i]], zt[zpos[i]], lw=1,color='black', alpha=1)
+    for i in range(len(zneg)):
+        ax1.plot(xt[zneg[i]], yt[zneg[i]], zt[zneg[i]], lw=0.5,color='k', alpha=0.5)
+
     ax1.plot(LIMS,[0,0], [0,0], color='k', lw=1)
     ax1.plot([0,0],LIMS,[0,0], color='k', lw=1)
     ax1.plot([0,0], [0,0], LIMS, color='k', lw=1)
+    lenaxis = np.max(LIMS)
+    # make the basis vectors equal to 1/4 of the axis length
+    e1 = (lenaxis/2)*e1
+    e2 = (lenaxis/2)*e2
+    e3 = (lenaxis/2)*e3
     # add the new basis vectors to ax1
-    ax1.quiver(pos_local[0], pos_local[1], pos_local[2], e1[0], e1[1], e1[2], color='black', length=5, normalize=True)
-    ax1.quiver(pos_local[0], pos_local[1], pos_local[2], e2[0], e2[1], e2[2], color='blue', length=5, normalize=True)
-    ax1.quiver(pos_local[0], pos_local[1], pos_local[2], e3[0], e3[1], e3[2], color='green', length=5, normalize=True)
+    ax1.quiver(pos_local[0], pos_local[1], pos_local[2], e1[0], e1[1], e1[2], color='black',)
+    ax1.quiver(pos_local[0], pos_local[1], pos_local[2], e2[0], e2[1], e2[2], color='blue',)
+    ax1.quiver(pos_local[0], pos_local[1], pos_local[2], e3[0], e3[1], e3[2], color='green')
 
     # add the labels 
     labelmax = np.max(LIMS)
@@ -239,6 +267,7 @@ def do_axis2(ax2,elipsoid,factors,eigenvectors,view_init=(30,30)):
     # unpack
     x_ell,y_ell,z_ell = elipsoid
     little_factor,axislen,little_move = factors
+    eigen1,eigen2,eigen3 = eigenvectors
     
     ax2.plot_surface(x_ell, y_ell, z_ell, color='r', alpha=.9)
 
@@ -250,9 +279,14 @@ def do_axis2(ax2,elipsoid,factors,eigenvectors,view_init=(30,30)):
     ax2.text(0,axislen,little_move,r'$\hat{y}$', fontsize="small")
     ax2.text(0,little_move,axislen,r'$\hat{z}$', fontsize="small")
 
-    # ax2.plot([little_factor*axislen*eigenvectors[0,0],-little_factor*axislen*eigenvectors[0,0]],
-    #         [little_factor*axislen*eigenvectors[0,1],-little_factor*axislen*eigenvectors[0,1]],
-    #         [little_factor*axislen*eigenvectors[0,2],-axislen*little_factor*eigenvectors[0,2]], color='r',)
+    ax2.quiver(0,0,0,eigen1[0],eigen1[1],eigen1[2], length=axislen, color='tab:red', arrow_length_ratio=0.1)
+    ax2.quiver(0,0,0,eigen2[0],eigen2[1],eigen2[2], length=axislen, color='tab:red', arrow_length_ratio=0.1)
+    ax2.quiver(0,0,0,eigen3[0],eigen3[1],eigen3[2], length=axislen, color='tab:red', arrow_length_ratio=0.1)
+
+    # make the vectors go in both directions
+    ax2.quiver(0,0,0,-eigen1[0],-eigen1[1],-eigen1[2], length=axislen, color='tab:red', arrow_length_ratio=0.1)
+    ax2.quiver(0,0,0,-eigen2[0],-eigen2[1],-eigen2[2], length=axislen, color='tab:red', arrow_length_ratio=0.1)
+    ax2.quiver(0,0,0,-eigen3[0],-eigen3[1],-eigen3[2], length=axislen, color='tab:red', arrow_length_ratio=0.1)
     ax2.set_xlim([-axislen,axislen])
     ax2.set_ylim([-axislen,axislen])
     ax2.set_zlim([-axislen,axislen])
@@ -263,10 +297,17 @@ def do_axis2(ax2,elipsoid,factors,eigenvectors,view_init=(30,30)):
 
 def do_axis3(ax3,ellipsoid_rot,factors,eigenvectors_rot,view_init=(30,30)):
     # unpack
+    eigen1,eigen2,eigen3 = eigenvectors_rot
     little_factor,axislen,little_move = factors
-    ax3.plot([little_factor*axislen*eigenvectors_rot[0,0],-little_factor*axislen*eigenvectors_rot[0,0]],
-            [little_factor*axislen*eigenvectors_rot[0,1],-little_factor*axislen*eigenvectors_rot[0,1]],
-            [little_factor*axislen*eigenvectors_rot[0,2],-axislen*little_factor*eigenvectors_rot[0,2]], color='r',)
+
+    ax3.quiver(0,0,0,eigen1[0],eigen1[1],eigen1[2], length=2*axislen/3, color='tab:red', arrow_length_ratio=0.1)
+    ax3.quiver(0,0,0,eigen2[0],eigen2[1],eigen2[2], length=2*axislen/3, color='tab:red', arrow_length_ratio=0.1)
+    ax3.quiver(0,0,0,eigen3[0],eigen3[1],eigen3[2], length=2*axislen/3, color='tab:red', arrow_length_ratio=0.1)
+
+    # make the vectors go in both directions
+    ax3.quiver(0,0,0,-eigen1[0],-eigen1[1],-eigen1[2], length=2*axislen/3, color='tab:red', arrow_length_ratio=0.1)
+    ax3.quiver(0,0,0,-eigen2[0],-eigen2[1],-eigen2[2], length=2*axislen/3, color='tab:red', arrow_length_ratio=0.1)
+    ax3.quiver(0,0,0,-eigen3[0],-eigen3[1],-eigen3[2], length=2*axislen/3, color='tab:red', arrow_length_ratio=0.1)
     ax3.plot_surface(ellipsoid_rot[0], ellipsoid_rot[1], ellipsoid_rot[2], color='r', alpha=1)
 
     ax3.plot(np.array([0,0]),np.array([0,0]),np.array([0,axislen]), color='green', lw=2)
@@ -288,7 +329,6 @@ def do_axis3(ax3,ellipsoid_rot,factors,eigenvectors_rot,view_init=(30,30)):
 def make_frame(index,params,orbit,dx,t_dyn,factors,AXIS,LIMS,plane,tail_indexes=20):
     """
     """
-    fname = "../frames/frame_%04d.png" % index
     bp = params
     xt,yt,zt,vxt,vyt,vzt = orbit
     little_factor,axislen,little_move = factors
@@ -299,23 +339,31 @@ def make_frame(index,params,orbit,dx,t_dyn,factors,AXIS,LIMS,plane,tail_indexes=
     # get orbit indexes 
     upindex = index
     down_index = index-tail_indexes if index-tail_indexes > 0 else 0
-
+    # pack the orbit segment
+    orbit_segment = xt[down_index:upindex],yt[down_index:upindex],zt[down_index:upindex]
     # get the deformed sphere
     x_ell,y_ell,z_ell = tidally_deform_sphere(tidal_tensor,dx,t_dyn/2)
-
+    ellipsoid= (x_ell,y_ell,z_ell)
     # get the eigen vectots for the elipse's principal axes
     eigen           =   np.linalg.eig(tidal_tensor)
     eigenvectors    =   eigen.eigenvectors
+    eigen1 = eigenvectors[:,0] # having them packed into the matrix was confusing
+    eigen2 = eigenvectors[:,1]
+    eigen3 = eigenvectors[:,2]    
 
     # get the unit vectors for the local coordinates system 
     e1,e2,e3= create_local_coordinate_system(pos_local,vel_local)
+    basis_vectors= (e1,e2,e3)
     # make the new coordiante system 
     R               = np.array([e1,e2,e3])
     # put the ellipsoid in the new coordinate system
     ellipsoid_rot   =transform_surface(R, x_ell,y_ell,z_ell)
-    # transform the eigenvectors
-    eigenvectors_row = np.linalg.inv(R) @ eigenvectors
-
+    eigen1_rotated = np.dot(R, eigen1)
+    eigen2_rotated = np.dot(R, eigen2)
+    eigen3_rotated = np.dot(R, eigen3)    
+    # make sure we're always parallel with e1 and not anti parallel
+    eigen1_rotated = -eigen1_rotated if np.dot(eigen1_rotated,e1) < 0 else eigen1_rotated
+    
     # compute the axim and elev for the other axis
     # azim = (180/np.pi)*np.arctan2(pos_local[0],pos_local[1])
     # roll = (180/np.pi)*np.acos(np.dot([0,0,1],e3))
@@ -325,9 +373,21 @@ def make_frame(index,params,orbit,dx,t_dyn,factors,AXIS,LIMS,plane,tail_indexes=
 
     fig, ax1, ax2,ax3 = make_figure()
     # # add the orbit 
-    ax1=do_axis1(ax1,LIMS,pos_local,plane,(xt[down_index:upindex],yt[down_index:upindex],zt[down_index:upindex]),(e1,e2,e3),AXIS)
-    ax2=do_axis2(ax2,(x_ell,y_ell,z_ell),(little_factor,axislen,little_move),eigenvectors,(elev,30))
-    ax3=do_axis3(ax3,(ellipsoid_rot[0],ellipsoid_rot[1],ellipsoid_rot[2]),(little_factor,axislen,little_move),eigenvectors_rot,(elev,azim,roll))
+    do_axis1(ax1,LIMS,pos_local,plane,orbit_segment,basis_vectors,AXIS)
+    do_axis2(ax2,ellipsoid,factors,(eigen1,eigen2,eigen3),view_init=(30,30))
+    do_axis3(ax3,ellipsoid_rot,factors,(eigen1_rotated,eigen2_rotated,eigen3_rotated),view_init=(30,30))
+    
+    return fig, ax1, ax2, ax3
+    # fig.savefig(fname=fname, dpi=300)
+    # plt.close(fig)
 
+
+def make_and_save_frame(index,params,orbit,dx,t_dyn,factors,AXIS,LIMS,plane,tail_indexes=20):
+    """
+    """
+
+    fname = "../frames/frame_%04d.png" % index
+    fig, ax1, ax2, ax3 = make_frame(index,params,orbit,dx,t_dyn,factors,AXIS,LIMS,plane,tail_indexes)
     fig.savefig(fname=fname, dpi=300)
     plt.close(fig)
+    return None
