@@ -12,12 +12,9 @@ The remainder of this chapter is structured to clarify the theoretical framework
 
     \item \textbf{Explicit physics} - the physical laws and initial conditions implemented in the simulations;
 
-
-
     \item \textbf{Implicit physics} - the emergent behavior of these systems, the assumptions involved, and the mathematical tools used to interpret the results;
 
     \item \textbf{Ignored physics} - relevant aspects of the problem that are beyond the scope of this thesis, but which impact the interpretation of our results. Where appropriate, I cite works that pursue these directions and discuss how future work could incorporate them to improve upon the current modeling.
-
 
 \end{itemize}
 
@@ -80,24 +77,39 @@ The remainder of this chapter is structured to clarify the theoretical framework
         \end{itemize}
 
     \subsection{The tidal tensor}
-        \begin{itemize}
-            \item Either the Hessian of the Potential
-            \item Or the Jacobian of the transform from position to force
-            \item I prefer Jacobian
-            \item We always use cartesian coordinates because if you do other systems, such as cylindrical or spherical, then you need to compute the cristoffer symbols. 
-            \item Positive eigen values is stretching
-            \item Negative eivenvalues is compression
-            \item Stetching is a stronger deformation than compression
-            \item For a spherical potential, the stretching deformation is parallel to the position vector. 
-        \end{itemize}
-        
+        Tidal forces arise due to spatial variations in the gravitational field and are especially apparent when comparing the accelerations experienced by nearby particles. To explore this, consider a Taylor expansion of the gravitational potential of the primary, \(\Phi_g\), evaluated at the star's position \(\vec{x}_s\), relative to the secondary's position \(\vec{x}_c\):
         \begin{equation}
-            \text{J}(F)= \left(\begin{matrix}
-                \partial_x F_x & \partial_y F_x & \partial_z F_x \\
-                \partial_x F_y & \partial_y F_y & \partial_z F_y \\
-                \partial_x F_z & \partial_y F_z & \partial_z F_z 
-            \end{matrix}\right)
+            \Phi_g\left(\vec{x}_s\right) \approx \Phi_g\left(\vec{x}_c\right) + \left[\nabla \Phi_g (\vec{x}_c)\cdot \Delta \vec{x}\right] + \left[\Delta \vec{x} \cdot \mathcal{D}^2\left(\Phi_g\right) \cdot \Delta\vec{x}\right],
         \end{equation}
+        where \(\Delta \vec{x} = \vec{x}_s - \vec{x}_c\), and \(\mathcal{D}^2 \Phi_g\) is the Hessian matrix of second derivatives of the potential: \(\partial^2 \Phi/\partial x_i \partial x_j\).
+
+        An equivalent expression can be derived by linearizing the gravitational force in a non-inertial frame co-moving with the secondary. Let us write Newton's second law for the star-particle and the secondary in an inertial frame:
+        \begin{eqnarray}
+            \vec{F}_s &= \nabla \Phi_c\left(\Delta \vec{x}\right) + \nabla \Phi_g\left(\vec{x}_s\right),\\
+            \vec{F}_c &= \nabla \Phi_g\left(\vec{x}_c\right).
+        \end{eqnarray}
+        Then the relative acceleration of the star in the non-inertial frame is:
+        \begin{eqnarray}
+            \vec{f}_s &= \vec{F}_s - \vec{F}_c + \vec{F}_\mathrm{fictitious} \\
+                    &= \nabla \Phi_c\left(\Delta \vec{x}\right) + \nabla \Phi_g\left(\vec{x}_s\right) - \nabla \Phi_g\left(\vec{x}_c\right) + \vec{F}_\mathrm{fictitious} \\
+                    &\approx \nabla \Phi_c\left(\Delta \vec{x}\right) + \mathrm{Jac}\left(\nabla \Phi_g(\vec{x}_c)\right) \cdot \Delta \vec{x} + \vec{F}_\mathrm{fictitious},
+        \end{eqnarray}
+        where the last line uses a first-order Taylor expansion of the gravitational force field, valid under the assumption that \(|\Delta \vec{x}| \ll |\vec{x}_c|\). 
+
+        The Jacobian of the gravitational field is equal to the Hessian of the potential, owing to the symmetry of second derivatives and the fact that \(\vec{g} = -\nabla \Phi_g\). This matrix, known as the \textit{tidal tensor} \(\mathcal{T}\), describes the linearized spatial variation of the gravitational field:
+        \begin{equation}
+            \mathcal{T} = -\mathcal{D}^2\Phi_g = \mathrm{Jac}(\nabla \Phi_g) = \left(\begin{matrix}
+                \partial_x g_x & \partial_y g_x & \partial_z g_x \\
+                \partial_x g_y & \partial_y g_y & \partial_z g_y \\
+                \partial_x g_z & \partial_y g_z & \partial_z g_z 
+            \end{matrix}\right).
+        \end{equation}
+
+        While the Hessian and Jacobian are formally equivalent, the Jacobian viewpoint offers a more geometric interpretation: it acts as a linear transformation on nearby displacements, mapping them to differences in acceleration. Diagonalizing the tidal tensor reveals the principal axes of tidal deformation. A positive eigenvalue corresponds to stretching along the associated eigenvector; a negative eigenvalue indicates compression. The magnitude gives the rate of stretching or compression.
+
+        Finally, we note that although many relevant potentials exhibit spherical or cylindrical symmetry, Cartesian coordinates are preferred here. In curvilinear systems, computing the Jacobian or Hessian requires accounting for Christoffel symbols, which complicates the interpretation and computation.
+
+
         
         \subsubsection*{The Moon}
 
