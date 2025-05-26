@@ -112,41 +112,43 @@ The remainder of this chapter is structured to clarify the theoretical framework
 
         
         \subsubsection*{The Moon}
+            Nothing clarifies the concept of tides like the most familiar example: the Moon. Tidal forces are invoked to explain a wide range of phenomena in the Earth-Moon system. The most relatable effect is, of course, the periodic variation in sea level on Earth. While accurately modeling these changes requires fluid dynamics—beyond the scope of this thesis—NASA provides several accessible explanations and visualizations at \href{https://science.nasa.gov/moon/tides/}{https://science.nasa.gov/moon/tides/}, including daily high and low tides, as well as spring and neap tides.
 
+            Another key example is the tidal deformation of the Moon, which ultimately led to its tidal locking—explaining why we always see the same side of the Moon from Earth.
 
-            Nothing clarifies the topic of tides like the most relatable example, the moon. However, the tides are used to explain a range of phenomena in the Earth-Moon system in many ways. Of course, the most relatable way is how the tides change the sea level on the Earth. Of course, modeling the change in sea level requires fluid dynamics, which is outside this thesis's scope. Still, NASA provides many excellent examples and easy interpretations at \href{https://science.nasa.gov/moon/tides/}{https://science.nasa.gov/moon/tides/}. These examples include daily high and low tides, spring and neap tides. Another is the tidal deformation of the moon, which subsequently led to its tidal locking, and why we only see one side of the moon.
-
-            Another excellent example is how the moon is lagging behind the tides due to the Earth's rotation and how this offset in angle transfers the Earth's rotation energy to the moon's orbital energy. This means the Eart's orbit will slow down over millions of years, and the Moon will move away. Much of this can be understood qualitatively through understanding the tidal tensor for a Keplerian system potential: 
+            A particularly insightful illustration is the angular offset between the Earth's tidal bulge and the Moon's position, caused by the Earth's rotation. This offset results in a torque that transfers angular momentum from the Earth's rotation to the Moon's orbit. As a consequence, Earth's rotation gradually slows while the Moon slowly recedes from Earth. Much of this behavior can be understood qualitatively using the tidal tensor for a Keplerian potential:
             \begin{equation}
                 \mathcal{T}= -\frac{GM}{r^3}\left(\begin{matrix}
                     1-\frac{3x^2}{r^2} & -\frac{3xy}{r^2} & -\frac{3xz}{r^2} \\
                     -\frac{3yx}{r^2} & 1-\frac{3y^2}{r^2} & -\frac{3yz}{r^2} \\
                     -\frac{3zx}{r^2} & -\frac{3zy}{r^2} & 1-\frac{3z^2}{r^2}
-                \end{matrix}\right)
+                \end{matrix}\right),
             \end{equation}
-            The eigenvalues are: $2\frac{GM}{r^3}$,$-\frac{GM}{r^3}$,$-\frac{GM}{r^3}$, with their corresponding eigenvectors: 
+            which has eigenvalues $2\frac{GM}{r^3}$, $-\frac{GM}{r^3}$, and $-\frac{GM}{r^3}$, with corresponding eigenvectors:
             \begin{equation}
-                \vec{v}_1,\vec{v}_2,\vec{v}_3=\dfrac{1}{r}\begin{bmatrix} x \\ y \\ z \end{bmatrix}, \dfrac{1}{r}\begin{bmatrix} -x \\ y \\ 0 \end{bmatrix}, \dfrac{1}{r}\begin{bmatrix} -x \\ 0 \\ z \end{bmatrix}.
+                \vec{v}_1,\vec{v}_2,\vec{v}_3 = \dfrac{1}{r}\begin{bmatrix} x \\ y \\ z \end{bmatrix}, \dfrac{1}{r}\begin{bmatrix} -x \\ y \\ 0 \end{bmatrix}, \dfrac{1}{r}\begin{bmatrix} -x \\ 0 \\ z \end{bmatrix}.
             \end{equation}
-            Interestingly, the first eigenvalue is positive and is parallel to the position vector--showing a stretching deformation. The other two eigenvalues are equal in value, negative, and smaller in magnitude compared to the stretching axis. Their eigenvector for a plane that is parallel to the stretching axis. From this, some cases about the moon are already apparent. The lunar tidal forces cause the earth's oceans to stretch about the line that connects the moon and earth. The sun's tidal forces also act on the earth's oceans. However, since the tidal forces scale with the $r^{-3}$, they are weaker than the moons. When the moon is at either a full moon or new moon, the sun and moon's tidal forces add constructive causing spring tides, they add desctructive at the half moon phase causing neap tides. Additionally, the tidal forces of the Earth on the moon cause the moon to away from spherical symmetry into an ellipsoid. The most stable configuration of the moon is thus that it's longest axis is parallel along the earth-moon line. 
 
-            To be more quantitative with the aforementioned tidal phenomena, we would need to model the solid structure of the moon and the fluid dynamics of the ocean, which is beyond the scope of the gravity only thesis. Nonetheless, there is a quantitative exampple that can be done, which is how the solar tidal forces \textit{perturb} the moon's orbit about the earth away from a simple two body problem configuration. Fig.~\ref{fig:moon_tidal_simulation} shows a little toy experiment of the moon's orbit in two different scenarios. In both, I took reasonable initial conditions for the moon's orbit from NASA JPL (cite this). Then, I solved two different sets of equations of motion. One in which we solve the two body problem plus the rotating reference frame for the moon's motion:
+            Notably, the first eigenvalue is positive and corresponds to a stretching deformation along the position vector. The other two are negative, representing compression in directions perpendicular to the stretching axis. These directions define a plane orthogonal to the Earth-Moon line. From this, several tidal effects become evident. For instance, the Earth's oceans stretch along the Earth-Moon axis due to the Moon's tidal forces. While the Sun also exerts tidal forces on Earth, their magnitude is weaker due to the $r^{-3}$ scaling with distance.
+
+            When the Moon is either full or new, the Sun and Moon's tidal forces act constructively, leading to spring tides. At first and third quarters, they interfere destructively, causing neap tides. Additionally, Earth's tidal influence distorts the Moon from spherical symmetry into an ellipsoid. The Moon's most stable orientation is one where its longest axis aligns with the Earth-Moon line—resulting in tidal locking.
+
+            A more quantitative treatment of these phenomena would require modeling the Moon's internal structure and Earth's ocean dynamics—well beyond the gravity-only scope of this thesis. However, we can still explore one instructive effect: how solar tidal forces \textit{perturb} the Moon's orbit away from the idealized two-body Earth-Moon configuration. Figure~\ref{fig:moon_tidal_simulation} shows a toy model comparing two scenarios. In both, I used initial conditions based on JPL NASA ephemerides (citation needed) and integrated two sets of equations of motion.
+
+            In the first scenario, the Moon's motion is governed by the two-body Earth-Moon problem with a rotating reference frame correction:
             \begin{equation}
-                \ddot{\vec{r}} = -\frac{GM_\oplus}{r^3}\vec{r} - \omega_\oplus \times \left(\omega_\oplus\times\vec{r_\oplus}\right)
+                \ddot{\vec{r}} = -\frac{GM_\oplus}{r^3}\vec{r} - \omega_\oplus \times \left(\omega_\oplus \times \vec{r}_\oplus\right),
             \end{equation}
-            The second is in which we include the tidal forces:
+            while in the second, we include the effect of solar tidal forces:
             \begin{equation}
-                \ddot{\vec{r}} = -\frac{GM_\oplus}{r^3}\vec{r} - \omega_\oplus \times \left(\omega_\oplus\times\vec{r}_\oplus\right) -\frac{GM_\odot}{r_\oplus^3}\left(\begin{matrix}
+                \ddot{\vec{r}} = -\frac{GM_\oplus}{r^3}\vec{r} - \omega_\oplus \times \left(\omega_\oplus \times \vec{r}_\oplus\right) -\frac{GM_\odot}{r_\oplus^3}
+                \left(\begin{matrix}
                     1-\frac{3x^2}{r_\oplus^2} & -\frac{3xy}{r_\oplus^2} & -\frac{3xz}{r_\oplus^2} \\
                     -\frac{3yx}{r_\oplus^2} & 1-\frac{3y^2}{r_\oplus^2} & -\frac{3yz}{r_\oplus^2} \\
                     -\frac{3zx}{r_\oplus^2} & -\frac{3zy}{r_\oplus^2} & 1-\frac{3z^2}{r_\oplus^2}
-                \end{matrix}  \right)\cdot \vec{r},
-            \end{equation}            
-            where $r_\oplus$ is the position of the earth, $\vec{r}$ is the position of the moon relative to the earth, $M_\odot$ is the mass of the sun, $M_\oplus$ is the mass of the earth. The components, $x,y,z$ are of the earth's position vector relative to the sun. 
-
-
-
-
+                \end{matrix}  \right) \cdot \vec{r},
+            \end{equation}
+            where $r_\oplus$ is the Earth's position relative to the Sun, $\vec{r}$ is the Moon's position relative to Earth, $M_\odot$ is the mass of the Sun, and $M_\oplus$ is the mass of the Earth. The coordinates $x, y, z$ refer to the components of Earth's heliocentric position.
 
             
             
@@ -157,7 +159,8 @@ VIDEO: moon_tidal_simulation.mp4
             \begin{figure}
                 \centering
                 \includegraphics[width=\linewidth]{images/moon_tidal_simulation.png}
-                \caption{A little experiment that shows the sun's tidal field in the left panels, along with two snap shots of the orbital solutions for the moon. The green trajectory corresponds to EQ.~XXX that includes the tides, while the orange trajectory ignores them. The tidal ellipsoid is shown in black. The position vector of the sun w.r.t. the earth is shown and it is always parallel to the ellipse's major axis. The bottom panel shows the dift in the moons computed phase two body minus tides. Ignoring the tide would lead to an orbital solution that drifts too fast. }\label{fig:moon_tidal_simulation}
+                \caption{An illustrative experiment demonstrating the effect of the Sun's tidal field. The left panels show the tidal field, and the right panels show two snapshots of the Moon's orbital trajectory. The green curve corresponds to the solution of Eq.~\textbf{XXX}, which includes the Sun's tidal effects, while the orange curve corresponds to the simpler two-body problem that neglects them. The black ellipse represents the tidal ellipsoid, whose major axis remains aligned with the Sun's position vector relative to the Earth. The bottom panel shows the accumulated phase difference between the two solutions. Neglecting solar tides causes the predicted Moon orbit to drift ahead of the more accurate trajectory. With about three to four years, the two body predicted solution would off by half a moon phase.
+ }\label{fig:moon_tidal_simulation}
             \end{figure}
 
         \subsubsection*{Tides in the Galaxy}
