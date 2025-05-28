@@ -1,5 +1,5 @@
 # Ignore videos folder
-videos/
+/videos/
 
 # Ignore images folder
 /images/
