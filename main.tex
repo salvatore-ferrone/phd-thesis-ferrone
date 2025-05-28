@@ -1,6 +1,8 @@
-\documentclass[12pt]{report}
+\documentclass[a4paper,12pt]{book}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage[greek,english]{babel}
+
 \graphicspath{ {images/} }
 
 
@@ -25,15 +27,15 @@
 
 
 \begin{document}
+\frontmatter
 \maketitle
-
 \chapter*{Abstract}
 \input{chapters/abstract}
-
-\chapter*{Dedications}
-
+\chapter*{Forward}
+\input{chapters/foreward}
 \tableofcontents
 
+\mainmatter
 \chapter{Introduction}
 \input{chapters/introduction}
 
@@ -43,10 +45,16 @@
 \chapter{Numerics}
 \input{chapters/numerics}
 
-\chapter{Results}
-\input{chapters/results}
+\chapter{Tidal}
+\input{chapters/tidal}
+
+\chapter{Gapology}
+\input{chapters/gapology}
+
+\chapter{On going experiments}
+\input{chapters/ongoing}
 
 
-
+\backmatter
 \bibliography{mybib}
 \end{document}

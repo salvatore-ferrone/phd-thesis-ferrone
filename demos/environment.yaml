@@ -1,0 +1,21 @@
+name: thesis
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.9,<3.12
+  - sympy
+  - numpy
+  - astropy>=5.0
+  - pyyaml>=5.1
+  - matplotlib
+  - ipykernel
+  - galpy 
+  - scipy
+  - astropy
+  - mplcairo
+  - meson 
+  - gfortran>=11  # Critical for running the compiled code
+  - ipympl
+  - plotly
+  - nbformat>4.2.0

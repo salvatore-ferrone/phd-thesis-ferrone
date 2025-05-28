@@ -1,0 +1,28 @@
+\section{Published results}
+
+\section{Velocity distribution within the stream}
+
+    \subsection{Self-Segregation and Stream Chilling}
+
+    The classic collisionless boltzmann equation:
+    \begin{equation}
+        \frac{df}{dt} = 0 = \frac{\partial f}{\partial x} \frac{dx}{dt} + \frac{\partial f}{\partial v} \frac{dv}{dt}+ \frac{\partial f}{\partial t} 
+    \end{equation}
+
+    we are saying that the pusles drift with the same velocities thus $\frac{dv}{dt}=0$. I impart more assumptions, namely that: $\rho(x,t=0)=\delta(x)$ and that velocity is defined as a normal distribution that does not change over time. This means that I can write the initial distribution function as:
+    
+    \begin{equation}
+        f(x,v,t=0) = \delta(x)\frac{1}{\sigma\sqrt{2\pi}}\textrm{exp}\left(-\frac{1}{2}\left(\frac{v-\langle v \rangle}{\sigma}\right)^2\right)
+    \end{equation}    
+
+    the solution to the evolution of the density is $\rho = \int f dv$, and you also need to perform this variable substitution $f(x,v,t) = f(x-vt,v,0)$
+
+    \begin{equation}
+        \rho(x,t) = \frac{1}{\sigma t \sqrt{2\pi} }\textrm{exp}\left(-\frac{1}{2}\left(\frac{x-\langle v \rangle t}{\sigma_v t}\right)^2\right)
+    \end{equation}
+
+    it's also useful to know the relative velocity of the impact site between one group and another. These things drift apart. How much faster does one group go ahead of another? 
+    \begin{equation}
+        \delta v_{ij} = \frac{x\prime}{t-iT} - \frac{x\prime}{t-jT}
+    \end{equation}
+    where $i,j$ are the indexes for the packet. Note that this only works for $t > nT$ where $T$ is the orbital period, or spacing between the impacts, $n$ is the number of pericenter passages. $t$ is the total simulation time. $x\prime$ is the position of the impact. It makes sense that the velocity of the particle is the position where the impact occured, divided by the time since it left the origin. 

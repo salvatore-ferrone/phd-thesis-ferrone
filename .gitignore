@@ -3,6 +3,7 @@ videos/
 
 # Ignore images folder
 /images/
+tidalTensorImages/
 
 # Ignore LaTeX auxiliary files
 *.aux
@@ -16,6 +17,9 @@ videos/
 notebooks/.ipynb_checkpoints/
 
 scrapnotebooks/
+
+demos/frames/
+**scrap**
 
 # Ignore macOS system files
 .DS_Store
