@@ -1,11 +1,11 @@
 # Ignore videos folder
-videos/
+# /videos/
+# /images/
 
-# Ignore images folder
-/images/
+# Ignore source image folders
 tidalTensorImages/
-tempImages/
-
+/tempImages/
+/template/*
 # Ignore LaTeX auxiliary files
 *.aux
 *.bbl
