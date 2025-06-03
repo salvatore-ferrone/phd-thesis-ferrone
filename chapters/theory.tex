@@ -152,15 +152,15 @@ The remainder of this chapter is structured to clarify the theoretical framework
 
             
             
-\begin{verbatim}
-VIDEO: moon_tidal_simulation.mp4
-\end{verbatim}
+            \begin{verbatim}
+            VIDEO: moon_tidal_simulation.mp4
+            \end{verbatim}
 
             \begin{figure}
                 \centering
                 \includegraphics[width=\linewidth]{images/moon_tidal_simulation.png}
                 \caption{An illustrative experiment demonstrating the effect of the Sun's tidal field. The left panels show the tidal field, and the right panels show two snapshots of the Moon's orbital trajectory. The green curve corresponds to the solution of Eq.~\textbf{XXX}, which includes the Sun's tidal effects, while the orange curve corresponds to the simpler two-body problem that neglects them. The black ellipse represents the tidal ellipsoid, whose major axis remains aligned with the Sun's position vector relative to the Earth. The bottom panel shows the accumulated phase difference between the two solutions. Neglecting solar tides causes the predicted Moon orbit to drift ahead of the more accurate trajectory. With about three to four years, the two body predicted solution would off by half a moon phase.
- }\label{fig:moon_tidal_simulation}
+                }\label{fig:moon_tidal_simulation}
             \end{figure}
 
         \subsubsection*{Tides in the Galaxy}
@@ -272,11 +272,45 @@ VIDEO: moon_tidal_simulation.mp4
 
 
     \subsection{Phase mixing}
-        \begin{itemize}
-            \item The Luiville theorem
-            \item How it is slower with tidal tails 
-            \item also the monte-carlo approach with phase mixing is what causes vast differences in orbital solutions after a certain period of time 
-        \end{itemize}
+        \textit{Phase mixing} is a direct consequence of Liouville’s theorem, which itself follows from the collisionless Boltzmann equation. Liouville’s theorem states that the infinitesimal volume element in phase space is preserved under Hamiltonian evolution. In other words, as a system evolves in time, the phase-space density \( f(\mathbf{q}, \mathbf{p}, t) \) is conserved along particle trajectories. Since the number of particles is conserved, and the phase-space volume they occupy does not change, any spatial spreading must be accompanied by a drop in phase-space density.
+
+        This effect causes ensembles of nearby orbits to stretch and fold through phase space, spreading out and becoming more finely interleaved over time, even though the total volume is constant. In physical space, this corresponds to a decrease in local density as the particles become more dispersed—this is the essence of phase mixing.
+
+        We can estimate the characteristic time scale for phase mixing by considering how long it takes for orbits with slightly different energies to drift apart in phase. For a Keplerian orbit, the orbital period is given by:
+
+        \begin{equation}
+        T^2 = \frac{4\pi^2 a^3}{GM},
+        \end{equation}
+
+        which implies that the period depends on the semi-major axis and thus on the orbital energy. In general, most orbits are not closed, so rather than returning to the exact same phase-space point, particles precess and fill out invariant tori over time. It is therefore useful to define a characteristic orbital timescale in terms of energy. From dimensional analysis, we argue that the characteristic time for a body to complete a phase space cycle is:
+
+        \begin{equation}
+        T_\mathrm{char} = C \frac{GM}{E^{3/2}},
+        \end{equation}
+
+        where $ C$ is a constant and $E$ is the specific orbital energy.
+
+        Consider now two nearby particles with energies $E - \Delta E$ and $ E + \Delta E $. Their orbital frequencies differ by:
+
+        \begin{equation}
+        \Delta f = \frac{1}{T( E - \Delta E)} - \frac{1}{T(E + \Delta E)}.
+        \end{equation}
+
+        The time required for the faster particle to lap the slower one in phase is the \textit{phase mixing time}, given by:
+
+        \begin{equation}
+        T_\mathrm{mix} = \frac{2\pi}{\Delta f} = \frac{2\pi T_1 T_2}{T_2 - T_1}.
+        \end{equation}
+
+        For small energy differences \( \Delta E \ll E \), we can expand the period in a Taylor series to first order. This leads to:
+
+        \begin{equation}
+        T_\mathrm{mix} \approx T_\mathrm{char} \cdot 2\pi \left( \frac{E}{3 \Delta E} \right),
+        \end{equation}
+        Thus, the phase mixing time grows inversely with the relative energy spread in the population.
+
+        Phase-mixing manifests itself in two ways in this thesis
+
     
 
             \begin{figure}
