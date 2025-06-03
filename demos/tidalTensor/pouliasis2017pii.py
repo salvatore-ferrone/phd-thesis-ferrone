@@ -279,14 +279,14 @@ def do_axis2(ax2,elipsoid,factors,eigenvectors,view_init=(30,30)):
     ax2.text(0,axislen,little_move,r'$\hat{y}$', fontsize="small")
     ax2.text(0,little_move,axislen,r'$\hat{z}$', fontsize="small")
 
-    ax2.quiver(0,0,0,eigen1[0],eigen1[1],eigen1[2], length=axislen, color='tab:red', arrow_length_ratio=0.1)
-    ax2.quiver(0,0,0,eigen2[0],eigen2[1],eigen2[2], length=axislen, color='tab:red', arrow_length_ratio=0.1)
-    ax2.quiver(0,0,0,eigen3[0],eigen3[1],eigen3[2], length=axislen, color='tab:red', arrow_length_ratio=0.1)
+    ax2.quiver(0,0,0,eigen1[0],eigen1[1],eigen1[2], length=axislen, color='MediumSeaGreen', arrow_length_ratio=0.1)
+    ax2.quiver(0,0,0,eigen2[0],eigen2[1],eigen2[2], length=axislen, color='Crimson', arrow_length_ratio=0.1)
+    ax2.quiver(0,0,0,eigen3[0],eigen3[1],eigen3[2], length=axislen, color='RoyalBlue', arrow_length_ratio=0.1)
 
     # make the vectors go in both directions
-    ax2.quiver(0,0,0,-eigen1[0],-eigen1[1],-eigen1[2], length=axislen, color='tab:red', arrow_length_ratio=0.1)
-    ax2.quiver(0,0,0,-eigen2[0],-eigen2[1],-eigen2[2], length=axislen, color='tab:red', arrow_length_ratio=0.1)
-    ax2.quiver(0,0,0,-eigen3[0],-eigen3[1],-eigen3[2], length=axislen, color='tab:red', arrow_length_ratio=0.1)
+    ax2.quiver(0,0,0,-eigen1[0],-eigen1[1],-eigen1[2], length=axislen, color='MediumSeaGreen', arrow_length_ratio=0.1)
+    ax2.quiver(0,0,0,-eigen2[0],-eigen2[1],-eigen2[2], length=axislen, color='Crimson', arrow_length_ratio=0.1)
+    ax2.quiver(0,0,0,-eigen3[0],-eigen3[1],-eigen3[2], length=axislen, color='RoyalBlue', arrow_length_ratio=0.1)
     ax2.set_xlim([-axislen,axislen])
     ax2.set_ylim([-axislen,axislen])
     ax2.set_zlim([-axislen,axislen])
@@ -300,14 +300,14 @@ def do_axis3(ax3,ellipsoid_rot,factors,eigenvectors_rot,view_init=(30,30)):
     eigen1,eigen2,eigen3 = eigenvectors_rot
     little_factor,axislen,little_move = factors
 
-    ax3.quiver(0,0,0,eigen1[0],eigen1[1],eigen1[2], length=2*axislen/3, color='tab:red', arrow_length_ratio=0.1)
-    ax3.quiver(0,0,0,eigen2[0],eigen2[1],eigen2[2], length=2*axislen/3, color='tab:red', arrow_length_ratio=0.1)
-    ax3.quiver(0,0,0,eigen3[0],eigen3[1],eigen3[2], length=2*axislen/3, color='tab:red', arrow_length_ratio=0.1)
+    ax3.quiver(0,0,0,eigen1[0],eigen1[1],eigen1[2], length=2*axislen/3, color='MediumSeaGreen', arrow_length_ratio=0.1)
+    ax3.quiver(0,0,0,eigen2[0],eigen2[1],eigen2[2], length=2*axislen/3, color='Crimson', arrow_length_ratio=0.1)
+    ax3.quiver(0,0,0,eigen3[0],eigen3[1],eigen3[2], length=2*axislen/3, color='RoyalBlue', arrow_length_ratio=0.1)
 
     # make the vectors go in both directions
-    ax3.quiver(0,0,0,-eigen1[0],-eigen1[1],-eigen1[2], length=2*axislen/3, color='tab:red', arrow_length_ratio=0.1)
-    ax3.quiver(0,0,0,-eigen2[0],-eigen2[1],-eigen2[2], length=2*axislen/3, color='tab:red', arrow_length_ratio=0.1)
-    ax3.quiver(0,0,0,-eigen3[0],-eigen3[1],-eigen3[2], length=2*axislen/3, color='tab:red', arrow_length_ratio=0.1)
+    ax3.quiver(0,0,0,-eigen1[0],-eigen1[1],-eigen1[2], length=2*axislen/3, color='MediumSeaGreen', arrow_length_ratio=0.1)
+    ax3.quiver(0,0,0,-eigen2[0],-eigen2[1],-eigen2[2], length=2*axislen/3, color='Crimson', arrow_length_ratio=0.1)
+    ax3.quiver(0,0,0,-eigen3[0],-eigen3[1],-eigen3[2], length=2*axislen/3, color='RoyalBlue', arrow_length_ratio=0.1)
     ax3.plot_surface(ellipsoid_rot[0], ellipsoid_rot[1], ellipsoid_rot[2], color='r', alpha=1)
 
     ax3.plot(np.array([0,0]),np.array([0,0]),np.array([0,axislen]), color='green', lw=2)
