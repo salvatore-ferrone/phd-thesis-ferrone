@@ -666,32 +666,56 @@ differ by:</p>
 <p><span class="math display">\[\Delta f = \frac{1}{T( E - \Delta E)} -
 \frac{1}{T(E + \Delta E)}.\]</span></p>
 <p>The time required for the faster particle to lap the slower one in
-phase is the <em>phase mixing time</em>, given by:</p>
+phase is the <em>phase mixing time</em>, which is the inverse of the
+difference <span class="math inline">\(2\pi / \Delta f\)</span> and is
+given by:</p>
 <p><span class="math display">\[T_\mathrm{mix} = \frac{2\pi}{\Delta f} =
 \frac{2\pi T_1 T_2}{T_2 - T_1}.\]</span></p>
-<p>For small energy differences <span class="math inline">\(\Delta E \ll
-E\)</span>, we can expand the period in a Taylor series to first order.
-This leads to:</p>
+<p>For small energy differences <span class="math inline">\(\Delta E
+&lt;&lt; E\)</span>, we can expand the period in a Taylor series to
+first order. This leads to:</p>
 <p><span class="math display">\[T_\mathrm{mix} \approx T_\mathrm{char}
 \cdot 2\pi \left( \frac{E}{3 \Delta E} \right),\]</span> Thus, the phase
 mixing time grows inversely with the relative energy spread in the
 population.</p>
 <h3 id="orbital-drift">Orbital drift</h3>
-<p>The first way that phase mixing presents itself in this work is how
-the exact position of a globular cluster becomes less certain with time.
-This comes from the spread in possible orbital energies due to the
-uncertainties in the observational data. Oftentimes, distances drive the
-uncertainties to in astronomy and I presumed that this would drive the
-phase mixing of the globular clusters. I tested this hypothesis by
-performing a sensitivity analysis for the spread in the total orbital
-energy given the uncertainties in each variable indepdendently for each
-globular cluster.</p>
+<p>The first manifestation of phase mixing is the growth of uncertainty
+in orbital solutions for globular clusters over time. This originates
+from the initial spread in orbital energies caused by observational
+uncertainties. In Fig.<a
+href="#fig:phase_mixing_palomar_5_orbital_solutions"
+data-reference-type="ref"
+data-reference="fig:phase_mixing_palomar_5_orbital_solutions">9</a>, I
+present an example based on Palomar 5, for which I compute 50 orbital
+solutions in our potential model. These initial conditions are sampled
+according to the uncertainties reported in the Baumgardt catalog. The
+figure shows that while the orbital solutions remain broadly similar,
+the lower-energy orbits progress through phase space more rapidly. In
+the bottom panel, the rightmost side includes overplotted dots
+indicating the final <span class="math inline">\((t, z)\)</span>
+coordinates of each solution, illustrating that they span nearly the
+full range of <span class="math inline">\(z\)</span> values allowed by
+the initial conditions. In essence, once the integration time exceeds
+the phase-mixing timescale, any individual solution becomes speculative:
+the system could plausibly occupy any location in phase space permitted
+by the initial uncertainties.</p>
+<figure id="fig:phase_mixing_palomar_5_orbital_solutions">
+<img src="images/phase_mixing_palomar_5_orbital_solutions.png" />
+<figcaption>Phase mixing of Palomar 5’s orbital solutions in the
+<code>Pouliasis2017pii</code> potential. We sample 50 different initial
+conditions based on the observational uncertainties in distance, radial
+velocity, and proper motions. Each orbital solution is color-coded by
+its initial total orbital energy <span class="math inline">\(E\)</span>.
+The top six panels show snapshots of the positions in the <span
+class="math inline">\(xy\)</span>-plane of the orbital solutions at
+different times. The bottom panel shows the evolution of the <span
+class="math inline">\(z\)</span> coordinate as a function of time. Black
+vertical bars mark the timestamps corresponding to the snapshots in the
+top panels, which are labeled with matching alphabetical
+identifiers.</figcaption>
+</figure>
 <figure id="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">
-<p><img
-src="images/energy_sensitivity_analysis_MWGCS_to_distance_RV_mu.png"
-alt="image" /> <img
-src="images/energy_sensitivity_analysis_MWGCS_to_errors.png"
-alt="image" /></p>
+<img src="images/energy_sensitivity_analysis_MWGCS_to_errors.png" />
 <figcaption>An analysis on the spread in orbital energies of the
 globular cluster population for each of its reported uncertainties. Each
 panel finds the STD in the Hamiltonain given the uncertainties in the
@@ -699,23 +723,6 @@ specific variable. So the top left allows the distances to vary but
 holds the proper motions and radial velocities constant. It is plotted
 against the distance. The clusters are color-coated by their mean
 energies.</figcaption>
-</figure>
-<figure id="fig:phase_mixing_palomar_5_orbital_solutions">
-<img src="images/phase_mixing_palomar_5_orbital_solutions.png" />
-<figcaption>Phase mixing of the orbital solutions!! the color is based
-on the energy. This was integrated in the Pouliasis2017pii potential.
-The orbital uncertainties of Palomar 5 were taken and sampled to get 500
-different sets of initial conditions. I colored them based on their
-energy and plotted their orbits. There are different snapshots of their
-positions at given moments in time. they correspond with the black
-vertical lines on the bottom plots and are labeled appropriatly with the
-letters of the alphabet. The bottom plot shows <span
-class="math inline">\(z\)</span> versus time for all orbital
-solutions—demonstrating that the overal characteristic of the orbits are
-similar, but become more offset with time. The markers at the edge of
-the plot show the final positions in the computation, which effective
-span all possible <span class="math inline">\(z\)</span>’s available to
-the system.</figcaption>
 </figure>
 <figure id="fig:phase_mixing_orbital_errors_sample">
 <img src="images/phase_mixing_orbital_errors_sample.png" />
