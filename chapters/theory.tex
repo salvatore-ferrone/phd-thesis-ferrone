@@ -307,7 +307,7 @@ The remainder of this chapter is structured to clarify the theoretical framework
 
         For small energy differences \( \Delta E << E \), we can expand the period in a Taylor series to first order. This leads to:
 
-        \begin{equation}
+        \begin{equation}\label{EQ:phase_mixing}
             T_\mathrm{mix} \approx T_\mathrm{char} \cdot 2\pi \left( \frac{E}{3 \Delta E} \right),
         \end{equation}
         Thus, the phase mixing time grows inversely with the relative energy spread in the population.
@@ -317,10 +317,24 @@ The remainder of this chapter is structured to clarify the theoretical framework
 
 
             \begin{figure}
+                \centering
                 \includegraphics[width=\linewidth]{images/phase_mixing_palomar_5_orbital_solutions.png}
                 \caption{Phase mixing of Palomar~5's orbital solutions in the \texttt{Pouliasis2017pii} potential. We sample 50 different initial conditions based on the observational uncertainties in distance, radial velocity, and proper motions. Each orbital solution is color-coded by its initial total orbital energy $E$. The top six panels show snapshots of the positions in the $xy$-plane of the orbital solutions at different times. The bottom panel shows the evolution of the $z$ coordinate as a function of time. Black vertical bars mark the timestamps corresponding to the snapshots in the top panels, which are labeled with matching alphabetical identifiers.}
                 \label{fig:phase_mixing_palomar_5_orbital_solutions}
             \end{figure}    
+
+            By inspecting Eq.\ref{EQ:phase_mixing}, we note that if the phase-mixing time is normalized by the characteristic orbital time, the resulting dimensionless mixing time is inversely proportional to the uncertainty in orbital energy. This relationship is general and holds for all orbits, regardless of their periods. However, it is still illustrative to examine this behavior in the context of the globular cluster catalog. In Fig.\ref{fig:phase_mixing_orbital_errors_sample}, I present the phase-mixing times for all Galactic globular clusters, based on current uncertainties from the Gaia DR3 catalog. The top panel shows the distribution for all 165 clusters. The bottom panels highlight the mixing behavior in cylindrical radius for a selection of statistically representative clusters: Gran~1, which has the shortest mixing time; Gran~5, the median case; NGC~6752, whose mixing time is closest to the mean; and NGC~2419, which has the longest mixing time.
+
+
+            \begin{figure}
+                \centering
+                \includegraphics[width=.75\linewidth]{images/phase_mixing_time_histogram_MWGCS.png}
+                \includegraphics[width=\linewidth]{images/phase_mixing_orbital_errors_sample.png}
+                \caption{The top panel shows the distribution of phase-mixing times for globular clusters, computed using Eq.~\ref{EQ:phase_mixing}. The following four rows illustrate the phase-mixing behavior for four selected clusters over the time range considered in this experiment. Orbital solutions are color-coded by their normalized deviation from the mean orbital energy.}
+                \label{fig:phase_mixing_orbital_errors_sample}
+            \end{figure}
+     
+
 
             \begin{figure}[p]
                 % \includegraphics[width=\linewidth]{images/energy_sensitivity_analysis_MWGCS_to_distance_RV_mu.png}
@@ -332,12 +346,7 @@ The remainder of this chapter is structured to clarify the theoretical framework
     
     
             
-            \begin{figure}
-                \includegraphics[width=\linewidth]{images/phase_mixing_orbital_errors_sample.png}
-                \caption{Phase mixing of the orbital uncertainties for some selected globular clusters}
-                \label{fig:phase_mixing_orbital_errors_sample}
-            \end{figure}
-     
+
 
 
 

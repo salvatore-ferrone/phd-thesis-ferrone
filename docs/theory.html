@@ -674,10 +674,10 @@ given by:</p>
 <p>For small energy differences <span class="math inline">\(\Delta E
 &lt;&lt; E\)</span>, we can expand the period in a Taylor series to
 first order. This leads to:</p>
-<p><span class="math display">\[T_\mathrm{mix} \approx T_\mathrm{char}
-\cdot 2\pi \left( \frac{E}{3 \Delta E} \right),\]</span> Thus, the phase
-mixing time grows inversely with the relative energy spread in the
-population.</p>
+<p><span class="math display">\[\label{EQ:phase_mixing}
+            T_\mathrm{mix} \approx T_\mathrm{char} \cdot 2\pi \left(
+\frac{E}{3 \Delta E} \right),\]</span> Thus, the phase mixing time grows
+inversely with the relative energy spread in the population.</p>
 <h3 id="orbital-drift">Orbital drift</h3>
 <p>The first manifestation of phase mixing is the growth of uncertainty
 in orbital solutions for globular clusters over time. This originates
@@ -698,7 +698,7 @@ full range of <span class="math inline">\(z\)</span> values allowed by
 the initial conditions. In essence, once the integration time exceeds
 the phase-mixing timescale, any individual solution becomes speculative:
 the system could plausibly occupy any location in phase space permitted
-by the initial uncertainties.</p>
+by the initial conditions.</p>
 <figure id="fig:phase_mixing_palomar_5_orbital_solutions">
 <img src="images/phase_mixing_palomar_5_orbital_solutions.png" />
 <figcaption>Phase mixing of Palomar 5’s orbital solutions in the
@@ -714,6 +714,36 @@ vertical bars mark the timestamps corresponding to the snapshots in the
 top panels, which are labeled with matching alphabetical
 identifiers.</figcaption>
 </figure>
+<p>By inspecting Eq.<a href="#EQ:phase_mixing" data-reference-type="ref"
+data-reference="EQ:phase_mixing">[EQ:phase_mixing]</a>, we note that if
+the phase-mixing time is normalized by the characteristic orbital time,
+the resulting dimensionless mixing time is inversely proportional to the
+uncertainty in orbital energy. This relationship is general and holds
+for all orbits, regardless of their periods. However, it is still
+illustrative to examine this behavior in the context of the globular
+cluster catalog. In Fig.<a
+href="#fig:phase_mixing_orbital_errors_sample" data-reference-type="ref"
+data-reference="fig:phase_mixing_orbital_errors_sample">10</a>, I
+present the phase-mixing times for all Galactic globular clusters, based
+on current uncertainties from the Gaia DR3 catalog. The top panel shows
+the distribution for all 165 clusters. The bottom panels highlight the
+mixing behavior in cylindrical radius for a selection of statistically
+representative clusters: Gran 1, which has the shortest mixing time;
+Gran 5, the median case; NGC 6752, whose mixing time is closest to the
+mean; and NGC 2419, which has the longest mixing time.</p>
+<figure id="fig:phase_mixing_orbital_errors_sample">
+<p><img src="images/phase_mixing_time_histogram_MWGCS.png"
+alt="image" /> <img src="images/phase_mixing_orbital_errors_sample.png"
+alt="image" /></p>
+<figcaption>The top panel shows the distribution of phase-mixing times
+for globular clusters, computed using Eq. <a href="#EQ:phase_mixing"
+data-reference-type="ref"
+data-reference="EQ:phase_mixing">[EQ:phase_mixing]</a>. The following
+four rows illustrate the phase-mixing behavior for four selected
+clusters over the time range considered in this experiment. Orbital
+solutions are color-coded by their normalized deviation from the mean
+orbital energy.</figcaption>
+</figure>
 <figure id="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">
 <img src="images/energy_sensitivity_analysis_MWGCS_to_errors.png" />
 <figcaption>An analysis on the spread in orbital energies of the
@@ -723,11 +753,6 @@ specific variable. So the top left allows the distances to vary but
 holds the proper motions and radial velocities constant. It is plotted
 against the distance. The clusters are color-coated by their mean
 energies.</figcaption>
-</figure>
-<figure id="fig:phase_mixing_orbital_errors_sample">
-<img src="images/phase_mixing_orbital_errors_sample.png" />
-<figcaption>Phase mixing of the orbital uncertainties for some selected
-globular clusters</figcaption>
 </figure>
 <h1 id="the-ignored-physics">The Ignored Physics</h1>
 <h2 id="collisional-dynamics">Collisional dynamics</h2>
