@@ -269,7 +269,7 @@ def do_axis2(ax2,elipsoid,factors,eigenvectors,view_init=(30,30)):
     little_factor,axislen,little_move = factors
     eigen1,eigen2,eigen3 = eigenvectors
     
-    ax2.plot_surface(x_ell, y_ell, z_ell, color='r', alpha=.9)
+    ax2.plot_surface(x_ell, y_ell, z_ell, color='r', alpha=1)
 
     ax2.plot(np.array([0,0]),np.array([0,0]),np.array([0,axislen]), color='k', lw=2)
     ax2.plot(np.array([0,0]),np.array([0,axislen]),np.array([0,0]), color='k', lw=2)
@@ -280,13 +280,13 @@ def do_axis2(ax2,elipsoid,factors,eigenvectors,view_init=(30,30)):
     ax2.text(0,little_move,axislen,r'$\hat{z}$', fontsize="small")
 
     ax2.quiver(0,0,0,eigen1[0],eigen1[1],eigen1[2], length=axislen, color='MediumSeaGreen', arrow_length_ratio=0.1)
-    ax2.quiver(0,0,0,eigen2[0],eigen2[1],eigen2[2], length=axislen, color='Crimson', arrow_length_ratio=0.1)
-    ax2.quiver(0,0,0,eigen3[0],eigen3[1],eigen3[2], length=axislen, color='RoyalBlue', arrow_length_ratio=0.1)
+    ax2.quiver(0,0,0,eigen2[0],eigen2[1],eigen2[2], length=axislen, color='RoyalBlue', arrow_length_ratio=0.1)
+    ax2.quiver(0,0,0,eigen3[0],eigen3[1],eigen3[2], length=axislen, color='Crimson', arrow_length_ratio=0.1)
 
     # make the vectors go in both directions
     ax2.quiver(0,0,0,-eigen1[0],-eigen1[1],-eigen1[2], length=axislen, color='MediumSeaGreen', arrow_length_ratio=0.1)
-    ax2.quiver(0,0,0,-eigen2[0],-eigen2[1],-eigen2[2], length=axislen, color='Crimson', arrow_length_ratio=0.1)
-    ax2.quiver(0,0,0,-eigen3[0],-eigen3[1],-eigen3[2], length=axislen, color='RoyalBlue', arrow_length_ratio=0.1)
+    ax2.quiver(0,0,0,-eigen2[0],-eigen2[1],-eigen2[2], length=axislen, color='RoyalBlue', arrow_length_ratio=0.1)
+    ax2.quiver(0,0,0,-eigen3[0],-eigen3[1],-eigen3[2], length=axislen, color='Crimson', arrow_length_ratio=0.1)
     ax2.set_xlim([-axislen,axislen])
     ax2.set_ylim([-axislen,axislen])
     ax2.set_zlim([-axislen,axislen])
