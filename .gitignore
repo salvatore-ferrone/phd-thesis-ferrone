@@ -6,6 +6,7 @@
 tidalTensorImages/
 /tempImages/
 /template/*
+/pdf/
 # Ignore LaTeX auxiliary files
 *.aux
 *.bbl

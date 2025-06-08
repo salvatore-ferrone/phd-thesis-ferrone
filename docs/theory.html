@@ -165,7 +165,27 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <script
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
   type="text/javascript"></script>
@@ -220,59 +240,263 @@ pursue these directions and discuss how future work could incorporate
 them to improve upon the current modeling.</p></li>
 </ul>
 <h1 id="the-explicit-physics">The Explicit Physics</h1>
-<p>My simulations solve the <em>restricted three body problem</em>. In
-essence</p>
-<figure>
+<p>My simulations solve the <em>restricted three-body problem</em>. In
+this setup, the host galaxy is treated as the primary body, fixed at the
+origin of the coordinate system, which corresponds to the system’s
+center of mass. The galaxy exerts a gravitational force on both the
+globular cluster—modeled as a single center of mass—and on all
+individual star particles.</p>
+<p>The globular cluster is approximated as a smooth density distribution
+that influences the star particles, rather than as a collection of stars
+interacting with one another. This simplification significantly reduces
+the computational cost. Moreover, all star particles are integrated
+independently, without interacting with one another. In effect, the full
+N-body problem is approximated as <span class="math inline">\(N\)</span>
+independent instances of the restricted three-body problem. Figure <a
+href="#fig:restricted_three_body_set_up" data-reference-type="ref"
+data-reference="fig:restricted_three_body_set_up">1</a> illustrates the
+schematic configuration of the system.</p>
+<figure id="fig:restricted_three_body_set_up">
 <img src="images/restricted_three_body_set_up.png" />
-<figcaption>Little sketch of my equations of motion. </figcaption>
+<figcaption>Schematic illustration of the equations of motion. The
+system is simplified to three interacting bodies: the Galaxy (primary),
+the globular cluster (secondary), and an individual star (tertiary). Red
+vectors indicate forces that are neglected in the equations of motion.
+Since the stars are assumed to exert no force on one another or on the
+cluster, their number can be scaled up arbitrarily to sample the net
+gravitational field of the cluster and the Galaxy.</figcaption>
 </figure>
 <h2 id="subsec:myEquationsOfMotion">Equations of Motion</h2>
-<p>I like to start with the <em>Lagrangian</em>, which comes from the
-variational principle which states that particles with move along
-trajectories that minimize the difference, <span class="math inline">\(L
-= T-U\)</span>, which <span class="math inline">\(L\)</span> is the
-Lagrangian, <span class="math inline">\(T\)</span> is the kinetic energy
-and <span class="math inline">\(U\)</span> is the potential energy.
-Also, as is almost always the case in gravitational dynamics, we
-normalize by the mass and use <em>specific</em> energy: <span
-class="math display">\[\mathcal{L} = \frac{L}{m} =
-\frac{1}{2}\left(\dot{x}^2+\dot{y}^2+\dot{z}^2\right) -
-\Phi(x,y,z).\]</span> However, Lagrange’s equations give a system of
-three second order coupled ordinary differential equations. If we switch
-to Hamiltonain dynamics, we can object a set of six <em>first</em> order
-ordinary differential equations, which is easier to implement
-computationally. Also, since we are using the specific energy, the
-momentum coordinates for Hamilton’s equations are the same as the
-velocities from the Lagrangian: <span class="math inline">\(p_i =
-\frac{\partial \mathcal{L}}{\partial \dot{q}_i}\)</span>. Therefore,
-<span class="math inline">\(p_i = \dot{q}_i\)</span>, where <span
-class="math inline">\(i \in \left(x,y,z\right)\)</span>. The Hamilton is
-derived through the Legendre transform: <span
-class="math inline">\(\mathcal{H}=\sum_i p_i\dot{q}_i -
-\mathcal{L}\)</span>. Then, we can apply Hamilton’s equations to obtain
-the set of equations: <span class="math display">\[\begin{aligned}
-            \dot{p}_i &amp;= -\frac{\partial \mathcal{H}}{\partial q_i}
-\\
-            \dot{q}_i &amp;= \frac{\partial \mathcal{H}}{\partial p_i}
-        
-\end{aligned}\]</span></p>
-<p>And when written explicity become: <span
-class="math display">\[\begin{aligned}
-            \dot{p}_x &amp;= -\frac{\partial \Phi}{\partial x} \\
-            \dot{p}_y &amp;= -\frac{\partial \Phi}{\partial y} \\
-            \dot{p}_z &amp;= -\frac{\partial \Phi}{\partial z} \\
-            \dot{x} &amp;= p_x \\
-            \dot{y} &amp;= p_y \\
-            \dot{z} &amp;= p_z \\
-        
-\end{aligned}\]</span></p>
-<h3 class="unnumbered" id="the-globular-cluster">The Globular
-Cluster</h3>
-<p>In the case of the Globular Clusters, they only feel the Galaxy. So
-their Hamiltonian becomes:</p>
-<h3 class="unnumbered" id="the-star-particles">The Star Particles</h3>
+<p>Orbits in this system begin with the variational principle of
+Lagrangian mechanics. The full interacting system includes the kinetic
+energy of the globular cluster and the star particle, as well as three
+gravitational potential energy terms: the cluster-galaxy interaction,
+the particle-galaxy interaction, and the particle-cluster
+interaction.</p>
+<p><span class="math display">\[\mathcal{L} = \frac{1}{2} M_{\rm gc}
+\dot{\mathbf{R}}_{\rm gc}^2
+                        + \frac{1}{2} m \dot{\mathbf{r}}^2
+                        - M_{\rm gc} \Phi_{\rm gal}(\mathbf{R}_{\rm gc})
+                        - m \Phi_{\rm gal}(\mathbf{r})
+                        - m \Phi_{\rm gc}(\mathbf{r} - \mathbf{R}_{\rm
+gc})\]</span></p>
+<p>For simplicity, let us treat the globular cluster as a point mass. In
+this case, the gravitational potential energy between the cluster and
+the star is:</p>
+<p><span class="math display">\[U_{\rm star-gc} = - \frac{G M_{\rm gc}
+m}{|\mathbf{r} - \mathbf{R}_{\rm gc}|}\]</span></p>
+<p>In this thesis, I decouple the equations of motion of the globular
+cluster and the star. The justification for this approximation is
+evident when we normalize the Lagrangian by the cluster mass, <span
+class="math inline">\(M_{\rm gc}\)</span>. This yields:</p>
+<p><span class="math display">\[\frac{\mathcal{L}}{M_{\rm gc}} =
+\frac{1}{2} \dot{\mathbf{R}}_{\rm gc}^2
+                                        - \Phi_{\rm gal}(\mathbf{R}_{\rm
+gc})
+                                        + \underbrace{\frac{m}{M_{\rm
+gc}} \left[ \frac{1}{2} \dot{\mathbf{r}}^2
+                                        - \Phi_{\rm gal}(\mathbf{r})
+                                        - \Phi_{\rm gc}(\mathbf{r} -
+\mathbf{R}_{\rm gc}) \right]}_{\text{negligible correction to GC&#39;s
+motion}}\]</span></p>
+<p>In the limit where <span class="math inline">\(m \ll M_{\rm
+gc}\)</span>, the terms in brackets become negligible, and the star’s
+motion has no back-reaction on the cluster. The Lagrangian for the
+cluster’s orbit thus becomes:</p>
+<p><span class="math display">\[\frac{\mathcal{L}_{\rm gc}}{M_{\rm gc}}
+= \frac{1}{2} \dot{\mathbf{R}}_{\rm gc}^2
+                                - \Phi_{\rm gal}(\mathbf{R}_{\rm
+gc})\]</span></p>
+<p>Switching to the star’s perspective, we normalize the Lagrangian by
+the particle mass <span class="math inline">\(m\)</span>, obtaining:</p>
+<p><span class="math display">\[\frac{\mathcal{L}_{\rm star}}{m} =
+\frac{1}{2} \dot{\mathbf{r}}^2
+                                - \Phi_{\rm gal}(\mathbf{r})
+                                - \Phi_{\rm gc}(\mathbf{r} -
+\mathbf{R}_{\rm gc}(t))\]</span></p>
+<p>Here, the cluster’s influence on the particle is retained through its
+time-dependent position <span class="math inline">\(\mathbf{R}_{\rm
+gc}(t)\)</span>. This influence becomes important when the gravitational
+forces from the cluster and the galaxy on the particle are comparable.
+For a quick estimate, we treat both the galaxy and the cluster as point
+masses. The two forces become comparable when the particle is
+sufficiently close to the cluster, which occurs when:</p>
+<p><span class="math display">\[|\delta \mathbf{r}| \approx &lt;
+\sqrt{\frac{M_{\mathrm{gc}}}{M_{\mathrm{ gal}}}}
+|\mathbf{r}|.\]</span></p>
+<p>That is, the cluster’s gravitational field dominates over the
+galaxy’s on sufficiently small scales around the cluster — as expected.
+For a quick sanity check: a typical globular cluster may have a mass of
+<span class="math inline">\(10^5\, M_\odot\)</span>, while the galaxy
+may be around <span class="math inline">\(10^{11}\, M_\odot\)</span>. If
+the cluster is a few kiloparsecs from the galactic center, then the
+cluster’s influence dominates within a region of order a few parsecs —
+which checks out. A better limit is the tidal radius and is presented in
+the next section.</p>
+<p>While Lagrangian mechanics is rooted in first principles, working in
+the Hamiltonian formalism often provides deeper insight into the physics
+of the system. Additionally, Hamiltonian mechanics reduces the equations
+of motion to a set of <span class="math inline">\(2N\)</span>
+first-order differential equations, rather than <span
+class="math inline">\(N\)</span> second-order ones, which is more
+convenient for computational integration.</p>
+<p>If we use the <em>specific</em> Lagrangian—normalized by the mass of
+the body of interest—then the conjugate momenta reduce to the
+velocities. The Hamiltonian can then be obtained via a Legendre
+transform: <span class="math display">\[\mathcal{H} = \sum p_i \dot{q}_i
+- \mathcal{L}.\]</span></p>
+<p>Another useful result comes from Noether’s theorem: if a coordinate
+does not explicitly appear in the Lagrangian, its conjugate momentum is
+conserved. In our case, once we define the potential (see next section)
+and adopt cylindrical coordinates, we find that the Lagrangian does not
+depend on the azimuthal angle <span
+class="math inline">\(\theta\)</span> in the <span
+class="math inline">\(x\text{-}y\)</span> plane for the cluster’s
+motion. This implies conservation of the <span
+class="math inline">\(z\)</span>-component of angular momentum: <span
+class="math display">\[p_\theta = L_z = \frac{\partial
+\mathcal{L}}{\partial \dot{\theta}} = R^2 \dot{\theta}.\]</span></p>
+<p>This conservation generally does not hold for star particles within
+the globular cluster, as their dynamics are significantly influenced by
+the cluster’s gravitational potential. However, it is recovered in the
+regime where their motion becomes dominated by the galaxy’s potential
+rather than the cluster’s.</p>
+<p>The core task, then, is to compute the forces acting on either the
+particle or the cluster, which are given by the partial derivatives of
+the Hamiltonian with respect to the generalized coordinates: <span
+class="math display">\[\dot{p}_i = -\frac{\partial \mathcal{H}}{\partial
+q_i}.\]</span></p>
+<p>In practice, all equations of motion are solved in Cartesian
+coordinates. However, it is often instructive to analyze the system in
+cylindrical coordinates, where the symmetry of the galactic potential
+becomes more apparent. This symmetry and its consequences will be
+discussed in the following section.</p>
 <h2 id="potential-density-pairs">Potential density pairs</h2>
-<figure>
+<p>The fundamental equation governing Newtonian gravity is Poisson’s
+equation: <span class="math display">\[\nabla^2 \Phi = 4\pi G
+\rho,\]</span> which generalizes Newton’s law of gravity from point
+masses to continuous mass distributions. One of the powerful properties
+of this equation is its linearity, allowing arbitrary mass distributions
+to be decomposed into individual components whose contributions to the
+gravitational potential can be summed: <span
+class="math display">\[\nabla^2 \left(a_0\Phi_0 + a_1\Phi_1 \right) =
+a_0 \nabla^2 \Phi_0 + a_1 \nabla^2 \Phi_1.\]</span></p>
+<p>It is instructive to compare stellar dynamics—the motion of stars in
+galaxies—with celestial mechanics—the motion of planets and spacecraft
+within the Solar System. In celestial mechanics, the gravitational field
+is known to high precision. Typically, one begins by considering the
+dominant mass (the Sun) and includes additional bodies only as needed.
+For instance, to place the James Webb Space Telescope at the Sun-Earth
+L2 Lagrange point, first-order calculations involve only the Sun and
+Earth. Likewise, when studying the long-term evolution of comet orbits,
+it may suffice to include only the Sun, Jupiter, and possibly Saturn. In
+these cases, the restricted three- or four-body problem provides a good
+approximation.</p>
+<p>In contrast, the Milky Way’s gravitational potential is not precisely
+known and is far more complex. The Galaxy is not merely a collection of
+point masses; instead, it consists of billions of stars, gas, and dark
+matter, which collectively form structured components. Each of these
+components is represented with its own potential-density pair. While
+various methods exist to model the Galactic potential, most approaches
+adopt parameterized functions for each component. Notable examples
+include the widely used models of McMillan (2017) and Bovy (2015).</p>
+<p>The Galaxy is typically modeled as a superposition of several
+distinct components:</p>
+<ul>
+<li><p>the bulge a dense, roughly spherical central concentration of
+stars;</p></li>
+<li><p>the disk, where most of the stars and gas lie, with an
+approximately axisymmetric, flattened distribution;</p></li>
+<li><p>the halo which includes both the stellar halo and the dark matter
+halo.</p></li>
+</ul>
+<p>More elaborate models further subdivide these components and can
+include time-dependent features. For example, the Galactic bar can be
+modeled as a rotating triaxial or prolate ellipsoid with a time-varying
+orientation. Moving substructures such as molecular clouds, dwarf
+galaxies, or dark matter subhalos can also be included. In my
+simulations, the globular cluster is treated as one such additional
+component, introduced on top of the smooth background.</p>
+<p>When simple analytic potentials are insufficient—especially for
+capturing non-axisymmetric or irregular features—basis function
+expansions can be employed. For instance, in spherical coordinates, one
+may use eigenfunctions of the Laplacian (e.g., spherical harmonics) to
+build the potential. Similarly, in cylindrical coordinates, Bessel
+functions naturally arise as solutions to the Laplacian and are well
+suited for modeling disks. (Cite Arpit’s recent paper)</p>
+<p>A common starting point when constructing gravitational potential
+models is to choose either the functional form of the density <span
+class="math inline">\(\rho(\vec{x})\)</span> and solve Poisson’s
+equation to obtain the potential <span
+class="math inline">\(\Phi(\vec{x})\)</span>, or vice versa. In
+practice, it is often simpler to specify a potential and then derive the
+corresponding density by differentiation, since solving Poisson’s
+equation analytically is usually more tractable than performing the
+required integrals in the reverse direction.</p>
+<p>In this thesis, I adopt the Galactic potential model of Pouliasis et
+al. (2017), which builds upon the earlier model by Allen &amp; Santillan
+(1991) and incorporates improved fits to more recent observational
+constraints. The Galactic disk is modeled using the Miyamoto-Nagai
+potential: <span class="math display">\[\Phi(R, z \mid M, a, b) =
+-\frac{G M}{\sqrt{R^2 + \left(a + \sqrt{z^2 + b^2}\right)^2}},\]</span>
+where <span class="math inline">\(M\)</span> is the total mass of the
+disk, <span class="math inline">\(a\)</span> is the radial scale length,
+and <span class="math inline">\(b\)</span> is the vertical scale height.
+This form smoothly interpolates between a flattened disk and a spherical
+distribution depending on the values of <span
+class="math inline">\(a\)</span> and <span
+class="math inline">\(b\)</span>. In the limit <span
+class="math inline">\(a \to 0\)</span>, the Miyamoto-Nagai potential
+reduces to the Plummer potential: <span class="math display">\[\Phi(r
+\mid M, b) = -\frac{G M}{\sqrt{r^2 + b^2}},\]</span> which I use to
+model globular clusters in this work. The Plummer model provides a
+simple spherically symmetric mass distribution with a finite central
+density and a total mass that asymptotes at large radii. Interestingly,
+the Plummer potential is mathematically equivalent to a softened
+gravitational potential, commonly used in <span
+class="math inline">\(N\)</span>-body simulations to regularize close
+encounters between particles.</p>
+<p>The dark matter halo is modeled separately and selected to reproduce
+the observed flat rotation curve of the Milky Way at large radii. This
+requirement translates into a mass profile that grows linearly with
+radius (<span class="math inline">\(M(r) \propto r\)</span>) in the
+outer regions. A class of density profiles known as double power-law
+models satisfies this condition: <span class="math display">\[\rho(r
+\mid \alpha, \beta, r_s) = \rho_0 \left( \frac{r}{r_s} \right)^{-\alpha}
+\left(1 + \frac{r}{r_s} \right)^{\alpha - \beta},\]</span> where <span
+class="math inline">\(r_s\)</span> is a scale radius, <span
+class="math inline">\(\alpha\)</span> controls the inner slope, and
+<span class="math inline">\(\beta\)</span> the outer slope. Common
+choices include the NFW profile (<span class="math inline">\(\alpha =
+1\)</span>, <span class="math inline">\(\beta = 3\)</span>) and the
+Hernquist profile (<span class="math inline">\(\alpha = 1\)</span>,
+<span class="math inline">\(\beta = 4\)</span>).</p>
+<p>Instead of these standard forms, I adopt the Martos halo profile,
+which is defined by a parameterized enclosed mass function: <span
+class="math display">\[M_{\rm enc}(s) = \frac{s^\gamma}{1 + s^{\gamma -
+1}},\]</span> where <span class="math inline">\(s = r/r_0\)</span> is
+the dimensionless radius. For <span class="math inline">\(s &gt;&gt;
+1\)</span>, this expression yields <span class="math inline">\(M(r)
+\propto r\)</span>, ensuring a flat rotation curve, while for <span
+class="math inline">\(s &lt;&lt; 1\)</span>, the mass grows as a power
+law <span class="math inline">\(\propto r^{\gamma - 1}\)</span>,
+allowing flexibility in the central density slope. Additionally, the
+mass goes to infinity, which is non physical, therefore a cut off radius
+is imposed. For spherical symmetry, given that <span
+class="math inline">\(\nabla \Phi =
+\frac{GM_{\mathrm{enc}}}{r^2}\)</span>, and that the potential goes to
+zero at infinity, we can find the potential as:</p>
+<p><span class="math display">\[\Phi(r|M_0,\gamma,r_0,r_c) =
+            \begin{cases}
+                \frac{GM_0}{r_0\left(\gamma-1\right)}\ln\left|\frac{1+(r/r_0)^{\gamma-1}}{1+(r_c/r_0)^{\gamma-1}}\right|
+, &amp; r&lt;r_c\\
+                -GM_t/r &amp; r&gt;r_c.
+            \end{cases}\]</span> Two Miyamoto-Nagai disks plus the
+Martos halo compose the second potential model presented in
+Pouliasis2017pii and is presented in Fig. <a
+href="#fig:figure_pouliasis2017pii_potential" data-reference-type="ref"
+data-reference="fig:figure_pouliasis2017pii_potential">2</a>.</p>
+<figure id="fig:figure_pouliasis2017pii_potential">
 <img src="images/figure_pouliasis2017pii_potential_-8_8.png" />
 <figcaption>The main potential used throughought the thesis</figcaption>
 </figure>
@@ -410,7 +634,7 @@ explore one instructive effect: how solar tidal forces <em>perturb</em>
 the Moon’s orbit away from the idealized two-body Earth-Moon
 configuration. Figure <a href="#fig:moon_tidal_simulation"
 data-reference-type="ref"
-data-reference="fig:moon_tidal_simulation">1</a> shows a toy model
+data-reference="fig:moon_tidal_simulation">3</a> shows a toy model
 comparing two scenarios. In both, I used initial conditions based on JPL
 NASA ephemerides (citation needed) and integrated two sets of equations
 of motion.</p>
@@ -460,61 +684,132 @@ accurate trajectory. With about three to four years, the two body
 predicted solution would off by half a moon phase. </figcaption>
 </figure>
 <h3 class="unnumbered" id="tides-in-the-galaxy">Tides in the Galaxy</h3>
-<ul>
-<li><p>Show some positions of the tidal tensor and how it can change
-orientation based on it’s altitude</p></li>
-<li><p>The tidal forces add together linearly, so show the Halo and the
-Disc example together.</p></li>
-</ul>
-<p>The Miyamoto Nagai potential is: <span
-class="math display">\[\begin{aligned}
-                \Phi&#39;   &amp;= \frac{1}{D}\\
-                D       &amp;= \sqrt{x^2 + y^2 + \beta^2(z)}\\
-                \beta(z)   &amp;= 1 + \sqrt{z^2 + b^2}\\
-                \beta&#39;(z) &amp;= \frac{z}{\sqrt{z^2 + b^2}}\\
-                \beta&#39;&#39;(z)  &amp;= \frac{b^2}{\left(z^2 +
-b^2\right)^{3/2}}
+<p>How the tidal field varies throughout the Galaxy by evaluating the
+tidal tensor along different orbits and in different mass models. In the
+Milky Way, the disk, bulge, and halo each contribute differently to the
+tidal forces experienced by a globular cluster. The Miyamoto-Nagai disk
+produces strong, rapidly varying tidal fields near the Galactic plane,
+leading to phenomena such as disk shocking when clusters cross the disk.
+The Martos halo, on the other hand, provides a more slowly varying,
+generally weaker tidal field at large Galactocentric radii.</p>
+<p>The strength and orientation of the tidal field at a cluster’s
+location determine both the rate at which stars are stripped and the
+geometry of the resulting stellar streams. For example, clusters on
+eccentric or inclined orbits experience time-dependent tidal forces,
+with strong compressive shocks during disk crossings and enhanced
+stretching near pericenter. The eigenvalues and eigenvectors of the
+tidal tensor at each point along the orbit reveal the principal axes of
+stretching and compression, which in turn set the directions along which
+stars are most likely to escape.</p>
+<p>By computing the tidal tensor for the Miyamoto-Nagai disk and Martos
+halo potentials, as shown below, we can visualize and quantify these
+effects. The following figures illustrate how the tidal field evolves
+for representative orbits, highlighting the interplay between the
+cluster’s trajectory and the Galactic mass distribution. This analysis
+underpins our understanding of stream formation and the morphological
+diversity of observed tidal tails.</p>
+<p>We can construct the tidal tensor for the Miyamoto-Nagai potential.
+First, it is convenient to non-dimensionalize the potential. Below, we
+normalize the potential by the total mass and gravitational constant,
+<span class="math inline">\(\Phi\prime = \Phi / (GM)\)</span>, and each
+distance by the characteristic length of the disk, <span
+class="math inline">\(x&#39; = x/a\)</span>, <span
+class="math inline">\(b&#39; = b/a\)</span>. For clarity, we omit the
+prime notation in what follows. The dimensionless potential then
+becomes: <span class="math display">\[\begin{aligned}
+                \Phi   &amp;= \frac{1}{D},\\
+                D       &amp;= \sqrt{x^2 + y^2 + \beta^2(z)},\\
+                \beta(z)   &amp;= 1 + \sqrt{z^2 + b^2}.
             
-\end{aligned}\]</span></p>
-<p>The dimensionless tidal tensor then becomes:</p>
-<figure id="fig:miyamoto_disc_shocks_circular_inclined_orbit">
-<img
-src="images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.01_50.0.png" />
-<figcaption>No disk shocks on a planar orbit.</figcaption>
-</figure>
-<figure id="fig:miyamoto_disc_shocks_circular_inclined_orbit">
-<img
-src="images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.50_0.0.png" />
-<figcaption>Disk shocks on a circular inclined orbit.</figcaption>
-</figure>
-<figure id="fig:miyamoto_disc_shocks_responant_R_z">
-<img
-src="images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.50_30.0.png" />
-<figcaption>Disk shocks on an orbit with resonant R and z.</figcaption>
-</figure>
-<figure id="fig:miyamoto_disc_shocks_big_apocenter">
-<img
-src="images/miyamoto_disc_shocks_ab_rp_e_i_0.20_31.6_0.60_50.0.png" />
-<figcaption>Big apocenter</figcaption>
-</figure>
-<figure id="fig:miyamoto_disc_shocks_weak_shocks">
-<img
-src="images/miyamoto_disc_shocks_ab_rp_e_i_0.88_4.0_0.50_45.0.png" />
-<figcaption>Not very disky with this axis ratio</figcaption>
-</figure>
-<p><span
-class="math display">\[\mathcal{T}_{i,j}=-\frac{1}{D^3}\left(\begin{matrix}
+\end{aligned}\]</span> The dimensionless tidal tensor is then: <span
+class="math display">\[\mathcal{T}=-\frac{1}{D^3}\left(\begin{matrix}
                     1-\frac{3x^2}{D^2} &amp; -\frac{3xy}{D^2} &amp;
 -\frac{3x\beta \beta&#39;}{D^2} \\
                     \dots &amp; 1-\frac{3y^2}{D^2} &amp; -\frac{3y\beta
 \beta&#39;}{D^2} \\
                     \dots &amp; \dots &amp; \beta&#39;^2 + \beta
 \beta&#39;&#39; -\frac{3\left(\beta\beta&#39;\right)^2}{D^2}
-                \end{matrix}\right)\]</span> You can see immediately
-that multiplying the matrix by <span
-class="math inline">\(\vec{v}=\lambda\left[x,y,z\right]\)</span> does
-not return a vector that is parallel to the position vector, as it does
-for the spherical mass distribution.</p>
+                \end{matrix}\right).\]</span> We immediately notice
+that, due to the cylindrical symmetry, the eigenvectors are not as
+simple as in the spherical case. As long as <span
+class="math inline">\(\beta&#39;^2 + \beta \beta&#39;&#39;
+-\frac{3\left(\beta\beta&#39;\right)^2}{D^2} \neq
+1-\frac{3z^2}{D^2}\)</span>, the three eigenvectors are no longer simply
+(1) parallel to the position vector and (2) the other two spanning the
+plane perpendicular to it. Instead, the exact orientation of all three
+eigenvectors depends on the cluster’s position in the galaxy. Note that
+if <span class="math inline">\(z=0\)</span>, we recover the stretching
+eigenvector being parallel to the position vector, although the
+orientations of the eigen vector are fixed as the compression axes are
+not the same in magnitude. If, we <span
+class="math inline">\(b=0\)</span>, then we recover spherical symmetry
+and the compression eigenvalues are the same in magnitude.</p>
+  <div class="video-container">
+    <video controls style="max-width: 100%;">
+      <source src="videos/tidal_deformation_ellipsoid.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+<p>Below I have prepared some selected orbits to demonstrate the variety
+of shocks and tidal forces than can influence a globular cluster
+system.</p>
+<figure id="fig:miyamoto_disc_shocks_circular_inclined_orbit">
+<img
+src="images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.01_50.0.png" />
+<figcaption>Tidal forces on an inclined yet non-eccentric orbit. Disk
+shocks are present, yet there is no tidal stretching from pericenter
+passages. <strong>Left</strong>: The three eigenvalues of the tidal
+tensor matrix are plotted against time. Both the forces and time are
+normalized to the characteristic values of the Miyamoto-Nagai model,
+where <span class="math inline">\(a\)</span> is the radial scale length
+and <span class="math inline">\(M\)</span> is the total mass of the
+system. The red and green curves correspond to the two compressive axes,
+while the blue curve shows the magnitude of the stretching axis. The
+parameters listed at the top describe the orbit: the ratio of
+cylindrical to vertical scale lengths, the apocenter distance, the
+eccentricity, and the initial orbital inclination.
+<strong>Right</strong>: The orbit is shown in the meridional plane. The
+purple stars indicate disk crossing events and correspond to the peaks
+in the magnitude of the eigenvalues. </figcaption>
+</figure>
+<figure id="fig:miyamoto_disc_shocks_circular_inclined_orbit">
+<img
+src="images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.50_0.0.png" />
+<figcaption>Evolution of the tidal eigenvectors for an eccentric,
+non-inclined orbit, resulting in a compressed meridional plane. Orange
+dots mark the pericenter passages. Since the cluster remains confined to
+the plane, no disk shocks occur.</figcaption>
+</figure>
+<figure id="fig:miyamoto_disc_shocks_responant_R_z">
+<img
+src="images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.50_30.0.png" />
+<figcaption>An inclined, eccentric orbit in which the frequencies in
+both the <span class="math inline">\(R, p_R\)</span> and <span
+class="math inline">\(z, p_z\)</span> planes are nearly resonant. The
+cluster crosses the disk just before and just after each pericenter
+passage. This is the same orbit as the video presented in this section
+that is available in the online version.</figcaption>
+</figure>
+<figure id="fig:miyamoto_disc_shocks_big_apocenter">
+<img
+src="images/miyamoto_disc_shocks_ab_rp_e_i_0.20_31.6_0.60_50.0.png" />
+<figcaption>An eccentric, inclined orbit with a large apocenter. As the
+cluster evolves through phase space, disk crossings that occur farther
+out happen at steeper angles and in lower-density regions, reducing the
+strength of the resulting disk shocks. In contrast, crossings near
+pericenter remain strong. Because this orbit has higher energy than the
+previous cases, the overall magnitude of the tidal forces is lower.
+</figcaption>
+</figure>
+<figure id="fig:miyamoto_disc_shocks_weak_shocks">
+<img
+src="images/miyamoto_disc_shocks_ab_rp_e_i_0.88_4.0_0.50_45.0.png" />
+<figcaption>Eccentric and inclined orbit in a weak disk. The ratio of
+the cylindrical scale length to characteristic height (a/b) is close to
+1. The disk crossings still produce significant tidal compression, but
+the resulting shocks are broader.</figcaption>
+</figure>
+<h3 class="unnumbered" id="interesting-case">Interesting case</h3>
 <p>The Marto’s halo has this mass distribution:</p>
 <p><span class="math display">\[M&#39;_\text{enc}(s) =
 \frac{s^\gamma}{1+s^{\gamma-1}}\]</span> The dimensionless tidal tensor
@@ -529,12 +824,11 @@ is thus: <span class="math display">\[\mathcal{T&#39;}_{i,j}=
                 \end{matrix}\right)\]</span> where <span
 class="math display">\[\label{eq:martos_f_s}
                 f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}\]</span></p>
-<h3 class="unnumbered" id="interesting-case">Interesting case</h3>
 <p>There is an interesting area in the parameter space where the tidal
 forces would impede creating stellar streams instead of making them, as
 shown in Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">7</a>.</p>
+data-reference="fig:martos_tidal_field_small_r">9</a>.</p>
 <p>Taking the Martos tidal tensor in Eq. <a href="#eq:martos_f_s"
 data-reference-type="ref"
 data-reference="eq:martos_f_s">[eq:martos_f_s]</a>, we can see that for
@@ -550,7 +844,7 @@ tensor are negative, which means that the force is compressive
 everywhere. Consequently, no stars escape from the cluster.</p>
 <p>In Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">7</a>, I present a small
+data-reference="fig:martos_tidal_field_small_r">9</a>, I present a small
 experiment demonstrating the consequence of such a tidal force on a
 globular cluster, which is that no tidal stream forms. Briefly, I
 created a plummer sphere of <span
@@ -602,7 +896,7 @@ ellipse.</figcaption>
 <img src="images/martos_tidal_field_450_10_400.png" alt="image" /></p>
 <figcaption>The same experiment as Fig. <a
 href="#fig:martos_tidal_field_small_r" data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">7</a>, but the cluster
+data-reference="fig:martos_tidal_field_small_r">9</a>, but the cluster
 was placed at a larger distance of 4 <span
 class="math inline">\(r_\textrm{halo}\)</span>, since we are beyond the
 characteristic radius, the tidal fields are the same, despite the
@@ -611,38 +905,232 @@ class="math inline">\(\gamma\)</span>.</figcaption>
 </figure>
 <p>In the case of Fig. <a href="#fig:martos_tidal_field_big_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_big_r">8</a>, the tidal field
+data-reference="fig:martos_tidal_field_big_r">10</a>, the tidal field
 returns to the typical situation where one axis is compressive and the
 other stretches. Notice how the deformations are similar in magnitude,
 while in the case of <span class="math inline">\(\gamma=2.02\)</span>
 for the top panel of Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">7</a>, the compression
+data-reference="fig:martos_tidal_field_small_r">9</a>, the compression
 is stronger than the expansion. Both of these are different than the
 keplerian tidal deformation where the stronger deformation is stretching
 and whose axis is parallel to the position vector.</p>
 <h2 id="phase-mixing">Phase mixing</h2>
+<p><em>Phase mixing</em> is a direct consequence of Liouville’s theorem,
+which itself follows from the collisionless Boltzmann equation.
+Liouville’s theorem states that the infinitesimal volume element in
+phase space is preserved under Hamiltonian evolution. In other words, as
+a system evolves in time, the phase-space density <span
+class="math inline">\(f(\mathbf{q}, \mathbf{p}, t)\)</span> is conserved
+along particle trajectories. Since the number of particles is conserved,
+and the phase-space volume they occupy does not change, any spatial
+spreading must be accompanied by a drop in phase-space density.</p>
+<p>This effect causes ensembles of nearby orbits to stretch and fold
+through phase space, spreading out and becoming more finely interleaved
+over time, even though the total volume is constant. In physical space,
+this corresponds to a decrease in local density as the particles become
+more dispersed—this is the essence of phase mixing.</p>
+<p>We can estimate the characteristic time scale for phase mixing by
+considering how long it takes for orbits with slightly different
+energies to drift apart in phase. For a Keplerian orbit, the orbital
+period is given by:</p>
+<p><span class="math display">\[T^2 = \frac{4\pi^2
+a^3}{GM},\]</span></p>
+<p>which implies that the period depends on the semi-major axis and thus
+on the orbital energy. In general, most orbits are not closed, so rather
+than returning to the exact same phase-space point, particles precess
+and fill out invariant tori over time. It is therefore useful to define
+a characteristic orbital timescale in terms of energy. From dimensional
+analysis, we argue that the characteristic time for a body to complete a
+phase space cycle is:</p>
+<p><span class="math display">\[T_\mathrm{char} = C
+\frac{GM}{E^{3/2}},\]</span></p>
+<p>where <span class="math inline">\(C\)</span> is a constant and <span
+class="math inline">\(E\)</span> is the specific orbital energy.</p>
+<p>Consider now two nearby particles with energies <span
+class="math inline">\(E - \Delta E\)</span> and <span
+class="math inline">\(E + \Delta E\)</span>. Their orbital frequencies
+differ by:</p>
+<p><span class="math display">\[\Delta f = \frac{1}{T( E - \Delta E)} -
+\frac{1}{T(E + \Delta E)}.\]</span></p>
+<p>The time required for the faster particle to lap the slower one in
+phase is the <em>phase mixing time</em>, which is the inverse of the
+difference <span class="math inline">\(2\pi / \Delta f\)</span> and is
+given by:</p>
+<p><span class="math display">\[T_\mathrm{mix} = \frac{2\pi}{\Delta f} =
+\frac{2\pi T_1 T_2}{T_2 - T_1}.\]</span></p>
+<p>For small energy differences <span class="math inline">\(\Delta E
+&lt;&lt; E\)</span>, we can expand the period in a Taylor series to
+first order. This leads to:</p>
+<p><span class="math display">\[\label{EQ:phase_mixing}
+            T_\mathrm{mix} \approx T_\mathrm{char} \cdot 2\pi \left(
+\frac{E}{3 \Delta E} \right),\]</span> Thus, the phase mixing time grows
+inversely with the relative energy spread in the population.</p>
+<h3 id="orbital-drift">Orbital drift</h3>
+<p>The first manifestation of phase mixing is the growth of uncertainty
+in orbital solutions for globular clusters over time. This originates
+from the initial spread in orbital energies caused by observational
+uncertainties. In Fig.<a
+href="#fig:phase_mixing_palomar_5_orbital_solutions"
+data-reference-type="ref"
+data-reference="fig:phase_mixing_palomar_5_orbital_solutions">11</a>, I
+present an example based on Palomar 5, for which I compute 50 orbital
+solutions in our potential model. These initial conditions are sampled
+according to the uncertainties reported in the Baumgardt catalog. The
+figure shows that while the orbital solutions remain broadly similar,
+the lower-energy orbits progress through phase space more rapidly. In
+the bottom panel, the rightmost side includes overplotted dots
+indicating the final <span class="math inline">\((t, z)\)</span>
+coordinates of each solution, illustrating that they span nearly the
+full range of <span class="math inline">\(z\)</span> values allowed by
+the initial conditions. In essence, once the integration time exceeds
+the phase-mixing timescale, any individual solution becomes speculative:
+the system could plausibly occupy any location in phase space permitted
+by the initial conditions.</p>
+<figure id="fig:phase_mixing_palomar_5_orbital_solutions">
+<img src="images/phase_mixing_palomar_5_orbital_solutions.png" />
+<figcaption>Phase mixing of Palomar 5’s orbital solutions in the
+<code>Pouliasis2017pii</code> potential. We sample 50 different initial
+conditions based on the observational uncertainties in distance, radial
+velocity, and proper motions. Each orbital solution is color-coded by
+its initial total orbital energy <span class="math inline">\(E\)</span>.
+The top six panels show snapshots of the positions in the <span
+class="math inline">\(xy\)</span>-plane of the orbital solutions at
+different times. The bottom panel shows the evolution of the <span
+class="math inline">\(z\)</span> coordinate as a function of time. Black
+vertical bars mark the timestamps corresponding to the snapshots in the
+top panels, which are labeled with matching alphabetical
+identifiers.</figcaption>
+</figure>
+<p>By inspecting Eq.<a href="#EQ:phase_mixing" data-reference-type="ref"
+data-reference="EQ:phase_mixing">[EQ:phase_mixing]</a>, we note that if
+the phase-mixing time is normalized by the characteristic orbital time,
+the resulting dimensionless mixing time is inversely proportional to the
+uncertainty in orbital energy. This relationship is general and holds
+for all orbits, regardless of their periods. However, it is still
+illustrative to examine this behavior in the context of the globular
+cluster catalog. In Fig.<a
+href="#fig:phase_mixing_orbital_errors_sample" data-reference-type="ref"
+data-reference="fig:phase_mixing_orbital_errors_sample">12</a>, I
+present the phase-mixing times for all Galactic globular clusters, based
+on current uncertainties from the Gaia DR3 catalog. The top panel shows
+the distribution for all 165 clusters. The bottom panels highlight the
+mixing behavior in cylindrical radius for a selection of statistically
+representative clusters: Gran 1, which has the shortest mixing time;
+Gran 5, the median case; NGC 6752, whose mixing time is closest to the
+mean; and NGC 2419, which has the longest mixing time.</p>
+<p>It is important to emphasize that these estimates are highly
+model-dependent. In some cases, the models predict phase-mixing
+timescales exceeding the age of the Universe. Unsurprisingly, the
+phase-mixing time correlates with the orbital period, which itself is
+related to the cluster’s distance from the Galactic center. At large
+Galactocentric distances, the gravitational potential of the Milky Way
+becomes increasingly uncertain, as observational constraints on the
+Galactic mass distribution are weaker. Therefore, these extreme mixing
+times should not be interpreted as implying that we can predict the
+phase-space location of certain clusters with high confidence over
+cosmological timescales.</p>
+<figure id="fig:phase_mixing_orbital_errors_sample">
+<p><img src="images/phase_mixing_time_histogram_MWGCS.png"
+alt="image" /> <img src="images/phase_mixing_orbital_errors_sample.png"
+alt="image" /></p>
+<figcaption>The top panel shows the distribution of phase-mixing times
+for globular clusters, computed using Eq. <a href="#EQ:phase_mixing"
+data-reference-type="ref"
+data-reference="EQ:phase_mixing">[EQ:phase_mixing]</a>. The following
+four rows illustrate the phase-mixing behavior for four selected
+clusters over the time range considered in this experiment. Orbital
+solutions are color-coded by their normalized deviation from the mean
+orbital energy.</figcaption>
+</figure>
+<p>It’s also interesting to note how the uncertainties in the orbital
+energy relates to the uncertainties in each observable. In Fig. <a
+href="#fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu"
+data-reference-type="ref"
+data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">13</a>,
+I perform this quick calulation. The uncertainties are measured in
+Galactic coordinates the ICRS coordinate system. This is a direct
+transformation to Galactic coordinates and thus can be expressed
+analytically.</p>
+<figure id="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">
+<img src="images/energy_sensitivity_analysis_MWGCS_to_errors.png" />
+<figcaption>An analysis on the spread in orbital energies of the
+globular cluster population for each of its reported uncertainties. Each
+panel finds the STD in the Hamiltonain given the uncertainties in the
+specific variable. So the top left allows the distances to vary but
+holds the proper motions and radial velocities constant. It is plotted
+against the distance. The clusters are color-coated by their mean
+energies.</figcaption>
+</figure>
+<h3 id="mixing-of-tidal-debris">Mixing of tidal debris</h3>
+<p>At first glance, Fig. <a
+href="#fig:phase_mixing_palomar_5_orbital_solutions"
+data-reference-type="ref"
+data-reference="fig:phase_mixing_palomar_5_orbital_solutions">11</a>
+might give the impression that we are looking at snapshots of a single
+stellar stream at different times. In reality, the figure shows
+different orbital solutions. This visual similarity underscores that
+both phenomena—stellar streams and diverging orbital solutions—are
+manifestations of phase mixing. However, there is a crucial distinction:
+phase mixing of tidal debris is a physical process involving actual
+particles with slightly different initial conditions, whereas diverging
+orbital solutions represent the increasing uncertainty in predicted
+trajectories over time.</p>
+<p>Still, it is useful to use phase mixing as an analogy, though the
+physical assumptions differ. In particular, the analogy breaks down
+because globular clusters are self-gravitating systems: stars interact
+gravitationally and remain bound for a significant time. This
+self-gravity slows down the mixing process. The time it takes for a
+globular cluster to dissolve and distribute its stars uniformly in phase
+space is typically longer than the idealized mixing time given by Eq. <a
+href="#EQ:phase_mixing" data-reference-type="ref"
+data-reference="EQ:phase_mixing">[EQ:phase_mixing]</a>.</p>
+<p>Let us briefly illustrate this with a conceptual calculation:</p>
 <ul>
-<li><p>The Luiville theorem</p></li>
-<li><p>How it is slower with tidal tails</p></li>
-<li><p>also the monte-carlo approach with phase mixing is what causes
-vast differences in orbital solutions after a certain period of
-time</p></li>
+<li><p><strong>Case 1</strong>: Particles drift apart under phase mixing
+with no mutual gravitational influence.</p></li>
+<li><p><strong>Case 2</strong>: Particles are bound by a central
+potential, representing the cluster’s self-gravity.</p></li>
 </ul>
-<h2 id="shocks">Shocks</h2>
-<p>I started this section with the circular and planar restricted three
-body problem. It really simplifies the problem instead of looking for a
-general solution. All three bodies are point masses, in fact the
-tertiary body has no mass. The secondary is on a circular orbit about
-the primary, and the tertiary is in the same orbital plane as the
-secondary. This simplified problem is already quite complex but solvable
-and rich with physics. However, by restricting the orbits of the
-tertiary and secondary, we lose a lot of physics that affects our
-system. Additionally, for the globular clustres, most of them are not on
-circular orbits. Additionally, the galaxy is not a point mass, but
-rather a mass distribution with cylindrical symmetry.</p>
+<p>From this thought experiment, we see that phase mixing proceeds more
+slowly when self-gravity is included. Nevertheless, phase mixing still
+governs the long-term behavior of tidally escaped stars.</p>
+<p>Importantly, we need not consider all particles within the cluster to
+study phase mixing. For clusters with short orbital mixing times
+compared to the simulation duration, stars that escape during the
+simulation can redistribute throughout the available phase space. While
+the resulting debris will not be uniformly distributed—an overdensity
+will remain at the cluster location—the tidal debris will broadly fill
+the phase space accessible to it. This point is crucial for the results
+discussed in Chapter 4.</p>
+<h2 id="collisions">Collisions</h2>
+<ul>
+<li><p>show the impulse approximation.</p></li>
+<li><p>state that this is important for when we consdier the impacts of
+globular clusters</p></li>
+<li><p>give a quick over view of two body relaxation, to show why the
+galaxy can be totally approximated in the fluid limit.</p></li>
+</ul>
 <h1 id="the-ignored-physics">The Ignored Physics</h1>
+<ul>
+<li><p>what is the hardness of a binary? the binding energy? how is
+hardness measured? the binary binding energy / the orbital energy of the
+system?</p></li>
+<li><p>some people say hard hard binaries comes from 3 body or 4 body
+encounters.</p></li>
+</ul>
 <h2 id="collisional-dynamics">Collisional dynamics</h2>
+<p>Globular clusters are undoubteled collisional systems. The same
+computating using the columb law, to compute how long it takes for a
+given particles to change it’s momentum on same order of magnitude as
+it’s initial momentum is much less than the age of a given globular
+cluster. This computation is what justified us for using the fluid limit
+for galactic dynamics, and it is the same computation that instructs us
+that we are incorrect for globular clusters. <span class="citation"
+data-cites="2023LRCA....9....3S">Spurzem and Kamlah (2023)</span>
+published a review discussing <em>Computational methods for collisional
+stellar systems</em>, and entitled one of their sections <em>Nbody the
+growth of an industry</em>.</p>
 <ul>
 <li><p>not nbody</p></li>
 <li><p>no mass segregation</p></li>
@@ -668,5 +1156,15 @@ href="#subsec:myEquationsOfMotion" data-reference-type="ref"
 data-reference="subsec:myEquationsOfMotion">1.1</a>. Also, things like
 mass segregation and stellar evolution are time-dependent which is
 completely ignored in my simulations.</p>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-2023LRCA....9....3S" class="csl-entry" role="listitem">
+Spurzem, Rainer, and Albrecht Kamlah. 2023. <span>“<span
+class="nocase">Computational methods for collisional stellar
+systems</span>.”</span> <em>Living Reviews in Computational
+Astrophysics</em> 9 (1): 3. <a
+href="https://doi.org/10.1007/s41115-023-00018-w">https://doi.org/10.1007/s41115-023-00018-w</a>.
+</div>
+</div>
 </body>
 </html>

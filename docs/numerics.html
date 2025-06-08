@@ -165,7 +165,27 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
 </head>
 <body>
 <header id="title-block-header">
@@ -178,6 +198,61 @@ scaling</h1>
 <li><p>the bucking ham pi theorem</p></li>
 </ul>
 <h1 id="tstrippy">Tstrippy</h1>
+<p><span class="citation" data-cites="2018ComAC...5....2V">Varri et al.
+(2018)</span> talks about a series of papers between a larger
+collaboration of people who specialize in collisional dynamics and who
+have performed a series of workshops together. The introduction stated
+that the collaboration wants to tackle many open questions regarding
+stellar clusters and build the necessary codes to interprete the future
+large quantity of data that was destined to come. It has now come since
+the review was 2018. An interesting point was that in general globular
+clusters are approximated as being orderless, i.e. isotropic but order
+does present itself within these stelalr systems. Another large problem
+is no one knows what a good set of initial conditiosn is. Unresolved
+binaries pose a problem because you can overestiamte the total mass of
+the system. If I talk about this review, I should probably discuss some
+of the results from the papers that is builds on or at least their
+techinques.</p>
+<p>The MODEST review led me to discover AMUSE, which is an framework for
+integrating various astrophysical codes for solving 4 types of problems:
+gravitational dynamics, radiative transfer, hydrodynamics, and stellar
+evolution. The codes are written by the community and are interfaced
+together with Amuse. The user end is python. I have spent some time
+reading the book, which is instructive and well written. Steve McMillian
+is one of the authors. The code has a large support on GitHub and is
+still being developped. I have had trouble trying to install the code.
+It seems as though their documentation is incoherrent. At one place, it
+said ‘pip’ is the easiest way to install. It didn’t work. In another
+place, I was instructed to install a zipped up tarball. The setup failed
+becuase it expected there to be a .git file in the directory. I
+successfully downloaded the code by cloneing the repository, despite the
+fact that this was not recommended. I can use some aspects of the code
+but not all of them. For instance, my memory tells me that about 80% of
+the test suite passed, thus many scripts failed. This was when I only
+installed the frame-work, which was advised since installing the whole
+package is huge and unnecessary since I am not solving all astrophysical
+problems. However, I wasn’t able to use one of the gravity solvers that
+was presented in the textbook ‘AstrophysicalRecipes The art of AMUSE’.
+The install still has some codes that failed for instance: amuse-adaptb,
+amuse-hermite-grx, amuse-mi6. However, I’m hoping that this isn’t
+necessary. I want to educate myself and make some examples.</p>
+<p>Installing other codes and figuring out their functionalities to me
+has never been trivial. This is similar to galpy when I tried to figure
+out particle spray method and got less than good results. Agama also
+confused me a bit. The main point is that for each package, at the end
+of the day I decided that it was easier and better if I solved the
+problem myself with my own code. Because, even with the other packages,
+I know that they can be used to solve other astrophysical problems and
+it wasn’t clear to me how to make the codes solve my specific set of of
+the restricted three body problems in a potential with other perturbers
+flying around.</p>
+<p>In this search, I also discovered another review called
+<em>Computational methods for collisional stellar systems</em> by
+Spurzem and Kamlah 2023. It is also interesting and instructive. I found
+it insightful when they called NBody an industry. I think the story of
+GRAPE and Makino is really interesting, how he build dedicated hardware
+for the nbody problem which were great for 10 years but were quickly
+replaced by GPU technology.</p>
 <ul>
 <li><p>f2py, and why did we choose to use Fortran?</p></li>
 <li><p>Bovy’s guide for making a public python package</p></li>
@@ -186,6 +261,12 @@ scaling</h1>
 <li><p>how I can either save orbits or snapshots</p></li>
 </ul>
 <h1 id="numerical-errors-and-schema">Numerical Errors and Schema</h1>
+  <div class="video-container">
+    <video controls style="max-width: 100%;">
+      <source src="videos/cluster_showing_scale_and_dynamical_time.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
 <p>Display here some results where I tried to use the higher order leap
 frog... i.e. the Ruth method.</p>
 <p>Make a qualitative argument against the</p>
@@ -211,5 +292,16 @@ Volume</h1>
 <li><p>then I have an analysis package that makes plots based on the
 final data products</p></li>
 </ul>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-2018ComAC...5....2V" class="csl-entry" role="listitem">
+Varri, Anna Lisa, Maxwell Xu Cai, Francisca Concha-Ramı́rez, František
+Dinnbier, Nora Lützgendorf, Václav Pavlı́k, Sara Rastello, Antonio
+Sollima, Long Wang, and Alice Zocchi. 2018. <span>“<span
+class="nocase">A MODEST review</span>.”</span> <em>Computational
+Astrophysics and Cosmology</em> 5 (1): 2. <a
+href="https://doi.org/10.1186/s40668-018-0024-6">https://doi.org/10.1186/s40668-018-0024-6</a>.
+</div>
+</div>
 </body>
 </html>
