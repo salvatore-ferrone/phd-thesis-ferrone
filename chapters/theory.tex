@@ -77,7 +77,7 @@ The remainder of this chapter is structured to clarify the theoretical framework
         Here, the cluster's influence on the particle is retained through its time-dependent position \( \mathbf{R}_{\rm gc}(t) \). This influence becomes important when the gravitational forces from the cluster and the galaxy on the particle are comparable. For a quick estimate, we treat both the galaxy and the cluster as point masses. The two forces become comparable when the particle is sufficiently close to the cluster, which occurs when:
 
         \begin{equation}
-            |\delta \mathbf{r}| <\!\!\approx \sqrt{\frac{M_{\mathrm{gc}}}{M_{\mathrm{ gal}}}} |\mathbf{r}|.
+            |\delta \mathbf{r}| \approx < \sqrt{\frac{M_{\mathrm{gc}}}{M_{\mathrm{ gal}}}} |\mathbf{r}|.
         \end{equation}
 
 
@@ -136,11 +136,11 @@ The remainder of this chapter is structured to clarify the theoretical framework
 
         A common starting point when constructing gravitational potential models is to choose either the functional form of the density $\rho(\vec{x})$ and solve Poisson's equation to obtain the potential $\Phi(\vec{x})$, or vice versa. In practice, it is often simpler to specify a potential and then derive the corresponding density by differentiation, since solving Poisson's equation analytically is usually more tractable than performing the required integrals in the reverse direction.
 
-        In this thesis, I adopt the Galactic potential model of Pouliasis et al. (2017), which builds upon the earlier model by Allen \& Santillan (1991) and incorporates improved fits to more recent observational constraints. The Galactic disk is modeled using the Miyamoto–Nagai potential:
+        In this thesis, I adopt the Galactic potential model of Pouliasis et al. (2017), which builds upon the earlier model by Allen \& Santillan (1991) and incorporates improved fits to more recent observational constraints. The Galactic disk is modeled using the Miyamoto-Nagai potential:
         \begin{equation}
             \Phi(R, z \mid M, a, b) = -\frac{G M}{\sqrt{R^2 + \left(a + \sqrt{z^2 + b^2}\right)^2}},
         \end{equation}
-        where $M$ is the total mass of the disk, $a$ is the radial scale length, and $b$ is the vertical scale height. This form smoothly interpolates between a flattened disk and a spherical distribution depending on the values of $a$ and $b$. In the limit $a \to 0$, the Miyamoto–Nagai potential reduces to the Plummer potential:
+        where $M$ is the total mass of the disk, $a$ is the radial scale length, and $b$ is the vertical scale height. This form smoothly interpolates between a flattened disk and a spherical distribution depending on the values of $a$ and $b$. In the limit $a \to 0$, the Miyamoto-Nagai potential reduces to the Plummer potential:
         \begin{equation}
             \Phi(r \mid M, b) = -\frac{G M}{\sqrt{r^2 + b^2}},
         \end{equation}
@@ -156,12 +156,22 @@ The remainder of this chapter is structured to clarify the theoretical framework
         \begin{equation}
             M_{\rm enc}(s) = \frac{s^\gamma}{1 + s^{\gamma - 1}},
         \end{equation}
-        where $s = r/r_0$ is the dimensionless radius. For $s \gg 1$, this expression yields $M(r) \propto r$, ensuring a flat rotation curve, while for $s \ll 1$, the mass grows as a power law $\propto r^{\gamma - 1}$, allowing flexibility in the central density slope.
+        where $s = r/r_0$ is the dimensionless radius. For $s >> 1$, this expression yields $M(r) \propto r$, ensuring a flat rotation curve, while for $s << 1$, the mass grows as a power law $\propto r^{\gamma - 1}$, allowing flexibility in the central density slope. Additionally, the mass goes to infinity, which is non physical, therefore a cut off radius is imposed. For spherical symmetry, given that $\nabla \Phi = \frac{GM_{\mathrm{enc}}}{r^2}$, and that the potential goes to zero at infinity, we can find the potential as: 
+
+        \begin{equation}
+            \Phi(r|M_0,\gamma,r_0,r_c) = 
+            \begin{cases}
+                \frac{GM_0}{r_0\left(\gamma-1\right)}\ln\left|\frac{1+(r/r_0)^{\gamma-1}}{1+(r_c/r_0)^{\gamma-1}}\right| , & r<r_c\\
+                -GM_t/r & r>r_c.
+            \end{cases}
+        \end{equation}
+        Two Miyamoto-Nagai disks plus the Martos halo compose the second potential model presented in Pouliasis2017pii and is presented in Fig.~\ref{fig:figure_pouliasis2017pii_potential}.
         
         \begin{figure}
             \centering
             \includegraphics[width=\linewidth]{images/figure_pouliasis2017pii_potential_-8_8.png}
             \caption{The main potential used throughought the thesis}
+            \label{fig:figure_pouliasis2017pii_potential}
         \end{figure}        
     
 

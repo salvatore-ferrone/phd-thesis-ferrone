@@ -321,7 +321,7 @@ forces from the cluster and the galaxy on the particle are comparable.
 For a quick estimate, we treat both the galaxy and the cluster as point
 masses. The two forces become comparable when the particle is
 sufficiently close to the cluster, which occurs when:</p>
-<p><span class="math display">\[|\delta \mathbf{r}| &lt;\!\!\approx
+<p><span class="math display">\[|\delta \mathbf{r}| \approx &lt;
 \sqrt{\frac{M_{\mathrm{gc}}}{M_{\mathrm{ gal}}}}
 |\mathbf{r}|.\]</span></p>
 <p>That is, the cluster’s gravitational field dominates over the
@@ -423,7 +423,7 @@ expansions can be employed. For instance, in spherical coordinates, one
 may use eigenfunctions of the Laplacian (e.g., spherical harmonics) to
 build the potential. Similarly, in cylindrical coordinates, Bessel
 functions naturally arise as solutions to the Laplacian and are well
-suited for modeling disks.</p>
+suited for modeling disks. (Cite Arpit’s recent paper)</p>
 <p>A common starting point when constructing gravitational potential
 models is to choose either the functional form of the density <span
 class="math inline">\(\rho(\vec{x})\)</span> and solve Poisson’s
@@ -436,7 +436,7 @@ required integrals in the reverse direction.</p>
 <p>In this thesis, I adopt the Galactic potential model of Pouliasis et
 al. (2017), which builds upon the earlier model by Allen &amp; Santillan
 (1991) and incorporates improved fits to more recent observational
-constraints. The Galactic disk is modeled using the Miyamoto–Nagai
+constraints. The Galactic disk is modeled using the Miyamoto-Nagai
 potential: <span class="math display">\[\Phi(R, z \mid M, a, b) =
 -\frac{G M}{\sqrt{R^2 + \left(a + \sqrt{z^2 + b^2}\right)^2}},\]</span>
 where <span class="math inline">\(M\)</span> is the total mass of the
@@ -446,7 +446,7 @@ This form smoothly interpolates between a flattened disk and a spherical
 distribution depending on the values of <span
 class="math inline">\(a\)</span> and <span
 class="math inline">\(b\)</span>. In the limit <span
-class="math inline">\(a \to 0\)</span>, the Miyamoto–Nagai potential
+class="math inline">\(a \to 0\)</span>, the Miyamoto-Nagai potential
 reduces to the Plummer potential: <span class="math display">\[\Phi(r
 \mid M, b) = -\frac{G M}{\sqrt{r^2 + b^2}},\]</span> which I use to
 model globular clusters in this work. The Plummer model provides a
@@ -475,13 +475,28 @@ Hernquist profile (<span class="math inline">\(\alpha = 1\)</span>,
 which is defined by a parameterized enclosed mass function: <span
 class="math display">\[M_{\rm enc}(s) = \frac{s^\gamma}{1 + s^{\gamma -
 1}},\]</span> where <span class="math inline">\(s = r/r_0\)</span> is
-the dimensionless radius. For <span class="math inline">\(s \gg
+the dimensionless radius. For <span class="math inline">\(s &gt;&gt;
 1\)</span>, this expression yields <span class="math inline">\(M(r)
 \propto r\)</span>, ensuring a flat rotation curve, while for <span
-class="math inline">\(s \ll 1\)</span>, the mass grows as a power law
-<span class="math inline">\(\propto r^{\gamma - 1}\)</span>, allowing
-flexibility in the central density slope.</p>
-<figure>
+class="math inline">\(s &lt;&lt; 1\)</span>, the mass grows as a power
+law <span class="math inline">\(\propto r^{\gamma - 1}\)</span>,
+allowing flexibility in the central density slope. Additionally, the
+mass goes to infinity, which is non physical, therefore a cut off radius
+is imposed. For spherical symmetry, given that <span
+class="math inline">\(\nabla \Phi =
+\frac{GM_{\mathrm{enc}}}{r^2}\)</span>, and that the potential goes to
+zero at infinity, we can find the potential as:</p>
+<p><span class="math display">\[\Phi(r|M_0,\gamma,r_0,r_c) =
+            \begin{cases}
+                \frac{GM_0}{r_0\left(\gamma-1\right)}\ln\left|\frac{1+(r/r_0)^{\gamma-1}}{1+(r_c/r_0)^{\gamma-1}}\right|
+, &amp; r&lt;r_c\\
+                -GM_t/r &amp; r&gt;r_c.
+            \end{cases}\]</span> Two Miyamoto-Nagai disks plus the
+Martos halo compose the second potential model presented in
+Pouliasis2017pii and is presented in Fig. <a
+href="#fig:figure_pouliasis2017pii_potential" data-reference-type="ref"
+data-reference="fig:figure_pouliasis2017pii_potential">2</a>.</p>
+<figure id="fig:figure_pouliasis2017pii_potential">
 <img src="images/figure_pouliasis2017pii_potential_-8_8.png" />
 <figcaption>The main potential used throughought the thesis</figcaption>
 </figure>
@@ -619,7 +634,7 @@ explore one instructive effect: how solar tidal forces <em>perturb</em>
 the Moon’s orbit away from the idealized two-body Earth-Moon
 configuration. Figure <a href="#fig:moon_tidal_simulation"
 data-reference-type="ref"
-data-reference="fig:moon_tidal_simulation">2</a> shows a toy model
+data-reference="fig:moon_tidal_simulation">3</a> shows a toy model
 comparing two scenarios. In both, I used initial conditions based on JPL
 NASA ephemerides (citation needed) and integrated two sets of equations
 of motion.</p>
@@ -813,7 +828,7 @@ class="math display">\[\label{eq:martos_f_s}
 forces would impede creating stellar streams instead of making them, as
 shown in Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">8</a>.</p>
+data-reference="fig:martos_tidal_field_small_r">9</a>.</p>
 <p>Taking the Martos tidal tensor in Eq. <a href="#eq:martos_f_s"
 data-reference-type="ref"
 data-reference="eq:martos_f_s">[eq:martos_f_s]</a>, we can see that for
@@ -829,7 +844,7 @@ tensor are negative, which means that the force is compressive
 everywhere. Consequently, no stars escape from the cluster.</p>
 <p>In Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">8</a>, I present a small
+data-reference="fig:martos_tidal_field_small_r">9</a>, I present a small
 experiment demonstrating the consequence of such a tidal force on a
 globular cluster, which is that no tidal stream forms. Briefly, I
 created a plummer sphere of <span
@@ -881,7 +896,7 @@ ellipse.</figcaption>
 <img src="images/martos_tidal_field_450_10_400.png" alt="image" /></p>
 <figcaption>The same experiment as Fig. <a
 href="#fig:martos_tidal_field_small_r" data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">8</a>, but the cluster
+data-reference="fig:martos_tidal_field_small_r">9</a>, but the cluster
 was placed at a larger distance of 4 <span
 class="math inline">\(r_\textrm{halo}\)</span>, since we are beyond the
 characteristic radius, the tidal fields are the same, despite the
@@ -890,13 +905,13 @@ class="math inline">\(\gamma\)</span>.</figcaption>
 </figure>
 <p>In the case of Fig. <a href="#fig:martos_tidal_field_big_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_big_r">9</a>, the tidal field
+data-reference="fig:martos_tidal_field_big_r">10</a>, the tidal field
 returns to the typical situation where one axis is compressive and the
 other stretches. Notice how the deformations are similar in magnitude,
 while in the case of <span class="math inline">\(\gamma=2.02\)</span>
 for the top panel of Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">8</a>, the compression
+data-reference="fig:martos_tidal_field_small_r">9</a>, the compression
 is stronger than the expansion. Both of these are different than the
 keplerian tidal deformation where the stronger deformation is stretching
 and whose axis is parallel to the position vector.</p>
@@ -958,7 +973,7 @@ from the initial spread in orbital energies caused by observational
 uncertainties. In Fig.<a
 href="#fig:phase_mixing_palomar_5_orbital_solutions"
 data-reference-type="ref"
-data-reference="fig:phase_mixing_palomar_5_orbital_solutions">10</a>, I
+data-reference="fig:phase_mixing_palomar_5_orbital_solutions">11</a>, I
 present an example based on Palomar 5, for which I compute 50 orbital
 solutions in our potential model. These initial conditions are sampled
 according to the uncertainties reported in the Baumgardt catalog. The
@@ -996,7 +1011,7 @@ for all orbits, regardless of their periods. However, it is still
 illustrative to examine this behavior in the context of the globular
 cluster catalog. In Fig.<a
 href="#fig:phase_mixing_orbital_errors_sample" data-reference-type="ref"
-data-reference="fig:phase_mixing_orbital_errors_sample">11</a>, I
+data-reference="fig:phase_mixing_orbital_errors_sample">12</a>, I
 present the phase-mixing times for all Galactic globular clusters, based
 on current uncertainties from the Gaia DR3 catalog. The top panel shows
 the distribution for all 165 clusters. The bottom panels highlight the
@@ -1032,7 +1047,7 @@ orbital energy.</figcaption>
 energy relates to the uncertainties in each observable. In Fig. <a
 href="#fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu"
 data-reference-type="ref"
-data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">12</a>,
+data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">13</a>,
 I perform this quick calulation. The uncertainties are measured in
 Galactic coordinates the ICRS coordinate system. This is a direct
 transformation to Galactic coordinates and thus can be expressed
@@ -1051,7 +1066,7 @@ energies.</figcaption>
 <p>At first glance, Fig. <a
 href="#fig:phase_mixing_palomar_5_orbital_solutions"
 data-reference-type="ref"
-data-reference="fig:phase_mixing_palomar_5_orbital_solutions">10</a>
+data-reference="fig:phase_mixing_palomar_5_orbital_solutions">11</a>
 might give the impression that we are looking at snapshots of a single
 stellar stream at different times. In reality, the figure shows
 different orbital solutions. This visual similarity underscores that
