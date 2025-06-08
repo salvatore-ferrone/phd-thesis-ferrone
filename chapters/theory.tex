@@ -77,7 +77,7 @@ The remainder of this chapter is structured to clarify the theoretical framework
         Here, the cluster's influence on the particle is retained through its time-dependent position \( \mathbf{R}_{\rm gc}(t) \). This influence becomes important when the gravitational forces from the cluster and the galaxy on the particle are comparable. For a quick estimate, we treat both the galaxy and the cluster as point masses. The two forces become comparable when the particle is sufficiently close to the cluster, which occurs when:
 
         \begin{equation}
-            |\delta \mathbf{r}| \lesssim \sqrt{\frac{M_{\rm gc}}{M_{\rm gal}}} |\mathbf{r}|.
+            |\delta \mathbf{r}| <\!\!\approx \sqrt{\frac{M_{\mathrm{gc}}}{M_{\mathrm{ gal}}}} |\mathbf{r}|.
         \end{equation}
 
 
@@ -109,7 +109,55 @@ The remainder of this chapter is structured to clarify the theoretical framework
 
 
     \subsection{Potential density pairs}
+        The fundamental equation governing Newtonian gravity is Poisson's equation:
+        \begin{equation}
+            \nabla^2 \Phi = 4\pi G \rho,
+        \end{equation}
+        which generalizes Newton's law of gravity from point masses to continuous mass distributions. One of the powerful properties of this equation is its linearity, allowing arbitrary mass distributions to be decomposed into individual components whose contributions to the gravitational potential can be summed:
+        \begin{equation}
+            \nabla^2 \left(a_0\Phi_0 + a_1\Phi_1 \right) = a_0 \nabla^2 \Phi_0 + a_1 \nabla^2 \Phi_1.
+        \end{equation}
 
+        It is instructive to compare stellar dynamics—the motion of stars in galaxies—with celestial mechanics—the motion of planets and spacecraft within the Solar System. In celestial mechanics, the gravitational field is known to high precision. Typically, one begins by considering the dominant mass (the Sun) and includes additional bodies only as needed. For instance, to place the James Webb Space Telescope at the Sun-Earth L2 Lagrange point, first-order calculations involve only the Sun and Earth. Likewise, when studying the long-term evolution of comet orbits, it may suffice to include only the Sun, Jupiter, and possibly Saturn. In these cases, the restricted three- or four-body problem provides a good approximation.
+
+        In contrast, the Milky Way's gravitational potential is not precisely known and is far more complex. The Galaxy is not merely a collection of point masses; instead, it consists of billions of stars, gas, and dark matter, which collectively form structured components. Each of these components is represented with its own potential-density pair. While various methods exist to model the Galactic potential, most approaches adopt parameterized functions for each component. Notable examples include the widely used models of McMillan (2017) and Bovy (2015).
+
+        The Galaxy is typically modeled as a superposition of several distinct components:
+
+        \begin{itemize}
+            \item the bulge a dense, roughly spherical central concentration of stars;
+            \item the disk, where most of the stars and gas lie, with an approximately axisymmetric, flattened distribution;
+            \item the halo which includes both the stellar halo and the dark matter halo.
+        \end{itemize}
+
+        More elaborate models further subdivide these components and can include time-dependent features. For example, the Galactic bar can be modeled as a rotating triaxial or prolate ellipsoid with a time-varying orientation. Moving substructures such as molecular clouds, dwarf galaxies, or dark matter subhalos can also be included. In my simulations, the globular cluster is treated as one such additional component, introduced on top of the smooth background.
+
+        When simple analytic potentials are insufficient—especially for capturing non-axisymmetric or irregular features—basis function expansions can be employed. For instance, in spherical coordinates, one may use eigenfunctions of the Laplacian (e.g., spherical harmonics) to build the potential. Similarly, in cylindrical coordinates, Bessel functions naturally arise as solutions to the Laplacian and are well suited for modeling disks. (Cite Arpit's recent paper)
+
+        A common starting point when constructing gravitational potential models is to choose either the functional form of the density $\rho(\vec{x})$ and solve Poisson's equation to obtain the potential $\Phi(\vec{x})$, or vice versa. In practice, it is often simpler to specify a potential and then derive the corresponding density by differentiation, since solving Poisson's equation analytically is usually more tractable than performing the required integrals in the reverse direction.
+
+        In this thesis, I adopt the Galactic potential model of Pouliasis et al. (2017), which builds upon the earlier model by Allen \& Santillan (1991) and incorporates improved fits to more recent observational constraints. The Galactic disk is modeled using the Miyamoto–Nagai potential:
+        \begin{equation}
+            \Phi(R, z \mid M, a, b) = -\frac{G M}{\sqrt{R^2 + \left(a + \sqrt{z^2 + b^2}\right)^2}},
+        \end{equation}
+        where $M$ is the total mass of the disk, $a$ is the radial scale length, and $b$ is the vertical scale height. This form smoothly interpolates between a flattened disk and a spherical distribution depending on the values of $a$ and $b$. In the limit $a \to 0$, the Miyamoto–Nagai potential reduces to the Plummer potential:
+        \begin{equation}
+            \Phi(r \mid M, b) = -\frac{G M}{\sqrt{r^2 + b^2}},
+        \end{equation}
+        which I use to model globular clusters in this work. The Plummer model provides a simple spherically symmetric mass distribution with a finite central density and a total mass that asymptotes at large radii. Interestingly, the Plummer potential is mathematically equivalent to a softened gravitational potential, commonly used in $N$-body simulations to regularize close encounters between particles.
+
+        The dark matter halo is modeled separately and selected to reproduce the observed flat rotation curve of the Milky Way at large radii. This requirement translates into a mass profile that grows linearly with radius ($M(r) \propto r$) in the outer regions. A class of density profiles known as double power-law models satisfies this condition:
+        \begin{equation}
+            \rho(r \mid \alpha, \beta, r_s) = \rho_0 \left( \frac{r}{r_s} \right)^{-\alpha} \left(1 + \frac{r}{r_s} \right)^{\alpha - \beta},
+        \end{equation}
+        where $r_s$ is a scale radius, $\alpha$ controls the inner slope, and $\beta$ the outer slope. Common choices include the NFW profile ($\alpha = 1$, $\beta = 3$) and the Hernquist profile ($\alpha = 1$, $\beta = 4$).
+
+        Instead of these standard forms, I adopt the Martos halo profile, which is defined by a parameterized enclosed mass function:
+        \begin{equation}
+            M_{\rm enc}(s) = \frac{s^\gamma}{1 + s^{\gamma - 1}},
+        \end{equation}
+        where $s = r/r_0$ is the dimensionless radius. For $s \gg 1$, this expression yields $M(r) \propto r$, ensuring a flat rotation curve, while for $s \ll 1$, the mass grows as a power law $\propto r^{\gamma - 1}$, allowing flexibility in the central density slope.
+        
         \begin{figure}
             \centering
             \includegraphics[width=\linewidth]{images/figure_pouliasis2017pii_potential_-8_8.png}
@@ -414,7 +462,13 @@ The remainder of this chapter is structured to clarify the theoretical framework
             Importantly, we need not consider all particles within the cluster to study phase mixing. For clusters with short orbital mixing times compared to the simulation duration, stars that escape during the simulation can redistribute throughout the available phase space. While the resulting debris will not be uniformly distributed—an overdensity will remain at the cluster location—the tidal debris will broadly fill the phase space accessible to it. This point is crucial for the results discussed in Chapter 4.
 
             
+    \subsection{Collisions}
 
+        \begin{itemize}
+            \item show the impulse approximation.
+            \item state that this is important for when we consdier the impacts of globular clusters
+            \item give a quick over view of two body relaxation, to show why the galaxy can be totally approximated in the fluid limit.
+        \end{itemize}
 
 \section{The Ignored Physics}
 
@@ -428,8 +482,7 @@ The remainder of this chapter is structured to clarify the theoretical framework
 
     \subsection{Collisional dynamics}
 
-        Globular clusters are undoubteled collisional systems. The same computating using the columb law, to compute how long it takes for a given particles to change it's momentum on same order of magnitude as it's initial momentum is much less than the age of a given globular cluster. This computation is what justified us for using the fluid limit for galactic dynamics, and it is the same computation that instructs us that we are incorrect for globular clusters.     
-    \citet{2023LRCA....9....3S} published a review discussing \textit{Computational methods for collisional stellar systems}, and entitled one of their sections \textit{Nbody the growth of an industry}. 
+        Globular clusters are undoubteled collisional systems. The same computating using the columb law, to compute how long it takes for a given particles to change it's momentum on same order of magnitude as it's initial momentum is much less than the age of a given globular cluster. This computation is what justified us for using the fluid limit for galactic dynamics, and it is the same computation that instructs us that we are incorrect for globular clusters. \citet{2023LRCA....9....3S} published a review discussing \textit{Computational methods for collisional stellar systems}, and entitled one of their sections \textit{Nbody the growth of an industry}. 
 
 
         \begin{itemize}
