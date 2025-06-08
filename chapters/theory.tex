@@ -22,42 +22,91 @@ The remainder of this chapter is structured to clarify the theoretical framework
 
 
 \section{The Explicit Physics}
-    My simulations solve the \textit{restricted three body problem}. In essence
+    My simulations solve the \textit{restricted three-body problem}. In this setup, the host galaxy is treated as the primary body, fixed at the origin of the coordinate system, which corresponds to the system's center of mass. The galaxy exerts a gravitational force on both the globular cluster—modeled as a single center of mass—and on all individual star particles.
+
+    The globular cluster is approximated as a smooth density distribution that influences the star particles, rather than as a collection of stars interacting with one another. This simplification significantly reduces the computational cost. Moreover, all star particles are integrated independently, without interacting with one another. In effect, the full N-body problem is approximated as \(N\) independent instances of the restricted three-body problem.  Figure~\ref{fig:restricted_three_body_set_up} illustrates the schematic configuration of the system.
     \begin{figure}
         \centering
         \includegraphics[width=\linewidth]{images/restricted_three_body_set_up.png}
-        \caption{Little sketch of my equations of motion. }
+        \caption{Schematic illustration of the equations of motion. The system is simplified to three interacting bodies: the Galaxy (primary), the globular cluster (secondary), and an individual star (tertiary). Red vectors indicate forces that are neglected in the equations of motion. Since the stars are assumed to exert no force on one another or on the cluster, their number can be scaled up arbitrarily to sample the net gravitational field of the cluster and the Galaxy.}
+        \label{fig:restricted_three_body_set_up}
     \end{figure}
     
     \subsection{Equations of Motion} \label{subsec:myEquationsOfMotion}
-        I like to start with the \textit{Lagrangian}, which comes from the variational principle which states that particles with move along trajectories that minimize the difference, $ L = T-U $, which $L$ is the Lagrangian, $T$ is the kinetic energy and $U$ is the potential energy. Also, as is almost always the case in gravitational dynamics, we normalize by the mass and use \textit{specific} energy: 
+        Orbits in this system begin with the variational principle of Lagrangian mechanics. The full interacting system includes the kinetic energy of the globular cluster and the star particle, as well as three gravitational potential energy terms: the cluster-galaxy interaction, the particle-galaxy interaction, and the particle-cluster interaction.
+
         \begin{equation}
-            \mathcal{L} = \frac{L}{m} = \frac{1}{2}\left(\dot{x}^2+\dot{y}^2+\dot{z}^2\right) - \Phi(x,y,z).
+            \mathcal{L} = \frac{1}{2} M_{\rm gc} \dot{\mathbf{R}}_{\rm gc}^2 
+                        + \frac{1}{2} m \dot{\mathbf{r}}^2 
+                        - M_{\rm gc} \Phi_{\rm gal}(\mathbf{R}_{\rm gc}) 
+                        - m \Phi_{\rm gal}(\mathbf{r}) 
+                        - m \Phi_{\rm gc}(\mathbf{r} - \mathbf{R}_{\rm gc})
         \end{equation}
-        However, Lagrange's equations give a system of three second order coupled ordinary differential equations. If we switch to Hamiltonain dynamics, we can object a set of six \textit{first} order ordinary differential equations, which is easier to implement computationally. Also, since we are using the specific energy, the momentum coordinates for Hamilton's equations are the same as the velocities from the Lagrangian: $ p_i = \frac{\partial \mathcal{L}}{\partial \dot{q}_i}$. Therefore, $p_i = \dot{q}_i$, where $i \in \left(x,y,z\right)$. The Hamilton is derived through the Legendre transform: $ \mathcal{H}=\sum_i p_i\dot{q}_i - \mathcal{L}$. Then, we can apply Hamilton's equations to obtain the set of equations: 
-        \begin{align}
-            \dot{p}_i &= -\frac{\partial \mathcal{H}}{\partial q_i} \\
-            \dot{q}_i &= \frac{\partial \mathcal{H}}{\partial p_i}
-        \end{align}
 
-        And when written explicity become: 
-        \begin{align}
-            \dot{p}_x &= -\frac{\partial \Phi}{\partial x} \\
-            \dot{p}_y &= -\frac{\partial \Phi}{\partial y} \\
-            \dot{p}_z &= -\frac{\partial \Phi}{\partial z} \\
-            \dot{x} &= p_x \\ 
-            \dot{y} &= p_y \\ 
-            \dot{z} &= p_z \\ 
-        \end{align}        
+        For simplicity, let us treat the globular cluster as a point mass. In this case, the gravitational potential energy between the cluster and the star is:
+
+        \begin{equation}
+            U_{\rm star-gc} = - \frac{G M_{\rm gc} m}{|\mathbf{r} - \mathbf{R}_{\rm gc}|}
+        \end{equation}
+
+        In this thesis, I decouple the equations of motion of the globular cluster and the star. The justification for this approximation is evident when we normalize the Lagrangian by the cluster mass, \( M_{\rm gc} \). This yields:
+
+        \begin{equation}
+            \frac{\mathcal{L}}{M_{\rm gc}} = \frac{1}{2} \dot{\mathbf{R}}_{\rm gc}^2 
+                                        - \Phi_{\rm gal}(\mathbf{R}_{\rm gc}) 
+                                        + \underbrace{\frac{m}{M_{\rm gc}} \left[ \frac{1}{2} \dot{\mathbf{r}}^2 
+                                        - \Phi_{\rm gal}(\mathbf{r}) 
+                                        - \Phi_{\rm gc}(\mathbf{r} - \mathbf{R}_{\rm gc}) \right]}_{\text{negligible correction to GC's motion}}
+        \end{equation}
+
+        In the limit where \( m \ll M_{\rm gc} \), the terms in brackets become negligible, and the star's motion has no back-reaction on the cluster. The Lagrangian for the cluster's orbit thus becomes:
+
+        \begin{equation}
+            \frac{\mathcal{L}_{\rm gc}}{M_{\rm gc}} = \frac{1}{2} \dot{\mathbf{R}}_{\rm gc}^2 
+                                - \Phi_{\rm gal}(\mathbf{R}_{\rm gc})
+        \end{equation}
+
+        Switching to the star's perspective, we normalize the Lagrangian by the particle mass \( m \), obtaining:
+
+        \begin{equation}
+            \frac{\mathcal{L}_{\rm star}}{m} = \frac{1}{2} \dot{\mathbf{r}}^2 
+                                - \Phi_{\rm gal}(\mathbf{r}) 
+                                - \Phi_{\rm gc}(\mathbf{r} - \mathbf{R}_{\rm gc}(t))
+        \end{equation}
+
+        Here, the cluster's influence on the particle is retained through its time-dependent position \( \mathbf{R}_{\rm gc}(t) \). This influence becomes important when the gravitational forces from the cluster and the galaxy on the particle are comparable. For a quick estimate, we treat both the galaxy and the cluster as point masses. The two forces become comparable when the particle is sufficiently close to the cluster, which occurs when:
+
+        \begin{equation}
+            |\delta \mathbf{r}| \lesssim \sqrt{\frac{M_{\rm gc}}{M_{\rm gal}}} |\mathbf{r}|.
+        \end{equation}
 
 
-        \subsubsection*{The Globular Cluster}
-            In the case of the Globular Clusters, they only feel the Galaxy. So their Hamiltonian becomes: 
-            % \begin{equation}
+        That is, the cluster's gravitational field dominates over the galaxy's on sufficiently small scales around the cluster — as expected. For a quick sanity check: a typical globular cluster may have a mass of \(10^5\, M_\odot\), while the galaxy may be around \(10^{11}\, M_\odot\). If the cluster is a few kiloparsecs from the galactic center, then the cluster's influence dominates within a region of order a few parsecs — which checks out. A better limit is the tidal radius and is presented in the next section.
 
-            % \end{equation}
+        While Lagrangian mechanics is rooted in first principles, working in the Hamiltonian formalism often provides deeper insight into the physics of the system. Additionally, Hamiltonian mechanics reduces the equations of motion to a set of \(2N\) first-order differential equations, rather than \(N\) second-order ones, which is more convenient for computational integration.
 
-        \subsubsection*{The Star Particles}
+        If we use the \textit{specific} Lagrangian—normalized by the mass of the body of interest—then the conjugate momenta reduce to the velocities. The Hamiltonian can then be obtained via a Legendre transform:
+        \begin{equation}
+            \mathcal{H} = \sum p_i \dot{q}_i - \mathcal{L}.
+        \end{equation}
+
+        Another useful result comes from Noether's theorem: if a coordinate does not explicitly appear in the Lagrangian, its conjugate momentum is conserved. In our case, once we define the potential (see next section) and adopt cylindrical coordinates, we find that the Lagrangian does not depend on the azimuthal angle \( \theta \) in the \(x\text{-}y\) plane for the cluster's motion. This implies conservation of the \(z\)-component of angular momentum:
+        \begin{equation}
+            p_\theta = L_z = \frac{\partial \mathcal{L}}{\partial \dot{\theta}} = R^2 \dot{\theta}.
+        \end{equation}
+
+        This conservation generally does not hold for star particles within the globular cluster, as their dynamics are significantly influenced by the cluster's gravitational potential. However, it is recovered in the regime where their motion becomes dominated by the galaxy's potential rather than the cluster's. 
+
+        The core task, then, is to compute the forces acting on either the particle or the cluster, which are given by the partial derivatives of the Hamiltonian with respect to the generalized coordinates:
+        \begin{equation}
+            \dot{p}_i = -\frac{\partial \mathcal{H}}{\partial q_i}.
+        \end{equation}
+
+        In practice, all equations of motion are solved in Cartesian coordinates. However, it is often instructive to analyze the system in cylindrical coordinates, where the symmetry of the galactic potential becomes more apparent. This symmetry and its consequences will be discussed in the following section.
+
+
+        
+
 
     \subsection{Potential density pairs}
 
@@ -369,7 +418,7 @@ The remainder of this chapter is structured to clarify the theoretical framework
 
 \section{The Ignored Physics}
 
-    Anna Lisa wrote \textbf{A MODEST review} which talks about a series of papers between a larger collaboration of people who specialize in collisional dynamics and who have performed a series of workshops together. The introduction stated that the collaboration wants to tackle many open questions regarding stellar clusters and build the necessary codes to interprete the future large quantity of data that was destined to come. It has now come since the review was 2018. An interesting point was that in general globular clusters are approximated as being orderless, i.e. isotropic but order does present itself within these stelalr systems. Another large problem is no one knows what a good set of initial conditiosn is. Unresolved binaries pose a problem because you can overestiamte the total mass of the system. If I talk about this review, I should probably discuss some of the results from the papers that is builds on or at least their techinques. 
+
 
     \begin{itemize}
         \item what is the hardness of a binary? the binding energy? how is hardness measured? the binary binding energy / the orbital energy of the system? 
@@ -378,6 +427,11 @@ The remainder of this chapter is structured to clarify the theoretical framework
 
 
     \subsection{Collisional dynamics}
+
+        Globular clusters are undoubteled collisional systems. The same computating using the columb law, to compute how long it takes for a given particles to change it's momentum on same order of magnitude as it's initial momentum is much less than the age of a given globular cluster. This computation is what justified us for using the fluid limit for galactic dynamics, and it is the same computation that instructs us that we are incorrect for globular clusters.     
+    \citet{2023LRCA....9....3S} published a review discussing \textit{Computational methods for collisional stellar systems}, and entitled one of their sections \textit{Nbody the growth of an industry}. 
+
+
         \begin{itemize}
             \item not nbody
             \item no mass segregation
