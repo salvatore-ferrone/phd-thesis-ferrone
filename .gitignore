@@ -1,6 +1,6 @@
 # Ignore videos folder
 # /videos/
-# /images/
+/data-raw/
 
 # Ignore source image folders
 tidalTensorImages/
