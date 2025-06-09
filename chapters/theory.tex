@@ -150,18 +150,23 @@ The remainder of this chapter is structured to clarify the theoretical framework
         \begin{equation}
             \rho(r \mid \alpha, \beta, r_s) = \rho_0 \left( \frac{r}{r_s} \right)^{-\alpha} \left(1 + \frac{r}{r_s} \right)^{\alpha - \beta},
         \end{equation}
-        where $r_s$ is a scale radius, $\alpha$ controls the inner slope, and $\beta$ the outer slope. Common choices include the NFW profile ($\alpha = 1$, $\beta = 3$) and the Hernquist profile ($\alpha = 1$, $\beta = 4$).
+        where $r_s$ is a scale radius, $\alpha$ controls the inner slope, and $\beta$ the outer slope. Common choices include the NFW profile ($\alpha = 1$, $\beta = 3$) and the Hernquist profile $(\alpha = 1$, $\beta = 4)$.
 
-        Instead of these standard forms, I adopt the Martos halo profile, which is defined by a parameterized enclosed mass function:
-        \begin{equation}
-            M_{\rm enc}(s) = \frac{s^\gamma}{1 + s^{\gamma - 1}},
-        \end{equation}
-        where $s = r/r_0$ is the dimensionless radius. For $s >> 1$, this expression yields $M(r) \propto r$, ensuring a flat rotation curve, while for $s << 1$, the mass grows as a power law $\propto r^{\gamma - 1}$, allowing flexibility in the central density slope. Additionally, the mass goes to infinity, which is non physical, therefore a cut off radius is imposed. For spherical symmetry, given that $\nabla \Phi = \frac{GM_{\mathrm{enc}}}{r^2}$, and that the potential goes to zero at infinity, we can find the potential as: 
+        The potential presented in Allen Santillan uses the Martos halo, which is not of the same functional family of the two power-law density model, but nonetheless has similar properties. The Martos halo is defined by a parameterized enclosed mass function:
+        \begin{equation} 
+            M_{\mathrm{enc}}(r|M_0,\gamma,r_0,r_c) = M_0
+            \begin{cases}
+             \frac{\left(r/r_0\right)^\gamma}{1 + \left(r/r_0\right)^{\gamma - 1}} & r<r_c,\\
+             \frac{\left(r_c/r_0\right)^\gamma}{1 + \left(r_c/r_0\right)^{\gamma - 1}} & r> r_c,\\
+            \end{cases} 
+        \end{equation}\label{eq:martos_enclosed_mass}
+        where $M_0$ is a mass scaling parameter (not the total mass), $r_0$ is the characteristic radius, $\gamma$ is the exponental parameter, and $r_c$ is a cutoff radius beyond which the mass is held constant. Thus, for $r > r_c$ Eq.~\ref{eq:martos_enclosed_mass} reports the total mass. In the outer regime $(r/r_0) >> 1$, the enclosed mass scales as $M(r) \propto r$, producing a flat rotation curve. In the inner regime $(r/r_0) << 1$, the mass grows as a power law, $M(r) \propto r^{\gamma - 1}$, which provides flexibility in shaping the central density slope. Since the unmodified profile leads to an unphysical divergence in total mass, a truncation at $r_c$ is imposed. When the potential has spherical symmetry we may use the relation $\nabla \Phi = \frac{G M_{\mathrm{enc}}(r)}{r^2}$, and requiring that the potential vanish at infinity, the corresponding gravitational potential can be obtained by integrating:
+
 
         \begin{equation}
             \Phi(r|M_0,\gamma,r_0,r_c) = 
             \begin{cases}
-                \frac{GM_0}{r_0\left(\gamma-1\right)}\ln\left|\frac{1+(r/r_0)^{\gamma-1}}{1+(r_c/r_0)^{\gamma-1}}\right| , & r<r_c\\
+                \frac{GM_0}{r_0\left(\gamma-1\right)}\ln\left|\frac{1+(r/r_0)^{\gamma-1}}{1+(r_c/r_0)^{\gamma-1}}\right| -\frac{GM_t}{r_c}, & r<r_c\\
                 -GM_t/r & r>r_c.
             \end{cases}
         \end{equation}
@@ -170,7 +175,7 @@ The remainder of this chapter is structured to clarify the theoretical framework
         \begin{figure}
             \centering
             \includegraphics[width=\linewidth]{images/figure_pouliasis2017pii_potential_-8_8.png}
-            \caption{The main potential used throughought the thesis}
+            \caption{Individual components of the second Galactic potential model from Pouliasis et al. (2017). The parameters used are listed in Table XXX. The vector field illustrates the normalized gravitational force at each position, corresponding to $\vec{g} = -\nabla\Phi$. Equipotential contour lines are overlaid to guide the eye.}
             \label{fig:figure_pouliasis2017pii_potential}
         \end{figure}        
     

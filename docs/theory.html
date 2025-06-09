@@ -469,27 +469,46 @@ class="math inline">\(\alpha\)</span> controls the inner slope, and
 <span class="math inline">\(\beta\)</span> the outer slope. Common
 choices include the NFW profile (<span class="math inline">\(\alpha =
 1\)</span>, <span class="math inline">\(\beta = 3\)</span>) and the
-Hernquist profile (<span class="math inline">\(\alpha = 1\)</span>,
-<span class="math inline">\(\beta = 4\)</span>).</p>
-<p>Instead of these standard forms, I adopt the Martos halo profile,
-which is defined by a parameterized enclosed mass function: <span
-class="math display">\[M_{\rm enc}(s) = \frac{s^\gamma}{1 + s^{\gamma -
-1}},\]</span> where <span class="math inline">\(s = r/r_0\)</span> is
-the dimensionless radius. For <span class="math inline">\(s &gt;&gt;
-1\)</span>, this expression yields <span class="math inline">\(M(r)
-\propto r\)</span>, ensuring a flat rotation curve, while for <span
-class="math inline">\(s &lt;&lt; 1\)</span>, the mass grows as a power
-law <span class="math inline">\(\propto r^{\gamma - 1}\)</span>,
-allowing flexibility in the central density slope. Additionally, the
-mass goes to infinity, which is non physical, therefore a cut off radius
-is imposed. For spherical symmetry, given that <span
-class="math inline">\(\nabla \Phi =
-\frac{GM_{\mathrm{enc}}}{r^2}\)</span>, and that the potential goes to
-zero at infinity, we can find the potential as:</p>
+Hernquist profile <span class="math inline">\((\alpha = 1\)</span>,
+<span class="math inline">\(\beta = 4)\)</span>.</p>
+<p>The potential presented in Allen Santillan uses the Martos halo,
+which is not of the same functional family of the two power-law density
+model, but nonetheless has similar properties. The Martos halo is
+defined by a parameterized enclosed mass function: <span
+class="math display">\[M_{\mathrm{enc}}(r|M_0,\gamma,r_0,r_c) = M_0
+            \begin{cases}
+             \frac{\left(r/r_0\right)^\gamma}{1 +
+\left(r/r_0\right)^{\gamma - 1}} &amp; r&lt;r_c,\\
+             \frac{\left(r_c/r_0\right)^\gamma}{1 +
+\left(r_c/r_0\right)^{\gamma - 1}} &amp; r&gt; r_c,\\
+            \end{cases}\]</span><span id="eq:martos_enclosed_mass"
+data-label="eq:martos_enclosed_mass"></span> where <span
+class="math inline">\(M_0\)</span> is a mass scaling parameter (not the
+total mass), <span class="math inline">\(r_0\)</span> is the
+characteristic radius, <span class="math inline">\(\gamma\)</span> is
+the exponental parameter, and <span class="math inline">\(r_c\)</span>
+is a cutoff radius beyond which the mass is held constant. Thus, for
+<span class="math inline">\(r &gt; r_c\)</span> Eq. <a
+href="#eq:martos_enclosed_mass" data-reference-type="ref"
+data-reference="eq:martos_enclosed_mass">[eq:martos_enclosed_mass]</a>
+reports the total mass. In the outer regime <span
+class="math inline">\((r/r_0) &gt;&gt; 1\)</span>, the enclosed mass
+scales as <span class="math inline">\(M(r) \propto r\)</span>, producing
+a flat rotation curve. In the inner regime <span
+class="math inline">\((r/r_0) &lt;&lt; 1\)</span>, the mass grows as a
+power law, <span class="math inline">\(M(r) \propto r^{\gamma -
+1}\)</span>, which provides flexibility in shaping the central density
+slope. Since the unmodified profile leads to an unphysical divergence in
+total mass, a truncation at <span class="math inline">\(r_c\)</span> is
+imposed. When the potential has spherical symmetry we may use the
+relation <span class="math inline">\(\nabla \Phi = \frac{G
+M_{\mathrm{enc}}(r)}{r^2}\)</span>, and requiring that the potential
+vanish at infinity, the corresponding gravitational potential can be
+obtained by integrating:</p>
 <p><span class="math display">\[\Phi(r|M_0,\gamma,r_0,r_c) =
             \begin{cases}
                 \frac{GM_0}{r_0\left(\gamma-1\right)}\ln\left|\frac{1+(r/r_0)^{\gamma-1}}{1+(r_c/r_0)^{\gamma-1}}\right|
-, &amp; r&lt;r_c\\
+-\frac{GM_t}{r_c}, &amp; r&lt;r_c\\
                 -GM_t/r &amp; r&gt;r_c.
             \end{cases}\]</span> Two Miyamoto-Nagai disks plus the
 Martos halo compose the second potential model presented in
@@ -498,7 +517,12 @@ href="#fig:figure_pouliasis2017pii_potential" data-reference-type="ref"
 data-reference="fig:figure_pouliasis2017pii_potential">2</a>.</p>
 <figure id="fig:figure_pouliasis2017pii_potential">
 <img src="images/figure_pouliasis2017pii_potential_-8_8.png" />
-<figcaption>The main potential used throughought the thesis</figcaption>
+<figcaption>Individual components of the second Galactic potential model
+from Pouliasis et al. (2017b). The parameters used are listed in Table
+XXX. The vector field illustrates the normalized gravitational force at
+each position, corresponding to <span class="math inline">\(\vec{g} =
+-\nabla\Phi\)</span>. Equipotential contour lines are overlaid to guide
+the eye.</figcaption>
 </figure>
 <h1 id="the-implicit-physics">The Implicit Physics</h1>
 <h2 id="the-circular-restricted-three-body-problem">The circular
@@ -916,6 +940,8 @@ is stronger than the expansion. Both of these are different than the
 keplerian tidal deformation where the stronger deformation is stretching
 and whose axis is parallel to the position vector.</p>
 <h2 id="phase-mixing">Phase mixing</h2>
+<p><strong>NOTE: I want to add citations and discussions to Vasiliev
+Gaia DR3’s look on GCs</strong></p>
 <p><em>Phase mixing</em> is a direct consequence of Liouville’s theorem,
 which itself follows from the collisionless Boltzmann equation.
 Liouville’s theorem states that the infinitesimal volume element in
