@@ -62,7 +62,7 @@ The remainder of this chapter is structured to clarify the theoretical framework
         In the limit where \( m \ll M_{\rm gc} \), the terms in brackets become negligible, and the star's motion has no back-reaction on the cluster. The Lagrangian for the cluster's orbit thus becomes:
 
         \begin{equation}
-            \frac{\mathcal{L}_{\rm gc}}{M_{\rm gc}} = \frac{1}{2} \dot{\mathbf{R}}_{\rm gc}^2 
+            \frac{\mathcal{L}_{\mathrm{gc}}}{M_{\mathrm{gc}}} = \frac{1}{2} \dot{\mathbf{R}}_{\rm gc}^2 
                                 - \Phi_{\rm gal}(\mathbf{R}_{\rm gc})
         \end{equation}
 
@@ -179,6 +179,43 @@ The remainder of this chapter is structured to clarify the theoretical framework
             \label{fig:figure_pouliasis2017pii_potential}
         \end{figure}        
     
+    \subsection{The Collisionless Botlzmann Equation}
+        
+        What I want to show in this section, is how we obtain the distirbution of stars the populate the globular clusters used in these models and every step made in the assumption ladder that reduce the general case with vaste possiblities into our specific need. In galactic dynamics there is the \textit{self-consistency} problem. It's a cyclic between three steps. (1) given a density distribution of stars and gravitational potential through poisson's equation, sample the position of stars. (2) find initial conditions for the velocities and let the system evolve. (3) update the potential of the system. If the system is in equilibirum and self-consists, the particles when allowed to evolve under their own gravity should maintain the same mass distribution that created them in the first place. Indeed, finding the velocities of the particles is a crucial step and is something that is not given once a mass distribution is specificied. To obtain these velocities, we must turn to the Collisionless Boltzmann Equation. 
+
+        The journey starts characterizing the system statistically with a distribution function over phase space. i.e., what is the probability of a particle existing at a given position with a given velocity, we can consider this to be $f(\vec{x},\vec{v},t)$. If we assert the typical condition with DF functions, that they are probability DFs that integrate over all space to 1, we are asserting that stars do not come in and out of our system, or that they are not born nor do they die. 
+        
+        Already, I am stating that a particle's position is independent of it's mass or anything else. I will introduce $\mathbf{w}$ to be the 6D phase space coordiante of a particle. However, for a system with N particles the distribution function is distributed over the possibilty of being in each a given phase-space position: $f(\mathbf{w_1},\dots,\mathbf{w_N})$. An analytical expression for such a DF would be wild. However, we can make two great simplifying assumptions, that the particles are independent and identically distributed. 
+        \[
+        \begin{array}{rl}
+            f 
+            & \stackrel{\text{(1) $N$-body DF}}{\longrightarrow} 
+            f(\mathbf{w}_1, \dots, \mathbf{w}_N) \\[2ex]
+            & \stackrel{\text{(2) independent}}{\longrightarrow} 
+            \prod_{i=1}^N f^i(\mathbf{w}_i) \\[2ex]
+            & \stackrel{\text{(3) identically distributed}}{\longrightarrow} 
+            \left[ f(\mathbf{w}) \right]^N
+        \end{array}
+        \]
+        The consequences is that the DF does not account for correlations on other variables, such as mass. So apriori this system does not describe mass segregation. Nor does it describe various populations. Instead, we have a single population of stars that are identically distributed. We can just treat the single particle DF to gain further insight on the system. 
+
+        Next, is that we already stated that the coordinates of the particles are uncorrelated. A consequence of this is that the system is non-collisional. We can state this even more explicitly by writing that the material derivative of the distribution function is zero. 
+
+        \begin{equation}
+            \frac{D f}{Dt} = \frac{\partial f}{\partial x} \dot{\mathbf{x}} + \frac{\partial f}{\partial v} \dot{\mathbf{v}} + \frac{\partial f}{\partial t} = 0
+        \end{equation}
+        It's important to note that the material derivative follows a trajectory. It's saying that the value of $f$ doesn't change along the trajectory for a given orbit through phase space. This means that particles to not start bunching up or dispersing. So no collisions. It's evolution is only dictated by the mean field. 
+
+        Next, I can impart the equilibirum condition that means: \(\partial f / \partial t = 0\)
+        this means that the amount of stars at a given point in phase space isn't changing. if some leave, they need to get replaced. By imparting this assumption, we are only going forward to things existing in isolation. i.e. an isolated galaxy or an isoalted cluster. If there were a mean flow in phase space coming from a merge or a tidal disruption of a globular cluster, then then then, this assumption would no longer be valid. In fact, since I'm interested in modeling the tides, this assumption is violated in my simulations. However, i'm interested in taking a system that is in equilibirum in isolation and seeing how the disruption happens numerically.   
+
+        Next, I want to hone in on globular clusters. So in this case the system is spherically distributed. However, this is not enough, for a system that is spherically disrtrbuted could still have orbits of stars that are either radially or circularly biased. Under this case, there is an anisotropy parameters $\beta$. However, I do not consider this in my simulations. I consider a spherically distributed isotropic globular cluster. In such an event, the distirbution function depends on the energy only. 
+
+        At this points, it's worth mentioning jean's equations. Jean's equations relate the moments of the distribution functions to observables. In essence, if we integrate over all velocities, and multiple by the total mass of the system, then the DF becomes the density distirbution $\rho(\mathbf{r}) = M \int f(\mathbf{x},\mathbf{v}) d^3\mathbf{v}$. In essne, abbel discovered an intergral tecnhique to invert this and thus find an analytical solution for the DF function for a sphericall distirbuted isotropic system. This is presented well in Binney and Tremaine as well as Bovy. 
+
+        
+
+
 
 \section{The Implicit Physics}
 
