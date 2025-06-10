@@ -633,12 +633,89 @@ can obtain a complete analytic expression for the distribution function.
 With this in mind, a discrete set of positions and velocities can be
 sampled and is presented in the next chapter.</p>
 <h1 id="the-implicit-physics">The Implicit Physics</h1>
-<h2 id="the-circular-restricted-three-body-problem">The circular
-restricted three body problem</h2>
+<h2 id="the-planar-circular-restricted-three-body-problem">The Planar
+Circular Restricted Three-Body Problem</h2>
 <ul>
-<li><p>The Lagrange points</p></li>
-<li><p>Allowed regions</p></li>
+<li><p>write down the equation</p></li>
+<li><p>solve for where the force is zero for L1 and L2</p></li>
+<li><p>say that this is interesting because it’s a numeric because it’s
+a polynomial</p></li>
+<li><p>say that there are different energy regiemes</p></li>
+<li><p>say that this is a simpler picture of the situation becuase the
+orbits are not circular and the mass distribution is not point
+masses</p></li>
 </ul>
+<p>We now move on to the classical Planar Circular Restricted Three-Body
+Problem (PCR3BP), a fundamental framework to study the dynamics of a
+test particle under the gravitational influence of two massive bodies
+(the “primaries”) in circular orbits around their common center of mass.
+The third body (the test particle) is assumed to have negligible mass
+and thus does not affect the motion of the primaries.</p>
+<h4 id="rotating-frame-and-effective-potential.">Rotating Frame and
+Effective Potential.</h4>
+<p>To analyze the motion of the test particle, we switch to a rotating
+reference frame in which the primaries remain fixed. In this frame, the
+test particle experiences an effective potential given by the
+combination of the gravitational potential from the primaries and the
+centrifugal potential arising from the rotation of the frame. This
+effective potential takes the form: <span
+class="math display">\[\Phi_{\text{eff}}(\vec{r}) = -\frac{G
+M_1}{|\vec{r} - \vec{r}_1|} - \frac{G M_2}{|\vec{r} - \vec{r}_2|} -
+\frac{1}{2} \Omega^2 |\vec{r}|^2,\]</span> where <span
+class="math inline">\(\Omega\)</span> is the angular velocity of the
+rotating frame, and <span class="math inline">\(\vec{r}_1\)</span>,
+<span class="math inline">\(\vec{r}_2\)</span> are the positions of the
+two primaries.</p>
+<h4 id="jacobi-integral-and-the-jacobi-radius.">Jacobi Integral and the
+Jacobi Radius.</h4>
+<p>The motion of the test particle in this rotating frame is governed by
+the Jacobi integral: <span class="math display">\[C_J =
+2\Phi_{\text{eff}}(\vec{r}) - |\vec{v}|^2,\]</span> which is a conserved
+quantity for this system. The *Jacobi radius* (or tidal radius)
+corresponds to locations where the net force on the test particle
+vanishes, i.e., where the gradient of the effective potential is zero:
+<span class="math display">\[\nabla \Phi_{\text{eff}} = 0.\]</span>
+These points are the Lagrange points <span
+class="math inline">\(L_1\)</span> and <span
+class="math inline">\(L_2\)</span>, which define the boundaries of the
+region within which the test particle is gravitationally bound to one of
+the primaries. This is particularly relevant when modeling mass loss or
+tidal stripping from a globular cluster in the galactic potential.</p>
+<h4 id="the-roche-limit.">The Roche Limit.</h4>
+<p>Closely related to the Jacobi radius is the Roche limit, which
+provides a criterion for tidal disruption. Even in the simplified case
+of circular orbits and point masses, deriving the Roche limit requires
+solving a high-order polynomial equation. This is not due to the usual
+complications (e.g., approximating a differential equation or truncating
+a Taylor series), but rather because the condition <span
+class="math inline">\(\nabla \Phi_{\text{eff}} = 0\)</span> leads
+directly to a non-linear algebraic system. The emergence of such a
+constraint from purely algebraic considerations is a rare example where
+high-order polynomial roots become the main bottleneck — a striking
+reminder of how pure mathematics can intervene in a gravitational
+problem.</p>
+<h4 id="energy-zones-and-recapture.">Energy Zones and Recapture.</h4>
+<p>In the rotating frame, the topology of the effective potential
+defines different *energy zones*, i.e., regions of configuration space
+where motion is permitted for a given Jacobi constant. In the simplest
+case: - **Zone 1**: motion confined near the smaller primary; - **Zone
+2**: motion allowed between the two primaries; - **Zone 3**: motion
+unrestricted throughout the system.</p>
+<p>Transitions between zones can occur if a perturbation modifies the
+Jacobi constant, allowing phenomena such as *recapture* — where a
+particle initially unbound (e.g., in zone 2) can re-enter a bound orbit
+around the cluster (zone 1), or vice versa.</p>
+<h4 id="beyond-the-circular-case.">Beyond the Circular Case.</h4>
+<p>It’s worth noting that the PCR3BP is an idealized model. In real
+galactic environments, globular clusters follow general, often
+non-circular orbits and undergo repeated disk crossings. In these cases,
+the tidy balancing of forces assumed in the rotating frame breaks down.
+The cluster experiences time-varying tidal forces, and the mass
+distribution of the host galaxy cannot be reduced to two point masses.
+Hence, while the PCR3BP offers deep insight into tidal structures and
+escape mechanisms, its assumptions must be relaxed when transitioning to
+more realistic simulations involving evolving potentials and arbitrary
+mass distributions.</p>
 <h2 id="the-tidal-tensor">The tidal tensor</h2>
 <p>Tidal forces arise due to spatial variations in the gravitational
 field and are especially apparent when comparing the accelerations
