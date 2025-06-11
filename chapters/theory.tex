@@ -240,7 +240,7 @@ The remainder of this chapter is structured to clarify the theoretical framework
         \rho(\mathbf{r}) = M \int f(\mathbf{x}, \mathbf{v}) \, d^3\mathbf{v}
         \]
 
-        In fact, for isotropic spherical systems, an inversion formula exists — known as the Abel transform — that allows one to reconstruct \( f(E) \) from a known \( \rho(r) \). This technique is presented in Binney & Tremaine and also in Bovy's online book. At this point, one can obtain a complete analytic expression for the distribution function. With this in mind, a discrete set of positions and velocities can be sampled and is presented in the next chapter.
+        In fact, for isotropic spherical systems, an inversion formula exists — known as the Abel transform — that allows one to reconstruct \( f(E) \) from a known \( \rho(r) \). This technique is presented in Binney \& Tremaine and also in Bovy's online book. At this point, one can obtain a complete analytic expression for the distribution function. With this in mind, a discrete set of positions and velocities can be sampled and is presented in the next chapter.
 
         
 
@@ -249,50 +249,48 @@ The remainder of this chapter is structured to clarify the theoretical framework
 \section{The Implicit Physics}
 
     \subsection{The Planar Circular Restricted Three-Body Problem}
+        
+        Even if we simplify the simulation by modeling the cluster as N independent Three-Body problems, the problem is still hard. Indeed, if we consdiered all three to have mass, we could write down a Hamiltonian which would have 18 dimensions. Three positions, three momenta, in $\mathcal{R}^3$. The problem dimensionality of the problem can be reduced through conservation of total linear momentum, total angular momentum, and only considering the relative coordnates of each about the system's center of mass can reduce the total dimensionality of the system to 9 dimensions. The high dimensionality of the problem is still too difficult to tackle analytically. Instead, we can simplify the system further in order to obtain analytical insight to the problem. 
+        
+        Instead of writing down the Lagrangian for the motion of the three bodies, we can instead just focus on the third particle that is subject to the large two, in an inertial reference frame center on the center of mass of the system. This Lagrangian contains the kinetic energy of the particle with two terms of gravitational potential energy, one from the primary and secondary. However, since we are not including the positions and momenta as coordiantes for our system, they are not inside our system and thus must depend on time as an independent parameter. Very nice. However, this isn't good because the Lagrangian is not longer autonomous and if we considered a Hamiltonain, the total energy would not be conserved. This is absolutely the case at the primaries can give and take energy from the third particle. 
 
-    \begin{itemize}
-        \item write down the equation 
-        \item solve for where the force is zero for L1 and L2
-        \item say that this is interesting because it's a numeric because it's a polynomial 
-        \item say that there are different energy regiemes 
-        \item say that this is a simpler picture of the situation becuase the orbits are not circular and the mass distribution is not point masses 
-    \end{itemize}
+        However, we impart a further assumption, that the two primaries are on circular orbits. In this case, we can transform the coordinates of the particle into a reference frame that rotates with the primaries and we can place them on the x-axis. In this way, the Lagrangian no longer explicitly depends and is autonomous, it doesn't need any external information to solve for the subsequent motion of the particles it is describing. There are two reasons why this Lagrangian is time-independent. By moving to the rotating reference frame, we introduce the non-inertial forces: the coriolis force and the centrifugal force. However, the centrifugal force is conservative that has a scalar valued potential. The coriolos force depends on the velocity of the particle: $2\omega\times v$, BUT since its direction is always perpendicular to the velocity, it only changes the direction of a particle, never adding or removing kinetic energy to the system. After performing the coordinate transform, the canoncial momenta can be found, that are position dependent. The resulting Hamiltonain is: 
 
-        We now move on to the classical Planar Circular Restricted Three-Body Problem (PCR3BP), a fundamental framework to study the dynamics of a test particle under the gravitational influence of two massive bodies (the ``primaries'') in circular orbits around their common center of mass. The third body (the test particle) is assumed to have negligible mass and thus does not affect the motion of the primaries.
+        This Lagrangian can be written as: 
 
-        \paragraph{Rotating Frame and Effective Potential.}
-        To analyze the motion of the test particle, we switch to a rotating reference frame in which the primaries remain fixed. In this frame, the test particle experiences an effective potential given by the combination of the gravitational potential from the primaries and the centrifugal potential arising from the rotation of the frame. This effective potential takes the form:
-        \[
-        \Phi_{\text{eff}}(\vec{r}) = -\frac{G M_1}{|\vec{r} - \vec{r}_1|} - \frac{G M_2}{|\vec{r} - \vec{r}_2|} - \frac{1}{2} \Omega^2 |\vec{r}|^2,
-        \]
-        where \( \Omega \) is the angular velocity of the rotating frame, and \( \vec{r}_1 \), \( \vec{r}_2 \) are the positions of the two primaries.
+        \begin{equation}
+            \mathcal{H} = \frac{1}{2}\left(\left(p_x + y\right)^2 +\left(p_y - x\right)^2 \right)  + \Phi_\mathrm{eff}(x,y)
+        \end{equation} 
+        where
+        \begin{equation}
+            \Phi_\mathrm{eff}\left(x,y\right) = -\frac{1}{2}\omega^2 \left(x^2 + y^2\right) - \frac{Gm_1}{|r_1|} - \frac{Gm_2}{|r_2|},
+        \end{equation}
+        The potential can be normalized knowing that the orbital period from the two body problem is: $\omega^2=\frac{a_3}{GM}$, where $a$ is the separation between the primares and $M$ is the total mass of the system. When this is done, the system depends on one dimensionless parameter: $\mu$ which is the relative mass: $m_2/m_1$.
 
-        \paragraph{Jacobi Integral and the Jacobi Radius.}
-        The motion of the test particle in this rotating frame is governed by the Jacobi integral:
-        \[
-        C_J = 2\Phi_{\text{eff}}(\vec{r}) - |\vec{v}|^2,
-        \]
-        which is a conserved quantity for this system. The *Jacobi radius* (or tidal radius) corresponds to locations where the net force on the test particle vanishes, i.e., where the gradient of the effective potential is zero:
-        \[
-        \nabla \Phi_{\text{eff}} = 0.
-        \]
-        These points are the Lagrange points \( L_1 \) and \( L_2 \), which define the boundaries of the region within which the test particle is gravitationally bound to one of the primaries. This is particularly relevant when modeling mass loss or tidal stripping from a globular cluster in the galactic potential.
+        
+        Ok, at this point, the system can be studies quite qualitatively. Unfortunately, there is no general solution to the circular restricted three body problem where analytical equations and describe the subsequent motion as a function time. However, by studying the effective potential we can learn a lot about this system. First, our Hamiltonian depends on $(x,y,p_x,p_y)$, and has one integral of motion\footnote{Note that the author thinks it should be mentioned that "integral of motion" should be named a constant of motion. That's bececaue it's a quantity that does not vary during the orbital evolution of the body. However, this is not an integral of a function describing the motion. Intergral as fundamental or characteristic of the body, not the area under a curve}.\footnote{I also want to comment on a famous quantity in this field which is the Jacobi energy, or Jacobi integral, or Jacobi constant, in often reported as $C_j=-2E$. The author finds it foolish to define the constant, since we already know the total mechanical energy is a constant of motion, or course any scalar multiple of this constant is also a constant of motion. So what's the point? the answer is mostly just convention. We can define a positive value and by multiplying it by 2 it makes the equation \textit{easier} for finding forbidden regions or the zero velocity curve. Becuase we can say: $\dot{x}^2+\dot{y}^2 = 2\Phi_\mathrm{eff}(x,y) + C_j$, instead of $\dot{x}^2+\dot{y}^2 = -2\Phi_\mathrm{eff}(x,y) + 2E$ } Since we have four variables and one constrain, the subseqent motion is restrict to a 3D hypersurface or manifold in 4D space. 
 
-        \paragraph{The Roche Limit.}
-        Closely related to the Jacobi radius is the Roche limit, which provides a criterion for tidal disruption. Even in the simplified case of circular orbits and point masses, deriving the Roche limit requires solving a high-order polynomial equation. This is not due to the usual complications (e.g., approximating a differential equation or truncating a Taylor series), but rather because the condition \(\nabla \Phi_{\text{eff}} = 0\) leads directly to a non-linear algebraic system. The emergence of such a constraint from purely algebraic considerations is a rare example where high-order polynomial roots become the main bottleneck — a striking reminder of how pure mathematics can intervene in a gravitational problem.
-
-        \paragraph{Energy Zones and Recapture.}
-        In the rotating frame, the topology of the effective potential defines different *energy zones*, i.e., regions of configuration space where motion is permitted for a given Jacobi constant. In the simplest case:
-        - **Zone 1**: motion confined near the smaller primary;
-        - **Zone 2**: motion allowed between the two primaries;
-        - **Zone 3**: motion unrestricted throughout the system.
-
-        Transitions between zones can occur if a perturbation modifies the Jacobi constant, allowing phenomena such as *recapture* — where a particle initially unbound (e.g., in zone 2) can re-enter a bound orbit around the cluster (zone 1), or vice versa.
-
-        \paragraph{Beyond the Circular Case.}
-        It’s worth noting that the PCR3BP is an idealized model. In real galactic environments, globular clusters follow general, often non-circular orbits and undergo repeated disk crossings. In these cases, the tidy balancing of forces assumed in the rotating frame breaks down. The cluster experiences time-varying tidal forces, and the mass distribution of the host galaxy cannot be reduced to two point masses. Hence, while the PCR3BP offers deep insight into tidal structures and escape mechanisms, its assumptions must be relaxed when transitioning to more realistic simulations involving evolving potentials and arbitrary mass distributions.
+        At this point, one can find $\nabla \Phi_\mathrm{eff}=0$ which finds locations where all the forces balance, these are thus the Lagrange points. For us, the most important are the first two, which are along the radial line connecting the primary and secondary. $L_1$ is at a lower effective potential than $L_2$. So, we know that given a certain energy, we can set the kinetic energy equal to zero. This then highlights boundaries between a region where the particle can orbit and where it cannot. It cannot in certain zones given it's energy because if you're on one size, then you must have negative kinetic energy which is physically impossible. That means you need to have complex velocity which isn't going to happen.
+        
+        L1 and L2 are important because we are considering the a globular cluster with stars that originally bound to it. They escape through the Lagrange points. Also, lowever energy particles can only escape through L1 while higher ones can escape from L2. Here's a nice graph showing this in Fig.~\ref{fig:CR3BP_forbidden_region}. 
 
 
+
+
+        \begin{figure}
+            \centering
+            \includegraphics[width=.32\linewidth]{images/CR3BP_forbidden_region_0.png}
+            \includegraphics[width=.32\linewidth]{images/CR3BP_forbidden_region_1.png}
+            \includegraphics[width=.32\linewidth]{images/CR3BP_forbidden_region_2.png}
+            
+            \includegraphics[width=.32\linewidth]{images/CR3BP_forbidden_region_3.png}
+            \includegraphics[width=.32\linewidth]{images/CR3BP_forbidden_region_4.png}
+            \caption{Inspired from Koon, Shane, etc.}
+            \label{fig:CR3BP_forbidden_region}
+        \end{figure}
+
+
+        Now, from this point, it's worth contemplating the idea of \textit{recapture} as someone had asked me this at a conference before. In essence, if you have the correct initial energy, you can move freely between the two regions, so in this simplified approach to the problem, you can leave and come back depending on your initial conditions. 
 
     \subsection{The tidal tensor}
         Tidal forces arise due to spatial variations in the gravitational field and are especially apparent when comparing the accelerations experienced by nearby particles. To explore this, consider a Taylor expansion of the gravitational potential of the primary, \(\Phi_g\), evaluated at the star's position \(\vec{x}_s\), relative to the secondary's position \(\vec{x}_c\):
