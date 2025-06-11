@@ -674,8 +674,8 @@ because it is always perpendicular to the velocity, it does no work and
 thus does not change the particle’s kinetic energy. After performing the
 coordinate transformation, the canonical momenta—now
 position-dependent—can be derived. The resulting Hamiltonian is: <span
-class="math display">\[\mathcal{H} = \frac{1}{2}\left(\left(p_x +
-y\right)^2 + \left(p_y - x\right)^2 \right) +
+class="math display">\[\mathcal{H} = \frac{1}{2}\left(\left(p_x + \omega
+y\right)^2 + \left(p_y - \omega x\right)^2 \right) +
 \Phi_\mathrm{eff}(x,y),\]</span> where <span
 class="math display">\[\Phi_\mathrm{eff}(x,y) = -\frac{1}{2} \omega^2
 (x^2 + y^2) - \frac{G m_1}{|r_1|} - \frac{G m_2}{|r_2|}.\]</span></p>
@@ -697,8 +697,19 @@ insights.</p>
 <p>Our Hamiltonian depends on the four variables <span
 class="math inline">\((x, y, p_x, p_y)\)</span> and has one integral of
 motion.<a href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a> <a href="#fn2" class="footnote-ref"
-id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+role="doc-noteref"><sup>1</sup></a> A famous quantity in this context is
+the Jacobi integral (or Jacobi constant), often written as <span
+class="math inline">\(C_j = -2E\)</span>. Defining this constant is
+somewhat arbitrary since the total mechanical energy <span
+class="math inline">\(E\)</span> is itself conserved, and any scalar
+multiple of it is also conserved. The utility of the Jacobi constant is
+mostly conventional: it is often defined to be positive and multiplied
+by 2, which simplifies the expression for forbidden regions and
+zero-velocity curves. For example, one can write <span
+class="math display">\[\dot{x}^2 + \dot{y}^2 = 2 \Phi_\mathrm{eff}(x,y)
++ C_j,\]</span> instead of the equivalent <span
+class="math display">\[\dot{x}^2 + \dot{y}^2 = -2 \Phi_\mathrm{eff}(x,y)
++ 2E.\]</span></p>
 <p>Since we have four variables and one constraint, the motion is
 restricted to a three-dimensional hypersurface (or manifold) embedded in
 the four-dimensional phase space.</p>
@@ -732,13 +743,67 @@ src="images/CR3BP_forbidden_region_1.png" alt="image" /> <img
 src="images/CR3BP_forbidden_region_2.png" alt="image" /></p>
 <p><img src="images/CR3BP_forbidden_region_3.png" alt="image" /> <img
 src="images/CR3BP_forbidden_region_4.png" alt="image" /></p>
-<figcaption>Inspired from Koon, Shane, etc.</figcaption>
+<figcaption>A reproduction of Fig. 2.4.2 from <span class="citation"
+data-cites="koon2000dynamical">Koon et al. (2000)</span>. Each plot is
+shown in the non-inertial reference frame rotating with the orbital
+frequency of the primary and secondary about their common center of
+mass. In this example, the mass ratio is <span class="math inline">\(m_1
+= 10 m_2\)</span>. The gray regions represent areas inaccessible to the
+test particle for a given energy. In the first case, where <span
+class="math inline">\(E &lt; E_1\)</span>, the particle remains confined
+to orbit either around the primary or the secondary, depending on its
+initial position. As the particle’s energy increases, more of the <span
+class="math inline">\(xy\)</span>-plane becomes accessible. The narrow
+passage between <span class="math inline">\(m_1\)</span> and <span
+class="math inline">\(m_2\)</span> corresponds to the <span
+class="math inline">\(L_1\)</span> Lagrange point, while the choke point
+allowing escape to the exterior when <span class="math inline">\(E &gt;
+E_2\)</span> is the <span class="math inline">\(L_2\)</span>
+point.</figcaption>
 </figure>
-<p>Now, from this point, it’s worth contemplating the idea of
-<em>recapture</em> as someone had asked me this at a conference before.
-In essence, if you have the correct initial energy, you can move freely
-between the two regions, so in this simplified approach to the problem,
-you can leave and come back depending on your initial conditions.</p>
+<p>The distance from the secondary to the first and second Lagrange
+points is approximately equal, defining a region around the secondary
+known as the Hill sphere. Within this zone, the gravitational influence
+of the secondary dominates over that of the primary. The Hill radius is
+commonly approximated as <span class="math inline">\(r_h \approx
+r\sqrt[3]{m_2/m_1}\)</span>, where <span
+class="math inline">\(r\)</span> is the separation between the
+primaries. Interestingly, the expression for the Hill radius arises from
+a fifth-order polynomial expansion of the effective potential—a detail
+that might seem minor, but is actually quite delightful. In most areas
+of physics, approximations typically stem from Taylor expansions, basis
+function decompositions, or limits where the governing equations
+simplify.</p>
+<p>It is tempting to wonder whether a particle that escapes from the
+vicinity of the secondary can be recaptured. Indeed, within the
+simplified framework of the circular restricted three-body problem,
+recapture is possible. Once the initial conditions—position and
+momentum—are specified, the subsequent motion is fully determined by
+Hamilton’s equations. While no general analytical solution exists, the
+uniqueness theorem ensures that the system’s evolution is deterministic.
+Therefore, for a given total energy, we can identify the accessible
+regions in configuration space, bounded by the zero-velocity surfaces.
+This implies that the fate of the particle—whether it remains bound or
+escapes—is encoded in the initial conditions.</p>
+<p>In the context of celestial mechanics, particularly for applications
+such as spacecraft trajectory design, more sophisticated tools exist to
+analyze escape conditions and transfer orbits, including invariant
+manifolds and dynamical systems techniques. These are invaluable in the
+solar system regime, where the mass ratio is extreme and the test
+particle is typically a spacecraft or small body. However, in stellar
+and galactic dynamics, the situation differs substantially. The
+assumptions underpinning those techniques often break down, and the
+complexity of the gravitational potential increases. In this regime, it
+is more insightful to think of tidal forces as the underlying mechanism
+that gradually transfers energy and angular momentum, nudging stars
+across the Lagrange boundaries and ultimately driving escape. It is to
+this process—tidal stripping—that we now turn.</p>
+<p><strong>NOTE from Ferrone. I wonder if the <span
+class="math inline">\(L_4\)</span> and <span
+class="math inline">\(L_5\)</span> exist in the galactic context... are
+there Tojan stars? or does the complexity of the galactic potential
+paired with non circular orbits render such a phenomena
+unnatural?</strong></p>
 <h2 id="the-tidal-tensor">The tidal tensor</h2>
 <p>Tidal forces arise due to spatial variations in the gravitational
 field and are especially apparent when comparing the accelerations
@@ -1392,6 +1457,12 @@ mass segregation and stellar evolution are time-dependent which is
 completely ignored in my simulations.</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
+<div id="ref-koon2000dynamical" class="csl-entry" role="listitem">
+Koon, Wang Sang, Martin W Lo, Jerrold E Marsden, and Shane D Ross. 2000.
+<span>“Dynamical Systems, the Three-Body Problem and Space Mission
+Design.”</span> In <em>Equadiff 99: (In 2 Volumes)</em>, 1167–81. World
+Scientific.
+</div>
 <div id="ref-2023LRCA....9....3S" class="csl-entry" role="listitem">
 Spurzem, Rainer, and Albrecht Kamlah. 2023. <span>“<span
 class="nocase">Computational methods for collisional stellar
@@ -1410,19 +1481,6 @@ latter is preferable since it refers to a quantity that remains constant
 throughout the orbital evolution, not to an integral in the mathematical
 sense of the word (area under a curve).<a href="#fnref1"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>A famous quantity in this context is the Jacobi integral
-(or Jacobi constant), often written as <span class="math inline">\(C_j =
--2E\)</span>. Defining this constant is somewhat arbitrary since the
-total mechanical energy <span class="math inline">\(E\)</span> is itself
-conserved, and any scalar multiple of it is also conserved. The utility
-of the Jacobi constant is mostly conventional: it is often defined to be
-positive and multiplied by 2, which simplifies the expression for
-forbidden regions and zero-velocity curves. For example, one can write
-<span class="math display">\[\dot{x}^2 + \dot{y}^2 = 2
-\Phi_\mathrm{eff}(x,y) + C_j,\]</span> instead of the equivalent <span
-class="math display">\[\dot{x}^2 + \dot{y}^2 = -2 \Phi_\mathrm{eff}(x,y)
-+ 2E.\]</span><a href="#fnref2" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>

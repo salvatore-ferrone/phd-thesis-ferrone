@@ -258,7 +258,7 @@ The remainder of this chapter is structured to clarify the theoretical framework
 
         Two effects make this possible. First, by moving to the rotating frame, we introduce non-inertial forces: the Coriolis force and the centrifugal force. The centrifugal force is conservative, associated with a scalar potential. The Coriolis force depends on the particle's velocity as $2\omega\times v$, but because it is always perpendicular to the velocity, it does no work and thus does not change the particle's kinetic energy. After performing the coordinate transformation, the canonical momenta—now position-dependent—can be derived. The resulting Hamiltonian is:
         \begin{equation}
-            \mathcal{H} = \frac{1}{2}\left(\left(p_x + y\right)^2 + \left(p_y - x\right)^2 \right) + \Phi_\mathrm{eff}(x,y),
+            \mathcal{H} = \frac{1}{2}\left(\left(p_x + \omega y\right)^2 + \left(p_y - \omega x\right)^2 \right) + \Phi_\mathrm{eff}(x,y),
         \end{equation}
         where
         \begin{equation}
@@ -298,12 +298,19 @@ The remainder of this chapter is structured to clarify the theoretical framework
             
             \includegraphics[width=.32\linewidth]{images/CR3BP_forbidden_region_3.png}
             \includegraphics[width=.32\linewidth]{images/CR3BP_forbidden_region_4.png}
-            \caption{Inspired from Koon, Shane, etc.}
+            \caption{A reproduction of Fig.~2.4.2 from \citet{koon2000dynamical}. Each plot is shown in the non-inertial reference frame rotating with the orbital frequency of the primary and secondary about their common center of mass. In this example, the mass ratio is \(m_1 = 10 m_2\). The gray regions represent areas inaccessible to the test particle for a given energy. In the first case, where \(E < E_1\), the particle remains confined to orbit either around the primary or the secondary, depending on its initial position. As the particle's energy increases, more of the \(xy\)-plane becomes accessible. The narrow passage between \(m_1\) and \(m_2\) corresponds to the \(L_1\) Lagrange point, while the choke point allowing escape to the exterior when \(E > E_2\) is the \(L_2\) point.}
             \label{fig:CR3BP_forbidden_region}
         \end{figure}
 
+        The distance from the secondary to the first and second Lagrange points is approximately equal, defining a region around the secondary known as the Hill sphere. Within this zone, the gravitational influence of the secondary dominates over that of the primary. The Hill radius is commonly approximated as \( r_h \approx r\sqrt[3]{m_2/m_1} \), where \( r \) is the separation between the primaries. Interestingly, the expression for the Hill radius arises from a fifth-order polynomial expansion of the effective potential—a detail that might seem minor, but is actually quite delightful. In most areas of physics, approximations typically stem from Taylor expansions, basis function decompositions, or limits where the governing equations simplify. 
 
-        Now, from this point, it's worth contemplating the idea of \textit{recapture} as someone had asked me this at a conference before. In essence, if you have the correct initial energy, you can move freely between the two regions, so in this simplified approach to the problem, you can leave and come back depending on your initial conditions. 
+
+        It is tempting to wonder whether a particle that escapes from the vicinity of the secondary can be recaptured. Indeed, within the simplified framework of the circular restricted three-body problem, recapture is possible. Once the initial conditions—position and momentum—are specified, the subsequent motion is fully determined by Hamilton's equations. While no general analytical solution exists, the uniqueness theorem ensures that the system's evolution is deterministic. Therefore, for a given total energy, we can identify the accessible regions in configuration space, bounded by the zero-velocity surfaces. This implies that the fate of the particle—whether it remains bound or escapes—is encoded in the initial conditions.
+
+        In the context of celestial mechanics, particularly for applications such as spacecraft trajectory design, more sophisticated tools exist to analyze escape conditions and transfer orbits, including invariant manifolds and dynamical systems techniques. These are invaluable in the solar system regime, where the mass ratio is extreme and the test particle is typically a spacecraft or small body. However, in stellar and galactic dynamics, the situation differs substantially. The assumptions underpinning those techniques often break down, and the complexity of the gravitational potential increases. In this regime, it is more insightful to think of tidal forces as the underlying mechanism that gradually transfers energy and angular momentum, nudging stars across the Lagrange boundaries and ultimately driving escape. It is to this process—tidal stripping—that we now turn.
+
+
+        \textbf{NOTE from Ferrone. I wonder if the $L_4$ and $L_5$ exist in the galactic context... are there Tojan stars? or does the complexity of the galactic potential paired with non circular orbits render such a phenomena unnatural?}
 
     \subsection{The tidal tensor}
         Tidal forces arise due to spatial variations in the gravitational field and are especially apparent when comparing the accelerations experienced by nearby particles. To explore this, consider a Taylor expansion of the gravitational potential of the primary, \(\Phi_g\), evaluated at the star's position \(\vec{x}_s\), relative to the secondary's position \(\vec{x}_c\):
