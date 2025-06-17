@@ -1403,13 +1403,59 @@ will remain at the cluster location—the tidal debris will broadly fill
 the phase space accessible to it. This point is crucial for the results
 discussed in Chapter 4.</p>
 <h2 id="collisions">Collisions</h2>
-<ul>
-<li><p>show the impulse approximation.</p></li>
-<li><p>state that this is important for when we consdier the impacts of
-globular clusters</p></li>
-<li><p>give a quick over view of two body relaxation, to show why the
-galaxy can be totally approximated in the fluid limit.</p></li>
-</ul>
+<p>Collisions are essential in this thesis for two reasons. Firstly, one
+of the main research questions is how the passage of a subhalo perturbs
+a stellar stream. This interaction can be treated as a gravitational
+collision.</p>
+<p>In general, we are interested in how much the momentum of a particle
+changes before and after the encounter. We can simplify the scenario by
+assuming that the target particle is initially at rest, and that the
+perturber (the subhalo) flies by with a minimum distance of approach
+<span class="math inline">\(b\)</span>—the <em>impact
+parameter</em>.</p>
+<p>Since both objects exert gravitational forces on each other, the
+target will gain energy and begin to move, while the perturber will be
+slightly deflected and slow down. However, to simplify the calculation,
+we assume the perturber is unperturbed by the target—i.e., it moves on a
+straight-line trajectory with constant speed <span
+class="math inline">\(v\)</span>.</p>
+<p>In this approximation, we compute the momentum change of the target
+by integrating the gravitational force over time. Gravity is always
+attractive: the perturber pulls the target particle to the left before
+the closest approach and to the right afterward. If the trajectory is
+symmetric and unperturbed, the components of the force parallel to the
+motion cancel out. Thus, the net momentum transfer is perpendicular to
+the motion of the perturber.</p>
+<p>Assume the perturber moves along the <span
+class="math inline">\(x\)</span>-axis with impact parameter <span
+class="math inline">\(b\)</span>, and the target lies at the origin.
+Then the net force acts in the <span class="math inline">\(+y\)</span>
+direction. The gravitational force scales as <span
+class="math inline">\(1/d^2\)</span>, so for distances <span
+class="math inline">\(d \gg b\)</span>, the force becomes negligible. We
+can then approximate the force as roughly constant over a short time
+interval during the closest approach.</p>
+<p>We estimate the duration of the interaction as the time it takes the
+perturber to travel a distance <span class="math inline">\(2b\)</span>
+(from <span class="math inline">\(x = -b\)</span> to <span
+class="math inline">\(x = +b\)</span>), giving <span
+class="math inline">\(\Delta t = 2b/v\)</span>. Assuming a constant
+perpendicular force <span class="math inline">\(F_\perp \approx
+GMm/b^2\)</span>, the change in momentum is:</p>
+<p><span class="math display">\[\begin{aligned}
+        m\,\delta v_y &amp;=&amp; \int F_\perp \, dt \\
+                    &amp;\approx&amp; F_\perp \cdot \Delta t \\
+                    &amp;=&amp; \frac{GMm}{b^2} \cdot \frac{2b}{v}
+        
+\end{aligned}\]</span></p>
+<p>Dividing both sides by <span class="math inline">\(m\)</span>, the
+change in velocity is: <span class="math display">\[\delta v_y =
+\frac{2GM}{b v}\]</span></p>
+<p>It is interesting to note that this result is inversely proportional
+to the velocity of the perturber. This behavior contrasts with contact
+collisions, where a higher speed typically results in a greater momentum
+transfer. In gravitational encounters, a faster flyby leads to a shorter
+interaction time and thus less momentum exchange.</p>
 <h1 id="the-ignored-physics">The Ignored Physics</h1>
 <ul>
 <li><p>what is the hardness of a binary? the binding energy? how is

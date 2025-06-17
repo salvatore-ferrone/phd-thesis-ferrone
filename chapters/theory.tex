@@ -606,11 +606,34 @@ The remainder of this chapter is structured to clarify the theoretical framework
             
     \subsection{Collisions}
 
-        \begin{itemize}
-            \item show the impulse approximation.
-            \item state that this is important for when we consdier the impacts of globular clusters
-            \item give a quick over view of two body relaxation, to show why the galaxy can be totally approximated in the fluid limit.
-        \end{itemize}
+        Collisions are essential in this thesis for two reasons. Firstly, one of the main research questions is how the passage of a subhalo perturbs a stellar stream. This interaction can be treated as a gravitational collision.
+
+        In general, we are interested in how much the momentum of a particle changes before and after the encounter. We can simplify the scenario by assuming that the target particle is initially at rest, and that the perturber (the subhalo) flies by with a minimum distance of approach $b$—the \emph{impact parameter}.
+
+        Since both objects exert gravitational forces on each other, the target will gain energy and begin to move, while the perturber will be slightly deflected and slow down. However, to simplify the calculation, we assume the perturber is unperturbed by the target—i.e., it moves on a straight-line trajectory with constant speed $v$.
+
+        In this approximation, we compute the momentum change of the target by integrating the gravitational force over time. Gravity is always attractive: the perturber pulls the target particle to the left before the closest approach and to the right afterward. If the trajectory is symmetric and unperturbed, the components of the force parallel to the motion cancel out. Thus, the net momentum transfer is perpendicular to the motion of the perturber.
+
+        Assume the perturber moves along the $x$-axis with impact parameter $b$, and the target lies at the origin. Then the net force acts in the $+y$ direction. The gravitational force scales as $1/d^2$, so for distances $d \gg b$, the force becomes negligible. We can then approximate the force as roughly constant over a short time interval during the closest approach.
+
+        We estimate the duration of the interaction as the time it takes the perturber to travel a distance $2b$ (from $x = -b$ to $x = +b$), giving $\Delta t = 2b/v$. Assuming a constant perpendicular force $F_\perp \approx GMm/b^2$, the change in momentum is:
+
+        \begin{eqnarray}
+        m\,\delta v_y &=& \int F_\perp \, dt \\
+                    &\approx& F_\perp \cdot \Delta t \\
+                    &=& \frac{GMm}{b^2} \cdot \frac{2b}{v}
+        \end{eqnarray}
+
+        Dividing both sides by $m$, the change in velocity is:
+        \begin{equation}
+        \delta v_y = \frac{2GM}{b v}
+        \end{equation}
+
+        It is interesting to note that this result is inversely proportional to the velocity of the perturber. This behavior contrasts with contact collisions, where a higher speed typically results in a greater momentum transfer. In gravitational encounters, a faster flyby leads to a shorter interaction time and thus less momentum exchange.
+
+        \subsubsection{Gapology}
+
+
 
 \section{The Ignored Physics}
 
