@@ -1457,44 +1457,73 @@ collisions, where a higher speed typically results in a greater momentum
 transfer. In gravitational encounters, a faster flyby leads to a shorter
 interaction time and thus less momentum exchange.</p>
 <h3 id="gapology">Gapology</h3>
-<p>Gaps in stellar streams from dark matter subhalo impacts, or globular
-clusters, can be understood through collisions. However, one point mass
+<p>Gaps in stellar streams are the resultant underdensities in streams
+that occur after impacts from dark matter subhalo, or globular clusters.
+They can be underscores through collisions. However, one point mass
 hitting another is too simple. What about the case of a stellar
 stream?</p>
 <p>To this, we can turn to the work of <span class="citation"
 data-cites="2015MNRAS.450.1136E">Erkal and Belokurov (2015)</span>. The
-authors expanded the impact approximation two point masses to an
-extended mass impacting a 1D line of particles. Thus, extended masses
-are useful becuase globular clusters and subhalos are not point masses
-but have extent. Additionally, a stream is not a point but are many
-points. For developing the govering equations, it is simpler to
-approximate the stream as a 1D line. By expanding this, there are more
-free parameters that are introduced. One is that we now must describe
-the velocity as a vector, with a parallel and perpendicular component to
-the stream. Next, is that we have a characteristic radius of the
-impactor. There is also the point of impact, which is defined as the
-origin for the calculations presented in the paper. By definition, the
-stream lies along the y-axis and the impact location occurs at y=0. The
-paper describes this in more detail but with this expantion we can
-describe the change in momentum of the particle given its position
-relative to the globular cluster as</p>
-<p><span class="math display">\[\begin{aligned}
-            \Delta v_x &amp;= \\
-            \Delta v_y &amp;= \\
-            \Delta v_z &amp;= \\
-            
-\end{aligned}\]</span></p>
-<p><span class="math inline">\(W_\perp\)</span> is the component of the
-velocity that is perpendicular to the y-axis. If this is greater than
-the parallel component, then the peak _y is greater than peak <span
-class="math inline">\(\Delta v_x\)</span>, <span
-class="math inline">\(\Delta v_z\)</span>. Thus, <span class="citation"
-data-cites="2015MNRAS.450.1136E">Erkal and Belokurov (2015)</span>
-provide some characteristic values for this distribution, namely, the
-full width half max, the peak impacted momentum, and the location of the
-peak. These are presented on their figure XXX which is presented here at
-Fig. <a href="#fig:erkal_2015_fig_3" data-reference-type="ref"
-data-reference="fig:erkal_2015_fig_3">15</a>.</p>
+authors studied a simplified case of a uniformly dense stream on a
+circular orbit. By doing so, an analytical solution for the gap
+evolution can be obtained. A gap can be described with two quantities:
+the gap’s width <span class="math inline">\(\Delta \theta\)</span> and
+the contrast of the central density to the peak density where the stars
+pile up on the sides: <span
+class="math inline">\(\rho_{\mathrm{peak}}/\rho_0\)</span>. the authors
+build a framework to understand how each of these evolve as a function
+of time. To do this, the authors developed a full paramaterization of
+the change in velocity of each point along the stream and computed
+propogated the subsequent motion after the change in momentum is
+applied. This change in velocities of a star in a stream is a vector
+valued function and dependent on distance to to the impact location
+along the stream: <span class="math inline">\(\Delta \vec{v} =
+f(y|M,r_s,b,w_\parallel, w_\perp,\alpha)\)</span>, where <span
+class="math inline">\(M\)</span> is the mass of the impactor, <span
+class="math inline">\(r_s\)</span> is the size of the impactor, <span
+class="math inline">\(b\)</span> is the impact parameter, <span
+class="math inline">\(w_\parallel\)</span> and <span
+class="math inline">\(w_\perp\)</span> are the parallel and
+perpendicular components of the impactor’s velocity with respect to the
+orientation of the stream. Note that the <span
+class="math inline">\(\Delta v_x\)</span> and <span
+class="math inline">\(\Delta v_z\)</span> components are tugs that pull
+the particles off the stream while <span class="math inline">\(\Delta
+v_y\)</span> changes the particles speed along the stream.</p>
+<p>To construct this parameterization, first a coordinate system is
+constructed where the stream is placed along the <span
+class="math inline">\(y\)</span>-axis. The origin is placed along the
+stream that minimized the distance to the impactor at the impactor’s
+closest approach. Additionally, since the stream is no longer a point
+but has extent, the parallel and perpendicular components of the
+impactor’s velocity to the stream must be considered. Note that in the
+previous section, we remarked that the change in momentum of the target
+is zero along the direction parallel to the impactor’s motion. This is
+still the true in the 1D case but it’s not necessarily the case that the
+impactor’s motion is parallel to either the <span
+class="math inline">\(x\)</span> or <span
+class="math inline">\(z\)</span>-axes, and thus the trajector of the
+impactor must be described with an angle <span
+class="math inline">\(\alpha\)</span> between the <span
+class="math inline">\(x\)</span> and <span
+class="math inline">\(z\)</span>-axes. Since the trajectory cannot be
+parallel to both axes, some particles will be tugged off the stream. The
+full paramaterization is given in their paper. However, to qualitatively
+understand the gap evolution, here we can just consider change in
+velocity along the <span class="math inline">\(y\)</span>-axis:</p>
+<p><span class="math display">\[\Delta v_y\left(y|M,r_s,b,w_\parallel,
+w_\perp\right) = - \frac{2GM w_\perp^2 y}{w\left(\left(b^2 +
+r_s^2\right)w^2 + w^2_\perp y^2\right)},\]</span> note that this is an
+odd function in <span class="math inline">\(y\)</span>, as expected
+since gravity is attactive. Those at <span
+class="math inline">\(y&lt;0\)</span> will pulled forward with those at
+<span class="math inline">\(y&gt;0\)</span> will be pulled behind. This
+function is plotted in Fig. <a href="#fig:erkal_2015_fig_3"
+data-reference-type="ref" data-reference="fig:erkal_2015_fig_3">15</a>.
+In the figure, the authors provide some critical values of the function
+which are the maximum change in momentum, the full width half-max as
+well as the location of the maximum. With these values, we can know the
+distance over which the particles are perturbed.</p>
 <figure id="fig:erkal_2015_fig_3">
 <img src="images/erkal_et_al_2015_fig_3.png" />
 <figcaption>The change in velocity of the stars along a stream after an
