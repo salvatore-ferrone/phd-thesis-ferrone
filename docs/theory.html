@@ -1456,6 +1456,97 @@ to the velocity of the perturber. This behavior contrasts with contact
 collisions, where a higher speed typically results in a greater momentum
 transfer. In gravitational encounters, a faster flyby leads to a shorter
 interaction time and thus less momentum exchange.</p>
+<h3 id="gapology">Gapology</h3>
+<p>Gaps in stellar streams from dark matter subhalo impacts, or globular
+clusters, can be understood through collisions. However, one point mass
+hitting another is too simple. What about the case of a stellar
+stream?</p>
+<p>To this, we can turn to the work of <span class="citation"
+data-cites="2015MNRAS.450.1136E">Erkal and Belokurov (2015)</span>. The
+authors expanded the impact approximation two point masses to an
+extended mass impacting a 1D line of particles. Thus, extended masses
+are useful becuase globular clusters and subhalos are not point masses
+but have extent. Additionally, a stream is not a point but are many
+points. For developing the govering equations, it is simpler to
+approximate the stream as a 1D line. By expanding this, there are more
+free parameters that are introduced. One is that we now must describe
+the velocity as a vector, with a parallel and perpendicular component to
+the stream. Next, is that we have a characteristic radius of the
+impactor. There is also the point of impact, which is defined as the
+origin for the calculations presented in the paper. By definition, the
+stream lies along the y-axis and the impact location occurs at y=0. The
+paper describes this in more detail but with this expantion we can
+describe the change in momentum of the particle given its position
+relative to the globular cluster as</p>
+<p><span class="math display">\[\begin{aligned}
+            \Delta v_x &amp;= \\
+            \Delta v_y &amp;= \\
+            \Delta v_z &amp;= \\
+            
+\end{aligned}\]</span></p>
+<p><span class="math inline">\(W_\perp\)</span> is the component of the
+velocity that is perpendicular to the y-axis. If this is greater than
+the parallel component, then the peak _y is greater than peak <span
+class="math inline">\(\Delta v_x\)</span>, <span
+class="math inline">\(\Delta v_z\)</span>. Thus, <span class="citation"
+data-cites="2015MNRAS.450.1136E">Erkal and Belokurov (2015)</span>
+provide some characteristic values for this distribution, namely, the
+full width half max, the peak impacted momentum, and the location of the
+peak. These are presented on their figure XXX which is presented here at
+Fig. <a href="#fig:erkal_2015_fig_3" data-reference-type="ref"
+data-reference="fig:erkal_2015_fig_3">15</a>.</p>
+<figure id="fig:erkal_2015_fig_3">
+<img src="images/erkal_et_al_2015_fig_3.png" />
+<figcaption>The change in velocity of the stars along a stream after an
+impact. The stream is one dimensional and along the y-axis. The point of
+impact is the origin. The critical points, maximum <span
+class="math inline">\(\Delta v_y\)</span>, location of the maximum, and
+the full width half maximum are labeled. Borrowed from Fig. 3 of <span
+class="citation" data-cites="2015MNRAS.450.1136E">Erkal and Belokurov
+(2015)</span>.</figcaption>
+</figure>
+<p>There are some assumptions baked into these equations that are might
+appear obvious given the context of the problem. The first is that by
+approximating the stream as a straight line, we are assuming the size of
+the impact area is much smaller than the circumfrence of the orbit. By
+assuming constant velocities of the stream and the perturber, we assume
+that the duration of the imapct is much smaller than the dynamical time.
+Corolaries of these assumptions are that the impact parameter is
+siffuciently close to the stream and that the impactor itself is small
+compared to the streams orbital radius, and that that</p>
+<p>The authors then present a rigorous development of the equations of
+motion that govern the density evolution of the stream thereafter. The
+assumptions presented in this analysis is that the stream is on a
+circular orbit; that the imparted momentum is greater along the stream
+direction that perpendicular to. With this, the authors were able to
+describe the evolution of the stream in three ways. First, the stream is
+approximated as a 1D density distribution along the orbit. Secondly, the
+considering the point of impact as the origin, two parameters are
+important for qualifying a gap: the opening, which is an anglular width
+the underdensity, and the density contrast, which is a ratio of the
+maximum density of the pile up on the sides of the gap compared to the
+density of the center at the location of the impact. The authors studied
+this in three different ways, creating a full analytical solution by
+only considering a low order term in <span class="math inline">\(\Delta
+V/ \delta v_y\)</span>, and the numerically solving a transendental
+equation for the opening evolution, as well as computing an n body
+simulation.</p>
+<p>From this there is a couple interesting regiems that we learn from
+gaps evolution. First, is that there is a brief compression phase when
+the particles swap sides. This can be quicly estiamted based on the
+scematic in Fig. ref<span>fig:erkal_2015_fig_3</span> as: <span
+class="math display">\[t_{\mathrm{char}} =\]</span>.</p>
+<p>Next, there is a normal evolution phase of the gaps where the gap
+sizes grows linearly with respect to time. Secondly, there is a third
+phase called the causic phase. In this place the particles on the sides
+being to bunch up and create wrinkles in density and the width of the
+gap no longer grows linearly with time but rather sublinearly and the
+authors find this to be proprtional to the square root of time.</p>
+<p>This paper provides great insight to gap evolution, however it is
+limited to the a circular orbit which is a large constraint,
+particularly for globular clusters which have a wide variety of inclined
+and elliptical orbits. Luckily, a similar team of people developed this
+work where they inerpreted gap growth in action-angle coordinates…</p>
 <h1 id="the-ignored-physics">The Ignored Physics</h1>
 <ul>
 <li><p>what is the hardness of a binary? the binding energy? how is
@@ -1503,6 +1594,12 @@ mass segregation and stellar evolution are time-dependent which is
 completely ignored in my simulations.</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
+<div id="ref-2015MNRAS.450.1136E" class="csl-entry" role="listitem">
+Erkal, Denis, and Vasily Belokurov. 2015. <span>“<span
+class="nocase">Forensics of subhalo-stream encounters: the three phases
+of gap growth</span>”</span> 450 (1): 1136–49. <a
+href="https://doi.org/10.1093/mnras/stv655">https://doi.org/10.1093/mnras/stv655</a>.
+</div>
 <div id="ref-koon2000dynamical" class="csl-entry" role="listitem">
 Koon, Wang Sang, Martin W Lo, Jerrold E Marsden, and Shane D Ross. 2000.
 <span>“Dynamical Systems, the Three-Body Problem and Space Mission

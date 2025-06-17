@@ -632,6 +632,39 @@ The remainder of this chapter is structured to clarify the theoretical framework
         It is interesting to note that this result is inversely proportional to the velocity of the perturber. This behavior contrasts with contact collisions, where a higher speed typically results in a greater momentum transfer. In gravitational encounters, a faster flyby leads to a shorter interaction time and thus less momentum exchange.
 
         \subsubsection{Gapology}
+            Gaps in stellar streams from dark matter subhalo impacts, or globular clusters, can be understood through collisions. However, one point mass hitting another is too simple. What about the case of a stellar stream? 
+
+            To this, we can turn to the work of \citet{2015MNRAS.450.1136E}. The authors expanded the impact approximation two point masses to an extended mass impacting a 1D line of particles. Thus, extended masses are useful becuase globular clusters and subhalos are not point masses but have extent. Additionally, a stream is not a point but are many points. For developing the govering equations, it is simpler to approximate the stream as a 1D line. By expanding this, there are more free parameters that are introduced. One is that we now must describe the velocity as a vector, with a parallel and perpendicular component to the stream. Next, is that we have a characteristic radius of the impactor. There is also the point of impact, which is defined as the origin for the calculations presented in the paper. By definition, the stream lies along the y-axis and the impact location occurs at y=0. The paper describes this in more detail but with this expantion we can describe the change in momentum of the particle given its position relative to the globular cluster as 
+
+            \begin{eqnarray}
+            \Delta v_x &= \\ 
+            \Delta v_y &= \\
+            \Delta v_z &= \\ 
+            \end{eqnarray}
+
+            $W_\perp$ is the component of the velocity that is perpendicular to the y-axis. If this is greater than the parallel component, then the peak \Delta_y is greater than peak $\Delta v_x$, $\Delta v_z$. Thus, \citet{2015MNRAS.450.1136E} provide some characteristic values for this distribution, namely, the full width half max, the peak impacted momentum, and the location of the peak. These are presented on their figure XXX which is presented here at Fig.~\ref{fig:erkal_2015_fig_3}. 
+
+                \begin{figure}
+                    \centering
+                    \includegraphics[width=\linewidth]{images/erkal_et_al_2015_fig_3.png}
+                    \caption{The change in velocity of the stars along a stream after an impact. The stream is one dimensional and along the y-axis. The point of impact is the origin. The critical points, maximum $\Delta v_y$, location of the maximum, and the full width half maximum are labeled. Borrowed from Fig.~3 of \citet{2015MNRAS.450.1136E}.}
+                    \label{fig:erkal_2015_fig_3}
+                \end{figure}
+
+            There are some assumptions baked into these equations that are might appear obvious given the context of the problem. The first is that by approximating the stream as a straight line, we are assuming the size of the impact area is much smaller than the circumfrence of the orbit. By assuming constant velocities of the stream and the perturber, we assume that the duration of the imapct is much smaller than the dynamical time. Corolaries of these assumptions are that the impact parameter is siffuciently close to the stream and that the impactor itself is small compared to the streams orbital radius, and that that 
+
+            The authors then present a rigorous development of the equations of motion that govern the density evolution of the stream thereafter. The assumptions presented in this analysis is that the stream is on a circular orbit; that the imparted momentum is greater along the stream direction that perpendicular to. With this, the authors were able to describe the evolution of the stream in three ways. First, the stream is approximated as a 1D density distribution along the orbit. Secondly, the considering the point of impact as the origin, two parameters are important for qualifying a gap: the opening, which is an anglular width the underdensity, and the density contrast, which is a ratio of the maximum density of the pile up on the sides of the gap compared to the density of the center at the location of the impact. The authors studied this in three different ways, creating a full analytical solution by only considering a low order term in $\Delta V/ \delta v_y$, and the numerically solving a transendental equation for the opening evolution, as well as computing an n body simulation. 
+
+            From this there is a couple interesting regiems that we learn from gaps evolution. First, is that there is a brief compression phase when the particles swap sides. This can be quicly estiamted based on the scematic in Fig.~ref{fig:erkal_2015_fig_3} as:
+            \begin{equation}
+            t_{\mathrm{char}} = 
+            \end{equation}. 
+
+            Next, there is a normal evolution phase of the gaps where the gap sizes grows linearly with respect to time. Secondly, there is a third phase called the causic phase. In this place the particles on the sides being to bunch up and create wrinkles in density and the width of the gap no longer grows linearly with time but rather sublinearly and the authors find this to be proprtional to the square root of time. 
+
+
+            This paper provides great insight to gap evolution, however it is limited to the a circular orbit which is a large constraint, particularly for globular clusters which have a wide variety of inclined and elliptical orbits. Luckily, a similar team of people developed this work where they inerpreted gap growth in action-angle coordinates\dots
+
 
 
 
