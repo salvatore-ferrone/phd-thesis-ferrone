@@ -1457,125 +1457,118 @@ collisions, where a higher speed typically results in a greater momentum
 transfer. In gravitational encounters, a faster flyby leads to a shorter
 interaction time and thus less momentum exchange.</p>
 <h3 id="gapology">Gapology</h3>
-<p>Gaps in stellar streams are the resultant underdensities in streams
-that occur after impacts from dark matter subhalo, or globular clusters.
-They can be underscores through collisions. However, one point mass
-hitting another is too simple. What about the case of a stellar
-stream?</p>
-<p>To this, we can turn to the work of <span class="citation"
-data-cites="2015MNRAS.450.1136E">Erkal and Belokurov (2015)</span>. The
-authors studied a simplified case of a uniformly dense stream on a
-circular orbit. By doing so, an analytical solution for the gap
-evolution can be obtained. A gap can be described with two quantities:
-the gap’s width <span class="math inline">\(\Delta \theta\)</span> and
-the contrast of the central density to the peak density where the stars
-pile up on the sides: <span
-class="math inline">\(\rho_{\mathrm{peak}}/\rho_0\)</span>. the authors
-build a framework to understand how each of these evolve as a function
-of time. To do this, the authors developed a full paramaterization of
-the change in velocity of each point along the stream and computed
-propogated the subsequent motion after the change in momentum is
-applied. This change in velocities of a star in a stream is a vector
-valued function and dependent on distance to to the impact location
-along the stream: <span class="math inline">\(\Delta \vec{v} =
-f(y|M,r_s,b,w_\parallel, w_\perp,\alpha)\)</span>, where <span
-class="math inline">\(M\)</span> is the mass of the impactor, <span
-class="math inline">\(r_s\)</span> is the size of the impactor, <span
-class="math inline">\(b\)</span> is the impact parameter, <span
+<p>Gaps in stellar streams are underdensities that appear after
+encounters with dark matter subhalos or globular clusters. These can be
+understood as resulting from collisions. However, modeling the
+interaction as one point mass hitting another is too simplistic. What
+happens when an extended object, like a subhalo, interacts with a
+continuous stellar stream? Before delving into the technical details, it
+is worth clarifying a misconception–one that I myself held when first
+approaching this problem. Encounters between stellar streams and
+perturbers are not violent collisions in which stars are physically
+ejected or stripped from the stream. Rather, the perturber imparts a
+small, localized change in velocity to nearby stars, subtly altering
+their orbital periods. Over time, these tiny shifts accumulate, causing
+stars to drift apart and gradually sculpting a visible underdensity: the
+gap.</p>
+<p>To address this, we turn to the work of <span class="citation"
+data-cites="2015MNRAS.450.1136E">Erkal and Belokurov (2015)</span>, who
+studied a simplified model: a stream with uniform density on a circular
+orbit. This idealized setup allows for an analytical treatment of the
+gap’s formation and evolution. A gap can be characterized by two main
+quantities: its angular width, <span class="math inline">\(\Delta
+\theta\)</span>, and the density contrast, <span
+class="math inline">\(\rho_{\mathrm{peak}}/\rho_0\)</span>, between the
+overdensities at the gap’s edges and the central underdensity.</p>
+<p>To understand how these evolve, the authors derived a
+parameterization of the change in velocity <span
+class="math inline">\(\Delta \vec{v}\)</span> for stars along the stream
+after a perturbation. This vector function depends on the position <span
+class="math inline">\(y\)</span> along the stream relative to the impact
+point and on several parameters describing the perturber and the impact
+geometry: <span class="math display">\[\Delta \vec{v} = f(y \,|\, M,
+r_s, b, w_\parallel, w_\perp, \alpha),\]</span> where <span
+class="math inline">\(M\)</span> is the impactor’s mass, <span
+class="math inline">\(r_s\)</span> its scale radius, <span
+class="math inline">\(b\)</span> the impact parameter, <span
 class="math inline">\(w_\parallel\)</span> and <span
-class="math inline">\(w_\perp\)</span> are the parallel and
-perpendicular components of the impactor’s velocity with respect to the
-orientation of the stream. Note that the <span
-class="math inline">\(\Delta v_x\)</span> and <span
-class="math inline">\(\Delta v_z\)</span> components are tugs that pull
-the particles off the stream while <span class="math inline">\(\Delta
-v_y\)</span> changes the particles speed along the stream.</p>
-<p>To construct this parameterization, first a coordinate system is
-constructed where the stream is placed along the <span
-class="math inline">\(y\)</span>-axis. The origin is placed along the
-stream that minimized the distance to the impactor at the impactor’s
-closest approach. Additionally, since the stream is no longer a point
-but has extent, the parallel and perpendicular components of the
-impactor’s velocity to the stream must be considered. Note that in the
-previous section, we remarked that the change in momentum of the target
-is zero along the direction parallel to the impactor’s motion. This is
-still the true in the 1D case but it’s not necessarily the case that the
-impactor’s motion is parallel to either the <span
-class="math inline">\(x\)</span> or <span
-class="math inline">\(z\)</span>-axes, and thus the trajector of the
-impactor must be described with an angle <span
-class="math inline">\(\alpha\)</span> between the <span
-class="math inline">\(x\)</span> and <span
-class="math inline">\(z\)</span>-axes. Since the trajectory cannot be
-parallel to both axes, some particles will be tugged off the stream. The
-full paramaterization is given in their paper. However, to qualitatively
-understand the gap evolution, here we can just consider change in
-velocity along the <span class="math inline">\(y\)</span>-axis:</p>
-<p><span class="math display">\[\Delta v_y\left(y|M,r_s,b,w_\parallel,
-w_\perp\right) = - \frac{2GM w_\perp^2 y}{w\left(\left(b^2 +
-r_s^2\right)w^2 + w^2_\perp y^2\right)},\]</span> note that this is an
-odd function in <span class="math inline">\(y\)</span>, as expected
-since gravity is attactive. Those at <span
-class="math inline">\(y&lt;0\)</span> will pulled forward with those at
-<span class="math inline">\(y&gt;0\)</span> will be pulled behind. This
-function is plotted in Fig. <a href="#fig:erkal_2015_fig_3"
-data-reference-type="ref" data-reference="fig:erkal_2015_fig_3">15</a>.
-In the figure, the authors provide some critical values of the function
-which are the maximum change in momentum, the full width half-max as
-well as the location of the maximum. With these values, we can know the
-distance over which the particles are perturbed.</p>
+class="math inline">\(w_\perp\)</span> the components of its velocity
+parallel and perpendicular to the stream, and <span
+class="math inline">\(\alpha\)</span> the angle between the impactor’s
+trajectory and the <span class="math inline">\((x,z)\)</span>-axes.</p>
+<p>To set up the problem, a coordinate system is defined where the
+stream lies along the <span class="math inline">\(y\)</span>-axis, and
+the impact occurs at <span class="math inline">\(y=0\)</span>. Because
+the stream has spatial extent, the impactor’s motion must be decomposed
+into parallel and perpendicular components with respect to the stream.
+Unlike the simpler point-mass approximation, here <span
+class="math inline">\(\Delta \vec{v}\)</span> generally has nonzero
+components in all directions. In particular, <span
+class="math inline">\(\Delta v_y\)</span> alters the speed along the
+stream, while <span class="math inline">\(\Delta v_x\)</span> and <span
+class="math inline">\(\Delta v_z\)</span> displace stars out of the
+stream’s plane. <span class="math inline">\(\Delta v_x\)</span> or <span
+class="math inline">\(\Delta v_z\)</span> can be zero if the trajectory
+of the impactor is parallel to the <span
+class="math inline">\(x\)</span> axis or <span
+class="math inline">\(z\)</span> axis, respectively.</p>
+<p>The expression for <span class="math inline">\(\Delta v_y\)</span>
+is: <span class="math display">\[\Delta v_y\left(y\,|\, M, r_s, b,
+w_\parallel, w_\perp\right) = - \frac{2GM w_\perp^2 y}{w\left[\left(b^2
++ r_s^2\right)w^2 + w_\perp^2 y^2\right]},\]</span> which is an odd
+function of <span class="math inline">\(y\)</span>, as expected for a
+gravitationally attractive force: stars ahead of the impact point (<span
+class="math inline">\(y&gt;0\)</span>) are slowed down, while those
+behind (<span class="math inline">\(y&lt;0\)</span>) are sped up.</p>
 <figure id="fig:erkal_2015_fig_3">
 <img src="images/erkal_et_al_2015_fig_3.png" />
-<figcaption>The change in velocity of the stars along a stream after an
-impact. The stream is one dimensional and along the y-axis. The point of
-impact is the origin. The critical points, maximum <span
-class="math inline">\(\Delta v_y\)</span>, location of the maximum, and
-the full width half maximum are labeled. Borrowed from Fig. 3 of <span
-class="citation" data-cites="2015MNRAS.450.1136E">Erkal and Belokurov
+<figcaption>The change in velocity, <span class="math inline">\(\Delta
+v_y\)</span>, of stars along the stream after an impact. The stream lies
+along the <span class="math inline">\(y\)</span>-axis, with the point of
+impact at the origin. Key features are labeled: the maximum value of
+<span class="math inline">\(\Delta v_y\)</span>, its location, and the
+full width at half maximum. Taken from Fig. 3 of <span class="citation"
+data-cites="2015MNRAS.450.1136E">Erkal and Belokurov
 (2015)</span>.</figcaption>
 </figure>
-<p>There are some assumptions baked into these equations that are might
-appear obvious given the context of the problem. The first is that by
-approximating the stream as a straight line, we are assuming the size of
-the impact area is much smaller than the circumfrence of the orbit. By
-assuming constant velocities of the stream and the perturber, we assume
-that the duration of the imapct is much smaller than the dynamical time.
-Corolaries of these assumptions are that the impact parameter is
-siffuciently close to the stream and that the impactor itself is small
-compared to the streams orbital radius, and that that</p>
-<p>The authors then present a rigorous development of the equations of
-motion that govern the density evolution of the stream thereafter. The
-assumptions presented in this analysis is that the stream is on a
-circular orbit; that the imparted momentum is greater along the stream
-direction that perpendicular to. With this, the authors were able to
-describe the evolution of the stream in three ways. First, the stream is
-approximated as a 1D density distribution along the orbit. Secondly, the
-considering the point of impact as the origin, two parameters are
-important for qualifying a gap: the opening, which is an anglular width
-the underdensity, and the density contrast, which is a ratio of the
-maximum density of the pile up on the sides of the gap compared to the
-density of the center at the location of the impact. The authors studied
-this in three different ways, creating a full analytical solution by
-only considering a low order term in <span class="math inline">\(\Delta
-V/ \delta v_y\)</span>, and the numerically solving a transendental
-equation for the opening evolution, as well as computing an n body
-simulation.</p>
-<p>From this there is a couple interesting regiems that we learn from
-gaps evolution. First, is that there is a brief compression phase when
-the particles swap sides. This can be quicly estiamted based on the
-scematic in Fig. ref<span>fig:erkal_2015_fig_3</span> as: <span
-class="math display">\[t_{\mathrm{char}} =\]</span>.</p>
-<p>Next, there is a normal evolution phase of the gaps where the gap
-sizes grows linearly with respect to time. Secondly, there is a third
-phase called the causic phase. In this place the particles on the sides
-being to bunch up and create wrinkles in density and the width of the
-gap no longer grows linearly with time but rather sublinearly and the
-authors find this to be proprtional to the square root of time.</p>
-<p>This paper provides great insight to gap evolution, however it is
-limited to the a circular orbit which is a large constraint,
-particularly for globular clusters which have a wide variety of inclined
-and elliptical orbits. Luckily, a similar team of people developed this
-work where they inerpreted gap growth in action-angle coordinates…</p>
+<p>Several assumptions underlie this formulation. First, the stream is
+approximated as a straight line, which requires the size of the impacted
+region to be much smaller than the orbital circumference. Second, the
+velocities of both the stream and the perturber are assumed constant,
+implying that the duration of the impact is much shorter than the
+system’s orbital period. These assumptions also imply that the impactor
+must pass close to the stream and be compact relative to the stream’s
+orbital radius.</p>
+<p>The authors then developed the time evolution of the stream’s density
+following the impact. To study these, the authors employed three
+complementary approaches:</p>
+<ol>
+<li><p>A numerical solution of a transcendental equation governing <span
+class="math inline">\(\Delta \theta(t)\)</span>;</p></li>
+<li><p>A fully analytic solution for a low-order analytical
+approximation valid when the gap opening <span
+class="math inline">\(\Delta \theta\)</span> is still small;</p></li>
+<li><p>An <span class="math inline">\(N\)</span>-body simulation of the
+full system.</p></li>
+</ol>
+<p>Together, these revealed three distinct phases of gap evolution:</p>
+<ol>
+<li><p><strong>Compression phase</strong> – Shortly after the impact,
+stars on opposite sides swap places, briefly compressing the stream
+until the right and left sides overtake one another.</p></li>
+<li><p><strong>Linear growth phase</strong> – The gap grows roughly
+linearly in time, as stars move apart under their velocity
+differences.</p></li>
+<li><p><strong>Caustic phase</strong> – Eventually, stars bunch up at
+the gap edges, creating sharp features (“caustics”) and slowing the
+gap’s growth to a sublinear rate, scaling roughly as <span
+class="math inline">\(\propto \sqrt{t}\)</span>.</p></li>
+</ol>
+<p>While powerful, this framework is limited to circular orbits which
+poses a significant constraint especially for globular clusters which
+often have inclined and eccentric trajectories. This limitation was
+later addressed by extending the analysis to action-angle space, as
+discussed in the next section.</p>
 <h1 id="the-ignored-physics">The Ignored Physics</h1>
 <ul>
 <li><p>what is the hardness of a binary? the binding energy? how is
