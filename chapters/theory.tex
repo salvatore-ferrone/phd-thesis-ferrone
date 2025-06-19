@@ -686,6 +686,31 @@ The remainder of this chapter is structured to clarify the theoretical framework
                 \item self segregation
             \end{itemize}
 
+            \citet{2016MNRAS.457.3817S} briefly stated that the criteria of gap creation is that the imparted momentum from the impactor must be greater than the intrinsic velocity dispersion of the stream. Additionally, the authors identified that the locations in the stream that are farther from the cluster are more self segregated. The faster partices leave the slower ones behind. A consequence of this is that the local velocity dispersion beyond the should decrease with distance. I would like to formalize this here with a simple 1D model. 
+
+            We can model a stream using the streaming collisionless Boltzmann equation. Collisionless means the distribution function doesn't change as a function of time along a particles trajectory, and streaming means that the particles do not accelerate and just drift. This becomes: 
+            \begin{equation}
+                \frac{\partial f}{\partial x} v + \frac{\partial f}{\partial t}=0,
+            \end{equation}
+            which is a first order linear partial differential equation. for our setup, we will impose the initial condition that $f(x,v,t=0)=0$, and a boundary condition with a constant source at $x=0$:
+            \begin{equation}
+                f(0,v,t) =g(v|v_0,\sigma) =  \mathcal{N}\left(v|v_0,\sigma_v\right),
+            \end{equation}
+            which is a gaussian source where the particles have ejection speeds that are distributed about the mean $v_0$ with the dispersion $\sigma$. $A$ is the initial density. From the methods of characteristic, the function $f$ doesn't change along curves that meet this criterion: $x-vt=C$. This basically means we are solving a PDE with respect to two variables: $x,t$ where $v$ is a parameter. This characteristic paired with the initial condition means that $f=0$ where $x/t>v$, essentially stating that you cannot exist in a place that you haven't reached yet. The general solution is thus: 
+            \begin{equation}
+                f(x,v,t) = 
+                    \begin{cases}
+                        \mathcal{N}(v|v_0,\sigma_v) & \mathrm{if }\text{ } (x/t) < v,\\
+                        0 & \mathrm{otherwise}.
+                    \end{cases}
+            \end{equation}                
+            We can then take the moments of this distribution function to study some of the observables. The density becomes: $\rho(x,t) \int^{\infty}_{v_\mathrm{min}} f(x,v,t) dv$, where $v_{\mathrm{min}} = x/t$ which is is the minnimum speed required to reach a point in the $x,t$ plane. In essence, we are integrating truncated gaussians and thus the solution is the complementary error function. $\rho(x,t) = \frac{1}{2}\mathrm{erfc}\left(z/\sqrt{2}\right),$ where $z=\frac{x/t-v_0}{\sigma}$. We are particularly interested in the velocity dispersion as a function of position. This is a second order moment on the conditional probability distribution given the position and time. The conditional probability DF is found through bayes theorem: $f(v|x,t) = \frac{f(x,v,t)}{f{x,t}}$, where $ f{x,t}$ is the DF once velocity has been marginalized out, which is $\rho(x,t)$. Thus, the mean velocity as a function of distance is: $\langle v\rangle(x,t)=\frac{1}{\rho(x,t)}\int_{x/t}^{\infty}v f(x,v,t)dv$ which can be found through the first and second order moments of the velocity: $\sigma^2(x,t) = \langle v^2 \rangle -  \langle v\rangle ^2.$ In the end, this is a large assortment of gaussians and error functions. This is the result: 
+            % can you paste the result here?. 
+
+            Below I have dedicated a specific plot to show how this changes. Thanks for your attention. However, this picture is even too simplisitic...\textbf{I would love to understand this criteria on $\delta v > \sigma_v$ better through this lens of the PDE and also in the case of eccentric orbits with periodic episodes of strong mass loss. I started investigating this problem but somepoint, the \textit{simple approach} becomes as complicated as the regular simulations.}
+
+            
+
 
 
 
