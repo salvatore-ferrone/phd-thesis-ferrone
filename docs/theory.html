@@ -483,8 +483,8 @@ class="math display">\[M_{\mathrm{enc}}(r|M_0,\gamma,r_0,r_c) = M_0
 \left(r/r_0\right)^{\gamma - 1}} &amp; r&lt;r_c,\\
              \frac{\left(r_c/r_0\right)^\gamma}{1 +
 \left(r_c/r_0\right)^{\gamma - 1}} &amp; r&gt; r_c,\\
-            \end{cases}\]</span><span id="eq:martos_enclosed_mass"
-data-label="eq:martos_enclosed_mass"></span> where <span
+            \end{cases}
+            \label{eq:martos_enclosed_mass}\]</span> where <span
 class="math inline">\(M_0\)</span> is a mass scaling parameter (not the
 total mass), <span class="math inline">\(r_0\)</span> is the
 characteristic radius, <span class="math inline">\(\gamma\)</span> is
@@ -1119,8 +1119,8 @@ is thus: <span class="math display">\[\mathcal{T&#39;}_{i,j}=
                     -\frac{zx}{s^2}f(s) &amp; -\frac{zy}{s^2}f(s) &amp;
 1-\frac{z^2}{s^2}f(s)
                 \end{matrix}\right)\]</span> where <span
-class="math display">\[\label{eq:martos_f_s}
-                f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}\]</span></p>
+class="math display">\[f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}
+                \label{eq:martos_f_s}\]</span></p>
 <p>There is an interesting area in the parameter space where the tidal
 forces would impede creating stellar streams instead of making them, as
 shown in Fig. <a href="#fig:martos_tidal_field_small_r"
@@ -1261,10 +1261,10 @@ given by:</p>
 <p>For small energy differences <span class="math inline">\(\Delta E
 &lt;&lt; E\)</span>, we can expand the period in a Taylor series to
 first order. This leads to:</p>
-<p><span class="math display">\[\label{EQ:phase_mixing}
-            T_\mathrm{mix} \approx T_\mathrm{char} \cdot 2\pi \left(
-\frac{E}{3 \Delta E} \right),\]</span> Thus, the phase mixing time grows
-inversely with the relative energy spread in the population.</p>
+<p><span class="math display">\[T_\mathrm{mix} \approx T_\mathrm{char}
+\cdot 2\pi \left( \frac{E}{3 \Delta E} \right),
+            \label{EQ:phase_mixing}\]</span> Thus, the phase mixing time
+grows inversely with the relative energy spread in the population.</p>
 <h3 id="orbital-drift">Orbital drift</h3>
 <p>The first manifestation of phase mixing is the growth of uncertainty
 in orbital solutions for globular clusters over time. This originates
@@ -1592,8 +1592,8 @@ decrease in local velocity dispersion with distance. I would like to
 formalize this idea using a simple one-dimensional model.</p>
 <p>To first order, a stellar stream can be modeled as a
 <em>collisionless</em>, non-accelerating ensemble of stars — i.e., a
-one-dimensional solution to the collisionless Boltzmann equation. In
-this case, the equation simplifies to:</p>
+one-dimensional <em>streaming</em> solution to the collisionless
+Boltzmann equation. In this case, the equation simplifies to:</p>
 <p><span class="math display">\[\frac{\partial f}{\partial t} + v
 \frac{\partial f}{\partial x} = 0,\]</span></p>
 <p>where <span class="math inline">\(f(x,v,t)\)</span> is the
@@ -1619,7 +1619,8 @@ class="math inline">\(x/t &gt; v\)</span>. Thus, the solution is:</p>
                     \mathcal{N}(v \,|\, v_0, \sigma_v) &amp; \text{if }
 v &gt; \frac{x}{t}, \\
                     0 &amp; \text{otherwise}.
-                \end{cases}\]</span></p>
+                \end{cases}
+                \label{eq:one_dimensional_collisionless_streaming}\]</span></p>
 <p>We can now compute the moments of this distribution. The density at
 each position is given by:</p>
 <p><span class="math display">\[\rho(x,t) = \int_{x/t}^{\infty} f(x,v,t)
@@ -1654,8 +1655,18 @@ the trailing regions have a broader mix of velocities and higher local
 dispersion.</p>
 <figure id="fig:collisionless_1D_stream">
 <img src="images/collisionless_1D_stream.png" />
-<figcaption>A snapshot of some moments of the distribution function
-describing XXX with a source of velocities. </figcaption>
+<figcaption>A snapshot at a fixed time of selected moments of the
+distribution function describing one-dimensional collisionless
+streaming, used here as an approximation for a stellar stream, as given
+by Eq. <a href="#eq:one_dimensional_collisionless_streaming"
+data-reference-type="ref"
+data-reference="eq:one_dimensional_collisionless_streaming">[eq:one_dimensional_collisionless_streaming]</a>.
+Particles are continuously injected at the origin with velocities drawn
+from a Gaussian distribution with mean <span
+class="math inline">\(v_0\)</span> and dispersion <span
+class="math inline">\(\sigma_v\)</span>. Shown are the particle density,
+local mean velocity, and local velocity dispersion, all normalized.
+</figcaption>
 </figure>
 <p><em>Note:</em> I would love to explore this more rigorously in the
 context of time-dependent or eccentric mass loss, where the source term

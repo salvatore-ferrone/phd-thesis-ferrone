@@ -159,7 +159,8 @@ The remainder of this chapter is structured to clarify the theoretical framework
              \frac{\left(r/r_0\right)^\gamma}{1 + \left(r/r_0\right)^{\gamma - 1}} & r<r_c,\\
              \frac{\left(r_c/r_0\right)^\gamma}{1 + \left(r_c/r_0\right)^{\gamma - 1}} & r> r_c,\\
             \end{cases} 
-        \end{equation}\label{eq:martos_enclosed_mass}
+            \label{eq:martos_enclosed_mass}
+        \end{equation}
         where $M_0$ is a mass scaling parameter (not the total mass), $r_0$ is the characteristic radius, $\gamma$ is the exponental parameter, and $r_c$ is a cutoff radius beyond which the mass is held constant. Thus, for $r > r_c$ Eq.~\ref{eq:martos_enclosed_mass} reports the total mass. In the outer regime $(r/r_0) >> 1$, the enclosed mass scales as $M(r) \propto r$, producing a flat rotation curve. In the inner regime $(r/r_0) << 1$, the mass grows as a power law, $M(r) \propto r^{\gamma - 1}$, which provides flexibility in shaping the central density slope. Since the unmodified profile leads to an unphysical divergence in total mass, a truncation at $r_c$ is imposed. When the potential has spherical symmetry we may use the relation $\nabla \Phi = \frac{G M_{\mathrm{enc}}(r)}{r^2}$, and requiring that the potential vanish at infinity, the corresponding gravitational potential can be obtained by integrating:
 
 
@@ -481,8 +482,9 @@ The remainder of this chapter is structured to clarify the theoretical framework
                 \end{matrix}\right)
             \end{equation}  
             where 
-            \begin{equation}\label{eq:martos_f_s}
+            \begin{equation}
                 f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}
+                \label{eq:martos_f_s}
             \end{equation}
 
             There is an interesting area in the parameter space where the tidal forces would impede creating stellar streams instead of making them, as shown in Fig.~\ref{fig:martos_tidal_field_small_r}.
@@ -550,8 +552,9 @@ The remainder of this chapter is structured to clarify the theoretical framework
 
         For small energy differences \( \Delta E << E \), we can expand the period in a Taylor series to first order. This leads to:
 
-        \begin{equation}\label{EQ:phase_mixing}
+        \begin{equation}
             T_\mathrm{mix} \approx T_\mathrm{char} \cdot 2\pi \left( \frac{E}{3 \Delta E} \right),
+            \label{EQ:phase_mixing}
         \end{equation}
         Thus, the phase mixing time grows inversely with the relative energy spread in the population.
 
@@ -688,7 +691,7 @@ The remainder of this chapter is structured to clarify the theoretical framework
 
             \citet{2016MNRAS.457.3817S} briefly stated that the criterion for gap creation is that the momentum imparted by a perturber must exceed the intrinsic velocity dispersion of the stream. They also observed that regions farther from the progenitor are more kinematically self-segregated — faster particles outpace slower ones, resulting in a decrease in local velocity dispersion with distance. I would like to formalize this idea using a simple one-dimensional model.
 
-            To first order, a stellar stream can be modeled as a \textit{collisionless}, non-accelerating ensemble of stars — i.e., a one-dimensional \texit{streaming} solution to the collisionless Boltzmann equation. In this case, the equation simplifies to:
+            To first order, a stellar stream can be modeled as a \textit{collisionless}, non-accelerating ensemble of stars — i.e., a one-dimensional \textit{streaming} solution to the collisionless Boltzmann equation. In this case, the equation simplifies to:
 
             \begin{equation}
                 \frac{\partial f}{\partial t} + v \frac{\partial f}{\partial x} = 0,
@@ -710,6 +713,7 @@ The remainder of this chapter is structured to clarify the theoretical framework
                     \mathcal{N}(v \,|\, v_0, \sigma_v) & \text{if } v > \frac{x}{t}, \\
                     0 & \text{otherwise}.
                 \end{cases}
+                \label{eq:one_dimensional_collisionless_streaming}
             \end{equation}
 
             We can now compute the moments of this distribution. The density at each position is given by:
@@ -734,7 +738,7 @@ The remainder of this chapter is structured to clarify the theoretical framework
             \begin{figure}
                 \centering
                 \includegraphics[width=\linewidth]{images/collisionless_1D_stream.png}
-                \caption{A snapshot of some moments of the distribution function describing XXX with a source of velocities. }
+                \caption{A snapshot at a fixed time of selected moments of the distribution function describing one-dimensional collisionless streaming, used here as an approximation for a stellar stream, as given by Eq.~\ref{eq:one_dimensional_collisionless_streaming}. Particles are continuously injected at the origin with velocities drawn from a Gaussian distribution with mean $v_0 $ and dispersion $ \sigma_v$. Shown are the particle density, local mean velocity, and local velocity dispersion, all normalized. }
                 \label{fig:collisionless_1D_stream}
             \end{figure}
 
