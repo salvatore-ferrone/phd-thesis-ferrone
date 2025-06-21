@@ -762,17 +762,48 @@ The remainder of this chapter is structured to clarify the theoretical framework
 \section{The Ignored Physics}
 
 
-    In essence, we want to quantify the number of interactions a star will have as it travels through the galaxy. There is a quick way to do this, which is to assume that the cross-sectional surface density of the star as it passes through the galactic medium is constant. Even after performing some of these assumptions, a useful relationship is found, which is that the relaxation time is ~N/log(n) t_cross
-
-    The classic case of a galaxy shows that in a spherical galaxy, this time is approximately 10^4 times the age of the universe. For globular clusters, this time is on the order of 1 Gyr, which is smaller than their lifetime. 
-
-    This means that the effect of collisions is quite crucial for discussing their evolution. 
-
-    There are many important works dedicated to this problem, and several aspects are well understood. Heggie and Hut do a great job of explaining some of these things. Some of the many effects that are lost by ignoring this are mass segregation and evaporation. 
+    This section could be the longest of the thesis, but I'll try to keep brief as it mostly discusses aspects of the problem that the textbooks, conferences, and the literature, and have shown me to be important. This section certainly serves as a base for more things to include in future experiments that improve on the previous ones. However, maxwells equations are not relevant here, nor schrondiners equation. 
         
 
 
     \subsection{Collisional dynamics}
+
+        In my experiment discussed in chapter 5, there are collisions in the sense that other globular clusters can impact a stream. However, this is not what I mean by collisional dynamics. Indeed, collisional dynamics are the effects of gravitational encounters driving the evolution of the system, instead of the orbits being determined by the mean field only. There is a fundamental derivation in gravitational dynamics that justifies when collisionless dynamics are justified and this is called the \textbf{two-body relaxation time}. The name of the game is to consider how long it takes for a particle to have it's momentum vector changed by the same order of mangitude. Bovy and Binney \& Tremaine present this, and any expert in the field is familiar with such a fundamental derivation. I would like to present some aspects of the computation that I find to be insightful. 
+
+        First of all, we would like to find out how long it takes for $|\Delta \vec{v}|/|\vec{v}|\approx 1$, as the particle traverses a realsitic gravitational environment made of many point masses. We would like a general solution, for arbitrary orbits in any galactic environment. However, that's too much to ask for and we can obtain powerful insight with simpler computations. Here is how the problem is simplified:
+        \begin{itemize}
+            \item assume the star is traveling on a straight line 
+            \item assume all field stars are at rest with respect to the field star 
+            \item assume that the galaxy has a uniform stellar number density
+            \item assume the impule approximation for all encounters
+        \end{itemize}
+        
+        Remember that this computation is calculating how long the it takes for the orbit to deviate from the current trajectory if it were in a perfect fluid and not in a environment made of discrete particles. These assumptions above are great for finding the relaxation time of stars on circular orbits within spherical stellar systems or the disk of galaxies. Eccentricities and inclinations would mean that the number density of the medium would change greatly with time. Also, a corrolary of the impules approximation for each encounter is that no single encounter greatly deviates the particle's trajectory. Thus, there is a limit on the lowest minimum impact parameter. 
+
+        Remember, by definition, all impact parameters are perpendicular to the star's trajectory. By applying the impulse approximation for each encounter, the change in momentum is always perpendicular to star's trajectory. We can compute the number of encounters as a function of the impact parameter. this is the density in the medium multiplied with the number of particles within a ring about b. 
+        \begin{align}
+            \sigma &= \pi \left[(b+db)^2-(b-db)^2 \right]\\
+            \sigma &= 4\pi bdb,
+        \end{align}
+        We can estimate the number density of the medium by using a sphere: $n=\frac{3N}{4\pi R^3}$. With this, number of encounters as a function of impact parameter, per unit length is: 
+        \begin{equation}
+            \frac{d N_\mathrm{int}}{db} = \frac{3N}{R^3} b
+        \end{equation}
+        Remember, this is the number of interactions per unit length. We can change this to the total number of interactions per unit time by swapping $dx=vdt$, assuming the star has constant velocity: 
+        \begin{equation}
+            \frac{d N_\mathrm{int}}{dtdb} = \frac{3N}{R^3} vb
+        \end{equation}
+        We can then find the rate at which the energy changes by integrating the 
+
+        Ok. I can finish this later. I just want to be insightful and show that MW va bene, for the disc. Then I want to show that this isn't good for some globular clusters. Perhaps I can get a list where it would be appropraite? why didn't I compute this before!
+
+        
+        
+        
+
+        
+        
+        
 
         Globular clusters are undoubteled collisional systems. The same computating using the columb law, to compute how long it takes for a given particles to change it's momentum on same order of magnitude as it's initial momentum is much less than the age of a given globular cluster. This computation is what justified us for using the fluid limit for galactic dynamics, and it is the same computation that instructs us that we are incorrect for globular clusters. \citet{2023LRCA....9....3S} published a review discussing \textit{Computational methods for collisional stellar systems}, and entitled one of their sections \textit{Nbody the growth of an industry}. 
 
