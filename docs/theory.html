@@ -303,7 +303,8 @@ motion}}\]</span></p>
 gc}\)</span>, the terms in brackets become negligible, and the star’s
 motion has no back-reaction on the cluster. The Lagrangian for the
 cluster’s orbit thus becomes:</p>
-<p><span class="math display">\[\frac{\mathcal{L}_{\rm gc}}{M_{\rm gc}}
+<p><span
+class="math display">\[\frac{\mathcal{L}_{\mathrm{gc}}}{M_{\mathrm{gc}}}
 = \frac{1}{2} \dot{\mathbf{R}}_{\rm gc}^2
                                 - \Phi_{\rm gal}(\mathbf{R}_{\rm
 gc})\]</span></p>
@@ -380,7 +381,8 @@ of this equation is its linearity, allowing arbitrary mass distributions
 to be decomposed into individual components whose contributions to the
 gravitational potential can be summed: <span
 class="math display">\[\nabla^2 \left(a_0\Phi_0 + a_1\Phi_1 \right) =
-a_0 \nabla^2 \Phi_0 + a_1 \nabla^2 \Phi_1.\]</span></p>
+a_0 \nabla^2 \Phi_0 + a_1 \nabla^2 \Phi_1 = 4\pi G \left(a_0\rho_0
++a_1\rho_1\right).\]</span></p>
 <p>It is instructive to compare stellar dynamics—the motion of stars in
 galaxies—with celestial mechanics—the motion of planets and spacecraft
 within the Solar System. In celestial mechanics, the gravitational field
@@ -469,27 +471,46 @@ class="math inline">\(\alpha\)</span> controls the inner slope, and
 <span class="math inline">\(\beta\)</span> the outer slope. Common
 choices include the NFW profile (<span class="math inline">\(\alpha =
 1\)</span>, <span class="math inline">\(\beta = 3\)</span>) and the
-Hernquist profile (<span class="math inline">\(\alpha = 1\)</span>,
-<span class="math inline">\(\beta = 4\)</span>).</p>
-<p>Instead of these standard forms, I adopt the Martos halo profile,
-which is defined by a parameterized enclosed mass function: <span
-class="math display">\[M_{\rm enc}(s) = \frac{s^\gamma}{1 + s^{\gamma -
-1}},\]</span> where <span class="math inline">\(s = r/r_0\)</span> is
-the dimensionless radius. For <span class="math inline">\(s &gt;&gt;
-1\)</span>, this expression yields <span class="math inline">\(M(r)
-\propto r\)</span>, ensuring a flat rotation curve, while for <span
-class="math inline">\(s &lt;&lt; 1\)</span>, the mass grows as a power
-law <span class="math inline">\(\propto r^{\gamma - 1}\)</span>,
-allowing flexibility in the central density slope. Additionally, the
-mass goes to infinity, which is non physical, therefore a cut off radius
-is imposed. For spherical symmetry, given that <span
-class="math inline">\(\nabla \Phi =
-\frac{GM_{\mathrm{enc}}}{r^2}\)</span>, and that the potential goes to
-zero at infinity, we can find the potential as:</p>
+Hernquist profile <span class="math inline">\((\alpha = 1\)</span>,
+<span class="math inline">\(\beta = 4)\)</span>.</p>
+<p>The potential presented in Allen Santillan uses the Martos halo,
+which is not of the same functional family of the two power-law density
+model, but nonetheless has similar properties. The Martos halo is
+defined by a parameterized enclosed mass function: <span
+class="math display">\[M_{\mathrm{enc}}(r|M_0,\gamma,r_0,r_c) = M_0
+            \begin{cases}
+             \frac{\left(r/r_0\right)^\gamma}{1 +
+\left(r/r_0\right)^{\gamma - 1}} &amp; r&lt;r_c,\\
+             \frac{\left(r_c/r_0\right)^\gamma}{1 +
+\left(r_c/r_0\right)^{\gamma - 1}} &amp; r&gt; r_c,\\
+            \end{cases}
+            \label{eq:martos_enclosed_mass}\]</span> where <span
+class="math inline">\(M_0\)</span> is a mass scaling parameter (not the
+total mass), <span class="math inline">\(r_0\)</span> is the
+characteristic radius, <span class="math inline">\(\gamma\)</span> is
+the exponental parameter, and <span class="math inline">\(r_c\)</span>
+is a cutoff radius beyond which the mass is held constant. Thus, for
+<span class="math inline">\(r &gt; r_c\)</span> Eq. <a
+href="#eq:martos_enclosed_mass" data-reference-type="ref"
+data-reference="eq:martos_enclosed_mass">[eq:martos_enclosed_mass]</a>
+reports the total mass. In the outer regime <span
+class="math inline">\((r/r_0) &gt;&gt; 1\)</span>, the enclosed mass
+scales as <span class="math inline">\(M(r) \propto r\)</span>, producing
+a flat rotation curve. In the inner regime <span
+class="math inline">\((r/r_0) &lt;&lt; 1\)</span>, the mass grows as a
+power law, <span class="math inline">\(M(r) \propto r^{\gamma -
+1}\)</span>, which provides flexibility in shaping the central density
+slope. Since the unmodified profile leads to an unphysical divergence in
+total mass, a truncation at <span class="math inline">\(r_c\)</span> is
+imposed. When the potential has spherical symmetry we may use the
+relation <span class="math inline">\(\nabla \Phi = \frac{G
+M_{\mathrm{enc}}(r)}{r^2}\)</span>, and requiring that the potential
+vanish at infinity, the corresponding gravitational potential can be
+obtained by integrating:</p>
 <p><span class="math display">\[\Phi(r|M_0,\gamma,r_0,r_c) =
             \begin{cases}
                 \frac{GM_0}{r_0\left(\gamma-1\right)}\ln\left|\frac{1+(r/r_0)^{\gamma-1}}{1+(r_c/r_0)^{\gamma-1}}\right|
-, &amp; r&lt;r_c\\
+-\frac{GM_t}{r_c}, &amp; r&lt;r_c\\
                 -GM_t/r &amp; r&gt;r_c.
             \end{cases}\]</span> Two Miyamoto-Nagai disks plus the
 Martos halo compose the second potential model presented in
@@ -498,15 +519,291 @@ href="#fig:figure_pouliasis2017pii_potential" data-reference-type="ref"
 data-reference="fig:figure_pouliasis2017pii_potential">2</a>.</p>
 <figure id="fig:figure_pouliasis2017pii_potential">
 <img src="images/figure_pouliasis2017pii_potential_-8_8.png" />
-<figcaption>The main potential used throughought the thesis</figcaption>
+<figcaption>Individual components of the second Galactic potential model
+from Pouliasis et al. (2017). The parameters used are listed in Table
+XXX. The vector field illustrates the normalized gravitational force at
+each position, corresponding to <span class="math inline">\(\vec{g} =
+-\nabla\Phi\)</span>. Equipotential contour lines are overlaid to guide
+the eye.</figcaption>
 </figure>
+<h2 id="the-collisionless-botlzmann-equation">The Collisionless
+Botlzmann Equation</h2>
+<p>In this section, I want to show how we obtain the distribution of
+stars that populate the globular clusters used in these models.
+Specifically, I’ll walk through the assumptions that reduce the general
+phase-space distribution to the simpler, tractable case relevant to our
+needs.</p>
+<p>In galactic dynamics, a fundamental challenge is the
+<em>self-consistency problem</em>. This involves a loop of three steps:
+(1) Given a density distribution and a gravitational potential (linked
+via Poisson’s equation), one samples the positions of stars. (2) One
+then assigns initial velocities and evolves the system forward in time.
+(3) The potential is updated based on the evolved mass distribution.</p>
+<p>If the system is in equilibrium and self-consistent, then the mass
+distribution remains stable under its own gravity. That is, the same
+density that generated the potential continues to persist as the system
+evolves. Crucially, while the mass density may be known, the velocities
+are not given a priori. To determine the velocity distribution, we turn
+to the Collisionless Boltzmann Equation (CBE).</p>
+<p>Our starting point is to characterize the system statistically, with
+a distribution function (DF) over phase space. That is, what is the
+probability density of finding a particle at a given position and
+velocity? This is encoded in the function <span
+class="math inline">\(f(\vec{x}, \vec{v}, t)\)</span>. If we treat this
+as a true probability density function that integrates to 1 over all
+phase space, we are implicitly assuming a closed system: no stars enter,
+leave, are born, or die.</p>
+<p>Already, by writing <span class="math inline">\(f(\vec{x}, \vec{v},
+t)\)</span>, we are assuming that a particle’s phase-space position is
+independent of any other attributes — such as mass. Let us define <span
+class="math inline">\(\mathbf{w} = (\vec{x}, \vec{v})\)</span> as the 6D
+phase-space coordinate. Then, for a system of <span
+class="math inline">\(N\)</span> particles, the full distribution
+function lives in <span class="math inline">\(6N\)</span>-dimensional
+space: <span class="math display">\[f(\mathbf{w}_1, \dots,
+\mathbf{w}_N)\]</span> This expression represents the joint probability
+density of finding particle 1 at <span
+class="math inline">\(\mathbf{w}_1\)</span>, particle 2 at <span
+class="math inline">\(\mathbf{w}_2\)</span>, and so on. In general, this
+object can be extremely complicated. But we can simplify it with two
+strong assumptions: that particles are independent and identically
+distributed (i.i.d.). This leads to:</p>
+<p><span class="math display">\[\begin{array}{rl}
+        f
+        &amp; \stackrel{\text{(1) $N$-body DF}}{\longrightarrow}
+        f(\mathbf{w}_1, \dots, \mathbf{w}_N) \\[2ex]
+        &amp; \stackrel{\text{(2) independence}}{\longrightarrow}
+        \prod_{i=1}^N f^i(\mathbf{w}_i) \\[2ex]
+        &amp; \stackrel{\text{(3) identical
+distribution}}{\longrightarrow}
+        \left[ f(\mathbf{w}) \right]^N
+        \end{array}\]</span></p>
+<p>The consequence of this factorization is that the total DF no longer
+accounts for correlations in other variables — such as mass. Therefore,
+this model cannot represent mass segregation, multiple populations, or
+any other effects that differentiate stars. Instead, we describe a
+single homogeneous population of stars, each drawn independently from
+the same distribution.</p>
+<p>Because of this, we can focus our attention entirely on the
+single-particle DF <span class="math inline">\(f(\mathbf{w})\)</span>,
+which encodes all the statistical information we need about the
+system.</p>
+<p>The next key assumption is that particles are uncorrelated not just
+in identity, but dynamically — they do not scatter off one another. This
+means the system is <em>collisionless</em>. The DF then evolves under
+the Collisionless Boltzmann Equation:</p>
+<p><span class="math display">\[\frac{Df}{Dt} = \frac{\partial
+f}{\partial t} + \dot{\mathbf{x}} \cdot \nabla_{\mathbf{x}} f +
+\dot{\mathbf{v}} \cdot \nabla_{\mathbf{v}} f = 0\]</span></p>
+<p>This is a material (Lagrangian) derivative following a phase-space
+trajectory. The physical interpretation is that the DF is conserved
+along the orbits of stars in phase space. No bunching up, no spreading
+out — stars simply move under the influence of a smooth, mean
+gravitational potential.</p>
+<p>Next, we often impose the equilibrium condition: <span
+class="math display">\[\frac{\partial f}{\partial t} = 0\]</span> This
+implies that the DF is time-independent: the number of stars at any
+given phase-space location remains constant. If some leave a region,
+others must replace them. This assumption is only valid in isolation —
+for instance, in an isolated galaxy or globular cluster. It is violated
+during mergers or tidal disruptions. In my simulations, I model such
+disruptions, so this assumption is not globally valid. However, I begin
+with an equilibrium system and study how it departs from equilibrium
+numerically.</p>
+<p>Now, let us focus on globular clusters. These are often modeled as
+spherically symmetric systems. However, spherical symmetry in density
+does not imply isotropy in velocity. A system can be spherically
+symmetric but have velocity anisotropy, meaning that orbits are
+preferentially radial or circular. This is quantified by the anisotropy
+parameter <span class="math inline">\(\beta\)</span>. In my simulations,
+I assume isotropy, meaning that the DF depends only on the energy <span
+class="math inline">\(E\)</span>. Thus, we write:</p>
+<p><span class="math display">\[f(\mathbf{w}) = f(E)\]</span></p>
+<p>At this point, it is useful to mention Jeans equations, which relate
+the moments of the DF to observable quantities. By integrating the DF
+over all velocities, we recover the spatial mass density:</p>
+<p><span class="math display">\[\rho(\mathbf{r}) = M \int f(\mathbf{x},
+\mathbf{v}) \, d^3\mathbf{v}\]</span></p>
+<p>In fact, for isotropic spherical systems, an inversion formula exists
+— known as the Abel transform — that allows one to reconstruct <span
+class="math inline">\(f(E)\)</span> from a known <span
+class="math inline">\(\rho(r)\)</span>. This technique is presented in
+Binney &amp; Tremaine and also in Bovy’s online book. At this point, one
+can obtain a complete analytic expression for the distribution function.
+With this in mind, a discrete set of positions and velocities can be
+sampled and is presented in the next chapter.</p>
 <h1 id="the-implicit-physics">The Implicit Physics</h1>
-<h2 id="the-circular-restricted-three-body-problem">The circular
-restricted three body problem</h2>
-<ul>
-<li><p>The Lagrange points</p></li>
-<li><p>Allowed regions</p></li>
-</ul>
+<h2 id="the-planar-circular-restricted-three-body-problem">The Planar
+Circular Restricted Three-Body Problem</h2>
+<p>Even if we simplify the simulation by modeling the cluster as <span
+class="math inline">\(\mathcal{N}\)</span> independent three-body
+problems, the problem remains challenging. Indeed, if we consider all
+three bodies to have mass, we can write down a Hamiltonian with 18
+dimensions: three positions and three momenta in <span
+class="math inline">\(\mathcal{R}^3\)</span> for each particle. The
+dimensionality of the problem can be reduced by using the conservation
+of total linear momentum and total angular momentum, and by expressing
+the dynamics in terms of relative coordinates about the system’s center
+of mass. This reduces the total dimensionality to 9. Nevertheless, the
+problem remains analytically intractable due to its high dimensionality.
+To gain analytical insight, we simplify the system further.</p>
+<p>Instead of writing the full Lagrangian for the three-body motion, we
+focus on the third particle subject to the gravitational influence of
+the two massive bodies, in an inertial reference frame centered at the
+system’s center of mass. The Lagrangian then contains the kinetic energy
+of the third particle and two gravitational potential energy terms from
+the primary and secondary. However, since the positions and momenta of
+the primaries are not treated as dynamical variables in our system, they
+appear as explicit functions of time, making the Lagrangian
+non-autonomous. This implies that the corresponding Hamiltonian is
+time-dependent and the total energy of the third particle is not
+conserved, as the primaries can exchange energy with it.</p>
+<p>We introduce a further simplifying assumption: the two primaries move
+on circular orbits. Under this assumption, we transform to a reference
+frame rotating with the primaries, placing them along the <span
+class="math inline">\(x-axis\)</span>. In this rotating frame, the
+Lagrangian becomes autonomous; it no longer depends explicitly on time
+and requires no external information to determine the particle’s
+subsequent motion.</p>
+<p>Two effects make this possible. First, by moving to the rotating
+frame, we introduce non-inertial forces: the Coriolis force and the
+centrifugal force. The centrifugal force is conservative, associated
+with a scalar potential. The Coriolis force depends on the particle’s
+velocity as <span class="math inline">\(2\omega\times v\)</span>, but
+because it is always perpendicular to the velocity, it does no work and
+thus does not change the particle’s kinetic energy. After performing the
+coordinate transformation, the canonical momenta—now
+position-dependent—can be derived. The resulting Hamiltonian is: <span
+class="math display">\[\mathcal{H} = \frac{1}{2}\left(\left(p_x + \omega
+y\right)^2 + \left(p_y - \omega x\right)^2 \right) +
+\Phi_\mathrm{eff}(x,y),\]</span> where <span
+class="math display">\[\Phi_\mathrm{eff}(x,y) = -\frac{1}{2} \omega^2
+(x^2 + y^2) - \frac{G m_1}{|r_1|} - \frac{G m_2}{|r_2|}.\]</span></p>
+<p>The potential can be normalized by noting that the orbital angular
+velocity from the two-body problem satisfies <span
+class="math inline">\(\omega^2 = \frac{G M}{a^3}\)</span>, where <span
+class="math inline">\(a\)</span> is the separation between the primaries
+and <span class="math inline">\(M = m_1 + m_2\)</span> is the total mass
+of the system. With this normalization, the system depends on a single
+dimensionless parameter <span class="math inline">\(\mu\)</span>, the
+relative mass ratio defined as <span class="math inline">\(\mu =
+\frac{m_2}{m_1 + m_2}\)</span>.</p>
+<p>At this point, the system can be studied qualitatively.
+Unfortunately, no general closed-form solution exists for the circular
+restricted three-body problem that describes the subsequent motion as a
+function of time. However, by studying the effective potential <span
+class="math inline">\(\Phi_\mathrm{eff}\)</span>, we gain valuable
+insights.</p>
+<p>Our Hamiltonian depends on the four variables <span
+class="math inline">\((x, y, p_x, p_y)\)</span> and has one integral of
+motion.<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> A famous quantity in this context is
+the Jacobi integral (or Jacobi constant), often written as <span
+class="math inline">\(C_j = -2E\)</span>. Defining this constant is
+somewhat arbitrary since the total mechanical energy <span
+class="math inline">\(E\)</span> is itself conserved, and any scalar
+multiple of it is also conserved. The utility of the Jacobi constant is
+mostly conventional: it is often defined to be positive and multiplied
+by 2, which simplifies the expression for forbidden regions and
+zero-velocity curves. For example, one can write <span
+class="math display">\[\dot{x}^2 + \dot{y}^2 = 2 \Phi_\mathrm{eff}(x,y)
++ C_j,\]</span> instead of the equivalent <span
+class="math display">\[\dot{x}^2 + \dot{y}^2 = -2 \Phi_\mathrm{eff}(x,y)
++ 2E.\]</span></p>
+<p>Since we have four variables and one constraint, the motion is
+restricted to a three-dimensional hypersurface (or manifold) embedded in
+the four-dimensional phase space.</p>
+<p>At this stage, we find the points where <span
+class="math inline">\(\nabla \Phi_\mathrm{eff} = 0\)</span>, which
+correspond to the Lagrange points—locations where all effective forces
+balance. Of particular importance are the first two Lagrange points
+<span class="math inline">\(L_1\)</span> and <span
+class="math inline">\(L_2\)</span>, which lie along the line connecting
+the primary and secondary. The effective potential at <span
+class="math inline">\(L_1\)</span> is lower than at <span
+class="math inline">\(L_2\)</span>.</p>
+<p>Given a certain energy level, setting the kinetic energy to zero
+defines boundaries between regions where the particle can and cannot
+move. Regions where the kinetic energy would have to be negative (which
+is physically impossible) are forbidden, since that would require
+imaginary velocities.</p>
+<p>The points <span class="math inline">\(L_1\)</span> and <span
+class="math inline">\(L_2\)</span> are especially important for our
+study of a globular cluster with stars initially bound to it. Stars can
+escape through these Lagrange points: lower-energy particles tend to
+escape through <span class="math inline">\(L_1\)</span>, while
+higher-energy particles can also escape through <span
+class="math inline">\(L_2\)</span>. Figure <a
+href="#fig:CR3BP_forbidden_region" data-reference-type="ref"
+data-reference="fig:CR3BP_forbidden_region">3</a> illustrates these
+forbidden and allowed regions clearly.</p>
+<figure id="fig:CR3BP_forbidden_region">
+<p><img src="images/CR3BP_forbidden_region_0.png" alt="image" /> <img
+src="images/CR3BP_forbidden_region_1.png" alt="image" /> <img
+src="images/CR3BP_forbidden_region_2.png" alt="image" /></p>
+<p><img src="images/CR3BP_forbidden_region_3.png" alt="image" /> <img
+src="images/CR3BP_forbidden_region_4.png" alt="image" /></p>
+<figcaption>A reproduction of Fig. 2.4.2 from <span class="citation"
+data-cites="koon2000dynamical">Koon et al. (2000)</span>. Each plot is
+shown in the non-inertial reference frame rotating with the orbital
+frequency of the primary and secondary about their common center of
+mass. In this example, the mass ratio is <span class="math inline">\(m_1
+= 10 m_2\)</span>. The gray regions represent areas inaccessible to the
+test particle for a given energy. In the first case, where <span
+class="math inline">\(E &lt; E_1\)</span>, the particle remains confined
+to orbit either around the primary or the secondary, depending on its
+initial position. As the particle’s energy increases, more of the <span
+class="math inline">\(xy\)</span>-plane becomes accessible. The narrow
+passage between <span class="math inline">\(m_1\)</span> and <span
+class="math inline">\(m_2\)</span> corresponds to the <span
+class="math inline">\(L_1\)</span> Lagrange point, while the choke point
+allowing escape to the exterior when <span class="math inline">\(E &gt;
+E_2\)</span> is the <span class="math inline">\(L_2\)</span>
+point.</figcaption>
+</figure>
+<p>The distance from the secondary to the first and second Lagrange
+points is approximately equal, defining a region around the secondary
+known as the Hill sphere. Within this zone, the gravitational influence
+of the secondary dominates over that of the primary. The Hill radius is
+commonly approximated as <span class="math inline">\(r_h \approx
+r\sqrt[3]{m_2/m_1}\)</span>, where <span
+class="math inline">\(r\)</span> is the separation between the
+primaries. Interestingly, the expression for the Hill radius arises from
+a fifth-order polynomial expansion of the effective potential—a detail
+that might seem minor, but is actually quite delightful. In most areas
+of physics, approximations typically stem from Taylor expansions, basis
+function decompositions, or limits where the governing equations
+simplify.</p>
+<p>It is tempting to wonder whether a particle that escapes from the
+vicinity of the secondary can be recaptured. Indeed, within the
+simplified framework of the circular restricted three-body problem,
+recapture is possible. Once the initial conditions—position and
+momentum—are specified, the subsequent motion is fully determined by
+Hamilton’s equations. While no general analytical solution exists, the
+uniqueness theorem ensures that the system’s evolution is deterministic.
+Therefore, for a given total energy, we can identify the accessible
+regions in configuration space, bounded by the zero-velocity surfaces.
+This implies that the fate of the particle—whether it remains bound or
+escapes—is encoded in the initial conditions.</p>
+<p>In the context of celestial mechanics, particularly for applications
+such as spacecraft trajectory design, more sophisticated tools exist to
+analyze escape conditions and transfer orbits, including invariant
+manifolds and dynamical systems techniques. These are invaluable in the
+solar system regime, where the mass ratio is extreme and the test
+particle is typically a spacecraft or small body. However, in stellar
+and galactic dynamics, the situation differs substantially. The
+assumptions underpinning those techniques often break down, and the
+complexity of the gravitational potential increases. In this regime, it
+is more insightful to think of tidal forces as the underlying mechanism
+that gradually transfers energy and angular momentum, nudging stars
+across the Lagrange boundaries and ultimately driving escape. It is to
+this process—tidal stripping—that we now turn.</p>
+<p><strong>NOTE from Ferrone. I wonder if the <span
+class="math inline">\(L_4\)</span> and <span
+class="math inline">\(L_5\)</span> exist in the galactic context... are
+there Tojan stars? or does the complexity of the galactic potential
+paired with non circular orbits render such a phenomena
+unnatural?</strong></p>
 <h2 id="the-tidal-tensor">The tidal tensor</h2>
 <p>Tidal forces arise due to spatial variations in the gravitational
 field and are especially apparent when comparing the accelerations
@@ -634,7 +931,7 @@ explore one instructive effect: how solar tidal forces <em>perturb</em>
 the Moon’s orbit away from the idealized two-body Earth-Moon
 configuration. Figure <a href="#fig:moon_tidal_simulation"
 data-reference-type="ref"
-data-reference="fig:moon_tidal_simulation">3</a> shows a toy model
+data-reference="fig:moon_tidal_simulation">4</a> shows a toy model
 comparing two scenarios. In both, I used initial conditions based on JPL
 NASA ephemerides (citation needed) and integrated two sets of equations
 of motion.</p>
@@ -822,13 +1119,13 @@ is thus: <span class="math display">\[\mathcal{T&#39;}_{i,j}=
                     -\frac{zx}{s^2}f(s) &amp; -\frac{zy}{s^2}f(s) &amp;
 1-\frac{z^2}{s^2}f(s)
                 \end{matrix}\right)\]</span> where <span
-class="math display">\[\label{eq:martos_f_s}
-                f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}\]</span></p>
+class="math display">\[f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}
+                \label{eq:martos_f_s}\]</span></p>
 <p>There is an interesting area in the parameter space where the tidal
 forces would impede creating stellar streams instead of making them, as
 shown in Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">9</a>.</p>
+data-reference="fig:martos_tidal_field_small_r">10</a>.</p>
 <p>Taking the Martos tidal tensor in Eq. <a href="#eq:martos_f_s"
 data-reference-type="ref"
 data-reference="eq:martos_f_s">[eq:martos_f_s]</a>, we can see that for
@@ -844,9 +1141,9 @@ tensor are negative, which means that the force is compressive
 everywhere. Consequently, no stars escape from the cluster.</p>
 <p>In Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">9</a>, I present a small
-experiment demonstrating the consequence of such a tidal force on a
-globular cluster, which is that no tidal stream forms. Briefly, I
+data-reference="fig:martos_tidal_field_small_r">10</a>, I present a
+small experiment demonstrating the consequence of such a tidal force on
+a globular cluster, which is that no tidal stream forms. Briefly, I
 created a plummer sphere of <span
 class="math inline">\(10^6\)</span> M<span
 class="math inline">\(_\odot\)</span> and half mass radius 20 pc and
@@ -896,7 +1193,7 @@ ellipse.</figcaption>
 <img src="images/martos_tidal_field_450_10_400.png" alt="image" /></p>
 <figcaption>The same experiment as Fig. <a
 href="#fig:martos_tidal_field_small_r" data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">9</a>, but the cluster
+data-reference="fig:martos_tidal_field_small_r">10</a>, but the cluster
 was placed at a larger distance of 4 <span
 class="math inline">\(r_\textrm{halo}\)</span>, since we are beyond the
 characteristic radius, the tidal fields are the same, despite the
@@ -905,17 +1202,19 @@ class="math inline">\(\gamma\)</span>.</figcaption>
 </figure>
 <p>In the case of Fig. <a href="#fig:martos_tidal_field_big_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_big_r">10</a>, the tidal field
+data-reference="fig:martos_tidal_field_big_r">11</a>, the tidal field
 returns to the typical situation where one axis is compressive and the
 other stretches. Notice how the deformations are similar in magnitude,
 while in the case of <span class="math inline">\(\gamma=2.02\)</span>
 for the top panel of Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">9</a>, the compression
+data-reference="fig:martos_tidal_field_small_r">10</a>, the compression
 is stronger than the expansion. Both of these are different than the
 keplerian tidal deformation where the stronger deformation is stretching
 and whose axis is parallel to the position vector.</p>
 <h2 id="phase-mixing">Phase mixing</h2>
+<p><strong>NOTE: I want to add citations and discussions to Vasiliev
+Gaia DR3’s look on GCs</strong></p>
 <p><em>Phase mixing</em> is a direct consequence of Liouville’s theorem,
 which itself follows from the collisionless Boltzmann equation.
 Liouville’s theorem states that the infinitesimal volume element in
@@ -962,10 +1261,10 @@ given by:</p>
 <p>For small energy differences <span class="math inline">\(\Delta E
 &lt;&lt; E\)</span>, we can expand the period in a Taylor series to
 first order. This leads to:</p>
-<p><span class="math display">\[\label{EQ:phase_mixing}
-            T_\mathrm{mix} \approx T_\mathrm{char} \cdot 2\pi \left(
-\frac{E}{3 \Delta E} \right),\]</span> Thus, the phase mixing time grows
-inversely with the relative energy spread in the population.</p>
+<p><span class="math display">\[T_\mathrm{mix} \approx T_\mathrm{char}
+\cdot 2\pi \left( \frac{E}{3 \Delta E} \right),
+            \label{EQ:phase_mixing}\]</span> Thus, the phase mixing time
+grows inversely with the relative energy spread in the population.</p>
 <h3 id="orbital-drift">Orbital drift</h3>
 <p>The first manifestation of phase mixing is the growth of uncertainty
 in orbital solutions for globular clusters over time. This originates
@@ -973,7 +1272,7 @@ from the initial spread in orbital energies caused by observational
 uncertainties. In Fig.<a
 href="#fig:phase_mixing_palomar_5_orbital_solutions"
 data-reference-type="ref"
-data-reference="fig:phase_mixing_palomar_5_orbital_solutions">11</a>, I
+data-reference="fig:phase_mixing_palomar_5_orbital_solutions">12</a>, I
 present an example based on Palomar 5, for which I compute 50 orbital
 solutions in our potential model. These initial conditions are sampled
 according to the uncertainties reported in the Baumgardt catalog. The
@@ -1011,7 +1310,7 @@ for all orbits, regardless of their periods. However, it is still
 illustrative to examine this behavior in the context of the globular
 cluster catalog. In Fig.<a
 href="#fig:phase_mixing_orbital_errors_sample" data-reference-type="ref"
-data-reference="fig:phase_mixing_orbital_errors_sample">12</a>, I
+data-reference="fig:phase_mixing_orbital_errors_sample">13</a>, I
 present the phase-mixing times for all Galactic globular clusters, based
 on current uncertainties from the Gaia DR3 catalog. The top panel shows
 the distribution for all 165 clusters. The bottom panels highlight the
@@ -1047,7 +1346,7 @@ orbital energy.</figcaption>
 energy relates to the uncertainties in each observable. In Fig. <a
 href="#fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu"
 data-reference-type="ref"
-data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">13</a>,
+data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">14</a>,
 I perform this quick calulation. The uncertainties are measured in
 Galactic coordinates the ICRS coordinate system. This is a direct
 transformation to Galactic coordinates and thus can be expressed
@@ -1066,7 +1365,7 @@ energies.</figcaption>
 <p>At first glance, Fig. <a
 href="#fig:phase_mixing_palomar_5_orbital_solutions"
 data-reference-type="ref"
-data-reference="fig:phase_mixing_palomar_5_orbital_solutions">11</a>
+data-reference="fig:phase_mixing_palomar_5_orbital_solutions">12</a>
 might give the impression that we are looking at snapshots of a single
 stellar stream at different times. In reality, the figure shows
 different orbital solutions. This visual similarity underscores that
@@ -1104,22 +1403,426 @@ will remain at the cluster location—the tidal debris will broadly fill
 the phase space accessible to it. This point is crucial for the results
 discussed in Chapter 4.</p>
 <h2 id="collisions">Collisions</h2>
+<p>Collisions are essential in this thesis for two reasons. Firstly, one
+of the main research questions is how the passage of a subhalo perturbs
+a stellar stream. This interaction can be treated as a gravitational
+collision.</p>
+<p>In general, we are interested in how much the momentum of a particle
+changes before and after the encounter. We can simplify the scenario by
+assuming that the target particle is initially at rest, and that the
+perturber (the subhalo) flies by with a minimum distance of approach
+<span class="math inline">\(b\)</span>—the <em>impact
+parameter</em>.</p>
+<p>Since both objects exert gravitational forces on each other, the
+target will gain energy and begin to move, while the perturber will be
+slightly deflected and slow down. However, to simplify the calculation,
+we assume the perturber is unperturbed by the target—i.e., it moves on a
+straight-line trajectory with constant speed <span
+class="math inline">\(v\)</span>.</p>
+<p>In this approximation, we compute the momentum change of the target
+by integrating the gravitational force over time. Gravity is always
+attractive: the perturber pulls the target particle to the left before
+the closest approach and to the right afterward. If the trajectory is
+symmetric and unperturbed, the components of the force parallel to the
+motion cancel out. Thus, the net momentum transfer is perpendicular to
+the motion of the perturber.</p>
+<p>Assume the perturber moves along the <span
+class="math inline">\(x\)</span>-axis with impact parameter <span
+class="math inline">\(b\)</span>, and the target lies at the origin.
+Then the net force acts in the <span class="math inline">\(+y\)</span>
+direction. The gravitational force scales as <span
+class="math inline">\(1/d^2\)</span>, so for distances <span
+class="math inline">\(d \gg b\)</span>, the force becomes negligible. We
+can then approximate the force as roughly constant over a short time
+interval during the closest approach.</p>
+<p>We estimate the duration of the interaction as the time it takes the
+perturber to travel a distance <span class="math inline">\(2b\)</span>
+(from <span class="math inline">\(x = -b\)</span> to <span
+class="math inline">\(x = +b\)</span>), giving <span
+class="math inline">\(\Delta t = 2b/v\)</span>. Assuming a constant
+perpendicular force <span class="math inline">\(F_\perp \approx
+GMm/b^2\)</span>, the change in momentum is:</p>
+<p><span class="math display">\[\begin{aligned}
+        m\,\delta v_y &amp;=&amp; \int F_\perp \, dt \\
+                    &amp;\approx&amp; F_\perp \cdot \Delta t \\
+                    &amp;=&amp; \frac{GMm}{b^2} \cdot \frac{2b}{v}
+        
+\end{aligned}\]</span></p>
+<p>Dividing both sides by <span class="math inline">\(m\)</span>, the
+change in velocity is: <span class="math display">\[\delta v_y =
+\frac{2GM}{b v}\]</span></p>
+<p>It is interesting to note that this result is inversely proportional
+to the velocity of the perturber. This behavior contrasts with contact
+collisions, where a higher speed typically results in a greater momentum
+transfer. In gravitational encounters, a faster flyby leads to a shorter
+interaction time and thus less momentum exchange.</p>
+<h3 id="gapology">Gapology</h3>
+<p>Gaps in stellar streams are underdensities that appear after
+encounters with dark matter subhalos or globular clusters. These can be
+understood as resulting from collisions. However, modeling the
+interaction as one point mass hitting another is too simplistic. What
+happens when an extended object, like a subhalo, interacts with a
+continuous stellar stream? Before delving into the technical details, it
+is worth clarifying a misconception–one that I myself held when first
+approaching this problem. Encounters between stellar streams and
+perturbers are not violent collisions in which stars are physically
+ejected or stripped from the stream. Rather, the perturber imparts a
+small, localized change in velocity to nearby stars, subtly altering
+their orbital periods. Over time, these tiny shifts accumulate, causing
+stars to drift apart and gradually sculpting a visible underdensity: the
+gap.</p>
+<p>To address this, we turn to the work of <span class="citation"
+data-cites="2015MNRAS.450.1136E">Erkal and Belokurov (2015)</span>, who
+studied a simplified model: a stream with uniform density on a circular
+orbit. This idealized setup allows for an analytical treatment of the
+gap’s formation and evolution. A gap can be characterized by two main
+quantities: its angular width, <span class="math inline">\(\Delta
+\theta\)</span>, and the density contrast, <span
+class="math inline">\(\rho_{\mathrm{peak}}/\rho_0\)</span>, between the
+overdensities at the gap’s edges and the central underdensity.</p>
+<p>To understand how these evolve, the authors derived a
+parameterization of the change in velocity <span
+class="math inline">\(\Delta \vec{v}\)</span> for stars along the stream
+after a perturbation. This vector function depends on the position <span
+class="math inline">\(y\)</span> along the stream relative to the impact
+point and on several parameters describing the perturber and the impact
+geometry: <span class="math display">\[\Delta \vec{v} = f(y \,|\, M,
+r_s, b, w_\parallel, w_\perp, \alpha),\]</span> where <span
+class="math inline">\(M\)</span> is the impactor’s mass, <span
+class="math inline">\(r_s\)</span> its scale radius, <span
+class="math inline">\(b\)</span> the impact parameter, <span
+class="math inline">\(w_\parallel\)</span> and <span
+class="math inline">\(w_\perp\)</span> the components of its velocity
+parallel and perpendicular to the stream, and <span
+class="math inline">\(\alpha\)</span> the angle between the impactor’s
+trajectory and the <span class="math inline">\((x,z)\)</span>-axes.</p>
+<p>To set up the problem, a coordinate system is defined where the
+stream lies along the <span class="math inline">\(y\)</span>-axis, and
+the impact occurs at <span class="math inline">\(y=0\)</span>. Because
+the stream has spatial extent, the impactor’s motion must be decomposed
+into parallel and perpendicular components with respect to the stream.
+Unlike the simpler point-mass approximation, here <span
+class="math inline">\(\Delta \vec{v}\)</span> generally has nonzero
+components in all directions. In particular, <span
+class="math inline">\(\Delta v_y\)</span> alters the speed along the
+stream, while <span class="math inline">\(\Delta v_x\)</span> and <span
+class="math inline">\(\Delta v_z\)</span> displace stars out of the
+stream’s plane. <span class="math inline">\(\Delta v_x\)</span> or <span
+class="math inline">\(\Delta v_z\)</span> can be zero if the trajectory
+of the impactor is parallel to the <span
+class="math inline">\(x\)</span> axis or <span
+class="math inline">\(z\)</span> axis, respectively.</p>
+<p>The expression for <span class="math inline">\(\Delta v_y\)</span>
+is: <span class="math display">\[\Delta v_y\left(y\,|\, M, r_s, b,
+w_\parallel, w_\perp\right) = - \frac{2GM w_\perp^2 y}{w\left[\left(b^2
++ r_s^2\right)w^2 + w_\perp^2 y^2\right]},\]</span> which is an odd
+function of <span class="math inline">\(y\)</span>, as expected for a
+gravitationally attractive force: stars ahead of the impact point (<span
+class="math inline">\(y&gt;0\)</span>) are slowed down, while those
+behind (<span class="math inline">\(y&lt;0\)</span>) are sped up.</p>
+<figure id="fig:erkal_2015_fig_3">
+<img src="images/erkal_et_al_2015_fig_3.png" />
+<figcaption>The change in velocity, <span class="math inline">\(\Delta
+v_y\)</span>, of stars along the stream after an impact. The stream lies
+along the <span class="math inline">\(y\)</span>-axis, with the point of
+impact at the origin. Key features are labeled: the maximum value of
+<span class="math inline">\(\Delta v_y\)</span>, its location, and the
+full width at half maximum. Taken from Fig. 3 of <span class="citation"
+data-cites="2015MNRAS.450.1136E">Erkal and Belokurov
+(2015)</span>.</figcaption>
+</figure>
+<p>Several assumptions underlie this formulation. First, the stream is
+approximated as a straight line, which requires the size of the impacted
+region to be much smaller than the orbital circumference. Second, the
+velocities of both the stream and the perturber are assumed constant,
+implying that the duration of the impact is much shorter than the
+system’s orbital period. These assumptions also imply that the impactor
+must pass close to the stream and be compact relative to the stream’s
+orbital radius.</p>
+<p>The authors then developed the time evolution of the stream’s density
+following the impact. To study these, the authors employed three
+complementary approaches:</p>
+<ol>
+<li><p>A numerical solution of a transcendental equation governing <span
+class="math inline">\(\Delta \theta(t)\)</span>;</p></li>
+<li><p>A fully analytic solution for a low-order analytical
+approximation valid when the gap opening <span
+class="math inline">\(\Delta \theta\)</span> is still small;</p></li>
+<li><p>An <span class="math inline">\(N\)</span>-body simulation of the
+full system.</p></li>
+</ol>
+<p>Together, these revealed three distinct phases of gap evolution:</p>
+<ol>
+<li><p><strong>Compression phase</strong> – Shortly after the impact,
+stars on opposite sides swap places, briefly compressing the stream
+until the right and left sides overtake one another.</p></li>
+<li><p><strong>Linear growth phase</strong> – The gap grows roughly
+linearly in time, as stars move apart under their velocity
+differences.</p></li>
+<li><p><strong>Caustic phase</strong> – Eventually, stars bunch up at
+different locations at the edges of the gap, creating sharp overdensity
+features (“caustics”). Additionally, the gap’s growth to is slowed to a
+sublinear rate, scaling roughly as <span class="math inline">\(\propto
+\sqrt{t}\)</span>.</p></li>
+</ol>
+<p>The author’s make an important realization. Even in a scenario where
+the galactic potential and the stream’s orbit are known, with just the
+gap’s density profile there are still seven parameters that describe
+it’s shape: <span
+class="math inline">\(M,r_s,b,w_\perp,w_\parallel,\alpha,t\)</span>. The
+authors state that the gap’s profile provide two more piece of
+information and with a constraint on the perturber’s density, we would
+still be left with four degrees of freedom. The problem is thus
+underdetermined and it is thus impossible to uniquely determine the
+properties of the perturber. A large statistical sample of gaps would be
+required to constrain a population of dark matter subhalos. With the
+ever increasing data quality, perhaps this could be possible
+someday.</p>
+<p>While powerful, the authors describe how the limiting assumptions
+impact the interpretations of this work. First, the framework is limited
+to circular orbits which poses a significant constraint especially for
+globular clusters which often have inclined and eccentric trajectories.
+Indeed, as they discussed in their work, streams do not have uniform
+densities. Stars that populate the streams come from tidally disrupting
+stellar systems. As they leave the cluster and enter the stream, they
+come with a range of energies and and angular momenta that in essence
+eliminate any casutic features.</p>
+<p><span class="citation" data-cites="2016MNRAS.457.3817S">Sanders,
+Bovy, and Erkal (2016)</span> expanded on this foundation and provided a
+truly exchaustive and comprehensive exploration of stream-subhalo
+interactions. Their primary methodological innovation was the
+development of a framework for modeling the impact of dark matter
+subhaloes on cold, thin streams in angle-frequency space. This space
+significantly simplifies stream dynamics, allowing for the rapid
+generation of general stream models and proving ideal for incorporating
+velocity perturbations from subhaloes. They developed methods to compute
+velocity, angle, and frequency kicks for general subhaloes and impact
+geometries, then translated these into angle and frequency
+perturbations. This framework allowed for an extensive range of
+experiments:</p>
 <ul>
-<li><p>show the impulse approximation.</p></li>
-<li><p>state that this is important for when we consdier the impacts of
-globular clusters</p></li>
-<li><p>give a quick over view of two body relaxation, to show why the
-galaxy can be totally approximated in the fluid limit.</p></li>
+<li><p><strong>Various perturber models</strong>: <span class="citation"
+data-cites="2016MNRAS.457.3817S">Sanders, Bovy, and Erkal (2016)</span>
+compared velocity kicks produced by various astrophysically relevant
+subhalo profiles, including Plummer, Hernquist, truncated
+Navarro-Frenk-White (NFW), and non-truncated NFW profiles. They found
+that while there are differences in kick amplitudes depending on the
+profile, the absolute differences between these methods were generally
+small, especially for lower-mass impacts, suggesting the simpler "curved
+approximation" (which accounts for stream curvature but assumes fixed
+relative velocity during flyby) is often sufficient</p></li>
+<li><p><strong>Different Orbits for the Progenitor</strong>: key
+advancement was the focus on streams formed from progenitors on
+eccentric orbits. This directly addressed a limitation of <span
+class="citation" data-cites="2015MNRAS.450.1136E">Erkal and Belokurov
+(2015)</span>, which primarily restricted its analysis to streams on
+circular orbits. The angle-frequency space formalism is particularly
+well-suited for modeling these more complex, realistic eccentric stream
+dynamics.</p></li>
+<li><p><strong>Different Impact Points</strong>: The study thoroughly
+investigated how the stream changes depending on where along the stream
+the impact occurs. They simulated impacts both close to the progenitor
+(where particles are more mixed in energy) and further downstream (where
+particles are better ordered by energy), finding that the growth rate of
+the gap depends on the impact location.</p></li>
 </ul>
+<p>Drawing from these comprehensive investigations, <span
+class="citation" data-cites="2016MNRAS.457.3817S">Sanders, Bovy, and
+Erkal (2016)</span> reached several essential conclusions and insights
+into “gapology”:</p>
+<ul>
+<li><p><strong>Dominance of Frequency Kicks</strong>: They found that
+angle perturbations from a flyby are generally only significant on short
+timescales (less than a radial period). At later times, the frequency
+perturbations become much more important, controlling the future
+structure of the gap. These frequency perturbations are simply related
+to the velocity perturbations (specifically, the change in energy, <span
+class="math inline">\(v \cdot \delta v_g\)</span>) in scale-free
+potentials.</p></li>
+<li><p><strong>Gap Growth and Density Plateau</strong>: While <span
+class="citation" data-cites="2015MNRAS.450.1136E">Erkal and Belokurov
+(2015)</span> predicted gap growth slowing to a <span
+class="math inline">\(t^{1/2}\)</span> rate in the caustic phase and the
+central density decreasing as <span
+class="math inline">\(t^{-1}\)</span>, <span class="citation"
+data-cites="2016MNRAS.457.3817S">Sanders, Bovy, and Erkal (2016)</span>
+observed that the minimum gap density eventually plateaus in time. This
+plateau value decreases with increasing subhalo mass and is attributed
+to the stream’s non-zero velocity dispersion, allowing upstream material
+to fill in the gap, and the non-uniform unperturbed stream
+density.</p></li>
+<li><p><strong>Impact Location Affects Growth Rate</strong>: They
+discovered that gaps formed far downstream grow more rapidly than those
+closer to the progenitor. This is because stream members far from the
+progenitor are more "ordered" by energy, leading to an already growing
+underlying stream structure that enhances gap formation.</p></li>
+</ul>
+<p>For many of the experiments, the authors cross validate the
+semi-analytic formalism against NBody simulations and present truly
+robust results. Below, I want to show how one can understand a 1D
+stream.</p>
+<p>To first order, a stellar stream can be modeled as a
+<em>collisionless</em>, non-accelerating ensemble of stars — i.e., a
+one-dimensional <em>streaming</em> solution to the collisionless
+Boltzmann equation. In this case, the equation simplifies to:</p>
+<p><span class="math display">\[\frac{\partial f}{\partial t} + v
+\frac{\partial f}{\partial x} = 0,\]</span></p>
+<p>where <span class="math inline">\(f(x,v,t)\)</span> is the
+phase-space distribution function. We assume the initial condition <span
+class="math inline">\(f(x,v,t=0) = 0\)</span>, and a boundary condition
+of a constant source at <span class="math inline">\(x=0\)</span>:</p>
+<p><span class="math display">\[f(0,v,t) = g(v \,|\, v_0, \sigma_v) =
+\mathcal{N}(v \,|\, v_0, \sigma_v),\]</span></p>
+<p>i.e., a Gaussian ejection velocity distribution centered at <span
+class="math inline">\(v_0\)</span> with dispersion <span
+class="math inline">\(\sigma_v\)</span>. The total flux amplitude is
+arbitrary here.</p>
+<p>Using the method of characteristics, we find that <span
+class="math inline">\(f\)</span> is constant along lines of the form
+<span class="math inline">\(x - vt = \text{const}\)</span>. This means
+we are solving a PDE in the <span class="math inline">\((x,t)\)</span>
+plane for fixed values of <span class="math inline">\(v\)</span>. The
+initial condition implies that <span class="math inline">\(f=0\)</span>
+in regions not yet reached by any particles — that is, wherever <span
+class="math inline">\(x/t &gt; v\)</span>. Thus, the solution is:</p>
+<p><span class="math display">\[f(x,v,t) =
+                \begin{cases}
+                    \mathcal{N}(v \,|\, v_0, \sigma_v) &amp; \text{if }
+v &gt; \frac{x}{t}, \\
+                    0 &amp; \text{otherwise}.
+                \end{cases}
+                \label{eq:one_dimensional_collisionless_streaming}\]</span></p>
+<p>We can now compute the moments of this distribution. The density at
+each position is given by:</p>
+<p><span class="math display">\[\rho(x,t) = \int_{x/t}^{\infty} f(x,v,t)
+\, dv = \frac{1}{2} \, \mathrm{erfc}\left( \frac{x/t -
+v_0}{\sqrt{2}\sigma_v} \right),\]</span></p>
+<p>i.e., the integral of a truncated Gaussian. Similarly, the <em>mean
+velocity</em> and <em>velocity dispersion</em> at fixed <span
+class="math inline">\((x,t)\)</span> are computed from the conditional
+distribution <span class="math inline">\(f(v|x,t) =
+f(x,v,t)/\rho(x,t)\)</span>, via:</p>
+<p><span class="math display">\[\begin{aligned}
+                \langle v \rangle(x,t) &amp;= \frac{1}{\rho(x,t)}
+\int_{x/t}^\infty v f(x,v,t) \, dv, \\
+                \langle v^2 \rangle(x,t) &amp;= \frac{1}{\rho(x,t)}
+\int_{x/t}^\infty v^2 f(x,v,t) \, dv, \\
+                \sigma_v^2(x,t) &amp;= \langle v^2 \rangle(x,t) -
+\langle v \rangle(x,t)^2.
+            
+\end{aligned}\]</span></p>
+<p>Each of these integrals can be expressed analytically in terms of the
+error function and exponential functions, since they are the moments of
+a truncated Gaussian.</p>
+<p>In Fig. <a href="#fig:collisionless_1D_stream"
+data-reference-type="ref"
+data-reference="fig:collisionless_1D_stream">16</a>, I show a plot of
+the <em>density</em>, <em>mean velocity</em>, and <em>velocity
+dispersion</em> as a function of position at a given time. The figure
+illustrates how the leading edge of the stream (larger <span
+class="math inline">\(x\)</span>) contains only the fastest particles
+and thus has a lower density and higher average velocity. Conversely,
+the trailing regions have a broader mix of velocities and higher local
+dispersion.</p>
+<figure id="fig:collisionless_1D_stream">
+<img src="images/collisionless_1D_stream.png" />
+<figcaption>A snapshot at a fixed time of selected moments of the
+distribution function describing one-dimensional collisionless
+streaming, used here as an approximation for a stellar stream, as given
+by Eq. <a href="#eq:one_dimensional_collisionless_streaming"
+data-reference-type="ref"
+data-reference="eq:one_dimensional_collisionless_streaming">[eq:one_dimensional_collisionless_streaming]</a>.
+Particles are continuously injected at the origin with velocities drawn
+from a Gaussian distribution with mean <span
+class="math inline">\(v_0\)</span> and dispersion <span
+class="math inline">\(\sigma_v\)</span>. Shown are the particle density,
+local mean velocity, and local velocity dispersion, all normalized.
+</figcaption>
+</figure>
+<p><em>Note:</em> I would love to explore this more rigorously in the
+context of time-dependent or eccentric mass loss, where the source term
+becomes periodic. I did begin studying such a model using a
+time-dependent Gaussian source, but at some point the “simple approach”
+becomes as complex as full numerical simulations.</p>
 <h1 id="the-ignored-physics">The Ignored Physics</h1>
-<ul>
-<li><p>what is the hardness of a binary? the binding energy? how is
-hardness measured? the binary binding energy / the orbital energy of the
-system?</p></li>
-<li><p>some people say hard hard binaries comes from 3 body or 4 body
-encounters.</p></li>
-</ul>
+<p><strong>NOTE. I am trying to construct a narrative by starting with
+the collisional dynamics to show why it was ignored for the galaxy and
+show that it has an influence for globular clusters. I want to discuss
+aspects such as two body relaxation, evaporation, etc. and how the
+assumptions make above are not always valid, and the type of phenomena
+our model cannot cover. I want to cite the papers such as Balbinot (the
+devils in the tails), Baumgardt’s NBody library, and others. This
+section is quite incomlpete, I would appreciate ideas.</strong></p>
+<p>This section could be the longest of the thesis, but I’ll try to keep
+brief as it mostly discusses aspects of the problem that the textbooks,
+conferences, and the literature, and have shown me to be important. This
+section certainly serves as a base for more things to include in future
+experiments that improve on the previous ones. However, maxwells
+equations are not relevant here, nor schrondiners equation.</p>
 <h2 id="collisional-dynamics">Collisional dynamics</h2>
+<p>In my experiment discussed in chapter 5, there are collisions in the
+sense that other globular clusters can impact a stream. However, this is
+not what I mean by collisional dynamics. Indeed, collisional dynamics
+are the effects of gravitational encounters driving the evolution of the
+system, instead of the orbits being determined by the mean field only.
+There is a fundamental derivation in gravitational dynamics that
+justifies when collisionless dynamics are justified and this is called
+the <strong>two-body relaxation time</strong>. The name of the game is
+to consider how long it takes for a particle to have it’s momentum
+vector changed by the same order of mangitude. Bovy and Binney &amp;
+Tremaine present this, and any expert in the field is familiar with such
+a fundamental derivation. I would like to present some aspects of the
+computation that I find to be insightful.</p>
+<p>First of all, we would like to find out how long it takes for <span
+class="math inline">\(|\Delta \vec{v}|/|\vec{v}|\approx 1\)</span>, as
+the particle traverses a realsitic gravitational environment made of
+many point masses. We would like a general solution, for arbitrary
+orbits in any galactic environment. However, that’s too much to ask for
+and we can obtain powerful insight with simpler computations. Here is
+how the problem is simplified:</p>
+<ul>
+<li><p>assume the star is traveling on a straight line</p></li>
+<li><p>assume all field stars are at rest with respect to the field
+star</p></li>
+<li><p>assume that the galaxy has a uniform stellar number
+density</p></li>
+<li><p>assume the impule approximation for all encounters</p></li>
+</ul>
+<p>Remember that this computation is calculating how long the it takes
+for the orbit to deviate from the current trajectory if it were in a
+perfect fluid and not in a environment made of discrete particles. These
+assumptions above are great for finding the relaxation time of stars on
+circular orbits within spherical stellar systems or the disk of
+galaxies. Eccentricities and inclinations would mean that the number
+density of the medium would change greatly with time. Also, a corrolary
+of the impules approximation for each encounter is that no single
+encounter greatly deviates the particle’s trajectory. Thus, there is a
+limit on the lowest minimum impact parameter.</p>
+<p>Remember, by definition, all impact parameters are perpendicular to
+the star’s trajectory. By applying the impulse approximation for each
+encounter, the change in momentum is always perpendicular to star’s
+trajectory. We can compute the number of encounters as a function of the
+impact parameter. this is the density in the medium multiplied with the
+number of particles within a ring about b. <span
+class="math display">\[\begin{aligned}
+            \sigma &amp;= \pi \left[(b+db)^2-(b-db)^2 \right]\\
+            \sigma &amp;= 4\pi bdb,
+        
+\end{aligned}\]</span> We can estimate the number density of the medium
+by using a sphere: <span class="math inline">\(n=\frac{3N}{4\pi
+R^3}\)</span>. With this, number of encounters as a function of impact
+parameter, per unit length is: <span class="math display">\[\frac{d
+N_\mathrm{int}}{db} = \frac{3N}{R^3} b\]</span> Remember, this is the
+number of interactions per unit length. We can change this to the total
+number of interactions per unit time by swapping <span
+class="math inline">\(dx=vdt\)</span>, assuming the star has constant
+velocity: <span class="math display">\[\frac{d N_\mathrm{int}}{dtdb} =
+\frac{3N}{R^3} vb\]</span> We can then find the rate at which the energy
+changes by integrating the</p>
+<p>Ok. I can finish this later. I just want to be insightful and show
+that MW va bene, for the disc. Then I want to show that this isn’t good
+for some globular clusters. Perhaps I can get a list where it would be
+appropraite? why didn’t I compute this before!</p>
 <p>Globular clusters are undoubteled collisional systems. The same
 computating using the columb law, to compute how long it takes for a
 given particles to change it’s momentum on same order of magnitude as
@@ -1158,6 +1861,24 @@ mass segregation and stellar evolution are time-dependent which is
 completely ignored in my simulations.</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
+<div id="ref-2015MNRAS.450.1136E" class="csl-entry" role="listitem">
+Erkal, Denis, and Vasily Belokurov. 2015. <span>“<span
+class="nocase">Forensics of subhalo-stream encounters: the three phases
+of gap growth</span>”</span> 450 (1): 1136–49. <a
+href="https://doi.org/10.1093/mnras/stv655">https://doi.org/10.1093/mnras/stv655</a>.
+</div>
+<div id="ref-koon2000dynamical" class="csl-entry" role="listitem">
+Koon, Wang Sang, Martin W Lo, Jerrold E Marsden, and Shane D Ross. 2000.
+<span>“Dynamical Systems, the Three-Body Problem and Space Mission
+Design.”</span> In <em>Equadiff 99: (In 2 Volumes)</em>, 1167–81. World
+Scientific.
+</div>
+<div id="ref-2016MNRAS.457.3817S" class="csl-entry" role="listitem">
+Sanders, Jason L., Jo Bovy, and Denis Erkal. 2016. <span>“<span
+class="nocase">Dynamics of stream-subhalo interactions</span>”</span>
+457 (4): 3817–35. <a
+href="https://doi.org/10.1093/mnras/stw232">https://doi.org/10.1093/mnras/stw232</a>.
+</div>
 <div id="ref-2023LRCA....9....3S" class="csl-entry" role="listitem">
 Spurzem, Rainer, and Albrecht Kamlah. 2023. <span>“<span
 class="nocase">Computational methods for collisional stellar
@@ -1166,5 +1887,17 @@ Astrophysics</em> 9 (1): 3. <a
 href="https://doi.org/10.1007/s41115-023-00018-w">https://doi.org/10.1007/s41115-023-00018-w</a>.
 </div>
 </div>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The term "integral of motion" is often used
+interchangeably with "constant of motion," but strictly speaking, the
+latter is preferable since it refers to a quantity that remains constant
+throughout the orbital evolution, not to an integral in the mathematical
+sense of the word (area under a curve).<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 </body>
 </html>
