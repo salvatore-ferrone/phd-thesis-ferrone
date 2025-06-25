@@ -7,7 +7,7 @@ import multiprocessing as mp
 
 def set_integration_parameters(norbits=4,dtfactor=1/1000):
     speed = 1 # normalized to np.sqrt(GM/a) where M = m*NP
-    tdyn = 2*np.pi / speed
+    tdyn = 1 / speed
     dt = tdyn * dtfactor
     inttime = norbits * tdyn  
     nsteps = int( inttime / dt)
@@ -103,7 +103,7 @@ def experiment_always_in_the_center(NP, norbits=10, dtfactor=1/1000, x0=np.array
     speed, dt, nsteps = set_integration_parameters(norbits=norbits, dtfactor=dtfactor)
     numberDensity = 3*NP/(4*np.pi)
     print("expectation in disk: ", numberDensity * speed * dt)
-    bmin = 2/(NP*speed**2)  # Minimum impact parameter for binary formation
+    bmin = 10/(NP*speed**2)  # Minimum impact parameter for binary formation
     x = np.zeros((nsteps+1, 3))
     v = np.zeros((nsteps+1, 3))
     x[0] = x0
