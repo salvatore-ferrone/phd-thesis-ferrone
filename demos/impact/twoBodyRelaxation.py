@@ -5,13 +5,7 @@ import multiprocessing as mp
 
 
 
-def set_integration_parameters(norbits=4,dtfactor=1/1000):
-    speed = 1 # normalized to np.sqrt(GM/a) where M = m*NP
-    tdyn = 1 / speed
-    dt = tdyn * dtfactor
-    inttime = norbits * tdyn  
-    nsteps = int( inttime / dt)
-    return speed, dt, nsteps
+
 
 def integrate_in_finite_box(NP, cutBmin=True, norbits=4, dtfactor=1/1000, x0 = np.array([-1/2, 0, 0]), v0 = np.array([1,0,0])):
     """Find the random walk of a particle in a gravitational field in a finite box
@@ -58,7 +52,13 @@ def integrate_in_finite_box(NP, cutBmin=True, norbits=4, dtfactor=1/1000, x0 = n
         x[i+1] = x[i] + v[i+1] * dt
     return x, v, positions
 
-
+def set_integration_parameters(norbits=4,dtfactor=1/1000):
+    speed = 1 # normalized to np.sqrt(GM/a) where M = m*NP
+    tdyn = 1 / speed
+    dt = tdyn * dtfactor
+    inttime = norbits * tdyn  
+    nsteps = int( inttime / dt)
+    return speed, dt, nsteps
 
 def deprojection_coordinate_system(vel):
     """ Create an arbitrary axes perpendicular to the trajectory """
