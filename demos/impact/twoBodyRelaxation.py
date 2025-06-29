@@ -96,54 +96,90 @@ def deproject_all_particles(us, ws, x, v, dt):
             zdp.append(deprojected[2, j])
     return np.array(xdp), np.array(ydp), np.array(zdp)
 
+def generate_uniform_disk(Ndisk):
+    R = np.random.uniform(0, 1, Ndisk)**(1/2)
+    theta = np.random.uniform(0, 2*np.pi, Ndisk)
+    return R, theta
+    
 
-def experiment_always_in_the_center(NP, norbits=10, dtfactor=1/1000, x0=np.array([-1, 0, 0]), v0=np.array([1, 0, 0]),cutBmin=True):
-    """ Run the experiment where particles are always within a certain distance of the trajectory. """
+def change_in_velocity_from_all_particles_in_the_disk(NP, speed, u, w, cutBmin=True):
+        """ Compute the forces on a particle in a disk perpendicular to the trajectory.
+        NP is the number of particles in the disk, v is the velocity of the particle,
+        b_mag is the impact parameter, and theta is the angle of the impact parameter.
+        If cutBmin is True, the impact parameter is cut to be larger than the minimum
+        impact parameter for binary formation.
+        Returns the mean impulse and the u, w coordinates of the disk. """
+        
 
-    speed, dt, nsteps = set_integration_parameters(norbits=norbits, dtfactor=dtfactor)
-    numberDensity = 3*NP/(4*np.pi)
-    print("expectation in disk: ", numberDensity * speed * dt)
-    bmin = 10/(NP*speed**2)  # Minimum impact parameter for binary formation
-    x = np.zeros((nsteps+1, 3))
-    v = np.zeros((nsteps+1, 3))
-    x[0] = x0
-    v[0] = v0
-    i=0
-    us = []
-    ws = []
-    for i in range(nsteps):
-        speed = np.linalg.norm(v[i])
-        Ndisk = np.random.poisson(numberDensity*speed*dt)
-        unitV, n1, n2 = deprojection_coordinate_system(v[i])
-        if Ndisk == 0:
+        bmin = 2 / (NP * speed**2)
+        b_mag = np.sqrt(u**2 + w**2)
+        
+        if cutBmin:
+            cond = b_mag > bmin
+            b_mag = b_mag[cond]
+        
+        if len(b_mag) == 0:
+            # if there are no particles in the disk, skip this step
             mean_impulse = np.zeros(3)
             u=np.array([])
             w=np.array([])
         else:
-            R = np.random.uniform(0, 1, Ndisk)**(1/2)
-            theta = np.random.uniform(0, 2*np.pi, Ndisk)
-            u,w= np.cos(theta) * R, np.sin(theta) * R
             # now compute the forces on the particle in this plane 
-            b = np.array([np.zeros_like(u),u,w]).T
-            # I need to compute the forces that will be along this trajectory
-            b_mag=np.linalg.norm(b,axis=1)
+            b_vec = np.array([np.zeros_like(u), u, w]).T
             # cut the impact parameter if it is too small
-            if cutBmin:
-                cond = b_mag > bmin
-                b = b[cond]
-                b_mag = b_mag[cond]
-            if len(b) == 0:
-                mean_impulse = np.zeros(3)
-            else:
-                # compute the impulse 
-                impulse=2/(NP*speed*b_mag**2) * b.T
-                impulse.shape
-                # now I need to add this to the velocity of the particle
-                # get the mean impulse
-                mean_impulse = impulse.mean(axis=1)
-            # deproject the mean impulse and apply it to the mean velocity
-        v[i+1,:] = v[i] + n1*mean_impulse[1] + n2*mean_impulse[2]
+            impulse = 2 / (NP * speed * b_mag**2) * b_vec.T
+            mean_impulse = impulse.mean(axis=1)
+
+        return mean_impulse
+
+
+def generate_disk_and_compute_impulse(NP, v, dt, cutBmin=True):
+    """ Generate a disk of particles perpendicular to the trajectory and compute the impulse on the particle.
+    NP is the number of particles in the disk, v is the velocity of the particle,
+    dt is the time step, and cutBmin is a boolean indicating whether to cut the
+    impact parameter to be larger than the minimum impact parameter for binary formation.
+    Returns the mean impulse and the u, w coordinates of the disk. """
+    speed = np.linalg.norm(v)
+    if speed == 0:
+        # if the speed is zero, there is no disk to generate
+        return np.zeros(3), np.array([]), np.array([])
+    
+    numberDensity = NP / np.pi  # number of particles in the "cylinder" (N / (pi R^2 * v * T)) T = R/v
+    
+    Ndisk = np.random.poisson(numberDensity*speed*dt) # number of particles in the section of the disk
+    
+    b_mag, theta = generate_uniform_disk(Ndisk)    
+    
+    u, w = b_mag * np.cos(theta), b_mag * np.sin(theta) 
+    
+    impulse = change_in_velocity_from_all_particles_in_the_disk(NP, speed, u, w, cutBmin=cutBmin)
+
+    return impulse, u, w
+
+
+
+def experiment_always_in_the_center(NP, norbits=10, dtfactor=1/1000, x0=np.array([-1, 0, 0]), v0=np.array([1, 0, 0]),cutBmin=True):
+    """ Run the experiment where particles are always within a certain distance of the trajectory. """
+    speed, dt, nsteps = set_integration_parameters(norbits=norbits, dtfactor=dtfactor)
+    numberDensity = NP / np.pi # number of particles in the "cylinder" (N / (pi R^2 * v * T)) T = R/v
+    print("expectation in disk: ", numberDensity * speed * dt)
+    bmin = 2/(NP*speed**2)  # Minimum impact parameter for binary formation
+    x = np.zeros((nsteps+1, 3))
+    v = np.zeros((nsteps+1, 3))
+    x[0] = x0
+    v[0] = v0
+    us,ws = [],[]
+
+    for i in range(nsteps):
+        
+        impulse, u, w = generate_disk_and_compute_impulse(NP, v[i], dt, cutBmin=cutBmin)
+
+        unitV, n1, n2 = deprojection_coordinate_system(v[i])
+        
+        v[i+1,:] = v[i] + n1*impulse[1] + n2*impulse[2]
+        
         x[i+1,:] = x[i] + v[i+1] * dt
+        
         us.append(u)
         ws.append(w)
     return x, v, us, ws
