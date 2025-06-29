@@ -20,7 +20,8 @@ def integrate_in_finite_box(NP, cutBmin=True, norbits=4, dtfactor=1/1000, x0 = n
     z = np.random.uniform(-0.5, 0.5, NP)
     positions = np.array([x, y, z]).T
     # Initial velocities
-    speed, dt, nsteps = set_integration_parameters(norbits=norbits, dtfactor=dtfactor)
+    dt, nsteps = set_integration_parameters(norbits=norbits, dtfactor=dtfactor)
+    speed = 1 # normalized to np.sqrt(GM/a) where M = m*NP
     # do the random walk computation
     v=np.zeros((nsteps+1, 3))
     x=np.zeros_like(v)
@@ -58,7 +59,7 @@ def set_integration_parameters(norbits=4,dtfactor=1/1000):
     dt = tdyn * dtfactor
     inttime = norbits * tdyn  
     nsteps = int( inttime / dt)
-    return speed, dt, nsteps
+    return dt, nsteps
 
 def deprojection_coordinate_system(vel):
     """ Create an arbitrary axes perpendicular to the trajectory """
@@ -125,9 +126,9 @@ def change_in_velocity_from_all_particles_in_the_disk(NP, speed, u, w, cutBmin=T
             w=np.array([])
         else:
             # now compute the forces on the particle in this plane 
-            b_vec = np.array([np.zeros_like(u), u, w]).T
+            b_vec = np.array([np.zeros_like(u), u, w])
             # cut the impact parameter if it is too small
-            impulse = 2 / (NP * speed * b_mag**2) * b_vec.T
+            impulse = 2 / (NP * speed * b_mag**2) * b_vec
             mean_impulse = impulse.mean(axis=1)
 
         return mean_impulse
@@ -160,7 +161,8 @@ def generate_disk_and_compute_impulse(NP, v, dt, cutBmin=True):
 
 def experiment_always_in_the_center(NP, norbits=10, dtfactor=1/1000, x0=np.array([-1, 0, 0]), v0=np.array([1, 0, 0]),cutBmin=True):
     """ Run the experiment where particles are always within a certain distance of the trajectory. """
-    speed, dt, nsteps = set_integration_parameters(norbits=norbits, dtfactor=dtfactor)
+    dt, nsteps = set_integration_parameters(norbits=norbits, dtfactor=dtfactor)
+    speed = 1 # starts @ 1 by normalization, but can be rescaled later
     numberDensity = NP / np.pi # number of particles in the "cylinder" (N / (pi R^2 * v * T)) T = R/v
     print("expectation in disk: ", numberDensity * speed * dt)
     bmin = 2/(NP*speed**2)  # Minimum impact parameter for binary formation
