@@ -194,7 +194,38 @@
 <header id="title-block-header">
 <h1 class="title">Numerics</h1>
 </header>
-<p>Preface:</p>
+<p>As in line with a thesis on computational astrophysics, the equations
+of motion presented in this thesis do not have closed for analytical
+solutions and thus we must turn to computers to solve them. Here, I am
+solving N-independent sets of Hamilton’s equations, in which each set
+contains 6 first order coupled differential equations. Solving equations
+numerically introduces a series of problems that must be delt with.
+First, practically, how do we solve them? We are all familiar with
+newton’s method how finds the time-evolution of a function with the
+derivative: <span class="math inline">\(y_{i+1} = \frac{dy}{dt}\Delta t
++ y_i\)</span>. But what about coupled equations? How can we ensure
+ourselves that the numerical solution well approximates the true
+solution, if we don’t know the true solution? What about data volume,
+efficieny?</p>
+<p>Consider the following example. If we consider the following
+differential equation, <span
+class="math inline">\(\frac{dy}{dt}=m\)</span>, whose general solution
+is: <span class="math inline">\(y=mt+b\)</span>. Consider the data
+volume. If we are working double-precision numbers who use 64-bits to
+represent real numbers, then the general solution is only 16 bytes.
+However, if we use newton’s method to find a particular solution given
+an initial condition <span class="math inline">\(b\)</span>, then we
+must evaluate <span class="math inline">\(t_i,y_i\)</span> at each time
+step considered. The data volume becomes <span
+class="math inline">\(2\times N_\mathrm{steps}\times 8
+\mathrm{bytes}\)</span>.</p>
+<p>With numerical solutions in general, we have a set of initial
+conditions, and evaluting Hamilton’s equations at them provides the
+instantaneous evolution of the system. If we use a sufficiently small
+time step, we can then find the next state of the system.
+<em>Sufficiently small</em> means that the numerical solution converges
+to the <em>true solution</em> and only differs by accumulated numerical
+error from machine precision.</p>
 <h1 id="astronomical-units-and-scaling">Astronomical units and
 scaling</h1>
 <p>Astronomical units are weird:</p>

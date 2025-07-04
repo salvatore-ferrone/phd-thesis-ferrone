@@ -1,4 +1,9 @@
-Preface:
+As in line with a thesis on computational astrophysics, the equations of motion presented in this thesis do not have closed for analytical solutions and thus we must turn to computers to solve them. Here, I am solving N-independent sets of Hamilton's equations, in which each set contains 6 first order coupled differential equations. Solving equations numerically introduces a series of problems that must be delt with. First, practically, how do we solve them? We are all familiar with newton's method how finds the time-evolution of a function with the derivative: $y_{i+1} = \frac{dy}{dt}\Delta t + y_i$. But what about coupled equations? How can we ensure ourselves that the numerical solution well approximates the true solution, if we don't know the true solution? What about data volume, efficieny? 
+
+Consider the following example. If we consider the following differential equation, $\frac{dy}{dt}=m$, whose general solution is: $y=mt+b$. Consider the data volume. If we are working double-precision numbers who use 64-bits to represent real numbers, then the general solution is only 16 bytes. However, if we use newton's method to find a particular solution given an initial condition $b$, then we must evaluate $t_i,y_i$ at each time step considered. The data volume becomes $2\times N_\mathrm{steps}\times 8 \mathrm{bytes}$. 
+
+With numerical solutions in general, we have a set of initial conditions, and evaluting Hamilton's equations at them provides the instantaneous evolution of the system. If we use a sufficiently small time step, we can then find the next state of the system. \textit{Sufficiently small} means that the numerical solution converges to the \textit{true solution} and only differs by accumulated numerical error from machine precision. 
+
 
 \section{Astronomical units and scaling}
 
