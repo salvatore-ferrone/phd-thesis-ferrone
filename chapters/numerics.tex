@@ -12,13 +12,9 @@ This chapter documents how I numerically solve the equations of motion, how I va
 
 \section{Astronomical units and scaling}
 
-    When writing any code, the choice of units is important. Astronomical units are rarely the same as SI units. In general, the choice of units is observationally and historically motivated, which results in a system that uses multiple units for the same quantity, which can be confusing at first. To start, since we are observing the sky, everything is reported in spherical coordinates. Positions on the sky are reported in degrees, or for the right ascension, the equivalent of longitude, even in hour angle. Distances to the Earth are reported in parsecs since they are derived from measuring the parallax angle (if they are derived from the parallax angle and not other methods). Line-of-sight velocities are reported in kilometers per second, as they are determined through spectroscopy to measure the relativistic Doppler effect. Then, the proper motions are reported based on the hour angle, which is the change in a given star's position on the celestial sphere from one year to the next, which is millarcseconds per year. So far, we have three units for angular position, none of which are the SI's radians. We use kilometers and parsecs for distance, and years and seconds are units of time. How do we resolve this mess?  For example, what would the unit of acceleration be? km/s^2? parsec/year/second?
-
-    Units are a solved problem and are best presented through the Buckingham PI theorem. When considering issues of ordinary mechanics, we can choose a set of basis vectors that are distance, time, and mass. All other quantities are expressed as a linear combination of their exponents: [units] = $\mathcal{l}^a\times t^b\times m^c = \begin{bmatrix} a\\b\\c \end{bmatrix}$. Velocity is [1,-1,0], momentum is [1,-1,1], and acceleration is [1,-2,0]. 
-
-    Note that there are no fundamental dimensions; we can describe any quantity as long as we span and that all basis vectors are linearly independent. In stellar dynamics, distance, time, and often not chosen as the basis vectors. I choose the basis vectors as distance, velocity, and mass, with units of kpc, km/s, and solar masses, respectively. As a result, time is a unit [1,-1,0], which is s kpc/km. As a consequence, time is not an ``intuitive'' unit, like years. However, the universe helped us out in that 1 kpc / Gyr $\approx$ 1 km /s. 
-
-    The gravitational constant can be converted to these units 
+    When writing any code, the choice of units is important. Astronomical units are rarely the same as SI units. In general, the choice of units is observationally and historically motivated, which results in a system that uses multiple units for the same quantity, which can be confusing at first. 
+    
+    For instance, sky positions are typically reported in spherical coordinates. Right ascension (analogous to longitude) is often expressed in either degrees or hours, while declination (similar to latitude) is given in degrees. Distances are reported in partsecs when derived from parallax measurements. Line-of-sight velocities, obtained via spectrospoic Doppler shifts, are reported in kilometers per second. Proper motions describe angular displacement over time, usually reported in miliarcseconds per yera. Already, we encounter several different units for angles (degrees, hours, arcseconds), times (years, seconds), and distance (km, kpc), none of which align with the SI's radians, seconds, or meters. 
 
     \begin{table}[]
         \caption{Units for various astronomical quantities in Galactic and SI systems.}
@@ -30,6 +26,56 @@ This chapter documents how I numerically solve the equations of motion, how I va
         \end{tabular}
     \end{table}
 
+    This raises practical concerns, for example, what would be the unit of acceleration? km/s$^2$? parsec/year/second? To systematically manage units, we turn to dimesnional anslysis, notably the Buckingham Pi theorem. In classical mechanics, phyiscal quantities are typically expressed in terms of three fundamental dimesnions: length, time, and mass. Any quantity can then be represented as a product of powers of these base units: 
+
+    \begin{equation}
+        \left[\mathrm{Quantity}\right] = \mathcal{l}^a t^b m^c =
+            \begin{bmatrix}
+                a\\
+                b\\
+                c 
+            \end{bmatrix}
+    \end{equation}
+    For example, velocity has dimesnions: $\left[1, -1, 0\right]$, momentum is $[1,-1,1]$, and acceleration is $[1,-2,0]$. 
+
+    It is not strictly necessary to adopt length-time-mass as the fundamental basis, as long as the three choosen base units are linearly independent. In stellar dynamics, it is often more natural to use distance, velocity, and mass as the fundamental units. In this thesis, I adopt:
+    \begin{itemize}
+        \item distance: 1~kpc
+        \item Velocity: 1 km/s 
+        \item Mass: 1 solar mass $\mathrm{M}_\odot$
+    \end{itemize}
+
+    In this system, time as derived units of: 
+
+    \begin{equation}
+        \left[t\right] = \frac{\mathrm{distance}}{\mathrm{velocity}} = \frac{\mathrm{kpc}}{\mathrm{km/s}},
+    \end{equation}
+    While not immediately intuitive, this unit of time is convenient becuase: 
+    \begin{equation}
+        1\frac{\mathrm{kpc}}{Gyr} \approx 1\frac{km}{s}.
+    \end{equation}
+
+    The gravitational constant has dimensions of:
+    \begin{equation}    
+        \left[G\right]=\frac{v^2 l}{m}
+    \end{equation} 
+    which evaluates numerically in these units as: 
+    
+    \begin{equation}
+        G = 4.301 \times 10^{-6} \left(\mathrm{km}/\mathrm{s}\right)^2 \cdot \mathrm{kpc} \cdot \mathrm{M}_\odot^{-1}.
+    \end{equation}
+    Once the base units are defined, derived quantities such as acceleration follow directly. One finds that considering acceleration as $v^2~l^{-1}$ or $l\cdot t^{-2}$, they are equivalent and: $\left(\mathrm{kpc}/\mathrm{s}\right)^2 \cdot \mathrm{kpc}^{-1}$. 
+
+    It is worth mentioning that $N$-body codes often simplify further by selecting the distance, velocity, and the gravitational constant as the base units, setting $G=1$. While this simplifies force computations, it introduces less intuitive units for mass. For instance, by choosing 1~kpc for distance and 1~km/s for velocity, and setting $G=1$, the derived mass unit becomes: 
+    \begin{equation}
+        \left[\mathrm{mass}\right] = \frac{l \cdot v^2}{G} = 232509~\mathrm{M}_\odot
+    \end{equation}
+
+    This approach was used in our first paper, but I have opted against it in subsequent work for reasons of interpretability.
+
+
+    
+    
 
 \section{Tstrippy}
 
