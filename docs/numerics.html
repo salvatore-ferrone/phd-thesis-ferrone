@@ -234,21 +234,22 @@ is organized under the hood.</p>
 scaling</h1>
 <p>When writing any code, the choice of units is important. Astronomical
 units are rarely the same as SI units. In general, the choice of units
-is observationally and historically motivated, which results in a system
-that uses multiple units for the same quantity, which can be confusing
-at first.</p>
+is observationally and historically motivated, resulting in a system
+that uses multiple units for the same physical quantity, which can be
+confusing at first.</p>
 <p>For instance, sky positions are typically reported in spherical
 coordinates. Right ascension (analogous to longitude) is often expressed
 in either degrees or hours, while declination (similar to latitude) is
-given in degrees. Distances are reported in partsecs when derived from
+given in degrees. Distances are reported in parsecs when derived from
 parallax measurements. Line-of-sight velocities, obtained via
-spectrospoic Doppler shifts, are reported in kilometers per second.
-Proper motions describe angular displacement over time, usually reported
-in miliarcseconds per yera. Already, we encounter several different
-units for angles (degrees, hours, arcseconds), times (years, seconds),
-and distance (km, kpc), none of which align with the SI’s radians,
-seconds, or meters, as summarized in Table <a href="#tab:units"
-data-reference-type="ref" data-reference="tab:units">1</a>.</p>
+spectroscopic Doppler shifts, are reported in kilometers per second.
+Proper motions describe angular displacements over time and are usually
+reported in milliarcseconds per year. Already, we encounter several
+different units for angles (degrees, hours, arcseconds), time (years,
+seconds), and distance (km, kpc), none of which align with SI’s standard
+units of radians, seconds, or meters, as summarized in Table <a
+href="#tab:units" data-reference-type="ref"
+data-reference="tab:units">1</a>.</p>
 <div id="tab:units">
 <table>
 <caption>Units for various astronomical quantities in Galactic and SI
@@ -290,12 +291,12 @@ class="math inline">\(\mu_\delta\)</span></th>
 </tbody>
 </table>
 </div>
-<p>This raises practical concerns, for example, what would be the unit
-of acceleration? km/s<span class="math inline">\(^2\)</span>?
+<p>This raises practical concerns—for example, what would be the unit of
+acceleration? km/s<span class="math inline">\(^2\)</span>?
 parsec/year/second? To systematically manage units, we turn to
-dimesnional anslysis, notably the Buckingham Pi theorem. In classical
-mechanics, phyiscal quantities are typically expressed in terms of three
-fundamental dimesnions: length, time, and mass. Any quantity can then be
+dimensional analysis, notably the Buckingham Pi theorem. In classical
+mechanics, physical quantities are typically expressed in terms of three
+fundamental dimensions: length, time, and mass. Any quantity can then be
 represented as a product of powers of these base units:</p>
 <p><span class="math display">\[\left[\mathrm{Quantity}\right] =
 \mathcal{l}^a t^b m^c =
@@ -303,79 +304,130 @@ represented as a product of powers of these base units:</p>
                 a\\
                 b\\
                 c
-            \end{bmatrix}\]</span> For example, velocity has dimesnions:
-<span class="math inline">\(\left[1, -1, 0\right]\)</span>, momentum is
-<span class="math inline">\([1,-1,1]\)</span>, and acceleration is <span
-class="math inline">\([1,-2,0]\)</span>.</p>
+            \end{bmatrix}\]</span></p>
+<p>For example, velocity has dimensions <span class="math inline">\([1,
+-1, 0]\)</span>, momentum is <span class="math inline">\([1, -1,
+1]\)</span>, and acceleration is <span class="math inline">\([1, -2,
+0]\)</span>.</p>
 <p>It is not strictly necessary to adopt length-time-mass as the
-fundamental basis, as long as the three choosen base units are linearly
+fundamental basis, as long as the three chosen base units are linearly
 independent. In stellar dynamics, it is often more natural to use
-distance, velocity, and mass as the fundamental units. In this thesis, I
+distance, velocity, and mass as the base units. In this thesis, I
 adopt:</p>
 <ul>
 <li><p>Distance: 1 kpc</p></li>
-<li><p>Velocity: 1 km/s</p></li>
-<li><p>Mass: 1 solar mass <span
+<li><p>Velocity: 1 km/s</p></li>
+<li><p>Mass: 1 solar mass <span
 class="math inline">\(\mathrm{M}_\odot\)</span></p></li>
 </ul>
-<p>In this system, time as derived units of:</p>
-<p><span class="math display">\[\left[t\right] =
+<p>In this system, time has derived units of: <span
+class="math display">\[\left[t\right] =
 \frac{\mathrm{distance}}{\mathrm{velocity}} =
-\frac{\mathrm{kpc}}{\mathrm{km/s}},\]</span> While not immediately
-intuitive, this unit of time is convenient becuase: <span
+\frac{\mathrm{kpc}}{\mathrm{km/s}}.\]</span> While not immediately
+intuitive, this unit of time is convenient because: <span
 class="math display">\[1\frac{\mathrm{kpc}}{\mathrm{Gyr}} \approx
 1\frac{\mathrm{km}}{\mathrm{s}}.\]</span></p>
-<p>The gravitational constant has dimensions of: <span
-class="math display">\[\left[G\right]=\frac{v^2 \cdot l}{m}\]</span>
-which evaluates numerically in these units as:</p>
-<p><span class="math display">\[G = 4.301 \times 10^{-6}
+<p>The gravitational constant has dimensions: <span
+class="math display">\[\left[G\right]=\frac{v^2 \cdot l}{m},\]</span>
+which evaluates numerically in these units as: <span
+class="math display">\[G = 4.301 \times 10^{-6}
 \left(\mathrm{km}/\mathrm{s}\right)^2 \cdot \mathrm{kpc} \cdot
-\mathrm{M}_\odot^{-1}.\]</span> Once the base units are defined, derived
-quantities such as acceleration follow directly. One finds that
-considering acceleration as <span
+\mathrm{M}_\odot^{-1}.\]</span></p>
+<p>Once the base units are defined, derived quantities such as
+acceleration follow directly. Whether considering acceleration as <span
 class="math inline">\(v^2~l^{-1}\)</span> or <span
-class="math inline">\(l\cdot t^{-2}\)</span>, they are equivalent and:
-<span class="math inline">\(\left(\mathrm{kpc}/\mathrm{s}\right)^2 \cdot
+class="math inline">\(l \cdot t^{-2}\)</span>, they are equivalent and
+yield: <span
+class="math inline">\(\left(\mathrm{kpc}/\mathrm{s}\right)^2 \cdot
 \mathrm{kpc}^{-1}\)</span>.</p>
 <p>It is worth mentioning that <span
 class="math inline">\(N\)</span>-body codes often simplify further by
-selecting the distance, velocity, and the gravitational constant as the
-base units, setting <span class="math inline">\(G=1\)</span>. While this
+selecting distance, velocity, and the gravitational constant as the base
+units, setting <span class="math inline">\(G = 1\)</span>. While this
 simplifies force computations, it introduces less intuitive units for
 mass. For instance, by choosing 1 kpc for distance and 1 km/s for
-velocity, and setting <span class="math inline">\(G=1\)</span>, the
+velocity, and setting <span class="math inline">\(G = 1\)</span>, the
 derived mass unit becomes: <span
 class="math display">\[\left[\mathrm{mass}\right] = \frac{l \cdot
-v^2}{G} = 232509~\mathrm{M}_\odot\]</span></p>
-<p>This approach was used in our first paper (see chapter 4). Another
+v^2}{G} = 232509~\mathrm{M}_\odot.\]</span></p>
+<p>This approach was used in our first paper (see Chapter 4). Another
 example is the case of <code>Galpy</code>. <span class="citation"
 data-cites="2015ApJS..216...29B">Bovy (2015)</span> introduced
-<em>natural units</em> which is motivated by the rotation curve of a
-galaxy and is embodied through: <span
-class="math display">\[\frac{v_\mathrm{circ}^2}{R} = \nabla  \Phi
-\left(R, z=0\right)
-        \label{eq:vcirc}\]</span> which is the circular velocity for a
-system with cylindrical symmetry evaluated in the plane. In this
+<em>natural units</em> motivated by the galaxy’s rotation curve,
+embodied in: <span class="math display">\[\frac{v_\mathrm{circ}^2}{R_0}
+= \nabla  \Phi \left(R_0, z=0\right),
+        \label{eq:vcirc}\]</span> which is the circular velocity in a
+cylindrically symmetric potential evaluated in the plane. In this
 normalization, <span class="math inline">\(R\)</span> is the cylindrical
-scale length of the galaxy and <span
+scale length of the galaxy, and <span
 class="math inline">\(v_\mathrm{circ}\)</span> is the circular velocity
-at this radius evaluated in the plane, both of which are set to 1, and
-the gravitational constant is set to 1. Whatever the form of the
-potential, the scale lengths must be normalized to <span
-class="math inline">\(R\)</span>, and subsequently the the Mass
-parameter is determined through Eq. <a href="#eq:vcirc"
-data-reference-type="ref" data-reference="eq:vcirc">[eq:vcirc]</a>. The
-total potential is a linear combination of the individual components and
-the user chooses how much each contributes to the force at the
-characteristic radius. For instance, <span class="math inline">\(\Phi =
-\sum_i a_i\Phi_i\)</span>, where <span
-class="math inline">\(a_i\)</span> are the weights of each component
-<span class="math inline">\(\Phi_i\)</span>, such that <span
-class="math inline">\(\nabla \Phi_i(R,z=0) = a_i\)</span> in normalized
-units.</p>
-<p>Many codes use various units and it is the job of a computational
-astrophysicist to be as flexible as possible in understand how to change
-from one unit system and normalization to another.</p>
+at this radius, both of which are set to 1. The gravitational constant
+is also set to 1. Whatever the form of the potential, the scale lengths
+must be normalized to <span class="math inline">\(R\)</span>, and the
+mass parameter is subsequently determined through Eq. <a
+href="#eq:vcirc" data-reference-type="ref"
+data-reference="eq:vcirc">[eq:vcirc]</a>. The total potential is a
+linear combination of individual components, with the user selecting the
+contribution of each component to the force at the characteristic
+radius. For example, <span class="math inline">\(\Phi = \sum_i
+a_i\Phi_i\)</span>, where <span class="math inline">\(a_i\)</span> are
+weights such that <span class="math inline">\(\nabla \Phi_i(R_0, z=0) =
+a_i\)</span> in normalized units.</p>
+<p>In this system of units, emphasis is placed on the rotation curve and
+how much each component contributes to it at the reference radius of the
+galaxy. Note that <span
+class="math inline">\(v_\mathrm{circ}(R_0)\)</span> is not necessarily
+the maximum value of the rotation curve.</p>
+<p>In short, each code presents its own preferred units and
+normalization. It is the job of a computational astrophysicist to
+understand these conventions and be able to convert between them and
+observable quantities. <span class="math inline">\(N\)</span>-body codes
+work best when setting <span class="math inline">\(G = 1\)</span>, while
+<code>Galpy</code> uses natural units that emphasize the rotational
+properties of a galaxy. <code>Tstrippy</code>, by contrast, expects the
+user to pass masses in solar masses, velocities in kilometers per
+second, and distances in kiloparsecs. However, physical constants are
+not hard-coded, so the user may pass any numerical values to the code as
+long as they are based on a self-consistent unit system. The code
+includes the <code>Pouliasis2017pii</code> potential and a catalog of
+galactic globular cluster properties, both reported in the
+aforementioned units.</p>
+<p>A valid general strategy when developing numerical codes is to
+implement a module that converts user-defined units to the internal
+units of the code. This functionality also exists in <code>Galpy</code>
+and a similar system is implemented in <code>Agama</code> <span
+class="citation" data-cites="2018arXiv180208255V">(Vasiliev
+2018)</span>. I chose not to add such a layer to <code>Tstrippy</code>,
+since my goal was not to develop the most robust tool in the field, but
+rather to answer specific scientific questions. That said,
+<code>Astropy</code> provides an excellent unit-handling module that
+allows users to convert between units easily <span class="citation"
+data-cites="2013A&amp;A...558A..33A">(Astropy Collaboration et al.
+2013)</span>, and I recommend its use in the documentation.</p>
+<p>In the end, I chose this unit convention because I believe it is the
+most intuitive for users and aligns with how quantities are typically
+reported in galactic astronomy.</p>
+<h1 id="solving-the-equations-of-motion">Solving the equations of
+motion</h1>
+<p>Numerically solving equations of motion were proposed far before the
+advent of computers by Euler. Depending on the equations at hand, we
+know that our system will have certain properties that can be exploited.
+The system will also have constants that must remain constant throughout
+the numerical integration. The schema must exploit the properties and
+respect the constants. For the case of</p>
+<p><em>Hamiltonian integrators are often called symplectic. This name
+comes from the fact that these integrators are Hamiltonian maps, whose
+mathematical structure is that of a vector flow on a symplectic
+manifold. Many fine dynamicists have made great contributions to the
+field without delving deeply into the meaning of the previous sentence
+and we do not discuss this further.</em> However, my curiosity in
+linguistics pushed me to delve further. What does <em>sympletic</em>
+mean? The word was invented by XXX because <em>complex</em> was already
+taken. The prefix <em>com</em> refers to together, and "plexus" comes
+from greek meaning "woven" or braided. So complex, from its roots, means
+when multiple things are inter-woven or interlaced. Tangled braids are
+indeed complicated to the imagery works. <em>Sym</em> is the greek
+prefix for together. But it communicates the same thing, things</p>
 <h1 id="tstrippy">Tstrippy</h1>
 <p><span class="citation" data-cites="2018ComAC...5....2V">Varri et al.
 (2018)</span> talks about a series of papers between a larger
@@ -444,8 +496,8 @@ replaced by GPU technology.</p>
 class="math inline">\(\frac{dy}{dt}=m\)</span>, whose general solution
 is: <span class="math inline">\(y=mt+b\)</span>. If we are working
 double-precision numbers who use 64-bits to represent real numbers, then
-the general solution is only 16 bytes. However, if we use newton’s
-method to find a particular solution given an initial condition <span
+the general solution is only 16 bytes. However, if we use Euler’s method
+to find a particular solution given an initial condition <span
 class="math inline">\(b\)</span>, then we must evaluate <span
 class="math inline">\(t_i,y_i\)</span> at each time step considered. The
 data volume becomes <span class="math inline">\(2\times
@@ -490,6 +542,13 @@ final data products</p></li>
 </ul>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
+<div id="ref-2013A&amp;A...558A..33A" class="csl-entry" role="listitem">
+Astropy Collaboration, Thomas P. Robitaille, Erik J. Tollerud, Perry
+Greenfield, Michael Droettboom, Erik Bray, Tom Aldcroft, et al. 2013.
+<span>“<span class="nocase">Astropy: A community Python package for
+astronomy</span>”</span> 558 (October):A33. <a
+href="https://doi.org/10.1051/0004-6361/201322068">https://doi.org/10.1051/0004-6361/201322068</a>.
+</div>
 <div id="ref-2015ApJS..216...29B" class="csl-entry" role="listitem">
 Bovy, Jo. 2015. <span>“<span class="nocase">galpy: A python Library for
 Galactic Dynamics</span>”</span> 216 (2): 29. <a
@@ -502,6 +561,12 @@ Sollima, Long Wang, and Alice Zocchi. 2018. <span>“<span
 class="nocase">A MODEST review</span>.”</span> <em>Computational
 Astrophysics and Cosmology</em> 5 (1): 2. <a
 href="https://doi.org/10.1186/s40668-018-0024-6">https://doi.org/10.1186/s40668-018-0024-6</a>.
+</div>
+<div id="ref-2018arXiv180208255V" class="csl-entry" role="listitem">
+Vasiliev, Eugene. 2018. <span>“<span class="nocase">Agama reference
+documentation</span>.”</span> <em>arXiv e-Prints</em>, February,
+arXiv:1802.08255. <a
+href="https://doi.org/10.48550/arXiv.1802.08255">https://doi.org/10.48550/arXiv.1802.08255</a>.
 </div>
 </div>
 </body>

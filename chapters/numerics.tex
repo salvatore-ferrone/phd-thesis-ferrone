@@ -10,23 +10,23 @@ This chapter documents how I numerically solve the equations of motion, how I va
 
 
 
-\section{Astronomical units}
+\section{Astronomical units and scaling}
 
-    When writing any code, the choice of units is important. Astronomical units are rarely the same as SI units. In general, the choice of units is observationally and historically motivated, which results in a system that uses multiple units for the same quantity, which can be confusing at first. 
-    
-    For instance, sky positions are typically reported in spherical coordinates. Right ascension (analogous to longitude) is often expressed in either degrees or hours, while declination (similar to latitude) is given in degrees. Distances are reported in partsecs when derived from parallax measurements. Line-of-sight velocities, obtained via spectrospoic Doppler shifts, are reported in kilometers per second. Proper motions describe angular displacement over time, usually reported in miliarcseconds per yera. Already, we encounter several different units for angles (degrees, hours, arcseconds), times (years, seconds), and distance (km, kpc), none of which align with the SI's radians, seconds, or meters, as summarized in Table~\ref{tab:units}.
+    When writing any code, the choice of units is important. Astronomical units are rarely the same as SI units. In general, the choice of units is observationally and historically motivated, resulting in a system that uses multiple units for the same physical quantity, which can be confusing at first.
+
+    For instance, sky positions are typically reported in spherical coordinates. Right ascension (analogous to longitude) is often expressed in either degrees or hours, while declination (similar to latitude) is given in degrees. Distances are reported in parsecs when derived from parallax measurements. Line-of-sight velocities, obtained via spectroscopic Doppler shifts, are reported in kilometers per second. Proper motions describe angular displacements over time and are usually reported in milliarcseconds per year. Already, we encounter several different units for angles (degrees, hours, arcseconds), time (years, seconds), and distance (km, kpc), none of which align with SI’s standard units of radians, seconds, or meters, as summarized in Table~\ref{tab:units}.
 
     \begin{table}[]
         \caption{Units for various astronomical quantities in Galactic and SI systems.}
         \label{tab:units}
         \begin{tabular}{l|l|l|l|l|l|l|}
                             & Distance  & RA                     & DEC                    & \textbf{$\mathrm{v}_\mathrm{LOS}$} & $\mu_\alpha$ & $\mu_\delta$ \\ \hline
-            Galactic: & {[}kpc{]} & {[}deg{]} {[}HHMMSS{]} & {[}deg{]}  & km/s                      & {[}mas/yr{]} & {[}mas/yr{]} \\ \hline
+            Galactic: & {[}kpc{]} & {[}deg{]} {[}HHMMSS{]} & {[}deg{]}              & km/s                      & {[}mas/yr{]} & {[}mas/yr{]} \\ \hline
             S.I.       & {[}m{]}   & {[}rad{]}              & {[}rad{]}              & m/s                       & {[}rad/s{]}  & {[}rad/s{]}  \\ 
         \end{tabular}
     \end{table}
 
-    This raises practical concerns, for example, what would be the unit of acceleration? km/s$^2$? parsec/year/second? To systematically manage units, we turn to dimesnional anslysis, notably the Buckingham Pi theorem. In classical mechanics, phyiscal quantities are typically expressed in terms of three fundamental dimesnions: length, time, and mass. Any quantity can then be represented as a product of powers of these base units: 
+    This raises practical concerns—for example, what would be the unit of acceleration? km/s$^2$? parsec/year/second? To systematically manage units, we turn to dimensional analysis, notably the Buckingham Pi theorem. In classical mechanics, physical quantities are typically expressed in terms of three fundamental dimensions: length, time, and mass. Any quantity can then be represented as a product of powers of these base units:
 
     \begin{equation}
         \left[\mathrm{Quantity}\right] = \mathcal{l}^a t^b m^c =
@@ -36,54 +36,64 @@ This chapter documents how I numerically solve the equations of motion, how I va
                 c 
             \end{bmatrix}
     \end{equation}
-    For example, velocity has dimesnions: $\left[1, -1, 0\right]$, momentum is $[1,-1,1]$, and acceleration is $[1,-2,0]$. 
 
-    It is not strictly necessary to adopt length-time-mass as the fundamental basis, as long as the three choosen base units are linearly independent. In stellar dynamics, it is often more natural to use distance, velocity, and mass as the fundamental units. In this thesis, I adopt:
+    For example, velocity has dimensions $[1, -1, 0]$, momentum is $[1, -1, 1]$, and acceleration is $[1, -2, 0]$.
+
+    It is not strictly necessary to adopt length-time-mass as the fundamental basis, as long as the three chosen base units are linearly independent. In stellar dynamics, it is often more natural to use distance, velocity, and mass as the base units. In this thesis, I adopt:
     \begin{itemize}
         \item Distance: 1~kpc
-        \item Velocity: 1 km/s 
-        \item Mass: 1 solar mass $\mathrm{M}_\odot$
+        \item Velocity: 1~km/s 
+        \item Mass: 1~solar mass $\mathrm{M}_\odot$
     \end{itemize}
 
-    In this system, time as derived units of: 
-
+    In this system, time has derived units of:
     \begin{equation}
-        \left[t\right] = \frac{\mathrm{distance}}{\mathrm{velocity}} = \frac{\mathrm{kpc}}{\mathrm{km/s}},
+        \left[t\right] = \frac{\mathrm{distance}}{\mathrm{velocity}} = \frac{\mathrm{kpc}}{\mathrm{km/s}}.
     \end{equation}
-    While not immediately intuitive, this unit of time is convenient becuase: 
+    While not immediately intuitive, this unit of time is convenient because:
     \begin{equation}
         1\frac{\mathrm{kpc}}{\mathrm{Gyr}} \approx 1\frac{\mathrm{km}}{\mathrm{s}}.
     \end{equation}
 
-    The gravitational constant has dimensions of:
+    The gravitational constant has dimensions:
     \begin{equation}    
-        \left[G\right]=\frac{v^2 \cdot l}{m}
+        \left[G\right]=\frac{v^2 \cdot l}{m},
     \end{equation} 
     which evaluates numerically in these units as: 
-    
     \begin{equation}
         G = 4.301 \times 10^{-6} \left(\mathrm{km}/\mathrm{s}\right)^2 \cdot \mathrm{kpc} \cdot \mathrm{M}_\odot^{-1}.
     \end{equation}
-    Once the base units are defined, derived quantities such as acceleration follow directly. One finds that considering acceleration as $v^2~l^{-1}$ or $l\cdot t^{-2}$, they are equivalent and: $\left(\mathrm{kpc}/\mathrm{s}\right)^2 \cdot \mathrm{kpc}^{-1}$. 
 
-    It is worth mentioning that $N$-body codes often simplify further by selecting the distance, velocity, and the gravitational constant as the base units, setting $G=1$. While this simplifies force computations, it introduces less intuitive units for mass. For instance, by choosing 1~kpc for distance and 1~km/s for velocity, and setting $G=1$, the derived mass unit becomes: 
+    Once the base units are defined, derived quantities such as acceleration follow directly. Whether considering acceleration as $v^2~l^{-1}$ or $l \cdot t^{-2}$, they are equivalent and yield: $\left(\mathrm{kpc}/\mathrm{s}\right)^2 \cdot \mathrm{kpc}^{-1}$.
+
+    It is worth mentioning that $N$-body codes often simplify further by selecting distance, velocity, and the gravitational constant as the base units, setting $G = 1$. While this simplifies force computations, it introduces less intuitive units for mass. For instance, by choosing 1~kpc for distance and 1~km/s for velocity, and setting $G = 1$, the derived mass unit becomes:
     \begin{equation}
-        \left[\mathrm{mass}\right] = \frac{l \cdot v^2}{G} = 232509~\mathrm{M}_\odot
+        \left[\mathrm{mass}\right] = \frac{l \cdot v^2}{G} = 232509~\mathrm{M}_\odot.
     \end{equation}
 
-    This approach was used in our first paper (see chapter 4). Another example is the case of \texttt{Galpy}. \citet{2015ApJS..216...29B} introduced \textit{natural units} which is motivated by the rotation curve of a galaxy and is embodied through: 
+    This approach was used in our first paper (see Chapter~4). Another example is the case of \texttt{Galpy}. \citet{2015ApJS..216...29B} introduced \textit{natural units} motivated by the galaxy's rotation curve, embodied in:
     \begin{equation}
-        \frac{v_\mathrm{circ}^2}{R} = \nabla  \Phi \left(R, z=0\right)
+        \frac{v_\mathrm{circ}^2}{R_0} = \nabla  \Phi \left(R_0, z=0\right),
         \label{eq:vcirc}
     \end{equation}
-    which is the circular velocity for a system with cylindrical symmetry evaluated in the plane. In this normalization, $R$ is the cylindrical scale length of the galaxy and $v_\mathrm{circ}$ is the circular velocity at this radius evaluated in the plane, both of which are set to 1, and the gravitational constant is set to 1. Whatever the form of the potential, the scale lengths must be normalized to $R$, and subsequently the the Mass parameter is determined through Eq.~\ref{eq:vcirc}. The total potential is a linear combination of the individual components and the user chooses how much each contributes to the force at the characteristic radius. For instance, $\Phi = \sum_i a_i\Phi_i$, where $a_i$ are the weights of each component $\Phi_i$, such that $\nabla \Phi_i(R,z=0) = a_i$ in normalized units. In this choice of units, the emphasis is placed on the rotation curve and how much each component contributes to it at the characteristic radius of the system. Note that the $v_\mathrm{circ}(R_o)$ is not necessarily the maximum value. 
+    which is the circular velocity in a cylindrically symmetric potential evaluated in the plane. In this normalization, $R$ is the cylindrical scale length of the galaxy, and $v_\mathrm{circ}$ is the circular velocity at this radius, both of which are set to 1. The gravitational constant is also set to 1. Whatever the form of the potential, the scale lengths must be normalized to $R$, and the mass parameter is subsequently determined through Eq.~\ref{eq:vcirc}. The total potential is a linear combination of individual components, with the user selecting the contribution of each component to the force at the characteristic radius. For example, $\Phi = \sum_i a_i\Phi_i$, where $a_i$ are weights such that $\nabla \Phi_i(R_0, z=0) = a_i$ in normalized units.
 
-    In short, each code presents its best units and normalization. It is the job of a computational astrophysicist to understand how these units work and be able to transform to observable quantities and physical units. $N$-body codes work in best when picking $G=1$, and \texttt{Galpy} presents natrual units which is best when the focus is on over all characteristic of the rotation curve for a galaxy. \texttt{Tstrippy} expects the user to pass masses in solar masses, velocities in kilometers per second, and distances in kpc. I choose this for I believe it is the most intuitive on the user end and matches the way values are typically reported for galaxies. 
-    
+    In this system of units, emphasis is placed on the rotation curve and how much each component contributes to it at the reference radius of the galaxy. Note that $v_\mathrm{circ}(R_0)$ is not necessarily the maximum value of the rotation curve.
+
+    In short, each code presents its own preferred units and normalization. It is the job of a computational astrophysicist to understand these conventions and be able to convert between them and observable quantities. $N$-body codes work best when setting $G = 1$, while \texttt{Galpy} uses natural units that emphasize the rotational properties of a galaxy. \texttt{Tstrippy}, by contrast, expects the user to pass masses in solar masses, velocities in kilometers per second, and distances in kiloparsecs.  However, physical constants are not hard-coded, so the user may pass any numerical values to the code as long as they are based on a self-consistent unit system. The code includes the \texttt{Pouliasis2017pii} potential and a catalog of galactic globular cluster properties, both reported in the aforementioned units.
+
+    A valid general strategy when developing numerical codes is to implement a module that converts user-defined units to the internal units of the code. This functionality also exists in \texttt{Galpy} and a similar system is implemented in \texttt{Agama} \citep{2018arXiv180208255V}. I chose not to add such a layer to \texttt{Tstrippy}, since my goal was not to develop the most robust tool in the field, but rather to answer specific scientific questions. That said, \texttt{Astropy} provides an excellent unit-handling module that allows users to convert between units easily \citep{2013A&A...558A..33A}, and I recommend its use in the documentation. 
+
+    In the end, I chose this unit convention because I believe it is the most intuitive for users and aligns with how quantities are typically reported in galactic astronomy.
 
 
-    
-    
+\section{Solving the equations of motion}
+
+    Numerically solving equations of motion were proposed far before the advent of computers by Euler. Depending on the equations at hand, we know that our system will have certain properties that can be exploited. The system will also have constants that must remain constant throughout the numerical integration. The schema must exploit the properties and respect the constants. For the case of 
+
+
+    \textit{Hamiltonian integrators are often called symplectic. This name comes from the fact that these integrators are Hamiltonian maps, whose mathematical structure is that of a vector flow on a symplectic manifold. Many fine dynamicists have made great contributions to the field without delving deeply into the meaning of the previous sentence and we do not discuss this further.} However, my curiosity in linguistics pushed me to delve further. What does \textit{sympletic} mean? The word was invented by XXX because \textit{complex} was already taken. The prefix \textit{com} refers to together, and "plexus" comes from greek meaning "woven" or braided. So complex, from its roots, means when multiple things are inter-woven or interlaced. Tangled braids are indeed complicated to the imagery works. \textit{Sym} is the greek prefix for together. But it communicates the same thing, things 
+
 
 \section{Tstrippy}
 
@@ -106,7 +116,7 @@ This chapter documents how I numerically solve the equations of motion, how I va
 
 \section{Numerical Errors and Schema} 
 
-    If we consider the following differential equation, $\frac{dy}{dt}=m$, whose general solution is: $y=mt+b$. If we are working double-precision numbers who use 64-bits to represent real numbers, then the general solution is only 16 bytes. However, if we use newton's method to find a particular solution given an initial condition $b$, then we must evaluate $t_i,y_i$ at each time step considered. The data volume becomes $2\times N_\mathrm{steps}\times 8 \mathrm{bytes}$. 
+    If we consider the following differential equation, $\frac{dy}{dt}=m$, whose general solution is: $y=mt+b$. If we are working double-precision numbers who use 64-bits to represent real numbers, then the general solution is only 16 bytes. However, if we use Euler's method to find a particular solution given an initial condition $b$, then we must evaluate $t_i,y_i$ at each time step considered. The data volume becomes $2\times N_\mathrm{steps}\times 8 \mathrm{bytes}$. 
 
     With numerical solutions in general, we have a set of initial conditions, and evaluting Hamilton's equations at them provides the instantaneous evolution of the system. If we use a sufficiently small time step, we can then find the next state of the system. \textit{Sufficiently small} means that the numerical solution converges to the \textit{true solution} and only differs by accumulated numerical error from machine precision. 
 
