@@ -10,7 +10,7 @@ This chapter documents how I numerically solve the equations of motion, how I va
 
 
 
-\section{Astronomical units and scaling}
+\section{Astronomical units}
 
     When writing any code, the choice of units is important. Astronomical units are rarely the same as SI units. In general, the choice of units is observationally and historically motivated, which results in a system that uses multiple units for the same quantity, which can be confusing at first. 
     
@@ -76,10 +76,9 @@ This chapter documents how I numerically solve the equations of motion, how I va
         \frac{v_\mathrm{circ}^2}{R} = \nabla  \Phi \left(R, z=0\right)
         \label{eq:vcirc}
     \end{equation}
-    which is the circular velocity for a system with cylindrical symmetry evaluated in the plane. In this normalization, $R$ is the cylindrical scale length of the galaxy and $v_\mathrm{circ}$ is the circular velocity at this radius evaluated in the plane, both of which are set to 1. Whatever the form of the potential, the scale lengths must be normalized to $R$, and subsequently the the Mass parameter is determined through Eq.~\ref{eq:vcirc}. 
+    which is the circular velocity for a system with cylindrical symmetry evaluated in the plane. In this normalization, $R$ is the cylindrical scale length of the galaxy and $v_\mathrm{circ}$ is the circular velocity at this radius evaluated in the plane, both of which are set to 1, and the gravitational constant is set to 1. Whatever the form of the potential, the scale lengths must be normalized to $R$, and subsequently the the Mass parameter is determined through Eq.~\ref{eq:vcirc}. The total potential is a linear combination of the individual components and the user chooses how much each contributes to the force at the characteristic radius. For instance, $\Phi = \sum_i a_i\Phi_i$, where $a_i$ are the weights of each component $\Phi_i$, such that $\nabla \Phi_i(R,z=0) = a_i$ in normalized units. In this choice of units, the emphasis is placed on the rotation curve and how much each component contributes to it at the characteristic radius of the system. Note that the $v_\mathrm{circ}(R_o)$ is not necessarily the maximum value. 
 
-    Many codes use various units and it is the job of a computational astrophysicist to be as flexible as possible in understand how to change from one unit system and normalization to another. 
-
+    In short, each code presents its best units and normalization. It is the job of a computational astrophysicist to understand how these units work and be able to transform to observable quantities and physical units. $N$-body codes work in best when picking $G=1$, and \texttt{Galpy} presents natrual units which is best when the focus is on over all characteristic of the rotation curve for a galaxy. \texttt{Tstrippy} expects the user to pass masses in solar masses, velocities in kilometers per second, and distances in kpc. I choose this for I believe it is the most intuitive on the user end and matches the way values are typically reported for galaxies. 
     
 
 

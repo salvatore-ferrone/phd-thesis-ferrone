@@ -347,14 +347,32 @@ velocity, and setting <span class="math inline">\(G=1\)</span>, the
 derived mass unit becomes: <span
 class="math display">\[\left[\mathrm{mass}\right] = \frac{l \cdot
 v^2}{G} = 232509~\mathrm{M}_\odot\]</span></p>
-<p>This approach was used in our first paper (see chapter 4). In
-<code>Galpy</code> <span class="citation"
+<p>This approach was used in our first paper (see chapter 4). Another
+example is the case of <code>Galpy</code>. <span class="citation"
 data-cites="2015ApJS..216...29B">Bovy (2015)</span> introduced
 <em>natural units</em> which is motivated by the rotation curve of a
 galaxy and is embodied through: <span
 class="math display">\[\frac{v_\mathrm{circ}^2}{R} = \nabla  \Phi
-\left(R, z=0\right),\]</span> which is the circular velocity for a
-system in the plane with a characteristic radius.</p>
+\left(R, z=0\right)
+        \label{eq:vcirc}\]</span> which is the circular velocity for a
+system with cylindrical symmetry evaluated in the plane. In this
+normalization, <span class="math inline">\(R\)</span> is the cylindrical
+scale length of the galaxy and <span
+class="math inline">\(v_\mathrm{circ}\)</span> is the circular velocity
+at this radius evaluated in the plane, both of which are set to 1, and
+the gravitational constant is set to 1. Whatever the form of the
+potential, the scale lengths must be normalized to <span
+class="math inline">\(R\)</span>, and subsequently the the Mass
+parameter is determined through Eq. <a href="#eq:vcirc"
+data-reference-type="ref" data-reference="eq:vcirc">[eq:vcirc]</a>. The
+total potential is a linear combination of the individual components and
+the user chooses how much each contributes to the force at the
+characteristic radius. For instance, <span class="math inline">\(\Phi =
+\sum_i a_i\Phi_i\)</span>, where <span
+class="math inline">\(a_i\)</span> are the weights of each component
+<span class="math inline">\(\Phi_i\)</span>, such that <span
+class="math inline">\(\nabla \Phi_i(R,z=0) = a_i\)</span> in normalized
+units.</p>
 <p>Many codes use various units and it is the job of a computational
 astrophysicist to be as flexible as possible in understand how to change
 from one unit system and normalization to another.</p>
