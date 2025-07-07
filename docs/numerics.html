@@ -247,7 +247,8 @@ Proper motions describe angular displacement over time, usually reported
 in miliarcseconds per yera. Already, we encounter several different
 units for angles (degrees, hours, arcseconds), times (years, seconds),
 and distance (km, kpc), none of which align with the SI’s radians,
-seconds, or meters.</p>
+seconds, or meters, as summarized in Table <a href="#tab:units"
+data-reference-type="ref" data-reference="tab:units">1</a>.</p>
 <div id="tab:units">
 <table>
 <caption>Units for various astronomical quantities in Galactic and SI
@@ -312,7 +313,7 @@ independent. In stellar dynamics, it is often more natural to use
 distance, velocity, and mass as the fundamental units. In this thesis, I
 adopt:</p>
 <ul>
-<li><p>distance: 1 kpc</p></li>
+<li><p>Distance: 1 kpc</p></li>
 <li><p>Velocity: 1 km/s</p></li>
 <li><p>Mass: 1 solar mass <span
 class="math inline">\(\mathrm{M}_\odot\)</span></p></li>
@@ -322,11 +323,11 @@ class="math inline">\(\mathrm{M}_\odot\)</span></p></li>
 \frac{\mathrm{distance}}{\mathrm{velocity}} =
 \frac{\mathrm{kpc}}{\mathrm{km/s}},\]</span> While not immediately
 intuitive, this unit of time is convenient becuase: <span
-class="math display">\[1\frac{\mathrm{kpc}}{Gyr} \approx
-1\frac{km}{s}.\]</span></p>
+class="math display">\[1\frac{\mathrm{kpc}}{\mathrm{Gyr}} \approx
+1\frac{\mathrm{km}}{\mathrm{s}}.\]</span></p>
 <p>The gravitational constant has dimensions of: <span
-class="math display">\[\left[G\right]=\frac{v^2 l}{m}\]</span> which
-evaluates numerically in these units as:</p>
+class="math display">\[\left[G\right]=\frac{v^2 \cdot l}{m}\]</span>
+which evaluates numerically in these units as:</p>
 <p><span class="math display">\[G = 4.301 \times 10^{-6}
 \left(\mathrm{km}/\mathrm{s}\right)^2 \cdot \mathrm{kpc} \cdot
 \mathrm{M}_\odot^{-1}.\]</span> Once the base units are defined, derived
@@ -346,8 +347,17 @@ velocity, and setting <span class="math inline">\(G=1\)</span>, the
 derived mass unit becomes: <span
 class="math display">\[\left[\mathrm{mass}\right] = \frac{l \cdot
 v^2}{G} = 232509~\mathrm{M}_\odot\]</span></p>
-<p>This approach was used in our first paper, but I have opted against
-it in subsequent work for reasons of interpretability.</p>
+<p>This approach was used in our first paper (see chapter 4). In
+<code>Galpy</code> <span class="citation"
+data-cites="2015ApJS..216...29B">Bovy (2015)</span> introduced
+<em>natural units</em> which is motivated by the rotation curve of a
+galaxy and is embodied through: <span
+class="math display">\[\frac{v_\mathrm{circ}^2}{R} = \nabla  \Phi
+\left(R, z=0\right),\]</span> which is the circular velocity for a
+system in the plane with a characteristic radius.</p>
+<p>Many codes use various units and it is the job of a computational
+astrophysicist to be as flexible as possible in understand how to change
+from one unit system and normalization to another.</p>
 <h1 id="tstrippy">Tstrippy</h1>
 <p><span class="citation" data-cites="2018ComAC...5....2V">Varri et al.
 (2018)</span> talks about a series of papers between a larger
@@ -462,6 +472,11 @@ final data products</p></li>
 </ul>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
+<div id="ref-2015ApJS..216...29B" class="csl-entry" role="listitem">
+Bovy, Jo. 2015. <span>“<span class="nocase">galpy: A python Library for
+Galactic Dynamics</span>”</span> 216 (2): 29. <a
+href="https://doi.org/10.1088/0067-0049/216/2/29">https://doi.org/10.1088/0067-0049/216/2/29</a>.
+</div>
 <div id="ref-2018ComAC...5....2V" class="csl-entry" role="listitem">
 Varri, Anna Lisa, Maxwell Xu Cai, Francisca Concha-Ramı́rez, František
 Dinnbier, Nora Lützgendorf, Václav Pavlı́k, Sara Rastello, Antonio

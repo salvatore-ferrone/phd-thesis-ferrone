@@ -14,7 +14,7 @@ This chapter documents how I numerically solve the equations of motion, how I va
 
     When writing any code, the choice of units is important. Astronomical units are rarely the same as SI units. In general, the choice of units is observationally and historically motivated, which results in a system that uses multiple units for the same quantity, which can be confusing at first. 
     
-    For instance, sky positions are typically reported in spherical coordinates. Right ascension (analogous to longitude) is often expressed in either degrees or hours, while declination (similar to latitude) is given in degrees. Distances are reported in partsecs when derived from parallax measurements. Line-of-sight velocities, obtained via spectrospoic Doppler shifts, are reported in kilometers per second. Proper motions describe angular displacement over time, usually reported in miliarcseconds per yera. Already, we encounter several different units for angles (degrees, hours, arcseconds), times (years, seconds), and distance (km, kpc), none of which align with the SI's radians, seconds, or meters. 
+    For instance, sky positions are typically reported in spherical coordinates. Right ascension (analogous to longitude) is often expressed in either degrees or hours, while declination (similar to latitude) is given in degrees. Distances are reported in partsecs when derived from parallax measurements. Line-of-sight velocities, obtained via spectrospoic Doppler shifts, are reported in kilometers per second. Proper motions describe angular displacement over time, usually reported in miliarcseconds per yera. Already, we encounter several different units for angles (degrees, hours, arcseconds), times (years, seconds), and distance (km, kpc), none of which align with the SI's radians, seconds, or meters, as summarized in Table~\ref{tab:units}.
 
     \begin{table}[]
         \caption{Units for various astronomical quantities in Galactic and SI systems.}
@@ -40,7 +40,7 @@ This chapter documents how I numerically solve the equations of motion, how I va
 
     It is not strictly necessary to adopt length-time-mass as the fundamental basis, as long as the three choosen base units are linearly independent. In stellar dynamics, it is often more natural to use distance, velocity, and mass as the fundamental units. In this thesis, I adopt:
     \begin{itemize}
-        \item distance: 1~kpc
+        \item Distance: 1~kpc
         \item Velocity: 1 km/s 
         \item Mass: 1 solar mass $\mathrm{M}_\odot$
     \end{itemize}
@@ -52,12 +52,12 @@ This chapter documents how I numerically solve the equations of motion, how I va
     \end{equation}
     While not immediately intuitive, this unit of time is convenient becuase: 
     \begin{equation}
-        1\frac{\mathrm{kpc}}{Gyr} \approx 1\frac{km}{s}.
+        1\frac{\mathrm{kpc}}{\mathrm{Gyr}} \approx 1\frac{\mathrm{km}}{\mathrm{s}}.
     \end{equation}
 
     The gravitational constant has dimensions of:
     \begin{equation}    
-        \left[G\right]=\frac{v^2 l}{m}
+        \left[G\right]=\frac{v^2 \cdot l}{m}
     \end{equation} 
     which evaluates numerically in these units as: 
     
@@ -71,7 +71,16 @@ This chapter documents how I numerically solve the equations of motion, how I va
         \left[\mathrm{mass}\right] = \frac{l \cdot v^2}{G} = 232509~\mathrm{M}_\odot
     \end{equation}
 
-    This approach was used in our first paper, but I have opted against it in subsequent work for reasons of interpretability.
+    This approach was used in our first paper (see chapter 4). Another example is the case of \texttt{Galpy}. \citet{2015ApJS..216...29B} introduced \textit{natural units} which is motivated by the rotation curve of a galaxy and is embodied through: 
+    \begin{equation}
+        \frac{v_\mathrm{circ}^2}{R} = \nabla  \Phi \left(R, z=0\right)
+        \label{eq:vcirc}
+    \end{equation}
+    which is the circular velocity for a system with cylindrical symmetry evaluated in the plane. In this normalization, $R$ is the cylindrical scale length of the galaxy and $v_\mathrm{circ}$ is the circular velocity at this radius evaluated in the plane, both of which are set to 1. Whatever the form of the potential, the scale lengths must be normalized to $R$, and subsequently the the Mass parameter is determined through Eq.~\ref{eq:vcirc}. 
+
+    Many codes use various units and it is the job of a computational astrophysicist to be as flexible as possible in understand how to change from one unit system and normalization to another. 
+
+    
 
 
     
