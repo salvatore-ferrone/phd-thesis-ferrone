@@ -147,7 +147,7 @@ This chapter documents how I numerically solve the equations of motion, how I va
     \end{eqnarray}
     This formulation highlights how the leapfrog method naturally incorporates the second-order accuracy and time-reversibility essential for modeling gravitational systems over long timescales. As I will show in the next section, the leapfrog algorithm is sufficient for the problems that I solve. However, the question of computational efficiency and numerical accuracy is ever present. Leapfrog uses uses the two local points about the position and momenta to evolve them. Other schema can use more points to have more accurate estimations for the local derivatives. 
     
-    \citet{1990PhyD...43..105F} proposed one such method for symplectic integrations, which is our situation here. The method is complicated and involves finding roots of high order polynomials, and the roots of which determine the weights and distances about the local point for finding the best estimate of the derivative for evoling the system. I implemented this method and tested its efficiency against the leapfrog. There are eight coefficients in this method, which are presented in table~\ref{tab:forest_ruth_coeffs}.
+    \citet{1990PhyD...43..105F} proposed one such method for symplectic integrations, which is our situation here. The method is complicated and involves finding roots of high order polynomials, and the roots of which determine the weights and distances about the local point for finding the best estimate of the derivative for evoling the system. It is involved and I do not understand all of the steps. Nonetheless, I implemented this method and tested its efficiency against the leapfrog. There are eight coefficients in this method, which are presented in table~\ref{tab:forest_ruth_coeffs}.
     \begin{table}[h]
         \centering
         \caption{Velocity (\(c_n\)) and acceleration (\(d_n\)) coefficients for the Forest-Ruth symplectic integrator.}
@@ -164,15 +164,12 @@ This chapter documents how I numerically solve the equations of motion, how I va
         x' &= x + c_n v \Delta t \\ 
         t' &= t + c_n \Delta t \\ 
         \ddot{x} &= \nabla \Phi (x') \\ 
-        \dot{x}' &= \dot{x} + d_n \ddot{x} \Delta t
+        \dot{x}' &= \dot{x} + d_n \ddot{x} \Delta t,
     \end{align}
+    where $n$ is the \textit{mini-step}. Notice that the sum of $\sum_n^4 c_n$ and $\sum_n^4 d_n$ both equal 1, which is a full time step $\Delta t$. 
 
+    Lastly, I would like to say that these integrators are for Hamiltonians that are time-independent. Therefore, it is not expected to perfectly conserve energy and be time-reversible for anything outside of that. This is the case for my particles that are orbiting within the globular cluster. As I showed in the theory, I can simpligy the system by decoupling their motions. The motion of the globular cluster is within a time-independent hamiltonian, however the hamiltonian for the particles is not time-independent and thus may have their orbital energies drained or inflatted from the numerical scheme and not just round-off error. However, we will still use the leapfrog as it is a good general integrator. We must do out do-dillagence and make sure that the integration did not introduce an unacceptable amount of error. This is the subject of the next section. 
 
-
-    
-
-
-    
 
 
 

@@ -536,7 +536,8 @@ Ruth (1990)</span> proposed one such method for symplectic integrations,
 which is our situation here. The method is complicated and involves
 finding roots of high order polynomials, and the roots of which
 determine the weights and distances about the local point for finding
-the best estimate of the derivative for evoling the system. I
+the best estimate of the derivative for evoling the system. It is
+involved and I do not understand all of the steps. Nonetheless, I
 implemented this method and tested its efficiency against the leapfrog.
 There are eight coefficients in this method, which are presented in
 table <a href="#tab:forest_ruth_coeffs" data-reference-type="ref"
@@ -602,9 +603,13 @@ as follows: <span class="math display">\[\begin{aligned}
         x&#39; &amp;= x + c_n v \Delta t \\
         t&#39; &amp;= t + c_n \Delta t \\
         \ddot{x} &amp;= \nabla \Phi (x&#39;) \\
-        \dot{x}&#39; &amp;= \dot{x} + d_n \ddot{x} \Delta t
+        \dot{x}&#39; &amp;= \dot{x} + d_n \ddot{x} \Delta t,
     
-\end{aligned}\]</span></p>
+\end{aligned}\]</span> where <span class="math inline">\(n\)</span> is
+the <em>mini-step</em>. Notice that the sum of <span
+class="math inline">\(\sum_n^4 c_n\)</span> and <span
+class="math inline">\(\sum_n^4 d_n\)</span> both equal 1, which is a
+full time step <span class="math inline">\(\Delta t\)</span>.</p>
 <h1 id="tstrippy">Tstrippy</h1>
 <p><span class="citation" data-cites="2018ComAC...5....2V">Varri et al.
 (2018)</span> talks about a series of papers between a larger
