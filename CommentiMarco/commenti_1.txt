@@ -1,0 +1,60 @@
+ciao Salvatore,
+
+abbiamo letto il tuo draft e ci siamo parlati per discutere dei nostri commenti.
+In generale sembra che il testo sia una versione preliminare ovvero che 
+1) varie figure non hanno un testo corrispondente
+2) in generale mancano le referenze del capitolo
+3) il capitolo non sia in generale finito
+
+Se non abbiamo un o più capitoli che tu giudichi finiti, non possiamo cercare di aiutare.
+Poichè è il 30 giugno, il tempo è molto breve.
+Senza voler metterti ansia, è però fondamentale che avere una versione che reputi terminata, perchè anche noi abbiamo bisogno di tempo per poter dare suggerimenti.
+E' fondamentale, visto il poco tempo.
+Quando puoi darcelo ?
+
+
+
+In particolare poi io personalmente mi sono un pò perso nel leggere il testo nel senso che ho avuto qualche difficoltà a seguire un filo continuo nell'argomentazione.
+
+Ti faccio qualche esempio per farmi capire:
+
+All'inizio del capitolo è descritta la struttura del capitolo in:
+
+explicit physics
+implicit physics
+ignored physics
+
+capisco explicit physics come i modelli teorici che vengono usati nella ricerca descritta dalla tesi;
+invece ho qualche difficoltà a capire l'implicit physics: the emergent behavior of these systems, the assumptions involved, and the mathematical tools used to interpret the results
+
+mi sembra che the emergent behavior of these systems rientri nella sezione "explicit physics" poichè è la descrizione teorica del modello; anche the assumptions involved mi sembra sia una parte dell'explicit physics, mentre mathematical tools sono le analisi delle simulazioni e direi come si confronta il modello teorico con gli esperimenti numerici ovvero le simulazioni
+
+the ignored physics sembra aspetti teorici che non sono stati considerati in explicit physics e per i quali deve essere spiegato il motivo della loro assenza.
+Quindi direi che il capitolo serve per speigare perchè hanno un impatto e perchè sono stati ignorati (troppo complicato includerli, too much expensive from computational point of view ecc..) .
+
+Quindi forse una struttura più semplice sarebbe:
+Topic della tesi
+quale è l'ambito del lavoro di ricerca.
+La tesi rguarda lo studio delle correnti mareali degli ammassi globulari nella nostra galassia. 
+- cosa sono gli ammassi globulari
+- cosa sono le correnti mareali degli ammassi globulari
+
+obiettivi del lavoro di ricerca
+- perchè si studiano le correnti mareali degli ammassi globulari ? per esempio: per ricostruire la dinamica di formazione della galassia e derivarne un modello; per derivare il potenzale gravitazionale della galassia; per comprendere la distribuzione della materia oscura galattica; 
+Ognuno di questi obiettivi si divide poi in obiettivi più specifici: per esempio ricostruire il meger tree della galassia, comprendere il profilo, la distribuzione e la cinematica dei sub-aloni di materia oscura ecc.. 
+- quali di questi obiettivi (generali e più specifici) sono quelli della tesi ?
+
+metodi utilizzati per raggiungere gli obiettivi
+Per raggiungere gli obiettivi si usano metodi teorici e numerici per ottenere grandezze misurabili da confrontare con i dati osservativi.
+In particolare nella tesi sono stati usati i seguenti metodi. 
+- metodi teorici
+- metodi numerici
+
+ecc..
+
+
+Il paragrafo successivo inizia con la descrizione del restricted 3 body problem, ma non è spiegato perchè si utilizza questo modello e non altro. In altre parole quali sono i punti di forza e di debolezza del modello e la motivazione della decisione presa di utilizzarlo nella ricerca della tesi.
+ Il paragrafo sulla Luna sembra un pò fuori contesto: quale è la motivazione per introdurlo nella tesi ?
+
+
+
