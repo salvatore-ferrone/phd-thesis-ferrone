@@ -410,8 +410,8 @@ reported in galactic astronomy.</p>
 <h1 id="solving-the-equations-of-motion">Solving the equations of
 motion</h1>
 <p>Long before the advent of computers, Euler proposed a simple method
-for numerically solving differential equations. However, it quickly
-becomes inefficient and inaccurate for coupled systems, especially when
+for numerically solving differential equations. However, it is
+inefficient and inaccurate for coupled systems, especially when
 long-term behavior matters. In the case of Hamiltonian systems, we can
 exploit specific geometric properties to design numerical schemes that
 better preserve the qualitative features of the true solution.</p>
@@ -460,7 +460,8 @@ methodology, where I integrate the equations of motion backward in time
 and then forward again to the present-day position. Secondly, the total
 orbital energy is conserved. Moreover, according to Liouville’s theorem,
 Hamiltonian flows preserve the local phase space volume. A corollary of
-this is that the determinant of jacobian of the transform from <span
+this is that the determinant of the Jacobian matrix of the
+transformation from <span
 class="math inline">\(\left(q,p\right)\rightarrow
 \left(q&#39;,p&#39;\right)\)</span> must be one, which means that the
 transformation only rotates or translates an infinitesimal volume but
@@ -484,20 +485,20 @@ class="math display">\[\mathrm{det}\left(J\right) = 1 - \Delta t^2
 \mathcal{H}}{\partial p^2}.\]</span> In general, neither <span
 class="math inline">\(\frac{\partial^2 \mathcal{H}}{\partial
 q^2}\)</span> or <span class="math inline">\(\frac{\partial^2
-\mathcal{H}}{\partial p^2}\)</span> are zero. Therefore, the way we meet
-the criteron is by updating either the position or the momenta one at a
-time. The transformation order becomes: <span
+\mathcal{H}}{\partial p^2}\)</span> are zero. Therefore, to preserve
+phase-space volume, we update positions and momenta in alternating
+steps. The transformation order becomes: <span
 class="math inline">\((q,p) \rightarrow (q&#39;,p) \rightarrow
-(q&#39;,p&#39;)\)</span>. This alternating update of position and
-momentum is commonly referred to as a sequence of <em>drifts</em> and
-<em>kicks</em>. A <em>drift</em> updates the position while holding the
-momentum fixed, and a <em>kick</em> updates the momentum while holding
-the position fixed. Symplectic integrators alternate these operations in
-a specific sequence to preserve the structure of Hamiltonian flow.</p>
+(q&#39;,p&#39;)\)</span>. This is commonly referred to as a sequence of
+<em>drifts</em> and <em>kicks</em>. A <em>drift</em> updates the
+position while holding the momentum fixed, and a <em>kick</em> updates
+the momentum while holding the position fixed. Symplectic integrators
+alternate these operations in a specific sequence to preserve the
+structure of Hamiltonian flow.</p>
 <p>The scheme outlined above is essentially a first-order method and is
 closely related to Euler’s method. More sophisticated integrators use
-combinations of information at multiple nearby points to evolve the
-system more accurately. For example, some schemes temporarily evolve the
+values from multiple time steps to construct higher-order estimates of
+the system’s evolution. For example, some schemes temporarily evolve the
 position to an intermediate value <span
 class="math inline">\(q_\mathrm{temp}\)</span>, use this to compute a
 momentum <span class="math inline">\(p_\mathrm{temp}\)</span>, and then
@@ -536,11 +537,13 @@ Ruth (1990)</span> proposed one such method for symplectic integrations,
 which is our situation here. The method is complicated and involves
 finding roots of high order polynomials, and the roots of which
 determine the weights and distances about the local point for finding
-the best estimate of the derivative for evoling the system. It is
-involved and I do not understand all of the steps. Nonetheless, I
-implemented this method and tested its efficiency against the leapfrog.
-There are eight coefficients in this method, which are presented in
-table <a href="#tab:forest_ruth_coeffs" data-reference-type="ref"
+the best estimate of the derivative for evoling the system. The method
+involves solving a cubic polynomial to determine the optimal
+coefficients. While the derivation is mathematically involved, the final
+scheme is straightforward to implement. Nonetheless, I implemented this
+method and tested its efficiency against the leapfrog. There are eight
+coefficients in this method, which are presented in table <a
+href="#tab:forest_ruth_coeffs" data-reference-type="ref"
 data-reference="tab:forest_ruth_coeffs">2</a>.</p>
 <div id="tab:forest_ruth_coeffs">
 <table>
@@ -610,6 +613,36 @@ the <em>mini-step</em>. Notice that the sum of <span
 class="math inline">\(\sum_n^4 c_n\)</span> and <span
 class="math inline">\(\sum_n^4 d_n\)</span> both equal 1, which is a
 full time step <span class="math inline">\(\Delta t\)</span>.</p>
+<p>Lastly, it is important to note that the leapfrog algorithm is
+symplectic and time-reversible only for Hamiltonians that are both
+time-independent and separable—that is, where the Hamiltonian can be
+written as a sum of a kinetic term depending only on momenta, <span
+class="math inline">\(T(p)\)</span> and whose potential depends only on
+position <span class="math inline">\(\Phi(q)\)</span>. These conditions
+are satisfied for systems in an inertial frame with conservative forces.
+This is true when I integrate the motion for the center of mass of the
+globular clusters. However, the Hamiltonian for the integration of the
+particles does depend on time. So the leapfrog algorithm may introduce
+systematic integration errors due to the violation of its underlying
+assumptions, beyond ordinary rounding errors.</p>
+<p>Similarly, when we integrate the orbits of either the particles or
+the globular clusters in the galaxy containing a galactic bar, we are
+faced with a choice: we can either work in a time-dependent inertial
+frame, where the potential rotates and the Hamiltonian explicitly
+depends on time, or we can transform to a rotating frame, in which case
+the kinetic energy becomes position-dependent due to Coriolis and
+centrifugal forces, which breaks the necessary criteron of separability:
+<span class="math inline">\(\mathcal{H}(q,p) = T(p)+\Phi(q)\)</span>. In
+both cases, the standard assumptions of the leapfrog algorithm are
+violated.</p>
+<p>Nonetheless, we will continue to use leapfrog as it remains a robust
+and efficient integrator for a wide range of astrophysical systems. Its
+good long-term energy behavior makes it a reasonable approximation even
+when the ideal assumptions are not strictly met. However, this
+highlights the need for careful validation: we must verify that the
+integration errors remain within acceptable bounds, especially in
+systems with non-separable or time-dependent dynamics. This validation
+is the subject of the next section.</p>
 <h1 id="tstrippy">Tstrippy</h1>
 <p><span class="citation" data-cites="2018ComAC...5....2V">Varri et al.
 (2018)</span> talks about a series of papers between a larger
