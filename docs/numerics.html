@@ -522,10 +522,89 @@ grid-aligned quantities:</p>
         \dot{x}_{i+1} &amp;= \dot{x}_i + \frac{1}{2}\left(\ddot{x}_i +
 \ddot{x}_{i+1}\right)\Delta t.
     
+\end{aligned}\]</span> This formulation highlights how the leapfrog
+method naturally incorporates the second-order accuracy and
+time-reversibility essential for modeling gravitational systems over
+long timescales. As I will show in the next section, the leapfrog
+algorithm is sufficient for the problems that I solve. However, the
+question of computational efficiency and numerical accuracy is ever
+present. Leapfrog uses uses the two local points about the position and
+momenta to evolve them. Other schema can use more points to have more
+accurate estimations for the local derivatives.</p>
+<p><span class="citation" data-cites="1990PhyD...43..105F">Forest and
+Ruth (1990)</span> proposed one such method for symplectic integrations,
+which is our situation here. The method is complicated and involves
+finding roots of high order polynomials, and the roots of which
+determine the weights and distances about the local point for finding
+the best estimate of the derivative for evoling the system. I
+implemented this method and tested its efficiency against the leapfrog.
+There are eight coefficients in this method, which are presented in
+table <a href="#tab:forest_ruth_coeffs" data-reference-type="ref"
+data-reference="tab:forest_ruth_coeffs">2</a>.</p>
+<div id="tab:forest_ruth_coeffs">
+<table>
+<caption>Velocity (<span class="math inline">\(c_n\)</span>) and
+acceleration (<span class="math inline">\(d_n\)</span>) coefficients for
+the Forest-Ruth symplectic integrator.</caption>
+<tbody>
+<tr>
+<td colspan="4" style="text-align: center;">Velocity coefficients (<span
+class="math inline">\(c_n\)</span>)</td>
+<td colspan="4" style="text-align: center;">Acceleration coefficients
+(<span class="math inline">\(d_n\)</span>)</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span
+class="math inline">\(c_1\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(c_2\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(c_3\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(c_4\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(d_1\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(d_2\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(d_3\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(d_4\)</span></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(w +
+\frac{1}{2}\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(-w\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(-w\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(w +
+\frac{1}{2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2w +
+1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(-4w -
+1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2w +
+1\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(0\)</span></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The coefficients are all based on the solution to the cubic
+polynomial: <span class="math inline">\(48 w^3 + 24 w^2 - 1 =
+0\)</span>. For a single step, the positions and velocities are updated
+as follows: <span class="math display">\[\begin{aligned}
+        x&#39; &amp;= x + c_n v \Delta t \\
+        t&#39; &amp;= t + c_n \Delta t \\
+        \ddot{x} &amp;= \nabla \Phi (x&#39;) \\
+        \dot{x}&#39; &amp;= \dot{x} + d_n \ddot{x} \Delta t
+    
 \end{aligned}\]</span></p>
-<p>This formulation highlights how the leapfrog method naturally
-incorporates the second-order accuracy and time-reversibility essential
-for modeling gravitational systems over long timescales.</p>
 <h1 id="tstrippy">Tstrippy</h1>
 <p><span class="citation" data-cites="2018ComAC...5....2V">Varri et al.
 (2018)</span> talks about a series of papers between a larger
@@ -614,6 +693,12 @@ Princeton, NJ: Princeton University Press.
 ———. 2015. <span>“<span class="nocase">galpy: A python Library for
 Galactic Dynamics</span>”</span> 216 (2): 29. <a
 href="https://doi.org/10.1088/0067-0049/216/2/29">https://doi.org/10.1088/0067-0049/216/2/29</a>.
+</div>
+<div id="ref-1990PhyD...43..105F" class="csl-entry" role="listitem">
+Forest, Etienne, and Ronald D. Ruth. 1990. <span>“<span
+class="nocase">Fourth-order symplectic integration</span>.”</span>
+<em>Physica D Nonlinear Phenomena</em> 43 (1): 105–17. <a
+href="https://doi.org/10.1016/0167-2789(90)90019-L">https://doi.org/10.1016/0167-2789(90)90019-L</a>.
 </div>
 <div id="ref-2018ComAC...5....2V" class="csl-entry" role="listitem">
 Varri, Anna Lisa, Maxwell Xu Cai, Francisca Concha-Ramı́rez, František

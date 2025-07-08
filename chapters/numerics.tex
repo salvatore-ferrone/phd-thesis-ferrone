@@ -145,9 +145,31 @@ This chapter documents how I numerically solve the equations of motion, how I va
         \ddot{x}_{i+1} &= -\nabla \Phi(x_{i+1}), \\
         \dot{x}_{i+1} &= \dot{x}_i + \frac{1}{2}\left(\ddot{x}_i + \ddot{x}_{i+1}\right)\Delta t.
     \end{eqnarray}
+    This formulation highlights how the leapfrog method naturally incorporates the second-order accuracy and time-reversibility essential for modeling gravitational systems over long timescales. As I will show in the next section, the leapfrog algorithm is sufficient for the problems that I solve. However, the question of computational efficiency and numerical accuracy is ever present. Leapfrog uses uses the two local points about the position and momenta to evolve them. Other schema can use more points to have more accurate estimations for the local derivatives. 
+    
+    \citet{1990PhyD...43..105F} proposed one such method for symplectic integrations, which is our situation here. The method is complicated and involves finding roots of high order polynomials, and the roots of which determine the weights and distances about the local point for finding the best estimate of the derivative for evoling the system. I implemented this method and tested its efficiency against the leapfrog. There are eight coefficients in this method, which are presented in table~\ref{tab:forest_ruth_coeffs}.
+    \begin{table}[h]
+        \centering
+        \caption{Velocity (\(c_n\)) and acceleration (\(d_n\)) coefficients for the Forest-Ruth symplectic integrator.}
+        \label{tab:forest_ruth_coeffs}
+        \begin{tabular}{ccccc|cccc}
+            \multicolumn{4}{c|}{Velocity coefficients (\(c_n\))} & \multicolumn{4}{c}{Acceleration coefficients (\(d_n\))} \\
+            $c_1$ & $c_2$ & $c_3$ & $c_4$ & $d_1$ & $d_2$ & $d_3$ & $d_4$ \\
+            \hline
+            $w + \frac{1}{2}$ & $-w$ & $-w$ & $w + \frac{1}{2}$ & $2w + 1$ & $-4w - 1$ & $2w + 1$ & $0$ \\
+        \end{tabular}
+    \end{table} 
+    The coefficients are all based on the solution to the cubic polynomial: $48 w^3 + 24 w^2 - 1 = 0 $. For a single step, the positions and velocities are updated as follows:
+    \begin{align} 
+        x' &= x + c_n v \Delta t \\ 
+        t' &= t + c_n \Delta t \\ 
+        \ddot{x} &= \nabla \Phi (x') \\ 
+        \dot{x}' &= \dot{x} + d_n \ddot{x} \Delta t
+    \end{align}
 
-    This formulation highlights how the leapfrog method naturally incorporates the second-order accuracy and time-reversibility essential for modeling gravitational systems over long timescales.
 
+
+    
 
 
     
