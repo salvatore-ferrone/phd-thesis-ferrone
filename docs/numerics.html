@@ -409,36 +409,50 @@ most intuitive for users and aligns with how quantities are typically
 reported in galactic astronomy.</p>
 <h1 id="solving-the-equations-of-motion">Solving the equations of
 motion</h1>
-<p>Euler proposed a simple method for numerically solving differential
-equations far before the advent of computers. However, this can be quite
-complex for systems of coupled equations. Additionally, since we are
-solving Hamilton’s equations, there are spetial properties that can be
-exploited to create a numerical schema that gives a numerical solution
-that is consistent to the true solution.</p>
-<p>In this thesis, I implemented the Leapfrog integrator, as well as the
-Ruth-Ford schema. These schema were created from using properties of
-hamiltonian mechanics and are called <em>sympletic</em> schemas. Before
-continuing, I would like to quote <span class="citation"
+<p>Long before the advent of computers, Euler proposed a simple method
+for numerically solving differential equations. However, it quickly
+becomes inefficient and inaccurate for coupled systems, especially when
+long-term behavior matters. In the case of Hamiltonian systems, we can
+exploit specific geometric properties to design numerical schemes that
+better preserve the qualitative features of the true solution.</p>
+<p>In this thesis, I implemented the Leapfrog integrator and the
+Forest-Ruth scheme. These schemes are derived from the structure of
+Hamiltonian mechanics and are known as <em>symplectic integrators</em>.
+Before continuing, I would like to quote <span class="citation"
 data-cites="bovy_inprep">(Bovy, n.d.)</span>:</p>
-<p><em>Hamiltonian integrators are often called symplectic. This name
-comes from the fact that these integrators are Hamiltonian maps, whose
+<blockquote>
+<p>Hamiltonian integrators are often called symplectic. This name comes
+from the fact that these integrators are Hamiltonian maps, whose
 mathematical structure is that of a vector flow on a symplectic
 manifold. Many fine dynamicists have made great contributions to the
 field without delving deeply into the meaning of the previous sentence
-and we do not discuss this further.</em></p>
-<p>However, my curiosity in linguistics pushed me to delve further. What
-does <em>sympletic</em> mean? The word was invented by XXX because
-<em>complex</em> was already taken. The prefix <em>com</em> refers to
-together, and "plexus" comes from greek meaning “woven” or braided. So
-complex, from its roots, means when multiple things are inter-woven or
-interlaced. Tangled braids are indeed complicated to the imagery works.
-<em>Sym</em> is the greek prefix for together. But it communicates the
-same thing, the components evolution of the position and momentum depend
-upon one another. The woveness of hamiltonian dynamics is clear how
-<span class="math inline">\(\dot{p} = -\frac{\partial
-\mathcal{H}}{\partial q}\)</span> and <span
-class="math inline">\(\dot{q} = \frac{\partial \mathcal{H}}{\partial
-p}\)</span>.</p>
+and we do not discuss this further.</p>
+</blockquote>
+<p>However, my curiosity about linguistics pushed me to delve further:
+What does <em>symplectic</em> mean? <span class="citation"
+data-cites="weyl1946classical">Weyl (1946)</span> coined the term
+because <em>complex</em> was already taken. The prefix <em>com</em>
+refers to together, and “plexus” comes from greek meaning “woven” or
+“braided”. So from its roots, “complex” means something composed of
+interwoven parts. The image of tangled braids captures the idea well.
+Similarly, “sym-” is a Greek prefix meaning “together.” The idea remains
+the same: in Hamiltonian dynamics, the evolution of position and
+momentum are interdependent. This becomes clearer in matrix form: <span
+class="math display">\[\begin{bmatrix}
+            \dot{\bf{q}}\\
+            \dot{\bf{p}}
+        \end{bmatrix}
+         =
+        \begin{bmatrix}
+            0 &amp; I_n \\
+            -I_n &amp; 0
+        \end{bmatrix}
+                \begin{bmatrix}
+            \frac{\partial \mathcal{H}}{\partial \bf{q}} \\
+            \frac{\partial \mathcal{H}}{\partial \bf{p}}
+        \end{bmatrix}
+        \label{eq:symplectic}\]</span> Here, the skew-symmetric matrix
+“weaves” the positions and momenta together.</p>
 <h1 id="tstrippy">Tstrippy</h1>
 <p><span class="citation" data-cites="2018ComAC...5....2V">Varri et al.
 (2018)</span> talks about a series of papers between a larger
@@ -582,6 +596,10 @@ Vasiliev, Eugene. 2018. <span>“<span class="nocase">Agama reference
 documentation</span>.”</span> <em>arXiv e-Prints</em>, February,
 arXiv:1802.08255. <a
 href="https://doi.org/10.48550/arXiv.1802.08255">https://doi.org/10.48550/arXiv.1802.08255</a>.
+</div>
+<div id="ref-weyl1946classical" class="csl-entry" role="listitem">
+Weyl, Hermann. 1946. <em>The Classical Groups: Their Invariants and
+Representations</em>. Vol. 1. Princeton university press.
 </div>
 </div>
 </body>
