@@ -174,12 +174,34 @@ This chapter documents how I numerically solve the equations of motion, how I va
     Nonetheless, we will continue to use leapfrog as it remains a robust and efficient integrator for a wide range of astrophysical systems. Its good long-term energy behavior makes it a reasonable approximation even when the ideal assumptions are not strictly met. However, this highlights the need for careful validation: we must verify that the integration errors remain within acceptable bounds, especially in systems with non-separable or time-dependent dynamics. This validation is the subject of the next section.
 
 
+\section{Numerical error}
 
+    \begin{itemize}
+        \item what's the right time step? 
+        \item dynamical time 
+        \item compute the energy conservation 
+        \item reverse integratbility
+        \item throwing outdata and then re-interpolating 
+        \item show some nice graphs 
+    \end{itemize}
 
+\section{Computation time and Data Volume}
 
+    Another important aspect of this 
 
+    \begin{verbatim}
+    VIDEO: cluster_showing_scale_and_dynamical_time.mp4
+    \end{verbatim}
 
 \section{Tstrippy}
+
+    \begin{itemize}
+        \item How does \texttt{tstrippy} actually work?
+        \item f2py? 
+        \item setuptools $\rightarrow$ meson 
+        \item incompatbile with old mac processors and being blocked at numpy 1.23 until the meson migration 
+        \item what about other codes on the market? Why did I decide to write this code? 
+    \end{itemize}
 
     \citet{2018ComAC...5....2V} talks about a series of papers between a larger collaboration of people who specialize in collisional dynamics and who have performed a series of workshops together. The introduction stated that the collaboration wants to tackle many open questions regarding stellar clusters and build the necessary codes to interprete the future large quantity of data that was destined to come. It has now come since the review was 2018. An interesting point was that in general globular clusters are approximated as being orderless, i.e. isotropic but order does present itself within these stelalr systems. Another large problem is no one knows what a good set of initial conditiosn is. Unresolved binaries pose a problem because you can overestiamte the total mass of the system. If I talk about this review, I should probably discuss some of the results from the papers that is builds on or at least their techinques.
 
@@ -196,8 +218,3 @@ This chapter documents how I numerically solve the equations of motion, how I va
         \item how I can either save orbits or snapshots
     \end{itemize}
 
-    \section{Computation time and Data Volume}
-
-    \begin{verbatim}
-    VIDEO: cluster_showing_scale_and_dynamical_time.mp4
-    \end{verbatim}
