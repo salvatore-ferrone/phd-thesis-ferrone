@@ -453,6 +453,43 @@ class="math display">\[\begin{bmatrix}
         \end{bmatrix}
         \label{eq:symplectic}\]</span> Here, the skew-symmetric matrix
 “weaves” the positions and momenta together.</p>
+<p>Although the equations of motion do not have analytical solutions,
+they do have known properties. First, gravity only trajectories are
+time-reversible. This is important since in my methodology, I integrate
+the equations of motion backward in time, and then re-integrate forward
+to the current day position. Secondly, the total orbital energy is
+conserved. Additionally, we know form the louiville theorem that with
+Hamiltonian flow, the local phase space volume is perserved as a
+particle moves through phase space. A corollary of this statement, is
+that the determinant of jacobian of the transform from <span
+class="math inline">\(\left(q,p\right)\rightarrow
+\left(q&#39;,p&#39;\right)\)</span> must be one, which means that the
+transformation only rotates or translates an infinitesimal volume but
+does not shrink of increase the volume. We can view the transform as:
+<span class="math display">\[\begin{aligned}
+        q&#39; &amp;= q + \frac{\partial \mathcal{H}}{\partial p}\Delta
+t, \\
+        p&#39; &amp;= -\frac{\partial \mathcal{H}}{\partial q}\Delta t +
+p,
+    
+\end{aligned}\]</span> The jacobian is <span
+class="math inline">\(\left(\frac{\partial x_i&#39;}{\partial x_j
+}\right)\)</span>: <span class="math display">\[\begin{bmatrix}
+            1 &amp; \Delta t \frac{\partial^2 \mathcal{H}}{\partial p^2}
+\\  
+            -\Delta t \frac{\partial^2 \mathcal{H}}{\partial q^2} &amp;
+1 \\  
+        \end{bmatrix}\]</span> and the subsequent determinant is: <span
+class="math display">\[\mathrm{det}\left(J\right) = 1 - \Delta t^2
+\frac{\partial^2 \mathcal{H}}{\partial q^2} \frac{\partial^2
+\mathcal{H}}{\partial p^2}.\]</span> The determinant can be one if
+either <span class="math inline">\(\frac{\partial^2
+\mathcal{H}}{\partial q^2}\)</span> or <span
+class="math inline">\(\frac{\partial^2 \mathcal{H}}{\partial
+p^2}\)</span> equal zero, which can be the case if only if we update
+either the position of the momenta one at a time. The transformation
+order becomes: <span class="math inline">\((q,p) \rightarrow (q&#39;,p)
+\rightarrow (q&#39;,p&#39;)\)</span>.</p>
 <h1 id="tstrippy">Tstrippy</h1>
 <p><span class="citation" data-cites="2018ComAC...5....2V">Varri et al.
 (2018)</span> talks about a series of papers between a larger

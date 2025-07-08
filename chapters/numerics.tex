@@ -116,6 +116,24 @@ This chapter documents how I numerically solve the equations of motion, how I va
     \end{equation}
     Here, the skew-symmetric matrix “weaves” the positions and momenta together.
 
+    Although the equations of motion do not have analytical solutions, they do have known properties. First, gravity only trajectories are time-reversible. This is important since in my methodology, I integrate the equations of motion backward in time, and then re-integrate forward to the current day position. Secondly, the total orbital energy is conserved. Additionally, we know form the louiville theorem that with Hamiltonian flow, the local phase space volume is perserved as a particle moves through phase space. A corollary of this statement, is that the determinant of jacobian of the transform from $\left(q,p\right)\rightarrow \left(q',p'\right)$ must be one, which means that the transformation only rotates or translates an infinitesimal volume but does not shrink of increase the volume. We can view the transform as: 
+    \begin{eqnarray}
+        q' &= q + \frac{\partial \mathcal{H}}{\partial p}\Delta t, \\
+        p' &= -\frac{\partial \mathcal{H}}{\partial q}\Delta t + p,
+    \end{eqnarray}
+    The jacobian is $\left(\frac{\partial x_i'}{\partial x_j }\right)$: 
+    \begin{equation}
+        \begin{bmatrix}
+            1 & \Delta t \frac{\partial^2 \mathcal{H}}{\partial p^2} \\  
+            -\Delta t \frac{\partial^2 \mathcal{H}}{\partial q^2} & 1 \\  
+        \end{bmatrix}
+    \end{equation}
+    and the subsequent determinant is: 
+    \begin{equation}
+        \mathrm{det}\left(J\right) = 1 - \Delta t^2 \frac{\partial^2 \mathcal{H}}{\partial q^2} \frac{\partial^2 \mathcal{H}}{\partial p^2}.
+    \end{equation}
+    The determinant can be one if either $\frac{\partial^2 \mathcal{H}}{\partial q^2}$ or $\frac{\partial^2 \mathcal{H}}{\partial p^2}$ equal zero, which can be the case if only if we update either the position of the momenta one at a time. The transformation order becomes: $(q,p) \rightarrow (q',p) \rightarrow (q',p')$. The switching back and forth between becomes known as \textit{kicks} and \textit{drifts}. 
+    
 
 
 
