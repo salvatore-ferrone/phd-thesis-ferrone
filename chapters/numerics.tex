@@ -116,12 +116,12 @@ This chapter documents how I numerically solve the equations of motion, how I va
     \end{equation}
     Here, the skew-symmetric matrix “weaves” the positions and momenta together.
 
-    Although the equations of motion do not have analytical solutions, they do have known properties. First, gravity only trajectories are time-reversible. This is important since in my methodology, I integrate the equations of motion backward in time, and then re-integrate forward to the current day position. Secondly, the total orbital energy is conserved. Additionally, we know form the louiville theorem that with Hamiltonian flow, the local phase space volume is perserved as a particle moves through phase space. A corollary of this statement, is that the determinant of jacobian of the transform from $\left(q,p\right)\rightarrow \left(q',p'\right)$ must be one, which means that the transformation only rotates or translates an infinitesimal volume but does not shrink of increase the volume. We can view the transform as: 
+    Although the equations of motion do not admit analytical solutions, they possess several known properties. First, trajectories governed solely by gravity are time-reversible. This property is important for my methodology, where I integrate the equations of motion backward in time and then forward again to the present-day position. Secondly, the total orbital energy is conserved. Moreover, according to Liouville's theorem, Hamiltonian flows preserve the local phase space volume. A corollary of this is that the determinant of jacobian of the transform from $\left(q,p\right)\rightarrow \left(q',p'\right)$ must be one, which means that the transformation only rotates or translates an infinitesimal volume but does not shrink or expand the volume. We can view the transform as: 
     \begin{eqnarray}
         q' &= q + \frac{\partial \mathcal{H}}{\partial p}\Delta t, \\
         p' &= -\frac{\partial \mathcal{H}}{\partial q}\Delta t + p,
     \end{eqnarray}
-    The jacobian is $\left(\frac{\partial x_i'}{\partial x_j }\right)$: 
+    The Jacobian matrix is given by $\left(\frac{\partial x_i'}{\partial x_j }\right)$: 
     \begin{equation}
         \begin{bmatrix}
             1 & \Delta t \frac{\partial^2 \mathcal{H}}{\partial p^2} \\  
@@ -132,7 +132,24 @@ This chapter documents how I numerically solve the equations of motion, how I va
     \begin{equation}
         \mathrm{det}\left(J\right) = 1 - \Delta t^2 \frac{\partial^2 \mathcal{H}}{\partial q^2} \frac{\partial^2 \mathcal{H}}{\partial p^2}.
     \end{equation}
-    The determinant can be one if either $\frac{\partial^2 \mathcal{H}}{\partial q^2}$ or $\frac{\partial^2 \mathcal{H}}{\partial p^2}$ equal zero, which can be the case if only if we update either the position of the momenta one at a time. The transformation order becomes: $(q,p) \rightarrow (q',p) \rightarrow (q',p')$. The switching back and forth between becomes known as \textit{kicks} and \textit{drifts}. 
+    In general, neither $\frac{\partial^2 \mathcal{H}}{\partial q^2}$ or $\frac{\partial^2 \mathcal{H}}{\partial p^2}$ are zero. Therefore, the way we meet the criteron is by updating either the position or the momenta one at a time. The transformation order becomes: $(q,p) \rightarrow (q',p) \rightarrow (q',p')$. This alternating update of position and momentum is commonly referred to as a sequence of \textit{drifts} and \textit{kicks}. A \textit{drift} updates the position while holding the momentum fixed, and a \textit{kick} updates the momentum while holding the position fixed. Symplectic integrators alternate these operations in a specific sequence to preserve the structure of Hamiltonian flow.
+
+
+    The scheme outlined above is essentially a first-order method and is closely related to Euler's method. More sophisticated integrators use combinations of information at multiple nearby points to evolve the system more accurately. For example, some schemes temporarily evolve the position to an intermediate value $q_\mathrm{temp}$, use this to compute a momentum $p_\mathrm{temp}$, and then adjust both using weighted averages or predictor-corrector steps to reach the final state. These methods carefully balance forward and backward steps to optimize accuracy while preserving the symplectic structure.
+
+    One of the most commonly used integrators in galactic dynamics is the leapfrog method. It works by interleaving updates of positions and momenta using time-centered averages. Specifically, the average momentum between $q_i$ and $q_{i+1}$ (denoted $p_{i+1/2}$) is used to advance the position, and then the average force (derived from the potential) is used to update the momentum. In Cartesian coordinates—used throughout this thesis—the leapfrog algorithm can be rewritten in terms of grid-aligned quantities:
+
+
+    \begin{eqnarray}
+        x_{i+1} &= x_i + \dot{x}_i \Delta t + \frac{1}{2}\ddot{x}_i \Delta t^2, \\
+        \ddot{x}_{i+1} &= -\nabla \Phi(x_{i+1}), \\
+        \dot{x}_{i+1} &= \dot{x}_i + \frac{1}{2}\left(\ddot{x}_i + \ddot{x}_{i+1}\right)\Delta t.
+    \end{eqnarray}
+
+    This formulation highlights how the leapfrog method naturally incorporates the second-order accuracy and time-reversibility essential for modeling gravitational systems over long timescales.
+
+
+
     
 
 
@@ -154,39 +171,8 @@ This chapter documents how I numerically solve the equations of motion, how I va
         \item how I can either save orbits or snapshots
     \end{itemize}
 
-
-
-\section{Numerical Errors and Schema} 
-
-    If we consider the following differential equation, $\frac{dy}{dt}=m$, whose general solution is: $y=mt+b$. If we are working double-precision numbers who use 64-bits to represent real numbers, then the general solution is only 16 bytes. However, if we use Euler's method to find a particular solution given an initial condition $b$, then we must evaluate $t_i,y_i$ at each time step considered. The data volume becomes $2\times N_\mathrm{steps}\times 8 \mathrm{bytes}$. 
-
-    With numerical solutions in general, we have a set of initial conditions, and evaluting Hamilton's equations at them provides the instantaneous evolution of the system. If we use a sufficiently small time step, we can then find the next state of the system. \textit{Sufficiently small} means that the numerical solution converges to the \textit{true solution} and only differs by accumulated numerical error from machine precision. 
+    \section{Computation time and Data Volume}
 
     \begin{verbatim}
     VIDEO: cluster_showing_scale_and_dynamical_time.mp4
     \end{verbatim}
-    Display here some results where I tried to use the higher order leap frog... i.e. the Ruth method. 
-
-    Make a qualitative argument against the 
-
-    \begin{itemize}
-        \item leapfrog is sympletic, preserve hamiltonian in the transform
-        \item integrating at high resolution, downsampling for storage, and then interpolating if higher resolution is needed. 
-        \item I tried to implement the Ruth-Ford
-        \item I tried to implement the king model, which was slower and worse and not worth it 
-    \end{itemize}
-
-
-    \section{Computation time and Data Volume}
-    \begin{itemize}
-        \item there are practical restraints
-        \item we choose to solve the restricted three body problem b/c
-    \end{itemize}
-
-\section{My work flow}
-    \begin{itemize}
-        \item Tstrippy is the production code
-        \item then I have gcs which does data i/o
-        \item then I have an analysis package that makes plots based on the final data products
-    \end{itemize}
-
