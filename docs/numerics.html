@@ -60,10 +60,6 @@
     img {
       max-width: 100%;
     }
-    svg {
-      height: auto;
-      max-width: 100%;
-    }
     h1, h2, h3, h4, h5, h6 {
       margin-top: 1.4em;
     }
@@ -169,7 +165,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -186,8 +181,8 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <script
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="/usr/share/javascript/mathjax/MathJax.js"
   type="text/javascript"></script>
 </head>
 <body>
@@ -255,7 +250,7 @@ data-reference="tab:units">1</a>.</p>
 <caption>Units for various astronomical quantities in Galactic and SI
 systems.</caption>
 <thead>
-<tr>
+<tr class="header">
 <th style="text-align: left;"></th>
 <th style="text-align: left;">Distance</th>
 <th style="text-align: left;">RA</th>
@@ -269,7 +264,7 @@ class="math inline">\(\mu_\delta\)</span></th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">Galactic:</td>
 <td style="text-align: left;"><span>[</span>kpc<span>]</span></td>
 <td style="text-align: left;"><span>[</span>deg<span>]</span>
@@ -279,7 +274,7 @@ class="math inline">\(\mu_\delta\)</span></th>
 <td style="text-align: left;"><span>[</span>mas/yr<span>]</span></td>
 <td style="text-align: left;"><span>[</span>mas/yr<span>]</span></td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">S.I.</td>
 <td style="text-align: left;"><span>[</span>m<span>]</span></td>
 <td style="text-align: left;"><span>[</span>rad<span>]</span></td>
@@ -541,7 +536,7 @@ Volume</h1>
 final data products</p></li>
 </ul>
 <div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
+role="list">
 <div id="ref-2013A&amp;A...558A..33A" class="csl-entry" role="listitem">
 Astropy Collaboration, Thomas P. Robitaille, Erik J. Tollerud, Perry
 Greenfield, Michael Droettboom, Erik Bray, Tom Aldcroft, et al. 2013.
