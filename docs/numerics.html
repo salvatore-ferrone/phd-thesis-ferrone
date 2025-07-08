@@ -409,25 +409,36 @@ most intuitive for users and aligns with how quantities are typically
 reported in galactic astronomy.</p>
 <h1 id="solving-the-equations-of-motion">Solving the equations of
 motion</h1>
-<p>Numerically solving equations of motion were proposed far before the
-advent of computers by Euler. Depending on the equations at hand, we
-know that our system will have certain properties that can be exploited.
-The system will also have constants that must remain constant throughout
-the numerical integration. The schema must exploit the properties and
-respect the constants. For the case of</p>
+<p>Euler proposed a simple method for numerically solving differential
+equations far before the advent of computers. However, this can be quite
+complex for systems of coupled equations. Additionally, since we are
+solving Hamilton’s equations, there are spetial properties that can be
+exploited to create a numerical schema that gives a numerical solution
+that is consistent to the true solution.</p>
+<p>In this thesis, I implemented the Leapfrog integrator, as well as the
+Ruth-Ford schema. These schema were created from using properties of
+hamiltonian mechanics and are called <em>sympletic</em> schemas. Before
+continuing, I would like to quote <span class="citation"
+data-cites="bovy_inprep">(Bovy, n.d.)</span>:</p>
 <p><em>Hamiltonian integrators are often called symplectic. This name
 comes from the fact that these integrators are Hamiltonian maps, whose
 mathematical structure is that of a vector flow on a symplectic
 manifold. Many fine dynamicists have made great contributions to the
 field without delving deeply into the meaning of the previous sentence
-and we do not discuss this further.</em> However, my curiosity in
-linguistics pushed me to delve further. What does <em>sympletic</em>
-mean? The word was invented by XXX because <em>complex</em> was already
-taken. The prefix <em>com</em> refers to together, and "plexus" comes
-from greek meaning "woven" or braided. So complex, from its roots, means
-when multiple things are inter-woven or interlaced. Tangled braids are
-indeed complicated to the imagery works. <em>Sym</em> is the greek
-prefix for together. But it communicates the same thing, things</p>
+and we do not discuss this further.</em></p>
+<p>However, my curiosity in linguistics pushed me to delve further. What
+does <em>sympletic</em> mean? The word was invented by XXX because
+<em>complex</em> was already taken. The prefix <em>com</em> refers to
+together, and "plexus" comes from greek meaning “woven” or braided. So
+complex, from its roots, means when multiple things are inter-woven or
+interlaced. Tangled braids are indeed complicated to the imagery works.
+<em>Sym</em> is the greek prefix for together. But it communicates the
+same thing, the components evolution of the position and momentum depend
+upon one another. The woveness of hamiltonian dynamics is clear how
+<span class="math inline">\(\dot{p} = -\frac{\partial
+\mathcal{H}}{\partial q}\)</span> and <span
+class="math inline">\(\dot{q} = \frac{\partial \mathcal{H}}{\partial
+p}\)</span>.</p>
 <h1 id="tstrippy">Tstrippy</h1>
 <p><span class="citation" data-cites="2018ComAC...5....2V">Varri et al.
 (2018)</span> talks about a series of papers between a larger
@@ -549,8 +560,12 @@ Greenfield, Michael Droettboom, Erik Bray, Tom Aldcroft, et al. 2013.
 astronomy</span>”</span> 558 (October):A33. <a
 href="https://doi.org/10.1051/0004-6361/201322068">https://doi.org/10.1051/0004-6361/201322068</a>.
 </div>
+<div id="ref-bovy_inprep" class="csl-entry" role="listitem">
+Bovy, Jo. n.d. <em>Dynamics and Astrophysics of Galaxies</em>.
+Princeton, NJ: Princeton University Press.
+</div>
 <div id="ref-2015ApJS..216...29B" class="csl-entry" role="listitem">
-Bovy, Jo. 2015. <span>“<span class="nocase">galpy: A python Library for
+———. 2015. <span>“<span class="nocase">galpy: A python Library for
 Galactic Dynamics</span>”</span> 216 (2): 29. <a
 href="https://doi.org/10.1088/0067-0049/216/2/29">https://doi.org/10.1088/0067-0049/216/2/29</a>.
 </div>
