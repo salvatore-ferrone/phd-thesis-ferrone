@@ -214,3 +214,67 @@ def experiment_vanilla_clusters_single_timestep(args):
     t = backwardOrbit[0]
     print(f"Finished integration for timestep {timestep} in {computation_time}")
     return computation_time, relative_R, relative_V, t, errE, E0
+
+
+def leapfrog_leapq(q, p, dt):
+    return q + dt * p
+
+def leapfrog_leapp(p, dt, force):
+    return p + dt * force
+
+def leapfrog(func,params,initialkinematics,dt,Nsteps):
+    """
+    Leapfrog integration of an ODE
+
+    Parameters
+    ----------
+    func : function
+        function of (y, *args)
+    params : tuple
+        any extra arguments for func
+    initialkinematics : numpy.ndarray
+        initial condition [q,p]
+    dt : float
+        time step size
+    Nsteps : int
+        number of steps to take
+
+    Returns
+    -------
+    numpy.ndarray
+        Array containing the value of y for each desired time in t, with the initial value y0 in the first row.
+    """
+    # initialize the output
+    x,y,z,vx,vy,vz = initialkinematics
+    npoints = len(x)
+    if npoints != len(y) or npoints != len(z) or npoints != len(vx) or npoints != len(vy) or npoints != len(vz):
+        raise ValueError("All input arrays must have the same length.")
+    # initialize the time
+    t = np.arange(0, Nsteps + 1) * dt
+    # initialize the output array
+    out = np.zeros((Nsteps + 1, npoints, 6), dtype=float)
+    out[0, :, 0] = x
+    out[0, :, 1] = y
+    out[0, :, 2] = z
+    out[0, :, 3] = -vx
+    out[0, :, 4] = -vy
+    out[0, :, 5] = -vz
+    for ii in range(1,Nsteps+1):
+        # initial half drift
+        x12 = leapfrog_leapq(x,vx,dt/2.0)
+        y12 = leapfrog_leapq(y,vy,dt/2.0)
+        z12 = leapfrog_leapq(z,vz,dt/2.0)
+        ax,ay,az,_ = func(params, x12,y12,z12,)
+        vx = leapfrog_leapp(vx,dt,ax)
+        vy = leapfrog_leapp(vy,dt,ay)
+        vz = leapfrog_leapp(vz,dt,az)
+        x = leapfrog_leapq(x12,vx,dt/2)
+        y = leapfrog_leapq(y12,vy,dt/2)
+        z = leapfrog_leapq(z12,vz,dt/2)
+        out[ii, :, 0] = x
+        out[ii, :, 1] = y
+        out[ii, :, 2] = z
+        out[ii, :, 3] = vx      
+        out[ii, :, 4] = vy
+        out[ii, :, 5] = vz
+    return out
