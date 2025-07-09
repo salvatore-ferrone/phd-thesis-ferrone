@@ -71,14 +71,15 @@ def get_energy_error(backwardOrbit,MWparams):
     E    = phi + T
     E0   = E[:, -1][:, np.newaxis]  # Take the first column as the reference energy
     dE   = E - E0
-    errE = np.sqrt(dE**2) / E0
+    errE = np.abs(dE) / np.abs(E0)
     return E0, errE
 
 
-def vanilla_clusters(integrationtime,timestep,staticgalaxy,initialkinematics):
+def vanilla_clusters(args):
     """
     do the backward and forward integration of the vanilla clusters
     """
+    integrationtime,timestep,staticgalaxy,initialkinematics = args 
     assert isinstance(integrationtime,u.Quantity)
     assert isinstance(timestep,u.Quantity)
     unitT, unitV, unitD, unitM, unitG, G = loadunits()
@@ -94,6 +95,59 @@ def vanilla_clusters(integrationtime,timestep,staticgalaxy,initialkinematics):
     tstrippy.integrator.setbackwardorbit()
     xBackward,yBackward,zBackward,vxBackward,vyBackward,vzBackward=\
         tstrippy.integrator.leapfrogintime(Ntimestep,nObj)
+    tBackward=tstrippy.integrator.timestamps.copy()
+    tstrippy.integrator.deallocate()
+
+    #### Now compute the orbit forward
+    #### IT'S VERY IMPORTANT TO USE tBackward[-1] AS THE CURRENT TIME FOR THE FORWARD INTEGRATION
+    #### BEFORE I USED -integrationtime, WHICH CAN BE DIFFERENT BY NSTEP * 1e-16
+    #### I.e. A DRIFT IN TIME DUE TO NUMERICAL ERROR, WHICH CAN BECOME SIGNIFICANT FOR INTEGRATING WITH THE BAR
+    currenttime=tBackward[-1]*unitT
+
+    integrationparameters=[currenttime.value,dt.value,Ntimestep]
+    x0,y0,z0=xBackward[:,-1],yBackward[:,-1],zBackward[:,-1]
+    vx0,vy0,vz0 = -vxBackward[:,-1],-vyBackward[:,-1],-vzBackward[:,-1]
+    initialkinematics=[x0,y0,z0,vx0,vy0,vz0]
+    tstrippy.integrator.setstaticgalaxy(*staticgalaxy)
+    tstrippy.integrator.setintegrationparameters(*integrationparameters)
+    tstrippy.integrator.setinitialkinematics(*initialkinematics)
+    xForward,yForward,zForward,vxForward,vyForward,vzForward=\
+        tstrippy.integrator.leapfrogintime(Ntimestep,nObj)
+    tForward=tstrippy.integrator.timestamps.copy()
+    tstrippy.integrator.deallocate()
+
+    # flip the backorbits such that the point in the past,
+    # which should be the common starting point,
+    # is the first point for both the forward and backward orbits
+    tBackward=tBackward[::-1]
+    xBackward,yBackward,zBackward=xBackward[:,::-1],yBackward[:,::-1],zBackward[:,::-1]
+    vxBackward,vyBackward,vzBackward=-vxBackward[:,::-1],-vyBackward[:,::-1],-vzBackward[:,::-1]
+    backwardOrbit  = [tBackward,xBackward,yBackward,zBackward,vxBackward,vyBackward,vzBackward]
+    forwardOrbit   = [tForward,xForward,yForward,zForward,vxForward,vyForward,vzForward]
+    return backwardOrbit,forwardOrbit
+
+
+
+def vanilla_clusters_forestRuth(args):
+    """
+    do the backward and forward integration of the vanilla clusters
+    """
+    integrationtime,timestep,staticgalaxy,initialkinematics = args 
+    assert isinstance(integrationtime,u.Quantity)
+    assert isinstance(timestep,u.Quantity)
+    unitT, unitV, unitD, unitM, unitG, G = loadunits()
+    Ntimestep=int(integrationtime.value/timestep.value)
+    dt=timestep.to(unitT)
+    currenttime=0*unitT
+    integrationparameters=[currenttime.value,dt.value,Ntimestep]
+    nObj = initialkinematics[0].shape[0]
+
+    tstrippy.integrator.setstaticgalaxy(*staticgalaxy)
+    tstrippy.integrator.setinitialkinematics(*initialkinematics)
+    tstrippy.integrator.setintegrationparameters(*integrationparameters)
+    tstrippy.integrator.setbackwardorbit()
+    xBackward,yBackward,zBackward,vxBackward,vyBackward,vzBackward=\
+        tstrippy.integrator.ruthforestintime(Ntimestep,nObj)
     tBackward=tstrippy.integrator.timestamps.copy()
     tstrippy.integrator.deallocate()
 
@@ -144,14 +198,14 @@ def experiment_vanilla_clusters_single_timestep(args):
     import datetime  # Needed for multiprocessing on some systems
     starttime = datetime.datetime.now()
     backwardOrbit, forwardOrbit = vanilla_clusters(
-        integrationtime, timestep, staticgalaxy, initialkinematics
+        [integrationtime, timestep, staticgalaxy, initialkinematics]
     )
     endtime = datetime.datetime.now()
     computation_time = endtime - starttime
 
     dr, dv, rmean, vmean = get_dr_dv_rmean_vmean(backwardOrbit, forwardOrbit)
     E0, errE = get_energy_error(backwardOrbit, MWparams)
-    idx = np.argsort(E0)
+    idx = np.argsort(E0[:,0])
     dr, dv, rmean, vmean = dr[idx], dv[idx], rmean[idx], vmean[idx]
     E0 = E0[idx]
     errE = errE[idx]
