@@ -1,3 +1,4 @@
+import datetime
 from astropy import units as u
 from astropy import constants as const
 from astropy import coordinates as coord
@@ -93,8 +94,11 @@ def vanilla_clusters(args):
     tstrippy.integrator.setinitialkinematics(*initialkinematics)
     tstrippy.integrator.setintegrationparameters(*integrationparameters)
     tstrippy.integrator.setbackwardorbit()
+    starttime = datetime.datetime.now()
     xBackward,yBackward,zBackward,vxBackward,vyBackward,vzBackward=\
         tstrippy.integrator.leapfrogintime(Ntimestep,nObj)
+    endtime = datetime.datetime.now()
+    computation_time = endtime - starttime
     tBackward=tstrippy.integrator.timestamps.copy()
     tstrippy.integrator.deallocate()
 
@@ -124,9 +128,26 @@ def vanilla_clusters(args):
     vxBackward,vyBackward,vzBackward=-vxBackward[:,::-1],-vyBackward[:,::-1],-vzBackward[:,::-1]
     backwardOrbit  = [tBackward,xBackward,yBackward,zBackward,vxBackward,vyBackward,vzBackward]
     forwardOrbit   = [tForward,xForward,yForward,zForward,vxForward,vyForward,vzForward]
-    return backwardOrbit,forwardOrbit
+    return backwardOrbit,forwardOrbit,computation_time
 
 
+
+def vanilla_orbit(args):
+    """ just one orbit """
+    integrationparameters,staticgalaxy,initialkinematics = args
+
+    Nsteps = int(integrationparameters[2])
+    nGCs = initialkinematics[0].shape[0]
+    tstrippy.integrator.deallocate()
+    tstrippy.integrator.setstaticgalaxy(*staticgalaxy)
+    tstrippy.integrator.setinitialkinematics(*initialkinematics)
+    tstrippy.integrator.setintegrationparameters(*integrationparameters)
+    tstrippy.integrator.setbackwardorbit()
+    starttime = datetime.datetime.now()
+    xt,yt,zt,vxt,vyt,vzt = tstrippy.integrator.leapfrogintime(Nsteps,nGCs)
+    endtime = datetime.datetime.now()
+    compTime = endtime - starttime
+    return xt,yt,zt,vxt,vyt,vzt,compTime
 
 def vanilla_clusters_forestRuth(args):
     """
@@ -196,12 +217,9 @@ def experiment_vanilla_clusters_single_timestep(args):
     timestep, integrationtime, staticgalaxy, initialkinematics, MWparams = args
 
     import datetime  # Needed for multiprocessing on some systems
-    starttime = datetime.datetime.now()
-    backwardOrbit, forwardOrbit = vanilla_clusters(
+    backwardOrbit,forwardOrbit,computation_time = vanilla_clusters(
         [integrationtime, timestep, staticgalaxy, initialkinematics]
     )
-    endtime = datetime.datetime.now()
-    computation_time = endtime - starttime
 
     dr, dv, rmean, vmean = get_dr_dv_rmean_vmean(backwardOrbit, forwardOrbit)
     E0, errE = get_energy_error(backwardOrbit, MWparams)
