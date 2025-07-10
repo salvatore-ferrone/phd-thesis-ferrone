@@ -662,16 +662,57 @@ star-particle within a globular cluster, the potential energy of the
 cluster is included: <span class="math inline">\(E_i = T(\textbf{v}_i) +
 \Phi_{\mathrm{MW}}\left(\textbf{x}_i\right) +
 \Phi_\mathrm{GC}\left(\textbf{x}_i -
-\textbf{x}_{\mathrm{GC},i}\right)\)</span></p>
+\textbf{x}_{\mathrm{GC},i}\right)\)</span>. The same goes for the
+potential with the galactic bar, the only difference being that
+potential has a time-dependent element.</p>
+<p>The second check is that simulations are time-reversable. In this
+case, I integrate a cluster back in time by a given amount of time, and
+then change the sign of its velocity to subsequently integrate forward
+in time. If the integration is correct, the cluster should remain on the
+same trajectory. I investigate this for four scenarios and show the
+results below:</p>
+<ul>
+<li><p>All 165 globular clusters orbiting within the Galaxy. For this, I
+check two different integrators: the leapfrog scheme and the Ruth-Forest
+scheme.</p></li>
+<li><p>Particles within three different globular clusters: the most
+dense, least dense, and median density.</p></li>
+<li><p>The globular cluster system in a potential with a galactic
+bar.</p></li>
+<li><p>Some select cluster orbiting within a potential with a galactic
+bar.</p></li>
+</ul>
 <h2 id="globular-cluster-orbits-in-a-static-galaxy">Globular Cluster
 Orbits in a Static Galaxy</h2>
-<p>Fig. <a href="#fig:numericalErrorLeapFrogVanilla"
-data-reference-type="ref"
-data-reference="fig:numericalErrorLeapFrogVanilla">[fig:numericalErrorLeapFrogVanilla]</a>
-shows the numerical error computed for all <span
-class="math inline">\(165\)</span> globular clusters for <span
-class="math inline">\(5\)</span> Gyr, with two different time steps:
-<span class="math inline">\(10^4\)</span> and <span
+<p>As explained in the next chapter, the initial conditions for the
+globular cluster system (positions and velocities), were taken from
+<span class="citation" data-cites="2018MNRAS.478.1520B">Baumgardt and
+Hilker (2018)</span>’s online globular cluster catalog whose data
+derived from Gaia Early Data Release 3 among other sources <span
+class="citation"
+data-cites="2021MNRAS.505.5957B 2021A&amp;A...649A...1G 2023A&amp;A...674A...1G">(Baumgardt
+and Vasiliev 2021; Gaia Collaboration et al. 2021, 2023)</span>.</p>
+<p>To test the integrator, I integrated the whole globular cluster
+system for 5 Gyr, and then integrated it back to the initial conditions.
+I used four time steps: <span
+class="math inline">\(10^4,10^5,10^6,10^7\)</span> years which
+corresponds to <span
+class="math inline">\(\left[500,5000,50000,500000\right]\)</span>
+integration steps, respectively. In general, the time step should scale
+with the dynamical time of the orbit, or be inversely proprotial to the
+orbital energy. The father the system is from the center, a large time
+step could be sufficient for low numerical error. However, those who
+complete many orbits should have a smaller timesteps. Of course, it does
+not scale with just orbital energy, it should scale with the maximum
+acceleration experienced in the system. A highly eccentric orbit
+requires a smaller timestep to properly integrate the motion near the
+pericenter, compared to a circular orbit at the same orbital energy. To
+not clutter the graph, in Fig. <a
+href="#fig:numericalErrorLeapFrogVanilla" data-reference-type="ref"
+data-reference="fig:numericalErrorLeapFrogVanilla">[fig:numericalErrorLeapFrogVanilla]</a>,
+I present the whole globular cluster system twice each integrated with
+the smallest and largest timesteps: <span
+class="math inline">\(10^4\)</span> and <span
 class="math inline">\(10^7\)</span> years.</p>
 <figure id="fig:numericalErrorLeapFrogVanilla.png">
 <img src="images/numericalErrorLeapFrogVanilla.png" />
@@ -683,6 +724,18 @@ by it’s initial orbital energy. The average of the whole system for a
 given timestep is indicated with dotted and solid black lines.
 </figcaption>
 </figure>
+<p>In Fig. <a href="#fig:numericalErrorLeapFrogVanilla"
+data-reference-type="ref"
+data-reference="fig:numericalErrorLeapFrogVanilla">[fig:numericalErrorLeapFrogVanilla]</a>
+we can notice that orbits with higher orbital energy in red have low
+numerical error compared to those with lower energy and are deeper in
+the potential well. It is clear that for the whole system, <span
+class="math inline">\(10^7\)</span> years is a time step that is far too
+large, however, interestingly enough, for some of the farthest globular
+clusters, a time step of 10 million years resolves their orbits to an
+error of <span class="math inline">\(\langle \Delta E / E_0 \rangle
+\approx 10^{-5}\)</span>, which is still far less than the uncertainties
+in the energy due to both modeling and observational uncertainties.</p>
 <figure id="fig:numericalErrorReverseIntegration.png">
 <img src="images/numericalErrorReverseIntegration.png" />
 <figcaption aria-hidden="true"></figcaption>
@@ -787,6 +840,20 @@ Greenfield, Michael Droettboom, Erik Bray, Tom Aldcroft, et al. 2013.
 astronomy</span>”</span> 558 (October):A33. <a
 href="https://doi.org/10.1051/0004-6361/201322068">https://doi.org/10.1051/0004-6361/201322068</a>.
 </div>
+<div id="ref-2018MNRAS.478.1520B" class="csl-entry" role="listitem">
+Baumgardt, H., and M. Hilker. 2018. <span>“<span class="nocase">A
+catalogue of masses, structural parameters, and velocity dispersion
+profiles of 112 Milky Way globular clusters</span>”</span> 478 (2):
+1520–57. <a
+href="https://doi.org/10.1093/mnras/sty1057">https://doi.org/10.1093/mnras/sty1057</a>.
+</div>
+<div id="ref-2021MNRAS.505.5957B" class="csl-entry" role="listitem">
+Baumgardt, H., and E. Vasiliev. 2021. <span>“<span
+class="nocase">Accurate distances to Galactic globular clusters through
+a combination of Gaia EDR3, HST, and literature data</span>”</span> 505
+(4): 5957–77. <a
+href="https://doi.org/10.1093/mnras/stab1474">https://doi.org/10.1093/mnras/stab1474</a>.
+</div>
 <div id="ref-bovy_inprep" class="csl-entry" role="listitem">
 Bovy, Jo. n.d. <em>Dynamics and Astrophysics of Galaxies</em>.
 Princeton, NJ: Princeton University Press.
@@ -801,6 +868,20 @@ Forest, Etienne, and Ronald D. Ruth. 1990. <span>“<span
 class="nocase">Fourth-order symplectic integration</span>.”</span>
 <em>Physica D Nonlinear Phenomena</em> 43 (1): 105–17. <a
 href="https://doi.org/10.1016/0167-2789(90)90019-L">https://doi.org/10.1016/0167-2789(90)90019-L</a>.
+</div>
+<div id="ref-2021A&amp;A...649A...1G" class="csl-entry" role="listitem">
+Gaia Collaboration, A. G. A. Brown, A. Vallenari, T. Prusti, J. H. J. de
+Bruijne, C. Babusiaux, M. Biermann, et al. 2021. <span>“<span
+class="nocase">Gaia Early Data Release 3. Summary of the contents and
+survey properties</span>”</span> 649 (May):A1. <a
+href="https://doi.org/10.1051/0004-6361/202039657">https://doi.org/10.1051/0004-6361/202039657</a>.
+</div>
+<div id="ref-2023A&amp;A...674A...1G" class="csl-entry" role="listitem">
+Gaia Collaboration, A. Vallenari, A. G. A. Brown, T. Prusti, J. H. J. de
+Bruijne, F. Arenou, C. Babusiaux, et al. 2023. <span>“<span
+class="nocase">Gaia Data Release 3. Summary of the content and survey
+properties</span>”</span> 674 (June):A1. <a
+href="https://doi.org/10.1051/0004-6361/202243940">https://doi.org/10.1051/0004-6361/202243940</a>.
 </div>
 <div id="ref-2018ComAC...5....2V" class="csl-entry" role="listitem">
 Varri, Anna Lisa, Maxwell Xu Cai, Francisca Concha-Ramı́rez, František

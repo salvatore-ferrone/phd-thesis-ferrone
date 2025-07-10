@@ -190,14 +190,17 @@ This chapter documents how I numerically solve the equations of motion, how I va
 
     \subsection{Globular Cluster Orbits in a Static Galaxy}
 
+        As explained in the next chapter, the initial conditions for the globular cluster system (positions and velocities), were taken from \citet{2018MNRAS.478.1520B}'s online globular cluster catalog whose data derived from Gaia Early Data Release 3 among other sources \citep{2021MNRAS.505.5957B,2021A&A...649A...1G,2023A&A...674A...1G}. 
 
-        Fig.~\ref{fig:numericalErrorLeapFrogVanilla} shows the numerical error computed for all $165$ globular clusters for $5$~Gyr, with two different time steps: $10^4$ and $10^7$ years. 
+        To test the integrator, I integrated the whole globular cluster system for 5~Gyr, and then integrated it back to the initial conditions. I used four time steps: $10^4,10^5,10^6,10^7$~years which corresponds to $\left[500,5000,50000,500000\right]$ integration steps, respectively. In general, the time step should scale with the dynamical time of the orbit, or be inversely proprotial to the orbital energy. The father the system is from the center, a large time step could be sufficient for low numerical error. However, those who complete many orbits should have a smaller timesteps. Of course, it does not scale with just orbital energy, it should scale with the maximum acceleration experienced in the system. A highly eccentric orbit requires a smaller timestep to properly integrate the motion near the pericenter, compared to a circular orbit at the same orbital energy. To not clutter the graph, in Fig.~\ref{fig:numericalErrorLeapFrogVanilla}, I present the whole globular cluster system twice each integrated with the smallest and largest timesteps: $10^4$ and $10^7$ years. 
+
         \begin{figure}
             \centering
             \includegraphics[width=\linewidth]{images/numericalErrorLeapFrogVanilla.png}
             \caption{Error in orbital energy for the whole globular cluster system with two different time steps, dt~=~$10^{7}$ and $10^{4}$ years. Each cluster's is colored by it's initial orbital energy. The average of the whole system for a given timestep is indicated with dotted and solid black lines. }
             \label{fig:numericalErrorLeapFrogVanilla.png}
         \end{figure}
+        In Fig.~\ref{fig:numericalErrorLeapFrogVanilla} we can notice that orbits with higher orbital energy in red have low numerical error compared to those with lower energy and are deeper in the potential well. It is clear that for the whole system, $10^7$~years is a time step that is far too large, however, interestingly enough, for some of the farthest globular clusters, a time step of 10 million years resolves their orbits to an error of $\langle \Delta E / E_0 \rangle \approx 10^{-5}$, which is still far less than the uncertainties in the energy due to both modeling and observational uncertainties.
     
         \begin{figure}
             \centering
