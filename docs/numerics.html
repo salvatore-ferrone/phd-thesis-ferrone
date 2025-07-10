@@ -732,9 +732,9 @@ well. It is clear that for the whole system, <span
 class="math inline">\(10^7\)</span> years is a time step that is far too
 large, however, interestingly enough, for some of the farthest globular
 clusters, a time step of 10 million years resolves their orbits to an
-error of <span class="math inline">\(\langle \Delta E / E_0 \rangle
-\approx 10^{-5}\)</span>, which is still far less than the uncertainties
-in the energy due to both modeling and observational uncertainties.</p>
+error of <span class="math inline">\(\langle \Delta E / E_0 \rangle \sim
+10^{-5}\)</span>, which is still far less than the uncertainties in the
+energy due to both modeling and observational uncertainties.</p>
 <p>In Fig. <a href="#fig:numericalErrorReverseIntegration"
 data-reference-type="ref"
 data-reference="fig:numericalErrorReverseIntegration">2</a>, I present
@@ -777,24 +777,78 @@ system, and the time of a single integration step, which is computed by
 normalizing the total time by the number of objects and number of steps
 taken: <span
 class="math inline">\(T_{\mathrm{total}}/N_{\mathrm{GCs}}/N_{\mathrm{steps}}\)</span>.
-In general, the relationship is linear and integration time per step per
-object is roughly constant.</p>
+In general, the relationship is linear and the integration time per step
+per object is roughly constant. The downward trend presented in Fig. <a
+href="#fig:numericalErrorGlobularClustersComputationTime"
+data-reference-type="ref"
+data-reference="fig:numericalErrorGlobularClustersComputationTime">3</a>
+is in part a coincidence, as some time realizations minimize this, and
+in part due to the overhead computation time with initializing and
+finalizing the calculation contributes less and less with increasing
+integration time. Nonetheless, for this processor, for a single
+integration step the mean time is <span
+class="math inline">\(\sim\)</span> 128 nanoseconds.</p>
 <figure id="fig:numericalErrorGlobularClustersComputationTime">
 <img src="images/numericalErrorGlobularClustersComputationTime.png" />
 <figcaption>Computation time for integrating the entire globular cluster
-system. The top panel shows the total time while the bottom shows
-computation time for a single step, for a single object being
-integrated. This was performed on a 2022 MacBook Air with an Apple M2
-processor. </figcaption>
+system using the leapfrog scheme. The top panel shows the total time
+while the bottom shows computation time for a single step, for a single
+object being integrated. This was performed on a 2022 MacBook Air with
+an Apple M2 processor. </figcaption>
 </figure>
-<figure id="fig:numericalErrorRuthForest.png">
+<p>The Ruth-Forest algorithm discussed in the previous section was
+implemented and is reported in Fig. <a
+href="#fig:numericalErrorRuthForest" data-reference-type="ref"
+data-reference="fig:numericalErrorRuthForest">4</a>. Here, as expected,
+we see that the percision greatly increases when decreasing the time
+step. However, since there are four force evaluations for the for a
+single timestep, this method is naturally slower perstep than leapfrog.
+How do the two methods compare over all?</p>
+<figure id="fig:numericalErrorRuthForest">
 <img src="images/numericalErrorRuthForest.png" />
-<figcaption aria-hidden="true"></figcaption>
+<figcaption>The conservation of energy error for the Ruth-Forest
+integration scheme for the globular cluster system. This plot is similar
+to Fig. <a href="#fig:numericalErrorLeapFrogVanilla"
+data-reference-type="ref"
+data-reference="fig:numericalErrorLeapFrogVanilla">1</a>, but does not
+preesnt on the whole globular cluster system, just the average error in
+energy for the whole system with a given time step. The time step and
+time-average numerical error for the whole system is presented next to
+each curve. The average computation time per integration step per single
+object is as well.</figcaption>
 </figure>
-<figure id="fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog.png">
+<p>In Fig. <a
+href="#fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog"
+data-reference-type="ref"
+data-reference="fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog">5</a>,
+I compare the numerical error for again the total number of steps (which
+is inversely propertial to the time step). It is clear that for a given
+step size, the Ruth-forest out performs the leap frog, but is it
+actually better? To answer this question, I fit the two curves with
+their own trend lines to find the number of steps required to have a
+relative error of <span class="math inline">\(10^{-8}\)</span>. With
+this requirement, The leapfrog sceme requires 262,641 steps while the
+Ruth-Forest scheme requires 102,773 steps. However, given the difference
+in computation time per step, on average, the Forest-Ruth scheme takes
+<span class="math inline">\(\sim 1.5\)</span>x more time for the same
+degree of numerical precision than the leapfrog. For this reason, I
+general I use the leapfrog algorithm. In this problem, numerical
+uncertainties on the order are must less of a limiting factor compared
+to modeling uncertainties and observational uncertainties, so a better
+integrator for numerical precision is not worth the pay off of longer
+computation times.</p>
+<figure id="fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog">
 <img src="images/numericalErrorMeanEnergyErrorRuthForestLeapFrog.png" />
-<figcaption aria-hidden="true"></figcaption>
+<figcaption>The time averaged error in the conservation of energy for
+the entire globular cluster system for four different time steps, for
+two different integration techinques: the Leapfrog against the
+Ruth-Forest. Their respective trend lines are shown.</figcaption>
 </figure>
+<h2 id="star-particle-integration">Star particle integration</h2>
+<ul>
+<li><p>the hard part is that we have two very different dynamical
+times.</p></li>
+</ul>
   <div class="video-container">
     <video controls style="max-width: 100%;">
       <source src="videos/cluster_showing_scale_and_dynamical_time.mp4" type="video/mp4">
