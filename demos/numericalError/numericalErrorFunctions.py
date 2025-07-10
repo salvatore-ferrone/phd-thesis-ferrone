@@ -149,6 +149,24 @@ def vanilla_orbit(args):
     compTime = endtime - starttime
     return xt,yt,zt,vxt,vyt,vzt,compTime
 
+def vanilla_orbit_forest_ruth(args):
+    """ just one orbit """
+    integrationparameters,staticgalaxy,initialkinematics = args
+
+    Nsteps = int(integrationparameters[2])
+    nGCs = initialkinematics[0].shape[0]
+    tstrippy.integrator.deallocate()
+    tstrippy.integrator.setstaticgalaxy(*staticgalaxy)
+    tstrippy.integrator.setinitialkinematics(*initialkinematics)
+    tstrippy.integrator.setintegrationparameters(*integrationparameters)
+    tstrippy.integrator.setbackwardorbit()
+    starttime = datetime.datetime.now()
+    xt,yt,zt,vxt,vyt,vzt = tstrippy.integrator.ruthforestintime(Nsteps,nGCs)
+    endtime = datetime.datetime.now()
+    compTime = endtime - starttime
+    return xt,yt,zt,vxt,vyt,vzt,compTime
+
+
 def vanilla_clusters_forestRuth(args):
     """
     do the backward and forward integration of the vanilla clusters
