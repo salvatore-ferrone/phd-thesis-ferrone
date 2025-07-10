@@ -517,11 +517,11 @@ used to update the momentum. In Cartesian coordinates—used throughout
 this thesis—the leapfrog algorithm can be rewritten in terms of
 grid-aligned quantities:</p>
 <p><span class="math display">\[\begin{aligned}
-        x_{i+1} &amp;= x_i + \dot{x}_i \Delta t + \frac{1}{2}\ddot{x}_i
-\Delta t^2, \\
-        \ddot{x}_{i+1} &amp;= -\nabla \Phi(x_{i+1}), \\
-        \dot{x}_{i+1} &amp;= \dot{x}_i + \frac{1}{2}\left(\ddot{x}_i +
-\ddot{x}_{i+1}\right)\Delta t.
+        x_{i+1/2} &amp;= x_i + \frac{1}{2} \dot{x}_i \Delta t , \\
+        \ddot{x} &amp;= -\nabla \Phi(x_{i+1/2}), \\
+        \dot{x}_{i+1} &amp;= \dot{x}_i + \ddot{x} \Delta t, \\
+        x_{i+1} &amp;= x_{i+1/2} + \frac{1}{2} \dot{x}_{i+1} \Delta t.
+\\
     
 \end{aligned}\]</span> This formulation highlights how the leapfrog
 method naturally incorporates the second-order accuracy and
@@ -643,18 +643,45 @@ highlights the need for careful validation: we must verify that the
 integration errors remain within acceptable bounds, especially in
 systems with non-separable or time-dependent dynamics. This validation
 is the subject of the next section.</p>
-<h1 id="numerical-error">Numerical error</h1>
-<ul>
-<li><p>what’s the right time step?</p></li>
-<li><p>dynamical time</p></li>
-<li><p>compute the energy conservation</p></li>
-<li><p>reverse integratbility</p></li>
-<li><p>throwing outdata and then re-interpolating</p></li>
-<li><p>show some nice graphs</p></li>
-</ul>
+<h1 id="numerical-error-computation-time">Numerical Error &amp;
+Computation Time</h1>
+<p>To ensure the quality of the integration, I perform two main checks.
+The first is to ensure that the initial orbital energy of a given
+particle is conserved to high precision. At each timestep, the error in
+the energy conservation is: <span
+class="math inline">\(\mathrm{err}(E_i) = \left|\frac{E_i -
+E_0}{E_0}\right|\)</span>, where <span
+class="math inline">\(E_0\)</span> is the initial energy and <span
+class="math inline">\(E_i\)</span> is the orbital energy at the index
+for a given time step <span class="math inline">\(i\)</span>. For the
+case of just globular clusters, the orbital energy it’s own kinetic
+energy plus it’s gravitational potential energy in galaxy: <span
+class="math inline">\(E_i = T(\textbf{v}_i) +
+\Phi_{\mathrm{MW}}\left(\textbf{x}_i\right)\)</span>. For the case of a
+star-particle within a globular cluster, the potential energy of the
+cluster is included: <span class="math inline">\(E_i = T(\textbf{v}_i) +
+\Phi_{\mathrm{MW}}\left(\textbf{x}_i\right) +
+\Phi_\mathrm{GC}\left(\textbf{x}_i -
+\textbf{x}_{\mathrm{GC},i}\right)\)</span></p>
+<h2 id="globular-cluster-orbits-in-a-static-galaxy">Globular Cluster
+Orbits in a Static Galaxy</h2>
+<p>Fig. <a href="#fig:numericalErrorLeapFrogVanilla"
+data-reference-type="ref"
+data-reference="fig:numericalErrorLeapFrogVanilla">[fig:numericalErrorLeapFrogVanilla]</a>
+shows the numerical error computed for all <span
+class="math inline">\(165\)</span> globular clusters for <span
+class="math inline">\(5\)</span> Gyr, with two different time steps:
+<span class="math inline">\(10^4\)</span> and <span
+class="math inline">\(10^7\)</span> years.</p>
 <figure id="fig:numericalErrorLeapFrogVanilla.png">
 <img src="images/numericalErrorLeapFrogVanilla.png" />
-<figcaption aria-hidden="true"></figcaption>
+<figcaption>Error in orbital energy for the whole globular cluster
+system with two different time steps, dt = <span
+class="math inline">\(10^{7}\)</span> and <span
+class="math inline">\(10^{4}\)</span> years. Each cluster’s is colored
+by it’s initial orbital energy. The average of the whole system for a
+given timestep is indicated with dotted and solid black lines.
+</figcaption>
 </figure>
 <figure id="fig:numericalErrorReverseIntegration.png">
 <img src="images/numericalErrorReverseIntegration.png" />
@@ -672,9 +699,6 @@ is the subject of the next section.</p>
 <img src="images/numericalErrorMeanEnergyErrorRuthForestLeapFrog.png" />
 <figcaption aria-hidden="true"></figcaption>
 </figure>
-<h1 id="computation-time-and-data-volume">Computation time and Data
-Volume</h1>
-<p>Another important aspect of this</p>
   <div class="video-container">
     <video controls style="max-width: 100%;">
       <source src="videos/cluster_showing_scale_and_dynamical_time.mp4" type="video/mp4">
