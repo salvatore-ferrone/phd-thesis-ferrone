@@ -198,22 +198,25 @@ This chapter documents how I numerically solve the equations of motion, how I va
             \centering
             \includegraphics[width=\linewidth]{images/numericalErrorLeapFrogVanilla.png}
             \caption{Error in orbital energy for the whole globular cluster system with two different time steps, dt~=~$10^{7}$ and $10^{4}$ years. Each cluster's is colored by it's initial orbital energy. The average of the whole system for a given timestep is indicated with dotted and solid black lines. }
-            \label{fig:numericalErrorLeapFrogVanilla.png}
+            \label{fig:numericalErrorLeapFrogVanilla}
         \end{figure}
         In Fig.~\ref{fig:numericalErrorLeapFrogVanilla} we can notice that orbits with higher orbital energy in red have low numerical error compared to those with lower energy and are deeper in the potential well. It is clear that for the whole system, $10^7$~years is a time step that is far too large, however, interestingly enough, for some of the farthest globular clusters, a time step of 10 million years resolves their orbits to an error of $\langle \Delta E / E_0 \rangle \approx 10^{-5}$, which is still far less than the uncertainties in the energy due to both modeling and observational uncertainties.
     
+
+        In Fig.~\ref{fig:numericalErrorReverseIntegration}, I present the \textit{time reversibility}, or the integrator's ability to retrace it's own steps. For each given time step, I report the difference between the initial integration and the retrace normalized to the mean of the two position's. I perform the same computation for the velocities. The time step of $10^7$~yr saturates only after 2~Gyr. The distances do not continue to grow becuase the orbital energy only differs by one part in ten, so at later time steps, the cluster is still within the same region of phase-space, but the retrace is at a completely different location than the initial integration. The errors in the time step of $10^6$~yrbecome significant, though by the end of the integration period of 5~Gyr they are still only one part in ten thousand. The time steps of $10^5$ and $10^4$~yr have excellent retraceability and on average, only differ by one part in $10^{-14}$, and are thus only limited by round off error from the use of double precision floating point numbers.
         \begin{figure}
             \centering
             \includegraphics[width=\linewidth]{images/numericalErrorReverseIntegration.png}
-            \caption{}
-            \label{fig:numericalErrorReverseIntegration.png}
+            \caption{The \textit{time-reversability} of the Leapfrog scheme for the 165 Galactic globular cluster's for four different time steps indicated in the legend. The whole system is only shown for $10^4$~yr and $10^7$~yr to avoid clutter. The clusters are color-coded to their initial orbital energy just as Fig.~\ref{fig:numericalErrorLeapFrogVanilla}}
+            \label{fig:numericalErrorReverseIntegration}
         \end{figure}
 
+        Computation time is quite important. In Fig.~\ref{fig:numericalErrorGlobularClustersComputationTime}, I present the total computation time of integrating the globular cluster system, and the time of a single integration step, which is computed by normalizing the total time by the number of objects and number of steps taken: $T_{\mathrm{total}}/N_{\mathrm{GCs}}/N_{\mathrm{steps}}$. In general, the relationship is linear and the integration time per step per object is roughly constant. The downward trend presented in Fig.~\ref{fig:numericalErrorGlobularClustersComputationTime} is in part a coincidence, as some time realizations minimize this, and in part due to the overhead computation time with initializing and finalizing the calculation contributes less and less with increasing integration time. Nonetheless, for this processor, for a single integration step the mean time is $\approx$ 128~nanoseconds. 
         \begin{figure}
             \centering
             \includegraphics[width=\linewidth]{images/numericalErrorGlobularClustersComputationTime.png}
-            \caption{}
-            \label{fig:numericalErrorGlobularClustersComputationTime.png}
+            \caption{Computation time for integrating the entire globular cluster system using the leapfrog scheme. The top panel shows the total time while the bottom shows computation time for a single step, for a single object being integrated. This was performed on a 2022 MacBook Air with an Apple M2 processor. }
+            \label{fig:numericalErrorGlobularClustersComputationTime}
         \end{figure}
 
         \begin{figure}
