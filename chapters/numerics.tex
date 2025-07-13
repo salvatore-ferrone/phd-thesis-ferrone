@@ -238,21 +238,40 @@ This chapter documents how I numerically solve the equations of motion, how I va
 
     \subsection{Star particle integration}
 
-        \begin{itemize}
-            \item the hard part is that we have two very different dynamical times.
-        \end{itemize}
+        \begin{verbatim}
+        VIDEO: cluster_showing_scale_and_dynamical_time.mp4
+        \end{verbatim}
+        
+        A classic problem in astronomy and the physical sciences is that there are two different physical phenomena that are relevent to your problem but they have two very different time scales. This is the case with the globular clusters... Look at Fig.~\ref{fig:GCsystemCharacteristicTimes}. I show a couple different distirbutions.  
 
         \begin{figure}
             \centering
             \includegraphics[width=\linewidth]{images/GCsystemCharacteristicTimes.png}
-            \caption{The distribution of characteristic times... for the internal dynamics and the crossing time for each cluster}
+            \caption{The top panel shows orbital characteristic times of the globular cluster system, while the bottom panel shows internal characteristic times for three selected clusters. \textit{Top}: The red distribution shows the orbital crossing time of each cluster within the galaxy, while the blue distribution shows a characteristic internal dynamical time. \textit{Bottom}: The distribution of crossing times for 1,000 sampled star particles within the globular clusters with the smallest, median, and largest internal dynamical times. These times are inversely proportional to the clusters' densities and are computed with isotropic Plummer distributions.}
             \label{fig:GCsystemCharacteristicTimes}
         \end{figure}
 
+        
 
-        \begin{verbatim}
-        VIDEO: cluster_showing_scale_and_dynamical_time.mp4
-        \end{verbatim}
+        How do you choose the number of timesteps? 
+
+        The first is to recognize that
+
+        \begin{equation}
+            \Delta t = \frac{T}{N} = \frac{T}{2^{k-1}}
+        \end{equation}
+        where $N$ is the number of steps and $k$ is the number of intervals. $N$ must be an integer, so our criterion is that ensures the timestep is some fraction of a desired time and one that ensures $N$ properly divides the entire period into $N$-1 equal segments. Our criterion is that the timestep will be some factor $\alpha$ of the dynamical time $\tau_\mathrm{dyn}$. This criterion is thus: 
+        \begin{equation}
+            \log_2\left(\frac{T}{\alpha \tau_\mathrm{dyn}}\right) + 1 < k.
+        \end{equation}
+        The smallest number of intervals to make is thus rounding the criterion up to the nearest whole number: $\left\lceil \log_2\left(\frac{T}{\alpha \tau_\mathrm{dyn}}\right) + 1  \right\rceil$. 
+        
+        
+        Now, what is a good $\alpha$ to ensure good conservation of energy and time-reversability? From Fig.~\ref{fig:GCsystemCharacteristicTimes}, we see that the typical globular cluster has a crossing time of $5\times10^{7}~\mathrm{yr}$. From Fig.~\ref{fig:numericalErrorLeapFrogVanilla} that selecting a $\Delta t$ of $10^{4}~\mathrm{yr}$, which is $2\times 10^{-4}$ that of the crossing time, we have conserve energy with a relative error of $10^{-8}$. Then, from Fig.~\ref{fig:numericalErrorReverseIntegration}, we see that $\Delta t= 10^{5}~\mathrm{yr}$ already converges to the best we can do for time-reversability, which is $2\times10^{-3}$ the crossing-time. 
+        
+
+
+
 
 \section{Tstrippy}
 

@@ -845,21 +845,71 @@ two different integration techinques: the Leapfrog against the
 Ruth-Forest. Their respective trend lines are shown.</figcaption>
 </figure>
 <h2 id="star-particle-integration">Star particle integration</h2>
-<ul>
-<li><p>the hard part is that we have two very different dynamical
-times.</p></li>
-</ul>
-<figure id="fig:GCsystemCharacteristicTimes">
-<img src="images/GCsystemCharacteristicTimes.png" />
-<figcaption>The distribution of characteristic times... for the internal
-dynamics and the crossing time for each cluster</figcaption>
-</figure>
   <div class="video-container">
     <video controls style="max-width: 100%;">
       <source src="videos/cluster_showing_scale_and_dynamical_time.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </div>
+<p>A classic problem in astronomy and the physical sciences is that
+there are two different physical phenomena that are relevent to your
+problem but they have two very different time scales. This is the case
+with the globular clusters... Look at Fig. <a
+href="#fig:GCsystemCharacteristicTimes" data-reference-type="ref"
+data-reference="fig:GCsystemCharacteristicTimes">6</a>. I show a couple
+different distirbutions. The top</p>
+<figure id="fig:GCsystemCharacteristicTimes">
+<img src="images/GCsystemCharacteristicTimes.png" />
+<figcaption>The top panel shows orbital characteristic times of the
+globular cluster system, while the bottom panel shows internal
+characteristic times for three selected clusters. <em>Top</em>: The red
+distribution shows the orbital crossing time of each cluster within the
+galaxy, while the blue distribution shows a characteristic internal
+dynamical time — roughly, the time it takes for a star in the cluster
+core to complete an orbit. <em>Bottom</em>: The distribution of crossing
+times for 1,000 sampled star particles within the globular clusters with
+the smallest, median, and largest internal dynamical times. These times
+are inversely proportional to the clusters’ densities and are computed
+with isotropic Plummer distributions.</figcaption>
+</figure>
+<p>How do you choose the number of timesteps?</p>
+<p>The first is to recognize that</p>
+<p><span class="math display">\[\Delta t = \frac{T}{N} =
+\frac{T}{2^{k-1}}\]</span> where <span class="math inline">\(N\)</span>
+is the number of steps and <span class="math inline">\(k\)</span> is the
+number of intervals. <span class="math inline">\(N\)</span> must be an
+integer, so our criterion is that ensures the timestep is some fraction
+of a desired time and one that ensures <span
+class="math inline">\(N\)</span> properly divides the entire period into
+<span class="math inline">\(N\)</span>-1 equal segments. Our criterion
+is that the timestep will be some factor <span
+class="math inline">\(\alpha\)</span> of the dynamical time <span
+class="math inline">\(\tau_\mathrm{dyn}\)</span>. This criterion is
+thus: <span class="math display">\[\log_2\left(\frac{T}{\alpha
+\tau_\mathrm{dyn}}\right) + 1 &lt; k.\]</span> The smallest number of
+intervals to make is thus rounding the criterion up to the nearest whole
+number: <span class="math inline">\(\left\lceil
+\log_2\left(\frac{T}{\alpha \tau_\mathrm{dyn}}\right) +
+1  \right\rceil\)</span>.</p>
+<p>Now, what is a good <span class="math inline">\(\alpha\)</span> to
+ensure good conservation of energy and time-reversability? From Fig. <a
+href="#fig:GCsystemCharacteristicTimes" data-reference-type="ref"
+data-reference="fig:GCsystemCharacteristicTimes">6</a>, we see that the
+typical globular cluster has a crossing time of <span
+class="math inline">\(5\times10^{7}~\mathrm{yr}\)</span>. From Fig. <a
+href="#fig:numericalErrorLeapFrogVanilla" data-reference-type="ref"
+data-reference="fig:numericalErrorLeapFrogVanilla">1</a> that selecting
+a <span class="math inline">\(\Delta t\)</span> of <span
+class="math inline">\(10^{4}~\mathrm{yr}\)</span>, which is <span
+class="math inline">\(2\times 10^{-4}\)</span> that of the crossing
+time, we have conserve energy with a relative error of <span
+class="math inline">\(10^{-8}\)</span>. Then, from Fig. <a
+href="#fig:numericalErrorReverseIntegration" data-reference-type="ref"
+data-reference="fig:numericalErrorReverseIntegration">2</a>, we see that
+<span class="math inline">\(\Delta t= 10^{5}~\mathrm{yr}\)</span>
+already converges to the best we can do for time-reversability, which is
+<span class="math inline">\(2\times10^{-3}\)</span> the
+crossing-time.</p>
 <h1 id="tstrippy">Tstrippy</h1>
 <ul>
 <li><p>How does <code>tstrippy</code> actually work?</p></li>
