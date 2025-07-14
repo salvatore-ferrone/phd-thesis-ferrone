@@ -274,6 +274,14 @@ This chapter documents how I numerically solve the equations of motion, how I va
         Now, what is a good $\alpha$ to ensure good conservation of energy and time-reversability? From Fig.~\ref{fig:GCsystemCharacteristicTimes}, we see that the typical globular cluster has a crossing time of $5\times10^{7}~\mathrm{yr}$. From Fig.~\ref{fig:numericalErrorLeapFrogVanilla} that selecting a $\Delta t$ of $10^{4}~\mathrm{yr}$, which is $2\times 10^{-4}$ that of the crossing time, we have conserve energy with a relative error of $10^{-8}$. Then, from Fig.~\ref{fig:numericalErrorReverseIntegration}, we see that $\Delta t= 10^{5}~\mathrm{yr}$ already converges to the best we can do for time-reversability, which is $2\times10^{-3}$ the crossing-time. 
 
 
+        \begin{figure}
+            \centering
+            \includegraphics[width=\linewidth]{images/numericalErrorStaticPlummerSphereEnergyError.png}
+            \caption{Numerical error of a plummer sphere by using different timesteps that are different fractions of the internal dynamical time.}
+            \label{fig:numericalErrorStaticPlummerSphereEnergyError}
+        \end{figure}
+        
+
 
         
 
