@@ -4,6 +4,7 @@ from astropy import constants as const
 from astropy import coordinates as coord
 import tstrippy
 import numpy as np 
+import multiprocessing as mp
 
 def get_dr_dv_rmean_vmean(backwardOrbit,forwardOrbit):
     """
@@ -130,6 +131,59 @@ def vanilla_clusters(args):
     forwardOrbit   = [tForward,xForward,yForward,zForward,vxForward,vyForward,vzForward]
     return backwardOrbit,forwardOrbit,computation_time
 
+
+
+def batch_leapfrogtofinalpositions(args, nbatches, freecpu = 2 ):
+    integrationparameters,staticgalaxy,initialkinematics = args
+    NP = initialkinematics[0].shape[0]
+    ncpu = mp.cpu_count() - freecpu
+    NP_per_batch = NP // nbatches
+    assert NP_per_batch > 0, "Number of particles is too small for the number of batches"
+    args = []
+    for i in range(nbatches):
+        start = i * NP_per_batch
+        end = (i + 1) * NP_per_batch if i < nbatches - 1 else NP
+        args.append((integrationparameters, staticgalaxy, initialkinematics[:, start:end]))
+    
+    print(f"Running {nbatches} batches with {ncpu} CPUs, each with {NP_per_batch} particles")
+    with mp.Pool(ncpu) as pool:
+        results = pool.map(leapfrogtofinalpositions, args)
+    
+    # Combine the results
+    stream = np.zeros((6, NP))
+    compTime = []
+    for i, result in enumerate(results):
+        start = i * NP_per_batch
+        end = (i + 1) * NP_per_batch if i < nbatches - 1 else NP
+        stream[:, start:end] = result[0]
+        compTime.append(result[1])
+
+    return stream, compTime
+
+def leapfrogtofinalpositions(args):
+    """ Just integrate to the final positions """
+    integrationparameters,staticgalaxy,initialkinematics = args
+    tstrippy.integrator.deallocate()
+    tstrippy.integrator.setstaticgalaxy(*staticgalaxy)
+    tstrippy.integrator.setinitialkinematics(*initialkinematics)
+    tstrippy.integrator.setintegrationparameters(*integrationparameters)
+    tstrippy.integrator.setbackwardorbit()
+    starttime = datetime.datetime.now()
+    tstrippy.integrator.leapfrogtofinalpositions()
+    xf,yf,zf = tstrippy.integrator.xf.copy(), tstrippy.integrator.yf.copy(), tstrippy.integrator.zf.copy()
+    vxf,vyf,vzf = tstrippy.integrator.vxf.copy(), tstrippy.integrator.vyf.copy(), tstrippy.integrator.vzf.copy()
+    tstrippy.integrator.deallocate()
+    endtime = datetime.datetime.now()
+    compTime = endtime - starttime
+    stream = np.zeros((6, xf.shape[0]))
+    stream[0] = xf
+    stream[1] = yf
+    stream[2] = zf
+    stream[3] = vxf
+    stream[4] = vyf
+    stream[5] = vzf
+    # deallocate the integrator
+    return stream,compTime
 
 
 def vanilla_orbit(args):

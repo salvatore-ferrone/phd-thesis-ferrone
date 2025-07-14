@@ -991,6 +991,28 @@ replaced by GPU technology.</p>
 <li><p>a brief overview of how it works.</p></li>
 <li><p>how I can either save orbits or snapshots</p></li>
 </ul>
+<h2 id="parallelization">parallelization</h2>
+<p>Since all star-particles are independent from one another, they can
+be parallelized. This is <em>data</em>-parallelization, where the same
+job is being performed but the input data is changed. This is a much
+easier paradigm compared to <em>task</em>-parallelization different
+processors do different things to do the data and may need to
+communicate with one another. In this experiment, since I am simulating
+the whole globular cluster catalog and sampling the orbital
+uncertainties with monte-carlo, as explained in Chapter 5, I often times
+parallelize over different clusters.</p>
+<p>Here is an example slurm script that I use to submit all the jobs:
+XXX</p>
+<p>However, if I want to accelerate one particular computation, then I
+must split the number of particles into batches. If I run small
+simulations on my personal computer, I can take the total number of
+particles and divide by the number of desired batches. Usually, I divide
+into the number of processors that I am going to use. <span
+class="math inline">\(N_\mathrm{per~batch}=N_p//N_\mathrm{batches}\)</span>.
+However, I need to integer divide because the number of particles needs
+to be an integer. Then, with the last batch, I add the remaining
+particles, which is <span class="math inline">\(N_\mathrm{left over} =
+N_p - N_\mathrm{batches} \times N_\mathrm{per~batch}\)</span>.</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
 <div id="ref-2013A&amp;A...558A..33A" class="csl-entry" role="listitem">
