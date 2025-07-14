@@ -514,8 +514,7 @@ class="math inline">\(q_{i+1}\)</span> (denoted <span
 class="math inline">\(p_{i+1/2}\)</span>) is used to advance the
 position, and then the average force (derived from the potential) is
 used to update the momentum. In Cartesian coordinates—used throughout
-this thesis—the leapfrog algorithm can be rewritten in terms of
-grid-aligned quantities:</p>
+this thesis—the leapfrog algorithm can be written as:</p>
 <p><span class="math display">\[\begin{aligned}
         x_{i+1/2} &amp;= x_i + \frac{1}{2} \dot{x}_i \Delta t , \\
         \ddot{x} &amp;= -\nabla \Phi(x_{i+1/2}), \\
@@ -523,10 +522,7 @@ grid-aligned quantities:</p>
         x_{i+1} &amp;= x_{i+1/2} + \frac{1}{2} \dot{x}_{i+1} \Delta t.
 \\
     
-\end{aligned}\]</span> This formulation highlights how the leapfrog
-method naturally incorporates the second-order accuracy and
-time-reversibility essential for modeling gravitational systems over
-long timescales. As I will show in the next section, the leapfrog
+\end{aligned}\]</span> As I will show in the next section, the leapfrog
 algorithm is sufficient for the problems that I solve. However, the
 question of computational efficiency and numerical accuracy is ever
 present. Leapfrog uses uses the two local points about the position and
@@ -647,8 +643,8 @@ is the subject of the next section.</p>
 Computation Time</h1>
 <p>To ensure the quality of the integration, I perform two main checks.
 The first is to ensure that the initial orbital energy of a given
-particle is conserved to high precision. At each timestep, the error in
-the energy conservation is: <span
+particle is conserved to high precision. At each timestep, the relative
+error in the energy conservation is: <span
 class="math inline">\(\mathrm{err}(E_i) = \left|\frac{E_i -
 E_0}{E_0}\right|\)</span>, where <span
 class="math inline">\(E_0\)</span> is the initial energy and <span
@@ -857,7 +853,7 @@ problem but they have two very different time scales. This is the case
 with the globular clusters... Look at Fig. <a
 href="#fig:GCsystemCharacteristicTimes" data-reference-type="ref"
 data-reference="fig:GCsystemCharacteristicTimes">6</a>. I show a couple
-different distirbutions. The top</p>
+different distirbutions.</p>
 <figure id="fig:GCsystemCharacteristicTimes">
 <img src="images/GCsystemCharacteristicTimes.png" />
 <figcaption>The top panel shows orbital characteristic times of the
@@ -865,12 +861,11 @@ globular cluster system, while the bottom panel shows internal
 characteristic times for three selected clusters. <em>Top</em>: The red
 distribution shows the orbital crossing time of each cluster within the
 galaxy, while the blue distribution shows a characteristic internal
-dynamical time — roughly, the time it takes for a star in the cluster
-core to complete an orbit. <em>Bottom</em>: The distribution of crossing
-times for 1,000 sampled star particles within the globular clusters with
-the smallest, median, and largest internal dynamical times. These times
-are inversely proportional to the clusters’ densities and are computed
-with isotropic Plummer distributions.</figcaption>
+dynamical time. <em>Bottom</em>: The distribution of crossing times for
+1,000 sampled star particles within the globular clusters with the
+smallest, median, and largest internal dynamical times. These times are
+inversely proportional to the clusters’ densities and are computed with
+isotropic Plummer distributions.</figcaption>
 </figure>
 <p>How do you choose the number of timesteps?</p>
 <p>The first is to recognize that</p>
