@@ -272,6 +272,9 @@ This chapter documents how I numerically solve the equations of motion, how I va
         
         
         Now, what is a good $\alpha$ to ensure good conservation of energy and time-reversability? From Fig.~\ref{fig:GCsystemCharacteristicTimes}, we see that the typical globular cluster has a crossing time of $5\times10^{7}~\mathrm{yr}$. From Fig.~\ref{fig:numericalErrorLeapFrogVanilla} that selecting a $\Delta t$ of $10^{4}~\mathrm{yr}$, which is $2\times 10^{-4}$ that of the crossing time, we have conserve energy with a relative error of $10^{-8}$. Then, from Fig.~\ref{fig:numericalErrorReverseIntegration}, we see that $\Delta t= 10^{5}~\mathrm{yr}$ already converges to the best we can do for time-reversability, which is $2\times10^{-3}$ the crossing-time. 
+
+
+
         
 
 
@@ -301,4 +304,15 @@ This chapter documents how I numerically solve the equations of motion, how I va
         \item a brief overview of how it works. 
         \item how I can either save orbits or snapshots
     \end{itemize}
+
+
+        \subsection{parallelization}
+            Since all star-particles are independent from one another, they can be parallelized. This is \textit{data}-parallelization, where the same job is being performed but the input data is changed. This is a much easier paradigm compared to \textit{task}-parallelization different processors do different things to do the data and may need to communicate with one another. In this experiment, since I am simulating the whole globular cluster catalog and sampling the orbital uncertainties with monte-carlo, as explained in Chapter~5, I often times parallelize over different clusters. 
+            
+            
+            Here is an example slurm script that I use to submit all the jobs: XXX
+            
+            However, if I want to accelerate one particular computation, then I must split the number of particles into batches. If I run small simulations on my personal computer, I can take the total number of particles and divide by the number of desired batches. Usually, I divide into the number of processors that I am going to use. $N_\mathrm{per~batch}=N_p//N_\mathrm{batches}$. However, I need to integer divide because the number of particles needs to be an integer. Then, with the last batch, I add the remaining particles, which is $N_\mathrm{left over} = N_p - N_\mathrm{batches} \times N_\mathrm{per~batch}$. 
+
+
 
