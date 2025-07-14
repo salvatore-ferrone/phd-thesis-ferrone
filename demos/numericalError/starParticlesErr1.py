@@ -3,19 +3,21 @@ This modules contains functions to study the numerical error in the integration 
 """
 
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib as mpl
 import tstrippy
 import datetime
 import multiprocessing as mp
 
 
-
+def quick_eccentricity(x, y, z, vx, vy, vz):
+    
+    rp = np.sqrt(x**2 + y**2 + z**2)
+    v = np.sqrt(vx**2 + vy**2 + vz**2)
+    v_r = (x*vx + y*vy + z*vz) / rp
+    ecc_quick = (abs(v_r) / v)**2
+    return ecc_quick
 
 
 #### HELPER FUNCTIONS ####
-
-
 def adjust_dt_factor(alpha, tau, integrationtime):
     """
     Adjust the time step based on the dynamical time and the scaling factor.
@@ -135,15 +137,17 @@ def leapfrogintime(args):
     tstrippy.integrator.setinitialkinematics(*initialkinematics)
     tstrippy.integrator.setstaticgalaxy(*staticgalaxy)
     tstrippy.integrator.setintegrationparameters(*integrationparameters)
+    startime = datetime.datetime.now()
     xt,yt,zt,vxt,vyt,vzt=tstrippy.integrator.leapfrogintime(NSTEP,NP)
+    endtime = datetime.datetime.now()
     # also get the final positions 
     xf,yf,zf = tstrippy.integrator.xf.copy(), tstrippy.integrator.yf.copy(), tstrippy.integrator.zf.copy()
     vxf,vyf,vzf = tstrippy.integrator.vxf.copy(), tstrippy.integrator.vyf.copy(), tstrippy.integrator.vzf.copy()
     tstrippy.integrator.deallocate()
     stream_orbit = np.array([xt, yt, zt, vxt, vyt, vzt])
     stream_orbit = np.reshape(stream_orbit, (6, NP, NSTEP+1))
-    
-    return stream_orbit, np.array([xf, yf, zf, vxf, vyf, vzf])
+    comptime = (endtime - startime).total_seconds()
+    return stream_orbit, np.array([xf, yf, zf, vxf, vyf, vzf]), comptime
 
 def leapfrogtofinalpositions(args):
     """
@@ -164,12 +168,15 @@ def leapfrogtofinalpositions(args):
     tstrippy.integrator.setinitialkinematics(*initialkinematics)
     tstrippy.integrator.setstaticgalaxy(*staticgalaxy)
     tstrippy.integrator.setintegrationparameters(*integrationparameters)
+    starttime = datetime.datetime.now()
     tstrippy.integrator.leapfrogtofinalpositions()
+    endtime = datetime.datetime.now()
     xf, yf, zf = tstrippy.integrator.xf.copy(), tstrippy.integrator.yf.copy(), tstrippy.integrator.zf.copy()
     vxf, vyf, vzf = tstrippy.integrator.vxf.copy(), tstrippy.integrator.vyf.copy(), tstrippy.integrator.vzf.copy()
     tstrippy.integrator.deallocate()
     stream = np.array([xf, yf, zf, vxf, vyf, vzf])
-    return stream
+    comptime = (endtime - starttime).total_seconds()
+    return stream,comptime
 
     
 
@@ -177,9 +184,8 @@ def batch_leapfrogtofinalpositions(args, nbatches, freecpu = 2 ):
     """
     Use multiprocessing to run the leapfrog integration in batches.
     """
+    initialkinematics, staticgalaxy, integrationparameters = args
     
-    
-    integrationparameters,staticgalaxy,initialkinematics = args
     NP = initialkinematics[0].shape[0]
     ncpu = mp.cpu_count() - freecpu
     NP_per_batch = NP // nbatches
@@ -188,7 +194,7 @@ def batch_leapfrogtofinalpositions(args, nbatches, freecpu = 2 ):
     for i in range(nbatches):
         start = i * NP_per_batch
         end = (i + 1) * NP_per_batch if i < nbatches - 1 else NP
-        args.append((integrationparameters, staticgalaxy, initialkinematics[:, start:end]))
+        args.append(( initialkinematics[:, start:end], staticgalaxy, integrationparameters))
     
     print(f"Running {nbatches} batches with {ncpu} CPUs, each with {NP_per_batch} particles")
     with mp.Pool(ncpu) as pool:
@@ -204,3 +210,5 @@ def batch_leapfrogtofinalpositions(args, nbatches, freecpu = 2 ):
         compTime.append(result[1])
 
     return stream, compTime
+
+
