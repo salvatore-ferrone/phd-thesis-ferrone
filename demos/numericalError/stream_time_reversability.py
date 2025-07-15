@@ -149,6 +149,45 @@ def generate_stream_leapfrogtofinalpositions(args):
     return timestamps, hostorbit, streamfinal, tesc, comptimeorbit, comptimestream
 
 
+def leapfrogtofinalpositions_stream_retrace(args):
+    """ test the time reversibility of the leapfrog integration for the stream 
+        Give the final position of the stream and the host orbit, it will retrace the stream and return the final positions and velocities.
+        Let's see if we can get a normal plummer sphere back.
+    INPUTS:
+        initialkinematics: the initial kinematics of the stream, including the host orbit
+        staticgalaxy: the static galaxy parameters
+        integrationparameters: the integration parameters for the stream
+        inithostperturber: the initial host orbit and parameters
+    OUTPUTS:
+        stream_retrace: the final positions and velocities of the stream after retracing
+        tesc: the time of escape for the stream
+        timestamps_retrace: the timestamps of the retraced stream
+        comptime: the computation time for the retracing
+    """
+    initialkinematics, staticgalaxy, integrationparameters, inithostperturber = args
+    # flip the sign of the velocities for the host orbit 
+    inithostperturber = list(inithostperturber)  # make it mutable
+    hostorbit = inithostperturber[1]
+    hostorbit[3:6] = -hostorbit[3:6]  # flip the velocities
+    inithostperturber[1] = hostorbit
+    tstrippy.integrator.deallocate()
+    tstrippy.integrator.setintegrationparameters(*integrationparameters)
+    tstrippy.integrator.setinitialkinematics(*initialkinematics)
+    tstrippy.integrator.inithostperturber(*inithostperturber)
+    tstrippy.integrator.setstaticgalaxy(*staticgalaxy)
+    tstrippy.integrator.setbackwardorbit()
+    starttime= datetime.datetime.now()
+    tstrippy.integrator.leapfrogtofinalpositions()
+    endtime = datetime.datetime.now()
+    xf, yf, zf = tstrippy.integrator.xf.copy(), tstrippy.integrator.yf.copy(), tstrippy.integrator.zf.copy()
+    vxf, vyf, vzf = tstrippy.integrator.vxf.copy(), tstrippy.integrator.vyf.copy(), tstrippy.integrator.vzf.copy()
+    tesc = tstrippy.integrator.tesc.copy()
+    timestamps_retrace = tstrippy.integrator.timestamps.copy()
+    tstrippy.integrator.deallocate()
+    stream_retrace = np.array([xf, yf, zf, vxf, vyf, vzf])
+    comptime = (endtime - starttime).total_seconds()
+    return stream_retrace, tesc, timestamps_retrace, comptime
+
 
 
 def leapfrogtofinalpositions_stream(args):
