@@ -9,11 +9,9 @@ from astropy import constants as const
 
 
 
-
-def generate_stream(args):
+def leapfrogtofinalpositions_stream(args):
 
     initialkinematics, staticgalaxy, integrationparameters, inithostperturber = args
-
     tstrippy.integrator.deallocate()
     tstrippy.integrator.setintegrationparameters(*integrationparameters)
     tstrippy.integrator.setinitialkinematics(*initialkinematics)
