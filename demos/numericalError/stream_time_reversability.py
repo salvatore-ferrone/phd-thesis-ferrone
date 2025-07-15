@@ -7,7 +7,7 @@ from astropy import constants as const
 from astropy import coordinates as coord
 import os 
 import h5py
-
+import platform
 
 
 
@@ -100,6 +100,12 @@ def generate_stream_leapfrogtofinalpositions_and_save(args):
     timestamps, hostorbit, streamfinal, tesc, comptimeorbit, comptimestream = generate_stream_leapfrogtofinalpositions(args)
     # save the results to a file
 
+    # add more info about the processor to the attributes 
+    attrs['processor'] = platform.processor()
+    attrs['platform'] = platform.platform()
+    attrs['python_version'] = platform.python_version()
+    attrs['machine'] = platform.machine()
+    attrs['date'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with h5py.File(fname, 'w') as f:
         f.create_dataset('timestamps', data=timestamps)
         f.create_dataset('hostorbit', data=hostorbit)
