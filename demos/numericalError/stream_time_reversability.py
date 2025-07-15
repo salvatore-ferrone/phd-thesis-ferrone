@@ -15,20 +15,20 @@ def generate_stream(args):
     initialkinematics, staticgalaxy, integrationparameters, inithostperturber = args
 
     tstrippy.integrator.deallocate()
-    tstrippy.integrator.setinitialkinematics(*initialkinematics)
-    tstrippy.integrator.setstaticgalaxy(*staticgalaxy)
     tstrippy.integrator.setintegrationparameters(*integrationparameters)
-    tstrippy.integrator.setinithostperturber(*inithostperturber)
+    tstrippy.integrator.setinitialkinematics(*initialkinematics)
+    tstrippy.integrator.inithostperturber(*inithostperturber)
+    tstrippy.integrator.setstaticgalaxy(*staticgalaxy)
     starttime= datetime.datetime.now()
     tstrippy.integrator.leapfrogtofinalpositions()
     endtime = datetime.datetime.now()
     xf, yf, zf = tstrippy.integrator.xf.copy(), tstrippy.integrator.yf.copy(), tstrippy.integrator.zf.copy()
     vxf, vyf, vzf = tstrippy.integrator.vxf.copy(), tstrippy.integrator.vyf.copy(), tstrippy.integrator.vzf.copy()
-    timestamps = tstrippy.integrator.timestamps.copy()
+    tesc = tstrippy.integrator.tesc.copy()
     tstrippy.integrator.deallocate()
     stream = np.array([xf, yf, zf, vxf, vyf, vzf])
     comptime = (endtime - starttime).total_seconds()
-    return stream, timestamps, comptime
+    return stream, tesc, comptime
 
 
 def integrate_host_orbit_back(args):    
