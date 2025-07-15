@@ -17,8 +17,8 @@ tidalTensorImages/
 
 # Ignore Jupyter Notebook checkpoints
 notebooks/.ipynb_checkpoints/
-/simulations/
-/simulations/*.hdf5
+# ignore the simulation outputs 
+simulations/
 scrapnotebooks/
 
 demos/frames/
