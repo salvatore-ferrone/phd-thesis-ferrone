@@ -2,15 +2,139 @@ import numpy as np
 import tstrippy
 import datetime
 import multiprocessing as mp
-import numericalErrorFunctions as NEF
 from astropy import units as u
-from astropy.coordinates import SkyCoord
 from astropy import constants as const
+from astropy import coordinates as coord
+import os 
+import h5py
+
+
+
+
+def experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas, comp_time_single_step_estimate=80e-9,
+                                               freecpu=2):
+    
+    assert len(NPs) == len(alphas), "NPs and alphas must have the same length"
+    assert len(NPs) > 0, "NPs must not be empty"
+
+    assert isinstance(targetGC, str), "targetGC must be a string"
+
+    assert isinstance(NPs, (list, np.ndarray)), "NPs must be a list or numpy array"
+    assert all(isinstance(n, (int, np.integer)) for n in NPs), "All NPs must be integers"
+
+    # make the longer computations happen first 
+    NPs = np.sort(NPs)[::-1]
+    # make alphas ascending 
+    alphas = np.sort(alphas)
+
+    # get the static galaxy, which doesn't change 
+    MWparams = tstrippy.Parsers.pouliasis2017pii()
+    staticgalaxy = ['pouliasis2017pii', MWparams]
+
+
+    # Extract the GC initial conditions 
+    GCdata=tstrippy.Parsers.baumgardtMWGCs().data
+    GCindex = np.where(GCdata['Cluster'] == targetGC)[0][0]
+    Mass = GCdata['Mass'][GCindex].value
+    rhm = GCdata['rh_m'][GCindex].value
+    aplum = tstrippy.ergodic.convertHalfMassRadiusToPlummerRadius(rhm)
+    G = MWparams[0]
+    tau=plummer_dynamical_time([G,Mass,rhm])
+    clusterinitialkinematics = pick_GC_get_kinematics(targetGC)    
+    currenttime=0
+
+    # PREPARE THE ARGUMENTS FOR EACH SIMULATION 
+    
+    # we want to make sure the same sphere is used for each simulation with the same particle number
+    streamInitialKinematics = {}
+    for i in range(len(NPs)):
+        streamInitialKinematics[i] = np.array(tstrippy.ergodic.isotropicplummer(G, Mass, rhm, NPs[i]))
+    
+    integrationparameters = {}
+    NSTEPS = []
+    for i in range(len(alphas)):
+        integrationparameters[i] = prepare_integration_arguments(
+            currenttime=currenttime,
+            integrationtime=integrationtime,
+            tdyn=tau,
+            alpha=alphas[i])
+        NSTEPS.append(integrationparameters[i][-1])    
+
+    attrs = {
+    "GCname": targetGC,
+    "Note": "An experiment testing the scaling of the computation for integrating the most typical GC"}
+    # make into a 1D array for multiprocessing
+    hostparams = [G, Mass, aplum]
+    arguments = []
+    for i in range(len(NPs)):
+        for j in range(len(alphas)):
+            args = (staticgalaxy, integrationparameters[j], clusterinitialkinematics, hostparams, streamInitialKinematics[i], attrs)
+            arguments.append(args)
+
+    # make the pool of workers
+    ncpus = mp.cpu_count() - freecpu
+    print(f"Using {ncpus} CPUs for the computation")
+    pool = mp.Pool(ncpus)
+    # run the simulations in parallel
+    starttime = datetime.datetime.now()
+    pool.map(generate_stream_leapfrogtofinalpositions_and_save, arguments)
+    endtime = datetime.datetime.now()
+    print(f"All computations finished in {endtime - starttime} seconds")
+
+    return None
+
+
+    
+def generate_stream_leapfrogtofinalpositions_and_save(args):
+    mystaticgalaxy, myintegrationparameters, myclusterinitialkinematics, myhostsparams, myinitialstream, attrs=args
+    args = (mystaticgalaxy, myintegrationparameters, myclusterinitialkinematics, myhostsparams, myinitialstream)
+    NP = len(myinitialstream[0])
+    Nsteps = myintegrationparameters[-1]
+    fname = "./simulations/{:s}_stream_NSTEPS_{:d}_NP_{:d}_comp_time_experiment.hdf5".format(attrs['GCname'], Nsteps, NP)
+    
+    if os.path.exists(fname):
+        print(f"File {fname} already exists, skipping simulation.")
+        return fname
+
+    print(f"Running simulation for {attrs['GCname']} with Nsteps={Nsteps} and NP={NP}")
+    timestamps, hostorbit, streamfinal, tesc, comptimeorbit, comptimestream = generate_stream_leapfrogtofinalpositions(args)
+    # save the results to a file
+
+    with h5py.File(fname, 'w') as f:
+        f.create_dataset('timestamps', data=timestamps)
+        f.create_dataset('hostorbit', data=hostorbit)
+        f.create_dataset('streaminitial', data=myinitialstream)
+        f.create_dataset('streamfinal', data=streamfinal)
+        f.create_dataset('tesc', data=tesc)
+        f.create_dataset('comptimeorbit', data=comptimeorbit)
+        f.create_dataset('comptimestream', data=comptimestream)
+
+        # save the attributes
+        for key, value in attrs.items():
+            f.attrs[key] = value
+
+        # more attributes 
+        f.attrs['potentialname'] = mystaticgalaxy[0]
+        f.attrs['potentialparams'] = mystaticgalaxy[1]
+        f.attrs['hostparams'] = myhostsparams
+        f.attrs['integrationparameters'] = myintegrationparameters
+
+    print(f"Saved results to {fname}")
+
+
+def generate_stream_leapfrogtofinalpositions(args):
+    mystaticgalaxy, myintegrationparameters, myclusterinitialkinematics, myhostsparams, myinitialstream=args
+    hostorbit, timestamps, comptimeorbit = integrate_host_orbit_back([myclusterinitialkinematics, mystaticgalaxy, myintegrationparameters,])
+    initialkinematics = myinitialstream + hostorbit[:,0][:,np.newaxis] # shift to the host's initial position 
+    inithostperturber = [timestamps, *hostorbit, *myhostsparams ] # package the host orbit and parameters
+    integrationparameters_stream = [timestamps[0], *myintegrationparameters[1:]]
+    streamfinal,tesc,comptimestream = leapfrogtofinalpositions_stream([initialkinematics, mystaticgalaxy, integrationparameters_stream, inithostperturber])
+    return timestamps, hostorbit, streamfinal, tesc, comptimeorbit, comptimestream
+
 
 
 
 def leapfrogtofinalpositions_stream(args):
-
     initialkinematics, staticgalaxy, integrationparameters, inithostperturber = args
     tstrippy.integrator.deallocate()
     tstrippy.integrator.setintegrationparameters(*integrationparameters)
@@ -104,7 +228,7 @@ def pick_GC_get_kinematics(GCname):
     MWrefframe = tstrippy.Parsers.MWreferenceframe()
     GCdata=tstrippy.Parsers.baumgardtMWGCs().data
     GCindex = np.where(GCdata['Cluster'] == GCname)[0][0]
-    x,y,z,vx,vy,vz  = NEF.load_globular_clusters_in_galactic_coordinates(MWrefframe)
+    x,y,z,vx,vy,vz  = load_globular_clusters_in_galactic_coordinates(MWrefframe)
     xGC, yGC, zGC = x[GCindex], y[GCindex], z[GCindex]
     vxGC, vyGC, vzGC = vx[GCindex], vy[GCindex],vz[GCindex]
     initialkinematics = [[xGC], [yGC], [zGC], [vxGC], [vyGC], [vzGC]]
@@ -180,3 +304,13 @@ def loadunits():
     unitG=u.Unit(unitbasis['G'])
     G = const.G.to(unitG).value
     return unitT, unitV, unitD, unitM, unitG, G
+
+
+if __name__ == "__main__":
+    # Example usage
+    targetGC = 'NGC6760'
+    integrationtime = 1  # in dynamical time units
+    NPs = np.logspace(1,3,3, dtype=int)  # number of particles for the stream
+    alphas = np.logspace(1,-2,3)
+    
+    experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas)
