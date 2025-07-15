@@ -11,7 +11,7 @@ import platform
 
 
 
-def experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas, comp_time_single_step_estimate=80e-9,
+def experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas, comp_time_single_step_estimate=5000e-9,
                                                freecpu=2):
     
     assert len(NPs) == len(alphas), "NPs and alphas must have the same length"
@@ -70,10 +70,11 @@ def experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, a
         for j in range(len(alphas)):
             args = (staticgalaxy, integrationparameters[j], clusterinitialkinematics, hostparams, streamInitialKinematics[i], attrs)
             arguments.append(args)
+            expected_comptime = NSTEPS[j] * comp_time_single_step_estimate * NPs[i]
+            print(f"Expected computation time for NPs={NPs[i]}, NSTEPS={NSTEPS[j]}: {expected_comptime:.2f} seconds")
 
     # make the pool of workers
     ncpus = mp.cpu_count() - freecpu
-    print(f"Using {ncpus} CPUs for the computation")
     pool = mp.Pool(ncpus)
     # run the simulations in parallel
     starttime = datetime.datetime.now()
@@ -96,7 +97,7 @@ def generate_stream_leapfrogtofinalpositions_and_save(args):
         print(f"File {fname} already exists, skipping simulation.")
         return fname
 
-    print(f"Running simulation for {attrs['GCname']} with Nsteps={Nsteps} and NP={NP}")
+
     timestamps, hostorbit, streamfinal, tesc, comptimeorbit, comptimestream = generate_stream_leapfrogtofinalpositions(args)
     # save the results to a file
 
@@ -185,7 +186,6 @@ def integrate_host_orbit_back(args):
     endtime = datetime.datetime.now()
     comptime = endtime - startime
     comptime = comptime.total_seconds()
-    print("integration time: ", endtime - startime)
     xt, yt, zt = xt[0], yt[0], zt[0]
     vxt, vyt, vzt = vxt[0], vyt[0], vzt[0]
     # flip the sign of the velocities to get the forward orbit
@@ -314,9 +314,11 @@ def loadunits():
 
 if __name__ == "__main__":
     # Example usage
-    targetGC = 'NGC6760'
+    targetGC = 'NGC6760' # the weighted "most typical GC in the MW" by internal dynamical time and crossing time
+    targetGC = 'Pal5'
     integrationtime = 1  # in dynamical time units
-    NPs = np.logspace(1,3,3, dtype=int)  # number of particles for the stream
-    alphas = np.logspace(1,-2,3)
+    NPs = np.logspace(1,3.5,4)  # number of particles for the stream
+    NPs = np.array([int(np.floor(n)) for n in NPs],dtype=int)  # ensure they are integers
+    alphas = np.logspace(1,-2.5,4)
     
     experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas)
