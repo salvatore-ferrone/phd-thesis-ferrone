@@ -11,8 +11,18 @@ import platform
 
 
 
-def experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas, comp_time_single_step_estimate=5000e-9,
-                                               freecpu=2):
+def experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas, comp_time_single_step_estimate=5000e-9,freecpu=2):
+
+    """ 
+    This experiment is designed to test the scaling of the computation time for integrating the most typical globular cluster in the Milky Way.
+    Given a globular cluster, and an integration time, it will compute the stream and record how long it takes.
+    This experiment will run in parallel for different numbers of particles and different time step scaling factors.
+    The bottle neck of the program is basically the largest number of particles, and the largest time step scaling factor.
+    The time step scaling factor is the fraction of the dynamical time that is used to compute
+    the time step for the leapfrog integration.
+    Doing it in parallel is a bit of a joke because the load balancing is horrible by design. 
+    But that's ok, we're here to profile a code the speed. 
+    """
     
     assert len(NPs) == len(alphas), "NPs and alphas must have the same length"
     assert len(NPs) > 0, "NPs must not be empty"
@@ -314,10 +324,10 @@ def loadunits():
 
 if __name__ == "__main__":
     # Example usage
-    targetGC = 'NGC6760' # the weighted "most typical GC in the MW" by internal dynamical time and crossing time
     targetGC = 'Pal5'
+    targetGC = 'NGC6760' # the weighted "most typical GC in the MW" by internal dynamical time and crossing time
     integrationtime = 1  # in dynamical time units
-    NPs = np.logspace(1,3.5,4)  # number of particles for the stream
+    NPs = np.logspace(1,3.8,4)  # number of particles for the stream
     NPs = np.array([int(np.floor(n)) for n in NPs],dtype=int)  # ensure they are integers
     alphas = np.logspace(1,-2.5,4)
     
