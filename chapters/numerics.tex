@@ -290,6 +290,18 @@ This chapter documents how I numerically solve the equations of motion, how I va
         Secondly, given the physics of the problem discussed in section~\ref{sec:collisionalDynamics}, the dissolution of a globular cluster is not a time-reversable process. However, I am not modeling the disruption process with diffusion coefficients, nor with N-body simulations that are highly caotic. Since this is a gravity only simulation and the Eq.XXX are time-reversable, barring numerical error, my simulations should be reversable. 
 
         An example of time-reversability and energy conservation for the creation of a stream is shown in Fig.~\ref{fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420}. First, we note that the energy conservation doesn't change as a function of time (\textbf{I checked this. Doesn't seem to be an error, maybe just low particle number. I don't think that it should be exact.}). The time step was selected based on the two criteria described in the previous section; i.e. that it is a divisor of the total integration time and is less than some desired factor of the internal dynical time: $\tau = \sqrt{\frac{a^3}{GM}}$.  
+
+
+        \textbf{There was an error. I did good to keep checking it out.}
+
+
+        \begin{figure}
+            \centering
+            \includegraphics[width=\linewidth]{images/NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311.png}
+            \caption{The center of mass of NGC6171~5 was integrated back in time by 1~$\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}$. A plummer sphere was sampled with 464 particles an placed about this position and is labeled ``Initial'' in the figure. This sphere was integrated forward to create the ``Stream''. The relative error of the conservation of energy is distributed in the right panel. The stream was then integrated backward in time by 1~$\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}$ and is labeled with ``Retrace''. The time step was selected as a fraction of the internal dynamical time scale, $\tau$. }
+            \label{/Users/sferrone/repos/phd-thesis-ferrone/images/NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311}
+        \end{figure}
+
         \begin{figure}
             \centering
             \includegraphics[width=\linewidth]{images/NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420.png}
