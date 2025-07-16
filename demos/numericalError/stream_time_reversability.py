@@ -8,10 +8,10 @@ from astropy import coordinates as coord
 import os 
 import h5py
 import platform
-
+import sys
 outdirbase="/scratch2/sferrone/simulations/Stream/"
 
-def experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas, comp_time_single_step_estimate=5000e-9,freecpu=2):
+def experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas, comp_time_single_step_estimate=5000e-9,ncpus = 6):
 
     """ 
     This experiment is designed to test the scaling of the computation time for integrating the most typical globular cluster in the Milky Way.
@@ -84,7 +84,6 @@ def experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, a
             print(f"Expected computation time for NPs={NPs[i]}, NSTEPS={NSTEPS[j]}: {expected_comptime:.2f} seconds")
 
     # make the pool of workers
-    ncpus = mp.cpu_count() - freecpu
     pool = mp.Pool(ncpus)
     # run the simulations in parallel
     starttime = datetime.datetime.now()
@@ -383,10 +382,12 @@ def loadunits():
 
 if __name__ == "__main__":
     # Example usage
-    targetGC = 'NGC6760' # the weighted "most typical GC in the MW" by internal dynamical time and crossing time
-    targetGC = 'NGC6218'
-    targetGC = 'NGC6934'
-    targetGC = 'NGC6171'
+    # targetGC = 'NGC6760' # the weighted "most typical GC in the MW" by internal dynamical time and crossing time
+    # targetGC = 'NGC6218'
+    # targetGC = 'NGC6934'
+    # targetGC = 'NGC6171'
+
+    targetGC = sys.argv[1] 
     integrationtime = 1  # in dynamical time units
     NPs = np.logspace(1,2,2)  # number of particles for the stream
     NPs = np.array([int(np.floor(n)) for n in NPs],dtype=int)  # ensure they are integers
