@@ -24,7 +24,7 @@ def experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, a
     But that's ok, we're here to profile a code the speed. 
     """
     
-    assert len(NPs) == len(alphas), "NPs and alphas must have the same length"
+
     assert len(NPs) > 0, "NPs must not be empty"
 
     assert isinstance(targetGC, str), "targetGC must be a string"
@@ -389,8 +389,8 @@ if __name__ == "__main__":
 
     targetGC = sys.argv[1] 
     integrationtime = 1  # in dynamical time units
-    NPs = np.logspace(1,2,2)  # number of particles for the stream
+    NPs = np.logspace(1,4,4)  # number of particles for the stream
     NPs = np.array([int(np.floor(n)) for n in NPs],dtype=int)  # ensure they are integers
-    alphas = np.logspace(0,-2,2)
+    alphas = np.logspace(0,-3,4)
     
     experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas)
