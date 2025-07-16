@@ -108,7 +108,8 @@ def generate_stream_leapfrogtofinalpositions_and_save(args):
         return fname
 
 
-    timestamps, hostorbit, streamfinal, tesc, comptimeorbit, comptimestream = generate_stream_leapfrogtofinalpositions(args)
+    timestamps, timestamps_stream, hostorbit, streamfinal, tesc, comptimeorbit, comptimestream = generate_stream_leapfrogtofinalpositions(args)
+
     # save the results to a file
 
     # add more info about the processor to the attributes 
@@ -119,6 +120,7 @@ def generate_stream_leapfrogtofinalpositions_and_save(args):
     attrs['date'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with h5py.File(fname, 'w') as f:
         f.create_dataset('timestamps', data=timestamps)
+        f.create_dataset('timestamps_stream', data=timestamps_stream)
         f.create_dataset('hostorbit', data=hostorbit)
         f.create_dataset('streaminitial', data=myinitialstream)
         f.create_dataset('streamfinal', data=streamfinal)
@@ -141,12 +143,22 @@ def generate_stream_leapfrogtofinalpositions_and_save(args):
 
 def generate_stream_leapfrogtofinalpositions(args):
     mystaticgalaxy, myintegrationparameters, myclusterinitialkinematics, myhostsparams, myinitialstream=args
+
+    # DOUBLE THE TIMESTEPS FOR THE PERTURBER SO WE CAN GET THE POSITIONS AT THE INTERMEDIATE TIMESTEPS FOR UPDATING THE FORCE IN THE VELOCITIES:
+    myintegrationparameters = list(myintegrationparameters)  # make it mutable
+    NSTEPS_particles = myintegrationparameters[-1]
+    NSTEPS_HOST = int(NSTEPS_particles * 2) 
+    dt_PARTICLES = myintegrationparameters[1]  # time step for the particles
+    dt_HOST = dt_PARTICLES / 2  # halve the time step for the host orbit
+    myintegrationparameters[1] = dt_HOST
+    myintegrationparameters[-1] = NSTEPS_HOST  # update the number of steps for
     hostorbit, timestamps, comptimeorbit = integrate_host_orbit_back([myclusterinitialkinematics, mystaticgalaxy, myintegrationparameters,])
     initialkinematics = myinitialstream + hostorbit[:,0][:,np.newaxis] # shift to the host's initial position 
     inithostperturber = [timestamps, *hostorbit, *myhostsparams ] # package the host orbit and parameters
-    integrationparameters_stream = [timestamps[0], *myintegrationparameters[1:]]
-    streamfinal,tesc,comptimestream = leapfrogtofinalpositions_stream([initialkinematics, mystaticgalaxy, integrationparameters_stream, inithostperturber])
-    return timestamps, hostorbit, streamfinal, tesc, comptimeorbit, comptimestream
+    integrationparameters_stream = [timestamps[0], dt_PARTICLES, NSTEPS_particles]  # integration parameters for the stream
+    
+    streamfinal, tesc, timestamps_stream, comptimestream= leapfrogtofinalpositions_stream([initialkinematics, mystaticgalaxy, integrationparameters_stream, inithostperturber])
+    return timestamps, timestamps_stream, hostorbit, streamfinal, tesc, comptimeorbit, comptimestream
 
 
 def leapfrogtofinalpositions_stream_retrace(args):
@@ -203,10 +215,11 @@ def leapfrogtofinalpositions_stream(args):
     xf, yf, zf = tstrippy.integrator.xf.copy(), tstrippy.integrator.yf.copy(), tstrippy.integrator.zf.copy()
     vxf, vyf, vzf = tstrippy.integrator.vxf.copy(), tstrippy.integrator.vyf.copy(), tstrippy.integrator.vzf.copy()
     tesc = tstrippy.integrator.tesc.copy()
+    timestamps = tstrippy.integrator.timestamps.copy()
     tstrippy.integrator.deallocate()
     stream = np.array([xf, yf, zf, vxf, vyf, vzf])
     comptime = (endtime - starttime).total_seconds()
-    return stream, tesc, comptime
+    return stream, tesc, timestamps, comptime
 
 
 def integrate_host_orbit_back(args):    
@@ -363,10 +376,12 @@ def loadunits():
 
 if __name__ == "__main__":
     # Example usage
-    targetGC = 'Pal5'
     targetGC = 'NGC6760' # the weighted "most typical GC in the MW" by internal dynamical time and crossing time
+    targetGC = 'NGC6218'
+    targetGC = 'NGC6934'
+    targetGC = 'NGC6171'
     integrationtime = 1  # in dynamical time units
-    NPs = np.logspace(1,3.8,4)  # number of particles for the stream
+    NPs = np.logspace(1,2.4,4)  # number of particles for the stream
     NPs = np.array([int(np.floor(n)) for n in NPs],dtype=int)  # ensure they are integers
     alphas = np.logspace(1,-2.5,4)
     
