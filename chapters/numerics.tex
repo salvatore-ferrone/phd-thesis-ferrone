@@ -296,7 +296,7 @@ This chapter documents how I numerically solve the equations of motion, how I va
             \caption{The center of mass of Palomar~5 was integrated back in time by 1~$\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}$. A plummer sphere was sampled with 464 particles an placed about this position and is labeled ``Initial'' in the figure. This sphere was integrated forward to create the ``Stream''. The relative error of the conservation of energy is distributed in the right panel. The stream was then integrated backward in time by 1~$\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}$ and is labeled with ``Retrace''. The time step was selected as a fraction of the internal dynamical time scale, $\tau$. }
             \label{fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420}
         \end{figure}
-        Interestingly, the energy conservation for the same timestep is much worse than a plummer sphere in isolation. By inspecting Fig.~\ref{fig:numericalErrorStaticPlummerSphereEnergyError}, we would expect a median relative error on the order of $10^{-8}$, yet in Fig.~\ref{fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420}, we observe an error on the order of $10^{-4}$.
+        Interestingly, the energy conservation for the same timestep is much worse than a plummer sphere in isolation. By inspecting Fig.~\ref{fig:numericalErrorStaticPlummerSphereEnergyError}, we would expect a median relative error on the order of $10^{-8}$, yet in Fig.~\ref{fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420}, we observe an error on the order of $10^{-4}$. \textbf{Why is this the case? It makes sense to me, our equations of motion are more complicated}.
 
 
         \begin{figure}
