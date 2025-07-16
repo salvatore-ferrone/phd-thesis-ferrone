@@ -920,18 +920,89 @@ already converges to the best we can do for time-reversability, which is
 crossing-time.</p>
 <figure id="fig:numericalErrorStaticPlummerSphereEnergyError">
 <img src="images/numericalErrorStaticPlummerSphereEnergyError.png" />
-<figcaption>Numerical error of a plummer sphere by using different
-timesteps that are different fractions of the internal dynamical
-time.</figcaption>
+<figcaption>The relative error of the energy conservation for a plummer
+sphere with different time steps. Each sphere was sampled with a the
+same number of particles, <span class="math inline">\(N\)</span>, and
+integrated for the same amount of time, <span
+class="math inline">\(T\)</span>, both of which are indicated on the
+plot. The x-axis is the size of the time-step, <span
+class="math inline">\(\alpha\)</span>, which is the fraction of the
+internal dynamical time, <span class="math inline">\(\tau =
+\sqrt{\frac{a^3}{GM}}\)</span>. </figcaption>
 </figure>
+<h2 id="star-particles-in-the-galaxy">Star-particles in the galaxy</h2>
+<p>The sections above investigate the numerical stability of integrating
+the orbits of globular clusters within the galaxy through investigating
+the time-reversability as well as the relative error of the conservation
+of energy while investigating two different integration schemes: the
+leap-frog and the forest-ruth method. Additionally, I considering the
+computational cost associated with different resolutions. In this
+section, I piece them together, as the goal of this thesis is indeed
+modeling the mass loss of globular clusters through the restricted three
+body problem.</p>
+<p>To begin, in this section I do not investigate the Forest-Ruth
+method. This because at each timestep, I need to know the position of
+the <em>host</em>, or the center of mass of the target globular cluster.
+The Ruth-Forest method would require knowing the position of the cluster
+at the mini-steps about the main temporal grid. The current design of
+the code does not allow for such an easy implementation, and the options
+available to me would be to either integrate the globular cluster
+simultaneously with the star particles, or save the mini-time steps.
+Given the results from Fig. <a
+href="#fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog"
+data-reference-type="ref"
+data-reference="fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog">5</a>,
+this is not necessary as the leapfrog is more than adequate for our
+purposes.</p>
+<p>Secondly, given the physics of the problem discussed in section <a
+href="#sec:collisionalDynamics" data-reference-type="ref"
+data-reference="sec:collisionalDynamics">[sec:collisionalDynamics]</a>,
+the dissolution of a globular cluster is not a time-reversable process.
+However, I am not modeling the disruption process with diffusion
+coefficients, nor with N-body simulations that are highly caotic. Since
+this is a gravity only simulation and the Eq.XXX are time-reversable,
+barring numerical error, my simulations should be reversable.</p>
+<p>An example of time-reversability and energy conservation for the
+creation of a stream is shown in Fig. <a
+href="#fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">8</a>.
+First, we note that the energy conservation doesn’t change as a function
+of time (<strong>I checked this. Doesn’t seem to be an error, maybe just
+low particle number. I don’t think that it should be exact.</strong>).
+The time step was selected based on the two criteria described in the
+previous section; i.e. that it is a divisor of the total integration
+time and is less than some desired factor of the internal dynical time:
+<span class="math inline">\(\tau = \sqrt{\frac{a^3}{GM}}\)</span>.</p>
 <figure
-id="fig:images/NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">
+id="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">
 <img
 src="images/NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420.png" />
-<figcaption>The time-reversability of a cluster in our simulations. Not
-perfect but good enough, particularly when considering the computational
-cost.</figcaption>
+<figcaption>The center of mass of Palomar 5 was integrated back in time
+by 1 <span
+class="math inline">\(\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}\)</span>.
+A plummer sphere was sampled with 464 particles an placed about this
+position and is labeled “Initial” in the figure. This sphere was
+integrated forward to create the “Stream”. The relative error of the
+conservation of energy is distributed in the right panel. The stream was
+then integrated backward in time by 1 <span
+class="math inline">\(\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}\)</span>
+and is labeled with “Retrace”. The time step was selected as a fraction
+of the internal dynamical time scale, <span
+class="math inline">\(\tau\)</span>. </figcaption>
 </figure>
+<p>Interestingly, the energy conservation for the same timestep is much
+worse than a plummer sphere in isolation. By inspecting Fig. <a
+href="#fig:numericalErrorStaticPlummerSphereEnergyError"
+data-reference-type="ref"
+data-reference="fig:numericalErrorStaticPlummerSphereEnergyError">7</a>,
+we would expect a median relative error on the order of <span
+class="math inline">\(10^{-8}\)</span>, yet in Fig. <a
+href="#fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">8</a>,
+we observe an error on the order of <span
+class="math inline">\(10^{-4}\)</span>.</p>
 <figure id="fig:NumericalErrorComputationTimeScalingForStreams">
 <img src="images/NumericalErrorComputationTimeScalingForStreams.png" />
 <figcaption>How the computation scale time scales with the number of
