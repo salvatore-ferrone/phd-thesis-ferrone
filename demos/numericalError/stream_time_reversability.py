@@ -9,7 +9,7 @@ import os
 import h5py
 import platform
 
-
+outdirbase="/scratch2/sferrone/simulations/Stream/"
 
 def experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas, comp_time_single_step_estimate=5000e-9,freecpu=2):
 
@@ -101,7 +101,14 @@ def generate_stream_leapfrogtofinalpositions_and_save(args):
     args = (mystaticgalaxy, myintegrationparameters, myclusterinitialkinematics, myhostsparams, myinitialstream)
     NP = len(myinitialstream[0])
     Nsteps = myintegrationparameters[-1]
-    fname = "./simulations/{:s}_stream_NSTEPS_{:d}_NP_{:d}_comp_time_experiment.hdf5".format(attrs['GCname'], Nsteps, NP)
+    dirextension = "{:s}/numericalErrorExperiment/".format(mystaticgalaxy[0])
+    fname= outdirbase + dirextension
+    if not os.path.exists(fname):
+        os.makedirs(fname, exist_ok=True)
+    
+    fname_base = "{:s}_stream_NSTEPS_{:d}_NP_{:d}_comp_time_experiment.hdf5".format(attrs['GCname'], Nsteps, NP)
+     
+    fname = outdirbase + dirextension + fname_base
     
     if os.path.exists(fname):
         print(f"File {fname} already exists, skipping simulation.")
@@ -381,8 +388,8 @@ if __name__ == "__main__":
     targetGC = 'NGC6934'
     targetGC = 'NGC6171'
     integrationtime = 1  # in dynamical time units
-    NPs = np.logspace(1,2.4,4)  # number of particles for the stream
+    NPs = np.logspace(1,2,2)  # number of particles for the stream
     NPs = np.array([int(np.floor(n)) for n in NPs],dtype=int)  # ensure they are integers
-    alphas = np.logspace(1,-2.5,4)
+    alphas = np.logspace(0,-2,2)
     
     experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas)
