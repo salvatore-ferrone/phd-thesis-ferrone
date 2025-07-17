@@ -297,7 +297,17 @@ This chapter documents how I numerically solve the equations of motion, how I va
 
         \begin{figure}
             \centering
-            \includegraphics[width=\linewidth]{images/NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311.png}
+            \includegraphics[width=\linewidth]{images/NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155.png}
+            \includegraphics[width=\linewidth]{images/NumericalErrorStreamRetrace_NGC6171_Nsteps_131072_stepsPerTau_38.png}
+            \caption{The center of mass of NGC6171 was integrated back in time by 1~$\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}$. A plummer sphere was sampled with 464 particles an placed about this position and is labeled ``Initial'' in the figure. This sphere was integrated forward to create the ``Stream''. The relative error of the conservation of energy is distributed in the right panel. The stream was then integrated backward in time by 1~$\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}$ and is labeled with ``Retrace''. The time step was selected as a fraction of the internal dynamical time scale, $\tau$. }
+            \label{fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311}
+        \end{figure}
+
+
+            \begin{figure}
+            \centering
+            \includegraphics[width=\linewidth]{images/NumericalErrorStreamRetrace_NGC6171_Nsteps_16384_stepsPerTau_4.png}
+            \includegraphics[width=\linewidth]{images/NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1.png}
             \caption{The center of mass of NGC6171 was integrated back in time by 1~$\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}$. A plummer sphere was sampled with 464 particles an placed about this position and is labeled ``Initial'' in the figure. This sphere was integrated forward to create the ``Stream''. The relative error of the conservation of energy is distributed in the right panel. The stream was then integrated backward in time by 1~$\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}$ and is labeled with ``Retrace''. The time step was selected as a fraction of the internal dynamical time scale, $\tau$. }
             \label{fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311}
         \end{figure}
