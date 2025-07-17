@@ -29,7 +29,7 @@ def compute_stream_energy(MWparams,hostparams,hostkinematics,stream):
     return phiMW, phiHost, T
 
 # EXPERIMENTS 
-def experiment_stream_retrace(GCname, alphas, NP=int(512), integrationtime=1, comp_time_single_step_estimate=90e-8):
+def experiment_stream_retrace(args):
 
     """ 
     This experiment is designed to test the scaling of the computation time for integrating the most typical globular cluster in the Milky Way.
@@ -41,11 +41,13 @@ def experiment_stream_retrace(GCname, alphas, NP=int(512), integrationtime=1, co
     Doing it in parallel is a bit of a joke because the load balancing is horrible by design. 
     But that's ok, we're here to profile a code the speed. 
     """
+    GCname, alphas, NP=args
+
+    integrationtime=1
+    comp_time_single_step_estimate=90e-8
 
 
-
-
-    assert isinstance(targetGC, str), "targetGC must be a string"
+    assert isinstance(GCname, str), "targetGC must be a string"
 
 
     # print the estimated computation time for each simulation
@@ -64,7 +66,7 @@ def experiment_stream_retrace(GCname, alphas, NP=int(512), integrationtime=1, co
     aplum = tstrippy.ergodic.convertHalfMassRadiusToPlummerRadius(rhm)
     tau = plummer_dynamical_time([G, M, aplum])
     hostparams= [G, M, aplum]
-    attrs = {'GCname': GCname,"note": "experiment to get the conservation of energy in a stream retrace",}
+    attrs = {'GCname': str(GCname),"note": "experiment to get the conservation of energy in a stream retrace",}
     initialstream           =   tstrippy.ergodic.isotropicplummer(G,M,rhm,NP)
     
     for i in range(len(alphas)):
@@ -222,7 +224,17 @@ def generate_stream_retrace_stream_leapfrogtofinalpositions_and_save(args):
 
         # save the attributes
         for key, value in attrs.items():
-            f.attrs[key] = value
+            try :
+                f.attrs[key] = value
+            except TypeError as e:
+                print(f"Could not save attribute {key} with value {value}: {e}")
+                # handle the case where the value is not serializable
+                if isinstance(value, np.ndarray):
+                    f.create_dataset(key, data=value)
+                else:
+                    # save as a string or some other format
+                    continue
+
 
         # more attributes 
         f.attrs['potentialname'] = mystaticgalaxy[0]
@@ -550,9 +562,16 @@ if __name__ == "__main__":
         experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas)
 
     if DO_experiment_stream_retrace:
-        targetGC = sys.argv[1] 
+        # targetGC = sys.argv[1] 
         alphas = np.logspace(0,-2,4)
         NP = 512
         integrationtime = 1  # in dynamical time units
         comp_time_single_step_estimate = 90e-8  # estimated computation time for a single step
-        experiment_stream_retrace(targetGC, alphas, NP, integrationtime, comp_time_single_step_estimate)
+        GCnames = np.loadtxt("GCnames.txt", dtype=str)  # load the GC names from a file
+        # multiprocessing to run the experiments in parallel
+        ncpus = 6
+        with mp.Pool(ncpus) as pool:
+            args = [(GCname, alphas, NP) for GCname in GCnames]
+            pool.map(experiment_stream_retrace, args)
+
+        # experiment_stream_retrace(targetGC, alphas, NP, integrationtime, comp_time_single_step_estimate)
