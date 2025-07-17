@@ -318,6 +318,7 @@ This chapter documents how I numerically solve the equations of motion, how I va
             \centering 
             \includegraphics[width=\linewidth]{images/NumericalErrorStreamRetraceEnergyConservation.png}
             \caption{How the conservation of energy for the RETRACE scales with the number of steps and $\alpha = \Delta t/ \tau$. }
+            \label{fig:NumericalErrorStreamRetraceEnergyConservation}
         \end{figure}
 
         Interestingly, the energy conservation for the same timestep is much worse than a plummer sphere in isolation. By inspecting Fig.~\ref{fig:numericalErrorStaticPlummerSphereEnergyError}, we would expect a median relative error on the order of $10^{-8}$, yet in Fig.~\ref{fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420}, we observe an error on the order of $10^{-4}$. \textbf{Why is this the case? It makes sense to me, our equations of motion are more complicated}.
@@ -330,7 +331,7 @@ This chapter documents how I numerically solve the equations of motion, how I va
             \label{fig:NumericalErrorComputationTimeScalingForStreams}
         \end{figure}
 
-
+        Putting Fig.~\ref{fig:NumericalErrorStreamRetraceEnergyConservation} and Fig.~\ref{fig:NumericalErrorComputationTimeScalingForStreams} together, we get some good estimate for how long it completes to run these simulations. If we want all simualtions to have error better relative error on the retraced conservation of energy than about 10^{-3}, then we must pick time steps that are smaller than about 1/20 of the dynamical time. With this criteria selected, we can compute the number of time steps necessary for each globular cluster, which is a function of it's internal dynamical time. By doing so, I find that the fastest cluster can be computed in $\sim$~30~minutes. The median computation time is $\sim$17~hours. The largest computation time was $\sim$~5~days. The total CPU time for the whole catalog is $\sim$~194~days. 
 
         \subsubsection{A note on non-symplectic integration}
 
@@ -358,7 +359,7 @@ This chapter documents how I numerically solve the equations of motion, how I va
 
         As a result of this discovery, I updated the \texttt{tstrippy} code to warn users if the host orbit is not sampled at $2N + 1$ points, where $N$ is the number of integration steps. While the flawed implementation breaks strict symplecticity for the internal cluster dynamics, the leapfrog integration for the globular cluster orbits was still used correctly. This ensures that the cluster center of mass returns to its present-day sky position and that stars outside the cluster follow accurate galactic orbits. Ultimately, the simplification of using a static Plummer sphere—whose mass and size remain fixed—is a greater limitation than this particular numerical error.
 
-        Lastly, I discovered this error while writing about the Forest–Ruth integration method. To implement this scheme correctly, I would need to know the position of the globular cluster’s center of mass at four intermediate points across two time steps, with the spacing determined by the coefficients in Table~\ref{tab:forest_ruth_coeffs}. This would require either storing additional mini-time-step data or interpolating the globular cluster's trajectory between saved snapshots. Both options would necessitate a substantial refactoring of the code or an impractical increase in memory usage per orbit. Given the results shown in Fig.~\ref{fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog}, the gain in accuracy does not justify the computational cost.
+        Lastly, I discovered this error while writing about the Forest-Ruth integration method. To implement this scheme correctly, I would need to know the position of the globular cluster’s center of mass at four intermediate points across two time steps, with the spacing determined by the coefficients in Table~\ref{tab:forest_ruth_coeffs}. This would require either storing additional mini-time-step data or interpolating the globular cluster's trajectory between saved snapshots. Both options would necessitate a substantial refactoring of the code or an impractical increase in memory usage per orbit. Given the results shown in Fig.~\ref{fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog}, the gain in accuracy does not justify the computational cost.
 
 
 

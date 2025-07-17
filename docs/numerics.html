@@ -966,7 +966,7 @@ barring numerical error, my simulations should be reversable.</p>
 creation of a stream is shown in Fig. <a
 href="#fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">11</a>.
+data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">12</a>.
 First, we note that the energy conservation doesn’t change as a function
 of time (<strong>I checked this. Doesn’t seem to be an error, maybe just
 low particle number. I don’t think that it should be exact.</strong>).
@@ -1016,7 +1016,7 @@ and is labeled with “Retrace”. The time step was selected as a fraction
 of the internal dynamical time scale, <span
 class="math inline">\(\tau\)</span>. </figcaption>
 </figure>
-<figure>
+<figure id="fig:NumericalErrorStreamRetraceEnergyConservation">
 <img src="images/NumericalErrorStreamRetraceEnergyConservation.png" />
 <figcaption>How the conservation of energy for the RETRACE scales with
 the number of steps and <span class="math inline">\(\alpha = \Delta t/
@@ -1031,7 +1031,7 @@ we would expect a median relative error on the order of <span
 class="math inline">\(10^{-8}\)</span>, yet in Fig. <a
 href="#fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">11</a>,
+data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">12</a>,
 we observe an error on the order of <span
 class="math inline">\(10^{-4}\)</span>. <strong>Why is this the case? It
 makes sense to me, our equations of motion are more
@@ -1041,6 +1041,26 @@ complicated</strong>.</p>
 <figcaption>How the computation scale time scales with the number of
 particles and the number of steps taken.</figcaption>
 </figure>
+<p>Putting Fig. <a
+href="#fig:NumericalErrorStreamRetraceEnergyConservation"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorStreamRetraceEnergyConservation">10</a>
+and Fig. <a href="#fig:NumericalErrorComputationTimeScalingForStreams"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorComputationTimeScalingForStreams">11</a>
+together, we get some good estimate for how long it completes to run
+these simulations. If we want all simualtions to have error better
+relative error on the retraced conservation of energy than about
+10^<span>-3</span>, then we must pick time steps that are smaller than
+about 1/20 of the dynamical time. With this criteria selected, we can
+compute the number of time steps necessary for each globular cluster,
+which is a function of it’s internal dynamical time. By doing so, I find
+that the fastest cluster can be computed in <span
+class="math inline">\(\sim\)</span> 30 minutes. The median computation
+time is <span class="math inline">\(\sim\)</span>17 hours. The largest
+computation time was <span class="math inline">\(\sim\)</span> 5 days.
+The total CPU time for the whole catalog is <span
+class="math inline">\(\sim\)</span> 130 days.</p>
 <h3 id="a-note-on-non-symplectic-integration">A note on non-symplectic
 integration</h3>
 <p>During the writing of this thesis, I discovered a bug in my code that
@@ -1066,7 +1086,7 @@ data-cites="2023A&amp;A...673A..44F">Ferrone et al. (2023)</span> and
 we can compare Figs. <a
 href="#fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">11</a>
+data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">12</a>
 and <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311"
 data-reference-type="ref"
@@ -1074,7 +1094,7 @@ data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerT
 In Fig. <a
 href="#fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">11</a>,
+data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">12</a>,
 the same retracing experiment was performed, but using the flawed
 integration: the host orbit was only provided at the same grid points as
 the stream. In the left panel, we see that the globular cluster does not
@@ -1116,7 +1136,7 @@ outside the cluster follow accurate galactic orbits. Ultimately, the
 simplification of using a static Plummer sphere—whose mass and size
 remain fixed—is a greater limitation than this particular numerical
 error.</p>
-<p>Lastly, I discovered this error while writing about the Forest–Ruth
+<p>Lastly, I discovered this error while writing about the Forest-Ruth
 integration method. To implement this scheme correctly, I would need to
 know the position of the globular cluster’s center of mass at four
 intermediate points across two time steps, with the spacing determined
