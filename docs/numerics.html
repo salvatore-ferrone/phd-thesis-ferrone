@@ -966,7 +966,7 @@ barring numerical error, my simulations should be reversable.</p>
 creation of a stream is shown in Fig. <a
 href="#fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">9</a>.
+data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">10</a>.
 First, we note that the energy conservation doesn’t change as a function
 of time (<strong>I checked this. Doesn’t seem to be an error, maybe just
 low particle number. I don’t think that it should be exact.</strong>).
@@ -977,28 +977,11 @@ time and is less than some desired factor of the internal dynical time:
 <p><strong>There was an error. I did good to keep checking it
 out.</strong></p>
 <figure
-id="/Users/sferrone/repos/phd-thesis-ferrone/images/NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311">
+id="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311">
 <img
 src="images/NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311.png" />
-<figcaption>The center of mass of NGC6171 5 was integrated back in time
-by 1 <span
-class="math inline">\(\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}\)</span>.
-A plummer sphere was sampled with 464 particles an placed about this
-position and is labeled “Initial” in the figure. This sphere was
-integrated forward to create the “Stream”. The relative error of the
-conservation of energy is distributed in the right panel. The stream was
-then integrated backward in time by 1 <span
-class="math inline">\(\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}\)</span>
-and is labeled with “Retrace”. The time step was selected as a fraction
-of the internal dynamical time scale, <span
-class="math inline">\(\tau\)</span>. </figcaption>
-</figure>
-<figure
-id="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">
-<img
-src="images/NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420.png" />
-<figcaption>The center of mass of Palomar 5 was integrated back in time
-by 1 <span
+<figcaption>The center of mass of NGC6171 was integrated back in time by
+1 <span
 class="math inline">\(\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}\)</span>.
 A plummer sphere was sampled with 464 particles an placed about this
 position and is labeled “Initial” in the figure. This sphere was
@@ -1019,7 +1002,7 @@ we would expect a median relative error on the order of <span
 class="math inline">\(10^{-8}\)</span>, yet in Fig. <a
 href="#fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">9</a>,
+data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">10</a>,
 we observe an error on the order of <span
 class="math inline">\(10^{-4}\)</span>. <strong>Why is this the case? It
 makes sense to me, our equations of motion are more
@@ -1029,6 +1012,96 @@ complicated</strong>.</p>
 <figcaption>How the computation scale time scales with the number of
 particles and the number of steps taken.</figcaption>
 </figure>
+<h3 id="a-note-on-non-symplectic-integration">A note on non-symplectic
+integration</h3>
+<p>During the writing of this thesis, I discovered a bug in my code that
+affected the integration scheme. Specifically, the error concerned the
+way I handled the host orbit during the integration of the star
+particles. In earlier implementations, I would integrate the orbit of
+the host using the same time step that I used later to integrate the
+orbits of the star particles. However, this approach violated the
+structure of the leapfrog integration scheme.</p>
+<p>In Hamiltonian integration, it is essential that the drift and kick
+steps alternate in a consistent manner. Since I implemented a
+<em>drift</em>-<em>kick</em>-<em>drift</em> (DKD) scheme, the kicks
+occur at the midpoint of each time step, meaning that forces should be
+evaluated at intermediate positions. Previously, I erroneously computed
+the relative position vector as <span class="math display">\[\Delta
+\vec{r}_i = \vec{r}_{p,i+1/2} - \vec{r}_\mathrm{GC,i},\]</span> instead
+of the correct expression: <span class="math display">\[\Delta \vec{r}_i
+= \vec{r}_{p,i+1/2} - \vec{r}_\mathrm{GC,i+1/2}.\]</span></p>
+<p>This mistake appeared in both <span class="citation"
+data-cites="2023A&amp;A...673A..44F">Ferrone et al. (2023)</span> and
+<span class="citation" data-cites="2025arXiv250203941F">Ferrone et al.
+(2025)</span>. Does this invalidate our results? To assess the impact,
+we can compare Figs. <a
+href="#fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">10</a>
+and <a
+href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311">8</a>.
+In Fig. <a
+href="#fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">10</a>,
+the same retracing experiment was performed, but using the flawed
+integration: the host orbit was only provided at the same grid points as
+the stream. In the left panel, we see that the globular cluster does not
+perfectly re-coalesce when integrating backward in time, but the result
+is not catastrophic. Physically, we do not expect this process to be
+perfectly time-reversible; however, such irreversibility should ideally
+arise from physical modeling, not from numerical artifacts.</p>
+<p>We also observe that the distribution of the relative error in energy
+conservation is nearly identical between the retraced and the original
+stream. In any case, once the stars move beyond the Jacobi radius, their
+dynamics are dominated by the galactic potential. Since this potential
+was integrated correctly and symplectically, the orbits of stars outside
+the cluster remain reliable and physically meaningful.</p>
+<figure
+id="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">
+<img
+src="images/NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420.png" />
+<figcaption>An illustration of how an incorrect integration scheme
+breaks time reversibility. The center of mass of Palomar 5 was
+integrated backward in time by 1 <span
+class="math inline">\(\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}\)</span>.
+A Plummer sphere with 464 particles was sampled around this position
+(labeled “Initial”), then integrated forward to produce the “Stream.”
+The right panel shows the distribution of relative energy error. The
+stream was then integrated backward in time by the same amount,
+resulting in the “Retrace” configuration. The time step was chosen as a
+fraction of the internal dynamical timescale, <span
+class="math inline">\(\tau\)</span>.</figcaption>
+</figure>
+<p>As a result of this discovery, I updated the <code>tstrippy</code>
+code to warn users if the host orbit is not sampled at <span
+class="math inline">\(2N + 1\)</span> points, where <span
+class="math inline">\(N\)</span> is the number of integration steps.
+While the flawed implementation breaks strict symplecticity for the
+internal cluster dynamics, the leapfrog integration for the globular
+cluster orbits was still used correctly. This ensures that the cluster
+center of mass returns to its present-day sky position and that stars
+outside the cluster follow accurate galactic orbits. Ultimately, the
+simplification of using a static Plummer sphere—whose mass and size
+remain fixed—is a greater limitation than this particular numerical
+error.</p>
+<p>Lastly, I discovered this error while writing about the Forest–Ruth
+integration method. To implement this scheme correctly, I would need to
+know the position of the globular cluster’s center of mass at four
+intermediate points across two time steps, with the spacing determined
+by the coefficients in Table <a href="#tab:forest_ruth_coeffs"
+data-reference-type="ref" data-reference="tab:forest_ruth_coeffs">2</a>.
+This would require either storing additional mini-time-step data or
+interpolating the globular cluster’s trajectory between saved snapshots.
+Both options would necessitate a substantial refactoring of the code or
+an impractical increase in memory usage per orbit. Given the results
+shown in Fig. <a
+href="#fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog"
+data-reference-type="ref"
+data-reference="fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog">5</a>,
+the gain in accuracy does not justify the computational cost.</p>
 <h1 id="tstrippy">Tstrippy</h1>
 <ul>
 <li><p>How does <code>tstrippy</code> actually work?</p></li>
@@ -1155,6 +1228,22 @@ Princeton, NJ: Princeton University Press.
 ———. 2015. <span>“<span class="nocase">galpy: A python Library for
 Galactic Dynamics</span>”</span> 216 (2): 29. <a
 href="https://doi.org/10.1088/0067-0049/216/2/29">https://doi.org/10.1088/0067-0049/216/2/29</a>.
+</div>
+<div id="ref-2023A&amp;A...673A..44F" class="csl-entry" role="listitem">
+Ferrone, Salvatore, Paola Di Matteo, Alessandra Mastrobuono-Battisti,
+Misha Haywood, Owain N. Snaith, Marco Montuori, Sergey Khoperskov, and
+David Valls-Gabaud. 2023. <span>“<span class="nocase">The e-TidalGCs
+project. Modeling the extra-tidal features generated by Galactic
+globular clusters</span>”</span> 673 (May):A44. <a
+href="https://doi.org/10.1051/0004-6361/202244141">https://doi.org/10.1051/0004-6361/202244141</a>.
+</div>
+<div id="ref-2025arXiv250203941F" class="csl-entry" role="listitem">
+Ferrone, Salvatore, Marco Montuori, Paola Di Matteo, Alessandra
+Mastrobuono-Battisti, Rodrigo Ibata, Paolo Bianchini, Sergey Khoperskov,
+et al. 2025. <span>“<span class="nocase">Gaps in stellar streams as a
+result of globular cluster fly-bys</span>.”</span> <em>arXiv
+e-Prints</em>, February, arXiv:2502.03941. <a
+href="https://doi.org/10.48550/arXiv.2502.03941">https://doi.org/10.48550/arXiv.2502.03941</a>.
 </div>
 <div id="ref-1990PhyD...43..105F" class="csl-entry" role="listitem">
 Forest, Etienne, and Ronald D. Ruth. 1990. <span>“<span
