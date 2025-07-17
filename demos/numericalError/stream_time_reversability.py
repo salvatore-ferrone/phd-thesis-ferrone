@@ -9,7 +9,9 @@ import os
 import h5py
 import platform
 import sys
+
 outdirbase="/scratch2/sferrone/simulations/Stream/"
+outdirbase="./simulations/"
 
 
 # ANALYSIS FUNCTIONS 
@@ -27,6 +29,61 @@ def compute_stream_energy(MWparams,hostparams,hostkinematics,stream):
     return phiMW, phiHost, T
 
 # EXPERIMENTS 
+def experiment_stream_retrace(GCname, alphas, NP=int(512), integrationtime=1, comp_time_single_step_estimate=90e-8):
+
+    """ 
+    This experiment is designed to test the scaling of the computation time for integrating the most typical globular cluster in the Milky Way.
+    Given a globular cluster, and an integration time, it will compute the stream and record how long it takes.
+    This experiment will run in parallel for different numbers of particles and different time step scaling factors.
+    The bottle neck of the program is basically the largest number of particles, and the largest time step scaling factor.
+    The time step scaling factor is the fraction of the dynamical time that is used to compute
+    the time step for the leapfrog integration.
+    Doing it in parallel is a bit of a joke because the load balancing is horrible by design. 
+    But that's ok, we're here to profile a code the speed. 
+    """
+
+
+
+
+    assert isinstance(targetGC, str), "targetGC must be a string"
+
+
+    # print the estimated computation time for each simulation
+    A = 4/3 
+    B = 0.95
+
+    # make alphas descending, do fast computations first
+    alphas = np.sort(alphas)[::-1]
+
+    # get the static galaxy, which doesn't change 
+    MWparams = tstrippy.Parsers.pouliasis2017pii()
+    staticgalaxy = ["pouliasis2017pii", MWparams ]
+    currenttime = 0 
+    clusterinitialkinematics = pick_GC_get_kinematics(GCname)
+    G, M, rhm = load_hostparams(GCname)
+    aplum = tstrippy.ergodic.convertHalfMassRadiusToPlummerRadius(rhm)
+    tau = plummer_dynamical_time([G, M, aplum])
+    hostparams= [G, M, aplum]
+    attrs = {'GCname': GCname,"note": "experiment to get the conservation of energy in a stream retrace",}
+    initialstream           =   tstrippy.ergodic.isotropicplummer(G,M,rhm,NP)
+    
+    for i in range(len(alphas)):
+        alpha = alphas[i]
+        integrationparameters   =   prepare_integration_arguments(currenttime=currenttime, integrationtime=integrationtime, tdyn=tau, alpha=alpha)
+        NSTEPS = integrationparameters[-1]
+        expected_time = comp_time_single_step_estimate * NP**(A) * NSTEPS ** B
+        print(f"Expected computation time for {GCname} NPs={NP}, NSTEPS={NSTEPS}, alpha={alpha}: {expected_time:.2f} seconds")
+        args=staticgalaxy, integrationparameters, clusterinitialkinematics, hostparams, initialstream, attrs
+        generate_stream_retrace_stream_leapfrogtofinalpositions_and_save(args)
+
+
+
+    
+
+
+
+    return None
+
 def experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas, comp_time_single_step_estimate=5000e-9,ncpus = 6):
 
     """ 
@@ -113,6 +170,68 @@ def experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, a
 
 
 ##### DIFFERENT WAYS TO CREATE DATA  
+def generate_stream_retrace_stream_leapfrogtofinalpositions_and_save(args):
+    
+    mystaticgalaxy, myintegrationparameters, myclusterinitialkinematics, myhostsparams, myinitialstream, attrs=args
+    
+    args = (mystaticgalaxy, myintegrationparameters, myclusterinitialkinematics, myhostsparams, myinitialstream)
+    
+    NP = len(myinitialstream[0])
+    Nsteps = myintegrationparameters[-1]
+    dirextension = "{:s}/numericalErrorExperiment/".format(mystaticgalaxy[0])
+    fname= outdirbase + dirextension
+    if not os.path.exists(fname):
+        os.makedirs(fname, exist_ok=True)
+    
+    fname_base = "{:s}_stream_NSTEPS_{:d}_NP_{:d}_retrace.hdf5".format(attrs['GCname'], Nsteps, NP)
+     
+    fname = outdirbase + dirextension + fname_base
+    
+    if os.path.exists(fname):
+        print(f"File {fname} already exists, skipping simulation.")
+        return fname
+
+
+    timestamps, timestamps_stream, hostorbit, streamfinal, tesc, comptimeorbit, comptimestream = generate_stream_leapfrogtofinalpositions(args)
+    # now retrace the stream
+    inithostperturber = [timestamps, *hostorbit, *myhostsparams]
+    
+    args = streamfinal, mystaticgalaxy, myintegrationparameters, inithostperturber
+    
+    stream_retrace, _, _, comptimeretrace = leapfrogtofinalpositions_stream_retrace(args)
+
+    # save the results to a file
+
+    # add more info about the processor to the attributes 
+    attrs['processor'] = platform.processor()
+    attrs['platform'] = platform.platform()
+    attrs['python_version'] = platform.python_version()
+    attrs['machine'] = platform.machine()
+    attrs['date'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with h5py.File(fname, 'w') as f:
+        f.create_dataset('timestamps', data=timestamps)
+        f.create_dataset('timestamps_stream', data=timestamps_stream)
+        f.create_dataset('hostorbit', data=hostorbit)
+        f.create_dataset('streaminitial', data=myinitialstream)
+        f.create_dataset('streamfinal', data=streamfinal)
+        f.create_dataset('stream_retrace', data=stream_retrace)
+        f.create_dataset('tesc', data=tesc)
+        f.create_dataset('comptimeorbit', data=comptimeorbit)
+        f.create_dataset('comptimestream', data=comptimestream)
+        f.create_dataset('comptimeretrace', data=comptimeretrace)
+
+        # save the attributes
+        for key, value in attrs.items():
+            f.attrs[key] = value
+
+        # more attributes 
+        f.attrs['potentialname'] = mystaticgalaxy[0]
+        f.attrs['potentialparams'] = mystaticgalaxy[1]
+        f.attrs['hostparams'] = myhostsparams
+        f.attrs['integrationparameters'] = myintegrationparameters
+
+    print(f"Saved results to {fname} in {comptimeretrace+comptimeorbit+comptimestream} seconds")
+
 def generate_stream_leapfrogtofinalpositions_and_save(args):
     mystaticgalaxy, myintegrationparameters, myclusterinitialkinematics, myhostsparams, myinitialstream, attrs=args
     args = (mystaticgalaxy, myintegrationparameters, myclusterinitialkinematics, myhostsparams, myinitialstream)
@@ -315,6 +434,17 @@ def adjust_dt_factor(alpha, tau, integrationtime):
     return alpha_adjusted, NSTEP
 
 
+def load_hostparams(targetGC):
+    # get the static galaxy, which doesn't change 
+    MWparams = tstrippy.Parsers.pouliasis2017pii()
+    # Extract the GC initial conditions 
+    GCdata=tstrippy.Parsers.baumgardtMWGCs().data
+    GCindex = np.where(GCdata['Cluster'] == targetGC)[0][0]
+    Mass = GCdata['Mass'][GCindex].value
+    rhm = GCdata['rh_m'][GCindex].value
+    G = MWparams[0]
+    return G, Mass, rhm
+
 def pick_GC_get_kinematics(GCname):
     """
     Function to pick a globular cluster by name.
@@ -408,10 +538,21 @@ if __name__ == "__main__":
     # targetGC = 'NGC6934'
     # targetGC = 'NGC6171'
 
-    targetGC = sys.argv[1] 
-    integrationtime = 1  # in dynamical time units
-    NPs = np.logspace(1,4,4)  # number of particles for the stream
-    NPs = np.array([int(np.floor(n)) for n in NPs],dtype=int)  # ensure they are integers
-    alphas = np.logspace(0,-3,4)
+    DO_experiment_stream_computation_time_scaling = False
+    DO_experiment_stream_retrace = True 
     
-    experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas)
+    if DO_experiment_stream_computation_time_scaling:
+        targetGC = sys.argv[1] 
+        integrationtime = 1  # in dynamical time units
+        NPs = np.logspace(1,4,4)  # number of particles for the stream
+        NPs = np.array([int(np.floor(n)) for n in NPs],dtype=int)  # ensure they are integers
+        alphas = np.logspace(0,-3,4)
+        experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas)
+
+    if DO_experiment_stream_retrace:
+        targetGC = sys.argv[1] 
+        alphas = np.logspace(0,-2,4)
+        NP = 512
+        integrationtime = 1  # in dynamical time units
+        comp_time_single_step_estimate = 90e-8  # estimated computation time for a single step
+        experiment_stream_retrace(targetGC, alphas, NP, integrationtime, comp_time_single_step_estimate)
