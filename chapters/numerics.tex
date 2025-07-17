@@ -313,6 +313,13 @@ This chapter documents how I numerically solve the equations of motion, how I va
         \end{figure}
 
 
+
+        \begin{figure}
+            \centering 
+            \includegraphics[width=\linewidth]{images/NumericalErrorStreamRetraceEnergyConservation.png}
+            \caption{How the conservation of energy for the RETRACE scales with the number of steps and $\alpha = \Delta t/ \tau$. }
+        \end{figure}
+
         Interestingly, the energy conservation for the same timestep is much worse than a plummer sphere in isolation. By inspecting Fig.~\ref{fig:numericalErrorStaticPlummerSphereEnergyError}, we would expect a median relative error on the order of $10^{-8}$, yet in Fig.~\ref{fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420}, we observe an error on the order of $10^{-4}$. \textbf{Why is this the case? It makes sense to me, our equations of motion are more complicated}.
 
 
