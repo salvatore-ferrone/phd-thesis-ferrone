@@ -11,6 +11,22 @@ import platform
 import sys
 outdirbase="/scratch2/sferrone/simulations/Stream/"
 
+
+# ANALYSIS FUNCTIONS 
+def compute_stream_energy(MWparams,hostparams,hostkinematics,stream):
+    """
+    Compute the energy of the stream given the static galaxy potential and host kinematics.
+    """
+    # get the potential in the MW 
+    _,_,_,phiMW = tstrippy.potentials.pouliasis2017pii(MWparams, stream[0], stream[1], stream[2])
+    # get the total kinetic energy 
+    T = 0.5 * (stream[3]**2 + stream[4]**2 + stream[5]**2)
+    # get the distance to the host
+    dx,dy,dz = stream[0] - hostkinematics[0], stream[1] - hostkinematics[1], stream[2] - hostkinematics[2]
+    _,_,_,phiHost = tstrippy.potentials.plummer(hostparams, dx, dy, dz)
+    return phiMW, phiHost, T
+
+# EXPERIMENTS 
 def experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, alphas, comp_time_single_step_estimate=5000e-9,ncpus = 6):
 
     """ 
@@ -94,7 +110,9 @@ def experiment_stream_computation_time_scaling(targetGC, integrationtime, NPs, a
     return None
 
 
-    
+
+
+##### DIFFERENT WAYS TO CREATE DATA  
 def generate_stream_leapfrogtofinalpositions_and_save(args):
     mystaticgalaxy, myintegrationparameters, myclusterinitialkinematics, myhostsparams, myinitialstream, attrs=args
     args = (mystaticgalaxy, myintegrationparameters, myclusterinitialkinematics, myhostsparams, myinitialstream)
@@ -207,7 +225,6 @@ def leapfrogtofinalpositions_stream_retrace(args):
     return stream_retrace, tesc, timestamps_retrace, comptime
 
 
-
 def leapfrogtofinalpositions_stream(args):
     initialkinematics, staticgalaxy, integrationparameters, inithostperturber = args
     tstrippy.integrator.deallocate()
@@ -265,6 +282,9 @@ def integrate_host_orbit_back(args):
     tstrippy.integrator.deallocate()
     return orbit, timestamps, comptime
 
+
+
+### HELPER FUNCTIONS
 def adjust_dt_factor(alpha, tau, integrationtime):
     """
     Adjust the time step based on the dynamical time and the scaling factor.
@@ -350,6 +370,7 @@ def prepare_integration_arguments(currenttime,integrationtime,tdyn,alpha):
     dt = alpha_adjusted * tdyn
 
     return currenttime, dt, NSTEP
+
 
 def load_globular_clusters_in_galactic_coordinates(MWrefframe):
     """Extract all initial conditions of the globular clusters and transform them the MW frame"""
