@@ -1092,11 +1092,11 @@ data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">[fig:en
 <p>This discrepancy of roughly three orders of magnitude implies that
 the intrinsic energy spread from the initial Plummer sampling is about
 <span class="math inline">\(10^{-3}\)</span> times the absolute orbital
-energy. However, since we are examining the energy *relative to each
-particle’s initial value*—which is small—the observed fractional
+energy. However, since we are examining the energy relative to each
+particle’s initial value—which is small—the observed fractional
 differences cluster around <span class="math inline">\(\sim
 10^{-1}\)</span>, consistent with what we measure in the stream. Thus,
-the apparent energy "error" reflects not integration drift but the
+the apparent energy “error” reflects not integration drift but the
 physical energy distribution inherited from the initial conditions.</p>
 <p>Fig. <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
@@ -1106,18 +1106,76 @@ data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTa
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1"
 data-reference-type="ref"
 data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1">9</a>
-demonstrate the case of a single cluster. What about the whole
-catalog?</p>
+demonstrate the case of a single cluster. How is the energy conservation
+for the entire catalog? In Fig. <a
+href="#fig:NumericalErrorStreamRetraceEnergyConservation"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorStreamRetraceEnergyConservation">10</a>
+I present the realtive error in the conservation of energy for retracing
+the orbit of each individual star particle per globular cluster for each
+cluster in the catalog. Each data point reports the mean error in the
+conservation of energy. Each cluster was integrated for 5 Gyr. The upper
+limits for the timesteps were sampeld logarithmically between <span
+class="math inline">\(10^{0}\)</span> and <span
+class="math inline">\(10^{-2}\)</span>.</p>
+<p>From inspecting Fig. <a
+href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">8</a>,
+a time step less than <span
+class="math inline">\(3\times10^{-2}~\tau\)</span> is great for
+retracing the orbit of each star particle and even <span
+class="math inline">\(2\times10^{-1}~\tau\)</span> isn’t horrible. This
+would place the retrace energy conservation between <span
+class="math inline">\(10^{-5}-10^{-3}\)</span> on average per
+system.</p>
 <figure id="fig:NumericalErrorStreamRetraceEnergyConservation">
 <img src="images/NumericalErrorStreamRetraceEnergyConservation.png" />
 <figcaption>The conservation of energy for the retrace of each globular
-cluster in the catalog. Each cluster was sampled with Np and integrated
-for 5 Gyr. Four timestep thresholds were logarithmically sampled between
-<span class="math inline">\(10^{0}\)</span> and <span
+cluster in the catalog. Each cluster was sampled with 512 particles and
+integrated for 5 Gyr. Four upper thresholds for each time step were
+logarithmically sampled between <span
+class="math inline">\(10^{0}\)</span> and <span
 class="math inline">\(10^{-2}\)</span>, and selected individually for
 each cluster in combination with it’s internal dynamical time that
 evenly divided the integration time. </figcaption>
 </figure>
+<p>The quality of the solutions is fundamental for proper results.
+However, computation time and cost is also very important. The spirit of
+choosing to solve the restricted three body problem instead of modeling
+the system as an N body for a faster computation. With N body, the
+computation time should scale with <span
+class="math inline">\(N_p^2\)</span>, while for the restricted three
+body problem it should scale with <span
+class="math inline">\(N_p\)</span>. For both, it should scale linearly
+with the number of integration steps.</p>
+<p>How does <span class="math inline">\(tstrippy\)</span> perform? In
+Fig. <a href="#fig:NumericalErrorComputationTimeScalingForStreams"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorComputationTimeScalingForStreams">11</a>,
+I launched an experiment with all the globular clusters integrating them
+each for 1 Gyr. I choose the timestep to be at most 1/20 of each
+internal dynamical time, thus since each cluster has a different
+dynamical time, it will require a different number of steps. For each of
+these tests I use <span
+class="math inline">\(10^1,~10^2,~10^2,~10^3\)</span> particles and
+launched them on cluster at the paris observatory. Then, I fit a scaling
+law of <span class="math inline">\(C(N_p,N_s) = \langle C\rangle N_p^a
+N_s^b\)</span>. If the code scales linearly, then each exponent, <span
+class="math inline">\(a,~b\)</span>, should be 1 and <span
+class="math inline">\(\langle C\rangle\)</span> would be the mean
+computation time.</p>
+<p>Fig <a href="#fig:NumericalErrorComputationTimeScalingForStreams"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorComputationTimeScalingForStreams">11</a>
+shows that the code is <em>less</em> efficient than linear scaling with
+number of particles, since the best fit exponent is <span
+class="math inline">\(1.35\)</span>. However, it scales <em>better</em>
+than linear with the number of steps. Perhaps this can be explained by
+the fact that there is overhead time involved for initiating and ending
+each simulation. Is there are more steps, this overhead time gets
+proportionally smaller. Since the power law has an exponent of <span
+class="math inline">\(0.95\)</span>, the overhead is marginal.</p>
 <figure id="fig:NumericalErrorComputationTimeScalingForStreams">
 <img src="images/NumericalErrorComputationTimeScalingForStreams.png" />
 <figcaption>How the computation scale time scales with the number of
