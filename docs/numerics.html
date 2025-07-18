@@ -1060,25 +1060,44 @@ data-reference-type="ref"
 data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1">9</a>
 corresponds to <span class="math inline">\(\sim10^5\)</span>
 years—comparable to the cluster’s internal dynamical time.</p>
-<p>Why is the energy change bounded around <span
-class="math inline">\(10^{-1}\)</span>? Consider a thought experiment:
-if the cluster were removed and only the star particles remained, freely
-orbiting in the Galactic potential. The characteristic energy scale of
-the cluster is much smaller than the orbital energy in the Galaxy. Using
-<span class="math inline">\(\Phi = GM/a\)</span> with <span
-class="math inline">\(M \sim 10^5~M_\odot\)</span> and <span
-class="math inline">\(a \sim 0.005\)</span> kpc yields an internal
-energy scale on the order of <span
-class="math inline">\(10^2~\mathrm{km}^2\,\mathrm{s}^{-2}\)</span>,
-while Fig. <a
-href="#fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu"
+<p>Although energy is not conserved in these simulations—since the
+Hamiltonian includes a time-dependent Galactic potential—we find that
+the energy change for stream particles remains bounded around a relative
+error of <span class="math inline">\(10^{-1}\)</span>. Why is this the
+case?</p>
+<p>Consider a thought experiment: suppose the globular cluster were
+removed, and the stars were left to orbit freely in the Galactic
+potential. The initial velocities and positions of the stars would still
+reflect the distribution sampled from the Plummer sphere. As a result,
+they would exhibit a range of orbital energies rather than a single
+value. This intrinsic energy spread, denoted <span
+class="math inline">\(\sigma_E\)</span>, is not a numerical artifact but
+a physical property of the system’s initial conditions.</p>
+<p>The relative spread in energies, <span class="math inline">\(\sigma_E
+/ E_0\)</span>, where <span class="math inline">\(E_0\)</span> is the
+mean orbital energy of the system, provides an estimate of the apparent
+"energy error" we observe. We can make a rough estimate of this ratio by
+comparing the internal potential energy scale of the cluster to its
+orbital energy in the Galaxy. The characteristic internal potential is
+on the order of <span class="math inline">\(\Phi \sim GM/a\)</span>,
+where <span class="math inline">\(M \sim 10^5~M_\odot\)</span> and <span
+class="math inline">\(a \sim 0.005\)</span> kpc, yielding <span
+class="math inline">\(\Phi \sim
+10^2~\mathrm{km}^2\,\mathrm{s}^{-2}\)</span>. In contrast, the typical
+orbital energy of a globular cluster in the Milky Way is about <span
+class="math inline">\(10^5~\mathrm{km}^2\,\mathrm{s}^{-2}\)</span> (see
+Fig. <a href="#fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu"
 data-reference-type="ref"
-data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">[fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu]</a>
-shows that typical orbital energies are around <span
-class="math inline">\(10^5~\mathrm{km}^2\,\mathrm{s}^{-2}\)</span>. This
-discrepancy of roughly three orders of magnitude explains why internal
-energy changes appear small in absolute terms, but relatively large when
-considered as a fraction of the (small) cluster energy scale.</p>
+data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">[fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu]</a>).</p>
+<p>This discrepancy of roughly three orders of magnitude implies that
+the intrinsic energy spread from the initial Plummer sampling is about
+<span class="math inline">\(10^{-3}\)</span> times the absolute orbital
+energy. However, since we are examining the energy *relative to each
+particle’s initial value*—which is small—the observed fractional
+differences cluster around <span class="math inline">\(\sim
+10^{-1}\)</span>, consistent with what we measure in the stream. Thus,
+the apparent energy "error" reflects not integration drift but the
+physical energy distribution inherited from the initial conditions.</p>
 <p>Ok, so that was a good singular example, what about the whole
 catalog? Fig. <a
 href="#fig:NumericalErrorStreamRetraceEnergyConservation"
