@@ -971,9 +971,9 @@ time-reversability. Given these difficulties, I decided not to
 investigate methods further.</p>
 <p>To perform a quality assurance test, I designed an experiment that is
 captured in Fig. <a
-href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311"
+href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311">[fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311]</a>.
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">8</a>.
 First, the center of mass of a globular cluster was integrated back in
 time by 1 Gyr. At this position, a plummer sphere is sampled by using
 the half mass radius and mass of the corresponding globular cluster. The
@@ -1012,7 +1012,7 @@ alt="image" /></p>
 <figcaption>The center of mass of NGC6171 was integrated back in time by
 1 <span
 class="math inline">\(\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}\)</span>.
-A plummer sphere was sampled with 464 particles an placed about this
+A plummer sphere was sampled with 512 particles an placed about this
 position and is labeled “Initial” in the figure. This sphere was
 integrated forward to create the “Stream”. The relative error of the
 conservation of energy is distributed in the right panel. The stream was
@@ -1029,37 +1029,31 @@ src="images/NumericalErrorStreamRetrace_NGC6171_Nsteps_16384_stepsPerTau_4.png"
 alt="image" /> <img
 src="images/NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1.png"
 alt="image" /></p>
-<figcaption>The center of mass of NGC6171 was integrated back in time by
-1 <span
-class="math inline">\(\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}\)</span>.
-A plummer sphere was sampled with 464 particles an placed about this
-position and is labeled “Initial” in the figure. This sphere was
-integrated forward to create the “Stream”. The relative error of the
-conservation of energy is distributed in the right panel. The stream was
-then integrated backward in time by 1 <span
-class="math inline">\(\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}\)</span>
-and is labeled with “Retrace”. The time step was selected as a fraction
-of the internal dynamical time scale, <span
-class="math inline">\(\tau\)</span>. </figcaption>
+<figcaption>The same as Fig. <a
+href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">8</a>
+but with larger timesteps, as indicated on the panel.</figcaption>
 </figure>
 <p>Both of the time steps in Fig. <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
 data-reference-type="ref"
 data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">8</a>
-sufficient retrace the cluster’s initial conditions to a satirsfactory
+sufficiently retrace the cluster’s initial conditions to a satirsfactory
 degree. I compare the change in energy of each particle from it’s
 initial conditions at both the final simulation time and the retrace.
-For <span class="math inline">\(\Delta t \sim 6\times 10^{-3}\)</span>,
-the majority of particles conserve energy in their retrace between <span
-class="math inline">\(10^{-7}-10^{-4}\)</span>, while <span
-class="math inline">\(\Delta t \sim 3\times 10^{-2}\)</span> is shifted
-upward by about an order of magnitude.</p>
+For <span class="math inline">\(\Delta t \sim 6\times
+10^{-3}\tau\)</span>, the majority of particles conserve energy in their
+retrace between <span class="math inline">\(10^{-7}-10^{-4}\)</span>,
+while <span class="math inline">\(\Delta t \sim 3\times
+10^{-2}\tau\)</span> is shifted upward by about an order of
+magnitude.</p>
 <p>Note that for each of the distributions of conservation of energy at
 the final timestep, they are between <span
-class="math inline">\(10^{-4}--10^{-1}\)</span>, and particular how this
-distribution is independent of the chosen timestep. First, the fact that
-the energy is not well conserved is expected because the equations of
-motion do not preserve energy, as the hamiltonian time dependent.
+class="math inline">\(10^{-4}-10^{-1}\)</span>, and particularly how
+this distribution is independent of the chosen timestep. First, the fact
+that the energy is not well conserved is expected because the equations
+of motion do not preserve energy, as the hamiltonian time dependent.
 Secondly, the reason that difference in energy is nonetheless less than
 <span class="math inline">\(10^{-1}\)</span> and doesn’t dramatically
 change is that for each of the investigated timesteps, it is still more
@@ -1076,27 +1070,40 @@ href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1"
 data-reference-type="ref"
 data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1">9</a>,
 a time step equal to the internal dynamical for NGC 6171 is still <span
-class="math inline">\(10^{5}\)</span> years.</p>
+class="math inline">\(10^{5}\)</span> years. Thus, the magnitude of the
+conservation of energy here is really due to the fact that the energy is
+not well conserved, but its only going to vary so much. How much could
+it vary? Basically, if the cluster didn’t exist, but there was still a
+population of stars floating through the galaxy, how much would we
+expect? Well, we can say that the energy varys on the order of the
+interal energy of a cluster and the total energy is the orbital energy
+that we’d expect for someone orbting the galaxy. For example, just to
+get a quick estiamte: <span class="math inline">\(\Phi=GM/a\)</span>,
+and taking typical values for the mass as <span
+class="math inline">\(10^{5}~\mathrm{M}_\odot\)</span> and <span
+class="math inline">\(0.005~kpc\)</span>, the energy of the cluster is
+on the order of <span
+class="math inline">\(10^{2}~\frac{\mathrm{km}^2}{\mathrm{s}^2}\)</span>,
+and from Fig. <a
+href="#fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu"
+data-reference-type="ref"
+data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">[fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu]</a>,
+the orbital energies are on the order of <span
+class="math inline">\(10^{5}~\frac{\mathrm{km}^2}{\mathrm{s}^2}\)</span>.
+This difference perfectly explains what observed resultant
+distribution.</p>
+<p>Ok, so that was a good singular example, what about the whole
+catalog? Fig. <a
+href="#fig:NumericalErrorStreamRetraceEnergyConservation"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorStreamRetraceEnergyConservation">10</a>
+shows the whole catalog.</p>
 <figure id="fig:NumericalErrorStreamRetraceEnergyConservation">
 <img src="images/NumericalErrorStreamRetraceEnergyConservation.png" />
 <figcaption>How the conservation of energy for the RETRACE scales with
 the number of steps and <span class="math inline">\(\alpha = \Delta t/
 \tau\)</span>. </figcaption>
 </figure>
-<p>Interestingly, the energy conservation for the same timestep is much
-worse than a plummer sphere in isolation. By inspecting Fig. <a
-href="#fig:numericalErrorStaticPlummerSphereEnergyError"
-data-reference-type="ref"
-data-reference="fig:numericalErrorStaticPlummerSphereEnergyError">7</a>,
-we would expect a median relative error on the order of <span
-class="math inline">\(10^{-8}\)</span>, yet in Fig. <a
-href="#fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420"
-data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">12</a>,
-we observe an error on the order of <span
-class="math inline">\(10^{-4}\)</span>. <strong>Why is this the case? It
-makes sense to me, our equations of motion are more
-complicated</strong>.</p>
 <figure id="fig:NumericalErrorComputationTimeScalingForStreams">
 <img src="images/NumericalErrorComputationTimeScalingForStreams.png" />
 <figcaption>How the computation scale time scales with the number of
