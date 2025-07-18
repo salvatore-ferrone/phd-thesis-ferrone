@@ -328,13 +328,13 @@ This chapter documents how I numerically solve the equations of motion, how I va
 
         This discrepancy of roughly three orders of magnitude implies that the intrinsic energy spread from the initial Plummer sampling is about $10^{-3}$ times the absolute orbital energy. However, since we are examining the energy *relative to each particle's initial value*—which is small—the observed fractional differences cluster around $\sim 10^{-1}$, consistent with what we measure in the stream. Thus, the apparent energy "error" reflects not integration drift but the physical energy distribution inherited from the initial conditions.
 
+        Fig.~\ref{fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155} \& Fig.~\ref{fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1} demonstrate the case of a single cluster. What about the whole catalog?
 
-        Ok, so that was a good singular example, what about the whole catalog? Fig.~\ref{fig:NumericalErrorStreamRetraceEnergyConservation} shows the whole catalog.
 
         \begin{figure}
             \centering 
             \includegraphics[width=\linewidth]{images/NumericalErrorStreamRetraceEnergyConservation.png}
-            \caption{How the conservation of energy for the RETRACE scales with the number of steps and $\alpha = \Delta t/ \tau$. }
+            \caption{The conservation of energy for the retrace of each globular cluster in the catalog. Each cluster was sampled with Np and integrated for 5~Gyr. Four timestep thresholds were logarithmically sampled between $10^{0}$ and $10^{-2}$, and selected individually for each cluster in combination with it's internal dynamical time that evenly divided the integration time. }
             \label{fig:NumericalErrorStreamRetraceEnergyConservation}
         \end{figure}
 
