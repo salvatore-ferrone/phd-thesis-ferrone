@@ -668,15 +668,16 @@ in time. If the integration is correct, the cluster should remain on the
 same trajectory. I investigate this for four scenarios and show the
 results below:</p>
 <ul>
-<li><p>All 165 globular clusters orbiting within the Galaxy. For this, I
-check two different integrators: the leapfrog scheme and the Ruth-Forest
-scheme.</p></li>
-<li><p>Particles within three different globular clusters: the most
-dense, least dense, and median density.</p></li>
-<li><p>The globular cluster system in a potential with a galactic
-bar.</p></li>
-<li><p>Some select cluster orbiting within a potential with a galactic
-bar.</p></li>
+<li><p>The globular cluster population orbiting with a time-static Milky
+Way potential;</p></li>
+<li><p>Star-particles orbiting with a stationary and isolated globular
+cluster;</p></li>
+<li><p>Full stream generation, i.e., star particles orbiting within a
+globular cluster that orbits the galaxy,</p></li>
+<li><p>The globular clusters orbiting in a potential with a galactic
+bar;</p></li>
+<li><p>Star-particles orbiting within a globular cluster in a Milky Way
+with a Galactic bar.</p></li>
 </ul>
 <h2 id="globular-cluster-orbits-in-a-static-galaxy">Globular Cluster
 Orbits in a Static Galaxy</h2>
@@ -840,7 +841,8 @@ the entire globular cluster system for four different time steps, for
 two different integration techinques: the Leapfrog against the
 Ruth-Forest. Their respective trend lines are shown.</figcaption>
 </figure>
-<h2 id="star-particle-integration">Star particle integration</h2>
+<h2 id="star-particles-in-a-static-globular-cluster">Star-particles in a
+static globular cluster</h2>
   <div class="video-container">
     <video controls style="max-width: 100%;">
       <source src="videos/cluster_showing_scale_and_dynamical_time.mp4" type="video/mp4">
@@ -930,7 +932,7 @@ class="math inline">\(\alpha\)</span>, which is the fraction of the
 internal dynamical time, <span class="math inline">\(\tau =
 \sqrt{\frac{a^3}{GM}}\)</span>. </figcaption>
 </figure>
-<h2 id="star-particles-in-the-galaxy">Star-particles in the galaxy</h2>
+<h2 id="full-stream-generation">Full stream generation</h2>
 <p>The sections above investigate the numerical stability of integrating
 the orbits of globular clusters within the galaxy through investigating
 the time-reversability as well as the relative error of the conservation
@@ -1050,17 +1052,17 @@ data-reference-type="ref"
 data-reference="fig:NumericalErrorComputationTimeScalingForStreams">11</a>
 together, we get some good estimate for how long it completes to run
 these simulations. If we want all simualtions to have error better
-relative error on the retraced conservation of energy than about
-10^<span>-3</span>, then we must pick time steps that are smaller than
-about 1/20 of the dynamical time. With this criteria selected, we can
-compute the number of time steps necessary for each globular cluster,
-which is a function of it’s internal dynamical time. By doing so, I find
-that the fastest cluster can be computed in <span
+relative error on the retraced conservation of energy than about 10<span
+class="math inline">\(^{-3}\)</span>, then we must pick time steps that
+are smaller than about 1/20 of the dynamical time. With this criteria
+selected, we can compute the number of time steps necessary for each
+globular cluster, which is a function of it’s internal dynamical time.
+By doing so, I find that the fastest cluster can be computed in <span
 class="math inline">\(\sim\)</span> 30 minutes. The median computation
 time is <span class="math inline">\(\sim\)</span>17 hours. The largest
 computation time was <span class="math inline">\(\sim\)</span> 5 days.
 The total CPU time for the whole catalog is <span
-class="math inline">\(\sim\)</span> 130 days.</p>
+class="math inline">\(\sim\)</span> 194 days.</p>
 <h3 id="a-note-on-non-symplectic-integration">A note on non-symplectic
 integration</h3>
 <p>During the writing of this thesis, I discovered a bug in my code that
@@ -1151,6 +1153,11 @@ href="#fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog"
 data-reference-type="ref"
 data-reference="fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog">5</a>,
 the gain in accuracy does not justify the computational cost.</p>
+<h2 id="the-galactic-bar">The Galactic Bar</h2>
+<h3 id="the-globular-cluster-population">The globular cluster
+population</h3>
+<h3 id="stream-generation-in-a-barred-potential">Stream generation in a
+barred potential</h3>
 <h1 id="tstrippy">Tstrippy</h1>
 <ul>
 <li><p>How does <code>tstrippy</code> actually work?</p></li>

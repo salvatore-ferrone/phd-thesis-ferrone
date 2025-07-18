@@ -182,10 +182,11 @@ This chapter documents how I numerically solve the equations of motion, how I va
 
     The second check is that simulations are time-reversable. In this case, I integrate a cluster back in time by a given amount of time, and then change the sign of its velocity to subsequently integrate forward in time. If the integration is correct, the cluster should remain on the same trajectory. I investigate this for four scenarios and show the results below: 
     \begin{itemize}
-        \item All 165 globular clusters orbiting within the Galaxy. For this, I check two different integrators: the leapfrog scheme and the Ruth-Forest scheme. 
-        \item Particles within three different globular clusters: the most dense, least dense, and median density.
-        \item The globular cluster system in a potential with a galactic bar. 
-        \item Some select cluster orbiting within a potential with a galactic bar. 
+        \item The globular cluster population orbiting with a time-static Milky Way potential;
+        \item Star-particles orbiting with a stationary and isolated globular cluster;
+        \item Full stream generation, i.e., star particles orbiting within a globular cluster that orbits the galaxy,
+        \item The globular clusters orbiting in a potential with a galactic bar; 
+        \item Star-particles orbiting within a globular cluster in a Milky Way with a Galactic bar.
     \end{itemize}
 
     \subsection{Globular Cluster Orbits in a Static Galaxy}
@@ -236,7 +237,7 @@ This chapter documents how I numerically solve the equations of motion, how I va
             \label{fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog}
         \end{figure}
 
-    \subsection{Star particle integration}
+    \subsection{Star-particles in a static globular cluster}
 
         \begin{verbatim}
         VIDEO: cluster_showing_scale_and_dynamical_time.mp4
@@ -281,7 +282,7 @@ This chapter documents how I numerically solve the equations of motion, how I va
             \label{fig:numericalErrorStaticPlummerSphereEnergyError}
         \end{figure}
 
-    \subsection{Star-particles in the galaxy}
+    \subsection{Full stream generation}
 
         The sections above investigate the numerical stability of integrating the orbits of globular clusters within the galaxy through investigating the time-reversability as well as the relative error of the conservation of energy while investigating two different integration schemes: the leap-frog and the forest-ruth method. Additionally, I considering the computational cost associated with different resolutions. In this section, I piece them together, as the goal of this thesis is indeed modeling the mass loss of globular clusters through the restricted three body problem. 
 
@@ -331,7 +332,7 @@ This chapter documents how I numerically solve the equations of motion, how I va
             \label{fig:NumericalErrorComputationTimeScalingForStreams}
         \end{figure}
 
-        Putting Fig.~\ref{fig:NumericalErrorStreamRetraceEnergyConservation} and Fig.~\ref{fig:NumericalErrorComputationTimeScalingForStreams} together, we get some good estimate for how long it completes to run these simulations. If we want all simualtions to have error better relative error on the retraced conservation of energy than about 10^{-3}, then we must pick time steps that are smaller than about 1/20 of the dynamical time. With this criteria selected, we can compute the number of time steps necessary for each globular cluster, which is a function of it's internal dynamical time. By doing so, I find that the fastest cluster can be computed in $\sim$~30~minutes. The median computation time is $\sim$17~hours. The largest computation time was $\sim$~5~days. The total CPU time for the whole catalog is $\sim$~194~days. 
+        Putting Fig.~\ref{fig:NumericalErrorStreamRetraceEnergyConservation} and Fig.~\ref{fig:NumericalErrorComputationTimeScalingForStreams} together, we get some good estimate for how long it completes to run these simulations. If we want all simualtions to have error better relative error on the retraced conservation of energy than about 10$^{-3}$, then we must pick time steps that are smaller than about 1/20 of the dynamical time. With this criteria selected, we can compute the number of time steps necessary for each globular cluster, which is a function of it's internal dynamical time. By doing so, I find that the fastest cluster can be computed in $\sim$~30~minutes. The median computation time is $\sim$17~hours. The largest computation time was $\sim$~5~days. The total CPU time for the whole catalog is $\sim$~194~days. 
 
         \subsubsection{A note on non-symplectic integration}
 
@@ -361,7 +362,12 @@ This chapter documents how I numerically solve the equations of motion, how I va
 
         Lastly, I discovered this error while writing about the Forest-Ruth integration method. To implement this scheme correctly, I would need to know the position of the globular cluster’s center of mass at four intermediate points across two time steps, with the spacing determined by the coefficients in Table~\ref{tab:forest_ruth_coeffs}. This would require either storing additional mini-time-step data or interpolating the globular cluster's trajectory between saved snapshots. Both options would necessitate a substantial refactoring of the code or an impractical increase in memory usage per orbit. Given the results shown in Fig.~\ref{fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog}, the gain in accuracy does not justify the computational cost.
 
+    \subsection{The Galactic Bar}
 
+        \subsubsection{The globular cluster population}
+
+
+        \subsubsection{Stream generation in a barred potential}
 
 
 \section{Tstrippy}
