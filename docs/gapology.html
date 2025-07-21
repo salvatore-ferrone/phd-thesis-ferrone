@@ -679,6 +679,185 @@ encounters, which allows us to understand which encounters are more
 favorable for generating gaps in the Palomar 5 stream. In the following,
 we will present the results of this analysis, addressing points (1) and
 (2).</p>
+<h2 id="sect:history">The history and statistics of gap creations in the
+Palomar 5 stream</h2>
+<p>By applying the methodology described above to the whole set of
+simulations, we can reconstruct the history of close passages of
+Galactic globular clusters to Palomar 5’s stream in the last 5 Gyr,
+which – we remind the reader – is the time interval investigated in our
+simulations. Fig. <a href="#fig:histogram_impact_time"
+data-reference-type="ref"
+data-reference="fig:histogram_impact_time">[fig:histogram_impact_time]</a>
+and Table <a href="#tab:gaps_per_perturber" data-reference-type="ref"
+data-reference="tab:gaps_per_perturber">2</a> present results of this
+analysis. NGC 2808 impacted Palomar 5’s stream about 200 Myr ago in 44
+out of 50 simulations, creating a small gap at a similar position to the
+one reported in Fig. <a href="#fig:decomposition"
+data-reference-type="ref"
+data-reference="fig:decomposition">[fig:decomposition]</a> in each case.
+Since this interaction occurred less than one orbital period ago,
+despite the uncertainties, the orbital solutions remain similar and thus
+produce consistent results across all simulations. However, as we
+continue to turn back time further, the uncertainties in the initial
+conditions allow the various orbital solutions to diverge from one
+another. Thus, in one configuration, a cluster can impact the stream at
+a given time, and yet at the same moment, in a different set of initial
+conditions, it could be on the other side of the Galaxy. We will discuss
+the necessary conditions for creating a gap in Appendix <a
+href="#sec:gaps_vs_gcmass" data-reference-type="ref"
+data-reference="sec:gaps_vs_gcmass">[sec:gaps_vs_gcmass]</a>.</p>
+<div id="tab:gaps_per_perturber">
+<table>
+<caption>Number of gaps created by each perturber across all 50
+simulations.</caption>
+<tbody>
+<tr>
+<td style="text-align: left;">NGC2808</td>
+<td style="text-align: left;">44</td>
+<td style="text-align: left;">NGC7089</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">NGC5272</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr>
+<td style="text-align: left;">NGC6584</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">NGC6341</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">NGC6656</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">NGC104</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">NGC3201</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">NGC5634</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">NGC5286</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">NGC362</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">NGC5824</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">NGC6356</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">NGC6333</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">NGC6715</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">FSR1758</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">NGC7078</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Pal10</td>
+<td style="text-align: left;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In total, we report the finding of 73 gaps across our 50 simulations,
+which averages to 1.5 gaps per simulation. Eighteen different perturbers
+provoke the gaps. Table <a href="#table:gap_distribution"
+data-reference-type="ref" data-reference="table:gap_distribution">3</a>
+presents the distribution of the number of gaps appearing per
+simulation. If we consider NGC 2808 an outlier and exclude it from the
+experiment, we observe an average of 0.6 gaps per simulation.</p>
+<div id="table:gap_distribution">
+<table>
+<caption>Occurrence of gaps in Palomar 5 streams, in our
+simulations.</caption>
+<thead>
+<tr>
+<th style="text-align: left;">Number of Gaps</th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Number of Sims.</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We need a more sophisticated statistic to compare our results to
+other simulations, so we turn to the gap creation rate developed by
+<span class="citation" data-cites="2012ApJ...748...20C">Carlberg
+(2012)</span>. The gap creation rate is the number of gaps that appear
+per unit time and is normalized by the stream’s length. For our
+simulations, this rate is given by: <span
+class="math display">\[\label{eq:gap_creation_rate}
+\mathcal{R}_{\textrm{Pal 5}} =  \frac{1}{T}\int_{0}^T l^{-1}(t) \sum_i
+\delta(t-t_i) dt,\]</span>where <span class="math inline">\(T\)</span>
+is the total integration time, <span class="math inline">\(l(t)\)</span>
+is the length of the stream, and <span class="math inline">\(\sum_i
+\delta(t-t_i)\)</span> sums over the gap occurrences, with <span
+class="math inline">\(i\)</span> indexing over the number of gaps in a
+given simulation. Here, <span class="math inline">\(\delta\)</span>
+represents the Dirac delta function. This expression can be simplified
+to:<span class="math display">\[\mathcal{R}_{\textrm{Pal 5}}
+=  \frac{1}{T} \sum_i \frac{1}{l (t_i)}.\]</span></p>
+<p>This computation allowed us to analyze the distribution of gap
+creation rates across all simulations. Notice that since the gap
+creation rate adds in parallel, naturally, gaps that occur at earlier
+times when the stream was shorter are weighted higher than those that
+occur when the stream is longer. Fig. <a href="#fig:gapcreationrate"
+data-reference-type="ref" data-reference="fig:gapcreationrate">1</a>
+presents these results which are is roughly consistent with a simple
+estimate of the average gap creation rate: with 73 gaps over 5 Gyr of
+integration time for a stream about 20 kpc in length, the naive estimate
+is approximately 0.015 km s<span
+class="math inline">\(^{-1}\)</span> kpc<span
+class="math inline">\(^{-2}\)</span> (which is roughly equivalent to
+<span class="math inline">\(0.015~\rm{Gyr^{-1}kpc^{-1}}\)</span>). This
+naive estimate is about double the weighted mean gap creation rate of
+0.009 km s<span class="math inline">\(^{-1}\)</span> kpc<span
+class="math inline">\(^{-2}\)</span> and is higher because it does not
+account for the growth of the stream over time, unlike Eq. <a
+href="#eq:gap_creation_rate" data-reference-type="ref"
+data-reference="eq:gap_creation_rate">[eq:gap_creation_rate]</a>.</p>
+<figure id="fig:gapcreationrate">
+<img src="gap_creation_rate.png" />
+<figcaption>Distribution of the number of gaps normalized over the total
+integration time and unit stream length as described by Eq. <a
+href="#eq:gap_creation_rate" data-reference-type="ref"
+data-reference="eq:gap_creation_rate">[eq:gap_creation_rate]</a> for the
+whole set of 50 <code>full</code> simulations. </figcaption>
+</figure>
+<p>Lastly, we note that of the 73 observed gaps, only eight are in the
+trailing tail, and the rest are in the leading tail, which is a
+surprising result. A priori, since the star particles escape at similar
+rates from the L<span class="math inline">\(_1\)</span> and L<span
+class="math inline">\(_2\)</span> Lagrange points, each tail is of
+similar length and density. The main difference between the two tails is
+that the leading tail is closer to the Galactic center than the trailing
+tail by about 400 pc. Since the lengths are equal, and the offset
+between the tails is slight compared to the Galactocentric distance of
+about 10 kpc, we expected the gaps in each tail to be more or less the
+same. We can compute the probability of observing the unequal
+occurrences through the binomial distribution. First, since the 44 gaps
+linked to NGC 2808 are the result of the same flyby, they are not
+independent events. We remove them from this consideration, which leaves
+21 gaps in the leading tail and 8 in the trailing. The probability of
+observing up to 8 successes in 29 trials, given a 50% chance of success,
+is 1.2%–unlikely, but possible. Additionally, other perturbers impact at
+consistent times, which may violate the assumption of independent
+events, as seen with NGC 2808.</p>
 <h1 id="velocity-distribution-within-the-stream">Velocity distribution
 within the stream</h1>
 <h2 id="self-segregation-and-stream-chilling">Self-Segregation and
@@ -768,6 +947,11 @@ href="https://doi.org/10.1088/0004-637X/795/1/95">https://doi.org/10.1088/0004-6
 ———. 2015. <span>“<span class="nocase">galpy: A python Library for
 Galactic Dynamics</span>”</span> 216 (2): 29. <a
 href="https://doi.org/10.1088/0067-0049/216/2/29">https://doi.org/10.1088/0067-0049/216/2/29</a>.
+</div>
+<div id="ref-2012ApJ...748...20C" class="csl-entry" role="listitem">
+Carlberg, R. G. 2012. <span>“<span class="nocase">Dark Matter Sub-halo
+Counts via Star Stream Crossings</span>”</span> 748 (1): 20. <a
+href="https://doi.org/10.1088/0004-637X/748/1/20">https://doi.org/10.1088/0004-637X/748/1/20</a>.
 </div>
 <div id="ref-2001ApJ...553..184C" class="csl-entry" role="listitem">
 Chen, Bing, Chris Stoughton, J. Allyn Smith, Alan Uomoto, Jeffrey R.
