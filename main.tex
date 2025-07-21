@@ -1,41 +1,26 @@
 \documentclass[a4paper,12pt]{book}
-\usepackage[utf8]{inputenc}
-\usepackage{graphicx}
-\usepackage[greek,english]{babel}
+\input{config/parameters.tex}
+\input{config/macro.tex}
+\usepackage{config/psl-cover/psl-cover}
+\pslassetspath{config/psl-cover}
 
-\graphicspath{ {images/} }
-
-
-
-\usepackage{natbib}
-\bibliographystyle{abbrvnat}
-\usepackage{aas_macros}
-
-\usepackage{amsmath}
-\usepackage{listings}
-\usepackage{hyperref}
-
-
-\title{
-{Stellar Streams}\\
-{\large PSL. Sapienza}\\
-{\includegraphics[width=0.5\linewidth]{LOGO-PSL-nov-2017.png}}
-{\includegraphics[width=0.6\linewidth]{Uniroma1.png}}
-}
+\title{Stellar Streams}
+\institute{PSL. Sapienza}
+\doctoralschool{ED 127}{127}
+\specialty{Astrophysics}
 \author{Salvatore Ferrone}
-\date{Day Month 2025}
-
+\date{July 2025}
+\laboratory{LIRA}
+\jurymember{1}{President Name}{University}{President}
+\frabstract{Résumé en français...}
+\enabstract{English abstract...}
+\frkeywords{galaxie, dynamique}
+\enkeywords{galaxy, dynamics}
+\addbibresource{mybib.bib}
 
 \begin{document}
-\frontmatter
+\pslcover{}
 \maketitle
-\chapter*{Abstract}
-\input{chapters/abstract}
-\chapter*{Forward}
-\input{chapters/foreward}
-\tableofcontents
-
-\mainmatter
 \chapter{Introduction}
 \input{chapters/introduction}
 
@@ -55,6 +40,5 @@
 \input{chapters/ongoing}
 
 
-\backmatter
-\bibliography{mybib}
+\printbibliography
 \end{document}
