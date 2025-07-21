@@ -20,7 +20,21 @@
 
 \begin{document}
 \pslcover{}
-\maketitle
+\frontmatter
+\AddResumeAbstract % macro pour résumé et abstract
+
+\begin{singlespace} % réduction de l'interligne pour condenser
+% Utiliser \adjustmtc si un décalage apparaît dans les petites tables des matières
+\phantomsection \addcontentsline{toc}{chapter}{Table des matières}\adjustmtc
+\tableofcontents\newpage
+\renewcommand{\listfigurename}{Liste des figures}
+\phantomsection\listoffigures\adjustmtc % Liste des figures
+\phantomsection\listoftables\adjustmtc % Liste des tableaux
+% {\printglossary[type=\acronymtype,title=Acronymes et anglicismes]}\adjustmtc
+\end{singlespace}
+
+\mainmatter
+\setcounter{page}{1}
 \chapter{Introduction}
 \input{chapters/introduction}
 
@@ -39,6 +53,12 @@
 \chapter{On going experiments}
 \input{chapters/ongoing}
 
+\backmatter
 
-\printbibliography
+
+\begin{singlespace}
+\setlength\labelalphawidth{0em}
+\small\printbibliography[heading=bibintoc,title=Bibliographie]
+\end{singlespace}
+
 \end{document}
