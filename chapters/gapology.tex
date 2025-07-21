@@ -1,6 +1,11 @@
 \section{Published results}
 
-
+  \begin{figure*}
+    \centering
+    \includegraphics[width=\linewidth]{images/stream_on_sky_Pal5_monte-carlo-009_pouliasis2017pii-GCNBody_pouliasis2017pii.png}
+    \caption{Simulated Palomar~5 stream created by modeling the host cluster as a Plummer sphere disrupting within an axis-symmetric Galactic potential plus the gravitational effect of 164 other Galactic globular clusters. The top panel shows the distribution of star particles that escaped the cluster due to tidal forces. The bottom panel shows the 1D density profile marginalized over longitude. The gray fill shows a reference simulation that uses the same conditions to produce the stream but does not include the other globular clusters. The large central peak in density is composed of particles still bound to Palomar~5. $\ell_0,b_0$ are located Palomar~5's cluster's center of mass. Two large gaps are present due to the passage of two globular clusters. $N_p$ indicates the number of particles in a bin, while $N$ is the total number of particles, which is 100,000.}
+    \label{fig:stream_on_sky}
+    \end{figure*}
 
 \section{Methods}
   The most accurate model of the Palomar~5 stream would involve full modeling of the internal dynamics of the cluster, which would mean computing $N$-body interactions with a $\mathcal{O}(N^2)$ computation time, stellar evolution, supernovae, an initial mass distribution, treatment of binary star systems, etc. \citep[for such an example, see][]{2021NatAs...5..957G, 2016MNRAS.458.1450W}. Instead, we opt for solving the restricted-three-body problem, also known as the particle-test method, as we did for \citet{2023A&A...673A..44F}, which we describe here for completeness. As demonstrated by \citet{2012A&A...546L...7M}, although the restricted three-body problem neglects the internal evolution of the cluster, it still reproduces very similar stream properties since the model captures key extracluster physics, such as disk shocking and epicyclic stripping.\\
@@ -42,19 +47,21 @@
       N_p \times N_{\textrm{ts}}\times N_{\textrm{phase}}\times N_{\textrm{sampling}} \times 4~\textrm{bytes}\approx 600~\textrm{Gb}.
     \end{equation}
 
-    \begin{table}[h]
-      \centering
-      \caption{Parameters determining the data volume.}
-      \label{tab:data_volume}
-      \begin{tabular}{|c|c|c|c|}
-          \hline
-          $N_p$ & $N_{\textrm{ts}}$ & $N_{\textrm{phase}}$ & $N_{\textrm{sampling}}$ \\
-          \hline
-          $100000$ & $5000$ & $6$ & $50$ \\
-          \hline
-      \end{tabular}
-      \tablefoot{$N_p$  is the number of particles, $N_{\textrm{ts}}$ is the number of time-steps saved, $N_{\textrm{phase}}$ is the number of phase space coordinates, and $N_{\textrm{sampling}}$ is the number of Monte-Carlo samplings of the initial conditions.}
-    \end{table}
+    \begin{center}
+        \begin{table}[h]
+            \centering
+            \caption{Parameters determining the data volume.}
+            \label{tab:data_volume}
+            \begin{tabular}{|c|c|c|c|}
+                \hline
+                $N_p$ & $N_{\textrm{ts}}$ & $N_{\textrm{phase}}$ & $N_{\textrm{sampling}}$ \\
+                \hline
+                $100000$ & $5000$ & $6$ & $50$ \\
+                \hline
+            \end{tabular}
+            \tablefoot{$N_p$  is the number of particles, $N_{\textrm{ts}}$ is the number of time-steps saved, $N_{\textrm{phase}}$ is the number of phase space coordinates, and $N_{\textrm{sampling}}$ is the number of Monte-Carlo samplings of the initial conditions.}
+        \end{table}
+    \end{center}
 
   \subsubsection{ \texttt{Reference} simulations}
 
@@ -82,6 +89,48 @@ The characteristics of the streams modeled in this paper may be considered more 
     We used a leapfrog integrator because of its ability to preserve phase-space volume and conserve the Hamiltonian with each integration step. For instance, this method is preferable to a Runge-Kutta scheme, which can introduce non-physical and significant numerical errors in systems that require long-term stability and energy conservation. One drawback of the leapfrog integrator is that it requires a uniform time step throughout the entire computation, resulting in unnecessary computations for a particle after it has escaped from the host cluster. However, energy conservation and phase-space volume preservation are paramount when modeling stellar streams. The time step was therefore set to be small enough to conserve energy for the most interior particles within the cluster---ensuring that a higher mass loss did not arise from numerical error. We found that a time-step of 10,000 years was adequate to maintain energy conservation, with a median variation of $10^{-12} \frac{\Delta E}{E_0}$, where $E_0$ is a particle's initial energy, and $\Delta E$ is the difference between its final and initial energy. 
     
     We also checked the reverse integrability of the globular cluster system for the \texttt{reference} simulations. By reverse integrability, we mean the integrator's capability to track the cluster backward in time and then re-integrate it forward along the same trajectory. Integrating point masses in a static axis-symmetric potential conserves $L_z$ and $E$, which create regular periodic and non-chaotic orbits. Therefore, any drift would arise from purely numerical error. We selected a timestamp for which the drift in the final position after forward integration, compared to the initial position from the backward integration, was consistently at least two orders of magnitude smaller than the Plummer scale radius used for Palomar~5. This high precision ensures that no fictitious numerical forces influence the system, preventing any artificial mass loss or retention of star particles.
+
+
+
+\section{Results}
+
+
+
+  \subsection{Overview}
+
+    \begin{figure*}
+      \centering
+      \includegraphics[width=\linewidth]{images/decomposition-monte-carlo-009-with-3-gaps-domidpoint-shift.png}
+      \caption{Density maps of Palomar~5's stream in the tail coordinate system, where $x\prime$ is the integrated arc length along the cluster's orbit and $y\prime$ is the distance within the orbital plane. The color scale represents normalized particle counts (total: 100,000). The top panel shows the \texttt{full} simulation with three gaps on the stream's right-hand side. The next three panels depict simulations with identical initial conditions but exclude the gravitational influence of all clusters except those forming a given gap. The \texttt{Reference} simulation omits the influence from other globular clusters. The bottom panel compares Palomar~5's observed stream length to the \texttt{Reference} simulation, using the same Monte-Carlo realization as Fig.~\ref{fig:stream_on_sky} and \texttt{Sampling~009} (as seen in the \href{https://doi.org/10.5281/zenodo.15528089}{online appendix}).}
+      \label{fig:decomposition}
+    \end{figure*} 
+    
+    \begin{figure*}
+      \centering
+      \includegraphics[width=\linewidth]{images/histogram_impact_time.png}
+      \caption{Simulation time when the impacts occurred for all gap-causing flybys summed over all 50 simulations. Each perturbing cluster is labeled and color-consistent. We report the time axis in simulation units, with 1~s~kpc~km~$^{-1}$ corresponding to roughly 1~Gyr. We note that the plot breaks the y-axis to accommodate the large number of encounters from NGC~2808 without overshadowing the other interactions.}
+      \label{fig:histogram_impact_time}
+    \end{figure*}
+
+
+    
+    The presence of the other globular clusters affects the properties of the Palomar~5 stream. Fig.~\ref{fig:stream_on_sky} presents an obvious example of this effect, which we selected for its prominent gaps. Two of these gaps are visible in Galactic coordinates and become even more apparent when marginalizing over latitude to reconstruct the 1D density profile of the stream as a function of longitude.     
+
+    Regarding the shape of the density distribution, the central peak corresponds to the still-intact globular cluster whose stars have not yet escaped. The stream's density peaks are of the same order as the cluster itself, which is inconsistent with reality; the cluster's peak density should be higher than that of the stream. Of course, this discrepancy is a result of our modeling choices. Since we use the present-day mass and radius for Palomar~5 for the whole simulation duration, the system is less dense than it should have been. In turn, our simulations have a strong initial mass loss, which adds to the amplitudes of the profile density peaks of Fig.~\ref{fig:stream_on_sky}. This inaccuracy is acceptable for the scope of this work. First, Palomar~5's tails indeed have more mass than the cluster itself. \citet{2017ApJ...842..120I} reports that there could be three times as much mass in Palomar~5's tails as the cluster itself. Secondly, the exact form of the density distribution is less important than having a population of particles present that can probe a cluster flyby event.
+    
+    To compare the \texttt{reference} and \texttt{full} simulations more quantitatively, we work in the tail coordinate system, in which the stream's central axis aligns with the cluster's orbit. We based this coordinate system on the work of \citet{2004AJ....127.2753D} and present it in Fig.~\ref{fig:TailCoordinates}. Briefly, in this system, the $x_{\textrm{tail}}$ coordinate represents the position of a particle along the orbit relative to the globular cluster. Positive values of $x_{\textrm{tail}}$ are ahead of the cluster, while negative $x_{\textrm{tail}}$ is behind the cluster. The $y_{\textrm{tail}}$ coordinate measures the particle's distance within the orbital plane, where positive values indicate that the particle is farther from the Galactic center and negative values indicate that it is closer. Fig.~\ref{fig:decomposition} shows a comparison between one of the 50 realizations of the Palomar~5 stream, taking into account the gravitational interactions with all other globular clusters in the Galaxy (top panel) and omitting them (bottom panel). This comparison clearly shows the presence of two wide ($\sim$100~pc and $\sim$1~kpc) gaps in the leading tail and of a more subtle underdensity at $x_{\textrm{tail}}\sim 5$~kpc (we refer the reader to Appendix~\ref{sec:gap_detection} for a detailed description of the underdensities and gaps detection method). 
+    
+    To determine which globular clusters were responsible for creating these gaps and when close passages occurred, we estimated the gravitational acceleration along the orbit of Palomar~5. We represented it in the ($t$, $\tau$) space. $t$ is the simulation time, and $\tau$ indicates how long it will take for Palomar~5 to reach a given point in its orbit or how long ago it passed. The use of $\tau$ is advantageous because the growth of the stream is approximately linear in $\tau$. 
+    
+    On the other hand, streams in physical space are modulated by their orbital eccentricity with periodic expansion and contraction depending on the orbital phase \citep[see the top panel of Fig.~5.][for an example]{2016MNRAS.457.3817S}. Adopting this time-space and reporting the gravitational acceleration along the Palomar~5 orbit in this space, identifying the globular clusters that produced the perturbation and the time at which it occurred becomes straightforward. We refer the reader to Appendix~\ref{sec:Perturber_Identification} for a detailed description of the procedure. In this way, we can identify that the clusters responsible for creating gaps in the simulation of the Palomar~5 stream, as reported in Fig.~\ref{fig:decomposition}, are NGC~2808, NGC~7078, and NGC~104. Their close passages occurred 200~Myr, -1.9, and -2.1~Gyr ago, respectively. 
+    
+    To further investigate whether the three clusters above are responsible for producing the gaps observed in this simulation, we conducted additional experiments by including only the perturbation of each cluster at a time, while neglecting the gravitational perturbations of all the other clusters in the Galaxy.
+    
+    To verify that the three suspected clusters are responsible for producing the gaps, we conducted experiments by including one perturbed at a time and excluding all others. We present these results in the middle panels of Fig.~\ref{fig:decomposition} and clearly show that NGC~2808, NGC~7078, and NGC~104 are the clusters responsible for creating the underdense regions observed in the leading tails of Palomar~5. It is worth noting that the times at which the passages of these clusters occurred, according to our analysis, are in agreement with the observed width of the corresponding gaps: the encounter with NGC~2808 being very recent (only 200~Myr ago), its induced gap is still very thin, because it takes time for a perturbation to grow into an extended gap, as it is the case for those induced by the passages of  NGC~7078 and NGC~104, which occurred in earlier times. It is also interesting to emphasize that gaps as thin as those generated by the passage of NGC~2808, 200~Myr ago, can be detected by working in the tail coordinate system and by making a comparative analysis (\texttt{full} versus \texttt{reference} simulations): they are so thin that they cannot be directly identified in Galactic coordinates (see Fig.~\ref{fig:stream_on_sky}).\\
+
+    The analysis presented in Fig.~\ref{fig:decomposition} has been repeated for the whole set of simulations, and \href{https://doi.org/10.5281/zenodo.15528089}{online appendix} reports all of them for completeness. For all the streams, morphologically speaking, the only changes appear to be the existence of gaps or their absence. We do not observe a thickening of the streams due to an increased velocity dispersion. 
+    
+    From this analysis, we can derive a statistical view of (1) the number of gaps generated on the Palomar~5 stream by the system of Galactic globular clusters, (2) the clusters that generated these gaps, and the time history of these perturbations. From this, we can then quantify (3) the properties of the perturbers (their masses, sizes, and orbital parameters) as well as (4) the impact geometry of the encounters, which allows us to understand which encounters are more favorable for generating gaps in the Palomar~5 stream. In the following, we will present the results of this analysis, addressing points (1) and (2).
 
 
 
