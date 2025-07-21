@@ -112,7 +112,7 @@ How should I introduce this paper??
 
 
 \section{Results}\label{results}
-
+    \twocolumn
     \begin{figure*}[h!]
         \begin{center}
             \includegraphics[clip=true, trim = 0mm 20mm 0mm 20mm, width=0.9\columnwidth]{images/PI_ensemble_LB_count_density.pdf}
@@ -127,6 +127,7 @@ How should I introduce this paper??
             \caption{The stellar surface density of the \textit{ensemble} of extra-tidal features around the entire population of Galactic globular clusters at the current time, as predicted by our models. \textit{Left:} Surface number density. \textit{Right:} Surface mass density. Top row corresponds to model PI, the middle to model PII, and the bottom column to model PII-0.3-SLOW, as indicated. All densities are expressed in a logarithmic scale. The red point-like density maxima correspond to the current positions of the globular clusters. Values of higher density are overplotted. Thus in the case of mass density, diffuse tidal debris of more massive globular clusters covers the entire $(\ell,b)$ space and occults delicate tidal features, which are more visible when considering number density counts. In all panels, only the reference simulations are shown for clarity.} \label{galleryLB}
         \end{center}
     \end{figure*}
+    \onecolumn
 
     \paragraph{A few basic premises:}
     Given the large number of simulations carried out and the wealth of information contained in them, it is not possible to exhaust all possible applications of this simulation database in this paper. We have therefore chosen to proceed as follows. 
@@ -158,3 +159,25 @@ How should I introduce this paper??
     \subsection{From the nearest to the furthest extra-tidal structures}\label{streamvsD}
 
     The analysis presented in this section along with the corresponding information are given in Figures~\ref{D0-10},~\ref{D10-20},~\ref{D20-30},~and~\ref{D30-300} are restricted to the PII model.
+
+    \twocolumn
+    \begin{figure*}[h!]
+        \begin{center}
+            \includegraphics[clip=true, trim = 0mm 15mm 0mm 20mm, width=0.9\columnwidth]{images/PII_ensemble_LB_D0-5_scatter.pdf}
+            \includegraphics[clip=true, trim = 0mm 15mm 0mm 20mm, width=0.9\columnwidth]{images/PII_ensemble_LB_D5-10_scatter.pdf}
+
+            \includegraphics[clip=true, trim = 0mm 20mm 0mm 20mm, width=0.9\columnwidth]{images/PII_ensemble_LB_D0-5_mass_est_new.pdf}
+            \includegraphics[clip=true, trim = 0mm 20mm 0mm 20mm, width=0.9\columnwidth]{images/PII_ensemble_LB_D5-10_mass_est_new.pdf}
+
+            \includegraphics[clip=true, trim = 0mm 20mm 0mm 20mm, width=0.9\columnwidth]{images/PII_ensemble_LB_D0-5_PML_new.pdf}
+            \includegraphics[clip=true, trim = 0mm 20mm 0mm 20mm, width=0.9\columnwidth]{images/PII_ensemble_LB_D5-10_PML_new.pdf}
+
+            \includegraphics[clip=true, trim = 0mm 20mm 0mm 20mm, width=0.9\columnwidth]{images/PII_ensemble_LB_D0-5_PMB_new.pdf}
+            \includegraphics[clip=true, trim = 0mm 20mm 0mm 20mm, width=0.9\columnwidth]{images/PII_ensemble_LB_D5-10_PMB_new.pdf}
+
+            \includegraphics[clip=true, trim = 0mm 20mm 0mm 20mm, width=0.9\columnwidth]{images/PII_ensemble_LB_D0-5_RV_new.pdf}
+            \includegraphics[clip=true, trim = 0mm 20mm 0mm 20mm, width=0.9\columnwidth]{images/PII_ensemble_LB_D5-10_RV_new.pdf}
+        \end{center}
+    \caption{The extra-tidal features colored and weighted by various quantities within limited distance bins from the Sun projected in the $(\ell, b)$ plane. All outputs arrise from using the PII galactic potential model and only the reference simulation is shown in order to preserve clairty. \emph{Left column}: Extra-tidal features found at a distance of [0,5]~kpc from the Sun. \emph{Top row:} Scatter plot, with different colors indicating different progenitor clusters. \emph{Second row:} Mass density map in logarithmic scale. \emph{Third row:} Map color-coated by proper motions in longitudinal direction.    \emph{Fourth row:} Map color-coated by proper motions in latitudinal direction.  \emph{Bottom row:} Map color-coded by line-of-sight velocities. \emph{Right column}: Same as left column, but for the tidal features found at a distance of [5, 10]~kpc from the Sun. Note: the 10 colors used in the top panels are recycled between the 159 clusters, thus, all particles from the same cluster share one color, but a color is not unique to a cluster. }\label{D0-10}
+    \end{figure*}
+    \onecolumn
