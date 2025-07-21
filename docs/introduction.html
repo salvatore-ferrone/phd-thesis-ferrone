@@ -763,25 +763,760 @@ inference problems, and artificial intelligence </h3>
 clusters</p></li>
 <li><p>present Rodrigo’s work on detecting the stellar streams</p></li>
 </ul>
-<p>here is a test citation: <span class="citation"
-data-cites="2023A&amp;A...673A..44F">(Ferrone et al. 2023)</span></p>
-<p>CITEP <span class="citation"
-data-cites="2023A&amp;A...673A..44F">(Ferrone et al. 2023)</span></p>
-<p>CITET <span class="citation"
-data-cites="2023A&amp;A...673A..44F">Ferrone et al. (2023)</span></p>
-<p>textcite <span class="citation"
-data-cites="2023A&amp;A...673A..44F">Ferrone et al. (2023)</span></p>
-<p>parencite <span class="citation"
-data-cites="2023A&amp;A...673A..44F">(Ferrone et al. 2023)</span></p>
+<p>Stellar streams are several-kiloparsecs-long structures formed by the
+tidal disruption of globular clusters or dwarf galaxies orbiting a host
+galaxy. These tidal forces arise due to differential gravitational pulls
+across extended objects, causing stars farther from the galactic center
+to lag behind, while those closer to the center speed up. This
+stretching creates two tidal tails that trace the cluster’s orbit unless
+in the closest vicinity to the object <span class="citation"
+data-cites="2007ApJ...659.1212M">(Montuori et al. 2007)</span>.</p>
+<p>Numerical predictions of this phenomenon have existed since the 1970s
+<span class="citation" data-cites="1975AJ.....80..290K">(see, e.g.,
+Keenan and Innanen 1975)</span>. These predictions occurred well before
+the first detections of Galactic globular cluster tidal tails <span
+class="citation" data-cites="1995AJ....109.2553G">(Carl J. Grillmair et
+al. 1995)</span>. Interestingly, <span class="citation"
+data-cites="1995AJ....109.2553G">Carl J. Grillmair et al.
+(1995)</span>’s detections were made nearly contemporaneously with the
+discovery of the Sagittarius stellar stream by <span class="citation"
+data-cites="1994Natur.370..194I">R. A. Ibata, Gilmore, and Irwin
+(1994)</span>, which is the closest example of a stream emerging from a
+dwarf satellite currently interacting with the Milky Way.</p>
+<p>Subsequent studies<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> extended Grillmair’s findings to
+other globular cluster streams but were often limited to the detections
+of stars still close to the cluster tidal radius, until the discovery
+made by <span class="citation"
+data-cites="2001ApJ...548L.165O 2002AAS...200.1001O 2003AJ....126.2385O">Michael
+Odenkirchen et al. (2001, 2003; M. Odenkirchen et al. 2002)</span> of
+long and thin tails outside the Palomar 5 globular cluster. With a mass
+of <span class="math inline">\(1.34\pm 0.24 \times 10^4
+M_{\odot}\)</span> <span class="citation"
+data-cites="2019MNRAS.482.5138B">(Baumgardt et al. 2019)</span>,
+Palomar 5 is one of the least massive globular clusters in the Galaxy.
+<span class="citation" data-cites="2003AJ....126.2385O">Michael
+Odenkirchen et al. (2003)</span> showed that its tails contain more mass
+than the cluster. The works of <span class="citation"
+data-cites="2006ApJ...641L..37G">C. J. Grillmair and Dionatos
+(2006a)</span> and <span class="citation"
+data-cites="2015MNRAS.446.3297K">Kuzma et al. (2015)</span> showed that
+the tails have an extent of more than <span
+class="math inline">\(20^\circ\)</span> degrees in the sky. The
+discovery of its prominent tails stimulated a vigorous and successful
+search in the following years. New streams were discovered, mostly
+taking advantage of Sloan Digital Sky Survey data, but Pan-STARRS and
+ATLAS were also used <span class="citation"
+data-cites="2006ApJ...643L..17G 2006ApJ...637L..29B 2009ApJ...693.1118G 2012ApJ...760L...6B 2013ApJ...769L..23G 2014ApJ...790L..10G 2015ApJ...812L..26G 2014MNRAS.443L..84B 2016MNRAS.463.1759B 2017ApJ...847..119G 2014MNRAS.442L..85K">(C.
+J. Grillmair and Dionatos 2006b; Belokurov et al. 2006; C. J. Grillmair
+2009, 2014; Bonaca, Geha, and Kallivayalil 2012; Carl J. Grillmair et
+al. 2013, 2015; E. J. Bernard et al. 2014; Edouard J. Bernard et al.
+2016; Carl J. Grillmair 2017; Koposov et al. 2014)</span>.</p>
+<p><span class="citation" data-cites="2025NewAR.10001713B">Bonaca and
+Price-Whelan (2025)</span> provides a review of stellar stream
+astronomy, which has entered a new era since the publication of the data
+from the Gaia astrometric mission <span class="citation"
+data-cites="2016A&amp;A...595A...1G">(Gaia Collaboration et al.
+2016)</span>. Gaia’s characterization of billions of stars in the Milky
+Way enables the search for these structures by coupling photometry,
+astrometry, and spectroscopy for the brightest stars. The possibility
+given by Gaia to track stars with coherent movements over the entirety
+of the sky has led to the discovery of dozens of new streams. In
+addition, <span class="citation" data-cites="2018MNRAS.477.4063M">Malhan
+and Ibata (2018)</span> developed the <code>streamfinder</code>
+algorithm and applied it across a series of works <span class="citation"
+data-cites="2018MNRAS.481.3442M 2018ApJ...865...85I 2019ApJ...872..152I">(Malhan,
+Ibata, and Martin 2018; Rodrigo A. Ibata et al. 2018; Rodrigo A. Ibata,
+Malhan, and Martin 2019)</span> to discover a multitude of streams.</p>
+<p>The possibility of combining Gaia data with spectroscopic surveys has
+extended the study of stellar streams beyond the quantification of their
+orbital properties to a full chemical characterization <span
+class="citation"
+data-cites="2019MNRAS.490.3508L 2020AJ....160..181J 2021ApJ...911..149L 2022ApJ...928...30L 2024MNRAS.529.2413U">(T.
+S. Li et al. 2019; Ji et al. 2020; Ting S. Li et al. 2021, 2022; Usman
+et al. 2024)</span>. Currently, about a hundred stellar streams are
+known in our Galaxy. <span class="citation"
+data-cites="2023MNRAS.520.5225M">Mateu (2023)</span> compiled their
+tracks on the sky into a catalog. Interestingly, only about 20 streams
+are associated with known Galactic globular clusters.</p>
+<p>One of the interests in studying stellar streams is that they can
+constrain the gravitational field of their host galaxies, particularly
+the Milky Way. Compared to the measurement of the HI rotation curve,
+stellar streams offer the opportunity to investigate the potential of
+the host galaxy over a wide range of distances, reaching the outermost
+regions of the halo. For example, <span class="citation"
+data-cites="2011MNRAS.417..198V">Varghese, Ibata, and Lewis
+(2011)</span> demonstrated how stellar streams can be used to infer the
+mass and scale parameters of dark matter halos, utilizing various
+amounts of observational data, ranging from basic right ascension and
+declination to full six-dimensional phase space information. <span
+class="citation" data-cites="2018ApJ...867..101B">Bonaca and Hogg
+(2018)</span> reviewed this concept from an information-theoretic point
+of view, identifying which orbits and configurations of stellar streams
+yield the most information about the Galactic potential. However, using
+single streams to constrain the potential led to ambiguous and
+non-converging results. For example, <span class="citation"
+data-cites="2010ApJ...718.1128L">Law and Majewski (2010)</span> made use
+of the Sagittarius stream to infer that the dark matter halo of our
+Galaxy has a triaxial shape <span class="citation"
+data-cites="2004MNRAS.351..643H 2005ApJ...619..800J 2005ApJ...619..807L">(see
+also Helmi 2004; Johnston, Law, and Majewski 2005; Law, Johnston, and
+Majewski 2005)</span>, but <span class="citation"
+data-cites="2016ApJ...833...31B">Bovy et al. (2016)</span> concluded
+that the dark matter halo of our Galaxy is nearly spherical at the
+distances of the Palomar 5 and GD-1 streams. The two contrasting results
+could indicate that the halo is triaxial at one distance but spherical
+at another, highlighting the need for streams at different distances to
+map the halo shape. Recently, <span class="citation"
+data-cites="2024ApJ...967...89I">R. Ibata et al. (2024)</span>
+constructed a Milky Way model by applying a Markov chain Monte-Carlo
+(MCMC) fitting procedure. This method identified the set of potential
+parameters in an axisymmetric model of the Milky Way that best
+reproduces all observed stellar streams.</p>
+<p>Beyond the global visible and dark mass distribution streams, streams
+can also be used to infer the granularity of the dark matter, that is,
+the mass and density of the subhalos populating our Galaxy. According to
+simulations by <span class="citation"
+data-cites="2008MNRAS.391.1685S">Springel et al. (2008)</span>, the
+<span class="math inline">\(\Lambda\)</span> cold dark matter (<span
+class="math inline">\(\Lambda\)</span>CDM) model predicts that galaxies
+grow hierarchically, with dark matter clumps forming at a wide range of
+masses and sizes. These clumps, or subhalos, are predicted to follow a
+mass distribution with a power-law slope slightly shallower than -2.0.
+<span class="citation" data-cites="2012Natur.481..341V">Vegetti et al.
+(2012)</span> detected the smallest observed dark matter halo through
+gravitational lensing in an Einstein ring with a mass of <span
+class="math inline">\(10^8\)</span> solar masses. However, some models
+predict that dark matter clumps could exist down to at least the mass of
+Earth-like planets <span class="citation"
+data-cites="2005JCAP...08..003G 2021arXiv211101148A">(Green, Hofmann,
+and Schwarz 2005; Amorisco 2021, see)</span>.</p>
+<p><span class="citation" data-cites="2002MNRAS.332..915I">R. A. Ibata
+et al. (2002)</span> first suggested that dark matter subhalos could
+influence stellar streams by diffusing their orbital elements. Later,
+<span class="citation" data-cites="2012ApJ...748...20C">Carlberg
+(2012)</span> expanded this idea, proposing that subhalos could create
+gaps in stellar streams during flyby encounters, where a subhalo
+approaches closely enough to a segment of a stream and significantly
+changes the orbits of the closest stars. <span class="citation"
+data-cites="2013ApJ...768..171C">Carlberg and Grillmair (2013)</span>
+applied this idea and looked for the presence of gaps in the well-known
+Palomar 5 and GD-1 streams, concluding that the density variations found
+in their streams were consistent with expectations from <span
+class="math inline">\(\Lambda\)</span>CDM models. <span class="citation"
+data-cites="2019ApJ...880...38B">Bonaca et al. (2019)</span> provided
+further observational evidence for this idea, identifying a gap and a
+spur in the GD-1 stream that they could not explain by known objects,
+such as globular clusters, and which they suggested was due to the close
+passage of a dark matter subhalo. Interestingly enough, as stated in
+<span class="citation" data-cites="2019ApJ...880...38B">Bonaca et al.
+(2019)</span>, the recovered properties of this subhalo (mass and size)
+were denser than those with the <span
+class="math inline">\(\Lambda\)</span>CDM mass-size relationship
+presented in <span class="citation"
+data-cites="2017MNRAS.466.4974M">(Moliné et al. 2017)</span>. The works
+mentioned are only a few examples of the extensive literature that has
+explored the impact of dark matter subhalos in simulated streams <span
+class="citation"
+data-cites="2016ApJ...828L..10H 2021MNRAS.507.1999H 2021JCAP...10..043B 2024arXiv240402953H 2025ApJ...983...68N">(Helmi
+and Koppelman 2016; Hermans et al. 2021; Banik et al. 2021; Hilmi et al.
+2024; Nibauer et al. 2025)</span> or searched for their traces in
+observed streams <span class="citation"
+data-cites="2016MNRAS.460.2711T 2017MNRAS.470...60E 2020ApJ...889...70B 2020ApJ...892L..37B">(Thomas
+et al. 2016; Erkal, Koposov, and Belokurov 2017; Bonaca, Pearson, et al.
+2020; Bonaca, Conroy, et al. 2020)</span>.</p>
+<p>In contrast, a limited number of works have explored whether other
+structures, such as those from baryonic matter, can cause variations in
+the density of streams and gaps that can be confused with those produced
+by dark matter subhalos. Among these works, it is worth mentioning the
+results of <span class="citation"
+data-cites="2017NatAs...1..633P">Pearson, Price-Whelan, and Johnston
+(2017)</span>, which suggest that the presence of the bar at the center
+of the Galaxy can perturb the characteristics of a stream, such as
+Palomar 5, and generate gaps along its tail. That the Galactic bar could
+have an influence on stream morphology was also discussed by <span
+class="citation" data-cites="2016MNRAS.460..497H">Hattori, Erkal, and
+Sanders (2016)</span> and <span class="citation"
+data-cites="2016ApJ...824..104P">Price-Whelan et al. (2016)</span>, in
+the case of the Ophiuchus stream <span class="citation"
+data-cites="2014MNRAS.443L..84B">(E. J. Bernard et al. 2014)</span>.
+Besides the Galactic bar, giant molecular clouds can also produce gaps
+in stellar streams, as shown by <span class="citation"
+data-cites="2016MNRAS.463L..17A">Amorisco et al. (2016)</span>. All of
+these works thus indicate that baryonic structures can play an important
+role in tail morphology. In this context, an extensive numerical study
+specifically focused on modeling the tails of Palomar 5 under the
+influence of the Galactic bar, spiral arms, giant molecular clouds, and
+globular clusters, has been realized by <span class="citation"
+data-cites="2019MNRAS.484.2009B">Banik and Bovy (2019)</span>, who
+concluded that both the influence of the bar and that of the giant
+molecular clouds can leave imprints on Palomar 5 tidal tails similar to
+those left by dark matter subhalos. In contrast, they found the effect
+of globular clusters to be negligible.</p>
+<p>Few studies have specifically investigated the effect of globular
+clusters on stellar streams. <span class="citation"
+data-cites="2017MNRAS.470...60E">Erkal, Koposov, and Belokurov
+(2017)</span> concluded that globular clusters could not be responsible
+for the observed density variations in the tails of Palomar 5. Their
+analysis focused on the characteristics of the observed gaps and
+involved constraining progenitor properties using reconstructive
+modeling. By trial and error, they identified a specific configuration
+of masses, sizes, impact parameters, times of impact, and relative
+velocities for two perturbers that successfully reproduced the observed
+density distribution. However, as we do in this work, their method does
+not perform full forward modeling of the entire globular cluster system
+on Palomar 5’s stream. While they suggest that the impact rate of
+globular clusters is likely less significant—given their lower abundance
+compared to the expected dark matter subhalos population—they do not
+explore this aspect in detail. However, they state that it is an avenue
+for future investigation.</p>
+<p>More recently, <span class="citation"
+data-cites="2022ApJ...941..129D">Doke and Hattori (2022)</span> have
+examined the possibility that gaps in the GD-1 stellar stream could be
+due to the close passage of globular clusters, concluding that this
+scenario is improbable. These first works suggest that the impact of
+globular clusters on stellar streams is negligible. This result does not
+necessarily need to be the general case, especially for streams of
+clusters such as Palomar 5, which live in the inner 20 kpc of the
+Galaxy, where many other globular clusters also orbit. For example,
+<span class="citation"
+data-cites="2018A&amp;A...620A.154">(<strong>2018A&amp;A...620A.154?</strong>)</span>,
+<span class="citation"
+data-cites="2019A&amp;A...622A..86M">(<strong>2019A&amp;A...622A..86M?</strong>)</span>,
+and <span class="citation"
+data-cites="2023A&amp;A...678A..69I">Ishchenko et al. (2023)</span>
+showed that globular clusters can even collide with other clusters,
+which implies that cluster stream collisions should happen much more
+frequently since streams are far more extended than clusters.</p>
+<p>In this study, we aim to fill this gap in the literature on
+numerically modeling cluster-stream interactions. We seek to quantify
+the impact of passing globular clusters in the vicinity of streams to
+understand whether these systems can also be effective and how
+frequently they alter the distribution of stars in the tails, producing
+underdense regions or gaps. To this end, in the following pages, we
+present the results of simulations of the streams of Palomar 5 subject
+to the gravitational interaction with the set of 165 Galactic globular
+clusters for which positions and velocities are known to date and for
+which orbits can therefore be reconstructed <span class="citation"
+data-cites="2021MNRAS.505.5957B">(Baumgardt and Vasiliev 2021)</span>.
+We chose to simulate streams formed from a cluster with the current
+characteristics of Palomar 5 because it is a halo cluster with extended
+tails, and because it is a cluster for which the effect of baryonic
+structures on its stream has already been studied. As we show, and in
+tension with previous claims, the close passage of other clusters with
+such a stream is not rare. Indeed, in the 50 simulations we ran, we
+found the formation of numerous gaps, averaging 1.5 gaps per simulation,
+generated by 18 different clusters across the entire system of Galactic
+globular clusters.</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
-<div id="ref-2023A&amp;A...673A..44F" class="csl-entry" role="listitem">
-Ferrone, Salvatore, Paola Di Matteo, Alessandra Mastrobuono-Battisti,
-Misha Haywood, Owain N. Snaith, Marco Montuori, Sergey Khoperskov, and
-David Valls-Gabaud. 2023. <span>“<span class="nocase">The e-TidalGCs
-project. Modeling the extra-tidal features generated by Galactic
-globular clusters</span>”</span> 673 (May):A44. <a
-href="https://doi.org/10.1051/0004-6361/202244141">https://doi.org/10.1051/0004-6361/202244141</a>.
+<div id="ref-2021arXiv211101148A" class="csl-entry" role="listitem">
+Amorisco, Nicola C. 2021. <span>“<span class="nocase">Cold dark matter
+subhaloes at arbitrarily low masses</span>.”</span> <em>arXiv
+e-Prints</em>, November, arXiv:2111.01148. <a
+href="https://doi.org/10.48550/arXiv.2111.01148">https://doi.org/10.48550/arXiv.2111.01148</a>.
+</div>
+<div id="ref-2016MNRAS.463L..17A" class="csl-entry" role="listitem">
+Amorisco, Nicola C., Facundo A. Gómez, Simona Vegetti, and Simon D. M.
+White. 2016. <span>“<span class="nocase">Gaps in globular cluster
+streams: giant molecular clouds can cause them too</span>”</span> 463
+(1): L17–21. <a
+href="https://doi.org/10.1093/mnrasl/slw148">https://doi.org/10.1093/mnrasl/slw148</a>.
+</div>
+<div id="ref-2019MNRAS.484.2009B" class="csl-entry" role="listitem">
+Banik, Nilanjan, and Jo Bovy. 2019. <span>“<span class="nocase">Effects
+of baryonic and dark matter substructure on the Pal 5
+stream</span>”</span> 484 (2): 2009–20. <a
+href="https://doi.org/10.1093/mnras/stz142">https://doi.org/10.1093/mnras/stz142</a>.
+</div>
+<div id="ref-2021JCAP...10..043B" class="csl-entry" role="listitem">
+Banik, Nilanjan, Jo Bovy, Gianfranco Bertone, Denis Erkal, and T. J. L.
+de Boer. 2021. <span>“<span class="nocase">Novel constraints on the
+particle nature of dark matter from stellar streams</span>”</span> 2021
+(10): 043. <a
+href="https://doi.org/10.1088/1475-7516/2021/10/043">https://doi.org/10.1088/1475-7516/2021/10/043</a>.
+</div>
+<div id="ref-2019MNRAS.482.5138B" class="csl-entry" role="listitem">
+Baumgardt, H., M. Hilker, A. Sollima, and A. Bellini. 2019. <span>“<span
+class="nocase">Mean proper motions, space orbits, and velocity
+dispersion profiles of Galactic globular clusters derived from Gaia DR2
+data</span>”</span> 482 (4): 5138–55. <a
+href="https://doi.org/10.1093/mnras/sty2997">https://doi.org/10.1093/mnras/sty2997</a>.
+</div>
+<div id="ref-2021MNRAS.505.5957B" class="csl-entry" role="listitem">
+Baumgardt, H., and E. Vasiliev. 2021. <span>“<span
+class="nocase">Accurate distances to Galactic globular clusters through
+a combination of Gaia EDR3, HST, and literature data</span>”</span> 505
+(4): 5957–77. <a
+href="https://doi.org/10.1093/mnras/stab1474">https://doi.org/10.1093/mnras/stab1474</a>.
+</div>
+<div id="ref-2006ApJ...637L..29B" class="csl-entry" role="listitem">
+Belokurov, V., N. W. Evans, M. J. Irwin, P. C. Hewett, and M. I.
+Wilkinson. 2006. <span>“<span class="nocase">The Discovery of Tidal
+Tails around the Globular Cluster NGC 5466</span>”</span> 637 (1):
+L29–32. <a
+href="https://doi.org/10.1086/500362">https://doi.org/10.1086/500362</a>.
+</div>
+<div id="ref-2014MNRAS.443L..84B" class="csl-entry" role="listitem">
+Bernard, E. J., A. M. N. Ferguson, E. F. Schlafly, M. Abbas, E. F. Bell,
+N. R. Deacon, N. F. Martin, et al. 2014. <span>“<span
+class="nocase">Serendipitous discovery of a thin stellar stream near the
+Galactic bulge in the Pan-STARRS1 3<span><span
+class="math inline">\(\pi\)</span></span> Survey.</span>”</span> 443
+(September):L84–88. <a
+href="https://doi.org/10.1093/mnrasl/slu089">https://doi.org/10.1093/mnrasl/slu089</a>.
+</div>
+<div id="ref-2016MNRAS.463.1759B" class="csl-entry" role="listitem">
+Bernard, Edouard J., Annette M. N. Ferguson, Edward F. Schlafly, Nicolas
+F. Martin, Hans-Walter Rix, Eric F. Bell, Douglas P. Finkbeiner, et al.
+2016. <span>“<span class="nocase">A Synoptic Map of Halo Substructures
+from the Pan-STARRS1 3<span><span
+class="math inline">\(\pi\)</span></span> Survey</span>”</span> 463 (2):
+1759–68. <a
+href="https://doi.org/10.1093/mnras/stw2134">https://doi.org/10.1093/mnras/stw2134</a>.
+</div>
+<div id="ref-2020ApJ...892L..37B" class="csl-entry" role="listitem">
+Bonaca, Ana, Charlie Conroy, David W. Hogg, Phillip A. Cargile, Nelson
+Caldwell, Rohan P. Naidu, Adrian M. Price-Whelan, Joshua S. Speagle, and
+Benjamin D. Johnson. 2020. <span>“<span class="nocase">High-resolution
+Spectroscopy of the GD-1 Stellar Stream Localizes the Perturber near the
+Orbital Plane of Sagittarius</span>”</span> 892 (2): L37. <a
+href="https://doi.org/10.3847/2041-8213/ab800c">https://doi.org/10.3847/2041-8213/ab800c</a>.
+</div>
+<div id="ref-2012ApJ...760L...6B" class="csl-entry" role="listitem">
+Bonaca, Ana, Marla Geha, and Nitya Kallivayalil. 2012. <span>“<span
+class="nocase">A Cold Milky Way Stellar Stream in the Direction of
+Triangulum</span>”</span> 760 (1): L6. <a
+href="https://doi.org/10.1088/2041-8205/760/1/L6">https://doi.org/10.1088/2041-8205/760/1/L6</a>.
+</div>
+<div id="ref-2018ApJ...867..101B" class="csl-entry" role="listitem">
+Bonaca, Ana, and David W. Hogg. 2018. <span>“<span class="nocase">The
+Information Content in Cold Stellar Streams</span>”</span> 867 (2): 101.
+<a
+href="https://doi.org/10.3847/1538-4357/aae4da">https://doi.org/10.3847/1538-4357/aae4da</a>.
+</div>
+<div id="ref-2019ApJ...880...38B" class="csl-entry" role="listitem">
+Bonaca, Ana, David W. Hogg, Adrian M. Price-Whelan, and Charlie Conroy.
+2019. <span>“<span class="nocase">The Spur and the Gap in GD-1:
+Dynamical Evidence for a Dark Substructure in the Milky Way
+Halo</span>”</span> 880 (1): 38. <a
+href="https://doi.org/10.3847/1538-4357/ab2873">https://doi.org/10.3847/1538-4357/ab2873</a>.
+</div>
+<div id="ref-2020ApJ...889...70B" class="csl-entry" role="listitem">
+Bonaca, Ana, Sarah Pearson, Adrian M. Price-Whelan, Arjun Dey, Marla
+Geha, Nitya Kallivayalil, John Moustakas, et al. 2020. <span>“<span
+class="nocase">Variations in the Width, Density, and Direction of the
+Palomar 5 Tidal Tails</span>”</span> 889 (1): 70. <a
+href="https://doi.org/10.3847/1538-4357/ab5afe">https://doi.org/10.3847/1538-4357/ab5afe</a>.
+</div>
+<div id="ref-2025NewAR.10001713B" class="csl-entry" role="listitem">
+Bonaca, Ana, and Adrian M. Price-Whelan. 2025. <span>“<span
+class="nocase">Stellar streams in the Gaia era</span>”</span> 100
+(June):101713. <a
+href="https://doi.org/10.1016/j.newar.2024.101713">https://doi.org/10.1016/j.newar.2024.101713</a>.
+</div>
+<div id="ref-2016ApJ...833...31B" class="csl-entry" role="listitem">
+Bovy, Jo, Anita Bahmanyar, Tobias K. Fritz, and Nitya Kallivayalil.
+2016. <span>“<span class="nocase">The Shape of the Inner Milky Way Halo
+from Observations of the Pal 5 and GD–1 Stellar Streams</span>”</span>
+833 (1): 31. <a
+href="https://doi.org/10.3847/1538-4357/833/1/31">https://doi.org/10.3847/1538-4357/833/1/31</a>.
+</div>
+<div id="ref-2012ApJ...748...20C" class="csl-entry" role="listitem">
+Carlberg, R. G. 2012. <span>“<span class="nocase">Dark Matter Sub-halo
+Counts via Star Stream Crossings</span>”</span> 748 (1): 20. <a
+href="https://doi.org/10.1088/0004-637X/748/1/20">https://doi.org/10.1088/0004-637X/748/1/20</a>.
+</div>
+<div id="ref-2013ApJ...768..171C" class="csl-entry" role="listitem">
+Carlberg, R. G., and C. J. Grillmair. 2013. <span>“<span
+class="nocase">Gaps in the GD-1 Star Stream</span>”</span> 768 (2): 171.
+<a
+href="https://doi.org/10.1088/0004-637X/768/2/171">https://doi.org/10.1088/0004-637X/768/2/171</a>.
+</div>
+<div id="ref-2022ApJ...941..129D" class="csl-entry" role="listitem">
+Doke, Yuka, and Kohei Hattori. 2022. <span>“<span
+class="nocase">Probability of Forming Gaps in the GD-1 Stream by Close
+Encounters of Globular Clusters</span>”</span> 941 (2): 129. <a
+href="https://doi.org/10.3847/1538-4357/aca090">https://doi.org/10.3847/1538-4357/aca090</a>.
+</div>
+<div id="ref-2017MNRAS.470...60E" class="csl-entry" role="listitem">
+Erkal, Denis, Sergey E. Koposov, and Vasily Belokurov. 2017.
+<span>“<span class="nocase">A sharper view of Pal 5’s tails: discovery
+of stream perturbations with a novel non-parametric
+technique</span>”</span> 470 (1): 60–84. <a
+href="https://doi.org/10.1093/mnras/stx1208">https://doi.org/10.1093/mnras/stx1208</a>.
+</div>
+<div id="ref-2016A&amp;A...595A...1G" class="csl-entry" role="listitem">
+Gaia Collaboration, T. Prusti, J. H. J. de Bruijne, A. G. A. Brown, A.
+Vallenari, C. Babusiaux, C. A. L. Bailer-Jones, et al. 2016.
+<span>“<span class="nocase">The Gaia mission</span>”</span> 595
+(November):A1. <a
+href="https://doi.org/10.1051/0004-6361/201629272">https://doi.org/10.1051/0004-6361/201629272</a>.
+</div>
+<div id="ref-2005JCAP...08..003G" class="csl-entry" role="listitem">
+Green, Anne M., Stefan Hofmann, and Dominik J. Schwarz. 2005.
+<span>“<span class="nocase">The first WIMPy halos</span>”</span> 2005
+(8): 003. <a
+href="https://doi.org/10.1088/1475-7516/2005/08/003">https://doi.org/10.1088/1475-7516/2005/08/003</a>.
+</div>
+<div id="ref-2009ApJ...693.1118G" class="csl-entry" role="listitem">
+Grillmair, C. J. 2009. <span>“<span class="nocase">Four New Stellar
+Debris Streams in the Galactic Halo</span>”</span> 693 (2): 1118–27. <a
+href="https://doi.org/10.1088/0004-637X/693/2/1118">https://doi.org/10.1088/0004-637X/693/2/1118</a>.
+</div>
+<div id="ref-2014ApJ...790L..10G" class="csl-entry" role="listitem">
+———. 2014. <span>“<span class="nocase">Two New Halo Debris Streams in
+the Sloan Digital Sky Survey</span>”</span> 790 (1): L10. <a
+href="https://doi.org/10.1088/2041-8205/790/1/L10">https://doi.org/10.1088/2041-8205/790/1/L10</a>.
+</div>
+<div id="ref-2006ApJ...641L..37G" class="csl-entry" role="listitem">
+Grillmair, C. J., and O. Dionatos. 2006a. <span>“<span class="nocase">A
+22<span></span> Tidal Tail for Palomar 5</span>”</span> 641 (1): L37–39.
+<a
+href="https://doi.org/10.1086/503744">https://doi.org/10.1086/503744</a>.
+</div>
+<div id="ref-2006ApJ...643L..17G" class="csl-entry" role="listitem">
+———. 2006b. <span>“<span class="nocase">Detection of a 63<span></span>
+Cold Stellar Stream in the Sloan Digital Sky Survey</span>”</span> 643
+(1): L17–20. <a
+href="https://doi.org/10.1086/505111">https://doi.org/10.1086/505111</a>.
+</div>
+<div id="ref-2017ApJ...847..119G" class="csl-entry" role="listitem">
+Grillmair, Carl J. 2017. <span>“<span class="nocase">At a Crossroads:
+Stellar Streams in the South Galactic Cap</span>”</span> 847 (2): 119.
+<a
+href="https://doi.org/10.3847/1538-4357/aa8872">https://doi.org/10.3847/1538-4357/aa8872</a>.
+</div>
+<div id="ref-2013ApJ...769L..23G" class="csl-entry" role="listitem">
+Grillmair, Carl J., Roc Cutri, Frank J. Masci, Tim Conrow, Branimir
+Sesar, Peter R. M. Eisenhardt, and Edward L. Wright. 2013. <span>“<span
+class="nocase">Detection of a Nearby Halo Debris Stream in the WISE and
+2MASS Surveys</span>”</span> 769 (2): L23. <a
+href="https://doi.org/10.1088/2041-8205/769/2/L23">https://doi.org/10.1088/2041-8205/769/2/L23</a>.
+</div>
+<div id="ref-1995AJ....109.2553G" class="csl-entry" role="listitem">
+Grillmair, Carl J., K. C. Freeman, M. Irwin, and P. J. Quinn. 1995.
+<span>“<span class="nocase">Globular Clusters with Tidal Tails: Deep
+Two-Color Star Counts</span>”</span> 109 (June):2553. <a
+href="https://doi.org/10.1086/117470">https://doi.org/10.1086/117470</a>.
+</div>
+<div id="ref-2015ApJ...812L..26G" class="csl-entry" role="listitem">
+Grillmair, Carl J., Lauren Hetherington, Raymond G. Carlberg, and Beth
+Willman. 2015. <span>“<span class="nocase">An Orphan No Longer?
+Detection of the Southern Orphan Stream and a Candidate
+Progenitor</span>”</span> 812 (2): L26. <a
+href="https://doi.org/10.1088/2041-8205/812/2/L26">https://doi.org/10.1088/2041-8205/812/2/L26</a>.
+</div>
+<div id="ref-2016MNRAS.460..497H" class="csl-entry" role="listitem">
+Hattori, Kohei, Denis Erkal, and Jason L. Sanders. 2016. <span>“<span
+class="nocase">Shepherding tidal debris with the Galactic bar: the
+Ophiuchus stream</span>”</span> 460 (1): 497–512. <a
+href="https://doi.org/10.1093/mnras/stw1006">https://doi.org/10.1093/mnras/stw1006</a>.
+</div>
+<div id="ref-2004MNRAS.351..643H" class="csl-entry" role="listitem">
+Helmi, Amina. 2004. <span>“<span class="nocase">Is the dark halo of our
+Galaxy spherical?</span>”</span> 351 (2): 643–48. <a
+href="https://doi.org/10.1111/j.1365-2966.2004.07812.x">https://doi.org/10.1111/j.1365-2966.2004.07812.x</a>.
+</div>
+<div id="ref-2016ApJ...828L..10H" class="csl-entry" role="listitem">
+Helmi, Amina, and Helmer H. Koppelman. 2016. <span>“<span
+class="nocase">The Time Evolution of Gaps in Tidal
+Streams</span>”</span> 828 (1): L10. <a
+href="https://doi.org/10.3847/2041-8205/828/1/L10">https://doi.org/10.3847/2041-8205/828/1/L10</a>.
+</div>
+<div id="ref-2021MNRAS.507.1999H" class="csl-entry" role="listitem">
+Hermans, Joeri, Nilanjan Banik, Christoph Weniger, Gianfranco Bertone,
+and Gilles Louppe. 2021. <span>“<span class="nocase">Towards
+constraining warm dark matter with stellar streams through neural
+simulation-based inference</span>”</span> 507 (2): 1999–2011. <a
+href="https://doi.org/10.1093/mnras/stab2181">https://doi.org/10.1093/mnras/stab2181</a>.
+</div>
+<div id="ref-2024arXiv240402953H" class="csl-entry" role="listitem">
+Hilmi, Tariq, Denis Erkal, Sergey E. Koposov, Ting S. Li, Sophia
+Lilleengen, Alexander P. Ji, Geraint F. Lewis, et al. 2024. <span>“<span
+class="nocase">Inferring dark matter subhalo properties from simulated
+subhalo-stream encounters</span>.”</span> <em>arXiv e-Prints</em>,
+April, arXiv:2404.02953. <a
+href="https://doi.org/10.48550/arXiv.2404.02953">https://doi.org/10.48550/arXiv.2404.02953</a>.
+</div>
+<div id="ref-1994Natur.370..194I" class="csl-entry" role="listitem">
+Ibata, R. A., G. Gilmore, and M. J. Irwin. 1994. <span>“<span
+class="nocase">A dwarf satellite galaxy in Sagittarius</span>”</span>
+370 (6486): 194–96. <a
+href="https://doi.org/10.1038/370194a0">https://doi.org/10.1038/370194a0</a>.
+</div>
+<div id="ref-2002MNRAS.332..915I" class="csl-entry" role="listitem">
+Ibata, R. A., G. F. Lewis, M. J. Irwin, and T. Quinn. 2002. <span>“<span
+class="nocase">Uncovering cold dark matter halo substructure with tidal
+streams</span>”</span> 332 (4): 915–20. <a
+href="https://doi.org/10.1046/j.1365-8711.2002.05358.x">https://doi.org/10.1046/j.1365-8711.2002.05358.x</a>.
+</div>
+<div id="ref-2019ApJ...872..152I" class="csl-entry" role="listitem">
+Ibata, Rodrigo A., Khyati Malhan, and Nicolas F. Martin. 2019.
+<span>“<span class="nocase">The Streams of the Gaping Abyss: A
+Population of Entangled Stellar Streams Surrounding the Inner
+Galaxy</span>”</span> 872 (2): 152. <a
+href="https://doi.org/10.3847/1538-4357/ab0080">https://doi.org/10.3847/1538-4357/ab0080</a>.
+</div>
+<div id="ref-2018ApJ...865...85I" class="csl-entry" role="listitem">
+Ibata, Rodrigo A., Khyati Malhan, Nicolas F. Martin, and Else
+Starkenburg. 2018. <span>“<span class="nocase">Phlegethon, a Nearby
+75<span></span>-long Retrograde Stellar Stream</span>”</span> 865 (2):
+85. <a
+href="https://doi.org/10.3847/1538-4357/aadba3">https://doi.org/10.3847/1538-4357/aadba3</a>.
+</div>
+<div id="ref-2024ApJ...967...89I" class="csl-entry" role="listitem">
+Ibata, Rodrigo, Khyati Malhan, Wassim Tenachi, Anke Ardern-Arentsen,
+Michele Bellazzini, Paolo Bianchini, Piercarlo Bonifacio, et al. 2024.
+<span>“<span class="nocase">Charting the Galactic Acceleration Field.
+II. A Global Mass Model of the Milky Way from the STREAMFINDER Atlas of
+Stellar Streams Detected in Gaia DR3</span>”</span> 967 (2): 89. <a
+href="https://doi.org/10.3847/1538-4357/ad382d">https://doi.org/10.3847/1538-4357/ad382d</a>.
+</div>
+<div id="ref-2023A&amp;A...678A..69I" class="csl-entry" role="listitem">
+Ishchenko, Maryna, Margaryta Sobolenko, Peter Berczik, Chingis Omarov,
+Olexander Sobodar, Mukhagali Kalambay, and Denis Yurin. 2023.
+<span>“<span class="nocase">Milky Way globular clusters on cosmological
+timescales. III. Interaction rates</span>”</span> 678 (October):A69. <a
+href="https://doi.org/10.1051/0004-6361/202346553">https://doi.org/10.1051/0004-6361/202346553</a>.
+</div>
+<div id="ref-2020AJ....160..181J" class="csl-entry" role="listitem">
+Ji, Alexander P., Ting S. Li, Terese T. Hansen, Andrew R. Casey, Sergey
+E. Koposov, Andrew B. Pace, Dougal Mackey, et al. 2020. <span>“<span
+class="nocase">The Southern Stellar Stream Spectroscopic Survey (S<span
+class="math inline">\(^{5}\)</span>): Chemical Abundances of Seven
+Stellar Streams</span>”</span> 160 (4): 181. <a
+href="https://doi.org/10.3847/1538-3881/abacb6">https://doi.org/10.3847/1538-3881/abacb6</a>.
+</div>
+<div id="ref-2005ApJ...619..800J" class="csl-entry" role="listitem">
+Johnston, Kathryn V., David R. Law, and Steven R. Majewski. 2005.
+<span>“<span class="nocase">A Two Micron All Sky Survey View of the
+Sagittarius Dwarf Galaxy. III. Constraints on the Flattening of the
+Galactic Halo</span>”</span> 619 (2): 800–806. <a
+href="https://doi.org/10.1086/426777">https://doi.org/10.1086/426777</a>.
+</div>
+<div id="ref-1975AJ.....80..290K" class="csl-entry" role="listitem">
+Keenan, D. W., and K. A. Innanen. 1975. <span>“<span
+class="nocase">Numerical investigation of galactic tidal effects on
+spherical stellar systems.</span>”</span> 80 (April):290–302. <a
+href="https://doi.org/10.1086/111744">https://doi.org/10.1086/111744</a>.
+</div>
+<div id="ref-2014MNRAS.442L..85K" class="csl-entry" role="listitem">
+Koposov, S. E., M. Irwin, V. Belokurov, E. Gonzalez-Solares, A. K.
+Yoldas, J. Lewis, N. Metcalfe, and T. Shanks. 2014. <span>“<span
+class="nocase">Discovery of a cold stellar stream in the ATLAS DR1
+data.</span>”</span> 442 (July):L85–89. <a
+href="https://doi.org/10.1093/mnrasl/slu060">https://doi.org/10.1093/mnrasl/slu060</a>.
+</div>
+<div id="ref-2015MNRAS.446.3297K" class="csl-entry" role="listitem">
+Kuzma, P. B., G. S. Da Costa, S. C. Keller, and E. Maunder. 2015.
+<span>“<span class="nocase">Palomar 5 and its tidal tails: a search for
+new members in the tidal stream</span>”</span> 446 (4): 3297–3309. <a
+href="https://doi.org/10.1093/mnras/stu2343">https://doi.org/10.1093/mnras/stu2343</a>.
+</div>
+<div id="ref-2005ApJ...619..807L" class="csl-entry" role="listitem">
+Law, David R., Kathryn V. Johnston, and Steven R. Majewski. 2005.
+<span>“<span class="nocase">A Two Micron All-Sky Survey View of the
+Sagittarius Dwarf Galaxy. IV. Modeling the Sagittarius Tidal
+Tails</span>”</span> 619 (2): 807–23. <a
+href="https://doi.org/10.1086/426779">https://doi.org/10.1086/426779</a>.
+</div>
+<div id="ref-2010ApJ...718.1128L" class="csl-entry" role="listitem">
+Law, David R., and Steven R. Majewski. 2010. <span>“<span
+class="nocase">Assessing the Milky Way Satellites Associated with the
+Sagittarius Dwarf Spheroidal Galaxy</span>”</span> 718 (2): 1128–50. <a
+href="https://doi.org/10.1088/0004-637X/718/2/1128">https://doi.org/10.1088/0004-637X/718/2/1128</a>.
+</div>
+<div id="ref-2003AJ....126..815L" class="csl-entry" role="listitem">
+Lee, Kang Hwan, Hyung Mok Lee, Gregory G. Fahlman, and Myung Gyoon Lee.
+2003. <span>“<span class="nocase">Wide-Field CCD Photometry of the
+Globular Cluster M92</span>”</span> 126 (2): 815–25. <a
+href="https://doi.org/10.1086/376738">https://doi.org/10.1086/376738</a>.
+</div>
+<div id="ref-1997A&amp;A...320..776L" class="csl-entry" role="listitem">
+Lehmann, I., and R. -D. Scholz. 1997. <span>“<span class="nocase">Tidal
+radii of the globular clusters M 5, M 12, M 13, M 15, M 53, NGC 5053 and
+NGC 5466 from automated star counts.</span>”</span> 320 (April):776–82.
+</div>
+<div id="ref-2000A&amp;A...359..907L" class="csl-entry" role="listitem">
+Leon, S., G. Meylan, and F. Combes. 2000. <span>“<span
+class="nocase">Tidal tails around 20 Galactic globular clusters.
+Observational evidence for gravitational disk/bulge
+shocking</span>”</span> 359 (July):907–31. <a
+href="https://doi.org/10.48550/arXiv.astro-ph/0006100">https://doi.org/10.48550/arXiv.astro-ph/0006100</a>.
+</div>
+<div id="ref-2019MNRAS.490.3508L" class="csl-entry" role="listitem">
+Li, T. S., S. E. Koposov, D. B. Zucker, G. F. Lewis, K. Kuehn, J. D.
+Simpson, A. P. Ji, et al. 2019. <span>“<span class="nocase">The southern
+stellar stream spectroscopic survey (S<span
+class="math inline">\(^{5}\)</span>): Overview, target selection, data
+reduction, validation, and early science</span>”</span> 490 (3):
+3508–31. <a
+href="https://doi.org/10.1093/mnras/stz2731">https://doi.org/10.1093/mnras/stz2731</a>.
+</div>
+<div id="ref-2022ApJ...928...30L" class="csl-entry" role="listitem">
+Li, Ting S., Alexander P. Ji, Andrew B. Pace, Denis Erkal, Sergey E.
+Koposov, Nora Shipp, Gary S. Da Costa, et al. 2022. <span>“<span
+class="nocase">S <span class="math inline">\(^{5}\)</span>: The Orbital
+and Chemical Properties of One Dozen Stellar Streams</span>”</span> 928
+(1): 30. <a
+href="https://doi.org/10.3847/1538-4357/ac46d3">https://doi.org/10.3847/1538-4357/ac46d3</a>.
+</div>
+<div id="ref-2021ApJ...911..149L" class="csl-entry" role="listitem">
+Li, Ting S., Sergey E. Koposov, Denis Erkal, Alexander P. Ji, Nora
+Shipp, Andrew B. Pace, Tariq Hilmi, et al. 2021. <span>“<span
+class="nocase">Broken into Pieces: ATLAS and Aliqa Uma as One Single
+Stream</span>”</span> 911 (2): 149. <a
+href="https://doi.org/10.3847/1538-4357/abeb18">https://doi.org/10.3847/1538-4357/abeb18</a>.
+</div>
+<div id="ref-2018MNRAS.477.4063M" class="csl-entry" role="listitem">
+Malhan, Khyati, and Rodrigo A. Ibata. 2018. <span>“<span
+class="nocase">STREAMFINDER - I. A new algorithm for detecting stellar
+streams</span>”</span> 477 (3): 4063–76. <a
+href="https://doi.org/10.1093/mnras/sty912">https://doi.org/10.1093/mnras/sty912</a>.
+</div>
+<div id="ref-2018MNRAS.481.3442M" class="csl-entry" role="listitem">
+Malhan, Khyati, Rodrigo A. Ibata, and Nicolas F. Martin. 2018.
+<span>“<span class="nocase">Ghostly tributaries to the Milky Way:
+charting the halo’s stellar streams with the Gaia DR2
+catalogue</span>”</span> 481 (3): 3442–55. <a
+href="https://doi.org/10.1093/mnras/sty2474">https://doi.org/10.1093/mnras/sty2474</a>.
+</div>
+<div id="ref-2023MNRAS.520.5225M" class="csl-entry" role="listitem">
+Mateu, Cecilia. 2023. <span>“<span class="nocase">galstreams: A library
+of Milky Way stellar stream footprints and tracks</span>”</span> 520
+(4): 5225–58. <a
+href="https://doi.org/10.1093/mnras/stad321">https://doi.org/10.1093/mnras/stad321</a>.
+</div>
+<div id="ref-2017MNRAS.466.4974M" class="csl-entry" role="listitem">
+Moliné, Ángeles, Miguel A. Sánchez-Conde, Sergio Palomares-Ruiz, and
+Francisco Prada. 2017. <span>“<span class="nocase">Characterization of
+subhalo structural properties and implications for dark matter
+annihilation signals</span>”</span> 466 (4): 4974–90. <a
+href="https://doi.org/10.1093/mnras/stx026">https://doi.org/10.1093/mnras/stx026</a>.
+</div>
+<div id="ref-2007ApJ...659.1212M" class="csl-entry" role="listitem">
+Montuori, M., R. Capuzzo-Dolcetta, P. Di Matteo, A. Lepinette, and P.
+Miocchi. 2007. <span>“<span class="nocase">Tidal Tails around Globular
+Clusters: Are They a Good Tracer of Cluster Orbits?</span>”</span> 659
+(2): 1212–21. <a
+href="https://doi.org/10.1086/512114">https://doi.org/10.1086/512114</a>.
+</div>
+<div id="ref-2025ApJ...983...68N" class="csl-entry" role="listitem">
+Nibauer, Jacob, Ana Bonaca, David N. Spergel, Adrian M. Price-Whelan,
+Jenny E. Greene, Nathaniel Starkman, and Kathryn V. Johnston. 2025.
+<span>“<span class="nocase">StreamSculptor: Hamiltonian Perturbation
+Theory for Stellar Streams in Flexible Potentials with Differentiable
+Simulations</span>”</span> 983 (1): 68. <a
+href="https://doi.org/10.3847/1538-4357/adb8e8">https://doi.org/10.3847/1538-4357/adb8e8</a>.
+</div>
+<div id="ref-2002AAS...200.1001O" class="csl-entry" role="listitem">
+Odenkirchen, M., E. K. Grebel, W. Dehnen, H. W. Rix, C. M. Rockosi, H.
+Newberg, and B. Yanny. 2002. <span>“<span class="nocase">The Extended
+Tails of Palomar 5: A Ten Degree Arc of Globular Cluster Tidal
+Debris</span>.”</span> In <em>American Astronomical Society Meeting
+Abstracts #200</em>, 200:10.01. American Astronomical Society Meeting
+Abstracts.
+</div>
+<div id="ref-2003AJ....126.2385O" class="csl-entry" role="listitem">
+Odenkirchen, Michael, Eva K. Grebel, Walter Dehnen, Hans-Walter Rix,
+Brian Yanny, Heidi Jo Newberg, Constance M. Rockosi, David
+Martı́nez-Delgado, Jon Brinkmann, and Jeffrey R. Pier. 2003. <span>“<span
+class="nocase">The Extended Tails of Palomar 5: A 10<span></span> Arc of
+Globular Cluster Tidal Debris</span>”</span> 126 (5): 2385–2407. <a
+href="https://doi.org/10.1086/378601">https://doi.org/10.1086/378601</a>.
+</div>
+<div id="ref-2001ApJ...548L.165O" class="csl-entry" role="listitem">
+Odenkirchen, Michael, Eva K. Grebel, Constance M. Rockosi, Walter
+Dehnen, Rodrigo Ibata, Hans-Walter Rix, Andrea Stolte, et al. 2001.
+<span>“<span class="nocase">Detection of Massive Tidal Tails around the
+Globular Cluster Palomar 5 with Sloan Digital Sky Survey Commissioning
+Data</span>”</span> 548 (2): L165–69. <a
+href="https://doi.org/10.1086/319095">https://doi.org/10.1086/319095</a>.
+</div>
+<div id="ref-2017NatAs...1..633P" class="csl-entry" role="listitem">
+Pearson, Sarah, Adrian M. Price-Whelan, and Kathryn V. Johnston. 2017.
+<span>“<span class="nocase">Gaps and length asymmetry in the stellar
+stream Palomar 5 as effects of Galactic bar rotation</span>.”</span>
+<em>Nature Astronomy</em> 1 (August):633–39. <a
+href="https://doi.org/10.1038/s41550-017-0220-3">https://doi.org/10.1038/s41550-017-0220-3</a>.
+</div>
+<div id="ref-2016ApJ...824..104P" class="csl-entry" role="listitem">
+Price-Whelan, Adrian M., Branimir Sesar, Kathryn V. Johnston, and
+Hans-Walter Rix. 2016. <span>“<span class="nocase">Spending Too Much
+Time at the Galactic Bar: Chaotic Fanning of the Ophiuchus
+Stream</span>”</span> 824 (2): 104. <a
+href="https://doi.org/10.3847/0004-637X/824/2/104">https://doi.org/10.3847/0004-637X/824/2/104</a>.
+</div>
+<div id="ref-2001AAS...19910906S" class="csl-entry" role="listitem">
+Siegel, M. H. 2001. <span>“<span class="nocase">Starcounts, Outer Halo
+Clusters and the Formation of the Milky Way</span>.”</span> In
+<em>American Astronomical Society Meeting Abstracts</em>, 199:109.06.
+American Astronomical Society Meeting Abstracts.
+</div>
+<div id="ref-2020MNRAS.495.2222S" class="csl-entry" role="listitem">
+Sollima, A. 2020. <span>“<span class="nocase">The eye of Gaia on
+globular clusters structure: tidal tails</span>”</span> 495 (2):
+2222–33. <a
+href="https://doi.org/10.1093/mnras/staa1209">https://doi.org/10.1093/mnras/staa1209</a>.
+</div>
+<div id="ref-2018MNRAS.476.4814S" class="csl-entry" role="listitem">
+Sollima, A., D. Martı́nez Delgado, R. R. Muñoz, J. A. Carballo-Bello, D.
+Valls-Gabaud, E. K. Grebel, F. A. Santana, P. Côté, and S. G.
+Djorgovski. 2018. <span>“<span class="nocase">A survey for dwarf galaxy
+remnants around 14 globular clusters in the outer halo</span>”</span>
+476 (4): 4814–29. <a
+href="https://doi.org/10.1093/mnras/sty539">https://doi.org/10.1093/mnras/sty539</a>.
+</div>
+<div id="ref-2011ApJ...726...47S" class="csl-entry" role="listitem">
+Sollima, A., D. Martı́nez-Delgado, D. Valls-Gabaud, and J. Peñarrubia.
+2011. <span>“<span class="nocase">Discovery of Tidal Tails Around the
+Distant Globular Cluster Palomar 14</span>”</span> 726 (1): 47. <a
+href="https://doi.org/10.1088/0004-637X/726/1/47">https://doi.org/10.1088/0004-637X/726/1/47</a>.
+</div>
+<div id="ref-2008MNRAS.391.1685S" class="csl-entry" role="listitem">
+Springel, V., J. Wang, M. Vogelsberger, A. Ludlow, A. Jenkins, A. Helmi,
+J. F. Navarro, C. S. Frenk, and S. D. M. White. 2008. <span>“<span
+class="nocase">The Aquarius Project: the subhaloes of galactic
+haloes</span>”</span> 391 (4): 1685–1711. <a
+href="https://doi.org/10.1111/j.1365-2966.2008.14066.x">https://doi.org/10.1111/j.1365-2966.2008.14066.x</a>.
+</div>
+<div id="ref-2000A&amp;A...356..127T" class="csl-entry" role="listitem">
+Testa, V., S. R. Zaggia, S. Andreon, G. Longo, R. Scaramella, S. G.
+Djorgovski, and R. de Carvalho. 2000. <span>“<span class="nocase">Use of
+DPOSS data to study globular cluster halos: an application to
+&lt;ASTROBJ&gt;M 92&lt;/ASTROBJ&gt;</span>”</span> 356 (April):127–33.
+<a
+href="https://doi.org/10.48550/arXiv.astro-ph/0002280">https://doi.org/10.48550/arXiv.astro-ph/0002280</a>.
+</div>
+<div id="ref-2016MNRAS.460.2711T" class="csl-entry" role="listitem">
+Thomas, Guillaume F., R. Ibata, B. Famaey, N. F. Martin, and G. F.
+Lewis. 2016. <span>“<span class="nocase">Exploring the reality of
+density substructures in the Palomar 5 stellar stream</span>”</span> 460
+(3): 2711–19. <a
+href="https://doi.org/10.1093/mnras/stw1189">https://doi.org/10.1093/mnras/stw1189</a>.
+</div>
+<div id="ref-2024MNRAS.529.2413U" class="csl-entry" role="listitem">
+Usman, Sam A., Alexander P. Ji, Ting S. Li, Andrew B. Pace, Lara R.
+Cullinane, Gary S. Da Costa, Sergey E. Koposov, et al. 2024.
+<span>“<span class="nocase">Multiple populations and a CH star found in
+the 300S globular cluster stellar stream</span>”</span> 529 (3):
+2413–27. <a
+href="https://doi.org/10.1093/mnras/stae185">https://doi.org/10.1093/mnras/stae185</a>.
+</div>
+<div id="ref-2011MNRAS.417..198V" class="csl-entry" role="listitem">
+Varghese, A., R. Ibata, and G. F. Lewis. 2011. <span>“<span
+class="nocase">Stellar streams as probes of dark halo mass and
+morphology: a Bayesian reconstruction</span>”</span> 417 (1): 198–215.
+<a
+href="https://doi.org/10.1111/j.1365-2966.2011.19097.x">https://doi.org/10.1111/j.1365-2966.2011.19097.x</a>.
+</div>
+<div id="ref-2012Natur.481..341V" class="csl-entry" role="listitem">
+Vegetti, S., D. J. Lagattuta, J. P. McKean, M. W. Auger, C. D.
+Fassnacht, and L. V. E. Koopmans. 2012. <span>“<span
+class="nocase">Gravitational detection of a low-mass dark satellite
+galaxy at cosmological distance</span>”</span> 481 (7381): 341–43. <a
+href="https://doi.org/10.1038/nature10669">https://doi.org/10.1038/nature10669</a>.
 </div>
 </div>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
@@ -800,6 +1535,14 @@ the strong nuclear force. In molecular hydrogen, the two protons are
 chemically bound together, meaning they share electrons. Without
 electrons, there can’t be any molecular bonds :)<a href="#fnref1"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>For more subsequent observation detections of tidal
+debris, i.e., globular cluster stars beyond the tidal radius see the
+works of: <span class="citation"
+data-cites="1997A&amp;A...320..776L 2000A&amp;A...356..127T 2000A&amp;A...359..907L 2001AAS...19910906S 2003AJ....126..815L 2011ApJ...726...47S 2018MNRAS.476.4814S 2020MNRAS.495.2222S">Lehmann
+and Scholz (1997; Testa et al. 2000; Leon, Meylan, and Combes 2000;
+Siegel 2001; Lee et al. 2003; Sollima et al. 2011, 2018; Sollima
+2020)</span>.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>
