@@ -345,8 +345,8 @@ implications of the modeling limitations.</p></li>
 cluster, we sampled Palomar 5 with 100,000 particles from a Plummer
 distribution, taking the mass and half-mass radius from the Baumgardt
 catalog: <span
-class="math inline">\(1.3\times10^{4}~\textrm{M}_\odot\)</span> and
-<span class="math inline">\(27.6~\textrm{pc}\)</span>. We then
+class="math inline">\(1.3\times10^{4}~\mathrm{M}_\odot\)</span> and
+<span class="math inline">\(27.6~\mathrm{pc}\)</span>. We then
 integrated the evolution of these particles forward in time to the
 present day, taking into account that each particle feels the
 gravitational potential of the Galaxy, its host cluster, and that of all
@@ -395,23 +395,30 @@ data-reference-type="ref" data-reference="tab:data_volume">1</a>. Using
 single precision floating point numbers, the size of our simulations is
 approximately: <span
 class="math display">\[\label{eq:data_volume_estimate}
-                N_p \times N_{\textrm{ts}}\times
-N_{\textrm{phase}}\times N_{\textrm{sampling}} \times
-4~\textrm{bytes}\approx 600~\textrm{Gb}.\]</span></p>
+                N_p \times N_{\mathrm{ts}}\times
+N_{\mathrm{phase}}\times N_{\mathrm{sampling}} \times
+4~\mathrm{bytes}\approx 600~\mathrm{Gb}.\]</span></p>
 <div class="center">
 <div id="tab:data_volume">
 <table>
-<caption>Parameters determining the data volume.</caption>
+<caption>Parameters determining the data volume. <span
+class="math inline">\(N_p\)</span> is the number of particles, <span
+class="math inline">\(N_{\mathrm{ts}}\)</span> is the number of
+time-steps saved, <span
+class="math inline">\(N_{\mathrm{phase}}\)</span> is the number of phase
+space coordinates, and <span
+class="math inline">\(N_{\mathrm{sampling}}\)</span> is the number of
+Monte-Carlo samplings of the initial conditions.</caption>
 <thead>
 <tr>
 <th style="text-align: center;"><span
 class="math inline">\(N_p\)</span></th>
 <th style="text-align: center;"><span
-class="math inline">\(N_{\textrm{ts}}\)</span></th>
+class="math inline">\(N_{\mathrm{ts}}\)</span></th>
 <th style="text-align: center;"><span
-class="math inline">\(N_{\textrm{phase}}\)</span></th>
+class="math inline">\(N_{\mathrm{phase}}\)</span></th>
 <th style="text-align: center;"><span
-class="math inline">\(N_{\textrm{sampling}}\)</span></th>
+class="math inline">\(N_{\mathrm{sampling}}\)</span></th>
 </tr>
 </thead>
 <tbody>
@@ -478,7 +485,7 @@ kind are not uncommon in literature. <span class="citation"
 data-cites="2017NatAs...1..633P">Pearson, Price-Whelan, and Johnston
 (2017)</span> discussed the formation of gaps in the Pal 5 tails and
 assumed a time-independent mass of <span class="math inline">\(50,000
-~\textrm{M}_\odot\)</span> for Pal 5, over the last 4 Gyr; <span
+~\mathrm{M}_\odot\)</span> for Pal 5, over the last 4 Gyr; <span
 class="citation" data-cites="2017MNRAS.470...60E">Erkal, Koposov, and
 Belokurov (2017)</span> adopted a N-body approach to simulate Pal 5
 stream, but used Pal 5 current conditions as their progenitor’s initial
@@ -579,13 +586,13 @@ data-cites="2004AJ....127.2753D">Dehnen et al. (2004)</span> and present
 it in Fig. <a href="#fig:TailCoordinates" data-reference-type="ref"
 data-reference="fig:TailCoordinates">[fig:TailCoordinates]</a>. Briefly,
 in this system, the <span
-class="math inline">\(x_{\textrm{tail}}\)</span> coordinate represents
+class="math inline">\(x_{\mathrm{tail}}\)</span> coordinate represents
 the position of a particle along the orbit relative to the globular
 cluster. Positive values of <span
-class="math inline">\(x_{\textrm{tail}}\)</span> are ahead of the
+class="math inline">\(x_{\mathrm{tail}}\)</span> are ahead of the
 cluster, while negative <span
-class="math inline">\(x_{\textrm{tail}}\)</span> is behind the cluster.
-The <span class="math inline">\(y_{\textrm{tail}}\)</span> coordinate
+class="math inline">\(x_{\mathrm{tail}}\)</span> is behind the cluster.
+The <span class="math inline">\(y_{\mathrm{tail}}\)</span> coordinate
 measures the particle’s distance within the orbital plane, where
 positive values indicate that the particle is farther from the Galactic
 center and negative values indicate that it is closer. Fig. <a
@@ -598,7 +605,7 @@ panel). This comparison clearly shows the presence of two wide (<span
 class="math inline">\(\sim\)</span>100 pc and <span
 class="math inline">\(\sim\)</span>1 kpc) gaps in the leading tail and
 of a more subtle underdensity at <span
-class="math inline">\(x_{\textrm{tail}}\sim 5\)</span> kpc (we refer the
+class="math inline">\(x_{\mathrm{tail}}\sim 5\)</span> kpc (we refer the
 reader to Appendix <a href="#sec:gap_detection"
 data-reference-type="ref"
 data-reference="sec:gap_detection">[sec:gap_detection]</a> for a
@@ -709,7 +716,9 @@ data-reference="sec:gaps_vs_gcmass">[sec:gaps_vs_gcmass]</a>.</p>
 <div id="tab:gaps_per_perturber">
 <table>
 <caption>Number of gaps created by each perturber across all 50
-simulations.</caption>
+simulations. These data are color-coded and illustrated in Fig. <a
+href="#fig:histogram_impact_time" data-reference-type="ref"
+data-reference="fig:histogram_impact_time">[fig:histogram_impact_time]</a>.</caption>
 <tbody>
 <tr>
 <td style="text-align: left;">NGC2808</td>
@@ -771,8 +780,9 @@ simulation. If we consider NGC 2808 an outlier and exclude it from the
 experiment, we observe an average of 0.6 gaps per simulation.</p>
 <div id="table:gap_distribution">
 <table>
-<caption>Occurrence of gaps in Palomar 5 streams, in our
-simulations.</caption>
+<caption>Occurrence of gaps in Palomar 5 streams, in our simulations.
+More specifically, the table reports the number of simulations (second
+row) for a given number of gaps (first row).</caption>
 <thead>
 <tr>
 <th style="text-align: left;">Number of Gaps</th>
@@ -802,7 +812,7 @@ other simulations, so we turn to the gap creation rate developed by
 per unit time and is normalized by the stream’s length. For our
 simulations, this rate is given by: <span
 class="math display">\[\label{eq:gap_creation_rate}
-\mathcal{R}_{\textrm{Pal 5}} =  \frac{1}{T}\int_{0}^T l^{-1}(t) \sum_i
+\mathcal{R}_{\mathrm{Pal 5}} =  \frac{1}{T}\int_{0}^T l^{-1}(t) \sum_i
 \delta(t-t_i) dt,\]</span>where <span class="math inline">\(T\)</span>
 is the total integration time, <span class="math inline">\(l(t)\)</span>
 is the length of the stream, and <span class="math inline">\(\sum_i
@@ -810,7 +820,7 @@ is the length of the stream, and <span class="math inline">\(\sum_i
 class="math inline">\(i\)</span> indexing over the number of gaps in a
 given simulation. Here, <span class="math inline">\(\delta\)</span>
 represents the Dirac delta function. This expression can be simplified
-to:<span class="math display">\[\mathcal{R}_{\textrm{Pal 5}}
+to:<span class="math display">\[\mathcal{R}_{\mathrm{Pal 5}}
 =  \frac{1}{T} \sum_i \frac{1}{l (t_i)}.\]</span></p>
 <p>This computation allowed us to analyze the distribution of gap
 creation rates across all simulations. Notice that since the gap
@@ -1019,7 +1029,7 @@ clusters that cause gaps are on both direct and retrograde orbits
 class="math inline">\(L_z\)</span>). However, all of the perturbers
 exist in an energy interval between <span
 class="math inline">\(-2\)</span> and <span class="math inline">\(-1
-\times10^5~\textrm{km}^2\textrm{s}^{-2}\)</span>, which is because only
+\times10^5~\mathrm{km}^2\mathrm{s}^{-2}\)</span>, which is because only
 clusters within Palomar 5’s orbital space can interact with the stream:
 clusters with higher orbital energies tend to have larger apocenters
 than that of Palomar 5 and thus spend most of their time away from
@@ -1059,14 +1069,14 @@ class="math inline">\(\rho(x,t=0)=\delta(x)\)</span> and that velocity
 is defined as a normal distribution that does not change over time. This
 means that I can write the initial distribution function as:</p>
 <p><span class="math display">\[f(x,v,t=0) =
-\delta(x)\frac{1}{\sigma\sqrt{2\pi}}\textrm{exp}\left(-\frac{1}{2}\left(\frac{v-\langle
+\delta(x)\frac{1}{\sigma\sqrt{2\pi}}\mathrm{exp}\left(-\frac{1}{2}\left(\frac{v-\langle
 v \rangle}{\sigma}\right)^2\right)\]</span></p>
 <p>the solution to the evolution of the density is <span
 class="math inline">\(\rho = \int f dv\)</span>, and you also need to
 perform this variable substitution <span class="math inline">\(f(x,v,t)
 = f(x-vt,v,0)\)</span></p>
 <p><span class="math display">\[\rho(x,t) = \frac{1}{\sigma t
-\sqrt{2\pi} }\textrm{exp}\left(-\frac{1}{2}\left(\frac{x-\langle v
+\sqrt{2\pi} }\mathrm{exp}\left(-\frac{1}{2}\left(\frac{x-\langle v
 \rangle t}{\sigma_v t}\right)^2\right)\]</span></p>
 <p>it’s also useful to know the relative velocity of the impact site
 between one group and another. These things drift apart. How much faster
