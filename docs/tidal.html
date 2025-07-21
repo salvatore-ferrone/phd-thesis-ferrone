@@ -756,6 +756,173 @@ physical extent and how it can change over the time span investigated
 here, its affect on the streams presented here are purely
 indicative.</p>
 <h1 id="results">Results</h1>
+<div class="figure*">
+<div class="center">
+<p><embed src="images/PI_ensemble_LB_count_density.pdf" /> <embed
+src="images/PI_ensemble_LB_density_mass.pdf" /></p>
+<p><embed src="images/PII_ensemble_LB_count_density.pdf" /> <embed
+src="images/PII_ensemble_LB_density_mass.pdf" /></p>
+<p><embed src="images/PII_0.3_SLOW_ensemble_LB_count_density.pdf" />
+<embed src="images/PII_0.3_SLOW_ensemble_LB_density_mass.pdf" /></p>
+</div>
+</div>
+<h4 id="a-few-basic-premises">A few basic premises:</h4>
+<p>Given the large number of simulations carried out and the wealth of
+information contained in them, it is not possible to exhaust all
+possible applications of this simulation database in this paper. We have
+therefore chosen to proceed as follows.</p>
+<p>In Section <a href="#results1" data-reference-type="ref"
+data-reference="results1">3.1</a>, we present an overview of the
+distribution of all streams in Galactic coordinates. This coordinate
+space will be the one used in the remainder of the entire article. This
+first section allows us to show qualitatively how the global
+distribution of streams varies, depending on the Galactic potential
+used.</p>
+<p>We then move on (Section <a href="#streamvsD"
+data-reference-type="ref" data-reference="streamvsD">3.2</a>) to present
+the global system of streams as a function of their distance from the
+Sun. In this section, we also show the kinematic properties of the
+streams, such as proper motions and line-of-sight velocities, that can
+be directly compared to Gaia data or other astrometric and spectroscopic
+surveys. This section also allows us to show the variety of morphologies
+that the stars which escaped from globular clusters can take. In
+Section <a href="#sec:morphologies" data-reference-type="ref"
+data-reference="sec:morphologies">[sec:morphologies]</a>, we explore
+this issue in more detail, showing how these morphologies depend
+primarily on the orbital characteristics of the clusters and their
+distance from the Galactic center. For the most interesting cases, we
+compare the tidal structures predicted by our simulations with streams
+found in observational data. For this purpose, we make use of the
+<em>galstreams</em> library of stellar streams in the Milky Way <span
+class="citation"
+data-cites="mateu22">(<strong>mateu22?</strong>)</span>, which
+constitutes a unique and public database summarizing angular positions,
+distances, proper motions, and line-of-sight velocity tracks for nearly
+a hundred Galactic stellar streams. Any stream that is not included in
+this library is not be compared to our simulations in the context of
+this paper.</p>
+<p>We note that the tidal features associated with each of the 159
+simulated clusters are presented in Appendix <a href="#allstreams"
+data-reference-type="ref" data-reference="allstreams">[allstreams]</a>.
+To avoid making this appendix too long, the tidal features above are
+presented only in the case of the potential PII. However, all the data
+will be made available to the community at a dedicated site<a
+href="#fn6" class="footnote-ref" id="fnref6"
+role="doc-noteref"><sup>6</sup></a> where it is possible to the way the
+characteristics of these streams change, for any cluster, in the three
+chosen potentials.</p>
+<h2 id="results1">A sky full of streams</h2>
+<p>Figure <a href="#galleryLB" data-reference-type="ref"
+data-reference="galleryLB">[galleryLB]</a> shows the number and mass
+density distributions of the whole set of simulated globular clusters
+and their extra-tidal features in Galactic longitude and latitude for
+the three Galactic potentials.</p>
+<p>For all Galactic mass models adopted, a striking characteristic among
+the plots in Figs. <a href="#galleryLB" data-reference-type="ref"
+data-reference="galleryLB">[galleryLB]</a> is the variety of features
+that our models predict, which are reminiscent of the tidal tails,
+stellar streams, and shells that are produced by interacting and merging
+galaxies in the process of mass assembly <span class="citation"
+data-cites="mancillas19">(see, e.g.,
+<strong>mancillas19?</strong>)</span>. Some clusters have very thin and
+elongated streams, which describe arcs that can extend up to <span
+class="math inline">\(180^\circ\)</span> in longitude, or tens of kpc in
+physical space. In some other cases, extra-tidal features appear shorter
+(a few up to ten degrees) and sometimes also thicker (about <span
+class="math inline">\(10^\circ\)</span> in the sky) than others.
+Finally, in some cases, clusters are surrounded by extended structures,
+such as halos, rather than coherent and thin streams.</p>
+<p>This variety of properties depends on several factors: the distance
+of the stream to the Sun (due to projection; i.e., for a given physical
+thickness, the closer the stream is to the Sun, the more extended it
+appears in the <span class="math inline">\((\ell, b)\)</span> plane),
+its orbital phase (towards the peri-center or the apo-center of the
+orbit), and the orbital properties of the parent globular cluster. We
+also see from these figures that stellar particles stripped from their
+parent clusters do not only redistribute in coherent structures, but in
+some cases, they can also contribute to a more diffuse density
+distribution.</p>
+<p>Because of the large number of simulated clusters, we have chosen not
+to present the corresponding extra-tidal features one-by-one in the main
+part of this paper, but we have rather decided to describe these
+extra-tidal features with a global approach, by first adopting a
+criterion based on the distance of these features to the Sun (see
+Sect. <a href="#streamvsD" data-reference-type="ref"
+data-reference="streamvsD">3.2</a>) and then discussing the types of
+distributions tidal debris can have and how these depend on the cluster
+orbital parameters (see Sect. <a href="#sec:morphologies"
+data-reference-type="ref"
+data-reference="sec:morphologies">[sec:morphologies]</a>). All the
+extra-tidal structures generated by the 159 globular clusters simulated
+in this paper, and their corresponding uncertainties, are reported in
+Appendix <a href="#allstreams" data-reference-type="ref"
+data-reference="allstreams">[allstreams]</a>. Among them, we include
+clusters with thin and elongated tails, such as IC 4499, NGC 3201,
+NGC 4590, NGC 5024, NGC 5053, Pal 5, to cite a few, as well as clusters
+such as AM 1, Pal 14, Pal 4, and Pal 15, whose extra-tidal material
+shows a halo-like configuration, and clusters such as NGC 1261,
+NGC 4147, NGC 6356, and UKS 1, whose stripped stars show a remarkable
+diffuse distribution in the field.</p>
+<p>Finally, even when our models are not tailored to accurately
+reproduce the mass loss from globular clusters, since (as described in
+Sect. <a href="#initialconds" data-reference-type="ref"
+data-reference="initialconds">2.2</a>) we have adopted a test-particle
+approach with a time-constant globular cluster potential, it is however
+tempting to estimate, to a first order, the total mass associated with
+the tidally stripped population and compare it to the current mass. By
+calculating the mass lost in the field in the past 5 Gyr as the sum of
+the mass of all particles<a href="#fn7" class="footnote-ref" id="fnref7"
+role="doc-noteref"><sup>7</sup></a> that have escaped the cluster (<span
+class="math inline">\(t_{\rm esc}&gt; 0\)</span>), we find that the PI
+model sheds <span class="math inline">\(2.1\times 10^{7}
+M_{\odot}\)</span>, which is 55% of the GC population’s current mass.
+The PII model shed is <span class="math inline">\(2.7\times 10^{6}
+M_{\odot}\)</span>, which is 7% of the current mass. Similarly, the
+PII-0.3-SLOW model lost <span class="math inline">\(3.7\times 10^{6}
+M_{\odot}\)</span>, which is 10% of the current mass and gives a half
+mass radius of 6.3 kpc.</p>
+<p>This mass roughly constitutes one-hundredth to one-tenth of the total
+stellar halo mass <span class="citation"
+data-cites="blandhawthorn16">(<strong>blandhawthorn16?</strong>)</span>
+and it is probably only a lower limit on the mass of escaped stars in
+the field, since a number of clusters initially in the Galaxy must have
+been destroyed over time (see introduction) and are thus no longer
+identifiabl as globular clusters today. It is also interesting to note
+that escaped stars are mostly redistributed in the inner Galaxy, with
+the half-mass radius of the PI model being 4.0 kpc and that of the PII
+and PII-0.3-SLOW models being 6.3 kpc.</p>
+<p>The total mass lost from the clusters, as well as its spatial
+distribution, thus depends on the Galactic potential adopted: the
+variations between the PI model and both the PII and PII-0.3-SLOW models
+are of course caused by the PI’s inclusion of the bulge, which leads to
+larger tidal forces in the center of the galaxy and subsequently drives
+larger mass loss.</p>
+<p>Despite the differences in the modeling approach, it is interesting
+to compare our results to those of <span class="citation"
+data-cites="baumgardt2017global">(<strong>baumgardt2017global?</strong>)</span>.
+Briefly, our experiments differ in the following ways: they employ
+N-body simulations while we use our test-particle approach; they have an
+integration time of 12 Gyrs compared to our 5 Gyrs; lastly, their
+clusters have circular orbits in a Galactic potential modeled as an
+isothermal sphere as compared to the more realistic orbits and Galactic
+potentials considered in this work. Interestingly, the authors find that
+over 12 Gyrs their population of globular clusters lose two-thirds of
+their initial mass. This is roughly consistent with our application of
+the PI model, whose globular clusters shed 35% of their initial mass in
+5 Gyrs, which is roughly half the mass found by <span class="citation"
+data-cites="baumgardt2017global">(<strong>baumgardt2017global?</strong>)</span>
+in a period that is also about half as long.</p>
+<h2 id="streamvsD">From the nearest to the furthest extra-tidal
+structures</h2>
+<p>The analysis presented in this section along with the corresponding
+information are given in Figures <a href="#D0-10"
+data-reference-type="ref" data-reference="D0-10">[D0-10]</a>, <a
+href="#D10-20" data-reference-type="ref"
+data-reference="D10-20">[D10-20]</a>, <a href="#D20-30"
+data-reference-type="ref" data-reference="D20-30">[D20-30]</a>, and <a
+href="#D30-300" data-reference-type="ref"
+data-reference="D30-300">[D30-300]</a> are restricted to the PII
+model.</p>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
@@ -788,6 +955,19 @@ role="doc-backlink">↩︎</a></p></li>
 href="https://people.smp.uq.edu.au/HolgerBaumgardt/globular"
 class="uri">https://people.smp.uq.edu.au/HolgerBaumgardt/globular</a>.<a
 href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a href="http://etidal-project.obspm.fr/"
+class="uri">http://etidal-project.obspm.fr/</a><a href="#fnref6"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p><span id="footnote:mass"
+data-label="footnote:mass"></span>To estimate the mass of particles in
+each cluster we have quantified the number of particles, <span
+class="math inline">\(N_{bound}\)</span>, bound to the cluster at the
+end of the simulation and calculated the corresponding particle mass as
+<span class="math inline">\(m_p=M_{GC}/N_{bound}\)</span>, where <span
+class="math inline">\(M_{GC}\)</span> is the current mass of a cluster
+given in Table <a href="#TableIC" data-reference-type="ref"
+data-reference="TableIC">[TableIC]</a>.<a href="#fnref7"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>
