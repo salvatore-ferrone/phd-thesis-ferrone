@@ -1175,7 +1175,9 @@ than linear with the number of steps. Perhaps this can be explained by
 the fact that there is overhead time involved for initiating and ending
 each simulation. Is there are more steps, this overhead time gets
 proportionally smaller. Since the power law has an exponent of <span
-class="math inline">\(0.95\)</span>, the overhead is marginal.</p>
+class="math inline">\(0.95\)</span>, the overhead is marginal. However,
+it is excellent that the exponent is not greater than 1, which would
+mean the code would slow down with execution time.</p>
 <figure id="fig:NumericalErrorComputationTimeScalingForStreams">
 <img src="images/NumericalErrorComputationTimeScalingForStreams.png" />
 <figcaption>How the computation scale time scales with the number of
