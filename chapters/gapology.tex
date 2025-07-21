@@ -170,7 +170,7 @@
 
         \begin{figure*}
             \centering
-            \includegraphics[width=\linewidth]{impact_geometry_statistics.png}
+            \includegraphics[width=\linewidth]{images/impact_geometry_statistics.png}
             \caption{Distribution and relationship between the impact variables from Eq.~\ref{eq:change_in_momentum} for all close flybys considered. The colors indicate the encounters that cause gaps and are the same as Fig.~\ref{fig:histogram_impact_time}, with white edges for visibility and binned in red for the histograms. The black histogram shows the close encounters that did not lead to gaps. Indeed, no obvious trend has emerged that delimits these planes into gap-producing or non-gap-producing ones.}
             \label{fig:impact_geometry_statistics}    
         \end{figure*}    
@@ -192,21 +192,27 @@
 
         \begin{figure}
             \centering
-            \includegraphics[width=1\linewidth]{impact_geometry_statistics_deltaP.png}
+            \includegraphics[width=1\linewidth]{images/impact_geometry_statistics_deltaP.png}
             \caption{Distribution of imparted change in momentum (per unit mass) from a cluster flyby given by Eq.~\ref{eq:change_in_momentum}. The data set includes the top 5 strongest flybys from each simulation. Those that cause gaps are colored, stacked, and overlaid atop those that do not — this is the gray distribution. We note the meaning of the colors is the same as in Fig.~\ref{fig:histogram_impact_time}.}
             \label{fig:deltap}
         \end{figure}
 
         \begin{figure*}
             \centering
-            \includegraphics[width=0.45\linewidth]{E_Lz_perturbers.png}
-            \includegraphics[width=0.45\linewidth]{mass_size_plane.png}
-            \includegraphics[width=0.45\linewidth]{impact_stats_phase_space_xy.png}
-            \includegraphics[width=0.45\linewidth]{impact_stats_phase_space.png}
+            \includegraphics[width=0.45\linewidth]{images/E_Lz_perturbers.png}
+            \includegraphics[width=0.45\linewidth]{images/mass_size_plane.png}
+            \includegraphics[width=0.45\linewidth]{images/impact_stats_phase_space_xy.png}
+            \includegraphics[width=0.45\linewidth]{images/impact_stats_phase_space.png}
             \caption{\textit{Top left:} Energy-angular momentum space of the globular clusters in the simulations, with 50~$\times$~165 data points representing all sampled initial conditions. Clusters impacting Palomar~5 are shown with colored markers, large for the samplings that induce a gap and small for those that do not. The small gray dots represent the non-gap-causing clusters. The 50 white dots indicate Palomar~5's sampled initial conditions for the current day position. The light-pink dashed curve shows the circular velocity curve. \textit{Top right:} Mass-size plane of the globular clusters in the simulations, with uncertainties on the masses indicated as vertical lines. We remind the reader that the globular cluster catalog currently does not provide uncertainties for the characteristic radii of clusters. \textit{Bottom left:} Palomar~5's orbit in the Galactocentric xy plane. The gray scale represents all 50 stacked orbits, with $\mathcal{P}$ indicating the probability of Palomar~5's position, normalized to $\mathcal{P}_\textrm{max}=1$. The colored markers indicate the position of the perturber when it impacted the stream and \textit{not} its present-day position. \textit{Bottom right:} Same as the bottom left but in the meridional plane. In all panels, the colors of the markers and histogram bars correspond to specific perturbers as specified in Fig.~\ref{fig:histogram_impact_time}.}
             \label{fig:mass_size_plane}
         \end{figure*}        
       
+        Once all the key impact parameters are estimated, we can use Eq.~\ref{eq:change_in_momentum} and calculate $\Delta p$, the change in momentum (per unit mass) imparted by a cluster flyby on Palomar~5 stream. Fig.~\ref{fig:deltap} shows the distribution of imparted change in momentum for all impacts that produce a gap compared to those that do not. On average, encounters that lead to gap creation impart a change in momentum on stream particles, which is a factor of 10 higher than encounters that do not form gaps (but with some overlap in the low-velocity tail). Interestingly, changes in momentum, which lead to gap creations, extend over a large range in velocities. There is a factor of about 100 between the smallest and largest changes with NGC~2808 (orange color in the histogram) imparting changes in the velocity of stream particles, which redistribute over the whole range of $\Delta p$. 
+
+        In addition to characterizing the parameters governing cluster encounters with the stream, since we know which clusters have produced gaps on the tail of Palomar~5, we can also verify their orbital and structural properties. Fig~\ref{fig:mass_size_plane} shows just this, where we first show the clusters' mass and size (i.e., half-mass radius) that cause gaps on the tails of Palomar~5, dividing them from those that do not. As can be seen, no cluster with mass below $10^5 M_\odot$ causes gaps on the Palomar~5 stream, and all perturbers, except FSR~1758, have a half-mass radius below 10~pc. Even more interesting is their distribution in the E-L$_z$ plane, which shows that the clusters that cause gaps are on both direct and retrograde orbits (negative and positive values of $L_z$). However, all of the perturbers exist in an energy interval between $-2$ and $-1 \times10^5~\textrm{km}^2\textrm{s}^{-2}$, which is because only clusters within Palomar~5's orbital space can interact with the stream: clusters with higher orbital energies tend to have larger apocenters than that of Palomar~5 and thus spend most of their time away from Palomar~5's orbital volume. 
+    
+        Finally, it is worth noting the location of impacts with the stream, specifically whether they occur when Palomar~5 is near its pericenter. Fig.~\ref{fig:mass_size_plane}'s bottom panel shows that encounters can occur at all orbital phases of Palomar~5, when it is close to the pericenter, but also very far away from it, at the outskirts of its orbital space. However, when taken all together, the location of gap-creating impacts shows a strong negative correlation with the Galactocentric radius $r$, with the number $N$ of encounters favorable to gap formation going as $N = -2.5r + 50$ (with a Pearson coefficient of -0.86). While there are more clusters near the Galactic center, clusters naturally spend more time near their apocenters, and the lower relative velocities in these regions should favor gap creation. However, this result suggests that the cluster Galactic number density outweighs these factors when determining the number of gaps. The results are for Palomar~5 only, and a future study would need to investigate streams along various orbits before generalizing this conclusion.
+
 
 
 
