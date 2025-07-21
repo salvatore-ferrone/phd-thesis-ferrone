@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Tidal</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Tidal</h1>
+</header>
+<h1 id="general-intro">General intro</h1>
+<p>How should I introduce this paper??</p>
+<h1 id="methods"><strong><span>Numerical method</span></strong></h1>
+<p>To model the formation and evolution of extra-tidal features around
+Galactic globular clusters, we use a set of codes, called Globular
+Clusters’ Tidal Tails (GCsTT) developed by our group. It comprises two
+python codes, for the backward and forward integration of a stellar
+system, made of N test-particles (see Sect. <a href="#numerical"
+data-reference-type="ref" data-reference="numerical">2.1</a>). These
+codes are separated for data organization and management, while the
+(computationally) most expensive part, namely, the calculation of the
+accelerations acting on the N particles and the orbits integration, is
+realized by means of a Fortran module written by our group. This module
+is interfaced to python by means of f2py directives from NumPy. The use
+of test-particle methods for modeling the tidal stripping process is
+widespread in the literature, where these methods are usually applied to
+one or few clusters at a time <span class="citation"
+data-cites="lane12 mastrobuono12 palau19 piatti21a grillmair22">(see,
+e.g., <strong>lane12?</strong>; <strong>mastrobuono12?</strong>;
+<strong>palau19?</strong>; <strong>piatti21a?</strong>;
+<strong>grillmair22?</strong>)</span>. In this work, we apply a
+test-particle methodology to the whole set (159) of Galactic globular
+clusters for which this is currently possible, also taking into account,
+for each cluster, the errors on astrometry, line-of-sight velocities<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> and distances. In the following, we
+describe the two main steps of the procedure used by GCsTT to simulate
+the tidal stripping process (Sect. <a href="#numerical"
+data-reference-type="ref" data-reference="numerical">2.1</a>), the
+initial conditions adopted for the clusters’ parameters and their mass
+distribution (Sect. <a href="#initialconds" data-reference-type="ref"
+data-reference="initialconds">[initialconds]</a>), as well as the
+Galactic potentials (Sect. <a href="#galmod" data-reference-type="ref"
+data-reference="galmod">[galmod]</a>).</p>
+<h2 id="numerical">Simulations of the tidal stripping process: Two-step
+procedure</h2>
+<p>To model the formation and evolution of extra-tidal features around
+Galactic globular clusters, and predict their current properties, we
+proceed as follows:</p>
+<p><em>Step i: Backward integration. Reconstructing the globular cluster
+orbit over the last 5 Gyr</em>: First, for each Galactic globular
+cluster for which the distances from the Sun, proper motions,
+line-of-sight velocities, and structural parameters are available (see
+Sect. <a href="#initialconds" data-reference-type="ref"
+data-reference="initialconds">[initialconds]</a>), we determine their
+current positions and velocities in a Galactocentric reference frame, in
+which the Sun is at <span class="math inline">\((x_\odot, y_\odot,
+z_\odot) = (-8.34, 0., 0.027)\)</span> kpc <span class="citation"
+data-cites="chen01 reid14">(<strong>chen01?</strong>;
+<strong>reid14?</strong>)</span> and at a given velocity for the local
+standard of rest, <span class="math inline">\(v_{LSR}= 240\)</span> km/s
+<span class="citation"
+data-cites="reid14">(<strong>reid14?</strong>)</span>, and a peculiar
+velocity of the Sun with respect to the LSR, <span
+class="math inline">\((U_{\odot}, V_{\odot}, W_{\odot})  = (11.1, 12.24,
+7.25)\)</span> km/s <span class="citation"
+data-cites="schonrich10">(<strong>schonrich10?</strong>)</span>. We then
+integrate the orbit of a single point mass, representing the cluster
+barycenter, backwards in time for 5 Gyr, and in this way, we retrieve
+its position and velocity at that time in the chosen Galactic potential
+(see Sect. <a href="#galmod" data-reference-type="ref"
+data-reference="galmod">[galmod]</a>). We notice that other choices for
+the Sun’s position or velocity with respect to the Galactocentric frame
+would have been possible. For example, <span class="citation"
+data-cites="piatti21a">(<strong>piatti21a?</strong>)</span> adopted the
+same values as ours for the <span class="math inline">\(v_{LSR}\)</span>
+and for the peculiar velocity of the Sun but with a different distance
+to the Galactic center <span class="citation"
+data-cites="gravity18">(8.1 kpc in their work, see
+<strong>gravity18?</strong>)</span>. The difference in the adopted
+position of the Sun is, however, generally smaller than the
+uncertainties affecting our knowledge of the distance of Galactic
+globular clusters to the Sun. For this reason, we do not to explore the
+dependency of the results presented in this paper with regard to these
+choices.</p>
+<p><em>Step ii: Forward integration. Test-particle streams from the past
+to the present day</em>: Once the positions and velocities of the
+barycenter of each cluster, 5 Gyr ago, have been determined, we build
+the corresponding <span class="math inline">\(N\)</span>-body system,
+with N = 100 000 particles. The phase-space coordinates of these
+particles are generated following a Plummer distribution, with the total
+mass and half-mass radius as described in Sect. <a href="#initialconds"
+data-reference-type="ref"
+data-reference="initialconds">[initialconds]</a>. The barycenter of this
+<span class="math inline">\(N\)</span>-body cluster is then assigned
+initial positions and velocities in the Galactic model, as those
+retrieved at step <span class="math inline">\((i),\)</span> and the
+cluster is then integrated forward in time until the present day.
+Particles in this <span class="math inline">\(N\)</span>-body system are
+modeled as test-particles, that is, they experience the gravitational
+field exerted by the globular cluster itself (see Sect. <a
+href="#initialconds" data-reference-type="ref"
+data-reference="initialconds">[initialconds]</a>) and by the Galaxy (see
+Sect. <a href="#galmod" data-reference-type="ref"
+data-reference="galmod">[galmod]</a>), but do not generate any
+gravitational field themselves. This allows us to maintain a
+computational time which scales as <span
+class="math inline">\(O(N)\)</span> and not as <span
+class="math inline">\(O(N^2)\)</span>, as would be the case for a direct
+<span class="math inline">\(N\)</span>-body self-consistent
+computation.</p>
+<p>In the following, we refer to these simulations, made by using the
+most probable values on distances, proper motions, and line-of-sight
+velocities, as the “reference simulations.” In addition, for each
+globular cluster, we also take into account the errors on its distance,
+proper motions, and line-of-sight velocity, assuming Gaussian
+distributions of the errors, treated independently, and by generating 50
+random realizations of these parameters. For each of these realizations,
+we repeat the steps described above, that is: (<em>step i</em>) we
+determine the associated current positions and velocities in the chosen
+Galactocentric reference frame, we integrate the orbit of the
+single-point mass (representing the cluster barycenter) backwards in
+time, retrieving the corresponding values 5 Gyr ago, (<em>step ii</em>)
+we build an <span class="math inline">\(N\)</span>-body cluster
+containing <span class="math inline">\(N\)</span>= 100 000 particles,
+with total mass and half-mass radius as those used for the reference
+simulation, and then we integrate the <span
+class="math inline">\(N\)</span>-body cluster forwards in time until the
+present-day position.</p>
+<p>To summarize, for a given Galactic potential, we run <span
+class="math inline">\(159\times (50+1)=8109\)</span> simulations, where
+159 is the total number of clusters for which we currently have both 6D
+phase-space information and structural parameters. As we discuss in the
+following section, the whole set of globular clusters has been evolved
+in three different Galactic potentials, which implies that a total of 24
+327 simulations have been run.</p>
+<p>For the orbit integration, a leap-frog algorithm is used, with a
+fixed time-step, <span class="math inline">\(\Delta t\)</span>, and a
+total number of steps, <span class="math inline">\(N_{steps}\)</span>,
+such that the total simulated time is <span class="math inline">\(\Delta
+t \times N_{steps}=5\)</span> Gyr. The choice of the value of <span
+class="math inline">\(\Delta t\)</span> adopted to simulate each cluster
+in the Galactic potential has been based on the energy conservation of
+the corresponding cluster evolved in isolation (i.e., without the effect
+of the Galactic gravitational field for 5 Gyr). For the majority of the
+clusters (109/159), this value was set to <span
+class="math inline">\(\Delta t = 10^5\)</span> yr (for a corresponding
+value of <span class="math inline">\(N_{steps}=50\,000\)</span>), while
+for the remaining clusters (50/159) a <span class="math inline">\(\Delta
+t = 10^4\)</span> yr (for a corresponding value of <span
+class="math inline">\(N_{steps}=500\,000\)</span>) was used. We refer to
+Appendix <a href="#deltat" data-reference-type="ref"
+data-reference="deltat">[deltat]</a> (and in particular to Table <a
+href="#tcross-energy" data-reference-type="ref"
+data-reference="tcross-energy">[tcross-energy]</a>) for additional
+details on the choice of <span class="math inline">\(\Delta t\)</span>
+for the whole set of clusters. As for the total simulated time, while
+globular clusters are much older than 5 Gyr, we chose this time limit
+because the longer back in time we could go, the less certain we would
+be of the Galactic environment. In addition, the last significant
+mergers in the Galaxy happened between 9 and 11 Gyr ago <span
+class="citation"
+data-cites="belokurov18 helmi18 dimatteo19 gallart19 kruijssen20">(see
+<strong>belokurov18?</strong>; <strong>helmi18?</strong>;
+<strong>dimatteo19?</strong>; <strong>gallart19?</strong>;
+<strong>kruijssen20?</strong>)</span> – well before the time interval
+simulated in this study. Other more recent interactions, such as the
+accretion of Sagittarius and of the Magellanic Clouds, may perturb the
+Galactic potential as well <span class="citation"
+data-cites="vasiliev21b">(see, e.g.,
+<strong>vasiliev21b?</strong>)</span> and we plan to investigate their
+impact on the properties of globular cluster streams in the future.</p>
+<p>For each realization, we generate an output file in an hdf5 format<a
+href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> containing the values for the right
+ascension (<span class="math inline">\(\alpha\)</span>), declination
+(<span class="math inline">\(\delta\)</span>), distance from the Sun
+(<span class="math inline">\(D\)</span>), along with the components for
+proper motion in the equatorial coordinate system (<span
+class="math inline">\(\rm \mu_{\alpha}\cos(\delta)\)</span> and <span
+class="math inline">\(\rm \mu_\delta\)</span>), the line-of-sight
+velocity (<span class="math inline">\(\rm v_{\ell os}\)</span>),
+longitude (<span class="math inline">\(\ell\)</span>), latitude (<span
+class="math inline">\(b\)</span>), as well as the components for proper
+motion in the Galactic coordinate system (<span
+class="math inline">\(\rm \mu_{\ell}\cos(\mathit{b})\)</span> and <span
+class="math inline">\(\rm \mu_b\)</span>) and the Galactocentric
+positions (<span class="math inline">\(x, y, z\)</span>), velocities
+(<span class="math inline">\(v_x, v_y, v_z\)</span>) and energy, <span
+class="math inline">\(E\)</span>, of each particle in the simulated
+system. We used Astropy <span class="citation"
+data-cites="astropy13 astropy18">(<strong>astropy13?</strong>;
+<strong>astropy18?</strong>)</span> to convert the Galactocentric
+positions and velocities in the equatorial and Galactic quantities <span
+class="math inline">\(\alpha, \delta, D, \rm \mu_{\alpha}\cos(\delta),
+\rm \mu_\delta, \rm v_{\ell os}, \ell, b, \rm
+\mu_{\ell}\cos(\mathit{b})\)</span>, and <span class="math inline">\(\rm
+\mu_b\)</span>.</p>
+<p>For each particle, we also save its escape time <span
+class="math inline">\(t_{\rm esc}\)</span>, defined as the time at which
+the particle escapes from the cluster, that is, the time, <span
+class="math inline">\(t,\)</span> at which the particle satisfies the
+relation<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a>: <span
+class="math display">\[E_{GC}= 0.5 \times \left( (v_x-v_{x,
+GC})^2+(v_y-v_{y,GC})^2+(v_z-v_{z,GC})^2\right)+\Phi_{GC} &gt;
+0,\]</span> with <span class="math inline">\(E_{GC}\)</span> being the
+total specific energy of the particle relative to the cluster, that is,
+the sum of the potential energy, <span
+class="math inline">\(\Phi_{GC}\)</span>, due to the gravitational field
+of the cluster (see Eq. <a href="#gcpot" data-reference-type="ref"
+data-reference="gcpot">[gcpot]</a>), and of the kinetic energy, relative
+to the cluster barycenter, <span class="math inline">\(T_{GC}=0.5 \times
+\left( \left(v_x-v_{x,
+GC}\right)^2+\left(vy-v_{y,GC}\right)^2+\left(vz-v_{z,GC}\right)^2\right)\)</span>,
+where <span class="math inline">\(v_x, v_y\)</span>, and <span
+class="math inline">\(v_z\)</span> are its velocity components at time,
+<span class="math inline">\(t\)</span>, and <span
+class="math inline">\(v_{x,GC}, v_{y,GC}\)</span>, and <span
+class="math inline">\(v_{z,GC}\)</span> of the cluster barycenter at the
+same time. A positive value of <span
+class="math inline">\(E_{GC}\)</span> implies that the particle is no
+longer gravitationally bound to the cluster and, hence, it is lost in
+the field. Overall, the total volume of the whole set of 24 327
+simulations, saved in hdf5 format, amounts to about 370 Gb.</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Note: the term “line-of-sight velocities” adopted in
+this paper corresponds to the term “radial velocities” often used in the
+literature, as well as in the Gaia catalogues. We prefer the use of the
+first term, since the second is usually used also to indicate the
+(Galactocentric) radial velocities and can introduce some ambiguity,
+especially when different coordinate systems are used. We emphasize that
+the choice to use the term “line-of-sight velocity” is not new <span
+class="citation" data-cites="vasiliev21">(see, e.g.,
+<strong>vasiliev21?</strong>)</span>.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://www.hdfgroup.org/solutions/hdf5/"
+class="uri">https://www.hdfgroup.org/solutions/hdf5/</a><a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>If the particle is gravitationally bound to the cluster
+until the end of the simulation, <span class="math inline">\(t_{\rm
+esc}\)</span> is set equal to <span
+class="math inline">\(-9999\)</span>.<a href="#fnref3"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+</body>
+</html>
