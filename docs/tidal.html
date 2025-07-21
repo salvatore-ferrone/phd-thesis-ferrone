@@ -205,9 +205,9 @@ the tidal stripping process (Sect. <a href="#numerical"
 data-reference-type="ref" data-reference="numerical">2.1</a>), the
 initial conditions adopted for the clusters’ parameters and their mass
 distribution (Sect. <a href="#initialconds" data-reference-type="ref"
-data-reference="initialconds">[initialconds]</a>), as well as the
-Galactic potentials (Sect. <a href="#galmod" data-reference-type="ref"
-data-reference="galmod">[galmod]</a>).</p>
+data-reference="initialconds">2.2</a>), as well as the Galactic
+potentials (Sect. <a href="#galmod" data-reference-type="ref"
+data-reference="galmod">2.3</a>).</p>
 <h2 id="numerical">Simulations of the tidal stripping process: Two-step
 procedure</h2>
 <p>To model the formation and evolution of extra-tidal features around
@@ -218,10 +218,10 @@ orbit over the last 5 Gyr</em>: First, for each Galactic globular
 cluster for which the distances from the Sun, proper motions,
 line-of-sight velocities, and structural parameters are available (see
 Sect. <a href="#initialconds" data-reference-type="ref"
-data-reference="initialconds">[initialconds]</a>), we determine their
-current positions and velocities in a Galactocentric reference frame, in
-which the Sun is at <span class="math inline">\((x_\odot, y_\odot,
-z_\odot) = (-8.34, 0., 0.027)\)</span> kpc <span class="citation"
+data-reference="initialconds">2.2</a>), we determine their current
+positions and velocities in a Galactocentric reference frame, in which
+the Sun is at <span class="math inline">\((x_\odot, y_\odot, z_\odot) =
+(-8.34, 0., 0.027)\)</span> kpc <span class="citation"
 data-cites="chen01 reid14">(<strong>chen01?</strong>;
 <strong>reid14?</strong>)</span> and at a given velocity for the local
 standard of rest, <span class="math inline">\(v_{LSR}= 240\)</span> km/s
@@ -235,8 +235,8 @@ integrate the orbit of a single point mass, representing the cluster
 barycenter, backwards in time for 5 Gyr, and in this way, we retrieve
 its position and velocity at that time in the chosen Galactic potential
 (see Sect. <a href="#galmod" data-reference-type="ref"
-data-reference="galmod">[galmod]</a>). We notice that other choices for
-the Sun’s position or velocity with respect to the Galactocentric frame
+data-reference="galmod">2.3</a>). We notice that other choices for the
+Sun’s position or velocity with respect to the Galactocentric frame
 would have been possible. For example, <span class="citation"
 data-cites="piatti21a">(<strong>piatti21a?</strong>)</span> adopted the
 same values as ours for the <span class="math inline">\(v_{LSR}\)</span>
@@ -256,22 +256,20 @@ the corresponding <span class="math inline">\(N\)</span>-body system,
 with N = 100 000 particles. The phase-space coordinates of these
 particles are generated following a Plummer distribution, with the total
 mass and half-mass radius as described in Sect. <a href="#initialconds"
-data-reference-type="ref"
-data-reference="initialconds">[initialconds]</a>. The barycenter of this
-<span class="math inline">\(N\)</span>-body cluster is then assigned
-initial positions and velocities in the Galactic model, as those
-retrieved at step <span class="math inline">\((i),\)</span> and the
-cluster is then integrated forward in time until the present day.
+data-reference-type="ref" data-reference="initialconds">2.2</a>. The
+barycenter of this <span class="math inline">\(N\)</span>-body cluster
+is then assigned initial positions and velocities in the Galactic model,
+as those retrieved at step <span class="math inline">\((i),\)</span> and
+the cluster is then integrated forward in time until the present day.
 Particles in this <span class="math inline">\(N\)</span>-body system are
 modeled as test-particles, that is, they experience the gravitational
 field exerted by the globular cluster itself (see Sect. <a
 href="#initialconds" data-reference-type="ref"
-data-reference="initialconds">[initialconds]</a>) and by the Galaxy (see
-Sect. <a href="#galmod" data-reference-type="ref"
-data-reference="galmod">[galmod]</a>), but do not generate any
-gravitational field themselves. This allows us to maintain a
-computational time which scales as <span
-class="math inline">\(O(N)\)</span> and not as <span
+data-reference="initialconds">2.2</a>) and by the Galaxy (see Sect. <a
+href="#galmod" data-reference-type="ref"
+data-reference="galmod">2.3</a>), but do not generate any gravitational
+field themselves. This allows us to maintain a computational time which
+scales as <span class="math inline">\(O(N)\)</span> and not as <span
 class="math inline">\(O(N^2)\)</span>, as would be the case for a direct
 <span class="math inline">\(N\)</span>-body self-consistent
 computation.</p>
@@ -389,6 +387,375 @@ class="math inline">\(E_{GC}\)</span> implies that the particle is no
 longer gravitationally bound to the cluster and, hence, it is lost in
 the field. Overall, the total volume of the whole set of 24 327
 simulations, saved in hdf5 format, amounts to about 370 Gb.</p>
+<h2 id="initialconds">Simulations of the tidal stripping process:
+Globular clusters’ current and initial conditions and their
+gravitational potential</h2>
+<p>Steps <span class="math inline">\((i)\)</span> and <span
+class="math inline">\((ii)\)</span> described in the previous section
+require some input conditions to be adequately executed. The current
+distances from the Sun, proper motions, and line-of-sight velocities, as
+well as the related uncertainties, of all 159 globular clusters
+considered in this study are taken respectively from <span
+class="citation"
+data-cites="baumgardt21">(<strong>baumgardt21?</strong>)</span> and
+<span class="citation"
+data-cites="vasiliev21">(<strong>vasiliev21?</strong>)</span>. These
+values are then converted into Galactocentric positions and velocities
+by making use of Astropy and used as initial conditions to execute step
+<span class="math inline">\((i)\)</span>.</p>
+<p>Step <span class="math inline">\((ii)\)</span> requires generating an
+<span class="math inline">\(N\)</span>-body system, representing the
+globular cluster, whose initial total mass and half-mass radius are
+assigned on the basis of their current values, as given by <span
+class="citation"
+data-cites="baumgardt18">(<strong>baumgardt18?</strong>)</span><a
+href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a> and reported in Table <a
+href="#TableIC" data-reference-type="ref"
+data-reference="TableIC">[TableIC]</a>. As anticipated at step <span
+class="math inline">\((ii)\)</span> in Sect. <a href="#numerical"
+data-reference-type="ref" data-reference="numerical">2.1</a>, the
+phase-space coordinates of each <span
+class="math inline">\(N\)</span>-body cluster are generated by assuming
+a Plummer distribution of total mass, <span
+class="math inline">\(M_{GC}\)</span>, and half-mass radius, <span
+class="math inline">\(r_{h}\)</span>, for which the corresponding
+potential is: <span class="math display">\[\label{gcpot}
+            \Phi_{GC}(r) = -\frac{GM_{GC}}{\sqrt{r^2+{r_c}^2}},\]</span>
+where <span class="math inline">\(r_c\)</span> is the cluster scale
+radius and it is related to the half-mass radius, <span
+class="math inline">\(r_{h}\)</span>, through <span
+class="math inline">\(r_{h} \simeq 1.305 r_c\)</span> <span
+class="citation"
+data-cites="heggie03">(<strong>heggie03?</strong>)</span>. The variable
+<span class="math inline">\(r\)</span> here indicates the distance of
+the test particle from the center of the cluster. For each cluster, the
+same Plummer distribution used to generate the <span
+class="math inline">\(N\)</span>-body system is also used to calculate
+the accelerations exerted on each particle as the system moves through
+time. The Plummer sphere, representing the cluster potential, indeed
+moves through the Galaxy along the orbit retrieved at step (i),
+traveling this time in the opposite direction, from 5 Gyr ago to the
+present day.</p>
+<p>It might be noted that this implies that the globular cluster density
+profile and its internal parameters (total mass and characteristic
+radius) are constant over time in these models. This is, of course, a
+crude approximation, because in reality both the internal parameters and
+the density profile itself can change over time. We consider these
+assumptions to be acceptable within the scope of our work given that we
+are primarily interested in the distribution of extra-tidal stars, which
+had once escaped from the cluster have dynamics primarily dictated by
+the Galactic potential rather than the globular cluster itself. Of
+course, the density of stars along the extra-tidal structures, as well
+as the total mass lost, depend on these assumptions. That is to say that
+if the mass of the cluster was not assumed constant over time, but could
+possibly decrease, the gravitational attraction exerted by the cluster
+itself on its stars would be weaker and this would lead to an increasing
+mass loss and density along the tails. We could have proceeded with
+diminishing the mass over time, based on some assumptions on the
+temporal behavior of this relation, however, we did not find this
+approach satisfying. In this way. we would have taken into account a
+temporal evolution of the mass, but not of the size of the cluster,
+adding a supplementary hypothesis to the problem. For these reasons, we
+decided to maintain the simplest approach. We emphasize that other
+groups have followed the same methodology, maintaining masses and sizes
+that remain constant over time <span class="citation"
+data-cites="palau19">(see, e.g., <strong>palau19?</strong>)</span>.</p>
+<p>The summary tables giving both the current internal parameters of the
+clusters (total mass and half-mass radius), their astrometric quantities
+of relevance for this study and the line-of-sight velocities are
+publicly available<a href="#fn5" class="footnote-ref" id="fnref5"
+role="doc-noteref"><sup>5</sup></a>. We have made use of these tables
+for our work and we report them in a unique table in our paper for the
+sake of the completeness and self-consistency of the data used (see
+Table <a href="#TableIC" data-reference-type="ref"
+data-reference="TableIC">[TableIC]</a>).</p>
+<h2 id="galmod">Simulations of the tidal stripping process: Galactic
+potentials</h2>
+<div class="table*">
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Parameters</th>
+<th style="text-align: center;"><span
+class="math inline">\(M_{bulge}\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(M_{bar}\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(M_{thin}\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(M_{thick}\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(M_{halo}\)</span></th>
+<th style="text-align: center;"> <span
+class="math inline">\(b_{bulge}\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(a_{bar}\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(b_{bar}\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(c_{bar}\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(a_{thin}\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(b_{thin}\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(a_{thick}\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(b_{thick}\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(a_{halo}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">PI</td>
+<td style="text-align: center;">460.0</td>
+<td style="text-align: center;">0.0</td>
+<td style="text-align: center;">1700.0</td>
+<td style="text-align: center;">1700.0</td>
+<td style="text-align: center;">6000.0</td>
+<td style="text-align: center;">0.3</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">5.3000</td>
+<td style="text-align: center;">0.25</td>
+<td style="text-align: center;">2.6</td>
+<td style="text-align: center;">0.8</td>
+<td style="text-align: center;">14.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">PII</td>
+<td style="text-align: center;">0.0</td>
+<td style="text-align: center;">0.0</td>
+<td style="text-align: center;">1600.0</td>
+<td style="text-align: center;">1700.0</td>
+<td style="text-align: center;">9000.0</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">4.8000</td>
+<td style="text-align: center;">0.25</td>
+<td style="text-align: center;">2.0</td>
+<td style="text-align: center;">0.8</td>
+<td style="text-align: center;">14.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">PII-0.3-SLOW</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">990.0</td>
+<td style="text-align: center;">1120.0</td>
+<td style="text-align: center;">1190.0</td>
+<td style="text-align: center;">9000.0</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">4.0</td>
+<td style="text-align: center;">1.</td>
+<td style="text-align: center;">0.5</td>
+<td style="text-align: center;">4.8000</td>
+<td style="text-align: center;">0.25</td>
+<td style="text-align: center;">2.0</td>
+<td style="text-align: center;">0.8</td>
+<td style="text-align: center;">14.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>As for the Galactic mass distribution, we make use of the two
+axisymmetric Galactic mass models presented in <span class="citation"
+data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span> and of
+an asymmetric mass model, containing a central stellar bar, and we
+present it here for the first time. We recall the main properties of the
+two models of <span class="citation"
+data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span> below
+and we describe the asymmetric Galactic mass model, presented here for
+the first time, in more detail.</p>
+<h3
+id="model-i-by-an-axisymmetric-mass-model-for-the-galaxy-including-a-spherical-bulge">Model
+I by <span class="citation"
+data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span>: An
+axisymmetric mass model for the Galaxy including a spherical bulge</h3>
+<p>Model I by <span class="citation"
+data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span>
+(abbreviated name: PI) consists of four components: two disks (thin and
+thick), both described by Miyamoto &amp; Nagai potentials, a dark matter
+halo, and a central bulge. Its total potential is: <span
+class="math display">\[\Phi_{tot}(R, z) = \Phi_{thin}(R, z) +
+\Phi_{thick}(R, z) + \Phi_{halo}(r)+  \Phi_{bulge}(r),\]</span> with
+<span class="math inline">\(r=\sqrt{R^2 + z^2}\)</span>, <span
+class="math display">\[\begin{aligned}
+            \Phi_{thin}(R,z)&amp;=&amp;\frac{-GM_{thin}}{\left(R^2+\left[a_{thin}+\sqrt{z^2+b_{thin}^2}\right]^2\right)^{1/2}},\\
+            \Phi_{thick}(R,z)&amp;=&amp;\frac{-GM_{thick}}{\left(R^2+\left[a_{thick}+\sqrt{z^2+b_{thick}^2}\right]^2\right)^{1/2}},
+        
+\end{aligned}\]</span> <span class="math display">\[\begin{split}
+                \Phi_{halo}(r)=&amp;\frac{-GM_{halo}}{r}-\frac{M_{halo}}{1.02a_{halo}}\times\\
+                &amp;
+\Bigg[\frac{-1.02}{1+\left(\frac{r}{a_{halo}}\right)^{1.02}}+ln{(1+\left(\frac{r}{a_{halo}}\right)^{1.02})}\Bigg]_R^{100},
+            \end{split}\]</span> and <span
+class="math display">\[\Phi_{bulge}(r) =
+-\frac{GM_{bulge}}{\sqrt{r^2+{b_{bulge}^2}}},\]</span> where <span
+class="math inline">\(M_{thin}, M_{thick}\)</span>, <span
+class="math inline">\(M_{halo}\)</span>, and <span
+class="math inline">\(M_{bulge}\)</span> are the masses of the disks,
+halo, and bulge. Also, <span class="math inline">\(a_{thin},
+b_{thin},  a_{thick}, b_{thick}, a_{halo} ,b_{bulge}\)</span> are the
+characteristic scale lengths of the thin and thick disks, the halo, and
+the central bulge, respectively (see Table <a href="#PII"
+data-reference-type="ref" data-reference="PII">[PII]</a>).</p>
+<p>This model is a modification of the classical <span class="citation"
+data-cites="allen91">(<strong>allen91?</strong>)</span> model, made to
+include also the presence of a thick disk. As it has been discussed in
+detail by <span class="citation"
+data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span>, the
+choice to include a massive spheroid in this model, as well as in the
+original <span class="citation"
+data-cites="allen91">(<strong>allen91?</strong>)</span> model, is
+dictated by the need to reproduce CO/HI-based velocity curves, as those
+provided by <span class="citation"
+data-cites="sofue12">(<strong>sofue12?</strong>)</span>, which show a
+rise and then a sudden decrease of the velocity curve in the inner
+Galactic regions (<span class="math inline">\(R \le 2-3\)</span> kpc).
+In an axisymmetric model, such a rise can be reproduced only if a
+central spheroidal component, with a typical mass greater than 10% of
+that of the disk(s), is added. However, as shown by <span
+class="citation"
+data-cites="chemin15">(<strong>chemin15?</strong>)</span>, the central
+rise observed in the rotation of the molecular gas in the inner Galaxy
+may be an effect of non-circular motions generated by large-scale
+asymmetries such as the bar. Moreover, this feature is not reported in
+all the observational studies <span class="citation"
+data-cites="reid14">(see, e.g., <strong>reid14?</strong>, on which model
+PII is based)</span>. In other words, if we do not assume that the mass
+distribution of the inner Galaxy is axisymmetric, the need for a massive
+spheroidal component to reproduce velocity curves, such as those from
+<span class="citation"
+data-cites="sofue12">(<strong>sofue12?</strong>)</span>, no longer
+persists. In addition to that, in the last decade, a number of works
+have shown that if a spheroidal bulge exists in the central regions of
+our Galaxy, it has to be small <span class="citation"
+data-cites="shen10 kunder12 dimatteo15 gomez18">(few percents of the
+mass of the disk at the most, see among others <strong>shen10?</strong>;
+<strong>kunder12?</strong>; <strong>dimatteo15?</strong>;
+<strong>gomez18?</strong>)</span>. All these arguments suggest to employ
+this model <span class="citation" data-cites="irrgang13">(as well as all
+models including a massive central spheroid; see, e.g.,
+<strong>irrgang13?</strong>)</span> with care when dealing with the
+central parts of the Galaxy. Since models with a massive central
+spheroid, however, are still used in the literature, we have included
+model PI here, as a term of comparison.</p>
+<h3
+id="model-ii-by-an-axisymmetric-bulge-less-mass-model-for-the-galaxy">Model
+II by <span class="citation"
+data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span>: An
+axisymmetric, bulge-less mass model for the Galaxy</h3>
+<p>Model II by <span class="citation"
+data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span>
+(abbreviated name: PII) consists of a spherical dark matter halo, with
+the same functional form adopted in the <span class="citation"
+data-cites="allen91">(<strong>allen91?</strong>)</span> model, and of
+two disk components (a thin and a thick disk), with same functional form
+as PI. This model does not include any central spheroid (i.e., it is a
+bulge-less model) and thus its total potential is the sum of three
+components only: <span class="math display">\[\Phi_{tot}(R, z) =
+\Phi_{thin}(R, z) + \Phi_{thick}(R, z) + \Phi_{halo}(r),\]</span> with
+the thin, thick disks, and dark matter halo having the same functional
+forms adopted in PI.</p>
+<p>As it has been shown in <span class="citation"
+data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span>, this
+model satisfies a number of observational constraints, such as the
+stellar density at the solar vicinity, thin- and thick-disk scale
+lengths and heights, the rotation curve as provided by <span
+class="citation" data-cites="reid14">(<strong>reid14?</strong>)</span>
+and the absolute value of the perpendicular force, <span
+class="math inline">\(K_z\)</span>, as a function of distance to the
+Galactic centre <span class="citation" data-cites="pouliasis17">(see
+Sect. 2.5 in <strong>pouliasis17?</strong>)</span>. As it is, however,
+an axisymmetric model, it fails to accurately describe the inner few kpc
+of the Galaxy, where the stellar mass distribution has been shown to be
+asymmetric.</p>
+<h3 id="model-ii-with-a-massive-slowly-rotating-stellar-bar">Model II
+with a massive, slowly rotating stellar bar</h3>
+<p>The third mass model (abbreviated name: PII-0.3-SLOW) that we use in
+this paper is a version of PII by <span class="citation"
+data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span> modified
+to include a rotating stellar bar, whose mass has been assigned to be
+30% of the (thin+thick) disk mass of PII. We assume that the bar rotates
+with a constant pattern speed of <span
+class="math inline">\(\Omega_{bar}=38\rm km~s^{-1}kpc^{-1}\)</span> and
+that it is currently inclined of <span
+class="math inline">\(25^\circ\)</span> with respect to the Sun-Galactic
+center direction <span class="citation"
+data-cites="blandhawthorn16">(see
+<strong>blandhawthorn16?</strong>)</span>. We model it as a triaxial
+distribution, whose gravitational potential is given by <span
+class="citation" data-cites="long92">(<strong>long92?</strong>)</span>:
+<span
+class="math display">\[\Phi_{bar}(x,y,z)=\frac{GM_{bar}}{2a_{bar}}ln\left(
+\frac{x-a_{bar}+T_{-}}{x+a_{bar}+T_{+}}   \right),\]</span> with <span
+class="math inline">\(T_{\pm}=\left[ (a_{bar}\pm x)^2+ y^2 +  (b_{bar}+
+\sqrt{c_{bar}^2+z^2})^2 \right]^{1/2}\)</span> and <span
+class="math inline">\(a_{bar}, b_{bar}, c_{bar}\)</span> the
+characteristic bar parameters. The total gravitational potential
+generated by this model thus takes the form: <span
+class="math display">\[\Phi_{tot}(x, y, z) = \Phi_{thin}(R, z) +
+\Phi_{thick}(R, z) + \Phi_{halo}(r)+  \Phi_{bar}(x, y, z).\]</span> with
+all characteristic values given in Table <a href="#PII"
+data-reference-type="ref" data-reference="PII">[PII]</a>. Practically,
+to include the bar, we reduced the mass of the disks in such a way to
+maintain the total stellar mass of this model as that of PII. <span
+class="citation" data-cites="long92">(<strong>long92?</strong>)</span>
+provide the formulas of the accelerations generated by this triaxial
+distribution in the reference frame of the bar. To calculate and add
+them to the accelerations generated by the disks and dark matter halo,
+at each time step, we converted the positions of all particles in the
+rotating, non-inertial reference frame of the bar, computed the
+corresponding accelerations on each particle, and then transformed these
+accelerations back in the inertial reference frame described in Sect. <a
+href="#numerical" data-reference-type="ref"
+data-reference="numerical">2.1</a>. In this way, the accelerations due
+to the bar are added to those generated by the other terms of the
+Galactic mass distribution.</p>
+<p>We emphasize that we do not consider this model as the best possible
+representation of the Galactic mass distribution, especially in the
+central region. It can, however, provide a first indication on how the
+inclusion of a rotating asymmetric component in the inner Galaxy can
+affect the globular cluster streams, near and far from the Galactic
+center.</p>
+<p>Moreover, since the exact characteristics of the Milky Way bar are
+still subject to debate <span class="citation"
+data-cites="blandhawthorn16">(see, e.g.,
+<strong>blandhawthorn16?</strong>)</span>, it is important to explore
+how varying the parameters adopted in this paper, such as the pattern
+speed, the mass, or the length of the bar, can affect the
+characteristics of the whole set of streams. More complex shapes for the
+bar can also be explored, for example, by substituting the inner parts
+of the triaxial bar with a boxy-peanut-shaped morphology, which has been
+shown to characterize the inner Milky Way <span class="citation"
+data-cites="wegg13 wegg15">(see, e.g., <strong>wegg13?</strong>;
+<strong>wegg15?</strong>)</span>. These topics are, however, beyond the
+scope of the present paper. In sum, given the uncertainties on the bar’s
+physical extent and how it can change over the time span investigated
+here, its affect on the streams presented here are purely
+indicative.</p>
+<h1 id="results">Results</h1>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
@@ -411,6 +778,16 @@ until the end of the simulation, <span class="math inline">\(t_{\rm
 esc}\)</span> is set equal to <span
 class="math inline">\(-9999\)</span>.<a href="#fnref3"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>In particular, the adopted values have been taken from
+the edition available at <a
+href="https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html"
+class="uri">https://people.smp.uq.edu.au/HolgerBaumgardt/globular/parameter.html</a>,
+up to January 14, 2022.<a href="#fnref4" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>All data can be found here <a
+href="https://people.smp.uq.edu.au/HolgerBaumgardt/globular"
+class="uri">https://people.smp.uq.edu.au/HolgerBaumgardt/globular</a>.<a
+href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>
