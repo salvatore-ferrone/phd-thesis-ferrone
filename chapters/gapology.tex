@@ -254,6 +254,129 @@
 
     Future work should involve a systematic comparison of gap creation rates across various Galactic potentials and extend the scope to a wider range of streams and globular clusters. Such a work could disentangle regimes where baryonic and dark matter-induced substructures can dominate gap creation, shedding light on the elusive influence of dark matter subhalos on stellar streams. Additionally, we can continue to add realistic physics to the Galactic environment, such as the merger of the Sagittarius dwarf galaxy, the passages of the Large and Small Magellanic clouds, as well as a time-evolving globular cluster population that compensates for the clusters' mass loss, evaporation, and similarly add members from the current incomplete census.
 
+\section{Appendix}
+
+    \subsection{Gap detection} \label{sec:gap_detection}
+
+        For each of the 50 simulations, we compare the final snapshots between the \texttt{reference} and \texttt{full} simulations using the tail coordinate system, as shown in Fig.~\ref{fig:TailCoordinates}. We only saved the \texttt{reference} simulations at the final time stamps, thus from Eq.~\ref{eq:data_volume_estimate} where $N_{ts}$=1, leading to a data volume of about one hundred measly megabytes. We inspected these differences by generating 2D density maps of the streams. Additionally, we marginalized over the $y'$-coordinate to produce 1D density profiles along the $x'$-axis. We show these comparisons in the results section (see Fig.~\ref{fig:profiles}).
+        \begin{figure}
+            \centering
+            \includegraphics[width=\linewidth]{images/tailcoordinates.png}
+            \caption{Demonstration of the transformation from Galactocentric coordinates to tail coordinates. The black dot represents the globular cluster, while the thick black line shows a segment of its orbit. The star symbol indicates a star particle. The red vector points from the nearest point on the cluster's orbit to the star particle. The Galactocentric position vector is the $y'$-axis. The local orbital plane, the cross-product between the orbit's local position and velocity vector, defines the $z'$-axis. We project the red vector on each of these axes. We measure the x' coordinate as the path length along the orbit from the cluster to the nearest point. Positive $x'$, $y'$, $z'$ indicate that a star is ahead of the cluster, farther from the Galactic center, and above the orbital plane, respectively.}
+            \label{fig:TailCoordinates}
+        \end{figure}
+  
+        \begin{figure*}
+            \centering
+            \includegraphics[width=\linewidth, trim=20 0 15 0]{images/monte-carlo-009-pouliasis2017pii-GCNBody-2000-milisigma-5-noisefactor-20-boxcarindexlength-shifted-0.png}
+            \caption{Comparison between the density maps and profiles of the \texttt{full} and \texttt{reference} simulations is presented. The blue vertical bars highlight the locations where the \texttt{full} simulation is less dense than the \texttt{reference} simulation by 2-$\sigma$. We do not consider bins below the noise threshold when measuring the differences between the two 1D profiles. We smoothed the 1D profiles with a median box-car filter.}
+            \label{fig:profiles}
+        \end{figure*}
+
+        To construct the 1D density profiles, we binned the data using the $\sqrt{N}$ rule, where $N$ is the number of data points ($N_p = 10^5$). After binning the 1D profiles, we apply a median boxcar smoothing technique. At each bin, we select a number of adjacent data points from both sides, place them in a list, and replace the central value of the bin with the median. We use 10 adjacent points per side, corresponding to a smoothing length of approximately 1~kpc. This procedure reduces high-frequency noise and smooths the profiles. For instance, notice the absence of a high mass peak indicating the center of mass in the bottom panel of Fig.~\ref{fig:profiles}.
+
+        With the smoothed 1D density profiles in hand, we search regions where the \texttt{full} simulations are significantly underdense compared to \texttt{reference} simulations, surpassing stochastic fluctuations. We first impose a signal-to-noise ratio threshold, $\mathcal{SNR}$. The signal is the log of the counts per bin from the \texttt{reference} 1D density profile; we propagate errors assuming a Poisson distribution. We then compute a threshold for the number of counts in the \texttt{reference} simulation, $N_v$, using the transcendental equation:
+        \begin{equation}
+            \mathcal{SNR} = \ln(10) \log_{10}\left(N_v\right) \sqrt{N_v}.
+        \end{equation} \label{eq:density_threshold}
+        By setting $\mathcal{SNR} = 5$, we solve for $N$ using \texttt{scipy.optimize.fsolve}, finding that $N$ must be greater than 7. After discarding insignificant bins (i.e., those with counts below the threshold), we computed the log ratio of the counts between the \texttt{reference} and \texttt{full} simulations:
+        \begin{equation}
+            \mathcal{R}_i = \log_{10}\left(\frac{N_{f,i}}{N_{v,i}}\right),
+        \end{equation}
+        where $\mathcal{R}_i$ is the log ratio, $N_{f,i}$ are the counts from the \texttt{full} simulation, and $N_{v,i}$ are the counts from the \texttt{reference} simulation for each bin $i$. We then analyze the $\mathcal{R}_i$ distribution. If the differences between the density profiles are primarily due to stochastic processes of similar magnitude, this distribution should resemble a Gaussian, as expected from the central limit theorem. Thus, we flag all regions where the density is underdense by more than two standard deviations, which should highlight regions whose underdensity is unlikely to be the result of the sum of stochastic processes but rather the passage of another globular cluster. 
+
+        However, this method has its limitations, especially when detecting smaller gaps. As outlined by \citet{2015MNRAS.450.1136E}, since gap growth is a dispersion phenomenon, a small gap is not indicative of a weak impact but a recent one. Additionally, since our streams have finite width, some gaps are oblique with respect to the stream axis. In such cases, marginalizing over $y'$ erases the gap's signal, making it impossible to detect in a 1D profile. This limitation is particularly evident in gaps caused by NGC~2808, as discussed in the results. Therefore, this quantitative analysis serves as an aid to visual inspection rather than a complete substitute for it. This method helps with significant, subtle gaps that the eye does not notice in the 2D maps. \href{https://zenodo.org/records/15528089}{The online appendix} presents these profiles.
+
+    \subsection{Perturber identification} \label{sec:Perturber_Identification}
+        We aim to identify the origin of the gaps observed at the end of the simulation. To this end, we examine the evolution of stream density over time. Instead of using the x'-coordinate, we introduce $\tau$, which represents time rather than distance. Specifically, $\tau$ indicates how long a cluster will take to reach a given point in its orbit or how long ago it passed. This choice of coordinates is advantageous because the growth of the stream is approximately linear in $\tau$. In contrast, in physical space, streams on eccentric orbits expand and contract depending on the orbital phase.
+
+        \citet{2016MNRAS.457.3817S} extended the analysis of \citet{2015MNRAS.450.1136E}, demonstrating that action-angle variables provide a useful coordinate system for analyzing stream evolution, as actions are conserved quantities and their associated angles grow linearly over time. Although we became aware of this work only after completing our analysis, we note that $\tau$ is a suitable approximation and behaves similarly to the angle variable corresponding to the azimuthal action: $\tau \approx \theta_{\phi, i} - \theta_{\phi,\text{GC}}$.
+
+        The core of our analysis is presented in Fig.~\ref{fig:force-on-orbit}. The bottom panel shows the evolution of the stream density over time. To avoid extremely low-density regions at the stream's edges, we applied the same density threshold as from Eq.~\ref{eq:density_threshold} to focus on the more significant areas of the stream. Next, we modeled Palomar~5's orbit as a proxy for its stream and sampled points along the orbit to measure the gravitational force exerted by other globular clusters. The top panel of Fig.~\ref{fig:force-on-orbit} shows how the total gravitational acceleration on Palomar~5's stream evolves over its length throughout the simulation.
+
+        \begin{figure*}
+            \centering
+            \includegraphics[width=\linewidth]{images/force_on_orbit-monte-carlo-009.png}
+            \caption{Demonstration of how we determined which globular clusters were responsible for the gaps. The y-axis is $\tau$, a coordinate in units of time that indicates how far ahead or behind it is from a globular cluster. The x-axis is the simulation time, $t$, where 0~s km~kpc$^{-1}$ indicates the present time. The bottom plot showcases the evolution of the stream density over simulation time. We used the density to determine a suitable stream length. Subsequently, we used this length to extract a piece of Palomar~5's orbit. This orbital segment approximates the stream. Then, we compute the gravitational force from all other stream stand-in clusters, shown in the top plot. The gravitational force is measured in acceleration and is given in integration units: km$^2$~kpc$^{-1}$~s$^{-2}$. Moments of high acceleration indicate the passage of another cluster. The red circles indicate the top 5 strongest passages, as well as the names of the clusters. The example shown in this plot is the same simulation as Fig.~\ref{fig:stream_on_sky}.}
+            \label{fig:force-on-orbit}
+        \end{figure*}          
+        
+        We then used \texttt{scipy}'s \texttt{ndimage} \citep{2020NatMe..17..261V} package to identify the top five local maxima in the data space of gravitational acceleration $\vec{g}$ as a function of time $t$ and the stream coordinate $\tau$. First, we smooth the data space by taking a 5-point moving average kernel. Secondly, we use a maximum filter to locate coordinates in the ($t,\tau$) data plane that are local maxima to at least 10 adjacent data points. We order these locations and save the top five strongest interactions. Then, we iterated over the contributions of individual globular clusters to determine which cluster contributed the most to each peak in $\vec{g}$. We label each significant peak with the corresponding globular cluster.
+
+        Afterward, we cross-referenced these peaks with the locations of the gaps identified by studying the density maps and profiles from Fig.~\ref{fig:profiles}. The impact leaves a low-density wake in the ($t,\tau$) plane for large gaps resulting from strong interactions. the bottom panel of Fig.~\ref{fig:force-on-orbit} shows the wakes corresponding to the impacts of NGC~104 and NGC~7808.
+
+        Fig.~\ref{fig:force-on-orbit} contains some interesting information. Notice the periodic ribbons of force in the $(t,\tau)$ plane. The ribbons are due to pericenter passages where Palomar~5 is getting closer to the center of mass of the globular cluster system. Additionally, for the impacts of NGC~104 and NGC~7078, wakes can be observed in the density map. Another important aspect is that the strongest peak in gravitational force does not necessarily create a gap. Notice how NGC~5272, which was labeled with 0 to indicate that it has the greatest local maxima, does not have a gap. The reason for this is manifold. For instance, the force needs to be modulated with time since the change in momentum is the determining factor and not the peak magnitude of the force.  Additionally, there is an offset of about 200~pc between the stream and the orbit, as seen when viewing the stream in tail coordinates, so peaks upon the orbit are good proxies for the stream but are not definitive. We found that the top five greatest impacts accounted for all gaps, except for Sampling~014 as shown in Fig.~3 of our extended list of  \href{10.5281/zenodo.15528089}{figures}, whose gap from NGC~6584 corresponded to the 7th peak. 
+
+        We compile the results of this analysis into a table. Each row of the table corresponds to a gap; its corresponding suspects are the columns. The culprit is labeled as \texttt{TRUE}. For a handful of simulations, to double-check that we make the correct verdict, we recompute the simulations, yet individually adding one globular cluster at a time. As a result, we can confirm that singular gaps arise from the suspected clusters. Fig.~\ref{fig:decomposition} shows one such example. 
+
+    \subsection{Reconstruction of the impact geometry} \label{sec:reconstruction}
+        As discussed in Sect~\ref{sect:geometry},  five parameters determine the change in velocity of a given stream particle: $M$, $r_p$, $b$, $W_\parallel$, and $W_\perp$. In the following, we describe how we estimated these parameters during impacts in our simulations.
+        
+        To achieve this, we identify the impact of the most significant clusters, as determined in the previous analysis in Sec.~\ref{sec:Perturber_Identification}. Then, we refine these estimates to pinpoint the exact location of the impact along the stream and the precise moment it occurred. To do so, we fit a third-order parametric polynomial to the stream using the saved snapshots from our simulations:
+
+        \begin{equation}
+            \vec{s}(\tau) = 
+            \left\{
+            \begin{aligned}
+                x(\tau) &= a_0 + a_1 \tau + a_2 \tau^2 + a_3 \tau^3 \\ 
+                y(\tau) &= b_0 + b_1 \tau + b_2 \tau^2 + b_3 \tau^3 \\
+                z(\tau) &= c_0 + c_1 \tau + c_2 \tau^2 + c_3 \tau^3,
+            \end{aligned}
+            \right.
+        \end{equation}
+        where $x$, $y$, and $z$ represent the parametric line describing the stream in Galactocentric coordinates, $\tau$ is the stream coordinate in time as described in the Appendix~\ref{sec:Perturber_Identification}, and is used as the independent variable to parameterize the position along the stream. The coefficients $a_i$, $b_i$, and $c_i$ are the polynomial coefficients. We found that a second-order polynomial was insufficient to capture the curvature along the full length of the stream, with divergence at the ends of the tails. A third-order polynomial was sufficient and desirable, as the lowest order adequately captures the stream's path over the entire length under consideration.
+
+        In this analysis, we only consider one side of the stream. For instance, if the impact candidate was in the leading tail, only the star particles with $\tau > 0$ are used to constrain the stream track. The polynomial coefficients were determined through a minimization method using the Nelder-Mead algorithm from \texttt{scipy}'s optimization package.
+
+        Since we saved the simulation snapshots at a temporal resolution of 1~Myr--rather than at the integration time-step, which would have generated excessive data, we must interpolate between snapshots to more precisely estimate the impact geometry. We fit the stream's shape with a parametric third-order polynomial at the five time steps surrounding the approximate impact time. This time is a period of 5~Myr, sufficiently covering the interaction time. The interaction time can be estimated as $t \approx \frac{100~\text{pc}}{300~\frac{\text{km}}{\text{s}}} \approx 0.3~\text{Myr}$.
+
+        Then, we used a cubic spline interpolation for the coefficients describing the stream's shape, which allows us to describe each polynomial coefficient as a function of time. Consequently, we can parameterize the stream as a function of both simulation time and position along the stream:
+        \begin{equation}
+            \vec{s}(t,\tau) = 
+            \left\{
+            \begin{aligned}
+            x(t,\tau) &= a_0(t) + a_1(t)\tau + a_2(t) \tau^2 + a_3(t)\tau^3 \\ 
+            y(t,\tau) &= b_0(t) + b_1(t)\tau + b_2(t) \tau^2 + b_3(t)\tau^3 \\
+            z(t,\tau) &= c_0(t) + c_1(t)\tau + c_2(t) \tau^2 + c_3(t)\tau^3.
+            \end{aligned}
+            \right.
+        \end{equation}
+        
+        The values of the coefficients as a function of time are obtained through linear interpolation, ensuring that the coefficients at the snapshot times match the values constrained by the simulation data.
+
+        Next, we fit the trajectory of the perturber with a second-order polynomial. With equations for both the stream and the perturber as functions of time, we identify the time and location of impact by minimizing a cost function, defined as the distance between the stream and the perturber:
+        \begin{equation} 
+            b(t, \tau) = \left\lVert \vec{s}(t, \tau) - \vec{p}(t) \right\rVert, 
+        \end{equation}
+        where $\vec{s}(t, \tau)$ is the Galactocentric position of a point on the stream, $\vec{p}(t)$ is the position of the perturber, and $b$ is the distance between the two. The minimum value of $b$, denoted as $\text{min}(b)$, represents the impact parameter. We performed the minimization using \texttt{scipy}'s optimization package with the \texttt{L-BFGS-B} method, which allowed us to place bounds on $t$ and $\tau$, ensuring no extrapolation occurs \citep{davidon1991variable}.
+
+        Once this minimization is done, determining the relative velocity becomes straightforward. Since the minimization provides the impact parameter, time of impact, and the corresponding value of $\tau$, we can compute the derivatives of the parametric equations at $t_{\text{min}}$ and $\tau_{\text{min}}$. The parallel and perpendicular components of the perturber's velocity relative to the stream are given by:
+
+        \begin{equation}
+            \begin{aligned}
+            \delta \vec{v} &=\vec{v_p} - \vec{v_s}, \\
+            w_\parallel &= \left(\delta \vec{v}\right)\cdot \hat{v_s},\\  
+            w_\perp &=  \sqrt{\Delta v ^2 - w_\parallel ^ 2},
+            \end{aligned}
+        \end{equation}
+        where $\vec{v}_p$ and $\vec{v}_s$ are the velocities of the perturber and the stream, respectively. We compute the strongest five flybys for each of the 50 simulations. Thus, we created a sample of 250 impacts and flagged those that give rise to gaps. We refer the reader to Sect.~\ref{sect:geometry} for the presentation and discussion of the results.
+
+    \subsection{Survival of gaps in streams emerging from more massive globular clusters}\label{sec:gaps_vs_gcmass}
+
+        \begin{figure}
+            \includegraphics[width=\linewidth]{images/decoherence_shocked_outflow.png}
+            \caption{We dissect the one-dimensional density of the stream from the bottom panel of Fig.~\ref{fig:gap_no_more}. We divide the stars into two categories: the multiple groups that are shocked out at different pericenter passages, or those that leak out of the cluster continuously. The bottom panel shows the leaked population in blue, and each group that was shocked out at each pericenter passage is color-coded by the escape time. The sum of the leaked and shocked outflow gives the total profile density, which is shown in black. The top four panels display the first shocked groups from different pericenter passages, shown individually. Each group shows the gap resulting from the impact of NGC~7078 $\sim$2.5~Gyr ago, yet they are progressively offset as explained in the text.}
+            \label{fig:decoherence_shocked_outflow}
+        \end{figure}
+
+        \begin{figure*}
+            \centering
+            \includegraphics[width=\linewidth]{images/gap_no_more.png}
+            \caption{Both simulations use identical orbital conditions for the globular clusters, with a half-mass radius of 27~pc. In the lower panel, Pal~5's mass is increased relative to the upper one. Although both streams are perturbed by NGC~7078 approximately 2.5~Gyr ago, the resulting gap is attenuated in the more massive model.}
+            \label{fig:gap_no_more}
+        \end{figure*}
+
+
 
 \section{Velocity distribution within the stream}
 
