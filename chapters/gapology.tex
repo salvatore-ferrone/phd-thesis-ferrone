@@ -1,5 +1,92 @@
 \section{Published results}
 
+
+
+\section{Methods}
+  The most accurate model of the Palomar~5 stream would involve full modeling of the internal dynamics of the cluster, which would mean computing $N$-body interactions with a $\mathcal{O}(N^2)$ computation time, stellar evolution, supernovae, an initial mass distribution, treatment of binary star systems, etc. \citep[for such an example, see][]{2021NatAs...5..957G, 2016MNRAS.458.1450W}. Instead, we opt for solving the restricted-three-body problem, also known as the particle-test method, as we did for \citet{2023A&A...673A..44F}, which we describe here for completeness. As demonstrated by \citet{2012A&A...546L...7M}, although the restricted three-body problem neglects the internal evolution of the cluster, it still reproduces very similar stream properties since the model captures key extracluster physics, such as disk shocking and epicyclic stripping.\\
+  Below, we first present the approach used to include the Galactic globular cluster system in our modeling (Sect.~\ref{numerical_meth}), highlighting the similarities and differences with respect to what we did in \citet{2023A&A...673A..44F}; we then summarize the method used to model the mass loss from the cluster (Sect.~\ref{sec:mass_loss}) and finally discuss the quality of the numerical integration (Sect.~\ref{num_quality}). 
+
+  \subsection{Numerical methodology}\label{numerical_meth}
+    We begin by extracting positions in the sky, proper motions, line-of-sight velocities, and distances, as well as masses and half-mass radii, of 165 globular clusters from the Galactic globular cluster catalog by \cite{2021MNRAS.505.5957B}.\footnote{The Baumgardt catalog has been assembled across a series of works, see: \cite{2020PASA...37...46B,2019MNRAS.482.5138B,2018MNRAS.478.1520B}. The catalog can be found on the World Wide Web at \href{https://people.smp.uq.edu.au/HolgerBaumgardt/globular/}{https://people.smp.uq.edu.au/HolgerBaumgardt/globular/}.} We then convert the initial conditions from sky coordinates into a Galactocentric reference frame, by adopting a velocity for the local standard of rest of $v_{\text{LSR}} = 240$~km~s$^{-1}$ and a peculiar velocity of the Sun equal to $(U_\odot, V_\odot, W_\odot)=(11.1, 12.24, 7.25)$~km~s$^{-1}$, as reported by \citet{2012MNRAS.427..274S}.  We set the Sun's position to $(x_\odot,y_\odot,z_\odot) = (-8.34,0,0.027)$~kpc. We took the vertical position above the disk from \citet{2001ApJ...553..184C} and the distance of the Sun to the Galactic center from \citet{2014ApJ...783..130R}. These transformations were performed using \texttt{astropy} \citep{2013A&A...558A..33A}.
+
+    For the Galactic potential, we employed the second model from \citet{2017A&A...598A..66P}, a superposition of a thin disk, thick disk, and dark matter halo, with masses and scale lengths provided in Table~1 of \citet{2023A&A...673A..44F}. This model is time-independent throughout our simulations. This model satisfies a series of observational constraints such as local solar, stellar density, the Galactic rotation curve, similarly to other Galactic models such as \texttt{MWpotential2014} from \citet{2015ApJS..216...29B} and \texttt{McMillian2017} from \citet{2017MNRAS.465...76M}. However, we use only one Galactic potential to balance data volume and computation time, which should suffice. \citet{2021MNRAS.505.5978V} found that only a few outer globular clusters are strongly affected by different potential models. Generally, kinematic uncertainties are the dominant factor in differences between orbital solutions per cluster. Similarly, \citet{2024MNRAS.528.5189G} generated a globular cluster mass-loss catalog using seven different potential models and found that their debris distributions were rather model-independent, similar to those of \citet{2023A&A...673A..44F}. While the clusters' exact positions in time may depend on the model, we assert that interaction rates and stream formation are largely independent of the choice of the Galactic potential model.
+    
+    Lastly, we select an integration time of 5~Gyr as a compromise between maximizing interaction statistics and modeling the Galaxy as a time-independent, constant mass distribution. \citet{2023A&A...673A.152I} analyzed the orbits of the Galactic cluster population using the same initial conditions as in this work within five live Milky Way-like potentials from IllustrisTNG \citep{2018MNRAS.473.4077P}. They found that in all sampled potentials, orbital changes remain minimal over 5~Gyr, becoming significant only at earlier look-back times when the host galaxy had significantly less mass or was undergoing a merger event.
+
+
+    \subsubsection{ \texttt{Full} simulations}
+    There is a primary methodological departure from \citet{2023A&A...673A..44F}.  In that work, globular clusters evolved under the gravitational effect of the Galaxy alone. In contrast, now we also consider the effect of all other Galactic globular clusters by taking into account the direct $N$-body interactions between them. First, all clusters are represented by Plummer spheres, each with its own mass and half-mass radius as reported in the Baumgardt catalog \citep{2021MNRAS.505.5957B}. For the remainder of this paper, the \texttt{full} simulations consider the gravitational forces from the globular cluster interactions. \\
+    For these simulations, we proceeded in two steps:
+      \begin{enumerate}
+          \item First, starting from the Galactocentric positions and velocities of all 165 Galactic globular clusters, we integrate their orbits back in time for 5~Gyr under the influence of the Galaxy itself and their mutual influence. In the backward integration, the system of equations of motion for the globular clusters is thus: 
+          \begin{equation}
+          \ddot{\vec{r}}_i = -\nabla \Phi + \left.\sum_{j\neq i}^{N_{GC}} \frac{Gm_j}{\left(|\vec{r}_j - \vec{r}_i|^2 + b_j^2\right)^{3/2}}\right. \left(\vec{r}_j - \vec{r}_i\right),
+          \end{equation}\label{eq:GCNBody} 
+          \noindent where $\vec{r}$ indicates the Galactocentric position vector, the index $i$ indicates the globular cluster of interest; the index $j$ indicates the other globular clusters that are summed over. $N_{GC}$ is the total number of globular clusters, which in this study is 165, $m_j$ is the mass of the j-th cluster in the sample, $b_j$ is its Plummer scale radius, and $\vec{r_j}$ is its Galactocentric position. $\Phi$ represents the same Galactic smooth potential that we discussed previously \citep[][Model~II, in the present case]{2017A&A...598A..66P}. Note that the masses and sizes of the globular clusters are kept constant in these simulations and are not allowed to vary with time, which means that we do not consider their internal evolution. In sec.~\ref{sec:discussion}, we discuss the implications of the modeling limitations.
+      
+        \item Once we found the positions and velocities of the entire globular cluster, we sampled Palomar~5 with 100,000 particles from a Plummer distribution, taking the mass and half-mass radius from the Baumgardt catalog: $1.3\times10^{4}~\textrm{M}_\odot$ and $27.6~\textrm{pc}$. We then integrated the evolution of these particles forward in time to the present day, taking into account that each particle feels the gravitational potential of the Galaxy, its host cluster, and that of all the other clusters in the Galaxy. Note that we do not account for self-gravity among particles. The particles experience the gravitational field yet do not contribute to it, a common assumption in galactic dynamics, as the mass of an individual star is negligible compared to the mass of the larger dynamical system. The equation of motion of a generic particle among the 100,000 that populate Palomar~5 is thus: 
+        \begin{equation}
+          \ddot{\vec{r}}_p = -\nabla \Phi + \left.\sum_{j}^{N_{GC}} \frac{Gm_j}{\left(|\vec{r}_j(t) - \vec{r}_p|^2 + b_j^2\right)^{3/2}}\right. \left(\vec{r}_j(t)- \vec{r}_p\right),
+          \end{equation} \label{eq:equation_of_motion_particle} where the index $p$ represents one of the 100,000 particles of interest, $\vec{r_p}$ being its position, and $j$ indexes over the globular clusters as in Eq.~\ref{eq:GCNBody}. We note that in Eq.~\ref{eq:equation_of_motion_particle}, the positions of the globular clusters are time-dependent since they are being loaded during this step and not computed, unlike Eq.~\ref{eq:GCNBody}. 
+
+      \end{enumerate}
+
+
+
+
+        The procedure described so far has been repeated 50 times, generating a new set of initial conditions each time, given the uncertainties on proper motions, line-of-sight velocities, distances to the Sun, and masses of all clusters, as reported in the Baumgardt catalog. We handle these uncertainties through a Monte-Carlo approach by sampling them with a Gaussian distribution and considering the covariance term between the proper motions. We use the most probable values for the initial conditions in the first simulation. We sample the uncertainties for all globular clusters. Additionally, for each resampling of Palomar~5's mass, we also resample the distribution of the 100,000 star particles. 
+
+
+      During the integration, we save intermediate snapshots to facilitate the analysis of stellar streams and the effects of cluster impacts. Specifically, for each realization of the Palomar~5 stream, we saved $5000$ in snapshots, equivalent to a temporal resolution of 1 million years. We provide the parameters that specify our data volume in Table~\ref{tab:data_volume}. Using single precision floating point numbers, the size of our simulations is approximately:
+    \begin{equation} \label{eq:data_volume_estimate}
+      N_p \times N_{\textrm{ts}}\times N_{\textrm{phase}}\times N_{\textrm{sampling}} \times 4~\textrm{bytes}\approx 600~\textrm{Gb}.
+    \end{equation}
+
+    \begin{table}[h]
+      \centering
+      \caption{Parameters determining the data volume.}
+      \label{tab:data_volume}
+      \begin{tabular}{|c|c|c|c|}
+          \hline
+          $N_p$ & $N_{\textrm{ts}}$ & $N_{\textrm{phase}}$ & $N_{\textrm{sampling}}$ \\
+          \hline
+          $100000$ & $5000$ & $6$ & $50$ \\
+          \hline
+      \end{tabular}
+      \tablefoot{$N_p$  is the number of particles, $N_{\textrm{ts}}$ is the number of time-steps saved, $N_{\textrm{phase}}$ is the number of phase space coordinates, and $N_{\textrm{sampling}}$ is the number of Monte-Carlo samplings of the initial conditions.}
+    \end{table}
+
+  \subsubsection{ \texttt{Reference} simulations}
+
+    To quantify the impact of globular cluster passages on the density of the Palomar~5 stream, we performed a second set of simulations, which we refer to as the \texttt{reference} simulations in this paper.  These \texttt{reference} simulations use the same 50 sets of initial conditions as the \texttt{full} simulations, the same Galactic potential, but exclude mutual interactions between globular clusters. The approach adopted for this second set of simulations is thus equivalent to that adopted already in \citet{2023A&A...673A..44F}. In Eq.~\ref{eq:GCNBody}, only the gradient of the Galactic potential is considered. In Eq.~\ref{eq:equation_of_motion_particle}, of the second term on the right side of the equation, only the influence of Palomar~5's Plummer sphere on Palomar~5's particles is considered. In other words, the sum iterates over only one globular cluster, the host. We omit all interactions with the other clusters.
+
+\subsection{Mass loss}\label{sec:mass_loss}
+
+Each of the 100,000 particles that initially populate the cluster undergoes experiences the forces from Pal~5 and the Galactic potential. The mass and radius of Pal~5 are held constant over time. At each time step, a certain number of particles will therefore acquire sufficient energy to no longer be gravitationally bound to the cluster itself and thus go on to populate the streams, whose mass and spatial extent grow over time. It is important to note that in the approach used:
+
+\begin{enumerate}
+    \item The masses and sizes of the clusters (and therefore the parameters of the Plummer potentials) do not change over time, which is an oversimplification, because in a self-consistent approach, these parameters would vary. 
+    \item We use the same initial conditions for Pal~5 progenitor as it has today, and this is also a simplification, since Pal~5 - 5 Gyr years ago - must have contained at least part of the mass estimated today in its tails\footnote{We used the same approach (i.e., time-independent masses and sizes) to model the whole set of globular clusters.}. 
+\end{enumerate}
+
+The assumption in point 2 is a direct consequence of the approach described in point 1. Starting from a cluster with a mass and size similar to the current ones can lead to streams with lower velocity dispersions than those we would obtain if we had used a self-consistent approach. In a future article, we will report on the study of gap survival times depending on the masses and sizes of progenitor clusters (Ferrone et al, in prep). We note, however, that simplifications of this kind are not uncommon in literature. \citet{2017NatAs...1..633P} discussed the formation of gaps in the Pal~5 tails and assumed a time-independent mass of $50,000 ~\textrm{M}_\odot$ for Pal~5, over the last 4~Gyr; \citet{2017MNRAS.470...60E} adopted a N-body approach to simulate Pal~5 stream, but used Pal~5 current conditions as their progenitor's initial conditions; \citet{2019MNRAS.484.2009B} simulated the Pal~5 stream as emerging from a stellar system with a velocity dispersion of 0.5~km/s (similar to that of particles escaping from our cluster, as we have verified). 
+
+
+The characteristics of the streams modeled in this paper may be considered more representative of those of clusters that are now completely dispersed, i.e., it is conceivable that completely dispersed globular clusters that left behind a population of `orphan' streams passed through characteristics similar to those of Pal 5~today (small masses and extended radii). In this sense, the initial conditions chosen (in terms of internal parameters) may be more representative of those of streams for which the progenitor is now dissolved \citep[see, for example, the population of streams without progenitors described by][]{2024ApJ...967...89I} than those currently typical of Galactic globular clusters than those currently typical of Galactic globular clusters. \footnote{In this regard, we recall that \citet{2014ApJ...795...95B} modeled the GD-1 stream as the result of the dissolution of a cluster with a mass of $2 \times 10^4 M_\odot$, and a tidal radius of $0.07$~kpc.}
+
+
+
+
+  \subsection{Numerical stability}\label{num_quality}
+
+    We used a leapfrog integrator because of its ability to preserve phase-space volume and conserve the Hamiltonian with each integration step. For instance, this method is preferable to a Runge-Kutta scheme, which can introduce non-physical and significant numerical errors in systems that require long-term stability and energy conservation. One drawback of the leapfrog integrator is that it requires a uniform time step throughout the entire computation, resulting in unnecessary computations for a particle after it has escaped from the host cluster. However, energy conservation and phase-space volume preservation are paramount when modeling stellar streams. The time step was therefore set to be small enough to conserve energy for the most interior particles within the cluster---ensuring that a higher mass loss did not arise from numerical error. We found that a time-step of 10,000 years was adequate to maintain energy conservation, with a median variation of $10^{-12} \frac{\Delta E}{E_0}$, where $E_0$ is a particle's initial energy, and $\Delta E$ is the difference between its final and initial energy. 
+    
+    We also checked the reverse integrability of the globular cluster system for the \texttt{reference} simulations. By reverse integrability, we mean the integrator's capability to track the cluster backward in time and then re-integrate it forward along the same trajectory. Integrating point masses in a static axis-symmetric potential conserves $L_z$ and $E$, which create regular periodic and non-chaotic orbits. Therefore, any drift would arise from purely numerical error. We selected a timestamp for which the drift in the final position after forward integration, compared to the initial position from the backward integration, was consistently at least two orders of magnitude smaller than the Plummer scale radius used for Palomar~5. This high precision ensures that no fictitious numerical forces influence the system, preventing any artificial mass loss or retention of star particles.
+
+
+
+
+
 \section{Velocity distribution within the stream}
 
     \subsection{Self-Segregation and Stream Chilling}

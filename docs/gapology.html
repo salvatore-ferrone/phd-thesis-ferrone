@@ -165,7 +165,27 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <script
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
   type="text/javascript"></script>
@@ -175,6 +195,338 @@
 <h1 class="title">Gapology</h1>
 </header>
 <h1 id="published-results">Published results</h1>
+<h1 id="methods">Methods</h1>
+<p>The most accurate model of the Palomar 5 stream would involve full
+modeling of the internal dynamics of the cluster, which would mean
+computing <span class="math inline">\(N\)</span>-body interactions with
+a <span class="math inline">\(\mathcal{O}(N^2)\)</span> computation
+time, stellar evolution, supernovae, an initial mass distribution,
+treatment of binary star systems, etc. <span class="citation"
+data-cites="2021NatAs...5..957G 2016MNRAS.458.1450W">(for such an
+example, see Gieles et al. 2021; Wang et al. 2016)</span>. Instead, we
+opt for solving the restricted-three-body problem, also known as the
+particle-test method, as we did for <span class="citation"
+data-cites="2023A&amp;A...673A..44F">Ferrone et al. (2023)</span>, which
+we describe here for completeness. As demonstrated by <span
+class="citation"
+data-cites="2012A&amp;A...546L...7M">Mastrobuono-Battisti et al.
+(2012)</span>, although the restricted three-body problem neglects the
+internal evolution of the cluster, it still reproduces very similar
+stream properties since the model captures key extracluster physics,
+such as disk shocking and epicyclic stripping.<br />
+Below, we first present the approach used to include the Galactic
+globular cluster system in our modeling (Sect. <a href="#numerical_meth"
+data-reference-type="ref" data-reference="numerical_meth">2.1</a>),
+highlighting the similarities and differences with respect to what we
+did in <span class="citation"
+data-cites="2023A&amp;A...673A..44F">Ferrone et al. (2023)</span>; we
+then summarize the method used to model the mass loss from the cluster
+(Sect. <a href="#sec:mass_loss" data-reference-type="ref"
+data-reference="sec:mass_loss">2.2</a>) and finally discuss the quality
+of the numerical integration (Sect. <a href="#num_quality"
+data-reference-type="ref" data-reference="num_quality">2.3</a>).</p>
+<h2 id="numerical_meth">Numerical methodology</h2>
+<p>We begin by extracting positions in the sky, proper motions,
+line-of-sight velocities, and distances, as well as masses and half-mass
+radii, of 165 globular clusters from the Galactic globular cluster
+catalog by <span class="citation"
+data-cites="2021MNRAS.505.5957B">(Baumgardt and Vasiliev 2021)</span>.<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> We then convert the initial
+conditions from sky coordinates into a Galactocentric reference frame,
+by adopting a velocity for the local standard of rest of <span
+class="math inline">\(v_{\text{LSR}} = 240\)</span> km s<span
+class="math inline">\(^{-1}\)</span> and a peculiar velocity of the Sun
+equal to <span class="math inline">\((U_\odot, V_\odot, W_\odot)=(11.1,
+12.24, 7.25)\)</span> km s<span class="math inline">\(^{-1}\)</span>, as
+reported by <span class="citation"
+data-cites="2012MNRAS.427..274S">Schönrich (2012)</span>. We set the
+Sun’s position to <span class="math inline">\((x_\odot,y_\odot,z_\odot)
+= (-8.34,0,0.027)\)</span> kpc. We took the vertical position above the
+disk from <span class="citation" data-cites="2001ApJ...553..184C">Chen
+et al. (2001)</span> and the distance of the Sun to the Galactic center
+from <span class="citation" data-cites="2014ApJ...783..130R">Reid et al.
+(2014)</span>. These transformations were performed using
+<code>astropy</code> <span class="citation"
+data-cites="2013A&amp;A...558A..33A">(Astropy Collaboration et al.
+2013)</span>.</p>
+<p>For the Galactic potential, we employed the second model from <span
+class="citation" data-cites="2017A&amp;A...598A..66P">Pouliasis, Di
+Matteo, and Haywood (2017)</span>, a superposition of a thin disk, thick
+disk, and dark matter halo, with masses and scale lengths provided in
+Table 1 of <span class="citation"
+data-cites="2023A&amp;A...673A..44F">Ferrone et al. (2023)</span>. This
+model is time-independent throughout our simulations. This model
+satisfies a series of observational constraints such as local solar,
+stellar density, the Galactic rotation curve, similarly to other
+Galactic models such as <code>MWpotential2014</code> from <span
+class="citation" data-cites="2015ApJS..216...29B">Bovy (2015)</span> and
+<code>McMillian2017</code> from <span class="citation"
+data-cites="2017MNRAS.465...76M">McMillan (2017)</span>. However, we use
+only one Galactic potential to balance data volume and computation time,
+which should suffice. <span class="citation"
+data-cites="2021MNRAS.505.5978V">Vasiliev and Baumgardt (2021)</span>
+found that only a few outer globular clusters are strongly affected by
+different potential models. Generally, kinematic uncertainties are the
+dominant factor in differences between orbital solutions per cluster.
+Similarly, <span class="citation"
+data-cites="2024MNRAS.528.5189G">Grondin et al. (2024)</span> generated
+a globular cluster mass-loss catalog using seven different potential
+models and found that their debris distributions were rather
+model-independent, similar to those of <span class="citation"
+data-cites="2023A&amp;A...673A..44F">Ferrone et al. (2023)</span>. While
+the clusters’ exact positions in time may depend on the model, we assert
+that interaction rates and stream formation are largely independent of
+the choice of the Galactic potential model.</p>
+<p>Lastly, we select an integration time of 5 Gyr as a compromise
+between maximizing interaction statistics and modeling the Galaxy as a
+time-independent, constant mass distribution. <span class="citation"
+data-cites="2023A&amp;A...673A.152I">Ishchenko et al. (2023)</span>
+analyzed the orbits of the Galactic cluster population using the same
+initial conditions as in this work within five live Milky Way-like
+potentials from IllustrisTNG <span class="citation"
+data-cites="2018MNRAS.473.4077P">(Pillepich et al. 2018)</span>. They
+found that in all sampled potentials, orbital changes remain minimal
+over 5 Gyr, becoming significant only at earlier look-back times when
+the host galaxy had significantly less mass or was undergoing a merger
+event.</p>
+<h3 id="full-simulations"> <code>Full</code> simulations</h3>
+<p>There is a primary methodological departure from <span
+class="citation" data-cites="2023A&amp;A...673A..44F">Ferrone et al.
+(2023)</span>. In that work, globular clusters evolved under the
+gravitational effect of the Galaxy alone. In contrast, now we also
+consider the effect of all other Galactic globular clusters by taking
+into account the direct <span class="math inline">\(N\)</span>-body
+interactions between them. First, all clusters are represented by
+Plummer spheres, each with its own mass and half-mass radius as reported
+in the Baumgardt catalog <span class="citation"
+data-cites="2021MNRAS.505.5957B">(Baumgardt and Vasiliev 2021)</span>.
+For the remainder of this paper, the <code>full</code> simulations
+consider the gravitational forces from the globular cluster
+interactions.<br />
+For these simulations, we proceeded in two steps:</p>
+<ol>
+<li><p>First, starting from the Galactocentric positions and velocities
+of all 165 Galactic globular clusters, we integrate their orbits back in
+time for 5 Gyr under the influence of the Galaxy itself and their mutual
+influence. In the backward integration, the system of equations of
+motion for the globular clusters is thus: <span
+class="math display">\[\ddot{\vec{r}}_i = -\nabla \Phi +
+\left.\sum_{j\neq i}^{N_{GC}} \frac{Gm_j}{\left(|\vec{r}_j -
+\vec{r}_i|^2 + b_j^2\right)^{3/2}}\right. \left(\vec{r}_j -
+\vec{r}_i\right),\]</span><span id="eq:GCNBody"
+data-label="eq:GCNBody"></span> where <span
+class="math inline">\(\vec{r}\)</span> indicates the Galactocentric
+position vector, the index <span class="math inline">\(i\)</span>
+indicates the globular cluster of interest; the index <span
+class="math inline">\(j\)</span> indicates the other globular clusters
+that are summed over. <span class="math inline">\(N_{GC}\)</span> is the
+total number of globular clusters, which in this study is 165, <span
+class="math inline">\(m_j\)</span> is the mass of the j-th cluster in
+the sample, <span class="math inline">\(b_j\)</span> is its Plummer
+scale radius, and <span class="math inline">\(\vec{r_j}\)</span> is its
+Galactocentric position. <span class="math inline">\(\Phi\)</span>
+represents the same Galactic smooth potential that we discussed
+previously <span class="citation"
+data-cites="2017A&amp;A...598A..66P">(Pouliasis, Di Matteo, and Haywood
+2017, Model II, in the present case)</span>. Note that the masses and
+sizes of the globular clusters are kept constant in these simulations
+and are not allowed to vary with time, which means that we do not
+consider their internal evolution. In sec. <a href="#sec:discussion"
+data-reference-type="ref"
+data-reference="sec:discussion">[sec:discussion]</a>, we discuss the
+implications of the modeling limitations.</p></li>
+<li><p>Once we found the positions and velocities of the entire globular
+cluster, we sampled Palomar 5 with 100,000 particles from a Plummer
+distribution, taking the mass and half-mass radius from the Baumgardt
+catalog: <span
+class="math inline">\(1.3\times10^{4}~\textrm{M}_\odot\)</span> and
+<span class="math inline">\(27.6~\textrm{pc}\)</span>. We then
+integrated the evolution of these particles forward in time to the
+present day, taking into account that each particle feels the
+gravitational potential of the Galaxy, its host cluster, and that of all
+the other clusters in the Galaxy. Note that we do not account for
+self-gravity among particles. The particles experience the gravitational
+field yet do not contribute to it, a common assumption in galactic
+dynamics, as the mass of an individual star is negligible compared to
+the mass of the larger dynamical system. The equation of motion of a
+generic particle among the 100,000 that populate Palomar 5 is thus:
+<span class="math display">\[\ddot{\vec{r}}_p = -\nabla \Phi +
+\left.\sum_{j}^{N_{GC}} \frac{Gm_j}{\left(|\vec{r}_j(t) - \vec{r}_p|^2 +
+b_j^2\right)^{3/2}}\right. \left(\vec{r}_j(t)-
+\vec{r}_p\right),\]</span> <span id="eq:equation_of_motion_particle"
+data-label="eq:equation_of_motion_particle"></span> where the index
+<span class="math inline">\(p\)</span> represents one of the 100,000
+particles of interest, <span class="math inline">\(\vec{r_p}\)</span>
+being its position, and <span class="math inline">\(j\)</span> indexes
+over the globular clusters as in Eq. <a href="#eq:GCNBody"
+data-reference-type="ref" data-reference="eq:GCNBody">[eq:GCNBody]</a>.
+We note that in Eq. <a href="#eq:equation_of_motion_particle"
+data-reference-type="ref"
+data-reference="eq:equation_of_motion_particle">[eq:equation_of_motion_particle]</a>,
+the positions of the globular clusters are time-dependent since they are
+being loaded during this step and not computed, unlike Eq. <a
+href="#eq:GCNBody" data-reference-type="ref"
+data-reference="eq:GCNBody">[eq:GCNBody]</a>.</p></li>
+</ol>
+<p>The procedure described so far has been repeated 50 times, generating
+a new set of initial conditions each time, given the uncertainties on
+proper motions, line-of-sight velocities, distances to the Sun, and
+masses of all clusters, as reported in the Baumgardt catalog. We handle
+these uncertainties through a Monte-Carlo approach by sampling them with
+a Gaussian distribution and considering the covariance term between the
+proper motions. We use the most probable values for the initial
+conditions in the first simulation. We sample the uncertainties for all
+globular clusters. Additionally, for each resampling of Palomar 5’s
+mass, we also resample the distribution of the 100,000 star
+particles.</p>
+<p>During the integration, we save intermediate snapshots to facilitate
+the analysis of stellar streams and the effects of cluster impacts.
+Specifically, for each realization of the Palomar 5 stream, we saved
+<span class="math inline">\(5000\)</span> in snapshots, equivalent to a
+temporal resolution of 1 million years. We provide the parameters that
+specify our data volume in Table <a href="#tab:data_volume"
+data-reference-type="ref" data-reference="tab:data_volume">1</a>. Using
+single precision floating point numbers, the size of our simulations is
+approximately: <span
+class="math display">\[\label{eq:data_volume_estimate}
+      N_p \times N_{\textrm{ts}}\times N_{\textrm{phase}}\times
+N_{\textrm{sampling}} \times 4~\textrm{bytes}\approx
+600~\textrm{Gb}.\]</span></p>
+<div id="tab:data_volume">
+<table>
+<caption>Parameters determining the data volume.</caption>
+<thead>
+<tr>
+<th style="text-align: center;"><span
+class="math inline">\(N_p\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(N_{\textrm{ts}}\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(N_{\textrm{phase}}\)</span></th>
+<th style="text-align: center;"><span
+class="math inline">\(N_{\textrm{sampling}}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><span
+class="math inline">\(100000\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(5000\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(6\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(50\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="reference-simulations"> <code>Reference</code> simulations</h3>
+<p>To quantify the impact of globular cluster passages on the density of
+the Palomar 5 stream, we performed a second set of simulations, which we
+refer to as the <code>reference</code> simulations in this paper. These
+<code>reference</code> simulations use the same 50 sets of initial
+conditions as the <code>full</code> simulations, the same Galactic
+potential, but exclude mutual interactions between globular clusters.
+The approach adopted for this second set of simulations is thus
+equivalent to that adopted already in <span class="citation"
+data-cites="2023A&amp;A...673A..44F">Ferrone et al. (2023)</span>. In
+Eq. <a href="#eq:GCNBody" data-reference-type="ref"
+data-reference="eq:GCNBody">[eq:GCNBody]</a>, only the gradient of the
+Galactic potential is considered. In Eq. <a
+href="#eq:equation_of_motion_particle" data-reference-type="ref"
+data-reference="eq:equation_of_motion_particle">[eq:equation_of_motion_particle]</a>,
+of the second term on the right side of the equation, only the influence
+of Palomar 5’s Plummer sphere on Palomar 5’s particles is considered. In
+other words, the sum iterates over only one globular cluster, the host.
+We omit all interactions with the other clusters.</p>
+<h2 id="sec:mass_loss">Mass loss</h2>
+<p>Each of the 100,000 particles that initially populate the cluster
+undergoes experiences the forces from Pal 5 and the Galactic potential.
+The mass and radius of Pal 5 are held constant over time. At each time
+step, a certain number of particles will therefore acquire sufficient
+energy to no longer be gravitationally bound to the cluster itself and
+thus go on to populate the streams, whose mass and spatial extent grow
+over time. It is important to note that in the approach used:</p>
+<ol>
+<li><p>The masses and sizes of the clusters (and therefore the
+parameters of the Plummer potentials) do not change over time, which is
+an oversimplification, because in a self-consistent approach, these
+parameters would vary.</p></li>
+<li><p>We use the same initial conditions for Pal 5 progenitor as it has
+today, and this is also a simplification, since Pal 5 - 5 Gyr years ago
+- must have contained at least part of the mass estimated today in its
+tails<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>.</p></li>
+</ol>
+<p>The assumption in point 2 is a direct consequence of the approach
+described in point 1. Starting from a cluster with a mass and size
+similar to the current ones can lead to streams with lower velocity
+dispersions than those we would obtain if we had used a self-consistent
+approach. In a future article, we will report on the study of gap
+survival times depending on the masses and sizes of progenitor clusters
+(Ferrone et al, in prep). We note, however, that simplifications of this
+kind are not uncommon in literature. <span class="citation"
+data-cites="2017NatAs...1..633P">Pearson, Price-Whelan, and Johnston
+(2017)</span> discussed the formation of gaps in the Pal 5 tails and
+assumed a time-independent mass of <span class="math inline">\(50,000
+~\textrm{M}_\odot\)</span> for Pal 5, over the last 4 Gyr; <span
+class="citation" data-cites="2017MNRAS.470...60E">Erkal, Koposov, and
+Belokurov (2017)</span> adopted a N-body approach to simulate Pal 5
+stream, but used Pal 5 current conditions as their progenitor’s initial
+conditions; <span class="citation"
+data-cites="2019MNRAS.484.2009B">Banik and Bovy (2019)</span> simulated
+the Pal 5 stream as emerging from a stellar system with a velocity
+dispersion of 0.5 km/s (similar to that of particles escaping from our
+cluster, as we have verified).</p>
+<p>The characteristics of the streams modeled in this paper may be
+considered more representative of those of clusters that are now
+completely dispersed, i.e., it is conceivable that completely dispersed
+globular clusters that left behind a population of ‘orphan’ streams
+passed through characteristics similar to those of Pal 5 today (small
+masses and extended radii). In this sense, the initial conditions chosen
+(in terms of internal parameters) may be more representative of those of
+streams for which the progenitor is now dissolved <span class="citation"
+data-cites="2024ApJ...967...89I">(see, for example, the population of
+streams without progenitors described by Ibata et al. 2024)</span> than
+those currently typical of Galactic globular clusters than those
+currently typical of Galactic globular clusters. <a href="#fn3"
+class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<h2 id="num_quality">Numerical stability</h2>
+<p>We used a leapfrog integrator because of its ability to preserve
+phase-space volume and conserve the Hamiltonian with each integration
+step. For instance, this method is preferable to a Runge-Kutta scheme,
+which can introduce non-physical and significant numerical errors in
+systems that require long-term stability and energy conservation. One
+drawback of the leapfrog integrator is that it requires a uniform time
+step throughout the entire computation, resulting in unnecessary
+computations for a particle after it has escaped from the host cluster.
+However, energy conservation and phase-space volume preservation are
+paramount when modeling stellar streams. The time step was therefore set
+to be small enough to conserve energy for the most interior particles
+within the cluster—ensuring that a higher mass loss did not arise from
+numerical error. We found that a time-step of 10,000 years was adequate
+to maintain energy conservation, with a median variation of <span
+class="math inline">\(10^{-12} \frac{\Delta E}{E_0}\)</span>, where
+<span class="math inline">\(E_0\)</span> is a particle’s initial energy,
+and <span class="math inline">\(\Delta E\)</span> is the difference
+between its final and initial energy.</p>
+<p>We also checked the reverse integrability of the globular cluster
+system for the <code>reference</code> simulations. By reverse
+integrability, we mean the integrator’s capability to track the cluster
+backward in time and then re-integrate it forward along the same
+trajectory. Integrating point masses in a static axis-symmetric
+potential conserves <span class="math inline">\(L_z\)</span> and <span
+class="math inline">\(E\)</span>, which create regular periodic and
+non-chaotic orbits. Therefore, any drift would arise from purely
+numerical error. We selected a timestamp for which the drift in the
+final position after forward integration, compared to the initial
+position from the backward integration, was consistently at least two
+orders of magnitude smaller than the Plummer scale radius used for
+Palomar 5. This high precision ensures that no fictitious numerical
+forces influence the system, preventing any artificial mass loss or
+retention of star particles.</p>
 <h1 id="velocity-distribution-within-the-stream">Velocity distribution
 within the stream</h1>
 <h2 id="self-segregation-and-stream-chilling">Self-Segregation and
@@ -213,5 +565,193 @@ class="math inline">\(n\)</span> is the number of pericenter passages.
 impact. It makes sense that the velocity of the particle is the position
 where the impact occured, divided by the time since it left the
 origin.</p>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-2013A&amp;A...558A..33A" class="csl-entry" role="listitem">
+Astropy Collaboration, Thomas P. Robitaille, Erik J. Tollerud, Perry
+Greenfield, Michael Droettboom, Erik Bray, Tom Aldcroft, et al. 2013.
+<span>“<span class="nocase">Astropy: A community Python package for
+astronomy</span>”</span> 558 (October):A33. <a
+href="https://doi.org/10.1051/0004-6361/201322068">https://doi.org/10.1051/0004-6361/201322068</a>.
+</div>
+<div id="ref-2019MNRAS.484.2009B" class="csl-entry" role="listitem">
+Banik, Nilanjan, and Jo Bovy. 2019. <span>“<span class="nocase">Effects
+of baryonic and dark matter substructure on the Pal 5
+stream</span>”</span> 484 (2): 2009–20. <a
+href="https://doi.org/10.1093/mnras/stz142">https://doi.org/10.1093/mnras/stz142</a>.
+</div>
+<div id="ref-2018MNRAS.478.1520B" class="csl-entry" role="listitem">
+Baumgardt, H., and M. Hilker. 2018. <span>“<span class="nocase">A
+catalogue of masses, structural parameters, and velocity dispersion
+profiles of 112 Milky Way globular clusters</span>”</span> 478 (2):
+1520–57. <a
+href="https://doi.org/10.1093/mnras/sty1057">https://doi.org/10.1093/mnras/sty1057</a>.
+</div>
+<div id="ref-2019MNRAS.482.5138B" class="csl-entry" role="listitem">
+Baumgardt, H., M. Hilker, A. Sollima, and A. Bellini. 2019. <span>“<span
+class="nocase">Mean proper motions, space orbits, and velocity
+dispersion profiles of Galactic globular clusters derived from Gaia DR2
+data</span>”</span> 482 (4): 5138–55. <a
+href="https://doi.org/10.1093/mnras/sty2997">https://doi.org/10.1093/mnras/sty2997</a>.
+</div>
+<div id="ref-2020PASA...37...46B" class="csl-entry" role="listitem">
+Baumgardt, H., A. Sollima, and M. Hilker. 2020. <span>“<span
+class="nocase">Absolute V-band magnitudes and mass-to-light ratios of
+Galactic globular clusters</span>”</span> 37 (November):e046. <a
+href="https://doi.org/10.1017/pasa.2020.38">https://doi.org/10.1017/pasa.2020.38</a>.
+</div>
+<div id="ref-2021MNRAS.505.5957B" class="csl-entry" role="listitem">
+Baumgardt, H., and E. Vasiliev. 2021. <span>“<span
+class="nocase">Accurate distances to Galactic globular clusters through
+a combination of Gaia EDR3, HST, and literature data</span>”</span> 505
+(4): 5957–77. <a
+href="https://doi.org/10.1093/mnras/stab1474">https://doi.org/10.1093/mnras/stab1474</a>.
+</div>
+<div id="ref-2014ApJ...795...95B" class="csl-entry" role="listitem">
+Bovy, Jo. 2014. <span>“<span class="nocase">Dynamical Modeling of Tidal
+Streams</span>”</span> 795 (1): 95. <a
+href="https://doi.org/10.1088/0004-637X/795/1/95">https://doi.org/10.1088/0004-637X/795/1/95</a>.
+</div>
+<div id="ref-2015ApJS..216...29B" class="csl-entry" role="listitem">
+———. 2015. <span>“<span class="nocase">galpy: A python Library for
+Galactic Dynamics</span>”</span> 216 (2): 29. <a
+href="https://doi.org/10.1088/0067-0049/216/2/29">https://doi.org/10.1088/0067-0049/216/2/29</a>.
+</div>
+<div id="ref-2001ApJ...553..184C" class="csl-entry" role="listitem">
+Chen, Bing, Chris Stoughton, J. Allyn Smith, Alan Uomoto, Jeffrey R.
+Pier, Brian Yanny, Željko Ivezić, et al. 2001. <span>“<span
+class="nocase">Stellar Population Studies with the SDSS. I. The Vertical
+Distribution of Stars in the Milky Way</span>”</span> 553 (1): 184–97.
+<a
+href="https://doi.org/10.1086/320647">https://doi.org/10.1086/320647</a>.
+</div>
+<div id="ref-2017MNRAS.470...60E" class="csl-entry" role="listitem">
+Erkal, Denis, Sergey E. Koposov, and Vasily Belokurov. 2017.
+<span>“<span class="nocase">A sharper view of Pal 5’s tails: discovery
+of stream perturbations with a novel non-parametric
+technique</span>”</span> 470 (1): 60–84. <a
+href="https://doi.org/10.1093/mnras/stx1208">https://doi.org/10.1093/mnras/stx1208</a>.
+</div>
+<div id="ref-2023A&amp;A...673A..44F" class="csl-entry" role="listitem">
+Ferrone, Salvatore, Paola Di Matteo, Alessandra Mastrobuono-Battisti,
+Misha Haywood, Owain N. Snaith, Marco Montuori, Sergey Khoperskov, and
+David Valls-Gabaud. 2023. <span>“<span class="nocase">The e-TidalGCs
+project. Modeling the extra-tidal features generated by Galactic
+globular clusters</span>”</span> 673 (May):A44. <a
+href="https://doi.org/10.1051/0004-6361/202244141">https://doi.org/10.1051/0004-6361/202244141</a>.
+</div>
+<div id="ref-2021NatAs...5..957G" class="csl-entry" role="listitem">
+Gieles, Mark, Denis Erkal, Fabio Antonini, Eduardo Balbinot, and Jorge
+Peñarrubia. 2021. <span>“<span class="nocase">A supra-massive population
+of stellar-mass black holes in the globular cluster Palomar
+5</span>.”</span> <em>Nature Astronomy</em> 5 (July):957–66. <a
+href="https://doi.org/10.1038/s41550-021-01392-2">https://doi.org/10.1038/s41550-021-01392-2</a>.
+</div>
+<div id="ref-2024MNRAS.528.5189G" class="csl-entry" role="listitem">
+Grondin, Steffani M., Jeremy J. Webb, James M. M. Lane, Joshua S.
+Speagle, and Nathan W. C. Leigh. 2024. <span>“<span class="nocase">A
+catalogue of Galactic GEMS: Globular cluster Extra-tidal Mock
+Stars</span>”</span> 528 (3): 5189–5211. <a
+href="https://doi.org/10.1093/mnras/stae203">https://doi.org/10.1093/mnras/stae203</a>.
+</div>
+<div id="ref-2024ApJ...967...89I" class="csl-entry" role="listitem">
+Ibata, Rodrigo, Khyati Malhan, Wassim Tenachi, Anke Ardern-Arentsen,
+Michele Bellazzini, Paolo Bianchini, Piercarlo Bonifacio, et al. 2024.
+<span>“<span class="nocase">Charting the Galactic Acceleration Field.
+II. A Global Mass Model of the Milky Way from the STREAMFINDER Atlas of
+Stellar Streams Detected in Gaia DR3</span>”</span> 967 (2): 89. <a
+href="https://doi.org/10.3847/1538-4357/ad382d">https://doi.org/10.3847/1538-4357/ad382d</a>.
+</div>
+<div id="ref-2023A&amp;A...673A.152I" class="csl-entry" role="listitem">
+Ishchenko, Maryna, Margaryta Sobolenko, Peter Berczik, Sergey
+Khoperskov, Chingis Omarov, Olexander Sobodar, and Maxim Makukov. 2023.
+<span>“<span class="nocase">Milky Way globular clusters on cosmological
+timescales. I. Evolution of the orbital parameters in time-varying
+potentials</span>”</span> 673 (May):A152. <a
+href="https://doi.org/10.1051/0004-6361/202245117">https://doi.org/10.1051/0004-6361/202245117</a>.
+</div>
+<div id="ref-2012A&amp;A...546L...7M" class="csl-entry" role="listitem">
+Mastrobuono-Battisti, A., P. Di Matteo, M. Montuori, and M. Haywood.
+2012. <span>“<span class="nocase">Clumpy streams in a smooth dark halo:
+the case of Palomar 5</span>”</span> 546 (October):L7. <a
+href="https://doi.org/10.1051/0004-6361/201219563">https://doi.org/10.1051/0004-6361/201219563</a>.
+</div>
+<div id="ref-2017MNRAS.465...76M" class="csl-entry" role="listitem">
+McMillan, Paul J. 2017. <span>“<span class="nocase">The mass
+distribution and gravitational potential of the Milky Way</span>”</span>
+465 (1): 76–94. <a
+href="https://doi.org/10.1093/mnras/stw2759">https://doi.org/10.1093/mnras/stw2759</a>.
+</div>
+<div id="ref-2017NatAs...1..633P" class="csl-entry" role="listitem">
+Pearson, Sarah, Adrian M. Price-Whelan, and Kathryn V. Johnston. 2017.
+<span>“<span class="nocase">Gaps and length asymmetry in the stellar
+stream Palomar 5 as effects of Galactic bar rotation</span>.”</span>
+<em>Nature Astronomy</em> 1 (August):633–39. <a
+href="https://doi.org/10.1038/s41550-017-0220-3">https://doi.org/10.1038/s41550-017-0220-3</a>.
+</div>
+<div id="ref-2018MNRAS.473.4077P" class="csl-entry" role="listitem">
+Pillepich, Annalisa, Volker Springel, Dylan Nelson, Shy Genel, Jill
+Naiman, Rüdiger Pakmor, Lars Hernquist, et al. 2018. <span>“<span
+class="nocase">Simulating galaxy formation with the IllustrisTNG
+model</span>”</span> 473 (3): 4077–4106. <a
+href="https://doi.org/10.1093/mnras/stx2656">https://doi.org/10.1093/mnras/stx2656</a>.
+</div>
+<div id="ref-2017A&amp;A...598A..66P" class="csl-entry" role="listitem">
+Pouliasis, E., P. Di Matteo, and M. Haywood. 2017. <span>“<span
+class="nocase">A Milky Way with a massive, centrally concentrated thick
+disc: new Galactic mass models for orbit computations</span>”</span> 598
+(February):A66. <a
+href="https://doi.org/10.1051/0004-6361/201527346">https://doi.org/10.1051/0004-6361/201527346</a>.
+</div>
+<div id="ref-2014ApJ...783..130R" class="csl-entry" role="listitem">
+Reid, M. J., K. M. Menten, A. Brunthaler, X. W. Zheng, T. M. Dame, Y.
+Xu, Y. Wu, et al. 2014. <span>“<span class="nocase">Trigonometric
+Parallaxes of High Mass Star Forming Regions: The Structure and
+Kinematics of the Milky Way</span>”</span> 783 (2): 130. <a
+href="https://doi.org/10.1088/0004-637X/783/2/130">https://doi.org/10.1088/0004-637X/783/2/130</a>.
+</div>
+<div id="ref-2012MNRAS.427..274S" class="csl-entry" role="listitem">
+Schönrich, Ralph. 2012. <span>“<span class="nocase">Galactic rotation
+and solar motion from stellar kinematics</span>”</span> 427 (1): 274–87.
+<a
+href="https://doi.org/10.1111/j.1365-2966.2012.21631.x">https://doi.org/10.1111/j.1365-2966.2012.21631.x</a>.
+</div>
+<div id="ref-2021MNRAS.505.5978V" class="csl-entry" role="listitem">
+Vasiliev, Eugene, and Holger Baumgardt. 2021. <span>“<span
+class="nocase">Gaia EDR3 view on galactic globular
+clusters</span>”</span> 505 (4): 5978–6002. <a
+href="https://doi.org/10.1093/mnras/stab1475">https://doi.org/10.1093/mnras/stab1475</a>.
+</div>
+<div id="ref-2016MNRAS.458.1450W" class="csl-entry" role="listitem">
+Wang, Long, Rainer Spurzem, Sverre Aarseth, Mirek Giersz, Abbas Askar,
+Peter Berczik, Thorsten Naab, Riko Schadow, and M. B. N. Kouwenhoven.
+2016. <span>“<span class="nocase">The DRAGON simulations: globular
+cluster evolution with a million stars</span>”</span> 458 (2): 1450–65.
+<a
+href="https://doi.org/10.1093/mnras/stw274">https://doi.org/10.1093/mnras/stw274</a>.
+</div>
+</div>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The Baumgardt catalog has been assembled across a series
+of works, see: <span class="citation"
+data-cites="2020PASA...37...46B 2019MNRAS.482.5138B 2018MNRAS.478.1520B">(Baumgardt,
+Sollima, and Hilker 2020; Baumgardt et al. 2019; Baumgardt and Hilker
+2018)</span>. The catalog can be found on the World Wide Web at <a
+href="https://people.smp.uq.edu.au/HolgerBaumgardt/globular/">https://people.smp.uq.edu.au/HolgerBaumgardt/globular/</a>.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>We used the same approach (i.e., time-independent masses
+and sizes) to model the whole set of globular clusters.<a href="#fnref2"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>In this regard, we recall that <span class="citation"
+data-cites="2014ApJ...795...95B">Bovy (2014)</span> modeled the GD-1
+stream as the result of the dissolution of a cluster with a mass of
+<span class="math inline">\(2 \times 10^4 M_\odot\)</span>, and a tidal
+radius of <span class="math inline">\(0.07\)</span> kpc.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 </body>
 </html>
