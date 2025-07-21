@@ -863,6 +863,125 @@ perturbers</h2>
 <div class="figure*">
 <p><img src="impact_geometry_statistics.png" alt="image" /></p>
 </div>
+<p>With the perturbers identified, we perform statistical analysis to
+understand the conditions necessary for a globular cluster to induce a
+gap in the Palomar 5 stream. We turn to impact theory, which in its
+simplest form is presented in works such as <span class="citation"
+data-cites="2008gady.book.....B">Binney and Tremaine (2008)</span>.
+Consider two particles: one stationary and the other moving past it. The
+impact parameter is the distance between the two particles at the point
+of their closest approach. The impulse approximation is employed, which
+assumes that the velocity of the perturber remains unchanged during the
+interaction. This assumption simplifies the computation.</p>
+<p>To understand how the impacted particle is perturbed, one needs to
+compute its change in momentum, which is determined by integrating the
+force acting on the particle throughout the interaction. A useful
+approximation for this change in momentum, per unit mass, is the force
+at the closest approach multiplied by an estimate of the interaction
+time: <span class="math display">\[\label{eq:change_in_momentum} \Delta
+p \approx \text{Force} \times \text{interaction time} = \frac{GM}{b^2}
+\times 2\frac{b}{\delta v} = 2\frac{GM}{b \delta v},\]</span>where <span
+class="math inline">\(M\)</span> is the mass of the perturber, <span
+class="math inline">\(b\)</span> is the impact parameter, <span
+class="math inline">\(\delta v\)</span> is the relative velocity of the
+perturber with respect to the particle, and <span
+class="math inline">\(G\)</span> is the gravitational constant.</p>
+<p>This equation asserts that a more massive perturber, passing closer
+to the particle and moving more slowly, will have a greater impact. It
+is important to note that the momentum change is inversely proportional
+to the velocity of the perturber. Note that this contrasts with the
+intuition from elastic collisions, such as those between billiard balls,
+where higher velocities result in greater impacts.</p>
+<p><span class="citation" data-cites="2015MNRAS.450.1136E">Erkal and
+Belokurov (2015)</span> extended this impact theory from one point mass
+impacting another to studying how an extended body impacts a stream by
+quantifying the change in momentum of a given particle as a function of
+its distance from the point of greatest impact along the stream. <span
+class="citation" data-cites="2015MNRAS.450.1136E">Erkal and Belokurov
+(2015)</span> models their perturber as a Plummer sphere, like in our
+simulations. Since a stream is not a point but has length and an
+orientation in space, one needs to consider the parallel and
+perpendicular components of the velocity to describe the impact fully.
+Consequently, five parameters determine the change in velocity of a
+given stream particle: <span class="math inline">\(M\)</span>, <span
+class="math inline">\(r_p\)</span>, <span
+class="math inline">\(b\)</span>, <span
+class="math inline">\(W_\parallel\)</span>, and <span
+class="math inline">\(W_\perp\)</span>, which are the mass of the
+perturber, size of the perturber, impact parameter, parallel and
+perpendicular components of the relative velocity. As detailed in
+Appendix <a href="#sec:reconstruction" data-reference-type="ref"
+data-reference="sec:reconstruction">[sec:reconstruction]</a>, we
+calculated these parameters for all our <code>full</code> simulations by
+selecting – for each of them – the strongest five flybys of a perturber
+with the Palomar 5 stream. Thus, we compute 250 impacts and flag those
+that give way to gaps.</p>
+<p>Visual inspection of the five key impact parameters (<span
+class="math inline">\(M\)</span>, <span
+class="math inline">\(r_p\)</span>, <span
+class="math inline">\(b\)</span>, <span
+class="math inline">\(W_\parallel\)</span>, and <span
+class="math inline">\(W_\perp\)</span>) did not reveal a clear
+distinction between flybys that create gaps and those that do not.
+Therefore, we only present the quantities from Eq. <a
+href="#eq:change_in_momentum" data-reference-type="ref"
+data-reference="eq:change_in_momentum">[eq:change_in_momentum]</a> in
+Fig. <a href="#fig:impact_geometry_statistics" data-reference-type="ref"
+data-reference="fig:impact_geometry_statistics">[fig:impact_geometry_statistics]</a>.</p>
+<p>Note that this figure displays the total relative velocity rather
+than separating the parallel and perpendicular components, as no
+specific trends were observed when plotting the two velocity components
+separately. We also excluded the characteristic cluster radius, which
+showed little correlation with the results, likely due to the narrow
+range of globular cluster radii (see Fig. <a href="#fig:mass_size_plane"
+data-reference-type="ref"
+data-reference="fig:mass_size_plane">[fig:mass_size_plane]</a>). This
+factor might be more significant for dark matter subhalos, where size
+variation is greater.</p>
+<p>While Fig. <a href="#fig:impact_geometry_statistics"
+data-reference-type="ref"
+data-reference="fig:impact_geometry_statistics">[fig:impact_geometry_statistics]</a>
+demonstrates that mass, relative velocity, or impact parameter alone
+cannot predict gap formation, one interesting result emerges: impact
+parameters greater than 300 pc do not create gaps. The stream widths are
+roughly 200 pc, as seen in the <a
+href="https://doi.org/10.5281/zenodo.15528089">online appendix</a>. This
+finding is even more evident when examining the <span
+class="math inline">\(b\)</span>-<span class="math inline">\(M\)</span>
+plane. A series of perturbers at roughly <span
+class="math inline">\(\sim8 \times 10^5 M_\odot\)</span> highlights
+NGC 2808’s flybys, where all encounters with impact parameters under
+200 pc result in gaps, while those beyond this distance do not. In other
+words, even the most massive globular clusters with masses greater than
+about <span class="math inline">\(10^6 M_\odot\)</span> cannot cause
+gaps if their impact parameters are greater than roughly <span
+class="math inline">\(300\)</span> pc. Interestingly, even fast
+encounters (<span class="math inline">\(\delta v &gt; 300\)</span> km/s)
+can produce gaps for impact parameter values below this threshold.
+Perhaps this is not surprising, since the range of possible relative
+velocities is much less than that of mass and impact parameters, which
+vary by two and three orders of magnitude, respectively. In contrast,
+the relative velocities only vary by about a factor of three.</p>
+<figure id="fig:deltap">
+<img src="impact_geometry_statistics_deltaP.png" style="width:100.0%" />
+<figcaption>Distribution of imparted change in momentum (per unit mass)
+from a cluster flyby given by Eq. <a href="#eq:change_in_momentum"
+data-reference-type="ref"
+data-reference="eq:change_in_momentum">[eq:change_in_momentum]</a>. The
+data set includes the top 5 strongest flybys from each simulation. Those
+that cause gaps are colored, stacked, and overlaid atop those that do
+not — this is the gray distribution. We note the meaning of the colors
+is the same as in Fig. <a href="#fig:histogram_impact_time"
+data-reference-type="ref"
+data-reference="fig:histogram_impact_time">[fig:histogram_impact_time]</a>.</figcaption>
+</figure>
+<div class="figure*">
+<p><img src="E_Lz_perturbers.png" style="width:45.0%" alt="image" />
+<img src="mass_size_plane.png" style="width:45.0%" alt="image" /> <img
+src="impact_stats_phase_space_xy.png" style="width:45.0%" alt="image" />
+<img src="impact_stats_phase_space.png" style="width:45.0%"
+alt="image" /></p>
+</div>
 <h1 id="velocity-distribution-within-the-stream">Velocity distribution
 within the stream</h1>
 <h2 id="self-segregation-and-stream-chilling">Self-Segregation and
@@ -943,6 +1062,10 @@ a combination of Gaia EDR3, HST, and literature data</span>”</span> 505
 (4): 5957–77. <a
 href="https://doi.org/10.1093/mnras/stab1474">https://doi.org/10.1093/mnras/stab1474</a>.
 </div>
+<div id="ref-2008gady.book.....B" class="csl-entry" role="listitem">
+Binney, James, and Scott Tremaine. 2008. <em><span>Galactic Dynamics:
+Second Edition</span></em>.
+</div>
 <div id="ref-2014ApJ...795...95B" class="csl-entry" role="listitem">
 Bovy, Jo. 2014. <span>“<span class="nocase">Dynamical Modeling of Tidal
 Streams</span>”</span> 795 (1): 95. <a
@@ -972,6 +1095,12 @@ Dehnen, Walter, Michael Odenkirchen, Eva K. Grebel, and Hans-Walter Rix.
 Globular Cluster Palomar 5 by Galactic Tides</span>”</span> 127 (5):
 2753–70. <a
 href="https://doi.org/10.1086/383214">https://doi.org/10.1086/383214</a>.
+</div>
+<div id="ref-2015MNRAS.450.1136E" class="csl-entry" role="listitem">
+Erkal, Denis, and Vasily Belokurov. 2015. <span>“<span
+class="nocase">Forensics of subhalo-stream encounters: the three phases
+of gap growth</span>”</span> 450 (1): 1136–49. <a
+href="https://doi.org/10.1093/mnras/stv655">https://doi.org/10.1093/mnras/stv655</a>.
 </div>
 <div id="ref-2017MNRAS.470...60E" class="csl-entry" role="listitem">
 Erkal, Denis, Sergey E. Koposov, and Vasily Belokurov. 2017.
