@@ -709,7 +709,7 @@ a given time, and yet at the same moment, in a different set of initial
 conditions, it could be on the other side of the Galaxy. We will discuss
 the necessary conditions for creating a gap in Appendix <a
 href="#sec:gaps_vs_gcmass" data-reference-type="ref"
-data-reference="sec:gaps_vs_gcmass">[sec:gaps_vs_gcmass]</a>.</p>
+data-reference="sec:gaps_vs_gcmass">6.4</a>.</p>
 <div id="tab:gaps_per_perturber">
 <table>
 <caption>Number of gaps created by each perturber across all 50
@@ -1159,19 +1159,18 @@ class="math inline">\(^{-1}\)</span>. If correct, this rate would be too
 high to be explained by Galactic globular clusters only.</p>
 <p>An additional explanation for the absence of gaps in the inner
 regions of a stream is given in App. <a href="#sec:gaps_vs_gcmass"
-data-reference-type="ref"
-data-reference="sec:gaps_vs_gcmass">[sec:gaps_vs_gcmass]</a>. Briefly,
-the eccentricity of an orbit induces tidal shocking at the pericenter
-passages that cause episodes of increased mass loss where the escaped
-stars leave with a higher mean velocity and greater velocity dispersion.
-In essence, streams from progenitors on eccentric orbits are made of two
-components: a continuous flow of stars plus many packets of stars that
-burst out from pericenter passages. The gap impact occurs at a single
-position, creating a gap in each subpopulation. However, the gaps have
-different drift rates across the groups, and they eventually go out of
-phase, erasing the impact’s signature. The packets of stars disperse
-with time. However, bursts contribute to more escaped stars as the
-simulation evolves than the continuous outflow. As a result, at late
+data-reference-type="ref" data-reference="sec:gaps_vs_gcmass">6.4</a>.
+Briefly, the eccentricity of an orbit induces tidal shocking at the
+pericenter passages that cause episodes of increased mass loss where the
+escaped stars leave with a higher mean velocity and greater velocity
+dispersion. In essence, streams from progenitors on eccentric orbits are
+made of two components: a continuous flow of stars plus many packets of
+stars that burst out from pericenter passages. The gap impact occurs at
+a single position, creating a gap in each subpopulation. However, the
+gaps have different drift rates across the groups, and they eventually
+go out of phase, erasing the impact’s signature. The packets of stars
+disperse with time. However, bursts contribute to more escaped stars as
+the simulation evolves than the continuous outflow. As a result, at late
 stages of the simulation, the region nearest to the globular cluster is
 made of distinct yet overlapping populations. After an impact in this
 location, the impact site between the groups quickly goes out of
@@ -1593,16 +1592,15 @@ stream and the precise moment it occurred. To do so, we fit a
 third-order parametric polynomial to the stream using the saved
 snapshots from our simulations:</p>
 <p><span class="math display">\[\vec{s}(\tau) =
-                    \left\{
-                    \begin{aligned}
-                        x(\tau) &amp;= a_0 + a_1 \tau + a_2 \tau^2 + a_3
-\tau^3 \\
-                        y(\tau) &amp;= b_0 + b_1 \tau + b_2 \tau^2 + b_3
-\tau^3 \\
-                        z(\tau) &amp;= c_0 + c_1 \tau + c_2 \tau^2 + c_3
-\tau^3,
-                    \end{aligned}
-                    \right.\]</span> where <span
+            \left\{
+            \begin{aligned}
+                x(\tau) &amp;= a_0 + a_1 \tau + a_2 \tau^2 + a_3 \tau^3
+\\
+                y(\tau) &amp;= b_0 + b_1 \tau + b_2 \tau^2 + b_3 \tau^3
+\\
+                z(\tau) &amp;= c_0 + c_1 \tau + c_2 \tau^2 + c_3 \tau^3,
+            \end{aligned}
+            \right.\]</span> where <span
 class="math inline">\(x\)</span>, <span
 class="math inline">\(y\)</span>, and <span
 class="math inline">\(z\)</span> represent the parametric line
@@ -1642,16 +1640,16 @@ polynomial coefficient as a function of time. Consequently, we can
 parameterize the stream as a function of both simulation time and
 position along the stream: <span class="math display">\[\vec{s}(t,\tau)
 =
-                    \left\{
-                    \begin{aligned}
-                    x(t,\tau) &amp;= a_0(t) + a_1(t)\tau + a_2(t) \tau^2
-+ a_3(t)\tau^3 \\
-                    y(t,\tau) &amp;= b_0(t) + b_1(t)\tau + b_2(t) \tau^2
-+ b_3(t)\tau^3 \\
-                    z(t,\tau) &amp;= c_0(t) + c_1(t)\tau + c_2(t) \tau^2
-+ c_3(t)\tau^3.
-                    \end{aligned}
-                    \right.\]</span></p>
+            \left\{
+            \begin{aligned}
+            x(t,\tau) &amp;= a_0(t) + a_1(t)\tau + a_2(t) \tau^2 +
+a_3(t)\tau^3 \\
+            y(t,\tau) &amp;= b_0(t) + b_1(t)\tau + b_2(t) \tau^2 +
+b_3(t)\tau^3 \\
+            z(t,\tau) &amp;= c_0(t) + c_1(t)\tau + c_2(t) \tau^2 +
+c_3(t)\tau^3.
+            \end{aligned}
+            \right.\]</span></p>
 <p>The values of the coefficients as a function of time are obtained
 through linear interpolation, ensuring that the coefficients at the
 snapshot times match the values constrained by the simulation data.</p>
@@ -1684,12 +1682,11 @@ class="math inline">\(\tau_{\text{min}}\)</span>. The parallel and
 perpendicular components of the perturber’s velocity relative to the
 stream are given by:</p>
 <p><span class="math display">\[\begin{aligned}
-                    \delta \vec{v} &amp;=\vec{v_p} - \vec{v_s}, \\
-                    w_\parallel &amp;= \left(\delta \vec{v}\right)\cdot
+            \delta \vec{v} &amp;=\vec{v_p} - \vec{v_s}, \\
+            w_\parallel &amp;= \left(\delta \vec{v}\right)\cdot
 \hat{v_s},\\  
-                    w_\perp &amp;=  \sqrt{\Delta v ^2 - w_\parallel ^
-2},
-                    \end{aligned}\]</span> where <span
+            w_\perp &amp;=  \sqrt{\Delta v ^2 - w_\parallel ^ 2},
+            \end{aligned}\]</span> where <span
 class="math inline">\(\vec{v}_p\)</span> and <span
 class="math inline">\(\vec{v}_s\)</span> are the velocities of the
 perturber and the stream, respectively. We compute the strongest five
@@ -1698,6 +1695,94 @@ impacts and flagged those that give rise to gaps. We refer the reader to
 Sect. <a href="#sect:geometry" data-reference-type="ref"
 data-reference="sect:geometry">3.3</a> for the presentation and
 discussion of the results.</p>
+<h2 id="sec:gaps_vs_gcmass">Survival of gaps in streams emerging from
+more massive globular clusters</h2>
+<figure id="fig:decoherence_shocked_outflow">
+<img src="images/decoherence_shocked_outflow.png" />
+<figcaption>We dissect the one-dimensional density of the stream from
+the bottom panel of Fig. <a href="#fig:gap_no_more"
+data-reference-type="ref"
+data-reference="fig:gap_no_more">[fig:gap_no_more]</a>. We divide the
+stars into two categories: the multiple groups that are shocked out at
+different pericenter passages, or those that leak out of the cluster
+continuously. The bottom panel shows the leaked population in blue, and
+each group that was shocked out at each pericenter passage is
+color-coded by the escape time. The sum of the leaked and shocked
+outflow gives the total profile density, which is shown in black. The
+top four panels display the first shocked groups from different
+pericenter passages, shown individually. Each group shows the gap
+resulting from the impact of NGC 7078 <span
+class="math inline">\(\sim\)</span>2.5 Gyr ago, yet they are
+progressively offset as explained in the text.</figcaption>
+</figure>
+<div class="figure*">
+<p><img src="images/gap_no_more.png" alt="image" /></p>
+</div>
+<p>In Section <a href="#sec:mass_loss" data-reference-type="ref"
+data-reference="sec:mass_loss">2.2</a>, we emphasized that the
+conditions chosen to simulate the formation and evolution of streams
+around Pal 5 are probably unrealistic. By choosing, as we did, the same
+values for the mass and size of the cluster 5 billion years ago as the
+cluster has today, we did not take into account the loss of mass and
+internal evolution of the cluster over time. In particular, the velocity
+dispersion of the stars in a cluster and the velocity dispersion of the
+stars leaving the cluster and entering the stream depend on the
+cluster’s mass. It is therefore legitimate to ask whether, using a
+progenitor with a different mass and/or size, the gaps survive and
+whether, in particular, gaps formed several billion years ago can still
+be visible today.</p>
+<p>While we anticipate that a specific study on this aspect is in
+preparation (Ferrone et al., in prep), we would like to preview a few
+results here, particularly regarding the gap decoherence phenomenon
+presented in Fig. <a href="#fig:decoherence_shocked_outflow"
+data-reference-type="ref"
+data-reference="fig:decoherence_shocked_outflow">5</a>. First, Fig. <a
+href="#fig:gap_no_more" data-reference-type="ref"
+data-reference="fig:gap_no_more">[fig:gap_no_more]</a> shows two streams
+with the same orbital parameters that were impacted by NGC 7078. The top
+panel shows a stream originating from a host mass of <span
+class="math inline">\(10,000\)</span> <span
+class="math inline">\(M_\odot\)</span>, while in the second panel we
+increased the mass to <span
+class="math inline">\(\sim40,000\)</span> <span
+class="math inline">\(M_\odot\)</span>. For simplicity, both clusters
+have the same half-mass radius of 27 pc. The encounter occurred about
+two and a half billion years ago with NGC 7078, which has a mass of
+<span class="math inline">\(5.16\times10^{5}~M_\odot\)</span>. The gap
+persists for the lighter host, yet is barely visible in the case of the
+more massive host.</p>
+<p>Fig. <a href="#fig:decoherence_shocked_outflow"
+data-reference-type="ref"
+data-reference="fig:decoherence_shocked_outflow">5</a> dissects the more
+massive stream of Fig. <a href="#fig:gap_no_more"
+data-reference-type="ref"
+data-reference="fig:gap_no_more">[fig:gap_no_more]</a> and explains why
+the gap does not persist. The bottom panel shows the total density
+distribution, decomposed into two profiles: stars that are either leaked
+or shocked out of the cluster. By shocked, we mean stars that are lost
+during pericenter passages. Tidal forces generally scale with <span
+class="math inline">\(r^{-3}\)</span>, and thus significantly intensify
+during pericenter passages (see Fig. 3 of <span class="citation"
+data-cites="2004AJ....127.2753D">Dehnen et al. (2004)</span> for an
+illustration of the magnitude of tidal forces along an orbit). A
+consequence of these passages is that many more stars escape, fleeing
+with higher mean velocity and velocity dispersion—this can be visualized
+in the “Christmas tree” illustration in Fig. A.3 of <span
+class="citation"
+data-cites="2012A&amp;A...546L...7M">Mastrobuono-Battisti et al.
+(2012)</span>. We consider the continuous outflow of stars between
+pericenter passages to be leaked stars. We identify pericenter passages
+by computing each local minimum of the cluster’s Galactocentric 3D
+radius using <code>scipy.signal.find_peaks</code>. The duration of each
+shock is given by <span class="math inline">\(t_{\textrm{shock}} =
+2\sqrt{r/|\nabla\Phi|}\)</span>, where <span
+class="math inline">\(r\)</span> is the Galactocentric radius and <span
+class="math inline">\(|\nabla\Phi|\)</span> is the magnitude of the
+acceleration from the Galactic potential. Stars within this time range
+around a given pericenter passage are all given the same color and shown
+as individual groups in the first through fourth panels of Fig. <a
+href="#fig:decoherence_shocked_outflow" data-reference-type="ref"
+data-reference="fig:decoherence_shocked_outflow">5</a>.</p>
 <h1 id="velocity-distribution-within-the-stream">Velocity distribution
 within the stream</h1>
 <h2 id="self-segregation-and-stream-chilling">Self-Segregation and
