@@ -8,8 +8,7 @@ PANDOC_FLAGS=--standalone --mathjax --bibliography=$(BIBLIOGRAPHY) --csl=$(CSL) 
 all: pdf html
 
 
-# Draft mode - builds PDF without rendering images
-draft:
+pdf:
 	mkdir -p $(PDF_DIR)
 	# Copy bibliography file to output directory
 	cp $(BIBLIOGRAPHY) $(PDF_DIR)/
@@ -22,18 +21,6 @@ draft:
 	# Run subsequent LaTeX passes
 	TEXINPUTS=.:./chapters:./config/psl-cover: pdflatex -output-directory=$(PDF_DIR) main.tex
 	TEXINPUTS=.:./chapters:./config/psl-cover: pdflatex -output-directory=$(PDF_DIR) main.tex
-
-pdf:
-	mkdir -p $(PDF_DIR)
-	# Copy bibliography file to output directory
-	cp $(BIBLIOGRAPHY) $(PDF_DIR)/
-	# First LaTeX pass - uses TEXINPUTS to find input files
-	TEXINPUTS=.:./chapters: pdflatex -output-directory=$(PDF_DIR) main.tex
-	# Run BibTeX in the output directory
-	cd $(PDF_DIR) && bibtex main
-	# Run subsequent LaTeX passes
-	TEXINPUTS=.:./chapters: pdflatex -output-directory=$(PDF_DIR) main.tex
-	TEXINPUTS=.:./chapters: pdflatex -output-directory=$(PDF_DIR) main.tex
 
 html: copy_images copy_videos generate_homepage
 	mkdir -p $(HTML_DIR)
