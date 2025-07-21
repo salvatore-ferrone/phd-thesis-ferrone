@@ -13,13 +13,15 @@ draft:
 	mkdir -p $(PDF_DIR)
 	# Copy bibliography file to output directory
 	cp $(BIBLIOGRAPHY) $(PDF_DIR)/
-	# First LaTeX pass with draft option to graphicx package
-	TEXINPUTS=.:./chapters: pdflatex -output-directory=$(PDF_DIR) "\PassOptionsToPackage{draft}{graphicx}\input{main}"
+	mkdir -p $(PDF_DIR)/psl-cover
+	cp psl-cover/*.jpg psl-cover/*.png psl-cover/*.sty $(PDF_DIR)/psl-cover/
+	# First LaTeX pass - uses TEXINPUTS to find input files
+	TEXINPUTS=.:./chapters: pdflatex -output-directory=$(PDF_DIR) main.tex
 	# Run BibTeX in the output directory
-	cd $(PDF_DIR) && bibtex main
+	cd $(PDF_DIR) && biber main
 	# Run subsequent LaTeX passes
-	TEXINPUTS=.:./chapters: pdflatex -output-directory=$(PDF_DIR) "\PassOptionsToPackage{draft}{graphicx}\input{main}"
-	TEXINPUTS=.:./chapters: pdflatex -output-directory=$(PDF_DIR) "\PassOptionsToPackage{draft}{graphicx}\input{main}"
+	TEXINPUTS=.:./chapters:./psl-cover: pdflatex -output-directory=$(PDF_DIR) main.tex
+	TEXINPUTS=.:./chapters:./psl-cover: pdflatex -output-directory=$(PDF_DIR) main.tex
 
 pdf:
 	mkdir -p $(PDF_DIR)
