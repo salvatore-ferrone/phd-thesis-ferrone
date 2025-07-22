@@ -194,12 +194,13 @@
 <header id="title-block-header">
 <h1 class="title">Numerics</h1>
 </header>
-<p>In line with a thesis in computational astrophysics, the equations of
-motion presented here do not admit closed-form analytical solutions. As
-such, we must rely on numerical methods and computer simulations to
-solve them. Specifically, I solve <span class="math inline">\(N\)</span>
-independent sets of Hamilton’s equations, each consisting of six
-first-order, coupled differential equations.</p>
+<p>As is oftentimes the case when aiming to model realisitic physical
+systems, the equations of motion presented here do not admit closed-form
+analytical solutions. As such, we must rely on numerical methods and
+computer simulations to solve them. Specifically, we solve <span
+class="math inline">\(N\)</span> independent sets of Hamilton’s
+equations, each consisting of six first-order, coupled differential
+equations.</p>
 <p>Numerical integration presents several challenges. First, there is
 the practical question: how do we actually solve these equations? Most
 students first encounter a simple update scheme, such as Euler’s method:
@@ -211,17 +212,13 @@ faithfully approximate the true dynamics, especially when the true
 solution is unknown? How do we handle performance, data volume, or the
 trade-offs between speed and accuracy?</p>
 <p>Although many software packages already exist to solve such problems,
-I chose to write my own code. Some senior researchers warn, “Don’t
-reinvent the wheel.” Others lamet that “the problem with the youth today
-is that no one knows how the packages they use work.” Caught between
-damned if I do and damned if I don’t, I decided to write my own solver
-anyway. This led to the development of <code>tstrippy</code>, a code
-designed to solve the restricted three-body problem. My motivation was
-part practical: I wanted to avoid installation headaches, steep learning
-curves, and uncertainty over whether existing tools could handle my
-specific setup. But above all else, I wanted to create a reliable
-product that works, allows me to reproduce my results, and run my
-simulations at scale.</p>
+I chose to write my own code. This led to the development of
+<code>tstrippy</code>, a code designed to solve the restricted
+three-body problem. My motivation was part practical: I wanted to avoid
+installation difficulties, steep learning curves, and uncertainty over
+whether existing tools could handle my specific setup. But above all
+else, I wanted to create a reliable product that works, allows me to
+reproduce my results, and run my simulations at scale.</p>
 <p>Developing my own package gave me a deeper understanding of code
 structure, numerical algorithms, and the subtleties of scientific
 programming. It also gave me the confidence to later use other packages
@@ -243,11 +240,11 @@ in either degrees or hours, while declination (similar to latitude) is
 given in degrees. Distances are reported in parsecs when derived from
 parallax measurements. Line-of-sight velocities, obtained via
 spectroscopic Doppler shifts, are reported in kilometers per second.
-Proper motions describe angular displacements over time and are usually
-reported in milliarcseconds per year. Already, we encounter several
-different units for angles (degrees, hours, arcseconds), time (years,
-seconds), and distance (km, kpc), none of which align with SI’s standard
-units of radians, seconds, or meters, as summarized in Table <a
+Proper motions describe angular displacements over time on the sky and
+are usually reported in milliarcseconds per year. Already, we encounter
+several different units for angles (degrees, hours, arcseconds), time
+(years, seconds), and distance (km, kpc), none of which align with SI’s
+standard units of radians, seconds, or meters, as summarized in Table <a
 href="#tab:units" data-reference-type="ref"
 data-reference="tab:units">1</a>.</p>
 <div id="tab:units">
@@ -294,10 +291,12 @@ class="math inline">\(\mu_\delta\)</span></th>
 <p>This raises practical concerns—for example, what would be the unit of
 acceleration? km/s<span class="math inline">\(^2\)</span>?
 parsec/year/second? To systematically manage units, we turn to
-dimensional analysis, notably the Buckingham Pi theorem. In classical
-mechanics, physical quantities are typically expressed in terms of three
-fundamental dimensions: length, time, and mass. Any quantity can then be
-represented as a product of powers of these base units:</p>
+dimensional analysis, notably the Buckingham Pi theorem <span
+class="citation" data-cites="1914PhRv....4..345B">(Buckingham
+1914)</span>. In classical mechanics, physical quantities are typically
+expressed in terms of three fundamental dimensions: length, time, and
+mass. Any quantity can then be represented as a product of powers of
+these base units:</p>
 <p><span class="math display">\[\left[\mathrm{Quantity}\right] = l^a t^b
 m^c =
             \begin{bmatrix}
@@ -341,27 +340,31 @@ yield: <span
 class="math inline">\(\left(\mathrm{kpc}/\mathrm{s}\right)^2 \cdot
 \mathrm{kpc}^{-1}\)</span>.</p>
 <p>It is worth mentioning that <span
-class="math inline">\(N\)</span>-body codes often simplify further by
-selecting distance, velocity, and the gravitational constant as the base
-units, setting <span class="math inline">\(G = 1\)</span>. While this
-simplifies force computations, it introduces less intuitive units for
-mass. For instance, by choosing 1 kpc for distance and 1 km/s for
-velocity, and setting <span class="math inline">\(G = 1\)</span>, the
-derived mass unit becomes: <span
-class="math display">\[\left[\mathrm{mass}\right] = \frac{l \cdot
-v^2}{G} = 232509~\mathrm{M}_\odot.\]</span></p>
-<p>This approach was used in our first paper (see Chapter 4). Another
-example is the case of <code>Galpy</code>. <span class="citation"
-data-cites="2015ApJS..216...29B">Bovy (2015)</span> introduced
-<em>natural units</em> motivated by the galaxy’s rotation curve,
-embodied in: <span class="math display">\[\frac{v_\mathrm{circ}^2}{R_0}
-= \nabla  \Phi \left(R_0, z=0\right),
-        \label{eq:vcirc}\]</span> which is the circular velocity in a
-cylindrically symmetric potential evaluated in the plane. In this
-normalization, <span class="math inline">\(R\)</span> is the cylindrical
-scale length of the galaxy, and <span
-class="math inline">\(v_\mathrm{circ}\)</span> is the circular velocity
-at this radius, both of which are set to 1. The gravitational constant
+class="math inline">\(N\)</span>-body codes often select distance,
+velocity, and the gravitational constant as the base units, setting
+<span class="math inline">\(G = 1\)</span>. While this choice simplifies
+force computations, it introduces less intuitive units for mass. For
+instance, by choosing 1 kpc for distance and 1 km/s for velocity, and
+setting <span class="math inline">\(G = 1\)</span>, the derived mass
+unit becomes: <span class="math display">\[\left[\mathrm{mass}\right] =
+\frac{l \cdot v^2}{G} = 232509~\mathrm{M}_\odot.\]</span> This approach
+was used in our first paper (see Chapter 4).</p>
+<p>Another example is the case of <code>Galpy</code>. <span
+class="citation" data-cites="2015ApJS..216...29B">Bovy (2015)</span>
+introduced <em>natural units</em> motivated by the galaxy’s rotation
+curve, embodied in:</p>
+<p>Another possibility is to choose <em>natural</em> units, as done by
+<span class="citation" data-cites="2015ApJS..216...29B">Bovy
+(2015)</span> in <code>Galpy</code>. More specifically, <span
+class="citation" data-cites="2015ApJS..216...29B">Bovy (2015)</span>
+uses a normalization in which <span class="math inline">\(R\)</span>,
+the cylindrical scale length of the galaxy, and <span
+class="math inline">\(v_\mathrm{circ}\)</span>, the circular velocity at
+this radius, are both set to 1. This choice is motivated by a galaxy’s
+rotation curve and is embodied in: <span
+class="math display">\[\frac{v_\mathrm{circ}^2}{R_0} = \nabla  \Phi
+\left(R_0, z=0\right).
+        \label{eq:vcirc}\]</span> Note that the gravitational constant
 is also set to 1. Whatever the form of the potential, the scale lengths
 must be normalized to <span class="math inline">\(R\)</span>, and the
 mass parameter is subsequently determined through Eq. <a
@@ -372,49 +375,90 @@ contribution of each component to the force at the characteristic
 radius. For example, <span class="math inline">\(\Phi = \sum_i
 a_i\Phi_i\)</span>, where <span class="math inline">\(a_i\)</span> are
 weights such that <span class="math inline">\(\nabla \Phi_i(R_0, z=0) =
-a_i\)</span> in normalized units.</p>
-<p>In this system of units, emphasis is placed on the rotation curve and
-how much each component contributes to it at the reference radius of the
-galaxy. Note that <span
+a_i\)</span> in normalized units. In this system of units, emphasis is
+placed on the rotation curve and how much each component contributes to
+it at the reference radius of the galaxy. Note that <span
 class="math inline">\(v_\mathrm{circ}(R_0)\)</span> is not necessarily
 the maximum value of the rotation curve.</p>
 <p>In short, each code presents its own preferred units and
-normalization. It is the job of a computational astrophysicist to
-understand these conventions and be able to convert between them and
-observable quantities. <span class="math inline">\(N\)</span>-body codes
-work best when setting <span class="math inline">\(G = 1\)</span>, while
-<code>Galpy</code> uses natural units that emphasize the rotational
-properties of a galaxy. <code>Tstrippy</code>, by contrast, expects the
-user to pass masses in solar masses, velocities in kilometers per
-second, and distances in kiloparsecs. However, physical constants are
-not hard-coded, so the user may pass any numerical values to the code as
-long as they are based on a self-consistent unit system. The code
-includes the <code>Pouliasis2017pii</code> potential and a catalog of
-galactic globular cluster properties, both reported in the
-aforementioned units.</p>
+normalization. <code>Tstrippy</code>, by contrast, expects the user to
+pass masses in solar masses, velocities in kilometers per second, and
+distances in kiloparsecs. However, physical constants are not
+hard-coded, so the user may pass any numerical values to the code as
+long as they are based on a self-consistent unit system. Despite this,
+the code comes equipped with parameters for the
+<code>Pouliasis2017pii</code> potential and for the catalog of globular
+clusters. These values are reported in the aforementioned units.</p>
 <p>A valid general strategy when developing numerical codes is to
 implement a module that converts user-defined units to the internal
 units of the code. This functionality also exists in <code>Galpy</code>
 and a similar system is implemented in <code>Agama</code> <span
 class="citation" data-cites="2018arXiv180208255V">(Vasiliev
-2018)</span>. I chose not to add such a layer to <code>Tstrippy</code>,
-since my goal was not to develop the most robust tool in the field, but
-rather to answer specific scientific questions. That said,
-<code>Astropy</code> provides an excellent unit-handling module that
-allows users to convert between units easily <span class="citation"
+2018)</span>. I chose not to add such a layer to <code>Tstrippy</code>
+since <code>Astropy</code> provides an excellent unit-handling module
+that allows users to convert between units easily <span class="citation"
 data-cites="2013A&amp;A...558A..33A">(Astropy Collaboration et al.
 2013)</span>, and I recommend its use in the documentation.</p>
-<p>In the end, I chose this unit convention because I believe it is the
-most intuitive for users and aligns with how quantities are typically
-reported in galactic astronomy.</p>
 <h1 id="solving-the-equations-of-motion">Solving the equations of
 motion</h1>
-<p>Long before the advent of computers, Euler proposed a simple method
-for numerically solving differential equations. However, it is
-inefficient and inaccurate for coupled systems, especially when
-long-term behavior matters. In the case of Hamiltonian systems, we can
-exploit specific geometric properties to design numerical schemes that
-better preserve the qualitative features of the true solution.</p>
+<p>Long before the advent of computers, Euler proposed (1707-1783) a
+simple method for numerically solving differential equations. In this
+method, a solution is found by: <span class="math display">\[y_{i+1} =
+y_i + \Delta t \frac{dy}{dt}\left(y,t\right),\]</span> where <span
+class="math inline">\(i\)</span> is an index. This means that at each
+point <span class="math inline">\((t_i,y_i)\)</span>, the function is
+extrapolated to obtain the next position with a simple linear
+approximation. This has very limited accuracy and can be shown by
+considering taylor series expansion about <span
+class="math inline">\(y_{i+1}=y\left(t_i+\Delta t\right)\)</span>. With
+a Taylor series, we could approximate the function to infinitely many
+terms: <span class="math display">\[y\left(t_i+\Delta t\right) \approx
+y(t_i) + \Delta t y&#39;(t_i) + \frac{1}{2!}\Delta t^2
+y&#39;&#39;\left(t_i\right) \dots\]</span> and the difference between
+the true solution and numerical solution found through Euleur’s method
+are all the terms that are higher order than the linear term. When
+describing the accuracy of the numerical soluition to the true solution,
+we use the Big-O notation, whose argument is the leading order term that
+drives the inaccuracy. For Euler’s method, the accuracy is of a single
+step is dictated by the second order term: <span
+class="math inline">\(\mathrm{Err}_\mathrm{step} \approx  \Delta t^2
+\frac{1}{2!} y&#39;&#39;\left(t_i\right)\)</span>, which in Big-O
+notation is <span class="math inline">\(\mathcal{O}\left(\Delta
+t^2\right)\)</span>. Overall, if we quantify the accuracy of the
+solution, it would be the number of steps times the average error per
+step: <span class="math inline">\(\mathrm{Err} \approx N_\mathrm{step}
+\langle \mathrm{Err}_\mathrm{step} \rangle\)</span>, which becomes:
+<span class="math inline">\(\mathrm{Err} \approx \frac{T}{\Delta t}
+\times \Delta t^2\langle y&#39;&#39;\rangle\)</span>. For the whole
+solution, the error is linearly propertional to the timestep: <span
+class="math inline">\(\mathcal{O}\left(\Delta t\right)\)</span>. This
+notation reads as halfing the timestep halfs the error.</p>
+<p>Note that this method for quantifying the error is of a numerical
+solution is not mathematically rigorous and nor generalizable. The
+amount of error accumulated throughought the integration depends on the
+function. For instance, if the <span class="math inline">\(y\)</span> is
+linear equation, and <span class="math inline">\(y&#39;\)</span> is
+constant, than there is no error with Euler’s method. If <span
+class="math inline">\(y\)</span> a simple power of <span
+class="math inline">\(t\)</span>, <span
+class="math inline">\(y=t^a\)</span>, then the errors will always
+accumulate and grow monotonically. If <span
+class="math inline">\(y\)</span>’s concavity and curvature change as a
+function of <span class="math inline">\(t\)</span>, the error between
+two adjacent steps could cancel each other out.</p>
+<p>Chapter 16 in Numerical Recipe’s in C presents an excellent
+introduction to this problem and provides many alternatives to Euler’s
+method <span class="citation" data-cites="1992nrca.book.....P">(Press et
+al. 1992)</span>. The point remains, that in any case, one must perform
+sanity checks to ensure themselves that a proper solution has been
+reached that only deviates from the true solution by a tolerable amount.
+These test could include exploring different integration scheme’s,
+convergence testing, that the solution converges as the timestep is
+reduce, and also exploiting any other known properties about your
+solution.</p>
+<p>In the case of Hamiltonian systems, we can exploit specific geometric
+properties to design numerical schemes that better preserve the
+qualitative features of the true solution.</p>
 <p>In this thesis, I implemented the Leapfrog integrator and the
 Forest-Ruth scheme. These schemes are derived from the structure of
 Hamiltonian mechanics and are known as <em>symplectic integrators</em>.
@@ -1426,6 +1470,12 @@ Princeton, NJ: Princeton University Press.
 Galactic Dynamics</span>”</span> 216 (2): 29. <a
 href="https://doi.org/10.1088/0067-0049/216/2/29">https://doi.org/10.1088/0067-0049/216/2/29</a>.
 </div>
+<div id="ref-1914PhRv....4..345B" class="csl-entry" role="listitem">
+Buckingham, E. 1914. <span>“<span class="nocase">On Physically Similar
+Systems; Illustrations of the Use of Dimensional
+Equations</span>.”</span> <em>Physical Review</em> 4 (4): 345–76. <a
+href="https://doi.org/10.1103/PhysRev.4.345">https://doi.org/10.1103/PhysRev.4.345</a>.
+</div>
 <div id="ref-2023A&amp;A...673A..44F" class="csl-entry" role="listitem">
 Ferrone, Salvatore, Paola Di Matteo, Alessandra Mastrobuono-Battisti,
 Misha Haywood, Owain N. Snaith, Marco Montuori, Sergey Khoperskov, and
@@ -1453,6 +1503,11 @@ Bruijne, F. Arenou, C. Babusiaux, et al. 2023. <span>“<span
 class="nocase">Gaia Data Release 3. Summary of the content and survey
 properties</span>”</span> 674 (June):A1. <a
 href="https://doi.org/10.1051/0004-6361/202243940">https://doi.org/10.1051/0004-6361/202243940</a>.
+</div>
+<div id="ref-1992nrca.book.....P" class="csl-entry" role="listitem">
+Press, William H., Saul A. Teukolsky, William T. Vetterling, and Brian
+P. Flannery. 1992. <em><span class="nocase">Numerical recipes in C. The
+art of scientific computing</span></em>.
 </div>
 <div id="ref-2018ComAC...5....2V" class="csl-entry" role="listitem">
 Varri, Anna Lisa, Maxwell Xu Cai, Francisca Concha-Ramı́rez, František
