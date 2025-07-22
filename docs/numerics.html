@@ -401,64 +401,63 @@ data-cites="2013A&amp;A...558A..33A">(Astropy Collaboration et al.
 2013)</span>, and I recommend its use in the documentation.</p>
 <h1 id="solving-the-equations-of-motion">Solving the equations of
 motion</h1>
-<p>Long before the advent of computers, Euler proposed (1707-1783) a
+<p>Long before the advent of computers, Euler (1707-1783) proposed a
 simple method for numerically solving differential equations. In this
-method, a solution is found by: <span class="math display">\[y_{i+1} =
-y_i + \Delta t \frac{dy}{dt}\left(y,t\right),\]</span> where <span
-class="math inline">\(i\)</span> is an index. This means that at each
-point <span class="math inline">\((t_i,y_i)\)</span>, the function is
-extrapolated to obtain the next position with a simple linear
-approximation. This has very limited accuracy and can be shown by
-considering taylor series expansion about <span
-class="math inline">\(y_{i+1}=y\left(t_i+\Delta t\right)\)</span>. With
-a Taylor series, we could approximate the function to infinitely many
-terms: <span class="math display">\[y\left(t_i+\Delta t\right) \approx
-y(t_i) + \Delta t y&#39;(t_i) + \frac{1}{2!}\Delta t^2
-y&#39;&#39;\left(t_i\right) \dots\]</span> and the difference between
-the true solution and numerical solution found through Euleur’s method
-are all the terms that are higher order than the linear term. When
-describing the accuracy of the numerical soluition to the true solution,
-we use the Big-O notation, whose argument is the leading order term that
-drives the inaccuracy. For Euler’s method, the accuracy is of a single
-step is dictated by the second order term: <span
-class="math inline">\(\mathrm{Err}_\mathrm{step} \approx  \Delta t^2
-\frac{1}{2!} y&#39;&#39;\left(t_i\right)\)</span>, which in Big-O
-notation is <span class="math inline">\(\mathcal{O}\left(\Delta
-t^2\right)\)</span>. Overall, if we quantify the accuracy of the
-solution, it would be the number of steps times the average error per
-step: <span class="math inline">\(\mathrm{Err} \approx N_\mathrm{step}
-\langle \mathrm{Err}_\mathrm{step} \rangle\)</span>, which becomes:
-<span class="math inline">\(\mathrm{Err} \approx \frac{T}{\Delta t}
-\times \Delta t^2\langle y&#39;&#39;\rangle\)</span>. For the whole
-solution, the error is linearly propertional to the timestep: <span
-class="math inline">\(\mathcal{O}\left(\Delta t\right)\)</span>. This
-notation reads as halfing the timestep halfs the error.</p>
-<p>Note that this method for quantifying the error is of a numerical
-solution is not mathematically rigorous and nor generalizable. The
-amount of error accumulated throughought the integration depends on the
-function. For instance, if the <span class="math inline">\(y\)</span> is
-linear equation, and <span class="math inline">\(y&#39;\)</span> is
-constant, than there is no error with Euler’s method. If <span
-class="math inline">\(y\)</span> a simple power of <span
-class="math inline">\(t\)</span>, <span
-class="math inline">\(y=t^a\)</span>, then the errors will always
-accumulate and grow monotonically. If <span
-class="math inline">\(y\)</span>’s concavity and curvature change as a
-function of <span class="math inline">\(t\)</span>, the error between
-two adjacent steps could cancel each other out.</p>
-<p>Chapter 16 in Numerical Recipe’s in C presents an excellent
-introduction to this problem and provides many alternatives to Euler’s
-method <span class="citation" data-cites="1992nrca.book.....P">(Press et
-al. 1992)</span>. The point remains, that in any case, one must perform
-sanity checks to ensure themselves that a proper solution has been
-reached that only deviates from the true solution by a tolerable amount.
-These test could include exploring different integration scheme’s,
-convergence testing, that the solution converges as the timestep is
-reduce, and also exploiting any other known properties about your
-solution.</p>
-<p>In the case of Hamiltonian systems, we can exploit specific geometric
-properties to design numerical schemes that better preserve the
-qualitative features of the true solution.</p>
+method, a solution is approximated by <span
+class="math display">\[y_{i+1} = y_i + \Delta t
+\frac{dy}{dt}\left(y_i,t_i\right),\]</span> where <span
+class="math inline">\(i\)</span> is a time step index. This means that
+at each point <span class="math inline">\((t_i, y_i)\)</span>, the
+function is extrapolated forward using a linear approximation.</p>
+<p>The accuracy of this method can be understood using a Taylor series
+expansion of the exact solution <span class="math inline">\(y(t_i +
+\Delta t)\)</span> about <span class="math inline">\(t_i\)</span>: <span
+class="math display">\[y(t_i + \Delta t) = y(t_i) + \Delta t y&#39;(t_i)
++ \frac{1}{2!}\Delta t^2 y&#39;&#39;(t_i) + \dots\]</span> Euler’s
+method captures only the first two terms. The difference between the
+exact solution and the Euler estimate is dominated by the second-order
+term. Thus, the <em>local truncation error</em> (error per step) is
+<span class="math display">\[\mathrm{Err}_{\mathrm{step}} \approx
+\frac{1}{2} \Delta t^2 y&#39;&#39;(t_i) = \mathcal{O}(\Delta
+t^2).\]</span></p>
+<p>The <em>global error</em> (accumulated over many steps) is
+approximately the number of steps times the average error per step:
+<span class="math display">\[\mathrm{Err} \approx N_{\mathrm{step}}
+\cdot \langle \mathrm{Err}_{\mathrm{step}} \rangle \approx
+\frac{T}{\Delta t} \cdot \Delta t^2 \langle y&#39;&#39; \rangle =
+\mathcal{O}(\Delta t).\]</span> This means that halving the timestep
+roughly halves the global error.</p>
+<p>It is important to note that this reasoning is not mathematically
+rigorous and not always generalizable. The actual error behavior depends
+strongly on the properties of the function being integrated. For
+instance:</p>
+<ul>
+<li><p>If <span class="math inline">\(y\)</span> is linear in <span
+class="math inline">\(t\)</span>, then <span
+class="math inline">\(y&#39;\)</span> is constant and Euler’s method
+gives the exact result.</p></li>
+<li><p>If <span class="math inline">\(y(t) = t^a\)</span>, the local
+errors accumulate and grow monotonically.</p></li>
+<li><p>If <span class="math inline">\(y\)</span> has curvature that
+changes sign, local errors can partially cancel out over the course of
+the integration.</p></li>
+</ul>
+<p>For a more systematic treatment of integration methods and their
+error properties, Chapter 16 of <em>Numerical Recipes in C</em> provides
+an excellent introduction <span class="citation"
+data-cites="1992nrca.book.....P">(Press et al. 1992)</span>.</p>
+<p>Regardless of the method used, sanity checks are essential to
+validate the result. These include:</p>
+<ul>
+<li><p>Trying different integration schemes.</p></li>
+<li><p>Performing convergence tests to ensure the solution stabilizes as
+<span class="math inline">\(\Delta t \to 0\)</span>.</p></li>
+<li><p>Leveraging any known properties of the solution to verify
+correctness.</p></li>
+</ul>
+<p>For example, we can exploit the properties of Hamiltonain systems
+design integrators that better preserve the qualitative behavior of the
+true solution over long time scales.</p>
 <p>In this thesis, I implemented the Leapfrog integrator and the
 Forest-Ruth scheme. These schemes are derived from the structure of
 Hamiltonian mechanics and are known as <em>symplectic integrators</em>.

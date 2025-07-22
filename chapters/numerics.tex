@@ -88,21 +88,45 @@ This chapter documents how I numerically solve the equations of motion, how I va
 
 \section{Solving the equations of motion}
 
-    Long before the advent of computers, Euler proposed (1707-1783) a simple method for numerically solving differential equations. In this method, a solution is found by: 
+    Long before the advent of computers, Euler (1707-1783) proposed a simple method for numerically solving differential equations. In this method, a solution is approximated by
     \begin{equation}
-        y_{i+1} = y_i + \Delta t \frac{dy}{dt}\left(y,t\right),
+        y_{i+1} = y_i + \Delta t \frac{dy}{dt}\left(y_i,t_i\right),
     \end{equation}
-    where $i$ is an index. This means that at each point $(t_i,y_i)$, the function is extrapolated to obtain the next position with a simple linear approximation. This has very limited accuracy and can be shown by considering taylor series expansion about $y_{i+1}=y\left(t_i+\Delta t\right)$. With a Taylor series, we could approximate the function to infinitely many terms:
-    \begin{equation}
-        y\left(t_i+\Delta t\right) \approx y(t_i) + \Delta t y'(t_i) + \frac{1}{2!}\Delta t^2 y''\left(t_i\right) \dots
-    \end{equation}
-    and the difference between the true solution and numerical solution found through Euleur's method are all the terms that are higher order than the linear term.  When describing the accuracy of the numerical soluition to the true solution, we use the Big-O notation, whose argument is the leading order term that drives the inaccuracy. For Euler's method, the accuracy is of a single step is dictated by the second order term: $\mathrm{Err}_\mathrm{step} \approx  \Delta t^2 \frac{1}{2!} y''\left(t_i\right)$, which in Big-O notation is $\mathcal{O}\left(\Delta t^2\right)$. Overall, if we quantify the accuracy of the solution, it would be the number of steps times the average error per step: $\mathrm{Err} \approx N_\mathrm{step} \langle \mathrm{Err}_\mathrm{step} \rangle$, which becomes: $\mathrm{Err} \approx \frac{T}{\Delta t} \times \Delta t^2\langle y''\rangle$. For the whole solution, the error is linearly propertional to the timestep: $\mathcal{O}\left(\Delta t\right)$. This notation reads as halfing the timestep halfs the error. 
-    
-    Note that this method for quantifying the error is of a numerical solution is not mathematically rigorous and nor generalizable. The amount of error accumulated throughought the integration depends on the function. For instance, if the $y$ is linear equation, and $y'$ is constant, than there is no error with Euler's method. If $y$ a simple power of $t$, $y=t^a$, then the errors will always accumulate and grow monotonically. If $y$'s concavity and curvature change as a function of $t$, the error between two adjacent steps could cancel each other out. 
-    
-    Chapter 16 in Numerical Recipe's in C presents an excellent introduction to this problem and provides many alternatives to Euler's method \parencite{1992nrca.book.....P}. The point remains, that in any case, one must perform sanity checks to ensure themselves that a proper solution has been reached that only deviates from the true solution by a tolerable amount. These test could include exploring different integration scheme's, convergence testing, that the solution converges as the timestep is reduce, and also exploiting any other known properties about your solution.  
+    where \( i \) is a time step index. This means that at each point \( (t_i, y_i) \), the function is extrapolated forward using a linear approximation.
 
-    In the case of Hamiltonian systems, we can exploit specific geometric properties to design numerical schemes that better preserve the qualitative features of the true solution.
+    The accuracy of this method can be understood using a Taylor series expansion of the exact solution \( y(t_i + \Delta t) \) about \( t_i \):
+    \begin{equation}
+        y(t_i + \Delta t) = y(t_i) + \Delta t y'(t_i) + \frac{1}{2!}\Delta t^2 y''(t_i) + \dots
+    \end{equation}
+    Euler's method captures only the first two terms. The difference between the exact solution and the Euler estimate is dominated by the second-order term. Thus, the \textit{local truncation error} (error per step) is
+    \[
+    \mathrm{Err}_{\mathrm{step}} \approx \frac{1}{2} \Delta t^2 y''(t_i) = \mathcal{O}(\Delta t^2).
+    \]
+
+    The \textit{global error} (accumulated over many steps) is approximately the number of steps times the average error per step:
+    \[
+    \mathrm{Err} \approx N_{\mathrm{step}} \cdot \langle \mathrm{Err}_{\mathrm{step}} \rangle \approx \frac{T}{\Delta t} \cdot \Delta t^2 \langle y'' \rangle = \mathcal{O}(\Delta t).
+    \]
+    This means that halving the timestep roughly halves the global error.
+
+    It is important to note that this reasoning is not mathematically rigorous and not always generalizable. The actual error behavior depends strongly on the properties of the function being integrated. For instance:
+
+    \begin{itemize}
+        \item If \( y \) is linear in \( t \), then \( y' \) is constant and Euler's method gives the exact result.
+        \item If \( y(t) = t^a \), the local errors accumulate and grow monotonically.
+        \item If \( y \) has curvature that changes sign, local errors can partially cancel out over the course of the integration.
+    \end{itemize}
+
+    For a more systematic treatment of integration methods and their error properties, Chapter 16 of \textit{Numerical Recipes in C} provides an excellent introduction \parencite{1992nrca.book.....P}.
+
+    Regardless of the method used, sanity checks are essential to validate the result. These include:
+    \begin{itemize}
+        \item Trying different integration schemes.
+        \item  Performing convergence tests to ensure the solution stabilizes as \( \Delta t \to 0 \).
+        \item Leveraging any known properties of the solution to verify correctness.
+    \end{itemize}
+
+    For example, we can exploit the properties of Hamiltonain systems design integrators that better preserve the qualitative behavior of the true solution over long time scales.
 
     In this thesis, I implemented the Leapfrog integrator and the Forest-Ruth scheme. These schemes are derived from the structure of Hamiltonian mechanics and are known as \textit{symplectic integrators}. Before continuing, I would like to quote \citep{bovy_inprep}:
 
