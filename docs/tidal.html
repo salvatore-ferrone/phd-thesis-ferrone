@@ -165,7 +165,27 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <script
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
   type="text/javascript"></script>
@@ -191,14 +211,13 @@ is interfaced to python by means of f2py directives from NumPy. The use
 of test-particle methods for modeling the tidal stripping process is
 widespread in the literature, where these methods are usually applied to
 one or few clusters at a time <span class="citation"
-data-cites="lane12 mastrobuono12 palau19 piatti21a grillmair22">(see,
-e.g., <strong>lane12?</strong>; <strong>mastrobuono12?</strong>;
-<strong>palau19?</strong>; <strong>piatti21a?</strong>;
-<strong>grillmair22?</strong>)</span>. In this work, we apply a
-test-particle methodology to the whole set (159) of Galactic globular
-clusters for which this is currently possible, also taking into account,
-for each cluster, the errors on astrometry, line-of-sight velocities<a
-href="#fn1" class="footnote-ref" id="fnref1"
+data-cites="2012MNRAS.423.2845L 2012A&amp;A...546L...7M 2019MNRAS.488.1535P 2021MNRAS.505.3033P 2022ApJ...929...89G">(see,
+e.g., Lane, Küpper, and Heggie 2012; Mastrobuono-Battisti et al. 2012;
+Palau and Miralda-Escudé 2019; Piatti 2021; Grillmair 2022)</span>. In
+this work, we apply a test-particle methodology to the whole set (159)
+of Galactic globular clusters for which this is currently possible, also
+taking into account, for each cluster, the errors on astrometry,
+line-of-sight velocities<a href="#fn1" class="footnote-ref" id="fnref1"
 role="doc-noteref"><sup>1</sup></a> and distances. In the following, we
 describe the two main steps of the procedure used by GCsTT to simulate
 the tidal stripping process (Sect. <a href="#numerical"
@@ -222,29 +241,28 @@ data-reference="initialconds">2.2</a>), we determine their current
 positions and velocities in a Galactocentric reference frame, in which
 the Sun is at <span class="math inline">\((x_\odot, y_\odot, z_\odot) =
 (-8.34, 0., 0.027)\)</span> kpc <span class="citation"
-data-cites="chen01 reid14">(<strong>chen01?</strong>;
-<strong>reid14?</strong>)</span> and at a given velocity for the local
-standard of rest, <span class="math inline">\(v_{LSR}= 240\)</span> km/s
-<span class="citation"
-data-cites="reid14">(<strong>reid14?</strong>)</span>, and a peculiar
-velocity of the Sun with respect to the LSR, <span
-class="math inline">\((U_{\odot}, V_{\odot}, W_{\odot})  = (11.1, 12.24,
-7.25)\)</span> km/s <span class="citation"
-data-cites="schonrich10">(<strong>schonrich10?</strong>)</span>. We then
-integrate the orbit of a single point mass, representing the cluster
-barycenter, backwards in time for 5 Gyr, and in this way, we retrieve
-its position and velocity at that time in the chosen Galactic potential
-(see Sect. <a href="#galmod" data-reference-type="ref"
-data-reference="galmod">2.3</a>). We notice that other choices for the
-Sun’s position or velocity with respect to the Galactocentric frame
-would have been possible. For example, <span class="citation"
-data-cites="piatti21a">(<strong>piatti21a?</strong>)</span> adopted the
-same values as ours for the <span class="math inline">\(v_{LSR}\)</span>
-and for the peculiar velocity of the Sun but with a different distance
-to the Galactic center <span class="citation"
-data-cites="gravity18">(8.1 kpc in their work, see
-<strong>gravity18?</strong>)</span>. The difference in the adopted
-position of the Sun is, however, generally smaller than the
+data-cites="2001ApJ...553..184C 2014ApJ...783..130R">(Chen et al. 2001;
+Reid et al. 2014)</span> and at a given velocity for the local standard
+of rest, <span class="math inline">\(v_{LSR}= 240\)</span> km/s <span
+class="citation" data-cites="2014ApJ...783..130R">(Reid et al.
+2014)</span>, and a peculiar velocity of the Sun with respect to the
+LSR, <span class="math inline">\((U_{\odot}, V_{\odot}, W_{\odot})  =
+(11.1, 12.24, 7.25)\)</span> km/s <span class="citation"
+data-cites="2010MNRAS.403.1829S">(Schönrich, Binney, and Dehnen
+2010)</span>. We then integrate the orbit of a single point mass,
+representing the cluster barycenter, backwards in time for 5 Gyr, and in
+this way, we retrieve its position and velocity at that time in the
+chosen Galactic potential (see Sect. <a href="#galmod"
+data-reference-type="ref" data-reference="galmod">2.3</a>). We notice
+that other choices for the Sun’s position or velocity with respect to
+the Galactocentric frame would have been possible. For example, <span
+class="citation" data-cites="2021MNRAS.505.3033P">Piatti (2021)</span>
+adopted the same values as ours for the <span
+class="math inline">\(v_{LSR}\)</span> and for the peculiar velocity of
+the Sun but with a different distance to the Galactic center <span
+class="citation" data-cites="2018A&amp;A...615L..15G">(8.1 kpc in their
+work, see GRAVITY Collaboration et al. 2018)</span>. The difference in
+the adopted position of the Sun is, however, generally smaller than the
 uncertainties affecting our knowledge of the distance of Galactic
 globular clusters to the Sun. For this reason, we do not to explore the
 dependency of the results presented in this paper with regard to these
@@ -324,16 +342,15 @@ because the longer back in time we could go, the less certain we would
 be of the Galactic environment. In addition, the last significant
 mergers in the Galaxy happened between 9 and 11 Gyr ago <span
 class="citation"
-data-cites="belokurov18 helmi18 dimatteo19 gallart19 kruijssen20">(see
-<strong>belokurov18?</strong>; <strong>helmi18?</strong>;
-<strong>dimatteo19?</strong>; <strong>gallart19?</strong>;
-<strong>kruijssen20?</strong>)</span> – well before the time interval
-simulated in this study. Other more recent interactions, such as the
-accretion of Sagittarius and of the Magellanic Clouds, may perturb the
-Galactic potential as well <span class="citation"
-data-cites="vasiliev21b">(see, e.g.,
-<strong>vasiliev21b?</strong>)</span> and we plan to investigate their
-impact on the properties of globular cluster streams in the future.</p>
+data-cites="2018MNRAS.478..611B 2018Natur.563...85H 2019A&amp;A...632A...4D 2019NatAs...3..932G 2020MNRAS.498.2472K">(see
+Belokurov et al. 2018; Helmi et al. 2018; Di Matteo et al. 2019; Gallart
+et al. 2019; Kruijssen et al. 2020)</span> – well before the time
+interval simulated in this study. Other more recent interactions, such
+as the accretion of Sagittarius and of the Magellanic Clouds, may
+perturb the Galactic potential as well <span class="citation"
+data-cites="2021MNRAS.501.2279V">(see, e.g., Vasiliev, Belokurov, and
+Erkal 2021)</span> and we plan to investigate their impact on the
+properties of globular cluster streams in the future.</p>
 <p>For each realization, we generate an output file in an hdf5 format<a
 href="#fn2" class="footnote-ref" id="fnref2"
 role="doc-noteref"><sup>2</sup></a> containing the values for the right
@@ -353,8 +370,8 @@ positions (<span class="math inline">\(x, y, z\)</span>), velocities
 (<span class="math inline">\(v_x, v_y, v_z\)</span>) and energy, <span
 class="math inline">\(E\)</span>, of each particle in the simulated
 system. We used Astropy <span class="citation"
-data-cites="astropy13 astropy18">(<strong>astropy13?</strong>;
-<strong>astropy18?</strong>)</span> to convert the Galactocentric
+data-cites="2013A&amp;A...558A..33A 2018AJ....156..123A">(Astropy
+Collaboration et al. 2013, 2018)</span> to convert the Galactocentric
 positions and velocities in the equatorial and Galactic quantities <span
 class="math inline">\(\alpha, \delta, D, \rm \mu_{\alpha}\cos(\delta),
 \rm \mu_\delta, \rm v_{\ell os}, \ell, b, \rm
@@ -396,20 +413,18 @@ require some input conditions to be adequately executed. The current
 distances from the Sun, proper motions, and line-of-sight velocities, as
 well as the related uncertainties, of all 159 globular clusters
 considered in this study are taken respectively from <span
-class="citation"
-data-cites="baumgardt21">(<strong>baumgardt21?</strong>)</span> and
-<span class="citation"
-data-cites="vasiliev21">(<strong>vasiliev21?</strong>)</span>. These
-values are then converted into Galactocentric positions and velocities
-by making use of Astropy and used as initial conditions to execute step
-<span class="math inline">\((i)\)</span>.</p>
+class="citation" data-cites="2021MNRAS.505.5957B">Baumgardt and Vasiliev
+(2021)</span> and <span class="citation"
+data-cites="2021MNRAS.505.5978V">Vasiliev and Baumgardt (2021)</span>.
+These values are then converted into Galactocentric positions and
+velocities by making use of Astropy and used as initial conditions to
+execute step <span class="math inline">\((i)\)</span>.</p>
 <p>Step <span class="math inline">\((ii)\)</span> requires generating an
 <span class="math inline">\(N\)</span>-body system, representing the
 globular cluster, whose initial total mass and half-mass radius are
 assigned on the basis of their current values, as given by <span
-class="citation"
-data-cites="baumgardt18">(<strong>baumgardt18?</strong>)</span><a
-href="#fn4" class="footnote-ref" id="fnref4"
+class="citation" data-cites="2018MNRAS.478.1520B">Baumgardt and Hilker
+(2018)</span><a href="#fn4" class="footnote-ref" id="fnref4"
 role="doc-noteref"><sup>4</sup></a> and reported in Table <a
 href="#TableIC" data-reference-type="ref"
 data-reference="TableIC">[TableIC]</a>. As anticipated at step <span
@@ -426,17 +441,16 @@ where <span class="math inline">\(r_c\)</span> is the cluster scale
 radius and it is related to the half-mass radius, <span
 class="math inline">\(r_{h}\)</span>, through <span
 class="math inline">\(r_{h} \simeq 1.305 r_c\)</span> <span
-class="citation"
-data-cites="heggie03">(<strong>heggie03?</strong>)</span>. The variable
-<span class="math inline">\(r\)</span> here indicates the distance of
-the test particle from the center of the cluster. For each cluster, the
-same Plummer distribution used to generate the <span
-class="math inline">\(N\)</span>-body system is also used to calculate
-the accelerations exerted on each particle as the system moves through
-time. The Plummer sphere, representing the cluster potential, indeed
-moves through the Galaxy along the orbit retrieved at step (i),
-traveling this time in the opposite direction, from 5 Gyr ago to the
-present day.</p>
+class="citation" data-cites="2003gmbp.book.....H">(Heggie and Hut
+2003)</span>. The variable <span class="math inline">\(r\)</span> here
+indicates the distance of the test particle from the center of the
+cluster. For each cluster, the same Plummer distribution used to
+generate the <span class="math inline">\(N\)</span>-body system is also
+used to calculate the accelerations exerted on each particle as the
+system moves through time. The Plummer sphere, representing the cluster
+potential, indeed moves through the Galaxy along the orbit retrieved at
+step (i), traveling this time in the opposite direction, from 5 Gyr ago
+to the present day.</p>
 <p>It might be noted that this implies that the globular cluster density
 profile and its internal parameters (total mass and characteristic
 radius) are constant over time in these models. This is, of course, a
@@ -460,7 +474,8 @@ adding a supplementary hypothesis to the problem. For these reasons, we
 decided to maintain the simplest approach. We emphasize that other
 groups have followed the same methodology, maintaining masses and sizes
 that remain constant over time <span class="citation"
-data-cites="palau19">(see, e.g., <strong>palau19?</strong>)</span>.</p>
+data-cites="2019MNRAS.488.1535P">(see, e.g., Palau and Miralda-Escudé
+2019)</span>.</p>
 <p>The summary tables giving both the current internal parameters of the
 clusters (total mass and half-mass radius), their astrometric quantities
 of relevance for this study and the line-of-sight velocities are
@@ -581,24 +596,25 @@ class="math inline">\(a_{halo}\)</span></th>
 </div>
 <p>As for the Galactic mass distribution, we make use of the two
 axisymmetric Galactic mass models presented in <span class="citation"
-data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span> and of
-an asymmetric mass model, containing a central stellar bar, and we
-present it here for the first time. We recall the main properties of the
-two models of <span class="citation"
-data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span> below
-and we describe the asymmetric Galactic mass model, presented here for
-the first time, in more detail.</p>
+data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
+(2017)</span> and of an asymmetric mass model, containing a central
+stellar bar, and we present it here for the first time. We recall the
+main properties of the two models of <span class="citation"
+data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
+(2017)</span> below and we describe the asymmetric Galactic mass model,
+presented here for the first time, in more detail.</p>
 <h3
 id="model-i-by-an-axisymmetric-mass-model-for-the-galaxy-including-a-spherical-bulge">Model
 I by <span class="citation"
-data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span>: An
-axisymmetric mass model for the Galaxy including a spherical bulge</h3>
+data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
+(2017)</span>: An axisymmetric mass model for the Galaxy including a
+spherical bulge</h3>
 <p>Model I by <span class="citation"
-data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span>
-(abbreviated name: PI) consists of four components: two disks (thin and
-thick), both described by Miyamoto &amp; Nagai potentials, a dark matter
-halo, and a central bulge. Its total potential is: <span
-class="math display">\[\Phi_{tot}(R, z) = \Phi_{thin}(R, z) +
+data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
+(2017)</span> (abbreviated name: PI) consists of four components: two
+disks (thin and thick), both described by Miyamoto &amp; Nagai
+potentials, a dark matter halo, and a central bulge. Its total potential
+is: <span class="math display">\[\Phi_{tot}(R, z) = \Phi_{thin}(R, z) +
 \Phi_{thick}(R, z) + \Phi_{halo}(r)+  \Phi_{bulge}(r),\]</span> with
 <span class="math inline">\(r=\sqrt{R^2 + z^2}\)</span>, <span
 class="math display">\[\begin{aligned}
@@ -608,7 +624,7 @@ class="math display">\[\begin{aligned}
 \end{aligned}\]</span> <span class="math display">\[\begin{split}
                 \Phi_{halo}(r)=&amp;\frac{-GM_{halo}}{r}-\frac{M_{halo}}{1.02a_{halo}}\times\\
                 &amp;
-\Bigg[\frac{-1.02}{1+\left(\frac{r}{a_{halo}}\right)^{1.02}}+ln{(1+\left(\frac{r}{a_{halo}}\right)^{1.02})}\Bigg]_R^{100},
+\Bigg[\frac{-1.02}{1+\left(\frac{r}{a_{halo}}\right)^{1.02}}+\ln{(1+\left(\frac{r}{a_{halo}}\right)^{1.02})}\Bigg]_R^{100},
             \end{split}\]</span> and <span
 class="math display">\[\Phi_{bulge}(r) =
 -\frac{GM_{bulge}}{\sqrt{r^2+{b_{bulge}^2}}},\]</span> where <span
@@ -621,94 +637,95 @@ characteristic scale lengths of the thin and thick disks, the halo, and
 the central bulge, respectively (see Table <a href="#PII"
 data-reference-type="ref" data-reference="PII">[PII]</a>).</p>
 <p>This model is a modification of the classical <span class="citation"
-data-cites="allen91">(<strong>allen91?</strong>)</span> model, made to
-include also the presence of a thick disk. As it has been discussed in
-detail by <span class="citation"
-data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span>, the
-choice to include a massive spheroid in this model, as well as in the
-original <span class="citation"
-data-cites="allen91">(<strong>allen91?</strong>)</span> model, is
-dictated by the need to reproduce CO/HI-based velocity curves, as those
-provided by <span class="citation"
-data-cites="sofue12">(<strong>sofue12?</strong>)</span>, which show a
-rise and then a sudden decrease of the velocity curve in the inner
-Galactic regions (<span class="math inline">\(R \le 2-3\)</span> kpc).
-In an axisymmetric model, such a rise can be reproduced only if a
-central spheroidal component, with a typical mass greater than 10% of
-that of the disk(s), is added. However, as shown by <span
-class="citation"
-data-cites="chemin15">(<strong>chemin15?</strong>)</span>, the central
-rise observed in the rotation of the molecular gas in the inner Galaxy
-may be an effect of non-circular motions generated by large-scale
-asymmetries such as the bar. Moreover, this feature is not reported in
-all the observational studies <span class="citation"
-data-cites="reid14">(see, e.g., <strong>reid14?</strong>, on which model
-PII is based)</span>. In other words, if we do not assume that the mass
-distribution of the inner Galaxy is axisymmetric, the need for a massive
-spheroidal component to reproduce velocity curves, such as those from
-<span class="citation"
-data-cites="sofue12">(<strong>sofue12?</strong>)</span>, no longer
+data-cites="1991RMxAA..22..255A">Allen and Santillan (1991)</span>
+model, made to include also the presence of a thick disk. As it has been
+discussed in detail by <span class="citation"
+data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
+(2017)</span>, the choice to include a massive spheroid in this model,
+as well as in the original <span class="citation"
+data-cites="1991RMxAA..22..255A">Allen and Santillan (1991)</span>
+model, is dictated by the need to reproduce CO/HI-based velocity curves,
+as those provided by <span class="citation"
+data-cites="2012PASJ...64...75S">Sofue (2012)</span>, which show a rise
+and then a sudden decrease of the velocity curve in the inner Galactic
+regions (<span class="math inline">\(R \le 2-3\)</span> kpc). In an
+axisymmetric model, such a rise can be reproduced only if a central
+spheroidal component, with a typical mass greater than 10% of that of
+the disk(s), is added. However, as shown by <span class="citation"
+data-cites="2015A&amp;A...578A..14C">Chemin, Renaud, and Soubiran
+(2015)</span>, the central rise observed in the rotation of the
+molecular gas in the inner Galaxy may be an effect of non-circular
+motions generated by large-scale asymmetries such as the bar. Moreover,
+this feature is not reported in all the observational studies <span
+class="citation" data-cites="2014ApJ...783..130R">(see, e.g., Reid et
+al. 2014, on which model PII is based)</span>. In other words, if we do
+not assume that the mass distribution of the inner Galaxy is
+axisymmetric, the need for a massive spheroidal component to reproduce
+velocity curves, such as those from <span class="citation"
+data-cites="2012PASJ...64...75S">Sofue (2012)</span>, no longer
 persists. In addition to that, in the last decade, a number of works
 have shown that if a spheroidal bulge exists in the central regions of
 our Galaxy, it has to be small <span class="citation"
-data-cites="shen10 kunder12 dimatteo15 gomez18">(few percents of the
-mass of the disk at the most, see among others <strong>shen10?</strong>;
-<strong>kunder12?</strong>; <strong>dimatteo15?</strong>;
-<strong>gomez18?</strong>)</span>. All these arguments suggest to employ
-this model <span class="citation" data-cites="irrgang13">(as well as all
-models including a massive central spheroid; see, e.g.,
-<strong>irrgang13?</strong>)</span> with care when dealing with the
-central parts of the Galaxy. Since models with a massive central
-spheroid, however, are still used in the literature, we have included
-model PI here, as a term of comparison.</p>
+data-cites="2010ApJ...720L..72S 2012AJ....143...57K 2015A&amp;A...577A...1D 2018A&amp;A...615A.100G">(few
+percents of the mass of the disk at the most, see among others Shen et
+al. 2010; Kunder et al. 2012; Di Matteo et al. 2015; Gómez et al.
+2018)</span>. All these arguments suggest to employ this model <span
+class="citation" data-cites="2013A&amp;A...549A.137I">(as well as all
+models including a massive central spheroid; see, e.g., Irrgang et al.
+2013)</span> with care when dealing with the central parts of the
+Galaxy. Since models with a massive central spheroid, however, are still
+used in the literature, we have included model PI here, as a term of
+comparison.</p>
 <h3
 id="model-ii-by-an-axisymmetric-bulge-less-mass-model-for-the-galaxy">Model
 II by <span class="citation"
-data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span>: An
-axisymmetric, bulge-less mass model for the Galaxy</h3>
+data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
+(2017)</span>: An axisymmetric, bulge-less mass model for the
+Galaxy</h3>
 <p>Model II by <span class="citation"
-data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span>
-(abbreviated name: PII) consists of a spherical dark matter halo, with
-the same functional form adopted in the <span class="citation"
-data-cites="allen91">(<strong>allen91?</strong>)</span> model, and of
-two disk components (a thin and a thick disk), with same functional form
-as PI. This model does not include any central spheroid (i.e., it is a
-bulge-less model) and thus its total potential is the sum of three
-components only: <span class="math display">\[\Phi_{tot}(R, z) =
-\Phi_{thin}(R, z) + \Phi_{thick}(R, z) + \Phi_{halo}(r),\]</span> with
-the thin, thick disks, and dark matter halo having the same functional
-forms adopted in PI.</p>
+data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
+(2017)</span> (abbreviated name: PII) consists of a spherical dark
+matter halo, with the same functional form adopted in the <span
+class="citation" data-cites="1991RMxAA..22..255A">Allen and Santillan
+(1991)</span> model, and of two disk components (a thin and a thick
+disk), with same functional form as PI. This model does not include any
+central spheroid (i.e., it is a bulge-less model) and thus its total
+potential is the sum of three components only: <span
+class="math display">\[\Phi_{tot}(R, z) = \Phi_{thin}(R, z) +
+\Phi_{thick}(R, z) + \Phi_{halo}(r),\]</span> with the thin, thick
+disks, and dark matter halo having the same functional forms adopted in
+PI.</p>
 <p>As it has been shown in <span class="citation"
-data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span>, this
-model satisfies a number of observational constraints, such as the
-stellar density at the solar vicinity, thin- and thick-disk scale
-lengths and heights, the rotation curve as provided by <span
-class="citation" data-cites="reid14">(<strong>reid14?</strong>)</span>
-and the absolute value of the perpendicular force, <span
+data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
+(2017)</span>, this model satisfies a number of observational
+constraints, such as the stellar density at the solar vicinity, thin-
+and thick-disk scale lengths and heights, the rotation curve as provided
+by <span class="citation"
+data-cites="reid14">(<strong>reid14?</strong>)</span> and the absolute
+value of the perpendicular force, <span
 class="math inline">\(K_z\)</span>, as a function of distance to the
-Galactic centre <span class="citation" data-cites="pouliasis17">(see
-Sect. 2.5 in <strong>pouliasis17?</strong>)</span>. As it is, however,
-an axisymmetric model, it fails to accurately describe the inner few kpc
-of the Galaxy, where the stellar mass distribution has been shown to be
-asymmetric.</p>
+Galactic centre <span class="citation"
+data-cites="2017A&amp;A...598A..66P">(see Sect. 2.5 in Pouliasis, Di
+Matteo, and Haywood 2017)</span>. As it is, however, an axisymmetric
+model, it fails to accurately describe the inner few kpc of the Galaxy,
+where the stellar mass distribution has been shown to be asymmetric.</p>
 <h3 id="model-ii-with-a-massive-slowly-rotating-stellar-bar">Model II
 with a massive, slowly rotating stellar bar</h3>
 <p>The third mass model (abbreviated name: PII-0.3-SLOW) that we use in
 this paper is a version of PII by <span class="citation"
-data-cites="pouliasis17">(<strong>pouliasis17?</strong>)</span> modified
-to include a rotating stellar bar, whose mass has been assigned to be
-30% of the (thin+thick) disk mass of PII. We assume that the bar rotates
-with a constant pattern speed of <span
+data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
+(2017)</span> modified to include a rotating stellar bar, whose mass has
+been assigned to be 30% of the (thin+thick) disk mass of PII. We assume
+that the bar rotates with a constant pattern speed of <span
 class="math inline">\(\Omega_{bar}=38\rm km~s^{-1}kpc^{-1}\)</span> and
 that it is currently inclined of <span
 class="math inline">\(25^\circ\)</span> with respect to the Sun-Galactic
 center direction <span class="citation"
-data-cites="blandhawthorn16">(see
-<strong>blandhawthorn16?</strong>)</span>. We model it as a triaxial
-distribution, whose gravitational potential is given by <span
-class="citation" data-cites="long92">(<strong>long92?</strong>)</span>:
-<span
-class="math display">\[\Phi_{bar}(x,y,z)=\frac{GM_{bar}}{2a_{bar}}ln\left(
+data-cites="2016ARA&amp;A..54..529B">(see Bland-Hawthorn and Gerhard
+2016)</span>. We model it as a triaxial distribution, whose
+gravitational potential is given by <span class="citation"
+data-cites="1992ApJ...397...44L">Long and Murali (1992)</span>: <span
+class="math display">\[\Phi_{bar}(x,y,z)=\frac{GM_{bar}}{2a_{bar}}\ln\left(
 \frac{x-a_{bar}+T_{-}}{x+a_{bar}+T_{+}}   \right),\]</span> with <span
 class="math inline">\(T_{\pm}=\left[ (a_{bar}\pm x)^2+ y^2 +  (b_{bar}+
 \sqrt{c_{bar}^2+z^2})^2 \right]^{1/2}\)</span> and <span
@@ -721,15 +738,15 @@ all characteristic values given in Table <a href="#PII"
 data-reference-type="ref" data-reference="PII">[PII]</a>. Practically,
 to include the bar, we reduced the mass of the disks in such a way to
 maintain the total stellar mass of this model as that of PII. <span
-class="citation" data-cites="long92">(<strong>long92?</strong>)</span>
-provide the formulas of the accelerations generated by this triaxial
-distribution in the reference frame of the bar. To calculate and add
-them to the accelerations generated by the disks and dark matter halo,
-at each time step, we converted the positions of all particles in the
-rotating, non-inertial reference frame of the bar, computed the
-corresponding accelerations on each particle, and then transformed these
-accelerations back in the inertial reference frame described in Sect. <a
-href="#numerical" data-reference-type="ref"
+class="citation" data-cites="1992ApJ...397...44L">Long and Murali
+(1992)</span> provide the formulas of the accelerations generated by
+this triaxial distribution in the reference frame of the bar. To
+calculate and add them to the accelerations generated by the disks and
+dark matter halo, at each time step, we converted the positions of all
+particles in the rotating, non-inertial reference frame of the bar,
+computed the corresponding accelerations on each particle, and then
+transformed these accelerations back in the inertial reference frame
+described in Sect. <a href="#numerical" data-reference-type="ref"
 data-reference="numerical">2.1</a>. In this way, the accelerations due
 to the bar are added to those generated by the other terms of the
 Galactic mass distribution.</p>
@@ -741,20 +758,20 @@ affect the globular cluster streams, near and far from the Galactic
 center.</p>
 <p>Moreover, since the exact characteristics of the Milky Way bar are
 still subject to debate <span class="citation"
-data-cites="blandhawthorn16">(see, e.g.,
-<strong>blandhawthorn16?</strong>)</span>, it is important to explore
-how varying the parameters adopted in this paper, such as the pattern
-speed, the mass, or the length of the bar, can affect the
-characteristics of the whole set of streams. More complex shapes for the
-bar can also be explored, for example, by substituting the inner parts
-of the triaxial bar with a boxy-peanut-shaped morphology, which has been
-shown to characterize the inner Milky Way <span class="citation"
-data-cites="wegg13 wegg15">(see, e.g., <strong>wegg13?</strong>;
-<strong>wegg15?</strong>)</span>. These topics are, however, beyond the
-scope of the present paper. In sum, given the uncertainties on the bar’s
-physical extent and how it can change over the time span investigated
-here, its affect on the streams presented here are purely
-indicative.</p>
+data-cites="2016ARA&amp;A..54..529B">(see, e.g., Bland-Hawthorn and
+Gerhard 2016)</span>, it is important to explore how varying the
+parameters adopted in this paper, such as the pattern speed, the mass,
+or the length of the bar, can affect the characteristics of the whole
+set of streams. More complex shapes for the bar can also be explored,
+for example, by substituting the inner parts of the triaxial bar with a
+boxy-peanut-shaped morphology, which has been shown to characterize the
+inner Milky Way <span class="citation"
+data-cites="2013MNRAS.435.1874W 2015MNRAS.450.4050W">(see, e.g., Wegg
+and Gerhard 2013; Wegg, Gerhard, and Portail 2015)</span>. These topics
+are, however, beyond the scope of the present paper. In sum, given the
+uncertainties on the bar’s physical extent and how it can change over
+the time span investigated here, its affect on the streams presented
+here are purely indicative.</p>
 <h1 id="results">Results</h1>
 <div class="figure*">
 <div class="center">
@@ -794,12 +811,12 @@ center. For the most interesting cases, we compare the tidal structures
 predicted by our simulations with streams found in observational data.
 For this purpose, we make use of the <em>galstreams</em> library of
 stellar streams in the Milky Way <span class="citation"
-data-cites="mateu22">(<strong>mateu22?</strong>)</span>, which
-constitutes a unique and public database summarizing angular positions,
-distances, proper motions, and line-of-sight velocity tracks for nearly
-a hundred Galactic stellar streams. Any stream that is not included in
-this library is not be compared to our simulations in the context of
-this paper.</p>
+data-cites="2023MNRAS.520.5225M">(Mateu 2023)</span>, which constitutes
+a unique and public database summarizing angular positions, distances,
+proper motions, and line-of-sight velocity tracks for nearly a hundred
+Galactic stellar streams. Any stream that is not included in this
+library is not be compared to our simulations in the context of this
+paper.</p>
 <p>We note that the tidal features associated with each of the 159
 simulated clusters are presented in Appendix <a href="#allstreams"
 data-reference-type="ref" data-reference="allstreams">5.2</a>. To avoid
@@ -821,9 +838,9 @@ data-reference="galleryLB">[galleryLB]</a> is the variety of features
 that our models predict, which are reminiscent of the tidal tails,
 stellar streams, and shells that are produced by interacting and merging
 galaxies in the process of mass assembly <span class="citation"
-data-cites="mancillas19">(see, e.g.,
-<strong>mancillas19?</strong>)</span>. Some clusters have very thin and
-elongated streams, which describe arcs that can extend up to <span
+data-cites="2019A&amp;A...632A.122M">(see, e.g., Mancillas et al.
+2019)</span>. Some clusters have very thin and elongated streams, which
+describe arcs that can extend up to <span
 class="math inline">\(180^\circ\)</span> in longitude, or tens of kpc in
 physical space. In some other cases, extra-tidal features appear shorter
 (a few up to ten degrees) and sometimes also thicker (about <span
@@ -880,14 +897,14 @@ M_{\odot}\)</span>, which is 10% of the current mass and gives a half
 mass radius of 6.3 kpc.</p>
 <p>This mass roughly constitutes one-hundredth to one-tenth of the total
 stellar halo mass <span class="citation"
-data-cites="blandhawthorn16">(<strong>blandhawthorn16?</strong>)</span>
-and it is probably only a lower limit on the mass of escaped stars in
-the field, since a number of clusters initially in the Galaxy must have
-been destroyed over time (see introduction) and are thus no longer
-identifiabl as globular clusters today. It is also interesting to note
-that escaped stars are mostly redistributed in the inner Galaxy, with
-the half-mass radius of the PI model being 4.0 kpc and that of the PII
-and PII-0.3-SLOW models being 6.3 kpc.</p>
+data-cites="2016ARA&amp;A..54..529B">(Bland-Hawthorn and Gerhard
+2016)</span> and it is probably only a lower limit on the mass of
+escaped stars in the field, since a number of clusters initially in the
+Galaxy must have been destroyed over time (see introduction) and are
+thus no longer identifiabl as globular clusters today. It is also
+interesting to note that escaped stars are mostly redistributed in the
+inner Galaxy, with the half-mass radius of the PI model being 4.0 kpc
+and that of the PII and PII-0.3-SLOW models being 6.3 kpc.</p>
 <p>The total mass lost from the clusters, as well as its spatial
 distribution, thus depends on the Galactic potential adopted: the
 variations between the PI model and both the PII and PII-0.3-SLOW models
@@ -896,19 +913,19 @@ larger tidal forces in the center of the galaxy and subsequently drives
 larger mass loss.</p>
 <p>Despite the differences in the modeling approach, it is interesting
 to compare our results to those of <span class="citation"
-data-cites="baumgardt2017global">(<strong>baumgardt2017global?</strong>)</span>.
-Briefly, our experiments differ in the following ways: they employ
-N-body simulations while we use our test-particle approach; they have an
-integration time of 12 Gyrs compared to our 5 Gyrs; lastly, their
-clusters have circular orbits in a Galactic potential modeled as an
-isothermal sphere as compared to the more realistic orbits and Galactic
-potentials considered in this work. Interestingly, the authors find that
-over 12 Gyrs their population of globular clusters lose two-thirds of
-their initial mass. This is roughly consistent with our application of
-the PI model, whose globular clusters shed 35% of their initial mass in
-5 Gyrs, which is roughly half the mass found by <span class="citation"
-data-cites="baumgardt2017global">(<strong>baumgardt2017global?</strong>)</span>
-in a period that is also about half as long.</p>
+data-cites="2017MNRAS.464.2174B">Baumgardt (2017)</span>. Briefly, our
+experiments differ in the following ways: they employ N-body simulations
+while we use our test-particle approach; they have an integration time
+of 12 Gyrs compared to our 5 Gyrs; lastly, their clusters have circular
+orbits in a Galactic potential modeled as an isothermal sphere as
+compared to the more realistic orbits and Galactic potentials considered
+in this work. Interestingly, the authors find that over 12 Gyrs their
+population of globular clusters lose two-thirds of their initial mass.
+This is roughly consistent with our application of the PI model, whose
+globular clusters shed 35% of their initial mass in 5 Gyrs, which is
+roughly half the mass found by <span class="citation"
+data-cites="2017MNRAS.464.2174B">Baumgardt (2017)</span> in a period
+that is also about half as long.</p>
 <h2 id="streamvsD">From the nearest to the furthest extra-tidal
 structures</h2>
 <p>The analysis presented in this section along with the corresponding
@@ -1056,9 +1073,9 @@ class="math inline">\(v_{\ell os}\)</span>, which is due to the solar
 reflex velocity. This is the same trend observed for the whole set of
 radial (i.e., line-of-sight) velocities in Gaia DR3; for instance, we
 refer to the bottom panel of Fig. 5 from <span class="citation"
-data-cites="katz22">(<strong>katz22?</strong>)</span>, although less
-extreme velocities are reported in their plot since their dataset is
-dominated by disk stars, whereas our maps have a high proportional
+data-cites="2023A&amp;A...674A...5K">Katz et al. (2023)</span>, although
+less extreme velocities are reported in their plot since their dataset
+is dominated by disk stars, whereas our maps have a high proportional
 contribution of halo stars (additionally, they use median values in
 their bins, while we use an average). In order to quantify the net
 rotation of the system of streams, we calculated the mean angular
@@ -3074,6 +3091,260 @@ histogram that bins 5.1<span class="math inline">\(\times10^6\)</span>
 particles. The retrieved cumulative 2D histogram is then normalized to
 its maximum value and plotted in the following figures in logarithmic
 scale.</p>
+<div id="refs" class="references csl-bib-body hanging-indent"
+data-entry-spacing="0" role="list">
+<div id="ref-1991RMxAA..22..255A" class="csl-entry" role="listitem">
+Allen, Christine, and Alfredo Santillan. 1991. <span>“<span
+class="nocase">An improved model of the galactic mass distribution for
+orbit computations.</span>”</span> 22 (October):255.
+</div>
+<div id="ref-2018AJ....156..123A" class="csl-entry" role="listitem">
+Astropy Collaboration, A. M. Price-Whelan, B. M. Sipőcz, H. M. Günther,
+P. L. Lim, S. M. Crawford, S. Conseil, et al. 2018. <span>“<span
+class="nocase">The Astropy Project: Building an Open-science Project and
+Status of the v2.0 Core Package</span>”</span> 156 (3): 123. <a
+href="https://doi.org/10.3847/1538-3881/aabc4f">https://doi.org/10.3847/1538-3881/aabc4f</a>.
+</div>
+<div id="ref-2013A&amp;A...558A..33A" class="csl-entry" role="listitem">
+Astropy Collaboration, Thomas P. Robitaille, Erik J. Tollerud, Perry
+Greenfield, Michael Droettboom, Erik Bray, Tom Aldcroft, et al. 2013.
+<span>“<span class="nocase">Astropy: A community Python package for
+astronomy</span>”</span> 558 (October):A33. <a
+href="https://doi.org/10.1051/0004-6361/201322068">https://doi.org/10.1051/0004-6361/201322068</a>.
+</div>
+<div id="ref-2017MNRAS.464.2174B" class="csl-entry" role="listitem">
+Baumgardt, H. 2017. <span>“<span class="nocase">N -body modelling of
+globular clusters: masses, mass-to-light ratios and intermediate-mass
+black holes</span>”</span> 464 (2): 2174–2202. <a
+href="https://doi.org/10.1093/mnras/stw2488">https://doi.org/10.1093/mnras/stw2488</a>.
+</div>
+<div id="ref-2018MNRAS.478.1520B" class="csl-entry" role="listitem">
+Baumgardt, H., and M. Hilker. 2018. <span>“<span class="nocase">A
+catalogue of masses, structural parameters, and velocity dispersion
+profiles of 112 Milky Way globular clusters</span>”</span> 478 (2):
+1520–57. <a
+href="https://doi.org/10.1093/mnras/sty1057">https://doi.org/10.1093/mnras/sty1057</a>.
+</div>
+<div id="ref-2021MNRAS.505.5957B" class="csl-entry" role="listitem">
+Baumgardt, H., and E. Vasiliev. 2021. <span>“<span
+class="nocase">Accurate distances to Galactic globular clusters through
+a combination of Gaia EDR3, HST, and literature data</span>”</span> 505
+(4): 5957–77. <a
+href="https://doi.org/10.1093/mnras/stab1474">https://doi.org/10.1093/mnras/stab1474</a>.
+</div>
+<div id="ref-2018MNRAS.478..611B" class="csl-entry" role="listitem">
+Belokurov, V., D. Erkal, N. W. Evans, S. E. Koposov, and A. J. Deason.
+2018. <span>“<span class="nocase">Co-formation of the disc and the
+stellar halo</span>”</span> 478 (1): 611–19. <a
+href="https://doi.org/10.1093/mnras/sty982">https://doi.org/10.1093/mnras/sty982</a>.
+</div>
+<div id="ref-2016ARA&amp;A..54..529B" class="csl-entry" role="listitem">
+Bland-Hawthorn, Joss, and Ortwin Gerhard. 2016. <span>“<span
+class="nocase">The Galaxy in Context: Structural, Kinematic, and
+Integrated Properties</span>”</span> 54 (September):529–96. <a
+href="https://doi.org/10.1146/annurev-astro-081915-023441">https://doi.org/10.1146/annurev-astro-081915-023441</a>.
+</div>
+<div id="ref-2015A&amp;A...578A..14C" class="csl-entry" role="listitem">
+Chemin, Laurent, Florent Renaud, and Caroline Soubiran. 2015.
+<span>“<span class="nocase">Incorrect rotation curve of the Milky
+Way</span>”</span> 578 (June):A14. <a
+href="https://doi.org/10.1051/0004-6361/201526040">https://doi.org/10.1051/0004-6361/201526040</a>.
+</div>
+<div id="ref-2001ApJ...553..184C" class="csl-entry" role="listitem">
+Chen, Bing, Chris Stoughton, J. Allyn Smith, Alan Uomoto, Jeffrey R.
+Pier, Brian Yanny, Željko Ivezić, et al. 2001. <span>“<span
+class="nocase">Stellar Population Studies with the SDSS. I. The Vertical
+Distribution of Stars in the Milky Way</span>”</span> 553 (1): 184–97.
+<a
+href="https://doi.org/10.1086/320647">https://doi.org/10.1086/320647</a>.
+</div>
+<div id="ref-2015A&amp;A...577A...1D" class="csl-entry" role="listitem">
+Di Matteo, P., A. Gómez, M. Haywood, F. Combes, M. D. Lehnert, M. Ness,
+O. N. Snaith, D. Katz, and B. Semelin. 2015. <span>“<span
+class="nocase">Why the Milky Way’s bulge is not only a bar formed from a
+cold thin disk</span>”</span> 577 (May):A1. <a
+href="https://doi.org/10.1051/0004-6361/201424457">https://doi.org/10.1051/0004-6361/201424457</a>.
+</div>
+<div id="ref-2019A&amp;A...632A...4D" class="csl-entry" role="listitem">
+Di Matteo, P., M. Haywood, M. D. Lehnert, D. Katz, S. Khoperskov, O. N.
+Snaith, A. Gómez, and N. Robichon. 2019. <span>“<span class="nocase">The
+Milky Way has no in-situ halo other than the heated thick disc.
+Composition of the stellar halo and age-dating the last significant
+merger with Gaia DR2 and APOGEE</span>”</span> 632 (December):A4. <a
+href="https://doi.org/10.1051/0004-6361/201834929">https://doi.org/10.1051/0004-6361/201834929</a>.
+</div>
+<div id="ref-2019NatAs...3..932G" class="csl-entry" role="listitem">
+Gallart, Carme, Edouard J. Bernard, Chris B. Brook, Tomás Ruiz-Lara,
+Santi Cassisi, Vanessa Hill, and Matteo Monelli. 2019. <span>“<span
+class="nocase">Uncovering the birth of the Milky Way through accurate
+stellar ages with Gaia</span>.”</span> <em>Nature Astronomy</em> 3
+(July):932–39. <a
+href="https://doi.org/10.1038/s41550-019-0829-5">https://doi.org/10.1038/s41550-019-0829-5</a>.
+</div>
+<div id="ref-2018A&amp;A...615A.100G" class="csl-entry" role="listitem">
+Gómez, A., P. Di Matteo, M. Schultheis, F. Fragkoudi, M. Haywood, and F.
+Combes. 2018. <span>“<span class="nocase">Searching for a kinematic
+signature of the moderately metal-poor stars in the Milky Way bulge
+using N-body simulations</span>”</span> 615 (July):A100. <a
+href="https://doi.org/10.1051/0004-6361/201732568">https://doi.org/10.1051/0004-6361/201732568</a>.
+</div>
+<div id="ref-2018A&amp;A...615L..15G" class="csl-entry" role="listitem">
+GRAVITY Collaboration, R. Abuter, A. Amorim, N. Anugu, M. Bauböck, M.
+Benisty, J. P. Berger, et al. 2018. <span>“<span
+class="nocase">Detection of the gravitational redshift in the orbit of
+the star S2 near the Galactic centre massive black hole</span>”</span>
+615 (July):L15. <a
+href="https://doi.org/10.1051/0004-6361/201833718">https://doi.org/10.1051/0004-6361/201833718</a>.
+</div>
+<div id="ref-2022ApJ...929...89G" class="csl-entry" role="listitem">
+Grillmair, Carl J. 2022. <span>“<span class="nocase">The Extended Tidal
+Tails of NGC 7089 (M2)</span>”</span> 929 (1): 89. <a
+href="https://doi.org/10.3847/1538-4357/ac5bd7">https://doi.org/10.3847/1538-4357/ac5bd7</a>.
+</div>
+<div id="ref-2003gmbp.book.....H" class="csl-entry" role="listitem">
+Heggie, Douglas, and Piet Hut. 2003. <em><span class="nocase">The
+Gravitational Million-Body Problem: A Multidisciplinary Approach to Star
+Cluster Dynamics</span></em>.
+</div>
+<div id="ref-2018Natur.563...85H" class="csl-entry" role="listitem">
+Helmi, Amina, Carine Babusiaux, Helmer H. Koppelman, Davide Massari,
+Jovan Veljanoski, and Anthony G. A. Brown. 2018. <span>“<span
+class="nocase">The merger that led to the formation of the Milky Way’s
+inner stellar halo and thick disk</span>”</span> 563 (7729): 85–88. <a
+href="https://doi.org/10.1038/s41586-018-0625-x">https://doi.org/10.1038/s41586-018-0625-x</a>.
+</div>
+<div id="ref-2013A&amp;A...549A.137I" class="csl-entry" role="listitem">
+Irrgang, A., B. Wilcox, E. Tucker, and L. Schiefelbein. 2013.
+<span>“<span class="nocase">Milky Way mass models for orbit
+calculations</span>”</span> 549 (January):A137. <a
+href="https://doi.org/10.1051/0004-6361/201220540">https://doi.org/10.1051/0004-6361/201220540</a>.
+</div>
+<div id="ref-2023A&amp;A...674A...5K" class="csl-entry" role="listitem">
+Katz, D., P. Sartoretti, A. Guerrier, P. Panuzzo, G. M. Seabroke, F.
+Thévenin, M. Cropper, et al. 2023. <span>“<span class="nocase">Gaia Data
+Release 3. Properties and validation of the radial
+velocities</span>”</span> 674 (June):A5. <a
+href="https://doi.org/10.1051/0004-6361/202244220">https://doi.org/10.1051/0004-6361/202244220</a>.
+</div>
+<div id="ref-2020MNRAS.498.2472K" class="csl-entry" role="listitem">
+Kruijssen, J. M. Diederik, Joel L. Pfeffer, Mélanie Chevance, Ana
+Bonaca, Sebastian Trujillo-Gomez, Nate Bastian, Marta Reina-Campos,
+Robert A. Crain, and Meghan E. Hughes. 2020. <span>“<span
+class="nocase">Kraken reveals itself - the merger history of the Milky
+Way reconstructed with the E-MOSAICS simulations</span>”</span> 498 (2):
+2472–91. <a
+href="https://doi.org/10.1093/mnras/staa2452">https://doi.org/10.1093/mnras/staa2452</a>.
+</div>
+<div id="ref-2012AJ....143...57K" class="csl-entry" role="listitem">
+Kunder, Andrea, Andreas Koch, R. Michael Rich, Roberto de Propris,
+Christian D. Howard, Scott A. Stubbs, Christian I. Johnson, et al. 2012.
+<span>“<span class="nocase">The Bulge Radial Velocity Assay (BRAVA). II.
+Complete Sample and Data Release</span>”</span> 143 (3): 57. <a
+href="https://doi.org/10.1088/0004-6256/143/3/57">https://doi.org/10.1088/0004-6256/143/3/57</a>.
+</div>
+<div id="ref-2012MNRAS.423.2845L" class="csl-entry" role="listitem">
+Lane, Richard R., Andreas H. W. Küpper, and Douglas C. Heggie. 2012.
+<span>“<span class="nocase">The tidal tails of 47 Tucanae</span>”</span>
+423 (3): 2845–53. <a
+href="https://doi.org/10.1111/j.1365-2966.2012.21093.x">https://doi.org/10.1111/j.1365-2966.2012.21093.x</a>.
+</div>
+<div id="ref-1992ApJ...397...44L" class="csl-entry" role="listitem">
+Long, Kevin, and Chigurupati Murali. 1992. <span>“<span
+class="nocase">Analytical Potentials for Barred Galaxies</span>”</span>
+397 (September):44. <a
+href="https://doi.org/10.1086/171764">https://doi.org/10.1086/171764</a>.
+</div>
+<div id="ref-2019A&amp;A...632A.122M" class="csl-entry" role="listitem">
+Mancillas, Brisa, Pierre-Alain Duc, Françoise Combes, Frédéric Bournaud,
+Eric Emsellem, Marie Martig, and Leo Michel-Dansac. 2019. <span>“<span
+class="nocase">Probing the merger history of red early-type galaxies
+with their faint stellar substructures</span>”</span> 632
+(December):A122. <a
+href="https://doi.org/10.1051/0004-6361/201936320">https://doi.org/10.1051/0004-6361/201936320</a>.
+</div>
+<div id="ref-2012A&amp;A...546L...7M" class="csl-entry" role="listitem">
+Mastrobuono-Battisti, A., P. Di Matteo, M. Montuori, and M. Haywood.
+2012. <span>“<span class="nocase">Clumpy streams in a smooth dark halo:
+the case of Palomar 5</span>”</span> 546 (October):L7. <a
+href="https://doi.org/10.1051/0004-6361/201219563">https://doi.org/10.1051/0004-6361/201219563</a>.
+</div>
+<div id="ref-2023MNRAS.520.5225M" class="csl-entry" role="listitem">
+Mateu, Cecilia. 2023. <span>“<span class="nocase">galstreams: A library
+of Milky Way stellar stream footprints and tracks</span>”</span> 520
+(4): 5225–58. <a
+href="https://doi.org/10.1093/mnras/stad321">https://doi.org/10.1093/mnras/stad321</a>.
+</div>
+<div id="ref-2019MNRAS.488.1535P" class="csl-entry" role="listitem">
+Palau, Carles G., and Jordi Miralda-Escudé. 2019. <span>“<span
+class="nocase">Statistical detection of a tidal stream associated with
+the globular cluster M68 using Gaia data</span>”</span> 488 (2):
+1535–57. <a
+href="https://doi.org/10.1093/mnras/stz1790">https://doi.org/10.1093/mnras/stz1790</a>.
+</div>
+<div id="ref-2021MNRAS.505.3033P" class="csl-entry" role="listitem">
+Piatti, Andrés E. 2021. <span>“<span class="nocase">The surroundings of
+the Milky Way globular cluster NGC 6809</span>”</span> 505 (2): 3033–40.
+<a
+href="https://doi.org/10.1093/mnras/stab1532">https://doi.org/10.1093/mnras/stab1532</a>.
+</div>
+<div id="ref-2017A&amp;A...598A..66P" class="csl-entry" role="listitem">
+Pouliasis, E., P. Di Matteo, and M. Haywood. 2017. <span>“<span
+class="nocase">A Milky Way with a massive, centrally concentrated thick
+disc: new Galactic mass models for orbit computations</span>”</span> 598
+(February):A66. <a
+href="https://doi.org/10.1051/0004-6361/201527346">https://doi.org/10.1051/0004-6361/201527346</a>.
+</div>
+<div id="ref-2014ApJ...783..130R" class="csl-entry" role="listitem">
+Reid, M. J., K. M. Menten, A. Brunthaler, X. W. Zheng, T. M. Dame, Y.
+Xu, Y. Wu, et al. 2014. <span>“<span class="nocase">Trigonometric
+Parallaxes of High Mass Star Forming Regions: The Structure and
+Kinematics of the Milky Way</span>”</span> 783 (2): 130. <a
+href="https://doi.org/10.1088/0004-637X/783/2/130">https://doi.org/10.1088/0004-637X/783/2/130</a>.
+</div>
+<div id="ref-2010MNRAS.403.1829S" class="csl-entry" role="listitem">
+Schönrich, Ralph, James Binney, and Walter Dehnen. 2010. <span>“<span
+class="nocase">Local kinematics and the local standard of
+rest</span>”</span> 403 (4): 1829–33. <a
+href="https://doi.org/10.1111/j.1365-2966.2010.16253.x">https://doi.org/10.1111/j.1365-2966.2010.16253.x</a>.
+</div>
+<div id="ref-2010ApJ...720L..72S" class="csl-entry" role="listitem">
+Shen, Juntai, R. Michael Rich, John Kormendy, Christian D. Howard,
+Roberto De Propris, and Andrea Kunder. 2010. <span>“<span
+class="nocase">Our Milky Way as a Pure-disk Galaxy<span></span>A
+Challenge for Galaxy Formation</span>”</span> 720 (1): L72–76. <a
+href="https://doi.org/10.1088/2041-8205/720/1/L72">https://doi.org/10.1088/2041-8205/720/1/L72</a>.
+</div>
+<div id="ref-2012PASJ...64...75S" class="csl-entry" role="listitem">
+Sofue, Yoshiaki. 2012. <span>“<span class="nocase">Grand Rotation Curve
+and Dark Matter Halo in the Milky Way Galaxy</span>”</span> 64
+(August):75. <a
+href="https://doi.org/10.1093/pasj/64.4.75">https://doi.org/10.1093/pasj/64.4.75</a>.
+</div>
+<div id="ref-2021MNRAS.505.5978V" class="csl-entry" role="listitem">
+Vasiliev, Eugene, and Holger Baumgardt. 2021. <span>“<span
+class="nocase">Gaia EDR3 view on galactic globular
+clusters</span>”</span> 505 (4): 5978–6002. <a
+href="https://doi.org/10.1093/mnras/stab1475">https://doi.org/10.1093/mnras/stab1475</a>.
+</div>
+<div id="ref-2021MNRAS.501.2279V" class="csl-entry" role="listitem">
+Vasiliev, Eugene, Vasily Belokurov, and Denis Erkal. 2021. <span>“<span
+class="nocase">Tango for three: Sagittarius, LMC, and the Milky
+Way</span>”</span> 501 (2): 2279–2304. <a
+href="https://doi.org/10.1093/mnras/staa3673">https://doi.org/10.1093/mnras/staa3673</a>.
+</div>
+<div id="ref-2013MNRAS.435.1874W" class="csl-entry" role="listitem">
+Wegg, Christopher, and Ortwin Gerhard. 2013. <span>“<span
+class="nocase">Mapping the three-dimensional density of the Galactic
+bulge with VVV red clump stars</span>”</span> 435 (3): 1874–87. <a
+href="https://doi.org/10.1093/mnras/stt1376">https://doi.org/10.1093/mnras/stt1376</a>.
+</div>
+<div id="ref-2015MNRAS.450.4050W" class="csl-entry" role="listitem">
+Wegg, Christopher, Ortwin Gerhard, and Matthieu Portail. 2015.
+<span>“<span class="nocase">The structure of the Milky Way’s bar outside
+the bulge</span>”</span> 450 (4): 4050–69. <a
+href="https://doi.org/10.1093/mnras/stv745">https://doi.org/10.1093/mnras/stv745</a>.
+</div>
+</div>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
 role="doc-endnotes">
 <hr />
@@ -3085,9 +3356,9 @@ first term, since the second is usually used also to indicate the
 (Galactocentric) radial velocities and can introduce some ambiguity,
 especially when different coordinate systems are used. We emphasize that
 the choice to use the term “line-of-sight velocity” is not new <span
-class="citation" data-cites="vasiliev21">(see, e.g.,
-<strong>vasiliev21?</strong>)</span>.<a href="#fnref1"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+class="citation" data-cites="2021MNRAS.505.5978V">(see, e.g., Vasiliev
+and Baumgardt 2021)</span>.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p><a href="https://www.hdfgroup.org/solutions/hdf5/"
 class="uri">https://www.hdfgroup.org/solutions/hdf5/</a><a
 href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
