@@ -9,15 +9,24 @@ This chapter serves multiple roles: half learning resource for a Master's-level 
 Conceptually, the chapter is divided into three sections that mirror these motivations:
 
 \begin{itemize}
-    \item \textbf{Explicit physics}: These are the fundamental equations that underpin our models. the physical laws and initial conditions implemented in the simulations;
-    \item \textbf{Implicit physics}: Often, while the governing equations can be written exactly, they are too terse to provide intuition. This section interprets simplified versions of the equations to explain qualitatively what's happening in the simulations.
-    \item \textbf{Ignored physics}: Here I highlight physical effects excluded from our models, many of which appear in the broader literature. I discuss why we excluded them and how that limits our results
+    \item \textbf{Explicit physics}: These are the fundamental equations that underpin our models;
+    \item \textbf{Implicit physics}: Often, while the governing equations can be written exactly, they are too terse to provide intuition. This section interprets simplified versions of the equations to explain qualitatively what's happening in the simulations;
+    \item \textbf{Ignored physics}: Here I highlight physical effects excluded from our models, many of which appear in the broader literature. I discuss why we excluded them and how that limits our results/
 \end{itemize}
 
 
-
-
 \section{The Explicit Physics}
+
+    Globular clusters contain hundreds of thousands to millions of stars. Each star orbits within the globular cluster. Simultaneously, the center of mass of a clusters is orbiting about the center of mass of the galaxy. The galaxy, is composed of billions of stars that are all moving about the center of mass of the galaxy. Not only this, but the galaxy contains gas as well as dark matter. A tempting modelign choice would be to consider all of the stars as point masses and solve for a density distribution for the gas and dark matter. This would require solving hydrodynamical simulations for the gas, and solving $N$-body simulations for the point masses. 
+
+    For many types of problems, the Big-O notation is evoked to show how the computation time scales with some parameter. For an $N$-body simulation, the computation time scales with $\mathcal{O}\left(N^2\right)$, because each pair of distances must for all bodies in the system. In the Milky Way, there are $10^{11}$ stars, which would require on the other of $10^{22}$ computations for a single moment of time. Let us consider the time required to perform such a simulation. 
+
+    FLOPS are Floating Point Operations Per Second and is a metric to measure the computation speed of a given machine. To illustrate how unfesable such an experiment, let us consider one of the most powerful modern computational facilities. Frontier is one such system and is able to perform on exascale \citet{atchley2023frontier}. One exaflop is $10^{18}$ floating point operations per second, or one billion billion operations. If using this machine, if we wished to compute the pairwise forces of all bodies in the galaxy, we would need $5\times10^{21}$ distance computations. If each computation were 1 FLOPS, which is an underestimate, a single force computation would require a few hours. A few hours seems fesable. However, dedicating an entire system to such a problem is a big ask. For example, we can estimate the average price per power is $\sim0.10~\frac{\mathrm{US}\$}{\mathrm{kWh}}$ \citep{table20245}. The power required to run Frontier is $21~MW$. If we say a single force computation is 6~hours, it would cost 12,600~US\$. A single day is $\sim50,000$~US\$. On 25~July~2025, according to the European Central Bank, 1.17~US\$ is equal to 1~EUR. A day is thus $\sim$~42,000~EUR. And lastly, the annual salary for a PhD student is $24,000$~EUR \citep{MESR_financement_doctoral}. 
+    
+    Just for fun, what if I were using my research computer, the MacBook Air with an M2 processor, to simulate the entire Milky Way? The machine has an estimated speed of $\sim$0.1 TFLOPS, which is about $10^11$ floating point operations per second \citep{hubner2025apple}. A single timestep of an $N$-body simulation for the galaxy would be about 10 million times slower and would take about 1,500~years.
+    
+
+
     My simulations solve the \textit{restricted three-body problem}. In this setup, the host galaxy is treated as the primary body, fixed at the origin of the coordinate system, which corresponds to the system's center of mass. The galaxy exerts a gravitational force on both the globular cluster—modeled as a single center of mass—and on all individual star particles.
 
     The globular cluster is approximated as a smooth density distribution that influences the star particles, rather than as a collection of stars interacting with one another. This simplification significantly reduces the computational cost. Moreover, all star particles are integrated independently, without interacting with one another. In effect, the full N-body problem is approximated as \(N\) independent instances of the restricted three-body problem.  Figure~\ref{fig:restricted_three_body_set_up} illustrates the schematic configuration of the system.

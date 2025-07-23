@@ -218,18 +218,69 @@ this research.</p>
 these motivations:</p>
 <ul>
 <li><p><strong>Explicit physics</strong>: These are the fundamental
-equations that underpin our models. the physical laws and initial
-conditions implemented in the simulations;</p></li>
+equations that underpin our models;</p></li>
 <li><p><strong>Implicit physics</strong>: Often, while the governing
 equations can be written exactly, they are too terse to provide
 intuition. This section interprets simplified versions of the equations
-to explain qualitatively what’s happening in the simulations.</p></li>
+to explain qualitatively what’s happening in the simulations;</p></li>
 <li><p><strong>Ignored physics</strong>: Here I highlight physical
 effects excluded from our models, many of which appear in the broader
 literature. I discuss why we excluded them and how that limits our
-results</p></li>
+results/</p></li>
 </ul>
 <h1 id="the-explicit-physics">The Explicit Physics</h1>
+<p>Globular clusters contain hundreds of thousands to millions of stars.
+Each star orbits within the globular cluster. Simultaneously, the center
+of mass of a clusters is orbiting about the center of mass of the
+galaxy. The galaxy, is composed of billions of stars that are all moving
+about the center of mass of the galaxy. Not only this, but the galaxy
+contains gas as well as dark matter. A tempting modelign choice would be
+to consider all of the stars as point masses and solve for a density
+distribution for the gas and dark matter. This would require solving
+hydrodynamical simulations for the gas, and solving <span
+class="math inline">\(N\)</span>-body simulations for the point
+masses.</p>
+<p>For many types of problems, the Big-O notation is evoked to show how
+the computation time scales with some parameter. For an <span
+class="math inline">\(N\)</span>-body simulation, the computation time
+scales with <span
+class="math inline">\(\mathcal{O}\left(N^2\right)\)</span>, because each
+pair of distances must for all bodies in the system. In the Milky Way,
+there are <span class="math inline">\(10^{11}\)</span> stars, which
+would require on the other of <span
+class="math inline">\(10^{22}\)</span> computations for a single moment
+of time. Let us consider the time required to perform such a
+simulation.</p>
+<p>FLOPS are Floating Point Operations Per Second and is a metric to
+measure the computation speed of a given machine. To illustrate how
+unfesable such an experiment, let us consider one of the most powerful
+modern computational facilities. Frontier is one such system and is able
+to perform on exascale <span class="citation"
+data-cites="atchley2023frontier">Atchley et al. (2023)</span>. One
+exaflop is <span class="math inline">\(10^{18}\)</span> floating point
+operations per second, or one billion billion operations. If using this
+machine, if we wished to compute the pairwise forces of all bodies in
+the galaxy, we would need <span
+class="math inline">\(5\times10^{21}\)</span> distance computations. If
+each computation were 1 FLOPS, which is an underestimate, a single force
+computation would require a few hours. A few hours seems fesable.
+However, dedicating an entire system to such a problem is a big ask. For
+example, we can estimate the average price per power is <span
+class="math inline">\(\sim0.10~\frac{\mathrm{US}\$}{\mathrm{kWh}}\)</span>
+<span class="citation" data-cites="table20245">(Table 2024)</span>. The
+power required to run Frontier is <span
+class="math inline">\(21~MW\)</span>. If we say a single force
+computation is 6 hours, it would cost 12,600 US$. A single day is <span
+class="math inline">\(\sim50,000\)</span> US$.</p>
+<p>Just for fun, what if I were using my research computer, the MacBook
+Air with an M2 processor, to simulate the entire Milky Way? The machine
+has an estimated speed of <span class="math inline">\(\sim\)</span>0.1
+TFLOPS, which is about <span class="math inline">\(10^11\)</span>
+floating point operations per second <span class="citation"
+data-cites="hubner2025apple">(Hübner et al. 2025)</span>. A single
+timestep of an <span class="math inline">\(N\)</span>-body simulation
+for the galaxy would be about 10 million times slower and would take
+about 1,500 years.</p>
 <p>My simulations solve the <em>restricted three-body problem</em>. In
 this setup, the host galaxy is treated as the primary body, fixed at the
 origin of the coordinate system, which corresponds to the system’s
@@ -1888,11 +1939,24 @@ mass segregation and stellar evolution are time-dependent which is
 completely ignored in my simulations.</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
+<div id="ref-atchley2023frontier" class="csl-entry" role="listitem">
+Atchley, Scott, Christopher Zimmer, John Lange, David Bernholdt,
+Veronica Melesse Vergara, Thomas Beck, Michael Brim, et al. 2023.
+<span>“Frontier: Exploring Exascale.”</span> In <em>Proceedings of the
+International Conference for High Performance Computing, Networking,
+Storage and Analysis</em>, 1–16.
+</div>
 <div id="ref-2015MNRAS.450.1136E" class="csl-entry" role="listitem">
 Erkal, Denis, and Vasily Belokurov. 2015. <span>“<span
 class="nocase">Forensics of subhalo-stream encounters: the three phases
 of gap growth</span>”</span> 450 (1): 1136–49. <a
 href="https://doi.org/10.1093/mnras/stv655">https://doi.org/10.1093/mnras/stv655</a>.
+</div>
+<div id="ref-hubner2025apple" class="csl-entry" role="listitem">
+Hübner, Paul, Andong Hu, Ivy Peng, and Stefano Markidis. 2025.
+<span>“Apple Vs. Oranges: Evaluating the Apple Silicon m-Series SoCs for
+HPC Performance and Efficiency.”</span> <em>arXiv Preprint
+arXiv:2502.05317</em>.
 </div>
 <div id="ref-koon2000dynamical" class="csl-entry" role="listitem">
 Koon, Wang Sang, Martin W Lo, Jerrold E Marsden, and Shane D Ross. 2000.
@@ -1912,6 +1976,11 @@ class="nocase">Computational methods for collisional stellar
 systems</span>.”</span> <em>Living Reviews in Computational
 Astrophysics</em> 9 (1): 3. <a
 href="https://doi.org/10.1007/s41115-023-00018-w">https://doi.org/10.1007/s41115-023-00018-w</a>.
+</div>
+<div id="ref-table20245" class="csl-entry" role="listitem">
+Table, EIA. 2024. <span>“5.6. A. Average Price of Electricity to
+Ultimate Customers by End-Use Sector.”</span> <em>US Energy Information
+Administration</em>.
 </div>
 </div>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
