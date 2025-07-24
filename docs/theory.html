@@ -229,84 +229,151 @@ literature. I discuss why we excluded them and how that limits our
 results/</p></li>
 </ul>
 <h1 id="the-explicit-physics">The Explicit Physics</h1>
-<p>Globular clusters contain hundreds of thousands to millions of stars.
-Each star orbits within the globular cluster. Simultaneously, the center
-of mass of a clusters is orbiting about the center of mass of the
-galaxy. The galaxy, is composed of billions of stars that are all moving
-about the center of mass of the galaxy. Not only this, but the galaxy
-contains gas as well as dark matter. A tempting modelign choice would be
-to consider all of the stars as point masses and solve for a density
-distribution for the gas and dark matter. This would require solving
-hydrodynamical simulations for the gas, and solving <span
-class="math inline">\(N\)</span>-body simulations for the point
-masses.</p>
-<p>For many types of problems, the Big-O notation is evoked to show how
-the computation time scales with some parameter. For an <span
-class="math inline">\(N\)</span>-body simulation, the computation time
-scales with <span
-class="math inline">\(\mathcal{O}\left(N^2\right)\)</span>, because each
-pair of distances must for all bodies in the system. In the Milky Way,
-there are <span class="math inline">\(10^{11}\)</span> stars, which
-would require on the other of <span
-class="math inline">\(10^{22}\)</span> computations for a single moment
-of time. Let us consider the time required to perform such a
-simulation.</p>
-<p>FLOPS are Floating Point Operations Per Second and is a metric to
-measure the computation speed of a given machine. To illustrate how
-unfesable such an experiment, let us consider one of the most powerful
-modern computational facilities. Frontier is one such system and is able
-to perform on exascale <span class="citation"
-data-cites="atchley2023frontier">Atchley et al. (2023)</span>. One
-exaflop is <span class="math inline">\(10^{18}\)</span> floating point
-operations per second, or one billion billion operations. If using this
-machine, if we wished to compute the pairwise forces of all bodies in
-the galaxy, we would need <span
-class="math inline">\(5\times10^{21}\)</span> distance computations. If
-each computation were 1 FLOPS, which is an underestimate, a single force
-computation would require a few hours. A few hours seems fesable.
-However, dedicating an entire system to such a problem is a big ask. For
-example, we can estimate the average price per power is <span
-class="math inline">\(\sim0.10~\frac{\mathrm{US}\$}{\mathrm{kWh}}\)</span>
-<span class="citation" data-cites="table20245">(Table 2024)</span>. The
-power required to run Frontier is <span
-class="math inline">\(21~MW\)</span>. If we say a single force
-computation is 6 hours, it would cost 12,600 US$. A single day is <span
-class="math inline">\(\sim50,000\)</span> US$.</p>
-<p>Just for fun, what if I were using my research computer, the MacBook
-Air with an M2 processor, to simulate the entire Milky Way? The machine
-has an estimated speed of <span class="math inline">\(\sim\)</span>0.1
-TFLOPS, which is about <span class="math inline">\(10^11\)</span>
-floating point operations per second <span class="citation"
-data-cites="hubner2025apple">(Hübner et al. 2025)</span>. A single
-timestep of an <span class="math inline">\(N\)</span>-body simulation
-for the galaxy would be about 10 million times slower and would take
-about 1,500 years.</p>
-<p>My simulations solve the <em>restricted three-body problem</em>. In
-this setup, the host galaxy is treated as the primary body, fixed at the
-origin of the coordinate system, which corresponds to the system’s
-center of mass. The galaxy exerts a gravitational force on both the
-globular cluster—modeled as a single center of mass—and on all
-individual star particles.</p>
-<p>The globular cluster is approximated as a smooth density distribution
-that influences the star particles, rather than as a collection of stars
-interacting with one another. This simplification significantly reduces
-the computational cost. Moreover, all star particles are integrated
-independently, without interacting with one another. In effect, the full
-N-body problem is approximated as <span class="math inline">\(N\)</span>
-independent instances of the restricted three-body problem. Figure <a
+<p>Globular clusters are dense stellar systems containing hundreds of
+thousands to millions of stars. Each star orbits within the
+gravitational potential of the cluster, while the cluster itself orbits
+the center of mass of the host galaxy. The galaxy, in turn, is composed
+of billions of stars, along with gas and dark matter, all contributing
+to its gravitational potential. A natural modeling approach is to treat
+the stars as point masses and to represent the gas and dark matter as
+continuous density distributions. This strategy would allow the
+construction of the Galactic gravitational field, potentially through a
+combination of hydrodynamical simulations for the gas and <span
+class="math inline">\(N\)</span>-body simulations for the stars and dark
+matter. However, the feasibility of such an approach must be carefully
+considered.</p>
+<p>The scaling of computation time is often analyzed using Big-O
+notation. For direct <span class="math inline">\(N\)</span>-body
+simulations, the computational cost scales as <span
+class="math inline">\(\mathcal{O}(N^2)\)</span>, since the gravitational
+force on each particle must be computed from every other particle. For
+the Milky Way, with approximately <span
+class="math inline">\(10^{11}\)</span> stars, this implies on the order
+of <span class="math inline">\(5 \times 10^{21}\)</span> pairwise
+computations per time step.</p>
+<p>Let us consider the practicality of performing such a computation.
+FLOPS (floating point operations per second) is a common metric for
+computational speed. Frontier, one of the most powerful supercomputers
+currently available, operates at approximately one exaflop, or <span
+class="math inline">\(10^{18}\)</span> FLOPS <span class="citation"
+data-cites="atchley2023frontier">(Atchley et al. 2023)</span>.
+Assuming—conservatively—that each pairwise computation requires a single
+FLOP, a full <span class="math inline">\(N\)</span>-body computation of
+the Galaxy at one time step would still require several hours. While
+this may seem manageable, a single time step is insufficient for
+modeling the long-term evolution of the system, which would require
+millions of steps. Dedicating an entire exascale machine to such a task
+is therefore a considerable demand.</p>
+<p>Moreover, the cost of power is non-negligible. At an estimated rate
+of <span class="math inline">\(\sim
+0.10~\mathrm{USD}/\mathrm{kWh}\)</span> <span class="citation"
+data-cites="table20245">(Table 2024)</span>, and with Frontier consuming
+roughly 21 MW, a single 6-hour computation would cost approximately
+12,600 USD. Running the system for a full day would amount to about
+50,000 USD, or  42,000 EUR at the exchange rate of 1 EUR = 1.17 USD on
+25 July 2025 (European Central Bank). This is nearly twice the annual
+salary of a PhD student in France (24,000 EUR) <span class="citation"
+data-cites="MESR_financement_doctoral">(Ministère de l’Enseignement
+supérieur et de la Recherche n.d.)</span>.</p>
+<p>As a humorous aside, consider attempting this computation on a
+personal research laptop, such as a MacBook Air with an M2 processor.
+Its estimated speed of <span class="math inline">\(\sim\)</span>0.1
+TFLOPS (i.e., <span class="math inline">\(10^{11}\)</span> FLOPS) <span
+class="citation" data-cites="hubner2025apple">(Hübner et al.
+2025)</span> is approximately 10 million times slower than Frontier. A
+single time step would thus take over 1,500 years.</p>
+<p>Clearly, we require a more tractable modeling approach for studying
+the evolution of globular clusters and the formation of stellar streams.
+Fortunately, due to the long two-body relaxation time of the Galaxy, it
+is well justified to approximate the Galactic potential as a smooth
+background density field rather than as a collection of point masses.
+This argument, presented in Section 1.2 of <span class="citation"
+data-cites="2008gady.book.....B">Binney and Tremaine (2008)</span>,
+shows that the inaccuracy of such a model becomes significant only on
+timescales far exceeding the age of the Universe. We revisit this
+derivation in Section XXX of this thesis.</p>
+<p>The two-body relaxation time is inversely proportional to the local
+stellar density. In globular clusters, where stars are densely packed
+into a relatively small volume, stellar encounters become significant
+over the system’s lifetime. According to Chapter 5.1 of <span
+class="citation" data-cites="bovy_inprep">Bovy (n.d.)</span>, the
+relaxation timescale within globular clusters is typically <span
+class="math inline">\(\sim 1\)</span> Gyr. This is shorter than the age
+of most clusters, yet significantly longer than the dynamical timescale
+associated with individual stellar orbits.</p>
+<p>To be more specific, globular clusters typically span a few parsecs,
+with internal velocity dispersions of a few km/s <span class="citation"
+data-cites="2018MNRAS.478.1520B">(Baumgardt and Hilker 2018)</span>. The
+corresponding crossing time—the characteristic time for a star to
+traverse the system—is roughly 1 Myr. Additionally, globular clusters
+are old systems, with ages ranging from several billion to over ten
+billion years <span class="citation"
+data-cites="2013ApJ...775..134V">(VandenBerg et al. 2013)</span>.</p>
+<p>These timescales establish the following hierarchy for globular
+clusters: <span class="math display">\[t_\mathrm{cross} &lt;&lt;
+t_\mathrm{relax} &lt; t_\mathrm{age}\]</span></p>
+<p>This has two major consequences. First, because the crossing time is
+much shorter than the relaxation time, the cluster can be considered in
+dynamical equilibrium at any given moment. The stars thus follow orbits
+determined by a smooth potential. Second, since the age of the cluster
+exceeds the relaxation time, cumulative stellar encounters (i.e.,
+“collisions”) significantly influence the system’s long-term
+evolution.</p>
+<p>Despite the importance of collisional effects for the long-term
+evolution of globular clusters, explicitly modeling them via direct
+<span class="math inline">\(N\)</span>-body simulations remains
+prohibitively expensive for our purposes. We return to this point in
+more detail in Section <a href="#sec:ignoredphysics"
+data-reference-type="ref" data-reference="sec:ignoredphysics">3</a>. In
+this thesis, we therefore adopt the collisionless approximation for both
+the Galactic background and the globular cluster. While this is
+well-justified for the Galaxy, treating the cluster as collisionless is
+a simplification that limits the generality of our results. Nonetheless,
+our goal is to accurately model the stellar streams, and the internal
+dynamics of the globular clusters are beyond the scope of this work.</p>
+<p>To make the problem computationally tractable, we model the stars as
+test particles—massless bodies that feel the gravitational potential but
+do not contribute to it. The Galaxy and the globular cluster are each
+represented as smooth, time-independent density distributions. In this
+approximation, the stars do not interact with one another or with the
+cluster, and their trajectories are determined solely by the external
+potentials. This setup is a version of the <em>restricted three-body
+problem</em>, in which the Galaxy acts as the primary body (fixed at the
+origin), the globular cluster as the secondary (modeled by its center of
+mass), and the star as the tertiary object. This is shown in Fig. <a
 href="#fig:restricted_three_body_set_up" data-reference-type="ref"
-data-reference="fig:restricted_three_body_set_up">1</a> illustrates the
-schematic configuration of the system.</p>
+data-reference="fig:restricted_three_body_set_up">1</a>.</p>
 <figure id="fig:restricted_three_body_set_up">
 <img src="images/restricted_three_body_set_up.png" />
-<figcaption>Schematic illustration of the equations of motion. The
-system is simplified to three interacting bodies: the Galaxy (primary),
-the globular cluster (secondary), and an individual star (tertiary). Red
-vectors indicate forces that are neglected in the equations of motion.
-Since the stars are assumed to exert no force on one another or on the
-cluster, their number can be scaled up arbitrarily to sample the net
-gravitational field of the cluster and the Galaxy.</figcaption>
+<figcaption>Schematic illustration of the restricted three-body setup.
+The system is reduced to three interacting components: the Galaxy
+(primary), the globular cluster (secondary), and a single star
+(tertiary). Red vectors indicate forces that are neglected. Since stars
+are assumed to exert no force on the cluster or on one another, their
+number can be scaled arbitrarily to sample the gravitational
+field.</figcaption>
 </figure>
+<p>This formulation dramatically simplifies the dynamics: the full <span
+class="math inline">\(N\)</span>-body problem is approximated by <span
+class="math inline">\(N\)</span> independent realizations of the
+restricted three-body problem. This reduction allows us to efficiently
+simulate the formation and evolution of tidal features without incurring
+the computational cost of tracking all mutual interactions among
+stars.</p>
+<p>In the remainder of this section, I present the theoretical framework
+underlying the simulations. At their core, the simulations involve
+solving <span class="math inline">\(N\)</span> sets of six coupled
+ordinary differential equations—one set for each star particle.
+Section <a href="#subsec:myEquationsOfMotion" data-reference-type="ref"
+data-reference="subsec:myEquationsOfMotion">1.1</a> introduces the
+equations of motion. Section <a href="#subsec:gravfield"
+data-reference-type="ref" data-reference="subsec:gravfield">1.2</a>
+describes the gravitational field used to compute the forces acting on
+the particles. Finally, Section <a href="#subsec:initialconditions"
+data-reference-type="ref"
+data-reference="subsec:initialconditions">1.3</a> details the procedure
+used to generate initial conditions that faithfully represent a globular
+cluster.</p>
 <h2 id="subsec:myEquationsOfMotion">Equations of Motion</h2>
 <p>Orbits in this system begin with the variational principle of
 Lagrangian mechanics. The full interacting system includes the kinetic
@@ -413,7 +480,7 @@ coordinates. However, it is often instructive to analyze the system in
 cylindrical coordinates, where the symmetry of the galactic potential
 becomes more apparent. This symmetry and its consequences will be
 discussed in the following section.</p>
-<h2 id="potential-density-pairs">Potential density pairs</h2>
+<h2 id="subsec:gravfield">The Gravitational Field</h2>
 <p><strong>what is a galaxy? an auto-gravitational system. We can say
 that a galaxy sadisfies the equations of possion. siccome the poisson’s
 has this properties. I can decompse thegalaxy as a composition of lienar
@@ -598,8 +665,7 @@ each position, corresponding to <span class="math inline">\(\vec{g} =
 the eye.</figcaption>
 </figure>
 <p><strong>Describe</strong></p>
-<h2 id="the-collisionless-botlzmann-equation">The Collisionless
-Botlzmann Equation</h2>
+<h2 id="subsec:initialconditions">The initial conditions</h2>
 <p><strong>Make this less genertic and more specific. Why are we talking
 about CBE? because I need to generate the initial conditions. Perhaps
 discuss the initial conditions here. Density -&gt; positions -&gt;
@@ -1822,7 +1888,7 @@ context of time-dependent or eccentric mass loss, where the source term
 becomes periodic. I did begin studying such a model using a
 time-dependent Gaussian source, but at some point the “simple approach”
 becomes as complex as full numerical simulations.</p>
-<h1 id="the-ignored-physics">The Ignored Physics</h1>
+<h1 id="sec:ignoredphysics">The Ignored Physics</h1>
 <p><strong>NOTE. I am trying to construct a narrative by starting with
 the collisional dynamics to show why it was ignored for the galaxy and
 show that it has an influence for globular clusters. I want to discuss
@@ -1946,6 +2012,21 @@ Veronica Melesse Vergara, Thomas Beck, Michael Brim, et al. 2023.
 International Conference for High Performance Computing, Networking,
 Storage and Analysis</em>, 1–16.
 </div>
+<div id="ref-2018MNRAS.478.1520B" class="csl-entry" role="listitem">
+Baumgardt, H., and M. Hilker. 2018. <span>“<span class="nocase">A
+catalogue of masses, structural parameters, and velocity dispersion
+profiles of 112 Milky Way globular clusters</span>”</span> 478 (2):
+1520–57. <a
+href="https://doi.org/10.1093/mnras/sty1057">https://doi.org/10.1093/mnras/sty1057</a>.
+</div>
+<div id="ref-2008gady.book.....B" class="csl-entry" role="listitem">
+Binney, James, and Scott Tremaine. 2008. <em><span>Galactic Dynamics:
+Second Edition</span></em>.
+</div>
+<div id="ref-bovy_inprep" class="csl-entry" role="listitem">
+Bovy, Jo. n.d. <em>Dynamics and Astrophysics of Galaxies</em>.
+Princeton, NJ: Princeton University Press.
+</div>
 <div id="ref-2015MNRAS.450.1136E" class="csl-entry" role="listitem">
 Erkal, Denis, and Vasily Belokurov. 2015. <span>“<span
 class="nocase">Forensics of subhalo-stream encounters: the three phases
@@ -1964,6 +2045,12 @@ Koon, Wang Sang, Martin W Lo, Jerrold E Marsden, and Shane D Ross. 2000.
 Design.”</span> In <em>Equadiff 99: (In 2 Volumes)</em>, 1167–81. World
 Scientific.
 </div>
+<div id="ref-MESR_financement_doctoral" class="csl-entry"
+role="listitem">
+Ministère de l’Enseignement supérieur et de la Recherche. n.d. <span>“Le
+Financement Doctoral.”</span> <a
+href="https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-46472">https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-46472</a>.
+</div>
 <div id="ref-2016MNRAS.457.3817S" class="csl-entry" role="listitem">
 Sanders, Jason L., Jo Bovy, and Denis Erkal. 2016. <span>“<span
 class="nocase">Dynamics of stream-subhalo interactions</span>”</span>
@@ -1981,6 +2068,14 @@ href="https://doi.org/10.1007/s41115-023-00018-w">https://doi.org/10.1007/s41115
 Table, EIA. 2024. <span>“5.6. A. Average Price of Electricity to
 Ultimate Customers by End-Use Sector.”</span> <em>US Energy Information
 Administration</em>.
+</div>
+<div id="ref-2013ApJ...775..134V" class="csl-entry" role="listitem">
+VandenBerg, Don A., K. Brogaard, R. Leaman, and L. Casagrande. 2013.
+<span>“<span class="nocase">The Ages of 55 Globular Clusters as
+Determined Using an Improved VĤB_TO Method along with Color-Magnitude
+Diagram Constraints, and Their Implications for Broader
+Issues</span>”</span> 775 (2): 134. <a
+href="https://doi.org/10.1088/0004-637X/775/2/134">https://doi.org/10.1088/0004-637X/775/2/134</a>.
 </div>
 </div>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
