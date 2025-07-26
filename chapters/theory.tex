@@ -56,6 +56,15 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
 
     
     \subsection{Equations of Motion} \label{subsec:myEquationsOfMotion}
+
+        In galactic dynamics, we can well describe the motion of stars through poisson's equation, which extends Newton's law of gravity from point masses to smooth density distributions: 
+        \begin{equation} 
+            \nabla^2 \Phi = 4\pi G \rho,
+        \end{equation}
+        where $\rho$ is the mass density and $\Phi$ is the gravitational potential. We use Newtonian mechanics throughout this work because $\Phi \ll c^2$ in all relevant regimes, meaning General Relativity is not required \citep[see Appendix C of][]{bovy_inprep}. Poisson's equation assumes Newton's postulate that gravitational forces act instantaneously and that masses attract each other along the line connecting them. \footnote{Galaxies span millions of light-years, so how can Newton's assumption of instantaneous gravity be valid, given that gravitational waves travel at the speed of light? As shown by \citet{2000PhLA..267...81C}, this is well understood in General Relativity: the gravitational field encodes not only the position but also the motion of massive bodies. This ensures that the resulting spacetime curvature produces a force equivalent to attraction toward the body's instantaneous position, rather than where it was when the gravitational influence was emitted.}
+
+
+
         Orbits in this system begin with the variational principle of Lagrangian mechanics. The full interacting system includes the kinetic energy of the globular cluster and the star particle, as well as three gravitational potential energy terms: the cluster-galaxy interaction, the particle-galaxy interaction, and the particle-cluster interaction.
 
         \begin{equation}
@@ -64,12 +73,6 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
                         - M_{\rm gc} \Phi_{\rm gal}(\mathbf{R}_{\rm gc}) 
                         - m \Phi_{\rm gal}(\mathbf{r}) 
                         - m \Phi_{\rm gc}(\mathbf{r} - \mathbf{R}_{\rm gc})
-        \end{equation}
-
-        For simplicity, let us treat the globular cluster as a point mass. In this case, the gravitational potential energy between the cluster and the star is:
-
-        \begin{equation}
-            U_{\rm star-gc} = - \frac{G M_{\rm gc} m}{|\mathbf{r} - \mathbf{R}_{\rm gc}|}
         \end{equation}
 
         In this thesis, I decouple the equations of motion of the globular cluster and the star. The justification for this approximation is evident when we normalize the Lagrangian by the cluster mass, \( M_{\rm gc} \). This yields:
@@ -82,7 +85,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
                                         - \Phi_{\rm gc}(\mathbf{r} - \mathbf{R}_{\rm gc}) \right]}_{\text{negligible correction to GC's motion}}
         \end{equation}
 
-        In the limit where \( m \ll M_{\rm gc} \), the terms in brackets become negligible, and the star's motion has no back-reaction on the cluster. The Lagrangian for the cluster's orbit thus becomes:
+        In the limit where \( m \ll M_{\rm gc} \), the terms in brackets become negligible, and the star's motion has no influence on the cluster. The Lagrangian for the cluster's orbit thus becomes:
 
         \begin{equation}
             \frac{\mathcal{L}_{\mathrm{gc}}}{M_{\mathrm{gc}}} = \frac{1}{2} \dot{\mathbf{R}}_{\rm gc}^2 
