@@ -248,61 +248,68 @@ simulations, the computational cost scales as <span
 class="math inline">\(\mathcal{O}(N^2)\)</span>, since the gravitational
 force on each particle must be computed from every other particle. For
 the Milky Way, with approximately <span
-class="math inline">\(10^{11}\)</span> stars, this implies on the order
-of <span class="math inline">\(5 \times 10^{21}\)</span> pairwise
-computations per time step.</p>
+class="math inline">\(10^{11}\)</span> stars, we need to compute <span
+class="math inline">\(5 \times 10^{21}\)</span> pairwise distances per
+time step.</p>
 <p>Let us consider the practicality of performing such a computation.
-FLOPS (floating point operations per second) is a common metric for
-computational speed. Frontier, one of the most powerful supercomputers
-currently available, operates at approximately one exaflop, or <span
-class="math inline">\(10^{18}\)</span> FLOPS <span class="citation"
+<em>Frontier</em> is one of the most powerful modern supercomputers and
+operates at approximately one exaflop, or <span
+class="math inline">\(10^{18}\)</span> FLOPS (Floating Point Operations
+Per Second) <span class="citation"
 data-cites="atchley2023frontier">(Atchley et al. 2023)</span>.
 Assuming—conservatively—that each pairwise computation requires a single
 FLOP, a full <span class="math inline">\(N\)</span>-body computation of
 the Galaxy at one time step would still require several hours. While
 this may seem manageable, a single time step is insufficient for
-modeling the long-term evolution of the system, which would require
-millions of steps. Dedicating an entire exascale machine to such a task
-is therefore a considerable demand.</p>
+modeling the long-term evolution of the system, which could require
+millions of steps or more. Dedicating an entire exascale machine to such
+a task is therefore a considerable demand.</p>
 <p>Moreover, the cost of power is non-negligible. At an estimated rate
 of <span class="math inline">\(\sim
 0.10~\mathrm{USD}/\mathrm{kWh}\)</span> <span class="citation"
 data-cites="table20245">(Table 2024)</span>, and with Frontier consuming
 roughly 21 MW, a single 6-hour computation would cost approximately
-12,600 USD. Running the system for a full day would amount to about
-50,000 USD, or  42,000 EUR at the exchange rate of 1 EUR = 1.17 USD on
-25 July 2025 (European Central Bank). This is nearly twice the annual
-salary of a PhD student in France (24,000 EUR) <span class="citation"
-data-cites="MESR_financement_doctoral">(Ministere de l’Enseignement
-superieur et de la Recherche 2025)</span>.</p>
-<p>As a humorous aside, consider attempting this computation on a
-personal research laptop, such as a MacBook Air with an M2 processor.
-Its estimated speed of <span class="math inline">\(\sim\)</span>0.1
-TFLOPS (i.e., <span class="math inline">\(10^{11}\)</span> FLOPS) <span
-class="citation" data-cites="hubner2025apple">(Hübner et al.
-2025)</span> is approximately 10 million times slower than Frontier. A
-single time step would thus take over 1,500 years.</p>
+12,600 USD. Running the system for a full day would amount to about
+50,000 USD, or  42,000 EUR <span class="citation"
+data-cites="ECB_USD_EUR_2025">(European Central Bank 2025)</span>. This
+is nearly twice the annual salary of a PhD student in France <span
+class="citation" data-cites="MESR_financement_doctoral">(Ministere de
+l’Enseignement superieur et de la Recherche 2025)</span>.</p>
+<p>Throughout this thesis, I have access to the Pair’s observatoy’s
+super computer <span class="citation"
+data-cites="DIO_OBSPM">(Observatoire de Paris 2025)</span>, which
+currently has about 85 nodes. However, as a humorous aside, consider
+attempting this computation on a personal research laptop, such as a
+MacBook Air with an M2 processor. Its estimated speed of <span
+class="math inline">\(\sim\)</span>0.1 TFLOPS (i.e., <span
+class="math inline">\(10^{11}\)</span> FLOPS) <span class="citation"
+data-cites="hubner2025apple">(Hübner et al. 2025)</span> is
+approximately 10 million times slower than Frontier. A single time step
+would thus take over 1,500 years.</p>
 <p>Clearly, we require a more tractable modeling approach for studying
 the evolution of globular clusters and the formation of stellar streams.
-Fortunately, due to the long two-body relaxation time of the Galaxy, it
-is well justified to approximate the Galactic potential as a smooth
-background density field rather than as a collection of point masses.
-This argument, presented in Section 1.2 of <span class="citation"
-data-cites="2008gady.book.....B">Binney and Tremaine (2008)</span>,
-shows that the inaccuracy of such a model becomes significant only on
-timescales far exceeding the age of the Universe. We revisit this
-derivation in Section XXX of this thesis.</p>
-<p>The two-body relaxation time is inversely proportional to the local
-stellar density. In globular clusters, where stars are densely packed
-into a relatively small volume, stellar encounters become significant
-over the system’s lifetime. According to Chapter 5.1 of <span
-class="citation" data-cites="bovy_inprep">Bovy (n.d.)</span>, the
-relaxation timescale within globular clusters is typically <span
-class="math inline">\(\sim 1\)</span> Gyr. This is shorter than the age
-of most clusters, yet significantly longer than the dynamical timescale
-associated with individual stellar orbits.</p>
-<p>To be more specific, globular clusters typically span a few parsecs,
-with internal velocity dispersions of a few km/s <span class="citation"
+Fortunately, it is well justified to approximate all the stars in the
+galaxy as a smooth background density field rather than as a collection
+of point masses. This argument, presented in Section 1.2 of <span
+class="citation" data-cites="2008gady.book.....B">Binney and Tremaine
+(2008)</span>, shows that the inaccuracy of such a model becomes
+significant only on timescales far exceeding the age of the Universe. We
+revisit this derivation in Section XXX of this thesis. Briefly, the
+mechanism works by considering how long it takes for the stochastic
+encounters with other stars to significantly deviate a given star’s
+orbit and is known as <em>two-body relaxation</em>. The two-body
+relaxation time is inversely proportional to the local stellar
+density.</p>
+<p>In globular clusters, where stars are densely packed into a
+relatively small volume, stellar encounters become significant over the
+system’s lifetime. According to Chapter 5.1 of <span class="citation"
+data-cites="bovy_inprep">Bovy (n.d.)</span>, the relaxation timescale
+within globular clusters is typically <span class="math inline">\(\sim
+1\)</span> Gyr. This is shorter than the age of most clusters, yet
+significantly longer than the dynamical timescale associated with
+individual stellar orbits. To be more specific, globular clusters
+typically span a few parsecs, with internal velocity dispersions of a
+few km/s <span class="citation"
 data-cites="2018MNRAS.478.1520B">(Baumgardt and Hilker 2018)</span>. The
 corresponding crossing time—the characteristic time for a star to
 traverse the system—is roughly 1 Myr. Additionally, globular clusters
@@ -358,8 +365,16 @@ class="math inline">\(N\)</span>-body problem is approximated by <span
 class="math inline">\(N\)</span> independent realizations of the
 restricted three-body problem. This reduction allows us to efficiently
 simulate the formation and evolution of tidal features without incurring
-the computational cost of tracking all mutual interactions among
-stars.</p>
+the computational cost of tracking all mutual interactions among stars.
+This approximation has been shown to work very well for certain stellar
+streams and this thesis is not the first time such methods have been
+employed. For instance, consider the work of <span class="citation"
+data-cites="2012A&amp;A...546L...7M">Mastrobuono-Battisti et al.
+(2012)</span>, who modeled the evolution of the Palomar 5’s stellar
+stream with both an <span class="math inline">\(N\)</span>-body code as
+well as the restricted three body problem. The differences between the
+two models for reproducing many characteristics of the stream are
+minimal.</p>
 <p>In the remainder of this section, I present the theoretical framework
 underlying the simulations. At their core, the simulations involve
 solving <span class="math inline">\(N\)</span> sets of six coupled
@@ -2033,6 +2048,11 @@ class="nocase">Forensics of subhalo-stream encounters: the three phases
 of gap growth</span>”</span> 450 (1): 1136–49. <a
 href="https://doi.org/10.1093/mnras/stv655">https://doi.org/10.1093/mnras/stv655</a>.
 </div>
+<div id="ref-ECB_USD_EUR_2025" class="csl-entry" role="listitem">
+European Central Bank. 2025. <span>“<span class="nocase">Euro foreign
+exchange reference rate — US dollar: 1 EUR = 1.1726 USD</span>.”</span>
+Retrieved from ECB website.
+</div>
 <div id="ref-hubner2025apple" class="csl-entry" role="listitem">
 Hübner, Paul, Andong Hu, Ivy Peng, and Stefano Markidis. 2025.
 <span>“Apple Vs. Oranges: Evaluating the Apple Silicon m-Series SoCs for
@@ -2045,11 +2065,22 @@ Koon, Wang Sang, Martin W Lo, Jerrold E Marsden, and Shane D Ross. 2000.
 Design.”</span> In <em>Equadiff 99: (In 2 Volumes)</em>, 1167–81. World
 Scientific.
 </div>
+<div id="ref-2012A&amp;A...546L...7M" class="csl-entry" role="listitem">
+Mastrobuono-Battisti, A., P. Di Matteo, M. Montuori, and M. Haywood.
+2012. <span>“<span class="nocase">Clumpy streams in a smooth dark halo:
+the case of Palomar 5</span>”</span> 546 (October):L7. <a
+href="https://doi.org/10.1051/0004-6361/201219563">https://doi.org/10.1051/0004-6361/201219563</a>.
+</div>
 <div id="ref-MESR_financement_doctoral" class="csl-entry"
 role="listitem">
 Ministere de l’Enseignement superieur et de la Recherche. 2025.
 <span>“Le Financement Doctoral.”</span> <a
 href="https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-46472">https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-46472</a>.
+</div>
+<div id="ref-DIO_OBSPM" class="csl-entry" role="listitem">
+Observatoire de Paris. 2025. <span>“<span class="nocase">DIO
+Supercomputer at Observatoire de Paris</span>.”</span> <a
+href="https://dio.obspm.fr/" class="uri">https://dio.obspm.fr/</a>.
 </div>
 <div id="ref-2016MNRAS.457.3817S" class="csl-entry" role="listitem">
 Sanders, Jason L., Jo Bovy, and Denis Erkal. 2016. <span>“<span
