@@ -390,22 +390,33 @@ data-reference="subsec:initialconditions">1.3</a> details the procedure
 used to generate initial conditions that faithfully represent a globular
 cluster.</p>
 <h2 id="subsec:myEquationsOfMotion">Equations of Motion</h2>
-<p>To write down the equations of motion for the aforementioned
-system</p>
-<p>Orbits in this system begin with the variational principle of
-Lagrangian mechanics. The full interacting system includes the kinetic
-energy of the globular cluster and the star particle, as well as three
-gravitational potential energy terms: the cluster-galaxy interaction,
-the particle-galaxy interaction, and the particle-cluster
-interaction.</p>
-<p><span class="math display">\[\mathcal{L} = \frac{1}{2} M_{\rm gc}
-\dot{\mathbf{R}}_{\rm gc}^2
+<p>In galactic dynamics, we can well describe the motion of stars
+through poisson’s equation, which extends Newton’s law of gravity from
+point masses to smooth density distributions: <span
+class="math display">\[\nabla^2 \Phi = 4\pi G \rho,\]</span> where <span
+class="math inline">\(\rho\)</span> is the mass density and <span
+class="math inline">\(\Phi\)</span> is the gravitational potential. We
+use Newtonian mechanics throughout this work because <span
+class="math inline">\(\Phi &lt;&lt; c^2\)</span> in all relevant
+regimes, meaning General Relativity is not required <span
+class="citation" data-cites="bovy_inprep">(see Appendix C of Bovy,
+n.d.)</span>. Poisson’s equation assumes Newton’s postulate that
+gravitational forces act instantaneously and that masses attract each
+other along the line connecting them. <a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Instead of writing down the gravitational forces through Newton’s
+second law, I will write down Hamilton’s equations derived from the
+variational principle of Lagrangian mechanics. The full interacting
+system includes the kinetic energy of the globular cluster and the star
+particle, as well as three gravitational potential energy terms: the
+cluster-galaxy interaction, the particle-galaxy interaction, and the
+particle-cluster interaction: <span class="math display">\[\mathcal{L} =
+\frac{1}{2} M_{\rm gc} \dot{\mathbf{R}}_{\rm gc}^2
                         + \frac{1}{2} m \dot{\mathbf{r}}^2
                         - M_{\rm gc} \Phi_{\rm gal}(\mathbf{R}_{\rm gc})
                         - m \Phi_{\rm gal}(\mathbf{r})
                         - m \Phi_{\rm gc}(\mathbf{r} - \mathbf{R}_{\rm
-gc})\]</span></p>
-<p>In this thesis, I decouple the equations of motion of the globular
+gc}).\]</span> We decouple the equations of motion of the globular
 cluster and the star. The justification for this approximation is
 evident when we normalize the Lagrangian by the cluster mass, <span
 class="math inline">\(M_{\rm gc}\)</span>. This yields:</p>
@@ -421,8 +432,8 @@ gc}} \left[ \frac{1}{2} \dot{\mathbf{r}}^2
 motion}}\]</span></p>
 <p>In the limit where <span class="math inline">\(m \ll M_{\rm
 gc}\)</span>, the terms in brackets become negligible, and the star’s
-motion has no back-reaction on the cluster. The Lagrangian for the
-cluster’s orbit thus becomes:</p>
+motion has no influence on the cluster. The Lagrangian for the cluster’s
+orbit thus becomes:</p>
 <p><span
 class="math display">\[\frac{\mathcal{L}_{\mathrm{gc}}}{M_{\mathrm{gc}}}
 = \frac{1}{2} \dot{\mathbf{R}}_{\rm gc}^2
@@ -441,11 +452,10 @@ gc}(t)\)</span>. This influence becomes important when the gravitational
 forces from the cluster and the galaxy on the particle are comparable.
 For a quick estimate, we treat both the galaxy and the cluster as point
 masses. The two forces become comparable when the particle is
-sufficiently close to the cluster, which occurs when:</p>
-<p><span class="math display">\[|\delta \mathbf{r}| \approx &lt;
-\sqrt{\frac{M_{\mathrm{gc}}}{M_{\mathrm{ gal}}}}
-|\mathbf{r}|.\]</span></p>
-<p>That is, the cluster’s gravitational field dominates over the
+sufficiently close to the cluster, which occurs when: <span
+class="math inline">\(|\mathbf{r} - \mathbf{R}_\mathrm{GC}| &lt;
+\sqrt{\frac{M_{\mathrm{gc}}}{M_{\mathrm{ gal}}}} |\mathbf{r}|.\)</span>
+In other words, the cluster’s gravitational field dominates over the
 galaxy’s on sufficiently small scales around the cluster — as expected.
 For a quick sanity check: a typical globular cluster may have a mass of
 <span class="math inline">\(10^5\, M_\odot\)</span>, while the galaxy
@@ -461,37 +471,132 @@ of motion to a set of <span class="math inline">\(2N\)</span>
 first-order differential equations, rather than <span
 class="math inline">\(N\)</span> second-order ones, which is more
 convenient for computational integration.</p>
-<p>If we use the <em>specific</em> Lagrangian—normalized by the mass of
-the body of interest—then the conjugate momenta reduce to the
-velocities. The Hamiltonian can then be obtained via a Legendre
-transform: <span class="math display">\[\mathcal{H} = \sum p_i \dot{q}_i
-- \mathcal{L}.\]</span></p>
-<p>Another useful result comes from Noether’s theorem: if a coordinate
-does not explicitly appear in the Lagrangian, its conjugate momentum is
-conserved. In our case, once we define the potential (see next section)
-and adopt cylindrical coordinates, we find that the Lagrangian does not
+<p>The Hamiltonian can then be obtained via a Legendre transform: <span
+class="math inline">\(\mathcal{H} = \sum p_i \dot{q}_i -
+\mathcal{L},\)</span> where <span class="math inline">\(q\)</span> is a
+genertic position coordiante, <span class="math inline">\(p\)</span> is
+its conjugate momentum, while <span class="math inline">\(i\)</span>
+indicates the coordinate of interest. If we use the <em>specific</em>
+Lagrangian—normalized by the mass of the body of interest—then, in
+Cartesian coordiantes, the conjugate momenta reduce to the velocities:
+<span class="math inline">\(p_i=\frac{\partial \mathcal{L}}{\partial q}
+\rightarrow p_i = v_i\)</span>. Another useful result comes from
+Noether’s theorem: if a coordinate does not explicitly appear in the
+Lagrangian, its conjugate momentum is conserved. All galactic potentials
+considered in our simulation are axis-symmetric meaning they have
+cylindrical symmetry (see next section). Since the Lagrangian does not
 depend on the azimuthal angle <span
 class="math inline">\(\theta\)</span> in the <span
 class="math inline">\(x\text{-}y\)</span> plane for the cluster’s
-motion. This implies conservation of the <span
-class="math inline">\(z\)</span>-component of angular momentum: <span
-class="math display">\[p_\theta = L_z = \frac{\partial
-\mathcal{L}}{\partial \dot{\theta}} = R^2 \dot{\theta}.\]</span></p>
+motion, the conservation of the <span
+class="math inline">\(z\)</span>-component of angular momentum is
+conserved: <span class="math inline">\(p_\theta = L_z = \frac{\partial
+\mathcal{L}}{\partial \dot{\theta}} = R^2 \dot{\theta} =
+\mathrm{constant.}\)</span></p>
 <p>This conservation generally does not hold for star particles within
 the globular cluster, as their dynamics are significantly influenced by
 the cluster’s gravitational potential. However, it is recovered in the
 regime where their motion becomes dominated by the galaxy’s potential
 rather than the cluster’s.</p>
-<p>The core task, then, is to compute the forces acting on either the
-particle or the cluster, which are given by the partial derivatives of
-the Hamiltonian with respect to the generalized coordinates: <span
-class="math display">\[\dot{p}_i = -\frac{\partial \mathcal{H}}{\partial
-q_i}.\]</span></p>
-<p>In practice, all equations of motion are solved in Cartesian
-coordinates. However, it is often instructive to analyze the system in
-cylindrical coordinates, where the symmetry of the galactic potential
-becomes more apparent. This symmetry and its consequences will be
-discussed in the following section.</p>
+<p>Hamilton’s equations thus provide the time evolution of the momenta
+and the positions. In cartesian coordaintes, the equations of motion for
+the cluster are:</p>
+<p><span class="math display">\[\begin{aligned}
+\label{eq:equations_of_motion_cluster}
+            \dot{p}_{\mathrm{gc},x} &amp;= -\frac{\partial
+\Phi_\mathrm{gal}\left(\mathbf{R}_{\mathrm{gc}}\right)}{\partial x} \\
+            \dot{p}_{\mathrm{gc},y} &amp;= -\frac{\partial
+\Phi_\mathrm{gal}\left(\mathbf{R}_{\mathrm{gc}}\right)}{\partial y} \\
+            \dot{p}_{\mathrm{gc},z} &amp;= -\frac{\partial
+\Phi_\mathrm{gal}\left(\mathbf{R}_{\mathrm{gc}}\right)}{\partial z} \\
+            \dot{x}_{\mathrm{gc}} &amp;= p_{\mathrm{gc},x} \\
+            \dot{y}_{\mathrm{gc}} &amp;= p_{\mathrm{gc},y} \\
+            \dot{z}_{\mathrm{gc}} &amp;= p_{\mathrm{gc},z}.
+        
+\end{aligned}\]</span> For the star particle, the equations of motion
+become: <span class="math display">\[\begin{aligned}
+\label{eq:equations_of_motion_stream}
+            \dot{p}_{x} &amp;= -\frac{\partial
+\Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial x} - \frac{\partial
+\Phi_\mathrm{gc}\left(\mathbf{r} -
+\mathbf{R}_{\mathrm{gc}}(t)\right)}{\partial x}\\
+            \dot{p}_{y} &amp;= -\frac{\partial
+\Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial y} - \frac{\partial
+\Phi_\mathrm{gc}\left(\mathbf{r} -
+\mathbf{R}_{\mathrm{gc}}(t)\right)}{\partial y}\\
+            \dot{p}_{z} &amp;= -\frac{\partial
+\Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial z} - \frac{\partial
+\Phi_\mathrm{gc}\left(\mathbf{r} -
+\mathbf{R}_{\mathrm{gc}}(t)\right)}{\partial z}\\
+            \dot{x} &amp;= p_x \\
+            \dot{y} &amp;= p_y \\
+            \dot{z} &amp;= p_z,
+        
+\end{aligned}\]</span> where <span class="math inline">\(\mathbf{r} =
+\left(x,y,z\right)\)</span>. Note that equation <a
+href="#eq:equations_of_motion_stream" data-reference-type="ref"
+data-reference="eq:equations_of_motion_stream">[eq:equations_of_motion_stream]</a>
+describes the motion of a single particle. In general, if we use 100,000
+particles to describe the stream, the motion of each is desribe with
+this equation, but has different initial conditions.</p>
+<p>In the Chapter 5, we modify Equation <a
+href="#eq:equations_of_motion_cluster" data-reference-type="ref"
+data-reference="eq:equations_of_motion_cluster">[eq:equations_of_motion_cluster]</a>
+to compute the <span class="math inline">\(N\)</span> body forces
+between all the clusters. While we created these equations to avoid
+<span class="math inline">\(N\)</span>-body computations, it is not too
+computationally expensive to implement this for the cluster’s themselves
+since we only have about 160 clusters. These equations are modified by:
+<span class="math display">\[\begin{aligned}
+\label{eq:equations_of_motion_cluster_n_body}
+            \dot{p}_{x,i} = - \frac{\partial \Phi_\mathrm{gal}}{\partial
+x} - \sum_{j\neq i}^N \left[\frac{\partial
+\Phi_\mathrm{gc}\left(\mathbf{R}_i-\mathbf{R}_j|M_j,b_j\right)}{\partial
+x}\right] \\
+            \dot{p}_{y,i} = - \frac{\partial \Phi_\mathrm{gal}}{\partial
+y} - \sum_{j\neq i}^N \left[\frac{\partial
+\Phi_\mathrm{gc}\left(\mathbf{R}_i-\mathbf{R}_j|M_j,b_j\right)}{\partial
+y}\right] \\
+            \dot{p}_{z,i} = - \frac{\partial \Phi_\mathrm{gal}}{\partial
+z} - \sum_{j\neq i}^N \left[\frac{\partial
+\Phi_\mathrm{gc}\left(\mathbf{R}_i-\mathbf{R}_j|M_j,b_j\right)}{\partial
+z}\right],
+        
+\end{aligned}\]</span> where <span class="math inline">\(i\)</span> is
+the index of an target cluster and <span
+class="math inline">\(j\)</span> iterates over the others. Note that in
+the potential I included <span class="math inline">\(M_j,b_j\)</span> to
+indicate the mass and scale length of the <span
+class="math inline">\(j^{\mathrm{th}}\)</span> cluster. Each cluster has
+it’s own scale-length, which were computed from the half-mass radii
+reported in <span class="citation"
+data-cites="2018MNRAS.478.1520B">Baumgardt and Hilker (2018)</span>.
+Since the scale lengths differ from each cluster, we violate Newton’s
+third law: <span class="math inline">\(\dot{p}_{ij} \neq -
+\dot{p}_{ji}\)</span>. However, this is a minor consequence, and since I
+model each cluster as a plummer sphere (as explained in the next
+section), at distances much greater than the scale radius, the
+functional form is the same as a point mass.</p>
+<p>Lastly, in terms of the stream generation for Chapter 5, equation <a
+href="#eq:equations_of_motion_stream" data-reference-type="ref"
+data-reference="eq:equations_of_motion_stream">[eq:equations_of_motion_stream]</a>
+are also modified to include the force from all the clusters, isntead of
+just the host cluster. This becomes: <span
+class="math display">\[\begin{aligned}
+            \dot{p}_{x} &amp;= -\frac{\partial
+\Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial x} - \sum_i^N
+\frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} -
+\mathbf{R}_i(t)\right)}{\partial x}\\
+            \dot{p}_{y} &amp;= -\frac{\partial
+\Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial y} - \sum_i^N
+\frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} -
+\mathbf{R}_i(t)\right)}{\partial y}\\
+            \dot{p}_{z} &amp;= -\frac{\partial
+\Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial z} - \sum_i^N
+\frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} -
+\mathbf{R}_i(t)\right)}{\partial z}
+        
+\end{aligned}\]</span></p>
 <h2 id="subsec:gravfield">The Gravitational Field</h2>
 <p><strong>what is a galaxy? an auto-gravitational system. We can say
 that a galaxy sadisfies the equations of possion. siccome the poisson’s
@@ -851,8 +956,8 @@ class="math inline">\(\Phi_\mathrm{eff}\)</span>, we gain valuable
 insights.</p>
 <p>Our Hamiltonian depends on the four variables <span
 class="math inline">\((x, y, p_x, p_y)\)</span> and has one integral of
-motion.<a href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a> A famous quantity in this context is
+motion.<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a> A famous quantity in this context is
 the Jacobi integral (or Jacobi constant), often written as <span
 class="math inline">\(C_j = -2E\)</span>. Defining this constant is
 somewhat arbitrary since the total mechanical energy <span
@@ -2039,6 +2144,11 @@ Second Edition</span></em>.
 Bovy, Jo. n.d. <em>Dynamics and Astrophysics of Galaxies</em>.
 Princeton, NJ: Princeton University Press.
 </div>
+<div id="ref-2000PhLA..267...81C" class="csl-entry" role="listitem">
+Carlip, S. 2000. <span>“<span class="nocase">Aberration and the speed of
+gravity</span>.”</span> <em>Physics Letters A</em> 267 (2-3): 81–87. <a
+href="https://doi.org/10.1016/S0375-9601(00)00101-8">https://doi.org/10.1016/S0375-9601(00)00101-8</a>.
+</div>
 <div id="ref-2015MNRAS.450.1136E" class="csl-entry" role="listitem">
 Erkal, Denis, and Vasily Belokurov. 2015. <span>“<span
 class="nocase">Forensics of subhalo-stream encounters: the three phases
@@ -2111,11 +2221,21 @@ href="https://doi.org/10.1088/0004-637X/775/2/134">https://doi.org/10.1088/0004-
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>The term "integral of motion" is often used
+<li id="fn1"><p>Galaxies span millions of light-years, so how can
+Newton’s assumption of instantaneous gravity be valid, given that
+gravitational waves travel at the speed of light? As shown by <span
+class="citation" data-cites="2000PhLA..267...81C">Carlip (2000)</span>,
+this is well understood in General Relativity: the gravitational field
+encodes not only the position but also the motion of massive bodies.
+This ensures that the resulting spacetime curvature produces a force
+equivalent to attraction toward the body’s instantaneous position,
+rather than where it was when the gravitational influence was emitted.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The term "integral of motion" is often used
 interchangeably with "constant of motion," but strictly speaking, the
 latter is preferable since it refers to a quantity that remains constant
 throughout the orbital evolution, not to an integral in the mathematical
-sense of the word (area under a curve).<a href="#fnref1"
+sense of the word (area under a curve).<a href="#fnref2"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
