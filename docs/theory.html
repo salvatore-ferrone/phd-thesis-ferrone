@@ -275,9 +275,9 @@ data-cites="ECB_USD_EUR_2025">(European Central Bank 2025)</span>. This
 is nearly twice the annual salary of a PhD student in France <span
 class="citation" data-cites="MESR_financement_doctoral">(Ministere de
 l’Enseignement superieur et de la Recherche 2025)</span>.</p>
-<p>Throughout this thesis, I have access to the Pair’s observatoy’s
-super computer <span class="citation" data-cites="DIO_OBSPM">(Hottier
-and l’Observatoire de Paris 2025)</span>, which currently has about 85
+<p>Throughout this thesis, I have access to the Pairs observatoy’s super
+computer <span class="citation" data-cites="DIO_OBSPM">(Hottier and
+l’Observatoire de Paris 2025)</span>, which currently has about 85
 nodes. However, as a humorous aside, consider attempting this
 computation on a personal research laptop, such as a MacBook Air with an
 M2 processor. Its estimated speed of <span
@@ -293,32 +293,29 @@ galaxy as a smooth background density field rather than as a collection
 of point masses. This argument, presented in Section 1.2 of <span
 class="citation" data-cites="2008gady.book.....B">Binney and Tremaine
 (2008)</span>, shows that the inaccuracy of such a model becomes
-significant only on timescales far exceeding the age of the Universe. We
-revisit this derivation in Section XXX of this thesis. Briefly, the
-mechanism works by considering how long it takes for the stochastic
-encounters with other stars to significantly deviate a given star’s
-orbit and is known as <em>two-body relaxation</em>. The two-body
-relaxation time is inversely proportional to the local stellar
-density.</p>
+significant only on timescales far exceeding the age of the Universe.
+This is known as two-body relaxation. This process compares two
+hypothetical orbits for the same star. One within a smooth medium, and a
+second within a medium composed of point masses. The two-body relaxation
+time is how long it takes for these two trajectories to deviate
+significantly. We revist this in Section XXX.</p>
 <p>In globular clusters, where stars are densely packed into a
 relatively small volume, stellar encounters become significant over the
 system’s lifetime. According to Chapter 5.1 of <span class="citation"
 data-cites="bovy_inprep">Bovy (n.d.)</span>, the relaxation timescale
-within globular clusters is typically <span class="math inline">\(\sim
-1\)</span> Gyr. This is shorter than the age of most clusters, yet
-significantly longer than the dynamical timescale associated with
-individual stellar orbits. To be more specific, globular clusters
-typically span a few parsecs, with internal velocity dispersions of a
-few km/s <span class="citation"
-data-cites="2018MNRAS.478.1520B">(Baumgardt and Hilker 2018)</span>. The
-corresponding crossing time—the characteristic time for a star to
-traverse the system—is roughly 1 Myr. Additionally, globular clusters
-are old systems, with ages ranging from several billion to over ten
-billion years <span class="citation"
-data-cites="2013ApJ...775..134V">(VandenBerg et al. 2013)</span>.</p>
-<p>These timescales establish the following hierarchy for globular
-clusters: <span class="math display">\[t_\mathrm{cross} &lt;&lt;
-t_\mathrm{relax} &lt; t_\mathrm{age}\]</span></p>
+within globular clusters is typically <span
+class="math inline">\(\sim1\)</span> Gyr. To contextualize this, we must
+consider the orbital period of a typical star within a cluster, and the
+age of a cluster. First, the characteristic time for a star to traverse
+the system—is roughly 1 Myr <span class="citation"
+data-cites="2018MNRAS.478.1520B">(which can be estimated as the size of
+a system divided by its internal velocity dispersion Baumgardt and
+Hilker 2018)</span>. Secondly, globular clusters are old systems, with
+ages ranging from several billion to over ten billion years <span
+class="citation" data-cites="2013ApJ...775..134V">(VandenBerg et al.
+2013)</span>. These timescales establish the following hierarchy for
+globular clusters: <span class="math display">\[t_\mathrm{cross}
+&lt;&lt; t_\mathrm{relax} &lt; t_\mathrm{age}\]</span></p>
 <p>This has two major consequences. First, because the crossing time is
 much shorter than the relaxation time, the cluster can be considered in
 dynamical equilibrium at any given moment. The stars thus follow orbits
@@ -355,10 +352,8 @@ data-reference="fig:restricted_three_body_set_up">1</a>.</p>
 <figcaption>Schematic illustration of the restricted three-body setup.
 The system is reduced to three interacting components: the Galaxy
 (primary), the globular cluster (secondary), and a single star
-(tertiary). Red vectors indicate forces that are neglected. Since stars
-are assumed to exert no force on the cluster or on one another, their
-number can be scaled arbitrarily to sample the gravitational
-field.</figcaption>
+(tertiary). Red vectors indicate forces that are neglected, while the
+black vectors are those that we model.</figcaption>
 </figure>
 <p>This formulation dramatically simplifies the dynamics: the full <span
 class="math inline">\(N\)</span>-body problem is approximated by <span

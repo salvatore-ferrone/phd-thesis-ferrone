@@ -25,13 +25,11 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
 
     Moreover, the cost of power is non-negligible. At an estimated rate of $\sim 0.10~\mathrm{USD}/\mathrm{kWh}$ \citep{table20245}, and with Frontier consuming roughly 21 MW, a single 6-hour computation would cost approximately 12,600~USD. Running the system for a full day would amount to about 50,000~USD, or ~42,000 EUR \citep{ECB_USD_EUR_2025}. This is nearly twice the annual salary of a PhD student in France \citep{MESR_financement_doctoral}.
 
-    Throughout this thesis, I have access to the Pair's observatoy's super computer \citep{DIO_OBSPM}, which currently has about 85 nodes. However, as a humorous aside, consider attempting this computation on a personal research laptop, such as a MacBook Air with an M2 processor. Its estimated speed of $\sim$0.1 TFLOPS (i.e., $10^{11}$ FLOPS) \citep{hubner2025apple} is approximately 10 million times slower than Frontier. A single time step would thus take over 1,500 years.
+    Throughout this thesis, I have access to the Pairs observatoy's super computer \citep{DIO_OBSPM}, which currently has about 85 nodes. However, as a humorous aside, consider attempting this computation on a personal research laptop, such as a MacBook Air with an M2 processor. Its estimated speed of $\sim$0.1 TFLOPS (i.e., $10^{11}$ FLOPS) \citep{hubner2025apple} is approximately 10 million times slower than Frontier. A single time step would thus take over 1,500 years.
 
-    Clearly, we require a more tractable modeling approach for studying the evolution of globular clusters and the formation of stellar streams. Fortunately, it is well justified to approximate all the stars in the galaxy as a smooth background density field rather than as a collection of point masses. This argument, presented in Section 1.2 of \citet{2008gady.book.....B}, shows that the inaccuracy of such a model becomes significant only on timescales far exceeding the age of the Universe. We revisit this derivation in Section~XXX of this thesis. Briefly, the mechanism works by considering how long it takes for the stochastic encounters with other stars to significantly deviate a given star's orbit and is known as \textit{two-body relaxation}.  The two-body relaxation time is inversely proportional to the local stellar density. 
-    
-    In globular clusters, where stars are densely packed into a relatively small volume, stellar encounters become significant over the system's lifetime. According to Chapter 5.1 of \citet{bovy_inprep}, the relaxation timescale within globular clusters is typically $\sim 1$~Gyr. This is shorter than the age of most clusters, yet significantly longer than the dynamical timescale associated with individual stellar orbits. To be more specific, globular clusters typically span a few parsecs, with internal velocity dispersions of a few km/s \citep{2018MNRAS.478.1520B}. The corresponding crossing time—the characteristic time for a star to traverse the system—is roughly 1 Myr. Additionally, globular clusters are old systems, with ages ranging from several billion to over ten billion years \citep{2013ApJ...775..134V}.
-
-    These timescales establish the following hierarchy for globular clusters:
+    Clearly, we require a more tractable modeling approach for studying the evolution of globular clusters and the formation of stellar streams. Fortunately, it is well justified to approximate all the stars in the galaxy as a smooth background density field rather than as a collection of point masses. This argument, presented in Section 1.2 of \citet{2008gady.book.....B}, shows that the inaccuracy of such a model becomes significant only on timescales far exceeding the age of the Universe. This is known as two-body relaxation. This process compares two hypothetical orbits for the same star. One within a smooth medium, and a second within a medium composed of point masses. The two-body relaxation time is how long it takes for these two trajectories to deviate significantly. We revist this in Section~XXX.
+        
+    In globular clusters, where stars are densely packed into a relatively small volume, stellar encounters become significant over the system's lifetime. According to Chapter 5.1 of \citet{bovy_inprep}, the relaxation timescale within globular clusters is typically $\sim1$~Gyr. To contextualize this, we must consider the orbital period of a typical star within a cluster, and the age of a cluster. First, the characteristic time for a star to traverse the system—is roughly 1 Myr \citep[which can be estimated as the size of a system divided by its internal velocity dispersion][]{2018MNRAS.478.1520B}. Secondly, globular clusters are old systems, with ages ranging from several billion to over ten billion years \citep{2013ApJ...775..134V}. These timescales establish the following hierarchy for globular clusters:
     \begin{equation*}
         t_\mathrm{cross} << t_\mathrm{relax} < t_\mathrm{age}
     \end{equation*}
@@ -45,7 +43,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
     \begin{figure}
         \centering
         \includegraphics[width=.8\linewidth]{images/restricted_three_body_set_up.png}
-        \caption{Schematic illustration of the restricted three-body setup. The system is reduced to three interacting components: the Galaxy (primary), the globular cluster (secondary), and a single star (tertiary). Red vectors indicate forces that are neglected. Since stars are assumed to exert no force on the cluster or on one another, their number can be scaled arbitrarily to sample the gravitational field.}
+        \caption{Schematic illustration of the restricted three-body setup. The system is reduced to three interacting components: the Galaxy (primary), the globular cluster (secondary), and a single star (tertiary). Red vectors indicate forces that are neglected, while the black vectors are those that we model.}
         \label{fig:restricted_three_body_set_up}
     \end{figure}
 
@@ -57,7 +55,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
     
     \subsection{Equations of Motion} \label{subsec:myEquationsOfMotion}
 
-        In galactic dynamics, we can well describe the motion of stars through poisson's equation, which extends Newton's law of gravity from point masses to smooth density distributions: 
+        In galactic dynamics, we can well describe the motion of stars through Poisson's equation, which extends Newton's law of gravity from point masses to smooth density distributions: 
         \begin{equation} 
             \nabla^2 \Phi = 4\pi G \rho,
         \end{equation}
