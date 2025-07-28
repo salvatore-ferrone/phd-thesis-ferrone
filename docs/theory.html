@@ -386,7 +386,7 @@ used to generate initial conditions that faithfully represent a globular
 cluster.</p>
 <h2 id="subsec:myEquationsOfMotion">Equations of Motion</h2>
 <p>In galactic dynamics, we can well describe the motion of stars
-through poisson’s equation, which extends Newton’s law of gravity from
+through Poisson’s equation, which extends Newton’s law of gravity from
 point masses to smooth density distributions: <span
 class="math display">\[\nabla^2 \Phi = 4\pi G \rho,\]</span> where <span
 class="math inline">\(\rho\)</span> is the mass density and <span
@@ -411,10 +411,11 @@ particle-cluster interaction: <span class="math display">\[\mathcal{L} =
                         - M_{\rm gc} \Phi_{\rm gal}(\mathbf{R}_{\rm gc})
                         - m \Phi_{\rm gal}(\mathbf{r})
                         - m \Phi_{\rm gc}(\mathbf{r} - \mathbf{R}_{\rm
-gc}).\]</span> We decouple the equations of motion of the globular
-cluster and the star. The justification for this approximation is
-evident when we normalize the Lagrangian by the cluster mass, <span
-class="math inline">\(M_{\rm gc}\)</span>. This yields:</p>
+gc}).\]</span> <strong>annotate the equations</strong>. We decouple the
+equations of motion of the globular cluster and the star. The
+justification for this approximation is evident when we normalize the
+Lagrangian by the cluster mass, <span class="math inline">\(M_{\rm
+gc}\)</span>. This yields:</p>
 <p><span class="math display">\[\frac{\mathcal{L}}{M_{\rm gc}} =
 \frac{1}{2} \dot{\mathbf{R}}_{\rm gc}^2
                                         - \Phi_{\rm gal}(\mathbf{R}_{\rm
@@ -459,21 +460,20 @@ the cluster is a few kiloparsecs from the galactic center, then the
 cluster’s influence dominates within a region of order a few parsecs —
 which checks out. A better limit is the tidal radius and is presented in
 the next section.</p>
-<p>While Lagrangian mechanics is rooted in first principles, working in
-the Hamiltonian formalism often provides deeper insight into the physics
-of the system. Additionally, Hamiltonian mechanics reduces the equations
-of motion to a set of <span class="math inline">\(2N\)</span>
-first-order differential equations, rather than <span
-class="math inline">\(N\)</span> second-order ones, which is more
-convenient for computational integration.</p>
+<p>Next, working in the Hamiltonian formalism often provides deeper
+insight into the physics of the system. Additionally, Hamiltonian
+mechanics reduces the equations of motion to a set of <span
+class="math inline">\(2N\)</span> first-order differential equations,
+rather than <span class="math inline">\(N\)</span> second-order ones,
+which is more convenient for computational integration.</p>
 <p>The Hamiltonian can then be obtained via a Legendre transform: <span
 class="math inline">\(\mathcal{H} = \sum p_i \dot{q}_i -
 \mathcal{L},\)</span> where <span class="math inline">\(q\)</span> is a
-genertic position coordiante, <span class="math inline">\(p\)</span> is
+generic position coordinate, <span class="math inline">\(p\)</span> is
 its conjugate momentum, while <span class="math inline">\(i\)</span>
 indicates the coordinate of interest. If we use the <em>specific</em>
 Lagrangian—normalized by the mass of the body of interest—then, in
-Cartesian coordiantes, the conjugate momenta reduce to the velocities:
+Cartesian coordinates, the conjugate momenta reduce to the velocities:
 <span class="math inline">\(p_i=\frac{\partial \mathcal{L}}{\partial q}
 \rightarrow p_i = v_i\)</span>. Another useful result comes from
 Noether’s theorem: if a coordinate does not explicitly appear in the
@@ -490,9 +490,10 @@ conserved: <span class="math inline">\(p_\theta = L_z = \frac{\partial
 \mathrm{constant.}\)</span></p>
 <p>This conservation generally does not hold for star particles within
 the globular cluster, as their dynamics are significantly influenced by
-the cluster’s gravitational potential. However, it is recovered in the
-regime where their motion becomes dominated by the galaxy’s potential
-rather than the cluster’s.</p>
+the cluster’s gravitational potential. However, once a star-particle
+escapes the cluster the conservation of the z-component of the angular
+momentum is recovered in the regime where their motion becomes dominated
+by the galaxy’s potential.</p>
 <p>Hamilton’s equations thus provide the time evolution of the momenta
 and the positions. In cartesian coordaintes, the equations of motion for
 the cluster are:</p>
@@ -532,9 +533,9 @@ become: <span class="math display">\[\begin{aligned}
 href="#eq:equations_of_motion_stream" data-reference-type="ref"
 data-reference="eq:equations_of_motion_stream">[eq:equations_of_motion_stream]</a>
 describes the motion of a single particle. In general, if we use 100,000
-particles to describe the stream, the motion of each is desribe with
-this equation, but has different initial conditions.</p>
-<p>In the Chapter 5, we modify Equation <a
+particles, the motion of each is described with this same equation, but
+has different initial conditions.</p>
+<p>In Chapter 5, we modify Equation <a
 href="#eq:equations_of_motion_cluster" data-reference-type="ref"
 data-reference="eq:equations_of_motion_cluster">[eq:equations_of_motion_cluster]</a>
 to compute the <span class="math inline">\(N\)</span> body forces
@@ -547,35 +548,35 @@ since we only have about 160 clusters. These equations are modified by:
             \dot{p}_{x,i} = - \frac{\partial \Phi_\mathrm{gal}}{\partial
 x} - \sum_{j\neq i}^N \left[\frac{\partial
 \Phi_\mathrm{gc}\left(\mathbf{R}_i-\mathbf{R}_j|M_j,b_j\right)}{\partial
-x}\right] \\
+x}\right], \\
             \dot{p}_{y,i} = - \frac{\partial \Phi_\mathrm{gal}}{\partial
 y} - \sum_{j\neq i}^N \left[\frac{\partial
 \Phi_\mathrm{gc}\left(\mathbf{R}_i-\mathbf{R}_j|M_j,b_j\right)}{\partial
-y}\right] \\
+y}\right], \\
             \dot{p}_{z,i} = - \frac{\partial \Phi_\mathrm{gal}}{\partial
 z} - \sum_{j\neq i}^N \left[\frac{\partial
 \Phi_\mathrm{gc}\left(\mathbf{R}_i-\mathbf{R}_j|M_j,b_j\right)}{\partial
 z}\right],
         
 \end{aligned}\]</span> where <span class="math inline">\(i\)</span> is
-the index of an target cluster and <span
-class="math inline">\(j\)</span> iterates over the others. Note that in
-the potential I included <span class="math inline">\(M_j,b_j\)</span> to
-indicate the mass and scale length of the <span
-class="math inline">\(j^{\mathrm{th}}\)</span> cluster. Each cluster has
-it’s own scale-length, which were computed from the half-mass radii
-reported in <span class="citation"
+the index of a target cluster and <span class="math inline">\(j\)</span>
+iterates over the others. Note that in <span
+class="math inline">\(\Phi_{\mathrm{gc}}\)</span>, I explicitly write
+<span class="math inline">\(M_j,b_j\)</span> to indicate the mass and
+scale length of the <span class="math inline">\(j^{\mathrm{th}}\)</span>
+cluster. Each cluster has it’s own scale-length, which were computed
+from the half-mass radii reported in <span class="citation"
 data-cites="2018MNRAS.478.1520B">Baumgardt and Hilker (2018)</span>.
 Since the scale lengths differ from each cluster, we violate Newton’s
 third law: <span class="math inline">\(\dot{p}_{ij} \neq -
-\dot{p}_{ji}\)</span>. However, this is a minor consequence, and since I
-model each cluster as a plummer sphere (as explained in the next
+\dot{p}_{ji}\)</span>. However, this is a minor consequence. Since I
+model each cluster as a Plummer sphere (as explained in the next
 section), at distances much greater than the scale radius, the
 functional form is the same as a point mass.</p>
 <p>Lastly, in terms of the stream generation for Chapter 5, equation <a
 href="#eq:equations_of_motion_stream" data-reference-type="ref"
 data-reference="eq:equations_of_motion_stream">[eq:equations_of_motion_stream]</a>
-are also modified to include the force from all the clusters, isntead of
+are also modified to include the force from all the clusters, instead of
 just the host cluster. This becomes: <span
 class="math display">\[\begin{aligned}
             \dot{p}_{x} &amp;= -\frac{\partial
@@ -778,7 +779,7 @@ the eye.</figcaption>
 </figure>
 <p><strong>Describe</strong></p>
 <h2 id="subsec:initialconditions">The initial conditions</h2>
-<p><strong>Make this less genertic and more specific. Why are we talking
+<p><strong>Make this less generic and more specific. Why are we talking
 about CBE? because I need to generate the initial conditions. Perhaps
 discuss the initial conditions here. Density -&gt; positions -&gt;
 velocity. Be explicit that the reason i’m writing about this is to get
