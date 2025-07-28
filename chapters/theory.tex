@@ -143,36 +143,38 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
 
     \subsection{The Gravitational Field} \label{subsec:gravfield}
 
-        The gravitational field of the Milky Way is an open problem. 
+        Knowing the gravitational field of the Milky Way is an open problem. It is very complex. Since extra-galactic astronomy became a thing, and \citet{1926ApJ....64..321H} studied the morphology of various galaxies, it was difficult to much about our own galaxy from within, and people started with simpler questions than knowing the entire mass distribution. For example, \citet{1927BAN.....4...91O} studied the motion of stars in the local solar neighborhood and showed that not only does the galaxy have a net rotation, but the galaxy has differential rotation and not, for instance, solid-body rotation. 
 
-        At first, people tried to just say some ``simple'' things about it. Hubble showed there were a variety. It's tough to know from the inside. But Oort came up with two constants to show that there was differential rotation. 
-
-        Total we can do more, we can define a gravitational field that allows us to compute orbits of stars within the MW. Doing this is based on the fact that Poisson's equation is linear and that different observable density distirbutions can be described independently and then summed together: 
+        The field has come a long way since 1927, and we have many functioning models of the galactic gravitational field. All of this is thanks to the fact that Poisson's equation is linear: 
         \begin{equation}\label{eq:linear_poisson}
             \nabla^2 \left(a_0\Phi_0 + a_1\Phi_1 \right) = a_0 \nabla^2 \Phi_0 + a_1 \nabla^2 \Phi_1 = 4\pi G \left(a_0\rho_0 +a_1\rho_1\right).
         \end{equation}
-        
-        The crux of choosing these components rests in having a data set to support this distribution, and the method for verifying that the data set is useful. Bland-Hawthorn summarized the state of the art of the gravitational field right before the publication of the first daia data set. This review rightfully states that it is a difficult taks, and that in reality, since all components co-evolve in the same potential, even if one component was born seperately, it wil lalways mix with the other components. Notably, the review claims that even in the limit of complete data, we would still have this issue. In essence, there are many degrees of freedom describing the potential of the Milky Way. Table~1 has 37 rows of various parameters that describe the local standard of rest, galactic reference frame, scale heights, lengths, and densities of various components, among others. 
-
-        Consider Fig.~\ref{fig:gaia_selection_function} which shows the Gaia selection function for stars within the Galaxy. Gaia has and is currently revolutionizing the field by drastically increasing the data volume for stars in the Milky Way. It is photometrically observing around 1\% of all the stars (gaia collaboration), and spectroscopically observing about 0.01\% of all stars. While impressive since this number is between 1-2 billions stars with distances and proper motions measured, it is still far from a complete sample. Beyond this, there is a selection function or bias about the sun. 
-        \begin{figure}
-            \includegraphics[width=\linewidth]{images/recio-blanco-2023-fig5}
-            \caption{Image of the Gaia bias of stars with spectra\dots \citep{2023A&A...674A..38G}.}
-            \label{fig:gaia_selection_function}
-        \end{figure}
-        Some of the common ways of dissecting the galaxy is to describe each observed component with its own potential-density pair. These components can be: 
+        The linearity of Poisson's equation allows us to decompose the galaxy into independent different parts and then summed together. The Galaxy Zoo \citep{2008MNRAS.389.1179L} is an open science project that provides millions of images of galaxies within our universe. By glancing through the catalog it's clear that there are many galaxies with common structure. Some of the common ways of dissecting the galaxy is to describe each observed component with its own potential-density pair. These components can be: 
+        \twocolumn
         \begin{itemize}
             \item A stellar disk,
             \item A gaseous disk,
-            \item a dark matter halo ,
+            \item a dark matter halo,
             \item a stellar halo,
             \item a bulge,
             \item a galactic bar,
             \item the spiral arms.
         \end{itemize}
-        For each of these major components, there maybe functional forms with about 3-7 paremters describing them. They can be masses, scale lengths, scale heights, power slopes, etc. 
+        \onecolumn
+        These are just some of the bulk components of the Galaxy. Some smaller objects that can influence the gravitational field include: globular cluster, giant moecular clouds, open clusters. Even external components such as the the Galaxies in the local group, particularly the Large and Small Magellenic clouds can significantly contribute to the galactic tidal field \citep{2022ApJ...939....2A}. 
+                
+        The crux of choosing these components rests in having a data set to support this distribution, and the method for verifying that the data set is useful. \citet{2016ARA&A..54..529B} summarized the state of the art of the gravitational field right before the publication of the first daia data set. This review rightfully states that it is a difficult taks, and that in reality, since all components co-evolve in the same potential, even if one component was born seperately, it will always mix with the other components. Notably, the review claims that even in the limit of complete data, we would still have this issue. In essence, there are many degrees of freedom describing the potential of the Milky Way. Table~1 has 37 rows of various parameters that describe the local standard of rest, galactic reference frame, scale heights, lengths, and densities of various components, among others. 
+
+        Consider the difficulties associated with creating a galactic gravitational field from the data alone. Gaia provides the most complete census of the Milky Way to date \citep{2023A&A...674A...1G}. The catalog provides photometric data that is used to constrain the distances and proper motions of roughtly two billion stars, and spectroscopic measurements to constrain the radial velocities for tens of millions of stars \citep{2018A&A...616A..11G}. Now, consider that \citet{2015ApJ...806...96L} estimated that the total stellar mass of the Milky Way is about $6\times10^{10} \mathrm{M}_\odot$, which could correspond to about one hundred billion stars \citep[see][for a similar estimate]{2017MNRAS.465...76M}. This implies that the massive and impressive Gaia data set only provides distances and proper motion measurements for about 1-2\% of the total sample, and a fraction of a percent for full 6D information.
         
-        There are many other components that may be isolated or considered as objects that still contribute to the gravitational field but also live within it, such as globular clusters, giant molecular clouds, open clusters, etc. Then, there are external components that might not be negligible depending on your study, for example two cloests dwarf galaxies the large and small magallenic clouds. 
+        Not only is our best sample incomplete, but there is also a selection bias. Consider Fig.~\ref{fig:gaia_selection_function}, which shows the stellar density of stars with spectroscopic measurements. Unsurprisingly, most measurements are centered about the sun, as expected since luminosity falls with distances squared. 
+        \begin{figure}
+            \includegraphics[width=\linewidth]{images/recio-blanco-2023-fig5}
+            \caption{The Gaia spatial selection function for spectroscopic observations. Fig.~5 from \citet{2023A&A...674A..38G}.}
+            \label{fig:gaia_selection_function}
+        \end{figure}
+     
+        
 
         Thus, at this stage, when creating a galactic potential model, it is important to consider what scientific question one hopes to answer. We are not yet at the stage where one comprensive model exists that accurately fits all of the data. 
         

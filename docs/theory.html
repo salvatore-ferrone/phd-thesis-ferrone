@@ -604,82 +604,122 @@ a given stream. The next two subsections introduce the various forms
 that <span class="math inline">\(\Phi\)</span> can take, followed by the
 generation of the initial conditions.</p>
 <h2 id="subsec:gravfield">The Gravitational Field</h2>
-<p>The gravitational field of the Milky Way is an open problem.</p>
-<p>At first, people tried to just say some “simple” things about it.
-Hubble showed there were a variety. It’s tough to know from the inside.
-But Oort came up with two constants to show that there was differential
-rotation.</p>
-<p>Total we can do more, we can define a gravitational field that allows
-us to compute orbits of stars within the MW. Doing this is based on the
-fact that Poisson’s equation is linear and that different observable
-density distirbutions can be described independently and then summed
-together: <span class="math display">\[\label{eq:linear_poisson}
+<p>Knowing the gravitational field of the Milky Way is an open problem.
+It is very complex. Since extra-galactic astronomy became a thing, and
+<span class="citation" data-cites="1926ApJ....64..321H">Hubble
+(1926)</span> studied the morphology of various galaxies, it was
+difficult to much about our own galaxy from within, and people started
+with simpler questions than knowing the entire mass distribution. For
+example, <span class="citation" data-cites="1927BAN.....4...91O">Oort
+(1927)</span> studied the motion of stars in the local solar
+neighborhood and showed that not only does the galaxy have a net
+rotation, but the galaxy has differential rotation and not, for
+instance, solid-body rotation.</p>
+<p>The field has come a long way since 1927, and we have many
+functioning models of the galactic gravitational field. All of this is
+thanks to the fact that Poisson’s equation is linear: <span
+class="math display">\[\label{eq:linear_poisson}
             \nabla^2 \left(a_0\Phi_0 + a_1\Phi_1 \right) = a_0 \nabla^2
 \Phi_0 + a_1 \nabla^2 \Phi_1 = 4\pi G \left(a_0\rho_0
-+a_1\rho_1\right).\]</span></p>
++a_1\rho_1\right).\]</span> The linearity of Poisson’s equation allows
+us to decompose the galaxy into independent different parts and then
+summed together. The Galaxy Zoo <span class="citation"
+data-cites="2008MNRAS.389.1179L">(Lintott et al. 2008)</span> is an open
+science project that provides millions of images of galaxies within our
+universe. By glancing through the catalog it’s clear that there are many
+galaxies with common structure. Some of the common ways of dissecting
+the galaxy is to describe each observed component with its own
+potential-density pair. These components can be:</p>
+<ul>
+<li><p>A stellar disk,</p></li>
+<li><p>A gaseous disk,</p></li>
+<li><p>a dark matter halo,</p></li>
+<li><p>a stellar halo,</p></li>
+<li><p>a bulge,</p></li>
+<li><p>a galactic bar,</p></li>
+<li><p>the spiral arms.</p></li>
+</ul>
+<p>These are just some of the bulk components of the Galaxy. Some
+smaller objects that can influence the gravitational field include:
+globular cluster, giant moecular clouds, open clusters. Even external
+components such as the the Galaxies in the local group, particularly the
+Large and Small Magellenic clouds can significantly contribute to the
+galactic tidal field <span class="citation"
+data-cites="2022ApJ...939....2A">(Arora et al. 2022)</span>.</p>
 <p>The crux of choosing these components rests in having a data set to
 support this distribution, and the method for verifying that the data
-set is useful. Bland-Hawthorn summarized the state of the art of the
-gravitational field right before the publication of the first daia data
-set. This review rightfully states that it is a difficult taks, and that
-in reality, since all components co-evolve in the same potential, even
-if one component was born seperately, it wil lalways mix with the other
+set is useful. <span class="citation"
+data-cites="2016ARA&amp;A..54..529B">Bland-Hawthorn and Gerhard
+(2016)</span> summarized the state of the art of the gravitational field
+right before the publication of the first daia data set. This review
+rightfully states that it is a difficult taks, and that in reality,
+since all components co-evolve in the same potential, even if one
+component was born seperately, it will always mix with the other
 components. Notably, the review claims that even in the limit of
 complete data, we would still have this issue. In essence, there are
 many degrees of freedom describing the potential of the Milky Way.
 Table 1 has 37 rows of various parameters that describe the local
 standard of rest, galactic reference frame, scale heights, lengths, and
 densities of various components, among others.</p>
-<p>Consider Fig. <a href="#fig:gaia_selection_function"
+<p>Consider the difficulties associated with creating a galactic
+gravitational field from the data alone. Gaia provides the most complete
+census of the Milky Way to date <span class="citation"
+data-cites="2023A&amp;A...674A...1G">(Gaia Collaboration, Vallenari, et
+al. 2023)</span>. The catalog provides photometric data that is used to
+constrain the distances and proper motions of roughtly two billion
+stars, and spectroscopic measurements to constrain the radial velocities
+for tens of millions of stars <span class="citation"
+data-cites="2018A&amp;A...616A..11G">(Gaia Collaboration et al.
+2018)</span>. Now, consider that <span class="citation"
+data-cites="2015ApJ...806...96L">Licquia and Newman (2015)</span>
+estimated that the total stellar mass of the Milky Way is about <span
+class="math inline">\(6\times10^{10} \mathrm{M}_\odot\)</span>, which
+could correspond to about one hundred billion stars <span
+class="citation" data-cites="2017MNRAS.465...76M">(see McMillan 2017,
+for a similar estimate)</span>. This implies that the massive and
+impressive Gaia data set only provides distances and proper motion
+measurements for about 1-2% of the total sample, and a fraction of a
+percent for full 6D information.</p>
+<p>Not only is our best sample incomplete, but there is also a selection
+bias. Consider Fig. <a href="#fig:gaia_selection_function"
 data-reference-type="ref"
-data-reference="fig:gaia_selection_function">2</a> which shows the Gaia
-selection function for stars within the Galaxy. Gaia has and is
-currently revolutionizing the field by drastically increasing the data
-volume for stars in the Milky Way. It is photometrically observing
-around 1% of all the stars (gaia collaboration), and spectroscopically
-observing about 0.01% of all stars. While impressive since this number
-is between 1-2 billions stars with distances and proper motions
-measured, it is still far from a complete sample. Beyond this, there is
-a selection function or bias about the sun.</p>
+data-reference="fig:gaia_selection_function">2</a>, which shows the
+stellar density of stars with spectroscopic measurements.
+Unsurprisingly, most measurements are centered about the sun, as
+expected since luminosity falls with distances squared.</p>
 <figure id="fig:gaia_selection_function">
 <img src="images/recio-blanco-2023-fig5.png" />
-<figcaption>Image of the Gaia bias of stars with spectra…<span
-class="citation" data-cites="2023A&amp;A...674A..38G">(Gaia
-Collaboration et al. 2023)</span>.</figcaption>
+<figcaption>The Gaia spatial selection function for spectroscopic
+observations. Fig. 5 from <span class="citation"
+data-cites="2023A&amp;A...674A..38G">Gaia Collaboration, Recio-Blanco,
+et al. (2023)</span>.</figcaption>
 </figure>
-<p>Some of the common ways of dissecting the galaxy is to describe each
-observed component with its own potential-density pair. These components
-can be:</p>
-<ul>
-<li><p>A stellar disk,</p></li>
-<li><p>A gaseous disk,</p></li>
-<li><p>a dark matter halo ,</p></li>
-<li><p>a stellar halo,</p></li>
-<li><p>a bulge,</p></li>
-<li><p>a galactic bar,</p></li>
-<li><p>the spiral arms</p></li>
-</ul>
-<p>there are many other components that may be isolated or considered as
-objects that still contribute to the gravitational field but also live
-within it, such as globular clusters, giant molecular clouds, open
-clusters, etc. Then, there are external components that might not be
-negligible depending on your study, for example two cloests dwarf
-galaxies the large and small magallenic cloud.</p>
-<p>Many different studies dissect the galaxy into different components,
-and can describe the various components with their own parametric forms.
-In turn, they take an observational sample of the motion of stars and
-gas to subsequently fit the functional form to provide an accurate
-representation of the Galaxy’s mass distribution and gravitational
-field.</p>
+<p>Thus, at this stage, when creating a galactic potential model, it is
+important to consider what scientific question one hopes to answer. We
+are not yet at the stage where one comprensive model exists that
+accurately fits all of the data.</p>
+<p>For example, many studies consider the Galaxy to be axis-symmetric
+<span class="citation"
+data-cites="Ibata McMillian Body Pouliasis Besançon">(<strong>Ibata?</strong>;
+<strong>McMillian?</strong>; <strong>Body?</strong>;
+<strong>Pouliasis?</strong>; <strong>Besançon?</strong>)</span>. This is
+because the approximation works well for orbits that do not live within
+the deepest part of the potential well which is dominated by the motion
+of a galactic bar. For the motion of those stars, a custom model may be
+employed.</p>
+<p>There are models of the Milky Way that are purely dynamically
+motivated, as in they just want to recreate the orbits of the Galaxy as
+accurately as possible. Each modeler decides how to decompose the
+galaxy, and also selects a data set to constrain the model parameters.
+Consider McMillian 2017. This author asserted that the galaxy can be
+well described by 6 components with [N] paremeters each: The bulge [5],
+a thin stellar disc [3], a thick stellar disc [3], a neutral hydrogen
+gas disc [4], and a molecular gas disc [4], and a dark matter halo [2].
+In total, there are 21 parameters. McMillian employed a common techinque
+of fixing some of the parameters (those of the gaseous discs) while
+searching for others (the remaining).</p>
 <p>Take for instance, <span class="citation"
 data-cites="2017MNRAS.465...76M">(McMillan 2017)</span>,</p>
-<p>More elaborate models further subdivide these components and can
-include time-dependent features. For example, the Galactic bar can be
-modeled as a rotating triaxial or prolate ellipsoid with a time-varying
-orientation. Moving substructures such as molecular clouds, dwarf
-galaxies, or dark matter subhalos can also be included. In my
-simulations, the globular cluster is treated as one such additional
-component, introduced on top of the smooth background.</p>
 <p>When simple analytic potentials are insufficient—especially for
 capturing non-axisymmetric or irregular features—basis function
 expansions can be employed. For instance, in spherical coordinates, one
@@ -687,10 +727,6 @@ may use eigenfunctions of the Laplacian (e.g., spherical harmonics) to
 build the potential. Similarly, in cylindrical coordinates, Bessel
 functions naturally arise as solutions to the Laplacian and are well
 suited for modeling disks. (Cite Arpit’s recent paper)</p>
-<p><strong>try to separate the plummer from the galactic components.
-Because it’s better logically. Explain the martos halo. Say that the
-similar properties is that it has a characteristic radius and thus two
-different slopes inside and outside.</strong></p>
 <p>A common starting point when constructing gravitational potential
 models is to choose either the functional form of the density <span
 class="math inline">\(\rho(\vec{x})\)</span> and solve Poisson’s
@@ -2135,6 +2171,13 @@ mass segregation and stellar evolution are time-dependent which is
 completely ignored in my simulations.</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
+<div id="ref-2022ApJ...939....2A" class="csl-entry" role="listitem">
+Arora, Arpit, Robyn E. Sanderson, Nondh Panithanpaisal, Emily C.
+Cunningham, Andrew Wetzel, and Nicolás Garavito-Camargo. 2022.
+<span>“<span class="nocase">On the Stability of Tidal Streams in Action
+Space</span>”</span> 939 (1): 2. <a
+href="https://doi.org/10.3847/1538-4357/ac93fb">https://doi.org/10.3847/1538-4357/ac93fb</a>.
+</div>
 <div id="ref-2018MNRAS.478.1520B" class="csl-entry" role="listitem">
 Baumgardt, H., and M. Hilker. 2018. <span>“<span class="nocase">A
 catalogue of masses, structural parameters, and velocity dispersion
@@ -2145,6 +2188,12 @@ href="https://doi.org/10.1093/mnras/sty1057">https://doi.org/10.1093/mnras/sty10
 <div id="ref-2008gady.book.....B" class="csl-entry" role="listitem">
 Binney, James, and Scott Tremaine. 2008. <em><span>Galactic Dynamics:
 Second Edition</span></em>.
+</div>
+<div id="ref-2016ARA&amp;A..54..529B" class="csl-entry" role="listitem">
+Bland-Hawthorn, Joss, and Ortwin Gerhard. 2016. <span>“<span
+class="nocase">The Galaxy in Context: Structural, Kinematic, and
+Integrated Properties</span>”</span> 54 (September):529–96. <a
+href="https://doi.org/10.1146/annurev-astro-081915-023441">https://doi.org/10.1146/annurev-astro-081915-023441</a>.
 </div>
 <div id="ref-2000PhLA..267...81C" class="csl-entry" role="listitem">
 Carlip, S. 2000. <span>“<span class="nocase">Aberration and the speed of
@@ -2157,12 +2206,46 @@ class="nocase">Forensics of subhalo-stream encounters: the three phases
 of gap growth</span>”</span> 450 (1): 1136–49. <a
 href="https://doi.org/10.1093/mnras/stv655">https://doi.org/10.1093/mnras/stv655</a>.
 </div>
+<div id="ref-2018A&amp;A...616A..11G" class="csl-entry" role="listitem">
+Gaia Collaboration, D. Katz, T. Antoja, M. Romero-Gómez, R. Drimmel, C.
+Reylé, G. M. Seabroke, et al. 2018. <span>“<span class="nocase">Gaia
+Data Release 2. Mapping the Milky Way disc kinematics</span>”</span> 616
+(August):A11. <a
+href="https://doi.org/10.1051/0004-6361/201832865">https://doi.org/10.1051/0004-6361/201832865</a>.
+</div>
 <div id="ref-2023A&amp;A...674A..38G" class="csl-entry" role="listitem">
 Gaia Collaboration, A. Recio-Blanco, G. Kordopatis, P. de Laverny, P. A.
 Palicio, A. Spagna, L. Spina, et al. 2023. <span>“<span
 class="nocase">Gaia Data Release 3. Chemical cartography of the Milky
 Way</span>”</span> 674 (June):A38. <a
 href="https://doi.org/10.1051/0004-6361/202243511">https://doi.org/10.1051/0004-6361/202243511</a>.
+</div>
+<div id="ref-2023A&amp;A...674A...1G" class="csl-entry" role="listitem">
+Gaia Collaboration, A. Vallenari, A. G. A. Brown, T. Prusti, J. H. J. de
+Bruijne, F. Arenou, C. Babusiaux, et al. 2023. <span>“<span
+class="nocase">Gaia Data Release 3. Summary of the content and survey
+properties</span>”</span> 674 (June):A1. <a
+href="https://doi.org/10.1051/0004-6361/202243940">https://doi.org/10.1051/0004-6361/202243940</a>.
+</div>
+<div id="ref-1926ApJ....64..321H" class="csl-entry" role="listitem">
+Hubble, E. P. 1926. <span>“<span class="nocase">Extragalactic
+nebulae.</span>”</span> 64 (December):321–69. <a
+href="https://doi.org/10.1086/143018">https://doi.org/10.1086/143018</a>.
+</div>
+<div id="ref-2015ApJ...806...96L" class="csl-entry" role="listitem">
+Licquia, Timothy C., and Jeffrey A. Newman. 2015. <span>“<span
+class="nocase">Improved Estimates of the Milky Way’s Stellar Mass and
+Star Formation Rate from Hierarchical Bayesian
+Meta-Analysis</span>”</span> 806 (1): 96. <a
+href="https://doi.org/10.1088/0004-637X/806/1/96">https://doi.org/10.1088/0004-637X/806/1/96</a>.
+</div>
+<div id="ref-2008MNRAS.389.1179L" class="csl-entry" role="listitem">
+Lintott, Chris J., Kevin Schawinski, Anže Slosar, Kate Land, Steven
+Bamford, Daniel Thomas, M. Jordan Raddick, et al. 2008. <span>“<span
+class="nocase">Galaxy Zoo: morphologies derived from visual inspection
+of galaxies from the Sloan Digital Sky Survey</span>”</span> 389 (3):
+1179–89. <a
+href="https://doi.org/10.1111/j.1365-2966.2008.13689.x">https://doi.org/10.1111/j.1365-2966.2008.13689.x</a>.
 </div>
 <div id="ref-2012A&amp;A...546L...7M" class="csl-entry" role="listitem">
 Mastrobuono-Battisti, A., P. Di Matteo, M. Montuori, and M. Haywood.
@@ -2175,6 +2258,11 @@ McMillan, Paul J. 2017. <span>“<span class="nocase">The mass
 distribution and gravitational potential of the Milky Way</span>”</span>
 465 (1): 76–94. <a
 href="https://doi.org/10.1093/mnras/stw2759">https://doi.org/10.1093/mnras/stw2759</a>.
+</div>
+<div id="ref-1927BAN.....4...91O" class="csl-entry" role="listitem">
+Oort, J. H. 1927. <span>“<span class="nocase">Additional notes
+concerning the rotation of the galactic system</span>”</span> 4
+(October):91.
 </div>
 <div id="ref-2016MNRAS.457.3817S" class="csl-entry" role="listitem">
 Sanders, Jason L., Jo Bovy, and Denis Erkal. 2016. <span>“<span
