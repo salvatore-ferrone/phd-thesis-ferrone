@@ -256,7 +256,7 @@ time step.</p>
 operates at approximately one exaflop, or <span
 class="math inline">\(10^{18}\)</span> FLOPS (Floating Point Operations
 Per Second) <span class="citation"
-data-cites="atchley2023frontier">(Atchley et al. 2023)</span>.
+data-cites="atchley2023frontier">(<strong>atchley2023frontier?</strong>)</span>.
 Assuming—conservatively—that each pairwise computation requires a single
 FLOP, a full <span class="math inline">\(N\)</span>-body computation of
 the Galaxy at one time step would still require several hours. While
@@ -267,25 +267,25 @@ a task is therefore a considerable demand.</p>
 <p>Moreover, the cost of power is non-negligible. At an estimated rate
 of <span class="math inline">\(\sim
 0.10~\mathrm{USD}/\mathrm{kWh}\)</span> <span class="citation"
-data-cites="table20245">(Table 2024)</span>, and with Frontier consuming
-roughly 21 MW, a single 6-hour computation would cost approximately
-12,600 USD. Running the system for a full day would amount to about
-50,000 USD, or  42,000 EUR <span class="citation"
-data-cites="ECB_USD_EUR_2025">(European Central Bank 2025)</span>. This
-is nearly twice the annual salary of a PhD student in France <span
-class="citation" data-cites="MESR_financement_doctoral">(Ministere de
-l’Enseignement superieur et de la Recherche 2025)</span>.</p>
+data-cites="table20245">(<strong>table20245?</strong>)</span>, and with
+Frontier consuming roughly 21 MW, a single 6-hour computation would cost
+approximately 12,600 USD. Running the system for a full day would amount
+to about 50,000 USD, or  42,000 EUR <span class="citation"
+data-cites="ECB_USD_EUR_2025">(<strong>ECB_USD_EUR_2025?</strong>)</span>.
+This is nearly twice the annual salary of a PhD student in France <span
+class="citation"
+data-cites="MESR_financement_doctoral">(<strong>MESR_financement_doctoral?</strong>)</span>.</p>
 <p>Throughout this thesis, I have access to the Pairs observatoy’s super
-computer <span class="citation" data-cites="DIO_OBSPM">(Hottier and
-l’Observatoire de Paris 2025)</span>, which currently has about 85
-nodes. However, as a humorous aside, consider attempting this
-computation on a personal research laptop, such as a MacBook Air with an
-M2 processor. Its estimated speed of <span
+computer <span class="citation"
+data-cites="DIO_OBSPM">(<strong>DIO_OBSPM?</strong>)</span>, which
+currently has about 85 nodes. However, as a humorous aside, consider
+attempting this computation on a personal research laptop, such as a
+MacBook Air with an M2 processor. Its estimated speed of <span
 class="math inline">\(\sim\)</span>0.1 TFLOPS (i.e., <span
 class="math inline">\(10^{11}\)</span> FLOPS) <span class="citation"
-data-cites="hubner2025apple">(Hübner et al. 2025)</span> is
-approximately 10 million times slower than Frontier. A single time step
-would thus take over 1,500 years.</p>
+data-cites="hubner2025apple">(<strong>hubner2025apple?</strong>)</span>
+is approximately 10 million times slower than Frontier. A single time
+step would thus take over 1,500 years.</p>
 <p>Clearly, we require a more tractable modeling approach for studying
 the evolution of globular clusters and the formation of stellar streams.
 Fortunately, it is well justified to approximate all the stars in the
@@ -302,8 +302,8 @@ significantly. We revist this in Section XXX.</p>
 <p>In globular clusters, where stars are densely packed into a
 relatively small volume, stellar encounters become significant over the
 system’s lifetime. According to Chapter 5.1 of <span class="citation"
-data-cites="bovy_inprep">Bovy (n.d.)</span>, the relaxation timescale
-within globular clusters is typically <span
+data-cites="bovy_inprep">(<strong>bovy_inprep?</strong>)</span>, the
+relaxation timescale within globular clusters is typically <span
 class="math inline">\(\sim1\)</span> Gyr. To contextualize this, we must
 consider the orbital period of a typical star within a cluster, and the
 age of a cluster. First, the characteristic time for a star to traverse
@@ -388,17 +388,19 @@ cluster.</p>
 <p>In galactic dynamics, we can well describe the motion of stars
 through Poisson’s equation, which extends Newton’s law of gravity from
 point masses to smooth density distributions: <span
-class="math display">\[\nabla^2 \Phi = 4\pi G \rho,\]</span> where <span
+class="math display">\[\label{eq:poissonsequation}
+            \nabla^2 \Phi = 4\pi G \rho,\]</span> where <span
 class="math inline">\(\rho\)</span> is the mass density and <span
 class="math inline">\(\Phi\)</span> is the gravitational potential. We
 use Newtonian mechanics throughout this work because <span
 class="math inline">\(\Phi &lt;&lt; c^2\)</span> in all relevant
 regimes, meaning General Relativity is not required <span
-class="citation" data-cites="bovy_inprep">(see Appendix C of Bovy,
-n.d.)</span>. Poisson’s equation assumes Newton’s postulate that
-gravitational forces act instantaneously and that masses attract each
-other along the line connecting them. <a href="#fn1"
-class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+class="citation" data-cites="bovy_inprep">(see Appendix C of
+<strong>bovy_inprep?</strong>)</span>. Poisson’s equation assumes
+Newton’s postulate that gravitational forces act instantaneously and
+that masses attract each other along the line connecting them. <a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
 <p>Instead of writing down the gravitational forces through Newton’s
 second law, I will write down Hamilton’s equations derived from the
 variational principle of Lagrangian mechanics. The full interacting
@@ -593,72 +595,84 @@ class="math display">\[\begin{aligned}
 \mathbf{R}_i(t)\right)}{\partial z}
         
 \end{aligned}\]</span></p>
+<p>The equations of motion listed above are what are used for the
+experiments presented in Chapters 4 &amp; 5, respectively. The first two
+sets of equations are those used when generating the streams through the
+resectried three body problem, while the second set generate the streams
+in a Milky Way where other globular clusters fly around and can perturb
+a given stream. The next two subsections introduce the various forms
+that <span class="math inline">\(\Phi\)</span> can take, followed by the
+generation of the initial conditions.</p>
 <h2 id="subsec:gravfield">The Gravitational Field</h2>
-<p><strong>what is a galaxy? an auto-gravitational system. We can say
-that a galaxy sadisfies the equations of possion. siccome the poisson’s
-has this properties. I can decompse thegalaxy as a composition of lienar
-components. Each with its own distribution of mass.</strong></p>
-<p>The fundamental equation governing Newtonian gravity is Poisson’s
-equation: <span class="math display">\[\nabla^2 \Phi = 4\pi G
-\rho,\]</span> which generalizes Newton’s law of gravity from point
-masses to continuous mass distributions. One of the powerful properties
-of this equation is its linearity, allowing arbitrary mass distributions
-to be decomposed into individual components whose contributions to the
-gravitational potential can be summed: <span
-class="math display">\[\nabla^2 \left(a_0\Phi_0 + a_1\Phi_1 \right) =
-a_0 \nabla^2 \Phi_0 + a_1 \nabla^2 \Phi_1 = 4\pi G \left(a_0\rho_0
+<p>The gravitational field of the Milky Way is an open problem.</p>
+<p>At first, people tried to just say some “simple” things about it.
+Hubble showed there were a variety. It’s tough to know from the inside.
+But Oort came up with two constants to show that there was differential
+rotation.</p>
+<p>Total we can do more, we can define a gravitational field that allows
+us to compute orbits of stars within the MW. Doing this is based on the
+fact that Poisson’s equation is linear and that different observable
+density distirbutions can be described independently and then summed
+together: <span class="math display">\[\label{eq:linear_poisson}
+            \nabla^2 \left(a_0\Phi_0 + a_1\Phi_1 \right) = a_0 \nabla^2
+\Phi_0 + a_1 \nabla^2 \Phi_1 = 4\pi G \left(a_0\rho_0
 +a_1\rho_1\right).\]</span></p>
-<p>It is instructive to compare stellar dynamics—the motion of stars in
-galaxies—with celestial mechanics—the motion of planets and spacecraft
-within the Solar System. In celestial mechanics, the gravitational field
-is known to high precision. Typically, one begins by considering the
-dominant mass (the Sun) and includes additional bodies only as needed.
-For instance, to place the James Webb Space Telescope at the Sun-Earth
-L2 Lagrange point, first-order calculations involve only the Sun and
-Earth. Likewise, when studying the long-term evolution of comet orbits,
-it may suffice to include only the Sun, Jupiter, and possibly Saturn. In
-these cases, the restricted three- or four-body problem provides a good
-approximation.</p>
-<p><strong>Make this simpler the point is that. In the solar system, you
-know the mass distirbution really well. The sun and some big planets.
-However, in the galaxy, we don’t know the distribution of mass. So
-there’s a ton a of models that are available. We don’t know the exact
-distirbution. And the exact distirbution is more complex than just
-Jupiter and the sun. So we have a lot of freedom and lots of people have
-different models. Why did we pick this one? Why do we use
-pouliasis?</strong></p>
-<p><strong>The galaxy can be unsdertood of a combination of gas, dark
-matter, and stars. Gas is density. Stars are point masses. dark matter
-are large density profiles that onlt interact gravitationally. However,
-using poisson’s equations we can just model each component as density
-profiles, even the dsitribution of stars we can consider to be in the
-fluid limit. The jsutification fo rwhich is the 2 body relaxation time
-which is in the next section.</strong></p>
-<p><strong>So yes the galaxy is this thing here and it follows poisson’s
-equation. Poisson’s equation has this linear quality. So all these
-different models pick different componets to satisfy a series of
-different observational constraints. Look at McMillan, Bovy, Pouliasis,
-and Ibata. We picked Pouliasis because it was a available to us made in
-our group. This model has these properties. These are the
-potentials.</strong></p>
-<p>In contrast, the Milky Way’s gravitational potential is not precisely
-known and is far more complex. The Galaxy is not merely a collection of
-point masses; instead, it consists of billions of stars, gas, and dark
-matter, which collectively form structured components. Each of these
-components is represented with its own potential-density pair. While
-various methods exist to model the Galactic potential, most approaches
-adopt parameterized functions for each component. Notable examples
-include the widely used models of McMillan (2017) and Bovy (2015).</p>
-<p>The Galaxy is typically modeled as a superposition of several
-distinct components:</p>
+<p>The crux of choosing these components rests in having a data set to
+support this distribution, and the method for verifying that the data
+set is useful. Bland-Hawthorn summarized the state of the art of the
+gravitational field right before the publication of the first daia data
+set. This review rightfully states that it is a difficult taks, and that
+in reality, since all components co-evolve in the same potential, even
+if one component was born seperately, it wil lalways mix with the other
+components. Notably, the review claims that even in the limit of
+complete data, we would still have this issue. In essence, there are
+many degrees of freedom describing the potential of the Milky Way.
+Table 1 has 37 rows of various parameters that describe the local
+standard of rest, galactic reference frame, scale heights, lengths, and
+densities of various components, among others.</p>
+<p>Consider Fig. <a href="#fig:gaia_selection_function"
+data-reference-type="ref"
+data-reference="fig:gaia_selection_function">2</a> which shows the Gaia
+selection function for stars within the Galaxy. Gaia has and is
+currently revolutionizing the field by drastically increasing the data
+volume for stars in the Milky Way. It is photometrically observing
+around 1% of all the stars (gaia collaboration), and spectroscopically
+observing about 0.01% of all stars. While impressive since this number
+is between 1-2 billions stars with distances and proper motions
+measured, it is still far from a complete sample. Beyond this, there is
+a selection function or bias about the sun.</p>
+<figure id="fig:gaia_selection_function">
+<img src="images/recio-blanco-2023-fig5.png" />
+<figcaption>Image of the Gaia bias of stars with spectra…<span
+class="citation" data-cites="2023A&amp;A...674A..38G">(Gaia
+Collaboration et al. 2023)</span>.</figcaption>
+</figure>
+<p>Some of the common ways of dissecting the galaxy is to describe each
+observed component with its own potential-density pair. These components
+can be:</p>
 <ul>
-<li><p>the bulge a dense, roughly spherical central concentration of
-stars;</p></li>
-<li><p>the disk, where most of the stars and gas lie, with an
-approximately axisymmetric, flattened distribution;</p></li>
-<li><p>the halo which includes both the stellar halo and the dark matter
-halo.</p></li>
+<li><p>A stellar disk,</p></li>
+<li><p>A gaseous disk,</p></li>
+<li><p>a dark matter halo ,</p></li>
+<li><p>a stellar halo,</p></li>
+<li><p>a bulge,</p></li>
+<li><p>a galactic bar,</p></li>
+<li><p>the spiral arms</p></li>
 </ul>
+<p>there are many other components that may be isolated or considered as
+objects that still contribute to the gravitational field but also live
+within it, such as globular clusters, giant molecular clouds, open
+clusters, etc. Then, there are external components that might not be
+negligible depending on your study, for example two cloests dwarf
+galaxies the large and small magallenic cloud.</p>
+<p>Many different studies dissect the galaxy into different components,
+and can describe the various components with their own parametric forms.
+In turn, they take an observational sample of the motion of stars and
+gas to subsequently fit the functional form to provide an accurate
+representation of the Galaxy’s mass distribution and gravitational
+field.</p>
+<p>Take for instance, <span class="citation"
+data-cites="2017MNRAS.465...76M">(McMillan 2017)</span>,</p>
 <p>More elaborate models further subdivide these components and can
 include time-dependent features. For example, the Galactic bar can be
 modeled as a rotating triaxial or prolate ellipsoid with a time-varying
@@ -767,7 +781,7 @@ obtained by integrating:</p>
 Martos halo compose the second potential model presented in
 Pouliasis2017pii and is presented in Fig. <a
 href="#fig:figure_pouliasis2017pii_potential" data-reference-type="ref"
-data-reference="fig:figure_pouliasis2017pii_potential">2</a>.</p>
+data-reference="fig:figure_pouliasis2017pii_potential">3</a>.</p>
 <figure id="fig:figure_pouliasis2017pii_potential">
 <img src="images/figure_pouliasis2017pii_potential_-8_8.png" />
 <figcaption>Individual components of the second Galactic potential model
@@ -993,7 +1007,7 @@ escape through <span class="math inline">\(L_1\)</span>, while
 higher-energy particles can also escape through <span
 class="math inline">\(L_2\)</span>. Figure <a
 href="#fig:CR3BP_forbidden_region" data-reference-type="ref"
-data-reference="fig:CR3BP_forbidden_region">3</a> illustrates these
+data-reference="fig:CR3BP_forbidden_region">4</a> illustrates these
 forbidden and allowed regions clearly.</p>
 <figure id="fig:CR3BP_forbidden_region">
 <p><img src="images/CR3BP_forbidden_region_0.png" alt="image" /> <img
@@ -1002,17 +1016,18 @@ src="images/CR3BP_forbidden_region_2.png" alt="image" /></p>
 <p><img src="images/CR3BP_forbidden_region_3.png" alt="image" /> <img
 src="images/CR3BP_forbidden_region_4.png" alt="image" /></p>
 <figcaption>A reproduction of Fig. 2.4.2 from <span class="citation"
-data-cites="koon2000dynamical">Koon et al. (2000)</span>. Each plot is
-shown in the non-inertial reference frame rotating with the orbital
-frequency of the primary and secondary about their common center of
-mass. In this example, the mass ratio is <span class="math inline">\(m_1
-= 10 m_2\)</span>. The gray regions represent areas inaccessible to the
-test particle for a given energy. In the first case, where <span
-class="math inline">\(E &lt; E_1\)</span>, the particle remains confined
-to orbit either around the primary or the secondary, depending on its
-initial position. As the particle’s energy increases, more of the <span
-class="math inline">\(xy\)</span>-plane becomes accessible. The narrow
-passage between <span class="math inline">\(m_1\)</span> and <span
+data-cites="koon2000dynamical">(<strong>koon2000dynamical?</strong>)</span>.
+Each plot is shown in the non-inertial reference frame rotating with the
+orbital frequency of the primary and secondary about their common center
+of mass. In this example, the mass ratio is <span
+class="math inline">\(m_1 = 10 m_2\)</span>. The gray regions represent
+areas inaccessible to the test particle for a given energy. In the first
+case, where <span class="math inline">\(E &lt; E_1\)</span>, the
+particle remains confined to orbit either around the primary or the
+secondary, depending on its initial position. As the particle’s energy
+increases, more of the <span class="math inline">\(xy\)</span>-plane
+becomes accessible. The narrow passage between <span
+class="math inline">\(m_1\)</span> and <span
 class="math inline">\(m_2\)</span> corresponds to the <span
 class="math inline">\(L_1\)</span> Lagrange point, while the choke point
 allowing escape to the exterior when <span class="math inline">\(E &gt;
@@ -1189,7 +1204,7 @@ explore one instructive effect: how solar tidal forces <em>perturb</em>
 the Moon’s orbit away from the idealized two-body Earth-Moon
 configuration. Figure <a href="#fig:moon_tidal_simulation"
 data-reference-type="ref"
-data-reference="fig:moon_tidal_simulation">4</a> shows a toy model
+data-reference="fig:moon_tidal_simulation">5</a> shows a toy model
 comparing two scenarios. In both, I used initial conditions based on JPL
 NASA ephemerides (citation needed) and integrated two sets of equations
 of motion.</p>
@@ -1384,7 +1399,7 @@ class="math display">\[f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}
 forces would impede creating stellar streams instead of making them, as
 shown in Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">10</a>.</p>
+data-reference="fig:martos_tidal_field_small_r">11</a>.</p>
 <p>Taking the Martos tidal tensor in Eq. <a href="#eq:martos_f_s"
 data-reference-type="ref"
 data-reference="eq:martos_f_s">[eq:martos_f_s]</a>, we can see that for
@@ -1400,7 +1415,7 @@ tensor are negative, which means that the force is compressive
 everywhere. Consequently, no stars escape from the cluster.</p>
 <p>In Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">10</a>, I present a
+data-reference="fig:martos_tidal_field_small_r">11</a>, I present a
 small experiment demonstrating the consequence of such a tidal force on
 a globular cluster, which is that no tidal stream forms. Briefly, I
 created a plummer sphere of <span
@@ -1452,7 +1467,7 @@ ellipse.</figcaption>
 <img src="images/martos_tidal_field_450_10_400.png" alt="image" /></p>
 <figcaption>The same experiment as Fig. <a
 href="#fig:martos_tidal_field_small_r" data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">10</a>, but the cluster
+data-reference="fig:martos_tidal_field_small_r">11</a>, but the cluster
 was placed at a larger distance of 4 <span
 class="math inline">\(r_\textrm{halo}\)</span>, since we are beyond the
 characteristic radius, the tidal fields are the same, despite the
@@ -1461,13 +1476,13 @@ class="math inline">\(\gamma\)</span>.</figcaption>
 </figure>
 <p>In the case of Fig. <a href="#fig:martos_tidal_field_big_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_big_r">11</a>, the tidal field
+data-reference="fig:martos_tidal_field_big_r">12</a>, the tidal field
 returns to the typical situation where one axis is compressive and the
 other stretches. Notice how the deformations are similar in magnitude,
 while in the case of <span class="math inline">\(\gamma=2.02\)</span>
 for the top panel of Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">10</a>, the compression
+data-reference="fig:martos_tidal_field_small_r">11</a>, the compression
 is stronger than the expansion. Both of these are different than the
 keplerian tidal deformation where the stronger deformation is stretching
 and whose axis is parallel to the position vector.</p>
@@ -1531,7 +1546,7 @@ from the initial spread in orbital energies caused by observational
 uncertainties. In Fig.<a
 href="#fig:phase_mixing_palomar_5_orbital_solutions"
 data-reference-type="ref"
-data-reference="fig:phase_mixing_palomar_5_orbital_solutions">12</a>, I
+data-reference="fig:phase_mixing_palomar_5_orbital_solutions">13</a>, I
 present an example based on Palomar 5, for which I compute 50 orbital
 solutions in our potential model. These initial conditions are sampled
 according to the uncertainties reported in the Baumgardt catalog. The
@@ -1569,7 +1584,7 @@ for all orbits, regardless of their periods. However, it is still
 illustrative to examine this behavior in the context of the globular
 cluster catalog. In Fig.<a
 href="#fig:phase_mixing_orbital_errors_sample" data-reference-type="ref"
-data-reference="fig:phase_mixing_orbital_errors_sample">13</a>, I
+data-reference="fig:phase_mixing_orbital_errors_sample">14</a>, I
 present the phase-mixing times for all Galactic globular clusters, based
 on current uncertainties from the Gaia DR3 catalog. The top panel shows
 the distribution for all 165 clusters. The bottom panels highlight the
@@ -1605,7 +1620,7 @@ orbital energy.</figcaption>
 energy relates to the uncertainties in each observable. In Fig. <a
 href="#fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu"
 data-reference-type="ref"
-data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">14</a>,
+data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">15</a>,
 I perform this quick calulation. The uncertainties are measured in
 Galactic coordinates the ICRS coordinate system. This is a direct
 transformation to Galactic coordinates and thus can be expressed
@@ -1624,7 +1639,7 @@ energies.</figcaption>
 <p>At first glance, Fig. <a
 href="#fig:phase_mixing_palomar_5_orbital_solutions"
 data-reference-type="ref"
-data-reference="fig:phase_mixing_palomar_5_orbital_solutions">12</a>
+data-reference="fig:phase_mixing_palomar_5_orbital_solutions">13</a>
 might give the impression that we are looking at snapshots of a single
 stellar stream at different times. In reality, the figure shows
 different orbital solutions. This visual similarity underscores that
@@ -1975,7 +1990,7 @@ error function and exponential functions, since they are the moments of
 a truncated Gaussian.</p>
 <p>In Fig. <a href="#fig:collisionless_1D_stream"
 data-reference-type="ref"
-data-reference="fig:collisionless_1D_stream">16</a>, I show a plot of
+data-reference="fig:collisionless_1D_stream">17</a>, I show a plot of
 the <em>density</em>, <em>mean velocity</em>, and <em>velocity
 dispersion</em> as a function of position at a given time. The figure
 illustrates how the leading edge of the stream (larger <span
@@ -2120,13 +2135,6 @@ mass segregation and stellar evolution are time-dependent which is
 completely ignored in my simulations.</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
-<div id="ref-atchley2023frontier" class="csl-entry" role="listitem">
-Atchley, Scott, Christopher Zimmer, John Lange, David Bernholdt,
-Veronica Melesse Vergara, Thomas Beck, Michael Brim, et al. 2023.
-<span>“Frontier: Exploring Exascale.”</span> In <em>Proceedings of the
-International Conference for High Performance Computing, Networking,
-Storage and Analysis</em>, 1–16.
-</div>
 <div id="ref-2018MNRAS.478.1520B" class="csl-entry" role="listitem">
 Baumgardt, H., and M. Hilker. 2018. <span>“<span class="nocase">A
 catalogue of masses, structural parameters, and velocity dispersion
@@ -2137,10 +2145,6 @@ href="https://doi.org/10.1093/mnras/sty1057">https://doi.org/10.1093/mnras/sty10
 <div id="ref-2008gady.book.....B" class="csl-entry" role="listitem">
 Binney, James, and Scott Tremaine. 2008. <em><span>Galactic Dynamics:
 Second Edition</span></em>.
-</div>
-<div id="ref-bovy_inprep" class="csl-entry" role="listitem">
-Bovy, Jo. n.d. <em>Dynamics and Astrophysics of Galaxies</em>.
-Princeton, NJ: Princeton University Press.
 </div>
 <div id="ref-2000PhLA..267...81C" class="csl-entry" role="listitem">
 Carlip, S. 2000. <span>“<span class="nocase">Aberration and the speed of
@@ -2153,28 +2157,12 @@ class="nocase">Forensics of subhalo-stream encounters: the three phases
 of gap growth</span>”</span> 450 (1): 1136–49. <a
 href="https://doi.org/10.1093/mnras/stv655">https://doi.org/10.1093/mnras/stv655</a>.
 </div>
-<div id="ref-ECB_USD_EUR_2025" class="csl-entry" role="listitem">
-European Central Bank. 2025. <span>“<span class="nocase">Euro foreign
-exchange reference rate — US dollar: 1 EUR = 1.1726 USD</span>.”</span>
-Retrieved from ECB website.
-</div>
-<div id="ref-DIO_OBSPM" class="csl-entry" role="listitem">
-Hottier, Clément, and l’Observatoire de Paris. 2025. <span>“<span
-class="nocase">DIO Supercomputer at the Paris
-Observatory</span>.”</span> <a href="https://dio.obspm.fr/"
-class="uri">https://dio.obspm.fr/</a>.
-</div>
-<div id="ref-hubner2025apple" class="csl-entry" role="listitem">
-Hübner, Paul, Andong Hu, Ivy Peng, and Stefano Markidis. 2025.
-<span>“Apple Vs. Oranges: Evaluating the Apple Silicon m-Series SoCs for
-HPC Performance and Efficiency.”</span> <em>arXiv Preprint
-arXiv:2502.05317</em>.
-</div>
-<div id="ref-koon2000dynamical" class="csl-entry" role="listitem">
-Koon, Wang Sang, Martin W Lo, Jerrold E Marsden, and Shane D Ross. 2000.
-<span>“Dynamical Systems, the Three-Body Problem and Space Mission
-Design.”</span> In <em>Equadiff 99: (In 2 Volumes)</em>, 1167–81. World
-Scientific.
+<div id="ref-2023A&amp;A...674A..38G" class="csl-entry" role="listitem">
+Gaia Collaboration, A. Recio-Blanco, G. Kordopatis, P. de Laverny, P. A.
+Palicio, A. Spagna, L. Spina, et al. 2023. <span>“<span
+class="nocase">Gaia Data Release 3. Chemical cartography of the Milky
+Way</span>”</span> 674 (June):A38. <a
+href="https://doi.org/10.1051/0004-6361/202243511">https://doi.org/10.1051/0004-6361/202243511</a>.
 </div>
 <div id="ref-2012A&amp;A...546L...7M" class="csl-entry" role="listitem">
 Mastrobuono-Battisti, A., P. Di Matteo, M. Montuori, and M. Haywood.
@@ -2182,11 +2170,11 @@ Mastrobuono-Battisti, A., P. Di Matteo, M. Montuori, and M. Haywood.
 the case of Palomar 5</span>”</span> 546 (October):L7. <a
 href="https://doi.org/10.1051/0004-6361/201219563">https://doi.org/10.1051/0004-6361/201219563</a>.
 </div>
-<div id="ref-MESR_financement_doctoral" class="csl-entry"
-role="listitem">
-Ministere de l’Enseignement superieur et de la Recherche. 2025.
-<span>“Le Financement Doctoral.”</span> <a
-href="https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-46472">https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-46472</a>.
+<div id="ref-2017MNRAS.465...76M" class="csl-entry" role="listitem">
+McMillan, Paul J. 2017. <span>“<span class="nocase">The mass
+distribution and gravitational potential of the Milky Way</span>”</span>
+465 (1): 76–94. <a
+href="https://doi.org/10.1093/mnras/stw2759">https://doi.org/10.1093/mnras/stw2759</a>.
 </div>
 <div id="ref-2016MNRAS.457.3817S" class="csl-entry" role="listitem">
 Sanders, Jason L., Jo Bovy, and Denis Erkal. 2016. <span>“<span
@@ -2201,15 +2189,10 @@ systems</span>.”</span> <em>Living Reviews in Computational
 Astrophysics</em> 9 (1): 3. <a
 href="https://doi.org/10.1007/s41115-023-00018-w">https://doi.org/10.1007/s41115-023-00018-w</a>.
 </div>
-<div id="ref-table20245" class="csl-entry" role="listitem">
-Table, EIA. 2024. <span>“5.6. A. Average Price of Electricity to
-Ultimate Customers by End-Use Sector.”</span> <em>US Energy Information
-Administration</em>.
-</div>
 <div id="ref-2013ApJ...775..134V" class="csl-entry" role="listitem">
 VandenBerg, Don A., K. Brogaard, R. Leaman, and L. Casagrande. 2013.
 <span>“<span class="nocase">The Ages of 55 Globular Clusters as
-Determined Using an Improved VHBTO Method along with Color-Magnitude
+Determined Using an Improved VĤB_TO Method along with Color-Magnitude
 Diagram Constraints, and Their Implications for Broader
 Issues</span>”</span> 775 (2): 134. <a
 href="https://doi.org/10.1088/0004-637X/775/2/134">https://doi.org/10.1088/0004-637X/775/2/134</a>.

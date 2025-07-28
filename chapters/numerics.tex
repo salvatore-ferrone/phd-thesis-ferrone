@@ -146,7 +146,7 @@ This chapter documents how we solve the equations of motion numerically, how we 
         \end{bmatrix}
         \label{eq:symplectic}
     \end{equation}
-    Here, the skew-symmetric matrix ``weaves'' the positions and momenta together.
+    Here, the skew-symmetric symplectic matrix ``weaves'' the positions and momenta together.
 
     Although the equations of motion do not admit analytical solutions, they possess several known properties. First, trajectories governed solely by gravity are time-reversible. This property is important for our methodology, where we integrate the equations of motion backward in time and then forward again to the present-day position. Secondly, the total orbital energy is conserved. Moreover, according to Liouville's theorem, Hamiltonian flows preserve the local phase space volume. A corollary of this is that the determinant of the Jacobian matrix of the transformation from $\left(q,p\right)\rightarrow \left(q',p'\right)$ must be one, which means that the transformation only rotates or translates an infinitesimal volume but does not shrink or expand the volume. We can view the transform as: 
     \begin{eqnarray}

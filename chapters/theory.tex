@@ -56,7 +56,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
     \subsection{Equations of Motion} \label{subsec:myEquationsOfMotion}
 
         In galactic dynamics, we can well describe the motion of stars through Poisson's equation, which extends Newton's law of gravity from point masses to smooth density distributions: 
-        \begin{equation} 
+        \begin{equation} \label{eq:poissonsequation}
             \nabla^2 \Phi = 4\pi G \rho,
         \end{equation}
         where $\rho$ is the mass density and $\Phi$ is the gravitational potential. We use Newtonian mechanics throughout this work because $\Phi << c^2$ in all relevant regimes, meaning General Relativity is not required \citep[see Appendix C of][]{bovy_inprep}. Poisson's equation assumes Newton's postulate that gravitational forces act instantaneously and that masses attract each other along the line connecting them. \footnote{Galaxies span millions of light-years, so how can Newton's assumption of instantaneous gravity be valid, given that gravitational waves travel at the speed of light? As shown by \citet{2000PhLA..267...81C}, this is well understood in General Relativity: the gravitational field encodes not only the position but also the motion of massive bodies. This ensures that the resulting spacetime curvature produces a force equivalent to attraction toward the body's instantaneous position, rather than where it was when the gravitational influence was emitted.}
@@ -138,46 +138,58 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
             \dot{p}_{z} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial z} - \sum_i^N \frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} - \mathbf{R}_i(t)\right)}{\partial z}
         \end{align}
 
+        The equations of motion listed above are what are used for the experiments presented in Chapters~4~\&~5, respectively. The first two sets of equations are those used when generating the streams through the resectried three body problem, while the second set generate the streams in a Milky Way where other globular clusters fly around and can perturb a given stream. The next two subsections introduce the various forms that $\Phi$ can take, followed by the generation of the initial conditions. 
+
 
     \subsection{The Gravitational Field} \label{subsec:gravfield}
 
-        \textbf{what is a galaxy? an auto-gravitational system. We can say that a galaxy sadisfies the equations of possion. siccome the poisson's has this properties. I can decompse thegalaxy as a composition of lienar components. Each with its own distribution of mass. }
+        The gravitational field of the Milky Way is an open problem. 
 
-        The fundamental equation governing Newtonian gravity is Poisson's equation:
-        \begin{equation}
-            \nabla^2 \Phi = 4\pi G \rho,
-        \end{equation}
-        which generalizes Newton's law of gravity from point masses to continuous mass distributions. One of the powerful properties of this equation is its linearity, allowing arbitrary mass distributions to be decomposed into individual components whose contributions to the gravitational potential can be summed:
-        \begin{equation}
+        At first, people tried to just say some ``simple'' things about it. Hubble showed there were a variety. It's tough to know from the inside. But Oort came up with two constants to show that there was differential rotation. 
+
+        Total we can do more, we can define a gravitational field that allows us to compute orbits of stars within the MW. Doing this is based on the fact that Poisson's equation is linear and that different observable density distirbutions can be described independently and then summed together: 
+        \begin{equation}\label{eq:linear_poisson}
             \nabla^2 \left(a_0\Phi_0 + a_1\Phi_1 \right) = a_0 \nabla^2 \Phi_0 + a_1 \nabla^2 \Phi_1 = 4\pi G \left(a_0\rho_0 +a_1\rho_1\right).
         \end{equation}
-
-        It is instructive to compare stellar dynamics—the motion of stars in galaxies—with celestial mechanics—the motion of planets and spacecraft within the Solar System. In celestial mechanics, the gravitational field is known to high precision. Typically, one begins by considering the dominant mass (the Sun) and includes additional bodies only as needed. For instance, to place the James Webb Space Telescope at the Sun-Earth L2 Lagrange point, first-order calculations involve only the Sun and Earth. Likewise, when studying the long-term evolution of comet orbits, it may suffice to include only the Sun, Jupiter, and possibly Saturn. In these cases, the restricted three- or four-body problem provides a good approximation.
-
-        \textbf{Make this simpler the point is that. In the solar system, you know the mass distirbution really well. The sun and some big planets. However, in the galaxy, we don't know the distribution of mass. So there's a ton a of models that are available. We don't know the exact distirbution. And the exact distirbution is more complex than just Jupiter and the sun. So we have a lot of freedom and lots of people have different models. Why did we pick this one? Why do we use pouliasis?}
-
-
-        \textbf{The galaxy can be unsdertood of a combination of gas, dark matter, and stars. Gas is density. Stars are point masses. dark matter are large density profiles that onlt interact gravitationally. However, using poisson's equations we can just model each component as density profiles, even the dsitribution of stars we can consider to be in the fluid limit. The jsutification fo rwhich is the 2 body relaxation time which is in the next section. }
-
-
-        \textbf{So yes the galaxy is this thing here and it follows poisson's equation. Poisson's equation has this linear quality. So all these different models pick different componets to satisfy a series of different observational constraints. Look at McMillan, Bovy, Pouliasis, and Ibata. We picked Pouliasis because it was a available to us made in our group. This model has these properties. These are the potentials. }
         
-        In contrast, the Milky Way's gravitational potential is not precisely known and is far more complex. The Galaxy is not merely a collection of point masses; instead, it consists of billions of stars, gas, and dark matter, which collectively form structured components. Each of these components is represented with its own potential-density pair. While various methods exist to model the Galactic potential, most approaches adopt parameterized functions for each component. Notable examples include the widely used models of McMillan (2017) and Bovy (2015).
+        The crux of choosing these components rests in having a data set to support this distribution, and the method for verifying that the data set is useful. Bland-Hawthorn summarized the state of the art of the gravitational field right before the publication of the first daia data set. This review rightfully states that it is a difficult taks, and that in reality, since all components co-evolve in the same potential, even if one component was born seperately, it wil lalways mix with the other components. Notably, the review claims that even in the limit of complete data, we would still have this issue. In essence, there are many degrees of freedom describing the potential of the Milky Way. Table~1 has 37 rows of various parameters that describe the local standard of rest, galactic reference frame, scale heights, lengths, and densities of various components, among others. 
 
-        The Galaxy is typically modeled as a superposition of several distinct components:
-
+        Consider Fig.~\ref{fig:gaia_selection_function} which shows the Gaia selection function for stars within the Galaxy. Gaia has and is currently revolutionizing the field by drastically increasing the data volume for stars in the Milky Way. It is photometrically observing around 1\% of all the stars (gaia collaboration), and spectroscopically observing about 0.01\% of all stars. While impressive since this number is between 1-2 billions stars with distances and proper motions measured, it is still far from a complete sample. Beyond this, there is a selection function or bias about the sun. 
+        \begin{figure}
+            \includegraphics[width=\linewidth]{images/recio-blanco-2023-fig5}
+            \caption{Image of the Gaia bias of stars with spectra\dots \citep{2023A&A...674A..38G}.}
+            \label{fig:gaia_selection_function}
+        \end{figure}
+        Some of the common ways of dissecting the galaxy is to describe each observed component with its own potential-density pair. These components can be: 
         \begin{itemize}
-            \item the bulge a dense, roughly spherical central concentration of stars;
-            \item the disk, where most of the stars and gas lie, with an approximately axisymmetric, flattened distribution;
-            \item the halo which includes both the stellar halo and the dark matter halo.
+            \item A stellar disk,
+            \item A gaseous disk,
+            \item a dark matter halo ,
+            \item a stellar halo,
+            \item a bulge,
+            \item a galactic bar,
+            \item the spiral arms.
         \end{itemize}
+        For each of these major components, there maybe functional forms with about 3-7 paremters describing them. They can be masses, scale lengths, scale heights, power slopes, etc. 
+        
+        There are many other components that may be isolated or considered as objects that still contribute to the gravitational field but also live within it, such as globular clusters, giant molecular clouds, open clusters, etc. Then, there are external components that might not be negligible depending on your study, for example two cloests dwarf galaxies the large and small magallenic clouds. 
 
-        More elaborate models further subdivide these components and can include time-dependent features. For example, the Galactic bar can be modeled as a rotating triaxial or prolate ellipsoid with a time-varying orientation. Moving substructures such as molecular clouds, dwarf galaxies, or dark matter subhalos can also be included. In my simulations, the globular cluster is treated as one such additional component, introduced on top of the smooth background.
+        Thus, at this stage, when creating a galactic potential model, it is important to consider what scientific question one hopes to answer. We are not yet at the stage where one comprensive model exists that accurately fits all of the data. 
+        
+        For example, many studies consider the Galaxy to be axis-symmetric \citep{Ibata,McMillian,Body,Pouliasis,Besançon}. This is because the approximation works well for orbits that do not live within the deepest part of the potential well which is dominated by the motion of a galactic bar. For the motion of those stars, a custom model may be employed. 
+
+        There are models of the Milky Way that are purely dynamically motivated, as in they just want to recreate the orbits of the Galaxy as accurately as possible. Each modeler decides how to decompose the galaxy, and also selects a data set to constrain the model parameters. Consider McMillian 2017. This author asserted that the galaxy can be well described by 6 components with [N] paremeters each: The bulge [5], a thin stellar disc [3], a thick stellar disc [3], a neutral hydrogen gas disc [4], and a molecular gas disc [4], and a dark matter halo [2]. In total, there are 21 parameters. McMillian employed a common techinque of fixing some of the parameters (those of the gaseous discs) while searching for others (the remaining). 
+        
+
+
+
+        
+        Take for instance, \citep{2017MNRAS.465...76M}, 
+
 
         When simple analytic potentials are insufficient—especially for capturing non-axisymmetric or irregular features—basis function expansions can be employed. For instance, in spherical coordinates, one may use eigenfunctions of the Laplacian (e.g., spherical harmonics) to build the potential. Similarly, in cylindrical coordinates, Bessel functions naturally arise as solutions to the Laplacian and are well suited for modeling disks. (Cite Arpit's recent paper)
 
 
-        \textbf{try to separate the plummer from the galactic components. Because it's better logically. Explain the martos halo. Say that the similar properties is that it has a characteristic radius and thus two different slopes inside and outside. }
 
         A common starting point when constructing gravitational potential models is to choose either the functional form of the density $\rho(\vec{x})$ and solve Poisson's equation to obtain the potential $\Phi(\vec{x})$, or vice versa. In practice, it is often simpler to specify a potential and then derive the corresponding density by differentiation, since solving Poisson's equation analytically is usually more tractable than performing the required integrals in the reverse direction.
 
