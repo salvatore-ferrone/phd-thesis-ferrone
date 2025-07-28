@@ -314,8 +314,8 @@ class="math display">\[\left[t\right] =
 \frac{\mathrm{distance}}{\mathrm{velocity}} =
 \frac{\mathrm{kpc}}{\mathrm{km/s}}.\]</span> While not immediately
 intuitive, this unit of time is convenient because: <span
-class="math display">\[1\frac{\mathrm{kpc}}{\mathrm{Gyr}} \approx
-1\frac{\mathrm{km}}{\mathrm{s}}.\]</span></p>
+class="math display">\[1\mathrm{Gyr} \approx
+1~\mathrm{s}\cdot\frac{\mathrm{kpc}}{\mathrm{km}}.\]</span></p>
 <p>The gravitational constant has dimensions: <span
 class="math display">\[\left[G\right]=\frac{v^2 \cdot l}{m},\]</span>
 which evaluates numerically to: <span class="math display">\[G = 4.301
@@ -365,7 +365,7 @@ a_i\)</span> in normalized units. In this system of units, emphasis is
 placed on the rotation curve and how much each component contributes to
 it at the reference radius of the galaxy. Note that <span
 class="math inline">\(v_\mathrm{circ}(R_0)\)</span> is not necessarily
-the rotational velocity.</p>
+the maximum rotational velocity.</p>
 <p>In short, each code presents its own preferred units and
 normalization. <code>Tstrippy</code>, by contrast, expects the user to
 pass masses in solar masses, velocities in kilometers per second, and
@@ -417,7 +417,7 @@ approximately the number of steps times the average error per step:
 \frac{T}{\Delta t} \cdot \Delta t^2 \langle y&#39;&#39; \rangle =
 \mathcal{O}(\Delta t).\]</span> This means that halving the timestep
 roughly halves the global error.</p>
-<p>It is important to note that use a taylor series to estimate the
+<p>It is important to note that using a taylor series to estimate the
 error is not mathematically rigorous and not always generalizable. The
 actual error behavior depends strongly on the properties of the function
 being integrated. For instance:</p>
@@ -445,11 +445,9 @@ validate the result. These include:</p>
 <li><p>Leveraging any known properties of the solution to verify
 correctness.</p></li>
 </ul>
-<p>For example, we can exploit the properties of Hamiltonain systems
-design integrators that better preserve the qualitative behavior of the
-true solution over long time scales.</p>
-<p>In this thesis, we implemented the Leapfrog integrator and the
-Forest-Ruth scheme <span class="citation"
+<p>For example, we can exploit the properties of Hamiltonain systems to
+design integrators. In this thesis, we implemented the Leapfrog
+integrator and the Forest-Ruth scheme <span class="citation"
 data-cites="bovy_inprep 1990PhyD...43..105F">(Bovy, n.d.; Forest and
 Ruth 1990)</span>. These schemes are derived from the structure of
 Hamiltonian mechanics and are known as <em>symplectic integrators</em>.

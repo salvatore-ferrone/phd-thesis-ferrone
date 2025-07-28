@@ -50,7 +50,7 @@ This chapter documents how we solve the equations of motion numerically, how we 
     \end{equation}
     While not immediately intuitive, this unit of time is convenient because:
     \begin{equation}
-        1\frac{\mathrm{kpc}}{\mathrm{Gyr}} \approx 1\frac{\mathrm{km}}{\mathrm{s}}.
+        1\mathrm{Gyr} \approx 1~\mathrm{s}\cdot\frac{\mathrm{kpc}}{\mathrm{km}}.
     \end{equation}
 
     The gravitational constant has dimensions:
@@ -75,7 +75,7 @@ This chapter documents how we solve the equations of motion numerically, how we 
         \frac{v_\mathrm{circ}^2}{R_0} = \nabla  \Phi \left(R_0, z=0\right).
         \label{eq:vcirc}
     \end{equation}
-   Note that the gravitational constant is also set to 1. Whatever the form of the potential, the scale lengths must be normalized to $R$, and the mass parameter is subsequently determined through Eq.~\ref{eq:vcirc}. The total potential is a linear combination of individual components, with the user selecting the contribution of each component to the force at the characteristic radius. For example, $\Phi = \sum_i a_i\Phi_i$, where $a_i$ are weights such that $\nabla \Phi_i(R_0, z=0) = a_i$ in normalized units. In this system of units, emphasis is placed on the rotation curve and how much each component contributes to it at the reference radius of the galaxy. Note that $v_\mathrm{circ}(R_0)$ is not necessarily the rotational velocity.
+   Note that the gravitational constant is also set to 1. Whatever the form of the potential, the scale lengths must be normalized to $R$, and the mass parameter is subsequently determined through Eq.~\ref{eq:vcirc}. The total potential is a linear combination of individual components, with the user selecting the contribution of each component to the force at the characteristic radius. For example, $\Phi = \sum_i a_i\Phi_i$, where $a_i$ are weights such that $\nabla \Phi_i(R_0, z=0) = a_i$ in normalized units. In this system of units, emphasis is placed on the rotation curve and how much each component contributes to it at the reference radius of the galaxy. Note that $v_\mathrm{circ}(R_0)$ is not necessarily the maximum rotational velocity.
 
     In short, each code presents its own preferred units and normalization. \texttt{Tstrippy}, by contrast, expects the user to pass masses in solar masses, velocities in kilometers per second, and distances in kiloparsecs. However, physical constants are not hard-coded, so the user may pass any numerical values to the code as long as they are based on a self-consistent unit system. Nonetheless, the code comes equipped with parameters for the \texttt{pouliasis2017pii} potential \citep{2017A&A...598A..66P} and for the catalog of globular clusters \citep{2018MNRAS.478.1520B} in units of kpc, km/s, and $\mathrm{M}_\odot$.
 
@@ -106,7 +106,7 @@ This chapter documents how we solve the equations of motion numerically, how we 
     \]
     This means that halving the timestep roughly halves the global error.
 
-    It is important to note that use a taylor series to estimate the error is not mathematically rigorous and not always generalizable. The actual error behavior depends strongly on the properties of the function being integrated. For instance:
+    It is important to note that using a taylor series to estimate the error is not mathematically rigorous and not always generalizable. The actual error behavior depends strongly on the properties of the function being integrated. For instance:
 
     \begin{itemize}
         \item If \( y \) is linear in \( t \), then \( y' \) is constant and Euler's method gives the exact result.
@@ -123,9 +123,7 @@ This chapter documents how we solve the equations of motion numerically, how we 
         \item Leveraging any known properties of the solution to verify correctness.
     \end{itemize}
 
-    For example, we can exploit the properties of Hamiltonain systems design integrators that better preserve the qualitative behavior of the true solution over long time scales.
-
-    In this thesis, we implemented the Leapfrog integrator and the Forest-Ruth scheme \citep{bovy_inprep, 1990PhyD...43..105F}. These schemes are derived from the structure of Hamiltonian mechanics and are known as \textit{symplectic integrators}. Before continuing, I would like to quote \citep{bovy_inprep}:
+    For example, we can exploit the properties of Hamiltonain systems to design integrators. In this thesis, we implemented the Leapfrog integrator and the Forest-Ruth scheme \citep{bovy_inprep, 1990PhyD...43..105F}. These schemes are derived from the structure of Hamiltonian mechanics and are known as \textit{symplectic integrators}. Before continuing, I would like to quote \citep{bovy_inprep}:
 
     \begin{quote}
         Hamiltonian integrators are often called symplectic. This name comes from the fact that these integrators are Hamiltonian maps, whose mathematical structure is that of a vector flow on a symplectic manifold. Many fine dynamicists have made great contributions to the field without delving deeply into the meaning of the previous sentence and we do not discuss this further.
