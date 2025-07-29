@@ -189,31 +189,28 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
 
         For example, there are many models for the Milky Way that are primarily dynamically motivated and where the stellar populations are secondary \citep{1991RMxAA..22..255A,2015ApJS..216...29B,2017MNRAS.465...76M,2017A&A...598A..66P,2024ApJ...967...89I}. Despite many models being available, the process in building these have a common template. The authors must select: which dataset to use, which tracer populations to use, what parametric form to use for their Milky Way model. Also, in these works, fitting all of the parameters of the Milky Way is oftentimes too difficult, either for data availability, too computationally demanding, or a likelihood fit does not converge. 
 
-        In all of the aforementioned models, each of them assume axis-symmetry which is already a limitation. This implies that modeling the dynamics of interior of the galaxy, within $2<\mathrm{kpc}$ or the most bound stars, is difficult, and not necessary for modeling the orbits of stars outside of this region. Both \citet{2017MNRAS.465...76M} and \citet{2024MNRAS.527.1915B} fix the parameters describe the gas within the galactic disk, while they only fit parameters describing distirbution of stars or dark matter. \citet{2017MNRAS.465...76M} created their model to calculate the orbits of stars to support the upcoming Gaia data releases. Additionally, \citet{2017MNRAS.465...76M}  wanted to improve on their previous model noting that: (1) the maser population used to trace the orbits of stars within the disk was trippled since \citet{2011MNRAS.414.2446M}, and that \citet{2011MNRAS.414.2446M}'s omission of a gaseous disk did not capture the forces necessary to properly model the stars in the solar vicinity. 
+        In all of the aforementioned models, each of them assume axis-symmetry which is already a limitation. This implies that modeling the dynamics of interior of the galaxy, within $2<\mathrm{kpc}$ or the most bound stars, is difficult, and not necessary for modeling the orbits of stars outside of this region. Both \citet{2017MNRAS.465...76M} and \citet{2024MNRAS.527.1915B} fix the parameters describe the gas within the galactic disk, while they only fit parameters describing distirbution of stars or dark matter. \citet{2017MNRAS.465...76M} created their model to calculate the orbits of stars to support the upcoming Gaia data releases. Additionally, \citet{2017MNRAS.465...76M} wanted to improve on their previous model noting that: (1) the maser population used to trace the orbits of stars within the disk was trippled since \citet{2011MNRAS.414.2446M}, and that \citet{2011MNRAS.414.2446M}'s omission of a gaseous disk did not capture the forces necessary to properly model the stars in the solar vicinity. 
 
         Note that many of the aforementioned works rely on fitting the data to kinematic information, i.e. comparing the models prediction of the velocity dispersion of a statistically significant of stars to that of a chosen data set. This is because, astrometric measurements of accelerations is still in a very early phase. Detecting a change in angular position via the parallax is so difficult that people used to refer to the stars as \textit{fixed-stars} \citep{1981unht.book.....K}. Then, the measurement must be made on a yearly cadence with high precision in order to detect a star's movement on the celestial sphere, which is exactly what Gaia is going. \textbf{whose uncertainties are lower? Proper motiosn or Radial velocities? is it possible to measure the accelerations using RV?}. However, it's not to say that accelerations have never been detected. \citet{2018ApJS..239...31B,2021ApJS..254...42B} created a cross-catalog between Hipparcos and Gaia Data Release 2 \citep{2018A&A...616A...1G} and then EDR3. By doing so, a catalog of stars has over a 25-year baseline of observations, which is long enough that for many stars an acceleration can be detected. However, the Hipparcos catalog is still limited to 100,000 stars. Additionally, the magnitude of the acceleration of a galactic field star is still too low. Currently, this catalog is being leverage to systems with unusually high accelerations, which are indicative of binary star systems or stellar systems with massive plants \citep{2023MNRAS.521.5232W,2025AJ....170...52G}, and not to measure the accelerations due to the galactic gravitational field. 
 
-        However, as motivated by the goal of this thesis, stellar streams are incredible interesting for this reason. Since the stars are on more or less the same orbit but only shifted in phase, they encode the gravitational field of the Milky Way. \citet{2024ApJ...967...89I} is the first work to use the stellar streams to fit a gravitational potential model of the Milky Way. Currently, we cannot measure the accelration of stars. 
+        However, as motivated by the goal of this thesis, stellar streams are incredible interesting for this reason. Since the stars are on more or less the same orbit but only shifted in phase, they encode the gravitational field of the Milky Way. \citet{2024ApJ...967...89I} is the first work to use the stellar streams to fit a gravitational potential model of the Milky Way. Even in this, \citet{2024ApJ...967...89I} fixed some parameters of the model, for instance they employed the same bulge model as \citet{2017MNRAS.465...76M}.
 
-        A common starting point when constructing gravitational potential models is to choose either the functional form of the density $\rho(\vec{x})$ and solve Poisson's equation to obtain the potential $\Phi(\vec{x})$, or vice versa. In practice, it is often simpler to specify a potential and then derive the corresponding density by differentiation, since solving Poisson's equation analytically is usually more tractable than performing the required integrals in the reverse direction.
+        We choose the model of \citet{2017A&A...598A..66P}, which built upon \citet{1991RMxAA..22..255A}. This model was made by our group and made availbe to me at the onset of the project. This model was constructed to fit similar observational data as \citep{2015ApJS..216...29B}, such as different rotation curves and kinematic properties of stars within the local solar volume. \citep{2017A&A...598A..66P} provides two different models, one with bulge and one without. Below, I will describe the second model of \citep{2017A&A...598A..66P}, since we employed in both chapter~4 and chapter~5.  
 
-        In this thesis, I adopt the Galactic potential model of Pouliasis et al. (2017), which builds upon the earlier model by Allen \& Santillan (1991) and incorporates improved fits to more recent observational constraints. The Galactic disk is modeled using the Miyamoto-Nagai potential:
+        The second model of \citep{2017A&A...598A..66P} models the galaxy with a halo, a thin and thick disk. One advantage of this model is that each potential for each component is analytic. For instance, the potential of the Miyamoto-Nagai \citep{1975PASJ...27..533M}, is fully analytical. Although it provides a density profile with a polynomial decay rather than exponential decay, it is still a fair model for the galactic disks. The potential has the form of:
         \begin{equation}
             \Phi(R, z \mid M, a, b) = -\frac{G M}{\sqrt{R^2 + \left(a + \sqrt{z^2 + b^2}\right)^2}},
         \end{equation}
-        where $M$ is the total mass of the disk, $a$ is the radial scale length, and $b$ is the vertical scale height. This form smoothly interpolates between a flattened disk and a spherical distribution depending on the values of $a$ and $b$. In the limit $a \to 0$, the Miyamoto-Nagai potential reduces to the Plummer potential:
+        where $M$ is the total mass of the disk, $a$ is the radial scale length, and $b$ is the vertical scale height. This form smoothly interpolates between a flattened disk and a spherical distribution depending on the values of $a$ and $b$. \citet{2017MNRAS.465...76M} also used this model for their galactic disk.
+        
+        However, it is worth mentioning that, in general, it is known the galaxy's have exponential decaying disks: 
         \begin{equation}
-            \Phi(r \mid M, b) = -\frac{G M}{\sqrt{r^2 + b^2}},
+            \rho(R,z) = \rho_0 \mathrm{exp}\left(-\frac{R}{R_d}-\frac{|z|}{z_d}\right),
         \end{equation}
-        which I use to model globular clusters in this work. The Plummer model provides a simple spherically symmetric mass distribution with a finite central density and a total mass that asymptotes at large radii. Interestingly, the Plummer potential is mathematically equivalent to a softened gravitational potential, commonly used in $N$-body simulations to regularize close encounters between particles.
+        where the density, $\rho$ is a function of the cylindrical radius $R$, vertical height, $z$, and has three parameters: a characteristic density, scale radius, and scale height: $\rho_0$, $R_d$, $z_d$. The difficulty with this model is that it cannot be easily integrated to obtain the potential since the $R$ and $z$ coordinates are not separaetable. Often times, a basis function expansion must be employed to approximate the potential when computing the forces. \citet{2017MNRAS.465...76M} and \citet{2024ApJ...967...89I} both employed this model to describe their galactic disk. 
 
-        The dark matter halo is modeled separately and selected to reproduce the observed flat rotation curve of the Milky Way at large radii. This requirement translates into a mass profile that grows linearly with radius ($M(r) \propto r$) in the outer regions. A class of density profiles known as double power-law models satisfies this condition:
-        \begin{equation}
-            \rho(r \mid \alpha, \beta, r_s) = \rho_0 \left( \frac{r}{r_s} \right)^{-\alpha} \left(1 + \frac{r}{r_s} \right)^{\alpha - \beta},
-        \end{equation}
-        where $r_s$ is a scale radius, $\alpha$ controls the inner slope, and $\beta$ the outer slope. Common choices include the NFW profile ($\alpha = 1$, $\beta = 3$) and the Hernquist profile $(\alpha = 1$, $\beta = 4)$.
 
-        The potential presented in Allen Santillan uses the Martos halo, which is not of the same functional family of the two power-law density model, but nonetheless has similar properties. The Martos halo is defined by a parameterized enclosed mass function:
+        Regarding the halo, in \citet{2017A&A...598A..66P} does not create a different halo model for the dark matter and the stellar component. Instead they use a single halo model to describe the total gravitational potential from these components, and inherrit the same halo model used in \citet{1991RMxAA..22..255A}, which was originally proposed in \citep{1986RMxAA..13..137A}. This model was constructed such that at distances greater than some scale radius, the enclosed mass would grow linearly with distance. This leads to the desireable property of a flat rotation cruve. This model is given by:
         \begin{equation} 
             M_{\mathrm{enc}}(r|M_0,\gamma,r_0,r_c) = M_0
             \begin{cases}
@@ -223,8 +220,6 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
             \label{eq:martos_enclosed_mass}
         \end{equation}
         where $M_0$ is a mass scaling parameter (not the total mass), $r_0$ is the characteristic radius, $\gamma$ is the exponental parameter, and $r_c$ is a cutoff radius beyond which the mass is held constant. Thus, for $r > r_c$ Eq.~\ref{eq:martos_enclosed_mass} reports the total mass. In the outer regime $(r/r_0) >> 1$, the enclosed mass scales as $M(r) \propto r$, producing a flat rotation curve. In the inner regime $(r/r_0) << 1$, the mass grows as a power law, $M(r) \propto r^{\gamma - 1}$, which provides flexibility in shaping the central density slope. Since the unmodified profile leads to an unphysical divergence in total mass, a truncation at $r_c$ is imposed. When the potential has spherical symmetry we may use the relation $\nabla \Phi = \frac{G M_{\mathrm{enc}}(r)}{r^2}$, and requiring that the potential vanish at infinity, the corresponding gravitational potential can be obtained by integrating:
-
-
         \begin{equation}
             \Phi(r|M_0,\gamma,r_0,r_c) = 
             \begin{cases}
@@ -232,7 +227,14 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
                 -GM_t/r & r>r_c.
             \end{cases}
         \end{equation}
-        Two Miyamoto-Nagai disks plus the Martos halo compose the second potential model presented in Pouliasis2017pii and is presented in Fig.~\ref{fig:figure_pouliasis2017pii_potential}.
+
+        In general, a good halo model should to reproduce the observed flat rotation curve at large radii. Another class of families does this, which is worth mentioning, which is known as double power-law models:
+        \begin{equation}
+            \rho(r \mid \alpha, \beta, r_s) = \rho_0 \left( \frac{r}{r_s} \right)^{-\alpha} \left(1 + \frac{r}{r_s} \right)^{\alpha - \beta},
+        \end{equation}
+        where $r_s$ is a scale radius, $\alpha$ controls the inner slope, and $\beta$ the outer slope. Common choices include the NFW profile ($\alpha = 1$, $\beta = 3$) and the Hernquist profile $(\alpha = 1$, $\beta = 4)$. These families of models were implemented in the works of \citet{2015ApJS..216...29B,2017MNRAS.465...76M} to describe the dark matter halo. 
+
+        Two Miyamoto-Nagai disks plus the Martos halo compose the second potential model presented in Pouliasis2017pii and is presented in Fig.~\ref{fig:figure_pouliasis2017pii_potential}. More visualizations of this potential can be seen in their work. 
         
         \begin{figure}
             \centering
@@ -241,7 +243,13 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
             \label{fig:figure_pouliasis2017pii_potential}
         \end{figure}        
 
-        \textbf{Describe }
+        Lastly,
+
+        In the limit $a \to 0$, the Miyamoto-Nagai potential reduces to the Plummer potential:
+        \begin{equation}
+            \Phi(r \mid M, b) = -\frac{G M}{\sqrt{r^2 + b^2}},
+        \end{equation}
+        which I use to model globular clusters in this work. The Plummer model provides a simple spherically symmetric mass distribution with a finite central density and a total mass that asymptotes at large radii. Interestingly, the Plummer potential is mathematically equivalent to a softened gravitational potential, commonly used in $N$-body simulations to regularize close encounters between particles.        
     
     \subsection{The initial conditions}\label{subsec:initialconditions}
 
