@@ -256,7 +256,7 @@ time step.</p>
 operates at approximately one exaflop, or <span
 class="math inline">\(10^{18}\)</span> FLOPS (Floating Point Operations
 Per Second) <span class="citation"
-data-cites="atchley2023frontier">(<strong>atchley2023frontier?</strong>)</span>.
+data-cites="atchley2023frontier">(Atchley et al. 2023)</span>.
 Assuming—conservatively—that each pairwise computation requires a single
 FLOP, a full <span class="math inline">\(N\)</span>-body computation of
 the Galaxy at one time step would still require several hours. While
@@ -267,25 +267,25 @@ a task is therefore a considerable demand.</p>
 <p>Moreover, the cost of power is non-negligible. At an estimated rate
 of <span class="math inline">\(\sim
 0.10~\mathrm{USD}/\mathrm{kWh}\)</span> <span class="citation"
-data-cites="table20245">(<strong>table20245?</strong>)</span>, and with
-Frontier consuming roughly 21 MW, a single 6-hour computation would cost
-approximately 12,600 USD. Running the system for a full day would amount
-to about 50,000 USD, or  42,000 EUR <span class="citation"
-data-cites="ECB_USD_EUR_2025">(<strong>ECB_USD_EUR_2025?</strong>)</span>.
-This is nearly twice the annual salary of a PhD student in France <span
-class="citation"
-data-cites="MESR_financement_doctoral">(<strong>MESR_financement_doctoral?</strong>)</span>.</p>
+data-cites="table20245">(Table 2024)</span>, and with Frontier consuming
+roughly 21 MW, a single 6-hour computation would cost approximately
+12,600 USD. Running the system for a full day would amount to about
+50,000 USD, or  42,000 EUR <span class="citation"
+data-cites="ECB_USD_EUR_2025">(European Central Bank 2025)</span>. This
+is nearly twice the annual salary of a PhD student in France <span
+class="citation" data-cites="MESR_financement_doctoral">(Ministere de
+l’Enseignement superieur et de la Recherche 2025)</span>.</p>
 <p>Throughout this thesis, I have access to the Pairs observatoy’s super
-computer <span class="citation"
-data-cites="DIO_OBSPM">(<strong>DIO_OBSPM?</strong>)</span>, which
-currently has about 85 nodes. However, as a humorous aside, consider
-attempting this computation on a personal research laptop, such as a
-MacBook Air with an M2 processor. Its estimated speed of <span
+computer <span class="citation" data-cites="DIO_OBSPM">(Hottier and
+l’Observatoire de Paris 2025)</span>, which currently has about 85
+nodes. However, as a humorous aside, consider attempting this
+computation on a personal research laptop, such as a MacBook Air with an
+M2 processor. Its estimated speed of <span
 class="math inline">\(\sim\)</span>0.1 TFLOPS (i.e., <span
 class="math inline">\(10^{11}\)</span> FLOPS) <span class="citation"
-data-cites="hubner2025apple">(<strong>hubner2025apple?</strong>)</span>
-is approximately 10 million times slower than Frontier. A single time
-step would thus take over 1,500 years.</p>
+data-cites="hubner2025apple">(Hübner et al. 2025)</span> is
+approximately 10 million times slower than Frontier. A single time step
+would thus take over 1,500 years.</p>
 <p>Clearly, we require a more tractable modeling approach for studying
 the evolution of globular clusters and the formation of stellar streams.
 Fortunately, it is well justified to approximate all the stars in the
@@ -302,8 +302,8 @@ significantly. We revist this in Section XXX.</p>
 <p>In globular clusters, where stars are densely packed into a
 relatively small volume, stellar encounters become significant over the
 system’s lifetime. According to Chapter 5.1 of <span class="citation"
-data-cites="bovy_inprep">(<strong>bovy_inprep?</strong>)</span>, the
-relaxation timescale within globular clusters is typically <span
+data-cites="bovy_inprep">Bovy (n.d.)</span>, the relaxation timescale
+within globular clusters is typically <span
 class="math inline">\(\sim1\)</span> Gyr. To contextualize this, we must
 consider the orbital period of a typical star within a cluster, and the
 age of a cluster. First, the characteristic time for a star to traverse
@@ -395,12 +395,11 @@ class="math inline">\(\Phi\)</span> is the gravitational potential. We
 use Newtonian mechanics throughout this work because <span
 class="math inline">\(\Phi &lt;&lt; c^2\)</span> in all relevant
 regimes, meaning General Relativity is not required <span
-class="citation" data-cites="bovy_inprep">(see Appendix C of
-<strong>bovy_inprep?</strong>)</span>. Poisson’s equation assumes
-Newton’s postulate that gravitational forces act instantaneously and
-that masses attract each other along the line connecting them. <a
-href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a></p>
+class="citation" data-cites="bovy_inprep">(see Appendix C of Bovy,
+n.d.)</span>. Poisson’s equation assumes Newton’s postulate that
+gravitational forces act instantaneously and that masses attract each
+other along the line connecting them. <a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>Instead of writing down the gravitational forces through Newton’s
 second law, I will write down Hamilton’s equations derived from the
 variational principle of Lagrangian mechanics. The full interacting
@@ -702,39 +701,104 @@ galaxy in which all components are tightly coupled. Given the inherent
 difficulty of the problem, the creating a model for the Milky Way
 depends on the scientific question at hand.</p>
 <p>Consider <code>TRILEGAL</code> <span class="citation"
-data-cites="2005A&amp;A...436..895G">(Girardi et al. 2005)</span> or
-<span class="citation" data-cites="2025AJ....169..317K">(Klüter et al.
-2025)</span>. These models aim to answer the question, if I observed the
-sky at this position, with this instrument, what would I observe? The
-key questions these codes answers are the stellar populations. The
-dynamics of said models for computing orbits are secondary and not
-considered when constructing the model. Just reproduced the observed
-density distribution and understand the stellar populations that
-comprise them.</p>
+data-cites="2005A&amp;A...436..895G">(Girardi et al. 2005)</span>. This
+model aims to answer the question, if I observed the sky at this
+position, with this instrument, what would I observe? The key questions
+these codes answers are the stellar populations. The dynamics of said
+models for computing orbits are secondary and not considered when
+constructing the model. Just reproduced the observed density
+distribution and understand the stellar populations that comprise them.
+The goal os their work is to create a model of the Milky Way to predict
+the characteristic of the sky that could be observed by then
+contemporary for future space missions such as: Hipparcos <span
+class="citation" data-cites="1997A&amp;A...323L..49P">(Perryman et al.
+1997)</span>, the Two Micron All Sky Survey (2MASS) <span
+class="citation" data-cites="2006AJ....131.1163S">(Skrutskie et al.
+2006)</span>, the Sloan Digital Sky Survey (SDSS) <span class="citation"
+data-cites="2000AJ....120.1579Y">(York et al. 2000)</span>, among
+others.</p>
 <p>There are some codes that try to do both. For example, the Besançon
 model attemps to create a model for the Milky Way that is dynamical
 self-consistent, reproducing obesrved quantities such as the rotation
 curve of the Milky Way, while also reproducing the stellar populations.
 The model began with <span class="citation"
 data-cites="2003A&amp;A...409..523R">Robin et al. (2003)</span> who
-constrained it using mostly Hipparcus data, and has continually improved
-the model matching it to more data to it <span class="citation"
-data-cites="2022A&amp;A...667A..98R">(Robin et al. 2022)</span>. As
-pointed out by <span class="citation"
-data-cites="2025AJ....169..317K">Klüter et al. (2025)</span>, the
-success of Trilegal and the Besançon models in the galactic community
-have been their commitment to open source and making their data
-available through web. The Besançon Model, Trilegal, and SYNTHPOP are
-valuable for creating, for example, mock observations of the modern day
-sky.</p>
+constrained it using mostly Hipparcus data. The model initial decomposed
+the stellar component of galaxy into a thin dick, a thick disk, a
+stellar halo, and a bulge. Each component was given its own stellar
+formation rate and initial mass function to explain the types of stars
+that should be observed within each group. The model has been constantly
+improved throughout the years. For instance, <span class="citation"
+data-cites="2022A&amp;A...667A..98R">Robin et al. (2022)</span>
+incorporated Gaia kinematic stellar data kinematic data to refne the
+model. As pointed out by <span class="citation"
+data-cites="2025AJ....169..317K">Klüter et al. (2025)</span>, who has
+recently built an open source python package,<code>SYNTHPOP</code>, for
+simulating on sky photometry, the success of Trilegal and the Besançon
+models in the galactic community have been their commitment to open
+source and making their data available through web. The Besançon Model,
+Trilegal, and SYNTHPOP are valuable for creating, for example, mock
+observations of the modern day sky.</p>
+<p><span class="citation" data-cites="2024MNRAS.527.1915B">Binney and
+Vasiliev (2024)</span>, which built upon <span class="citation"
+data-cites="2023MNRAS.520.1832B">Binney and Vasiliev (2023)</span> aimed
+to create a model of the Milky Way this is a distribution function whose
+arguments are the <em>actions</em>. These actions are <em>integrals of
+motion</em> or constants along a particle orbit. For cylindrical
+symmetry, the actions are: <span class="math inline">\(J_r, J_\phi,
+J_z\)</span>, which quantify how much movement you have in the radial,
+azimuthal, and vertical directions, respectively. The moments of these
+distribution functions are observable quantities, for example: the
+galactic stellar surface density, volume density, velocity dispersion,
+etc. Not only did <span class="citation"
+data-cites="2024MNRAS.527.1915B">Binney and Vasiliev (2024)</span>
+create a dynamical model for the Milky Way, but the model also includes
+<em>chemical</em> properties of the stars, namely their metalicities
+(measured in Fe/H), and abundance of <span
+class="math inline">\(\alpha\)</span> elements. This model was mostly
+constrained using Gaia DR3 and sub selected the stars with full phase
+space inforamtion <span class="citation"
+data-cites="2023A&amp;A...674A...1G">(Gaia Collaboration, Vallenari, et
+al. 2023)</span>, as well as APOGEE DR17 (<strong>Majewski,
+2017?</strong>). Their model uses over 40 parameters to describe
+distirbution of stars and metalicities within the MW. <span
+class="citation" data-cites="2023MNRAS.520.1832B">Binney and Vasiliev
+(2023)</span> note that while there is a spatial selection function of
+the Milky Way, the global distribution of actions are well-sampled since
+the sample could contain stars that are on a variety of orbits but just
+happen in the phase in which they come within a close distance to the
+sun.</p>
 <p>Then, there are models that are more aligned with the scientific
-goals of this thesis, namely, accurately computing orbits for bodies
-within the galaxy. i.e., those that are purely dynamically motivated and
-the stellar populations are a lower priority. For example, in the
-presentation of Galpy, <span class="citation"
-data-cites="2015ApJS..216...29B">Bovy (2015)</span> presents a
-gravitational potential that satisfies a varity of observational
-constraints.</p>
+goals of this thesis and are primarily dynamically motivated, where
+stellar populations and chemistry are a secondary matter or not
+considered. I want to say that even <span class="citation"
+data-cites="2024MNRAS.527.1915B">Binney and Vasiliev (2024)</span> note
+that the number of parameters is a lot, and even though we have a large
+statistical sample of stars thanks to Gaia, it is still crazy to have
+good convergence with the data and the model. I think they say that the
+Max Likelihod converges but not tightly. I need to see if this
+interpretation is correct.</p>
+<p>The besançon model and new model proposed by <span class="citation"
+data-cites="2024MNRAS.527.1915B">Binney and Vasiliev (2024)</span>
+attempt at creating a dynamically-self consistent model that well
+captures the distirbution of stellar populations within the Milky Way.
+However, this is not a finished problem yet as the problem remains in
+which we have many different data sets that have different tracers as
+targets, and different modeling choices. Currently, perhpas the best
+model to use still depends on what is the scope of your scientific
+question.</p>
+<p>For example, there are many models for the Milky Way that are
+primarily dynamically motivated and where the stellar populations are
+secondary <span class="citation"
+data-cites="1991RMxAA..22..255A 2015ApJS..216...29B 2017MNRAS.465...76M 2017A&amp;A...598A..66P 2024ApJ...967...89I">(Allen
+and Santillan 1991; Bovy 2015; McMillan 2017; Pouliasis, Di Matteo, and
+Haywood 2017; Ibata et al. 2024)</span>.</p>
+<p><span class="citation" data-cites="2015ApJS..216...29B">Bovy
+(2015)</span> presents a gravitational potential that satisfies a varity
+of observational constraints, which are listed in their secton 3.5, and
+these constraints discuss satisfy observations of the stellar kinematics
+within the local solar volume as well as some measurements about the
+rotation curve.</p>
 <p>How the galactic models are created really do depend on the question
 at hand, and the new data available that was being considered, and the
 motivation at the time. Take, for instsance, <span class="citation"
@@ -750,15 +814,6 @@ data-cites="2011MNRAS.414.2446M">(McMillan 2011)</span>.</p>
 important to consider what scientific question one hopes to answer. We
 are not yet at the stage where one comprensive model exists that
 accurately fits all of the data.</p>
-<p>For example, many studies consider the Galaxy to be axis-symmetric
-<span class="citation"
-data-cites="Ibata McMillian Body Pouliasis Besançon">(<strong>Ibata?</strong>;
-<strong>McMillian?</strong>; <strong>Body?</strong>;
-<strong>Pouliasis?</strong>; <strong>Besançon?</strong>)</span>. This is
-because the approximation works well for orbits that do not live within
-the deepest part of the potential well which is dominated by the motion
-of a galactic bar. For the motion of those stars, a custom model may be
-employed.</p>
 <p>There are models of the Milky Way that are purely dynamically
 motivated, as in they just want to recreate the orbits of the Galaxy as
 accurately as possible. Each modeler decides how to decompose the
@@ -1104,18 +1159,17 @@ src="images/CR3BP_forbidden_region_2.png" alt="image" /></p>
 <p><img src="images/CR3BP_forbidden_region_3.png" alt="image" /> <img
 src="images/CR3BP_forbidden_region_4.png" alt="image" /></p>
 <figcaption>A reproduction of Fig. 2.4.2 from <span class="citation"
-data-cites="koon2000dynamical">(<strong>koon2000dynamical?</strong>)</span>.
-Each plot is shown in the non-inertial reference frame rotating with the
-orbital frequency of the primary and secondary about their common center
-of mass. In this example, the mass ratio is <span
-class="math inline">\(m_1 = 10 m_2\)</span>. The gray regions represent
-areas inaccessible to the test particle for a given energy. In the first
-case, where <span class="math inline">\(E &lt; E_1\)</span>, the
-particle remains confined to orbit either around the primary or the
-secondary, depending on its initial position. As the particle’s energy
-increases, more of the <span class="math inline">\(xy\)</span>-plane
-becomes accessible. The narrow passage between <span
-class="math inline">\(m_1\)</span> and <span
+data-cites="koon2000dynamical">Koon et al. (2000)</span>. Each plot is
+shown in the non-inertial reference frame rotating with the orbital
+frequency of the primary and secondary about their common center of
+mass. In this example, the mass ratio is <span class="math inline">\(m_1
+= 10 m_2\)</span>. The gray regions represent areas inaccessible to the
+test particle for a given energy. In the first case, where <span
+class="math inline">\(E &lt; E_1\)</span>, the particle remains confined
+to orbit either around the primary or the secondary, depending on its
+initial position. As the particle’s energy increases, more of the <span
+class="math inline">\(xy\)</span>-plane becomes accessible. The narrow
+passage between <span class="math inline">\(m_1\)</span> and <span
 class="math inline">\(m_2\)</span> corresponds to the <span
 class="math inline">\(L_1\)</span> Lagrange point, while the choke point
 allowing escape to the exterior when <span class="math inline">\(E &gt;
@@ -2223,12 +2277,24 @@ mass segregation and stellar evolution are time-dependent which is
 completely ignored in my simulations.</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
+<div id="ref-1991RMxAA..22..255A" class="csl-entry" role="listitem">
+Allen, Christine, and Alfredo Santillan. 1991. <span>“<span
+class="nocase">An improved model of the galactic mass distribution for
+orbit computations.</span>”</span> 22 (October):255.
+</div>
 <div id="ref-2022ApJ...939....2A" class="csl-entry" role="listitem">
 Arora, Arpit, Robyn E. Sanderson, Nondh Panithanpaisal, Emily C.
 Cunningham, Andrew Wetzel, and Nicolás Garavito-Camargo. 2022.
 <span>“<span class="nocase">On the Stability of Tidal Streams in Action
 Space</span>”</span> 939 (1): 2. <a
 href="https://doi.org/10.3847/1538-4357/ac93fb">https://doi.org/10.3847/1538-4357/ac93fb</a>.
+</div>
+<div id="ref-atchley2023frontier" class="csl-entry" role="listitem">
+Atchley, Scott, Christopher Zimmer, John Lange, David Bernholdt,
+Veronica Melesse Vergara, Thomas Beck, Michael Brim, et al. 2023.
+<span>“Frontier: Exploring Exascale.”</span> In <em>Proceedings of the
+International Conference for High Performance Computing, Networking,
+Storage and Analysis</em>, 1–16.
 </div>
 <div id="ref-2018MNRAS.478.1520B" class="csl-entry" role="listitem">
 Baumgardt, H., and M. Hilker. 2018. <span>“<span class="nocase">A
@@ -2241,14 +2307,29 @@ href="https://doi.org/10.1093/mnras/sty1057">https://doi.org/10.1093/mnras/sty10
 Binney, James, and Scott Tremaine. 2008. <em><span>Galactic Dynamics:
 Second Edition</span></em>.
 </div>
+<div id="ref-2023MNRAS.520.1832B" class="csl-entry" role="listitem">
+Binney, James, and Eugene Vasiliev. 2023. <span>“<span
+class="nocase">Self-consistent models of our Galaxy</span>”</span> 520
+(2): 1832–47. <a
+href="https://doi.org/10.1093/mnras/stad094">https://doi.org/10.1093/mnras/stad094</a>.
+</div>
+<div id="ref-2024MNRAS.527.1915B" class="csl-entry" role="listitem">
+———. 2024. <span>“<span class="nocase">Chemodynamical models of our
+Galaxy</span>”</span> 527 (2): 1915–34. <a
+href="https://doi.org/10.1093/mnras/stad3312">https://doi.org/10.1093/mnras/stad3312</a>.
+</div>
 <div id="ref-2016ARA&amp;A..54..529B" class="csl-entry" role="listitem">
 Bland-Hawthorn, Joss, and Ortwin Gerhard. 2016. <span>“<span
 class="nocase">The Galaxy in Context: Structural, Kinematic, and
 Integrated Properties</span>”</span> 54 (September):529–96. <a
 href="https://doi.org/10.1146/annurev-astro-081915-023441">https://doi.org/10.1146/annurev-astro-081915-023441</a>.
 </div>
+<div id="ref-bovy_inprep" class="csl-entry" role="listitem">
+Bovy, Jo. n.d. <em>Dynamics and Astrophysics of Galaxies</em>.
+Princeton, NJ: Princeton University Press.
+</div>
 <div id="ref-2015ApJS..216...29B" class="csl-entry" role="listitem">
-Bovy, Jo. 2015. <span>“<span class="nocase">galpy: A python Library for
+———. 2015. <span>“<span class="nocase">galpy: A python Library for
 Galactic Dynamics</span>”</span> 216 (2): 29. <a
 href="https://doi.org/10.1088/0067-0049/216/2/29">https://doi.org/10.1088/0067-0049/216/2/29</a>.
 </div>
@@ -2262,6 +2343,11 @@ Erkal, Denis, and Vasily Belokurov. 2015. <span>“<span
 class="nocase">Forensics of subhalo-stream encounters: the three phases
 of gap growth</span>”</span> 450 (1): 1136–49. <a
 href="https://doi.org/10.1093/mnras/stv655">https://doi.org/10.1093/mnras/stv655</a>.
+</div>
+<div id="ref-ECB_USD_EUR_2025" class="csl-entry" role="listitem">
+European Central Bank. 2025. <span>“<span class="nocase">Euro foreign
+exchange reference rate — US dollar: 1 EUR = 1.1726 USD</span>.”</span>
+Retrieved from ECB website.
 </div>
 <div id="ref-2018A&amp;A...616A..11G" class="csl-entry" role="listitem">
 Gaia Collaboration, D. Katz, T. Antoja, M. Romero-Gómez, R. Drimmel, C.
@@ -2291,10 +2377,30 @@ from very deep to very shallow photometric surveys with the TRILEGAL
 code</span>”</span> 436 (3): 895–915. <a
 href="https://doi.org/10.1051/0004-6361:20042352">https://doi.org/10.1051/0004-6361:20042352</a>.
 </div>
+<div id="ref-DIO_OBSPM" class="csl-entry" role="listitem">
+Hottier, Clément, and l’Observatoire de Paris. 2025. <span>“<span
+class="nocase">DIO Supercomputer at the Paris
+Observatory</span>.”</span> <a href="https://dio.obspm.fr/"
+class="uri">https://dio.obspm.fr/</a>.
+</div>
 <div id="ref-1926ApJ....64..321H" class="csl-entry" role="listitem">
 Hubble, E. P. 1926. <span>“<span class="nocase">Extragalactic
 nebulae.</span>”</span> 64 (December):321–69. <a
 href="https://doi.org/10.1086/143018">https://doi.org/10.1086/143018</a>.
+</div>
+<div id="ref-hubner2025apple" class="csl-entry" role="listitem">
+Hübner, Paul, Andong Hu, Ivy Peng, and Stefano Markidis. 2025.
+<span>“Apple Vs. Oranges: Evaluating the Apple Silicon m-Series SoCs for
+HPC Performance and Efficiency.”</span> <em>arXiv Preprint
+arXiv:2502.05317</em>.
+</div>
+<div id="ref-2024ApJ...967...89I" class="csl-entry" role="listitem">
+Ibata, Rodrigo, Khyati Malhan, Wassim Tenachi, Anke Ardern-Arentsen,
+Michele Bellazzini, Paolo Bianchini, Piercarlo Bonifacio, et al. 2024.
+<span>“<span class="nocase">Charting the Galactic Acceleration Field.
+II. A Global Mass Model of the Milky Way from the STREAMFINDER Atlas of
+Stellar Streams Detected in Gaia DR3</span>”</span> 967 (2): 89. <a
+href="https://doi.org/10.3847/1538-4357/ad382d">https://doi.org/10.3847/1538-4357/ad382d</a>.
 </div>
 <div id="ref-2025AJ....169..317K" class="csl-entry" role="listitem">
 Klüter, Jonas, Macy J. Huston, Abigail Aronica, Samson A. Johnson,
@@ -2303,6 +2409,12 @@ Allison Chevis. 2025. <span>“<span class="nocase">SYNTHPOP: A New
 Framework for Synthetic Milky Way Population Generation</span>”</span>
 169 (6): 317. <a
 href="https://doi.org/10.3847/1538-3881/adcd7a">https://doi.org/10.3847/1538-3881/adcd7a</a>.
+</div>
+<div id="ref-koon2000dynamical" class="csl-entry" role="listitem">
+Koon, Wang Sang, Martin W Lo, Jerrold E Marsden, and Shane D Ross. 2000.
+<span>“Dynamical Systems, the Three-Body Problem and Space Mission
+Design.”</span> In <em>Equadiff 99: (In 2 Volumes)</em>, 1167–81. World
+Scientific.
 </div>
 <div id="ref-2015ApJ...806...96L" class="csl-entry" role="listitem">
 Licquia, Timothy C., and Jeffrey A. Newman. 2015. <span>“<span
@@ -2336,10 +2448,28 @@ gravitational potential of the Milky Way</span>”</span> 465 (1): 76–94.
 <a
 href="https://doi.org/10.1093/mnras/stw2759">https://doi.org/10.1093/mnras/stw2759</a>.
 </div>
+<div id="ref-MESR_financement_doctoral" class="csl-entry"
+role="listitem">
+Ministere de l’Enseignement superieur et de la Recherche. 2025.
+<span>“Le Financement Doctoral.”</span> <a
+href="https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-46472">https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-46472</a>.
+</div>
 <div id="ref-1927BAN.....4...91O" class="csl-entry" role="listitem">
 Oort, J. H. 1927. <span>“<span class="nocase">Additional notes
 concerning the rotation of the galactic system</span>”</span> 4
 (October):91.
+</div>
+<div id="ref-1997A&amp;A...323L..49P" class="csl-entry" role="listitem">
+Perryman, M. A. C., L. Lindegren, J. Kovalevsky, E. Hoeg, U. Bastian, P.
+L. Bernacca, M. Crézé, et al. 1997. <span>“<span>The HIPPARCOS
+Catalogue</span>”</span> 323 (July):L49–52.
+</div>
+<div id="ref-2017A&amp;A...598A..66P" class="csl-entry" role="listitem">
+Pouliasis, E., P. Di Matteo, and M. Haywood. 2017. <span>“<span
+class="nocase">A Milky Way with a massive, centrally concentrated thick
+disc: new Galactic mass models for orbit computations</span>”</span> 598
+(February):A66. <a
+href="https://doi.org/10.1051/0004-6361/201527346">https://doi.org/10.1051/0004-6361/201527346</a>.
 </div>
 <div id="ref-2022A&amp;A...667A..98R" class="csl-entry" role="listitem">
 Robin, A. C., O. Bienaymé, J. B. Salomon, C. Reylé, N. Lagarde, F.
@@ -2361,12 +2491,23 @@ class="nocase">Dynamics of stream-subhalo interactions</span>”</span>
 457 (4): 3817–35. <a
 href="https://doi.org/10.1093/mnras/stw232">https://doi.org/10.1093/mnras/stw232</a>.
 </div>
+<div id="ref-2006AJ....131.1163S" class="csl-entry" role="listitem">
+Skrutskie, M. F., R. M. Cutri, R. Stiening, M. D. Weinberg, S.
+Schneider, J. M. Carpenter, C. Beichman, et al. 2006. <span>“<span>The
+Two Micron All Sky Survey (2MASS)</span>”</span> 131 (2): 1163–83. <a
+href="https://doi.org/10.1086/498708">https://doi.org/10.1086/498708</a>.
+</div>
 <div id="ref-2023LRCA....9....3S" class="csl-entry" role="listitem">
 Spurzem, Rainer, and Albrecht Kamlah. 2023. <span>“<span
 class="nocase">Computational methods for collisional stellar
 systems</span>.”</span> <em>Living Reviews in Computational
 Astrophysics</em> 9 (1): 3. <a
 href="https://doi.org/10.1007/s41115-023-00018-w">https://doi.org/10.1007/s41115-023-00018-w</a>.
+</div>
+<div id="ref-table20245" class="csl-entry" role="listitem">
+Table, EIA. 2024. <span>“5.6. A. Average Price of Electricity to
+Ultimate Customers by End-Use Sector.”</span> <em>US Energy Information
+Administration</em>.
 </div>
 <div id="ref-2013ApJ...775..134V" class="csl-entry" role="listitem">
 VandenBerg, Don A., K. Brogaard, R. Leaman, and L. Casagrande. 2013.
@@ -2375,6 +2516,13 @@ Determined Using an Improved VĤB_TO Method along with Color-Magnitude
 Diagram Constraints, and Their Implications for Broader
 Issues</span>”</span> 775 (2): 134. <a
 href="https://doi.org/10.1088/0004-637X/775/2/134">https://doi.org/10.1088/0004-637X/775/2/134</a>.
+</div>
+<div id="ref-2000AJ....120.1579Y" class="csl-entry" role="listitem">
+York, Donald G., J. Adelman, John E. Anderson Jr., Scott F. Anderson,
+James Annis, Neta A. Bahcall, J. A. Bakken, et al. 2000.
+<span>“<span>The Sloan Digital Sky Survey: Technical
+Summary</span>”</span> 120 (3): 1579–87. <a
+href="https://doi.org/10.1086/301513">https://doi.org/10.1086/301513</a>.
 </div>
 </div>
 <section id="footnotes" class="footnotes footnotes-end-of-document"
