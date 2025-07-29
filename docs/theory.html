@@ -256,7 +256,7 @@ time step.</p>
 operates at approximately one exaflop, or <span
 class="math inline">\(10^{18}\)</span> FLOPS (Floating Point Operations
 Per Second) <span class="citation"
-data-cites="atchley2023frontier">(<strong>atchley2023frontier?</strong>)</span>.
+data-cites="atchley2023frontier">(Atchley et al. 2023)</span>.
 Assuming—conservatively—that each pairwise computation requires a single
 FLOP, a full <span class="math inline">\(N\)</span>-body computation of
 the Galaxy at one time step would still require several hours. While
@@ -267,25 +267,25 @@ a task is therefore a considerable demand.</p>
 <p>Moreover, the cost of power is non-negligible. At an estimated rate
 of <span class="math inline">\(\sim
 0.10~\mathrm{USD}/\mathrm{kWh}\)</span> <span class="citation"
-data-cites="table20245">(<strong>table20245?</strong>)</span>, and with
-Frontier consuming roughly 21 MW, a single 6-hour computation would cost
-approximately 12,600 USD. Running the system for a full day would amount
-to about 50,000 USD, or  42,000 EUR <span class="citation"
-data-cites="ECB_USD_EUR_2025">(<strong>ECB_USD_EUR_2025?</strong>)</span>.
-This is nearly twice the annual salary of a PhD student in France <span
-class="citation"
-data-cites="MESR_financement_doctoral">(<strong>MESR_financement_doctoral?</strong>)</span>.</p>
+data-cites="table20245">(Table 2024)</span>, and with Frontier consuming
+roughly 21 MW, a single 6-hour computation would cost approximately
+12,600 USD. Running the system for a full day would amount to about
+50,000 USD, or  42,000 EUR <span class="citation"
+data-cites="ECB_USD_EUR_2025">(European Central Bank 2025)</span>. This
+is nearly twice the annual salary of a PhD student in France <span
+class="citation" data-cites="MESR_financement_doctoral">(Ministere de
+l’Enseignement superieur et de la Recherche 2025)</span>.</p>
 <p>Throughout this thesis, I have access to the Pairs observatoy’s super
-computer <span class="citation"
-data-cites="DIO_OBSPM">(<strong>DIO_OBSPM?</strong>)</span>, which
-currently has about 85 nodes. However, as a humorous aside, consider
-attempting this computation on a personal research laptop, such as a
-MacBook Air with an M2 processor. Its estimated speed of <span
+computer <span class="citation" data-cites="DIO_OBSPM">(Hottier and
+l’Observatoire de Paris 2025)</span>, which currently has about 85
+nodes. However, as a humorous aside, consider attempting this
+computation on a personal research laptop, such as a MacBook Air with an
+M2 processor. Its estimated speed of <span
 class="math inline">\(\sim\)</span>0.1 TFLOPS (i.e., <span
 class="math inline">\(10^{11}\)</span> FLOPS) <span class="citation"
-data-cites="hubner2025apple">(<strong>hubner2025apple?</strong>)</span>
-is approximately 10 million times slower than Frontier. A single time
-step would thus take over 1,500 years.</p>
+data-cites="hubner2025apple">(Hübner et al. 2025)</span> is
+approximately 10 million times slower than Frontier. A single time step
+would thus take over 1,500 years.</p>
 <p>Clearly, we require a more tractable modeling approach for studying
 the evolution of globular clusters and the formation of stellar streams.
 Fortunately, it is well justified to approximate all the stars in the
@@ -302,8 +302,8 @@ significantly. We revist this in Section XXX.</p>
 <p>In globular clusters, where stars are densely packed into a
 relatively small volume, stellar encounters become significant over the
 system’s lifetime. According to Chapter 5.1 of <span class="citation"
-data-cites="bovy_inprep">(<strong>bovy_inprep?</strong>)</span>, the
-relaxation timescale within globular clusters is typically <span
+data-cites="bovy_inprep">Bovy (n.d.)</span>, the relaxation timescale
+within globular clusters is typically <span
 class="math inline">\(\sim1\)</span> Gyr. To contextualize this, we must
 consider the orbital period of a typical star within a cluster, and the
 age of a cluster. First, the characteristic time for a star to traverse
@@ -395,12 +395,11 @@ class="math inline">\(\Phi\)</span> is the gravitational potential. We
 use Newtonian mechanics throughout this work because <span
 class="math inline">\(\Phi &lt;&lt; c^2\)</span> in all relevant
 regimes, meaning General Relativity is not required <span
-class="citation" data-cites="bovy_inprep">(see Appendix C of
-<strong>bovy_inprep?</strong>)</span>. Poisson’s equation assumes
-Newton’s postulate that gravitational forces act instantaneously and
-that masses attract each other along the line connecting them. <a
-href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a></p>
+class="citation" data-cites="bovy_inprep">(see Appendix C of Bovy,
+n.d.)</span>. Poisson’s equation assumes Newton’s postulate that
+gravitational forces act instantaneously and that masses attract each
+other along the line connecting them. <a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>Instead of writing down the gravitational forces through Newton’s
 second law, I will write down Hamilton’s equations derived from the
 variational principle of Lagrangian mechanics. The full interacting
@@ -609,38 +608,37 @@ and complex problem. From our location within the Galaxy, it is
 difficult to obtain a global perspective. Since the advent of
 extragalactic astronomy and early classification efforts such as those
 by <span class="citation" data-cites="1926ApJ....64..321H">Hubble
-(1926)</span>, we can be to ask on what the total structure of our own
-galaxy is. Before being able to provide a fair estimate for the global
-mass distribution of the galaxy, some simpler questions could be
-answered. For example, <span class="citation"
-data-cites="1927BAN.....4...91O">Oort (1927)</span> studied the motion
-of stars in the local solar neighborhood and showed that not only does
-the galaxy have a net rotation, but the galaxy has differential rotation
-and not, for instance, solid-body rotation.</p>
+(1926)</span>, we have begun to ask what the total structure of our own
+Galaxy is. Before providing a robust estimate for the global mass
+distribution, some simpler questions were addressed. For example, <span
+class="citation" data-cites="1927BAN.....4...91O">Oort (1927)</span>
+studied the motion of stars in the local solar neighborhood and showed
+that the Galaxy not only has net rotation, but also differential
+rotation—as opposed to solid-body rotation.</p>
 <p>The field has come a long way since then, and today we possess a
-number of functioning models of the Galactic gravitational potential.
-Much of this progress owes to the fact that Poisson’s equation is
-linear: <span class="math display">\[\label{eq:linear_poisson}
+number of viable models for the Galactic gravitational potential. Much
+of this progress owes to the fact that Poisson’s equation is linear:
+<span class="math display">\[\label{eq:linear_poisson}
             \nabla^2 \left(a_0\Phi_0 + a_1\Phi_1 \right) = a_0 \nabla^2
 \Phi_0 + a_1 \nabla^2 \Phi_1 = 4\pi G \left(a_0\rho_0
 +a_1\rho_1\right),\]</span> which allows us to treat the Galaxy as a
 superposition of separate components, each described by its own
-potential-density pair. This decomposition makes it possible to build
+potential-density pair. This decomposition enables the construction of
 composite models from a collection of structural elements that are also
 commonly observed in external galaxies. The Galaxy Zoo project <span
 class="citation" data-cites="2008MNRAS.389.1179L">(Lintott et al.
-2008)</span>, for instance, has made it evident that many
-galaxies—including our own—share similar morphologies, justifying this
-modular approach. Typical components of the Milky Way included in such
-models are:</p>
+2008)</span>, for instance, has shown that many galaxies—including our
+own—share similar morphologies, justifying this modular approach.
+Typical components of disc like galaxies, the Milky Way included,
+are:</p>
 <ul>
 <li><p>A stellar disk,</p></li>
 <li><p>A gaseous disk,</p></li>
-<li><p>a dark matter halo,</p></li>
-<li><p>a stellar halo,</p></li>
-<li><p>a bulge,</p></li>
-<li><p>a galactic bar,</p></li>
-<li><p>the spiral arms.</p></li>
+<li><p>A dark matter halo,</p></li>
+<li><p>A stellar halo,</p></li>
+<li><p>A bulge,</p></li>
+<li><p>A galactic bar,</p></li>
+<li><p>Spiral arms.</p></li>
 </ul>
 <p>In addition, smaller-scale structures such as globular clusters,
 giant molecular clouds, and open clusters can locally perturb the field.
@@ -655,28 +653,28 @@ Gerhard (2016)</span>, the components co-evolve within a shared
 potential, meaning that even those formed separately eventually become
 dynamically mixed. This interdependence implies that the potential
 cannot be cleanly partitioned into independent contributions, and even
-with a complete data set, degeneracies would persist. Their review
+with a complete dataset, degeneracies would persist. Their review
 illustrates this point by listing 37 parameter groups required to
-characterize the the Galaxy and include: the local standard of rest,
-Galactic reference frame, and the geometric and density properties of
-various components—underscoring the system’s complexity.</p>
+characterize the Galaxy—including the local standard of rest, Galactic
+reference frame, and the geometric and density properties of various
+components—underscoring the system’s complexity.</p>
 <p>The challenge is compounded by limitations in the available data. The
 Gaia mission has delivered the most comprehensive survey of the Galaxy
 to date <span class="citation"
 data-cites="2023A&amp;A...674A...1G">(Gaia Collaboration, Vallenari, et
-al. 2023)</span>, with photometric and astrometric data for over two
-billion stars and radial velocities for tens of millions <span
+al. 2023)</span>, providing photometric and astrometric data for over
+two billion stars and radial velocities for tens of millions <span
 class="citation" data-cites="2018A&amp;A...616A..11G">(Gaia
 Collaboration, Katz, et al. 2018)</span>. However, this still represents
 only a small fraction of the total stellar population. The stellar mass
 of the Milky Way is estimated to be approximately <span
-class="math inline">\(6\times10^{10} \mathrm{M}_\odot\)</span>, <span
+class="math inline">\(6\times10^{10} \mathrm{M}_\odot\)</span> <span
 class="citation" data-cites="2015ApJ...806...96L">(Licquia and Newman
-2015)</span>, corresponding to about one hundred billion stars <span
-class="citation" data-cites="2017MNRAS.465...76M">(see McMillan 2017,
-for a similar estimate)</span>. Thus, Gaia’s catalog provides 5D
-phase-space information for only about 1-2% of all stars, complete
-6D-phase information for a fraction of a percent.</p>
+2015)</span>, corresponding to roughly one hundred billion stars <span
+class="citation" data-cites="2017MNRAS.465...76M">(see also McMillan
+2017)</span>. Thus, Gaia provides 5D phase-space information for only
+about 1-2% of all stars, and full 6D information for just a fraction of
+a percent.</p>
 <p>Moreover, the data suffer from unavoidable selection effects. As
 illustrated in Fig. <a href="#fig:gaia_selection_function"
 data-reference-type="ref"
@@ -690,245 +688,200 @@ foreseeable future.</p>
 <figure id="fig:gaia_selection_function">
 <img src="images/recio-blanco-2023-fig5.png" />
 <figcaption>The Gaia spatial selection function for spectroscopic
-observations. Fig. 5 from <span class="citation"
+observations. Figure 5 from <span class="citation"
 data-cites="2023A&amp;A...674A..38G">Gaia Collaboration, Recio-Blanco,
 et al. (2023)</span>.</figcaption>
 </figure>
-<p>In summary, while we now possess sophisticated models and rich data
-sets, constructing a comprehensive and precise model of the Milky Way’s
-gravitational field is still an inherently difficult task—constrained
-both by observational incompleteness and the physical complexity of a
-galaxy in which all components are tightly coupled. Given the inherent
-difficulty of the problem, the creating a model for the Milky Way
-depends on the scientific question at hand.</p>
+<p>In summary, while we now possess sophisticated models and rich
+datasets, constructing a comprehensive and precise model of the Milky
+Way’s gravitational field is still inherently difficult—constrained both
+by observational incompleteness and the physical complexity of a system
+in which all components are tightly coupled. Given these challenges, the
+construction of a Galactic model depends on the scientific question
+being asked.</p>
 <p>Consider <code>TRILEGAL</code> <span class="citation"
 data-cites="2005A&amp;A...436..895G">(Girardi et al. 2005)</span>. This
-model aims to answer the question, if I observed the sky at this
-position, with this instrument, what would I observe? The key questions
-these codes answers are the stellar populations. The dynamics of said
-models for computing orbits are secondary and not considered when
-constructing the model. Just reproduced the observed density
-distribution and understand the stellar populations that comprise them.
-The goal os their work is to create a model of the Milky Way to predict
-the characteristic of the sky that could be observed by then
-contemporary for future space missions such as: Hipparcos <span
-class="citation" data-cites="1997A&amp;A...323L..49P">(Perryman et al.
-1997)</span>, the Two Micron All Sky Survey (2MASS) <span
-class="citation" data-cites="2006AJ....131.1163S">(Skrutskie et al.
-2006)</span>, the Sloan Digital Sky Survey (SDSS) <span class="citation"
-data-cites="2000AJ....120.1579Y">(York et al. 2000)</span>, among
-others.</p>
-<p>There are some codes that try to do both. For example, the Besançon
-model attemps to create a model for the Milky Way that is dynamical
-self-consistent, reproducing obesrved quantities such as the rotation
-curve of the Milky Way, while also reproducing the stellar populations.
-The model began with <span class="citation"
-data-cites="2003A&amp;A...409..523R">Robin et al. (2003)</span> who
-constrained it using mostly Hipparcus data. The model initial decomposed
-the stellar component of galaxy into a thin dick, a thick disk, a
-stellar halo, and a bulge. Each component was given its own stellar
-formation rate and initial mass function to explain the types of stars
-that should be observed within each group. The model has been constantly
-improved throughout the years. For instance, <span class="citation"
+model aims to answer the question: if I observe the sky from a given
+location with a given instrument, what do I expect to see? The focus of
+these models are stellar populations. Dynamics—such as orbits or
+gravitational forces—are secondary and not included in the construction.
+The primary goal is to reproduce observed star counts and understand the
+underlying stellar populations. Such models are designed to simulate the
+sky as it would appear to missions like Hipparcos <span class="citation"
+data-cites="1997A&amp;A...323L..49P">(Perryman et al. 1997)</span>,
+2MASS <span class="citation" data-cites="2006AJ....131.1163S">(Skrutskie
+et al. 2006)</span>, and SDSS <span class="citation"
+data-cites="2000AJ....120.1579Y">(York et al. 2000)</span>.</p>
+<p>Some models attempt to address both stellar populations and dynamics.
+For example, the Besançon model aims to construct a dynamically
+self-consistent model of the Milky Way that reproduces observables such
+as the rotation curve, as well as the spatial and chemical distributions
+of stars. The model originated with <span class="citation"
+data-cites="2003A&amp;A...409..523R">Robin et al. (2003)</span>, who
+constrained it primarily using Hipparcos data. Their initial
+decomposition included a thin disk, a thick disk, a stellar halo, and a
+bulge, with each component assigned its own star formation rate and
+initial mass function. The model has been continuously refined; for
+instance, <span class="citation"
 data-cites="2022A&amp;A...667A..98R">Robin et al. (2022)</span>
-incorporated Gaia kinematic stellar data kinematic data to refne the
-model. As pointed out by <span class="citation"
-data-cites="2025AJ....169..317K">Klüter et al. (2025)</span>, who has
-recently built an open source python package,<code>SYNTHPOP</code>, for
-simulating on sky photometry, the success of Trilegal and the Besançon
-models in the galactic community have been their commitment to open
-source and making their data available through web. The Besançon Model,
-Trilegal, and SYNTHPOP are valuable for creating, for example, mock
-observations of the modern day sky.</p>
-<p><span class="citation" data-cites="2024MNRAS.527.1915B">Binney and
-Vasiliev (2024)</span>, which built upon <span class="citation"
-data-cites="2023MNRAS.520.1832B">Binney and Vasiliev (2023)</span> aimed
-to create a model of the Milky Way this is a distribution function whose
-arguments are the <em>actions</em>. These actions are <em>integrals of
-motion</em> or constants along a particle orbit. For cylindrical
-symmetry, the actions are: <span class="math inline">\(J_r, J_\phi,
-J_z\)</span>, which quantify how much movement you have in the radial,
-azimuthal, and vertical directions, respectively. The moments of these
-distribution functions are observable quantities, for example: the
-galactic stellar surface density, volume density, velocity dispersion,
-etc. Not only did <span class="citation"
-data-cites="2024MNRAS.527.1915B">Binney and Vasiliev (2024)</span>
-create a dynamical model for the Milky Way, but the model also includes
-<em>chemical</em> properties of the stars, namely their metalicities
-(measured in Fe/H), and abundance of <span
-class="math inline">\(\alpha\)</span> elements. This model was mostly
-constrained using Gaia DR3 and sub selected the stars with full phase
-space inforamtion <span class="citation"
-data-cites="2023A&amp;A...674A...1G">(Gaia Collaboration, Vallenari, et
-al. 2023)</span>, as well as APOGEE DR17 (<strong>Majewski,
-2017?</strong>). Their model uses over 40 parameters to describe
-distirbution of stars and metalicities within the MW. <span
-class="citation" data-cites="2023MNRAS.520.1832B">Binney and Vasiliev
-(2023)</span> note that while there is a spatial selection function of
-the Milky Way, the global distribution of actions are well-sampled since
-the sample could contain stars that are on a variety of orbits but just
-happen in the phase in which they come within a close distance to the
-sun.</p>
-<p>Then, there are models that are more aligned with the scientific
-goals of this thesis and are primarily dynamically motivated, where
-stellar populations and chemistry are a secondary matter or not
-considered. I want to say that even <span class="citation"
-data-cites="2024MNRAS.527.1915B">Binney and Vasiliev (2024)</span> note
-that the number of parameters is a lot, and even though we have a large
-statistical sample of stars thanks to Gaia, it is still crazy to have
-good convergence with the data and the model. I think they say that the
-Max Likelihod converges but not tightly. I need to see if this
-interpretation is correct.</p>
-<p>The besançon model and new model proposed by <span class="citation"
-data-cites="2024MNRAS.527.1915B">Binney and Vasiliev (2024)</span>
-attempt at creating a dynamically-self consistent model that well
-captures the distirbution of stellar populations within the Milky Way.
-However, this is not a finished problem yet as the problem remains in
-which we have many different data sets that have different tracers as
-targets, and different modeling choices. Currently, perhpas the best
-model to use still depends on what is the scope of your scientific
-question.</p>
-<p>For example, there are many models for the Milky Way that are
-primarily dynamically motivated and where the stellar populations are
-secondary <span class="citation"
-data-cites="1991RMxAA..22..255A 2015ApJS..216...29B 2017MNRAS.465...76M 2017A&amp;A...598A..66P 2024ApJ...967...89I">(Allen
-and Santillan 1991; Bovy 2015; McMillan 2017; Pouliasis, Di Matteo, and
-Haywood 2017; Ibata et al. 2024)</span>. Despite many models being
-available, the process in building these have a common template. The
-authors must select: which dataset to use, which tracer populations to
-use, what parametric form to use for their Milky Way model. Also, in
-these works, fitting all of the parameters of the Milky Way is
-oftentimes too difficult, either for data availability, too
-computationally demanding, or a likelihood fit does not converge.</p>
-<p>In all of the aforementioned models, each of them assume
-axis-symmetry which is already a limitation. This implies that modeling
-the dynamics of interior of the galaxy, within <span
-class="math inline">\(2&lt;\mathrm{kpc}\)</span> or the most bound
-stars, is difficult, and not necessary for modeling the orbits of stars
-outside of this region. Both <span class="citation"
+incorporated Gaia DR3 kinematics to further constrain it. As noted by
+<span class="citation" data-cites="2025AJ....169..317K">Klüter et al.
+(2025)</span>, who recently introduced the open-source Python package
+<code>SYNTHPOP</code> for simulating on-sky photometry, the success of
+TRILEGAL and the Besançon model lies in their openness: they are
+publicly available and have web interfaces for widespread use. These
+tools are particularly valuable for creating mock surveys of the
+sky.</p>
+<p>A different approach is taken by <span class="citation"
+data-cites="2024MNRAS.527.1915B">Binney and Vasiliev (2024)</span>,
+building on <span class="citation"
+data-cites="2023MNRAS.520.1832B">Binney and Vasiliev (2023)</span>, who
+constructed a dynamical model of the Milky Way in which the distribution
+function depends on orbital actions—quantities that are conserved along
+orbits in a steady-state potential. In axisymmetric potentials, the
+actions are <span class="math inline">\(J_r\)</span>, <span
+class="math inline">\(J_\phi\)</span>, and <span
+class="math inline">\(J_z\)</span>, and represent how much motion an
+orbit has in the radial, azimuthal, and vertical directions,
+respectively. The moments of the distribution function yield observable
+quantities such as stellar surface densities, volume densities, and
+velocity dispersions. In addition to dynamical consistency, the model
+includes the chemical properties of stars, specifically metallicity
+([Fe/H]) and <span class="math inline">\(\alpha\)</span>-element
+abundances. The model is constrained using Gaia DR3 data <span
+class="citation" data-cites="2023A&amp;A...674A...1G">(Gaia
+Collaboration, Vallenari, et al. 2023)</span>, particularly stars with
+full phase-space information, as well as APOGEE DR17 <span
+class="citation" data-cites="2017AJ....154...94M">(Majewski et al.
+2017)</span>. Their model involves over 40 parameters to describe the
+distributions of stars and metallicities throughout the Milky Way.</p>
+<p>Then, there are many models of the Milky Way that are primarily
+dynamically motivated, with stellar populations treated as secondary
+<span class="citation"
+data-cites="1991RMxAA..22..255A 2015ApJS..216...29B 2017MNRAS.465...76M 2017A&amp;A...598A..66P 2024ApJ...967...89I">(Christine
+Allen and Santillan 1991; Bovy 2015; McMillan 2017; Pouliasis, Di
+Matteo, and Haywood 2017; Ibata et al. 2024)</span>. Despite the
+variety, their construction generally follows the same template: the
+authors must choose which dataset to use, which tracer populations to
+include, and the parametric form of the Milky Way potential. Often,
+fitting all model parameters is infeasible, whether due to lack of data,
+high computational cost, or non-converging likelihoods.</p>
+<p>All of the above models assume axisymmetry, which is already a
+limitation. This makes it difficult to model the dynamics in the inner
+Galaxy (within <span class="math inline">\(2~\mathrm{kpc}\)</span>) or
+for the most bound stars — though these are not necessary for modeling
+orbits outside that region. Both <span class="citation"
 data-cites="2017MNRAS.465...76M">McMillan (2017)</span> and <span
 class="citation" data-cites="2024MNRAS.527.1915B">Binney and Vasiliev
-(2024)</span> fix the parameters describe the gas within the galactic
-disk, while they only fit parameters describing distirbution of stars or
-dark matter. <span class="citation"
-data-cites="2017MNRAS.465...76M">McMillan (2017)</span> created their
-model to calculate the orbits of stars to support the upcoming Gaia data
-releases. Additionally, <span class="citation"
-data-cites="2017MNRAS.465...76M">McMillan (2017)</span> wanted to
-improve on their previous model noting that: (1) the maser population
-used to trace the orbits of stars within the disk was trippled since
-<span class="citation" data-cites="2011MNRAS.414.2446M">McMillan
-(2011)</span>, and that <span class="citation"
-data-cites="2011MNRAS.414.2446M">McMillan (2011)</span>’s omission of a
-gaseous disk did not capture the forces necessary to properly model the
-stars in the solar vicinity.</p>
-<p>Note that many of the aforementioned works rely on fitting the data
-to kinematic information, i.e. comparing the models prediction of the
-velocity dispersion of a statistically significant of stars to that of a
-chosen data set. This is because, astrometric measurements of
-accelerations is still in a very early phase. Detecting a change in
-angular position via the parallax is so difficult that people used to
-refer to the stars as <em>fixed-stars</em> <span class="citation"
-data-cites="1981unht.book.....K">(Kant and Jaki 1981)</span>. Then, the
-measurement must be made on a yearly cadence with high precision in
-order to detect a star’s movement on the celestial sphere, which is
-exactly what Gaia is going. <strong>whose uncertainties are lower?
-Proper motiosn or Radial velocities? is it possible to measure the
-accelerations using RV?</strong>. However, it’s not to say that
-accelerations have never been detected. <span class="citation"
+(2024)</span> fix the parameters describing the gas in the Galactic disk
+and only fit those related to the stellar and dark matter distributions.
+<span class="citation" data-cites="2017MNRAS.465...76M">McMillan
+(2017)</span> specifically constructed their model to support orbit
+calculations for stars in anticipation of Gaia data releases. They aimed
+to improve upon their earlier model <span class="citation"
+data-cites="2011MNRAS.414.2446M">(McMillan 2011)</span>, motivated by
+(1) a tripling of the maser population used to trace disk kinematics,
+and (2) the realization that omitting a gaseous disk in their earlier
+work had led to underestimating the forces in the solar vicinity.</p>
+<p>Many of the models described above rely on fitting data using
+kinematic information — comparing the model’s predictions for velocity
+dispersion to observations of large samples of stars. This is because
+direct astrometric measurements of stellar accelerations are still in
+their infancy. Measuring changes in angular position through parallax is
+so challenging that stars were long referred to as <em>fixed stars</em>
+<span class="citation" data-cites="1981unht.book.....K">(Kant and Jaki
+1981)</span>. Precise, year-over-year positional measurements are
+required to observe motion on the celestial sphere — precisely what Gaia
+does. <strong>Whose uncertainties are lower: proper motions or radial
+velocities? Is it possible to measure accelerations using radial
+velocities?</strong></p>
+<p>That said, accelerations have been measured in some cases. <span
+class="citation"
 data-cites="2018ApJS..239...31B 2021ApJS..254...42B">Brandt (2018,
-2021)</span> created a cross-catalog between Hipparcos and Gaia Data
-Release 2 <span class="citation"
-data-cites="2018A&amp;A...616A...1G">(Gaia Collaboration, Brown, et al.
-2018)</span> and then EDR3. By doing so, a catalog of stars has over a
-25-year baseline of observations, which is long enough that for many
-stars an acceleration can be detected. However, the Hipparcos catalog is
-still limited to 100,000 stars. Additionally, the magnitude of the
-acceleration of a galactic field star is still too low. Currently, this
-catalog is being leverage to systems with unusually high accelerations,
-which are indicative of binary star systems or stellar systems with
-massive plants <span class="citation"
+2021)</span> created a cross-catalog between Hipparcos and Gaia DR2
+<span class="citation" data-cites="2018A&amp;A...616A...1G">(Gaia
+Collaboration, Brown, et al. 2018)</span> and later EDR3. This provided
+a baseline of over 25 years, long enough to detect accelerations for
+some stars. However, the Hipparcos catalog only contains around 100,000
+stars, and the typical acceleration of a field star in the Galaxy is
+extremely small. Consequently, the cross-matched catalog is currently
+being used to study stars with unusually high accelerations — typically
+in binary systems or with massive planets <span class="citation"
 data-cites="2023MNRAS.521.5232W 2025AJ....170...52G">(Waisberg, Klein,
-and Katz 2023; Giovinazzi et al. 2025)</span>, and not to measure the
-accelerations due to the galactic gravitational field.</p>
-<p>However, as motivated by the goal of this thesis, stellar streams are
-incredible interesting for this reason. Since the stars are on more or
-less the same orbit but only shifted in phase, they encode the
-gravitational field of the Milky Way. <span class="citation"
-data-cites="2024ApJ...967...89I">Ibata et al. (2024)</span> is the first
-work to use the stellar streams to fit a gravitational potential model
-of the Milky Way. Even in this, <span class="citation"
-data-cites="2024ApJ...967...89I">Ibata et al. (2024)</span> fixed some
-parameters of the model, for instance they employed the same bulge model
-as <span class="citation" data-cites="2017MNRAS.465...76M">McMillan
-(2017)</span>.</p>
-<p>We choose the model of <span class="citation"
+and Katz 2023; Giovinazzi et al. 2025)</span> — rather than to measure
+Galactic accelerations.</p>
+<p>As stated in the motivation for undertaking this thesis, stellar
+streams are particularly to this recovering information about the
+galactic gravitational field. The stars within a stream are on similar
+orbits (but shifted in phase), and their orientation and curvtature
+encodes detailed information about the Galactic gravitational field.
+<span class="citation" data-cites="2024ApJ...967...89I">Ibata et al.
+(2024)</span> is the first study to use stellar streams to directly fit
+a gravitational potential model of the Milky Way. Even in that case,
+<span class="citation" data-cites="2024ApJ...967...89I">Ibata et al.
+(2024)</span> fixed some of the model parameters, adopting the same
+bulge model as <span class="citation"
+data-cites="2017MNRAS.465...76M">McMillan (2017)</span>.</p>
+<p>In this thesis, we use the model of <span class="citation"
 data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
-(2017)</span>, which built upon <span class="citation"
-data-cites="1991RMxAA..22..255A">Allen and Santillan (1991)</span>. This
-model was made by our group and made availbe to me at the onset of the
-project. This model was constructed to fit similar observational data as
-<span class="citation" data-cites="2015ApJS..216...29B">(Bovy
-2015)</span>, such as different rotation curves and kinematic properties
-of stars within the local solar volume. <span class="citation"
-data-cites="2017A&amp;A...598A..66P">(Pouliasis, Di Matteo, and Haywood
-2017)</span> provides two different models, one with bulge and one
-without. Below, I will describe the second model of <span
-class="citation" data-cites="2017A&amp;A...598A..66P">(Pouliasis, Di
-Matteo, and Haywood 2017)</span>, since we employed in both chapter 4
-and chapter 5.</p>
-<p>The second model of <span class="citation"
-data-cites="2017A&amp;A...598A..66P">(Pouliasis, Di Matteo, and Haywood
-2017)</span> models the galaxy with a halo, a thin and thick disk. One
-advantage of this model is that each potential for each component is
-analytic. In general, it is known the galaxy’s have exponential decaying
-disks: <span class="math display">\[\rho(R,z) = \rho_0
-\mathrm{exp}\left(-\frac{R}{R_d}-\frac{|z|}{z_d}\right),\]</span> where
-the density,<span class="math inline">\(\rho\)</span> is a function of
-the cylindrical radius <span class="math inline">\(R\)</span>, vertical
-height, <span class="math inline">\(z\)</span>, and has three
-parameters: a characteristic density, scale radius, and scale height:
-<span class="math inline">\(\rho_0\)</span>, <span
-class="math inline">\(R_d\)</span>, <span
-class="math inline">\(z_d\)</span>. The difficulty with this model is
-that it cannot be easily integrated to obtain the potential since the
-<span class="math inline">\(R\)</span> and <span
-class="math inline">\(z\)</span> coordinates are not separaetable. Often
-times, a basis function expansion must be employed to approximate the
-potential when computing the forces.</p>
-<p>Instead, the potential of the Miyamoto-Nagai <span class="citation"
-data-cites="1975PASJ...27..533M">(Miyamoto and Nagai 1975)</span>, is
-fully analytical. Although it provides a density profile with a
-polynomial decay rather than exponential decay, it is still a fair model
-for the galactic disks. The potential has the form of: <span
+(2017)</span>, which builds upon <span class="citation"
+data-cites="1991RMxAA..22..255A">Christine Allen and Santillan
+(1991)</span>. This model was developed within our research group and
+made available at the start of the project. It was designed to fit
+observational data similar to those used in <span class="citation"
+data-cites="2015ApJS..216...29B">Bovy (2015)</span>, including the
+galactic rotation curve and local stellar kinematics. <span
+class="citation" data-cites="2017A&amp;A...598A..66P">Pouliasis, Di
+Matteo, and Haywood (2017)</span> provides two versions of the model —
+one with a bulge and one without. Below, we describe the second version,
+which we used in both Chapter 4 and Chapter 5.</p>
+<p>The second version of <span class="citation"
+data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
+(2017)</span> models the Galaxy with a halo, and thin and thick disks.
+One advantage of this model is that the gravitational potential of each
+component is analytic. For example, the Miyamoto-Nagai potential <span
+class="citation" data-cites="1975PASJ...27..533M">(Miyamoto and Nagai
+1975)</span> is fully analytic and given by: <span
 class="math display">\[\Phi(R, z \mid M, a, b) = -\frac{G M}{\sqrt{R^2 +
 \left(a + \sqrt{z^2 + b^2}\right)^2}},\]</span> where <span
 class="math inline">\(M\)</span> is the total mass of the disk, <span
 class="math inline">\(a\)</span> is the radial scale length, and <span
 class="math inline">\(b\)</span> is the vertical scale height. This form
 smoothly interpolates between a flattened disk and a spherical
-distribution depending on the values of <span
+distribution, depending on the values of <span
 class="math inline">\(a\)</span> and <span
-class="math inline">\(b\)</span>.</p>
-<p>The dark matter halo is modeled separately and selected to reproduce
-the observed flat rotation curve of the Milky Way at large radii. This
-requirement translates into a mass profile that grows linearly with
-radius (<span class="math inline">\(M(r) \propto r\)</span>) in the
-outer regions. A class of density profiles known as double power-law
-models satisfies this condition: <span class="math display">\[\rho(r
-\mid \alpha, \beta, r_s) = \rho_0 \left( \frac{r}{r_s} \right)^{-\alpha}
-\left(1 + \frac{r}{r_s} \right)^{\alpha - \beta},\]</span> where <span
-class="math inline">\(r_s\)</span> is a scale radius, <span
-class="math inline">\(\alpha\)</span> controls the inner slope, and
-<span class="math inline">\(\beta\)</span> the outer slope. Common
-choices include the NFW profile (<span class="math inline">\(\alpha =
-1\)</span>, <span class="math inline">\(\beta = 3\)</span>) and the
-Hernquist profile <span class="math inline">\((\alpha = 1\)</span>,
-<span class="math inline">\(\beta = 4)\)</span>.</p>
-<p>The potential presented in Allen Santillan uses the Martos halo,
-which is not of the same functional family of the two power-law density
-model, but nonetheless has similar properties. The Martos halo is
-defined by a parameterized enclosed mass function: <span
+class="math inline">\(b\)</span>. <span class="citation"
+data-cites="2017MNRAS.465...76M">McMillan (2017)</span> also used this
+form for their disk model.</p>
+<p>However, it is worth noting that real galaxies are observed to have
+exponentially decaying disks: <span class="math display">\[\rho(R,z) =
+\rho_0 \mathrm{exp}\left(-\frac{R}{R_d}-\frac{|z|}{z_d}\right),\]</span>
+where <span class="math inline">\(\rho\)</span> is the mass density,
+<span class="math inline">\(R\)</span> is the cylindrical radius, <span
+class="math inline">\(z\)</span> the vertical height, and the model has
+three parameters: a characteristic density <span
+class="math inline">\(\rho_0\)</span>, scale radius <span
+class="math inline">\(R_d\)</span>, and scale height <span
+class="math inline">\(z_d\)</span>. A drawback of this model is that it
+cannot be integrated analytically to obtain the potential, since the
+<span class="math inline">\(R\)</span> and <span
+class="math inline">\(z\)</span> coordinates are not separable. Often,
+basis function expansions are needed to approximate the potential and
+compute forces. <span class="citation"
+data-cites="2017MNRAS.465...76M">McMillan (2017)</span> and <span
+class="citation" data-cites="2024ApJ...967...89I">Ibata et al.
+(2024)</span> both adopted this model for their Galactic disks.</p>
+<p>Regarding the halo, <span class="citation"
+data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
+(2017)</span> do not separate the dark matter and stellar halo
+components. Instead, they use a single halo model to represent the total
+gravitational contribution from both. This model is inherited from <span
+class="citation" data-cites="1991RMxAA..22..255A">Christine Allen and
+Santillan (1991)</span>, originally proposed in <span class="citation"
+data-cites="1986RMxAA..13..137A">C. Allen and Martos (1986)</span>. It
+is designed so that beyond a certain scale radius, the enclosed mass
+grows linearly with distance, leading to the desirable feature of a flat
+rotation curve: <span
 class="math display">\[M_{\mathrm{enc}}(r|M_0,\gamma,r_0,r_c) = M_0
             \begin{cases}
              \frac{\left(r/r_0\right)^\gamma}{1 +
@@ -936,59 +889,122 @@ class="math display">\[M_{\mathrm{enc}}(r|M_0,\gamma,r_0,r_c) = M_0
              \frac{\left(r_c/r_0\right)^\gamma}{1 +
 \left(r_c/r_0\right)^{\gamma - 1}} &amp; r&gt; r_c,\\
             \end{cases}
-            \label{eq:martos_enclosed_mass}\]</span> where <span
-class="math inline">\(M_0\)</span> is a mass scaling parameter (not the
-total mass), <span class="math inline">\(r_0\)</span> is the
-characteristic radius, <span class="math inline">\(\gamma\)</span> is
-the exponental parameter, and <span class="math inline">\(r_c\)</span>
-is a cutoff radius beyond which the mass is held constant. Thus, for
-<span class="math inline">\(r &gt; r_c\)</span> Eq. <a
-href="#eq:martos_enclosed_mass" data-reference-type="ref"
+            \label{eq:martos_enclosed_mass}\]</span></p>
+<p>where <span class="math inline">\(M_0\)</span> is a mass scaling
+parameter (not the total mass), <span class="math inline">\(r_0\)</span>
+is the characteristic radius, <span
+class="math inline">\(\gamma\)</span> is the power-law index, and <span
+class="math inline">\(r_c\)</span> is a cutoff radius beyond which the
+mass is held constant. Thus, for <span class="math inline">\(r &gt;
+r_c\)</span>, Eq. <a href="#eq:martos_enclosed_mass"
+data-reference-type="ref"
 data-reference="eq:martos_enclosed_mass">[eq:martos_enclosed_mass]</a>
-reports the total mass. In the outer regime <span
-class="math inline">\((r/r_0) &gt;&gt; 1\)</span>, the enclosed mass
-scales as <span class="math inline">\(M(r) \propto r\)</span>, producing
-a flat rotation curve. In the inner regime <span
-class="math inline">\((r/r_0) &lt;&lt; 1\)</span>, the mass grows as a
-power law, <span class="math inline">\(M(r) \propto r^{\gamma -
+yields the total mass.</p>
+<p>In the outer regime <span class="math inline">\((r/r_0) &gt;&gt;
+1\)</span>, the enclosed mass scales as <span class="math inline">\(M(r)
+\propto r\)</span>, producing a flat rotation curve. In the inner regime
+<span class="math inline">\((r/r_0) &lt;&lt; 1\)</span>, the mass grows
+as a power law, <span class="math inline">\(M(r) \propto r^{\gamma -
 1}\)</span>, which provides flexibility in shaping the central density
 slope. Since the unmodified profile leads to an unphysical divergence in
 total mass, a truncation at <span class="math inline">\(r_c\)</span> is
-imposed. When the potential has spherical symmetry we may use the
-relation <span class="math inline">\(\nabla \Phi = \frac{G
-M_{\mathrm{enc}}(r)}{r^2}\)</span>, and requiring that the potential
-vanish at infinity, the corresponding gravitational potential can be
-obtained by integrating: <span
-class="math display">\[\Phi(r|M_0,\gamma,r_0,r_c) =
+imposed.</p>
+<p>Assuming spherical symmetry, we may use the relation <span
+class="math inline">\(\nabla \Phi = \frac{G
+M_{\mathrm{enc}}(r)}{r^2}\)</span>. Requiring that the potential vanish
+at infinity, the corresponding gravitational potential can be obtained
+by integrating: <span class="math display">\[\Phi(r|M_0,\gamma,r_0,r_c)
+=
             \begin{cases}
                 \frac{GM_0}{r_0\left(\gamma-1\right)}\ln\left|\frac{1+(r/r_0)^{\gamma-1}}{1+(r_c/r_0)^{\gamma-1}}\right|
 -\frac{GM_t}{r_c}, &amp; r&lt;r_c\\
-                -GM_t/r &amp; r&gt;r_c.
-            \end{cases}\]</span> Two Miyamoto-Nagai disks plus the
-Martos halo compose the second potential model presented in
-Pouliasis2017pii and is presented in Fig. <a
+                -\frac{GM_t}{r} &amp; r&gt;r_c.
+            \end{cases}\]</span> where <span
+class="math inline">\(M_t\)</span> denotes the total mass, <span
+class="math inline">\(M_{\mathrm{enc}}(r_c)\)</span>.</p>
+<p>In general, a good halo model should reproduce the observed flat
+rotation curve at large radii. Another class of models that achieves
+this are the double power-law profiles: <span
+class="math display">\[\rho(r \mid \alpha, \beta, r_s) = \rho_0 \left(
+\frac{r}{r_s} \right)^{-\alpha} \left(1 + \frac{r}{r_s} \right)^{\alpha
+- \beta},\]</span> where <span class="math inline">\(r_s\)</span> is a
+scale radius, <span class="math inline">\(\alpha\)</span> controls the
+inner slope, and <span class="math inline">\(\beta\)</span> the outer
+slope. Common choices include the NFW profile (<span
+class="math inline">\(\alpha = 1\)</span>, <span
+class="math inline">\(\beta = 3\)</span>) and the Hernquist profile
+(<span class="math inline">\(\alpha = 1\)</span>, <span
+class="math inline">\(\beta = 4\)</span>). These families of models were
+implemented in the works of <span class="citation"
+data-cites="2015ApJS..216...29B 2017MNRAS.465...76M">Bovy (2015;
+McMillan 2017)</span> to describe the dark matter halo.</p>
+<p>The second Galactic potential model presented in <span
+class="citation" data-cites="2017A&amp;A...598A..66P">Pouliasis, Di
+Matteo, and Haywood (2017)</span> consists of two Miyamoto-Nagai disks
+plus the Martos halo and is shown in Fig. <a
 href="#fig:figure_pouliasis2017pii_potential" data-reference-type="ref"
-data-reference="fig:figure_pouliasis2017pii_potential">3</a>.</p>
+data-reference="fig:figure_pouliasis2017pii_potential">3</a>. More
+visualizations of this potential can be found in their work.</p>
 <figure id="fig:figure_pouliasis2017pii_potential">
 <img src="images/figure_pouliasis2017pii_potential_-8_8.png" />
 <figcaption>Individual components of the second Galactic potential model
-from Pouliasis et al. (2017). The parameters used are listed in Table
-XXX. The vector field illustrates the normalized gravitational force at
-each position, corresponding to <span class="math inline">\(\vec{g} =
--\nabla\Phi\)</span>. Equipotential contour lines are overlaid to guide
-the eye.</figcaption>
+from <span class="citation"
+data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
+(2017)</span>. The vector field illustrates the normalized gravitational
+force at each position, corresponding to <span
+class="math inline">\(\vec{g} = -\nabla\Phi\)</span>. Equipotential
+contour lines are overlaid to guide the eye.</figcaption>
 </figure>
-<p>Lastly,</p>
-<p>In the limit <span class="math inline">\(a \to 0\)</span>, the
-Miyamoto-Nagai potential reduces to the Plummer potential: <span
-class="math display">\[\Phi(r \mid M, b) = -\frac{G M}{\sqrt{r^2 +
-b^2}},\]</span> which I use to model globular clusters in this work. The
-Plummer model provides a simple spherically symmetric mass distribution
-with a finite central density and a total mass that asymptotes at large
-radii. Interestingly, the Plummer potential is mathematically equivalent
-to a softened gravitational potential, commonly used in <span
-class="math inline">\(N\)</span>-body simulations to regularize close
-encounters between particles.</p>
+<p>How important is the choice of potential model when modeling the
+orbits of globular clusters? It depends on the specific cluster. Take,
+for instance, Fig. <a href="#fig:vasiliev_2021_EDR3_GCS_FIG_10"
+data-reference-type="ref"
+data-reference="fig:vasiliev_2021_EDR3_GCS_FIG_10">4</a>. The position
+and spread of some clusters are virtually identical between different
+models—for example, NGC 288. This suggests that the observational
+uncertainties in the kinematic data are larger than the discrepancies
+introduced by the choice of potential. However, for other clusters, the
+model choice has a much greater impact. A notable case is Pyxis, where
+the inferred orbits differ significantly depending on the potential.
+This effect is more pronounced for clusters located farther from the
+Galactic center, where the models diverge more strongly.</p>
+<figure id="fig:vasiliev_2021_EDR3_GCS_FIG_10">
+<img src="images/vasiliev_2021_EDR3_GCS_FIG_10.jpeg" />
+<figcaption>Distribution of eccentricities, inclinations, and semi-major
+axes for the globular cluster population, based on Gaia EDR3 kinematics.
+Each point corresponds to a single realization of a globular cluster
+orbit, given its observational uncertainties. The top panel shows orbits
+computed using the potential from <span class="citation"
+data-cites="2017MNRAS.465...76M">McMillan (2017)</span>, while the
+bottom panel uses the model from <span class="citation"
+data-cites="2015ApJ...806...96L">Licquia and Newman (2015)</span>.
+(Credit: Fig. 10 from <span class="citation"
+data-cites="2021MNRAS.505.5978V">Vasiliev and Baumgardt
+(2021)</span>)</figcaption>
+</figure>
+<p>Differences in cluster orbits-or in stellar streams evolved in
+different potentials-can help constrain the underlying Galactic
+potential and eventually lead to more accurate models of the Milky Way.
+This was the motivation behind recent work such as <span
+class="citation" data-cites="2024ApJ...967...89I">Ibata et al.
+(2024)</span>. However, if the goal is to make robust predictions or
+extrapolate properties of the halo, it is prudent to explore a variety
+of Galactic models, especially when no single model is clearly
+preferred.</p>
+<p>What about the self-gravity of the globular cluster itself? Here we
+adopt one of the simplest available models: the Plummer sphere <span
+class="citation" data-cites="1911MNRAS..71..460P">(Plummer 1911)</span>.
+This model has two parameters—the total mass and a scale length—and
+takes the form <span class="math display">\[\Phi(r \mid M, b) = -\frac{G
+M}{\sqrt{r^2 + b^2}},\]</span> where <span
+class="math inline">\(M\)</span> is the total mass and <span
+class="math inline">\(b\)</span> is the scale length. In the limit <span
+class="math inline">\(a \rightarrow 0\)</span>, the Miyamoto-Nagai
+potential reduces to a Plummer sphere. This model has a minimum
+potential at the center, recovers the potential of a point mass at large
+distances (<span class="math inline">\(r &gt;&gt; b\)</span>), and
+yields a density profile that decays as <span class="math inline">\(\rho
+\propto r^{-5}\)</span> at large radii.</p>
 <h2 id="subsec:initialconditions">The initial conditions</h2>
 <p><strong>Make this less generic and more specific. Why are we talking
 about CBE? because I need to generate the initial conditions. Perhaps
@@ -1204,7 +1220,7 @@ escape through <span class="math inline">\(L_1\)</span>, while
 higher-energy particles can also escape through <span
 class="math inline">\(L_2\)</span>. Figure <a
 href="#fig:CR3BP_forbidden_region" data-reference-type="ref"
-data-reference="fig:CR3BP_forbidden_region">4</a> illustrates these
+data-reference="fig:CR3BP_forbidden_region">5</a> illustrates these
 forbidden and allowed regions clearly.</p>
 <figure id="fig:CR3BP_forbidden_region">
 <p><img src="images/CR3BP_forbidden_region_0.png" alt="image" /> <img
@@ -1213,18 +1229,17 @@ src="images/CR3BP_forbidden_region_2.png" alt="image" /></p>
 <p><img src="images/CR3BP_forbidden_region_3.png" alt="image" /> <img
 src="images/CR3BP_forbidden_region_4.png" alt="image" /></p>
 <figcaption>A reproduction of Fig. 2.4.2 from <span class="citation"
-data-cites="koon2000dynamical">(<strong>koon2000dynamical?</strong>)</span>.
-Each plot is shown in the non-inertial reference frame rotating with the
-orbital frequency of the primary and secondary about their common center
-of mass. In this example, the mass ratio is <span
-class="math inline">\(m_1 = 10 m_2\)</span>. The gray regions represent
-areas inaccessible to the test particle for a given energy. In the first
-case, where <span class="math inline">\(E &lt; E_1\)</span>, the
-particle remains confined to orbit either around the primary or the
-secondary, depending on its initial position. As the particle’s energy
-increases, more of the <span class="math inline">\(xy\)</span>-plane
-becomes accessible. The narrow passage between <span
-class="math inline">\(m_1\)</span> and <span
+data-cites="koon2000dynamical">Koon et al. (2000)</span>. Each plot is
+shown in the non-inertial reference frame rotating with the orbital
+frequency of the primary and secondary about their common center of
+mass. In this example, the mass ratio is <span class="math inline">\(m_1
+= 10 m_2\)</span>. The gray regions represent areas inaccessible to the
+test particle for a given energy. In the first case, where <span
+class="math inline">\(E &lt; E_1\)</span>, the particle remains confined
+to orbit either around the primary or the secondary, depending on its
+initial position. As the particle’s energy increases, more of the <span
+class="math inline">\(xy\)</span>-plane becomes accessible. The narrow
+passage between <span class="math inline">\(m_1\)</span> and <span
 class="math inline">\(m_2\)</span> corresponds to the <span
 class="math inline">\(L_1\)</span> Lagrange point, while the choke point
 allowing escape to the exterior when <span class="math inline">\(E &gt;
@@ -1401,7 +1416,7 @@ explore one instructive effect: how solar tidal forces <em>perturb</em>
 the Moon’s orbit away from the idealized two-body Earth-Moon
 configuration. Figure <a href="#fig:moon_tidal_simulation"
 data-reference-type="ref"
-data-reference="fig:moon_tidal_simulation">5</a> shows a toy model
+data-reference="fig:moon_tidal_simulation">6</a> shows a toy model
 comparing two scenarios. In both, I used initial conditions based on JPL
 NASA ephemerides (citation needed) and integrated two sets of equations
 of motion.</p>
@@ -1596,7 +1611,7 @@ class="math display">\[f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}
 forces would impede creating stellar streams instead of making them, as
 shown in Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">11</a>.</p>
+data-reference="fig:martos_tidal_field_small_r">12</a>.</p>
 <p>Taking the Martos tidal tensor in Eq. <a href="#eq:martos_f_s"
 data-reference-type="ref"
 data-reference="eq:martos_f_s">[eq:martos_f_s]</a>, we can see that for
@@ -1612,7 +1627,7 @@ tensor are negative, which means that the force is compressive
 everywhere. Consequently, no stars escape from the cluster.</p>
 <p>In Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">11</a>, I present a
+data-reference="fig:martos_tidal_field_small_r">12</a>, I present a
 small experiment demonstrating the consequence of such a tidal force on
 a globular cluster, which is that no tidal stream forms. Briefly, I
 created a plummer sphere of <span
@@ -1664,7 +1679,7 @@ ellipse.</figcaption>
 <img src="images/martos_tidal_field_450_10_400.png" alt="image" /></p>
 <figcaption>The same experiment as Fig. <a
 href="#fig:martos_tidal_field_small_r" data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">11</a>, but the cluster
+data-reference="fig:martos_tidal_field_small_r">12</a>, but the cluster
 was placed at a larger distance of 4 <span
 class="math inline">\(r_\textrm{halo}\)</span>, since we are beyond the
 characteristic radius, the tidal fields are the same, despite the
@@ -1673,13 +1688,13 @@ class="math inline">\(\gamma\)</span>.</figcaption>
 </figure>
 <p>In the case of Fig. <a href="#fig:martos_tidal_field_big_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_big_r">12</a>, the tidal field
+data-reference="fig:martos_tidal_field_big_r">13</a>, the tidal field
 returns to the typical situation where one axis is compressive and the
 other stretches. Notice how the deformations are similar in magnitude,
 while in the case of <span class="math inline">\(\gamma=2.02\)</span>
 for the top panel of Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">11</a>, the compression
+data-reference="fig:martos_tidal_field_small_r">12</a>, the compression
 is stronger than the expansion. Both of these are different than the
 keplerian tidal deformation where the stronger deformation is stretching
 and whose axis is parallel to the position vector.</p>
@@ -1743,7 +1758,7 @@ from the initial spread in orbital energies caused by observational
 uncertainties. In Fig.<a
 href="#fig:phase_mixing_palomar_5_orbital_solutions"
 data-reference-type="ref"
-data-reference="fig:phase_mixing_palomar_5_orbital_solutions">13</a>, I
+data-reference="fig:phase_mixing_palomar_5_orbital_solutions">14</a>, I
 present an example based on Palomar 5, for which I compute 50 orbital
 solutions in our potential model. These initial conditions are sampled
 according to the uncertainties reported in the Baumgardt catalog. The
@@ -1781,7 +1796,7 @@ for all orbits, regardless of their periods. However, it is still
 illustrative to examine this behavior in the context of the globular
 cluster catalog. In Fig.<a
 href="#fig:phase_mixing_orbital_errors_sample" data-reference-type="ref"
-data-reference="fig:phase_mixing_orbital_errors_sample">14</a>, I
+data-reference="fig:phase_mixing_orbital_errors_sample">15</a>, I
 present the phase-mixing times for all Galactic globular clusters, based
 on current uncertainties from the Gaia DR3 catalog. The top panel shows
 the distribution for all 165 clusters. The bottom panels highlight the
@@ -1817,7 +1832,7 @@ orbital energy.</figcaption>
 energy relates to the uncertainties in each observable. In Fig. <a
 href="#fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu"
 data-reference-type="ref"
-data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">15</a>,
+data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">16</a>,
 I perform this quick calulation. The uncertainties are measured in
 Galactic coordinates the ICRS coordinate system. This is a direct
 transformation to Galactic coordinates and thus can be expressed
@@ -1836,7 +1851,7 @@ energies.</figcaption>
 <p>At first glance, Fig. <a
 href="#fig:phase_mixing_palomar_5_orbital_solutions"
 data-reference-type="ref"
-data-reference="fig:phase_mixing_palomar_5_orbital_solutions">13</a>
+data-reference="fig:phase_mixing_palomar_5_orbital_solutions">14</a>
 might give the impression that we are looking at snapshots of a single
 stellar stream at different times. In reality, the figure shows
 different orbital solutions. This visual similarity underscores that
@@ -2187,7 +2202,7 @@ error function and exponential functions, since they are the moments of
 a truncated Gaussian.</p>
 <p>In Fig. <a href="#fig:collisionless_1D_stream"
 data-reference-type="ref"
-data-reference="fig:collisionless_1D_stream">17</a>, I show a plot of
+data-reference="fig:collisionless_1D_stream">18</a>, I show a plot of
 the <em>density</em>, <em>mean velocity</em>, and <em>velocity
 dispersion</em> as a function of position at a given time. The figure
 illustrates how the leading edge of the stream (larger <span
@@ -2337,12 +2352,24 @@ Allen, Christine, and Alfredo Santillan. 1991. <span>“<span
 class="nocase">An improved model of the galactic mass distribution for
 orbit computations.</span>”</span> 22 (October):255.
 </div>
+<div id="ref-1986RMxAA..13..137A" class="csl-entry" role="listitem">
+Allen, C., and M. A. Martos. 1986. <span>“<span class="nocase">A simple,
+realistic model of the galactic mass distribution for
+orbitcomputations.</span>”</span> 13 (December):137–47.
+</div>
 <div id="ref-2022ApJ...939....2A" class="csl-entry" role="listitem">
 Arora, Arpit, Robyn E. Sanderson, Nondh Panithanpaisal, Emily C.
 Cunningham, Andrew Wetzel, and Nicolás Garavito-Camargo. 2022.
 <span>“<span class="nocase">On the Stability of Tidal Streams in Action
 Space</span>”</span> 939 (1): 2. <a
 href="https://doi.org/10.3847/1538-4357/ac93fb">https://doi.org/10.3847/1538-4357/ac93fb</a>.
+</div>
+<div id="ref-atchley2023frontier" class="csl-entry" role="listitem">
+Atchley, Scott, Christopher Zimmer, John Lange, David Bernholdt,
+Veronica Melesse Vergara, Thomas Beck, Michael Brim, et al. 2023.
+<span>“Frontier: Exploring Exascale.”</span> In <em>Proceedings of the
+International Conference for High Performance Computing, Networking,
+Storage and Analysis</em>, 1–16.
 </div>
 <div id="ref-2018MNRAS.478.1520B" class="csl-entry" role="listitem">
 Baumgardt, H., and M. Hilker. 2018. <span>“<span class="nocase">A
@@ -2372,8 +2399,12 @@ class="nocase">The Galaxy in Context: Structural, Kinematic, and
 Integrated Properties</span>”</span> 54 (September):529–96. <a
 href="https://doi.org/10.1146/annurev-astro-081915-023441">https://doi.org/10.1146/annurev-astro-081915-023441</a>.
 </div>
+<div id="ref-bovy_inprep" class="csl-entry" role="listitem">
+Bovy, Jo. n.d. <em>Dynamics and Astrophysics of Galaxies</em>.
+Princeton, NJ: Princeton University Press.
+</div>
 <div id="ref-2015ApJS..216...29B" class="csl-entry" role="listitem">
-Bovy, Jo. 2015. <span>“<span class="nocase">galpy: A python Library for
+———. 2015. <span>“<span class="nocase">galpy: A python Library for
 Galactic Dynamics</span>”</span> 216 (2): 29. <a
 href="https://doi.org/10.1088/0067-0049/216/2/29">https://doi.org/10.1088/0067-0049/216/2/29</a>.
 </div>
@@ -2397,6 +2428,11 @@ Erkal, Denis, and Vasily Belokurov. 2015. <span>“<span
 class="nocase">Forensics of subhalo-stream encounters: the three phases
 of gap growth</span>”</span> 450 (1): 1136–49. <a
 href="https://doi.org/10.1093/mnras/stv655">https://doi.org/10.1093/mnras/stv655</a>.
+</div>
+<div id="ref-ECB_USD_EUR_2025" class="csl-entry" role="listitem">
+European Central Bank. 2025. <span>“<span class="nocase">Euro foreign
+exchange reference rate — US dollar: 1 EUR = 1.1726 USD</span>.”</span>
+Retrieved from ECB website.
 </div>
 <div id="ref-2018A&amp;A...616A...1G" class="csl-entry" role="listitem">
 Gaia Collaboration, A. G. A. Brown, A. Vallenari, T. Prusti, J. H. J. de
@@ -2441,10 +2477,22 @@ from very deep to very shallow photometric surveys with the TRILEGAL
 code</span>”</span> 436 (3): 895–915. <a
 href="https://doi.org/10.1051/0004-6361:20042352">https://doi.org/10.1051/0004-6361:20042352</a>.
 </div>
+<div id="ref-DIO_OBSPM" class="csl-entry" role="listitem">
+Hottier, Clément, and l’Observatoire de Paris. 2025. <span>“<span
+class="nocase">DIO Supercomputer at the Paris
+Observatory</span>.”</span> <a href="https://dio.obspm.fr/"
+class="uri">https://dio.obspm.fr/</a>.
+</div>
 <div id="ref-1926ApJ....64..321H" class="csl-entry" role="listitem">
 Hubble, E. P. 1926. <span>“<span class="nocase">Extragalactic
 nebulae.</span>”</span> 64 (December):321–69. <a
 href="https://doi.org/10.1086/143018">https://doi.org/10.1086/143018</a>.
+</div>
+<div id="ref-hubner2025apple" class="csl-entry" role="listitem">
+Hübner, Paul, Andong Hu, Ivy Peng, and Stefano Markidis. 2025.
+<span>“Apple Vs. Oranges: Evaluating the Apple Silicon m-Series SoCs for
+HPC Performance and Efficiency.”</span> <em>arXiv Preprint
+arXiv:2502.05317</em>.
 </div>
 <div id="ref-2024ApJ...967...89I" class="csl-entry" role="listitem">
 Ibata, Rodrigo, Khyati Malhan, Wassim Tenachi, Anke Ardern-Arentsen,
@@ -2467,6 +2515,12 @@ Framework for Synthetic Milky Way Population Generation</span>”</span>
 169 (6): 317. <a
 href="https://doi.org/10.3847/1538-3881/adcd7a">https://doi.org/10.3847/1538-3881/adcd7a</a>.
 </div>
+<div id="ref-koon2000dynamical" class="csl-entry" role="listitem">
+Koon, Wang Sang, Martin W Lo, Jerrold E Marsden, and Shane D Ross. 2000.
+<span>“Dynamical Systems, the Three-Body Problem and Space Mission
+Design.”</span> In <em>Equadiff 99: (In 2 Volumes)</em>, 1167–81. World
+Scientific.
+</div>
 <div id="ref-2015ApJ...806...96L" class="csl-entry" role="listitem">
 Licquia, Timothy C., and Jeffrey A. Newman. 2015. <span>“<span
 class="nocase">Improved Estimates of the Milky Way’s Stellar Mass and
@@ -2481,6 +2535,13 @@ class="nocase">Galaxy Zoo: morphologies derived from visual inspection
 of galaxies from the Sloan Digital Sky Survey</span>”</span> 389 (3):
 1179–89. <a
 href="https://doi.org/10.1111/j.1365-2966.2008.13689.x">https://doi.org/10.1111/j.1365-2966.2008.13689.x</a>.
+</div>
+<div id="ref-2017AJ....154...94M" class="csl-entry" role="listitem">
+Majewski, Steven R., Ricardo P. Schiavon, Peter M. Frinchaboy, Carlos
+Allende Prieto, Robert Barkhouser, Dmitry Bizyaev, Basil Blank, et al.
+2017. <span>“<span>The Apache Point Observatory Galactic Evolution
+Experiment (APOGEE)</span>”</span> 154 (3): 94. <a
+href="https://doi.org/10.3847/1538-3881/aa784d">https://doi.org/10.3847/1538-3881/aa784d</a>.
 </div>
 <div id="ref-2012A&amp;A...546L...7M" class="csl-entry" role="listitem">
 Mastrobuono-Battisti, A., P. Di Matteo, M. Montuori, and M. Haywood.
@@ -2499,6 +2560,12 @@ gravitational potential of the Milky Way</span>”</span> 465 (1): 76–94.
 <a
 href="https://doi.org/10.1093/mnras/stw2759">https://doi.org/10.1093/mnras/stw2759</a>.
 </div>
+<div id="ref-MESR_financement_doctoral" class="csl-entry"
+role="listitem">
+Ministere de l’Enseignement superieur et de la Recherche. 2025.
+<span>“Le Financement Doctoral.”</span> <a
+href="https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-46472">https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-46472</a>.
+</div>
 <div id="ref-1975PASJ...27..533M" class="csl-entry" role="listitem">
 Miyamoto, M., and R. Nagai. 1975. <span>“<span
 class="nocase">Three-dimensional models for the distribution of mass in
@@ -2513,6 +2580,12 @@ concerning the rotation of the galactic system</span>”</span> 4
 Perryman, M. A. C., L. Lindegren, J. Kovalevsky, E. Hoeg, U. Bastian, P.
 L. Bernacca, M. Crézé, et al. 1997. <span>“<span>The HIPPARCOS
 Catalogue</span>”</span> 323 (July):L49–52.
+</div>
+<div id="ref-1911MNRAS..71..460P" class="csl-entry" role="listitem">
+Plummer, H. C. 1911. <span>“<span class="nocase">On the problem of
+distribution in globular star clusters</span>”</span> 71 (March):460–70.
+<a
+href="https://doi.org/10.1093/mnras/71.5.460">https://doi.org/10.1093/mnras/71.5.460</a>.
 </div>
 <div id="ref-2017A&amp;A...598A..66P" class="csl-entry" role="listitem">
 Pouliasis, E., P. Di Matteo, and M. Haywood. 2017. <span>“<span
@@ -2554,6 +2627,11 @@ systems</span>.”</span> <em>Living Reviews in Computational
 Astrophysics</em> 9 (1): 3. <a
 href="https://doi.org/10.1007/s41115-023-00018-w">https://doi.org/10.1007/s41115-023-00018-w</a>.
 </div>
+<div id="ref-table20245" class="csl-entry" role="listitem">
+Table, EIA. 2024. <span>“5.6. A. Average Price of Electricity to
+Ultimate Customers by End-Use Sector.”</span> <em>US Energy Information
+Administration</em>.
+</div>
 <div id="ref-2013ApJ...775..134V" class="csl-entry" role="listitem">
 VandenBerg, Don A., K. Brogaard, R. Leaman, and L. Casagrande. 2013.
 <span>“<span class="nocase">The Ages of 55 Globular Clusters as
@@ -2561,6 +2639,12 @@ Determined Using an Improved VĤB_TO Method along with Color-Magnitude
 Diagram Constraints, and Their Implications for Broader
 Issues</span>”</span> 775 (2): 134. <a
 href="https://doi.org/10.1088/0004-637X/775/2/134">https://doi.org/10.1088/0004-637X/775/2/134</a>.
+</div>
+<div id="ref-2021MNRAS.505.5978V" class="csl-entry" role="listitem">
+Vasiliev, Eugene, and Holger Baumgardt. 2021. <span>“<span
+class="nocase">Gaia EDR3 view on galactic globular
+clusters</span>”</span> 505 (4): 5978–6002. <a
+href="https://doi.org/10.1093/mnras/stab1475">https://doi.org/10.1093/mnras/stab1475</a>.
 </div>
 <div id="ref-2023MNRAS.521.5232W" class="csl-entry" role="listitem">
 Waisberg, Idel, Ygal Klein, and Boaz Katz. 2023. <span>“<span

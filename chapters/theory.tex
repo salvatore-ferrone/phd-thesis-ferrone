@@ -227,10 +227,10 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
             \Phi(r|M_0,\gamma,r_0,r_c) = 
             \begin{cases}
                 \frac{GM_0}{r_0\left(\gamma-1\right)}\ln\left|\frac{1+(r/r_0)^{\gamma-1}}{1+(r_c/r_0)^{\gamma-1}}\right| -\frac{GM_t}{r_c}, & r<r_c\\
-                -GM_t/r & r>r_c.
+                -\frac{GM_t}{r} & r>r_c.
             \end{cases}
         \end{equation}
-        where $M_t$ denotes the total mass $M_{\mathrm{enc}}(r_c)$.
+        where $M_t$ denotes the total mass, $M_{\mathrm{enc}}(r_c)$.
 
         In general, a good halo model should reproduce the observed flat rotation curve at large radii. Another class of models that achieves this are the double power-law profiles:
         \begin{equation}
@@ -238,21 +238,29 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
         \end{equation}
         where $r_s$ is a scale radius, $\alpha$ controls the inner slope, and $\beta$ the outer slope. Common choices include the NFW profile ($\alpha = 1$, $\beta = 3$) and the Hernquist profile ($\alpha = 1$, $\beta = 4$). These families of models were implemented in the works of \citet{2015ApJS..216...29B, 2017MNRAS.465...76M} to describe the dark matter halo.
 
-        The second Galactic potential model presented in \citet{2017MNRAS.465...76M} consists of two Miyamoto-Nagai disks plus the Martos halo and is shown in Fig.~\ref{fig:figure_pouliasis2017pii_potential}. More visualizations of this potential can be found in their work.
+        The second Galactic potential model presented in \citet{2017A&A...598A..66P} consists of two Miyamoto-Nagai disks plus the Martos halo and is shown in Fig.~\ref{fig:figure_pouliasis2017pii_potential}. More visualizations of this potential can be found in their work.
         \begin{figure}
             \centering
             \includegraphics[width=\linewidth]{images/figure_pouliasis2017pii_potential_-8_8.png}
-            \caption{Individual components of the second Galactic potential model from Pouliasis et al. (2017). The parameters used are listed in Table XXX. The vector field illustrates the normalized gravitational force at each position, corresponding to $\vec{g} = -\nabla\Phi$. Equipotential contour lines are overlaid to guide the eye.}
+            \caption{Individual components of the second Galactic potential model from \citet{2017A&A...598A..66P}. The vector field illustrates the normalized gravitational force at each position, corresponding to $\vec{g} = -\nabla\Phi$. Equipotential contour lines are overlaid to guide the eye.}
             \label{fig:figure_pouliasis2017pii_potential}
         \end{figure}        
+        How important is the choice of potential model when modeling the orbits of globular clusters? It depends on the specific cluster. Take, for instance, Fig.~\ref{fig:vasiliev_2021_EDR3_GCS_FIG_10}. The position and spread of some clusters are virtually identical between different models—for example, NGC~288. This suggests that the observational uncertainties in the kinematic data are larger than the discrepancies introduced by the choice of potential. However, for other clusters, the model choice has a much greater impact. A notable case is Pyxis, where the inferred orbits differ significantly depending on the potential. This effect is more pronounced for clusters located farther from the Galactic center, where the models diverge more strongly.
 
-        Lastly,
+        \begin{figure}
+            \includegraphics[width=\linewidth]{images/vasiliev_2021_EDR3_GCS_FIG_10.jpeg}
+            \caption{Distribution of eccentricities, inclinations, and semi-major axes for the globular cluster population, based on Gaia EDR3 kinematics. Each point corresponds to a single realization of a globular cluster orbit, given its observational uncertainties. The top panel shows orbits computed using the potential from \citet{2017MNRAS.465...76M}, while the bottom panel uses the model from \citet{2015ApJ...806...96L}. (Credit: Fig.~10 from \citet{2021MNRAS.505.5978V})}
+            \label{fig:vasiliev_2021_EDR3_GCS_FIG_10}
+        \end{figure}
 
-        In the limit $a \to 0$, the Miyamoto-Nagai potential reduces to the Plummer potential:
+        Differences in cluster orbits-or in stellar streams evolved in different potentials-can help constrain the underlying Galactic potential and eventually lead to more accurate models of the Milky Way. This was the motivation behind recent work such as \citet{2024ApJ...967...89I}. However, if the goal is to make robust predictions or extrapolate properties of the halo, it is prudent to explore a variety of Galactic models, especially when no single model is clearly preferred.
+
+        What about the self-gravity of the globular cluster itself? Here we adopt one of the simplest available models: the Plummer sphere \citep{1911MNRAS..71..460P}. This model has two parameters—the total mass and a scale length—and takes the form
         \begin{equation}
             \Phi(r \mid M, b) = -\frac{G M}{\sqrt{r^2 + b^2}},
         \end{equation}
-        which I use to model globular clusters in this work. The Plummer model provides a simple spherically symmetric mass distribution with a finite central density and a total mass that asymptotes at large radii. Interestingly, the Plummer potential is mathematically equivalent to a softened gravitational potential, commonly used in $N$-body simulations to regularize close encounters between particles.        
+        where $M$ is the total mass and $b$ is the scale length. In the limit $a \rightarrow 0$, the Miyamoto-Nagai potential reduces to a Plummer sphere. This model has a minimum potential at the center, recovers the potential of a point mass at large distances ($r >> b$), and yields a density profile that decays as $\rho \propto r^{-5}$ at large radii.
+
     
     \subsection{The initial conditions}\label{subsec:initialconditions}
 
