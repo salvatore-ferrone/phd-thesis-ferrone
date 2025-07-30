@@ -426,7 +426,7 @@ gc}} \left[ \frac{1}{2} \dot{\mathbf{r}}^2
                                         - \Phi_{\rm gc}(\mathbf{r} -
 \mathbf{R}_{\rm gc}) \right]}_{\text{negligible correction to GC&#39;s
 motion}}\]</span></p>
-<p>In the limit where <span class="math inline">\(m \ll M_{\rm
+<p>In the limit where <span class="math inline">\(m &lt;&lt; M_{\rm
 gc}\)</span>, the terms in brackets become negligible, and the star’s
 motion has no influence on the cluster. The Lagrangian for the cluster’s
 orbit thus becomes:</p>
@@ -1454,42 +1454,56 @@ class="math inline">\(r\)</span> is the separation between the
 primaries. Interestingly, the expression for the Hill radius arises from
 a fifth-order polynomial expansion of the effective potential—a detail
 that might seem minor, but is actually quite delightful. In most areas
-of physics, approximations typically stem from Taylor expansions, basis
-function decompositions, or limits where the governing equations
+of physics, approximations typically emerge from Taylor expansions,
+basis function decompositions, or limits where the governing equations
 simplify.</p>
-<p>It is tempting to wonder whether a particle that escapes from the
-vicinity of the secondary can be recaptured. Indeed, within the
-simplified framework of the circular restricted three-body problem,
-recapture is possible. Once the initial conditions—position and
-momentum—are specified, the subsequent motion is fully determined by
-Hamilton’s equations. While no general analytical solution exists, the
-uniqueness theorem ensures that the system’s evolution is deterministic.
-Therefore, for a given total energy, we can identify the accessible
-regions in configuration space, bounded by the zero-velocity surfaces.
-This implies that the fate of the particle—whether it remains bound or
-escapes—is encoded in the initial conditions.</p>
-<p>In the context of celestial mechanics, particularly for applications
-such as spacecraft trajectory design, more sophisticated tools exist to
-analyze escape conditions and transfer orbits, including invariant
-manifolds and dynamical systems techniques. These are invaluable in the
-solar system regime, where the mass ratio is extreme and the test
-particle is typically a spacecraft or small body. However, in stellar
-and galactic dynamics, the situation differs substantially. The
-assumptions underpinning those techniques often break down, and the
-complexity of the gravitational potential increases. In this regime, it
-is more insightful to think of tidal forces as the underlying mechanism
-that gradually transfers energy and angular momentum, nudging stars
-across the Lagrange boundaries and ultimately driving escape. It is to
-this process—tidal stripping—that we now turn.</p>
+<p>At conferences, we have been asked whether we have ever observed
+<em>recapture</em>—that is, a star particle leaving a globular cluster
+and eventually returning. If the system were as simple as the circular
+restricted three-body problem, recapture could occur for star particles
+with energies in the range <span class="math inline">\(E_1 &lt; E &lt;
+E_2\)</span> or <span class="math inline">\(E_2 &lt; E &lt;
+E_3\)</span>. In such cases, depending on initial conditions, a particle
+might orbit the secondary, escape, and later return.</p>
+<p>However, in our simulations, the galaxy and globular clusters are not
+treated as point masses, and the clusters follow eccentric, inclined,
+and non-closed orbits. This means the topology of the forbidden region
+evolves over time. For a particle with a given energy <span
+class="math inline">\(E\)</span>, it may be unbound at one moment but
+later find itself within the Hill sphere again, as the potential
+landscape changes dynamically. Indeed, we have observed such behavior in
+our simulations.</p>
+<p>The Lagrange points, forbidden regions, and Jacobi energy are
+powerful concepts which, while they do not rigorously apply in our more
+complex setup, still offer valuable qualitative insights. In our regime,
+it is more fruitful to think in terms of tidal forces as the underlying
+mechanism that gradually transfers energy and angular momentum, nudging
+stars across Lagrange boundaries and ultimately enabling escape. It is
+to this process—tidal stripping—that we now turn.</p>
 <h2 id="the-tidal-tensor">The tidal tensor</h2>
-<p>Tidal forces arise due to spatial variations in the gravitational
-field and are especially apparent when comparing the accelerations
-experienced by nearby particles. To explore this, consider a Taylor
-expansion of the gravitational potential of the primary, <span
-class="math inline">\(\Phi_g\)</span>, evaluated at the star’s position
-<span class="math inline">\(\vec{x}_s\)</span>, relative to the
-secondary’s position <span class="math inline">\(\vec{x}_c\)</span>:
-<span class="math display">\[\Phi_g\left(\vec{x}_s\right) \approx
+<p>For star-particles within a globular cluster that is itself orbiting
+within a galaxy, there are no exact integrals of motion. The system
+lacks symmetries in its Lagrangian, and the potential varies with time,
+so even the orbital energy is not conserved. In such a time-dependent
+and asymmetric context, it is more insightful to frame the problem in
+terms of forces rather than conserved quantities. In particular, tidal
+forces arise when the gravitational field of the galaxy (the primary) is
+treated as an external perturbation to the field of the globular cluster
+(the secondary). In this section, I aim to build an intuitive and formal
+understanding of tidal forces, framing them as tensor quantities. We
+begin with the simplest case—the familiar Sun-Earth system—before
+extending the discussion to the galactic context. I also provide a
+broader overview of how tidal forces vary depending on the cluster’s
+orbit within the galaxy.</p>
+<p>To start, tidal forces arise due to spatial variations in the
+gravitational field with respect to a reference point, which is almost
+always the secondary body. There are two equivalent optiosn to quanitfy
+this. The first is to consider a Taylor expansion of the gravitational
+potential of the primary, <span class="math inline">\(\Phi_g\)</span>,
+evaluated at the star’s position <span
+class="math inline">\(\vec{x}_s\)</span>, relative to the secondary’s
+position <span class="math inline">\(\vec{x}_c\)</span>: <span
+class="math display">\[\Phi_g\left(\vec{x}_s\right) \approx
 \Phi_g\left(\vec{x}_c\right) + \left[\nabla \Phi_g (\vec{x}_c)\cdot
 \Delta \vec{x}\right] + \left[\Delta \vec{x} \cdot
 \mathcal{D}^2\left(\Phi_g\right) \cdot \Delta\vec{x}\right],\]</span>
@@ -1498,11 +1512,10 @@ where <span class="math inline">\(\Delta \vec{x} = \vec{x}_s -
 \Phi_g\)</span> is the Hessian matrix of second derivatives of the
 potential: <span class="math inline">\(\partial^2 \Phi/\partial x_i
 \partial x_j\)</span>.</p>
-<p>An equivalent expression can be derived by linearizing the
-gravitational force in a non-inertial frame co-moving with the
-secondary. Let us write Newton’s second law for the star-particle and
-the secondary in an inertial frame: <span
-class="math display">\[\begin{aligned}
+<p>the second expression can be derived by linearizing the gravitational
+force in a non-inertial frame co-moving with the secondary. Let us write
+Newton’s second law for the star-particle and the secondary in an
+inertial frame: <span class="math display">\[\begin{aligned}
             \vec{F}_s &amp;= \nabla \Phi_c\left(\Delta \vec{x}\right) +
 \nabla \Phi_g\left(\vec{x}_s\right),\\
             \vec{F}_c &amp;= \nabla \Phi_g\left(\vec{x}_c\right).
@@ -1520,7 +1533,7 @@ non-inertial frame is: <span class="math display">\[\begin{aligned}
         
 \end{aligned}\]</span> where the last line uses a first-order Taylor
 expansion of the gravitational force field, valid under the assumption
-that <span class="math inline">\(|\Delta \vec{x}| \ll
+that <span class="math inline">\(|\Delta \vec{x}| &lt;&lt;
 |\vec{x}_c|\)</span>.</p>
 <p>The Jacobian of the gravitational field is equal to the Hessian of
 the potential, owing to the symmetry of second derivatives and the fact
@@ -1568,9 +1581,10 @@ the Earth’s tidal bulge and the Moon’s position, caused by the Earth’s
 rotation. This offset results in a torque that transfers angular
 momentum from the Earth’s rotation to the Moon’s orbit. As a
 consequence, Earth’s rotation gradually slows while the Moon slowly
-recedes from Earth. Much of this behavior can be understood
-qualitatively using the tidal tensor for a Keplerian potential: <span
-class="math display">\[\mathcal{T}= -\frac{GM}{r^3}\left(\begin{matrix}
+recedes from Earth.</p>
+<p>All of the above phenomena requires using the tidal tensor for a
+Keplerian potential: <span class="math display">\[\mathcal{T}=
+-\frac{GM}{r^3}\left(\begin{matrix}
                     1-\frac{3x^2}{r^2} &amp; -\frac{3xy}{r^2} &amp;
 -\frac{3xz}{r^2} \\
                     -\frac{3yx}{r^2} &amp; 1-\frac{3y^2}{r^2} &amp;
@@ -1589,14 +1603,14 @@ eigenvectors: <span class="math display">\[\vec{v}_1,\vec{v}_2,\vec{v}_3
 stretching deformation along the position vector. The other two are
 negative, representing compression in directions perpendicular to the
 stretching axis. These directions define a plane orthogonal to the
-Earth-Moon line. From this, several tidal effects become evident. For
-instance, the Earth’s oceans stretch along the Earth-Moon axis due to
-the Moon’s tidal forces. While the Sun also exerts tidal forces on
-Earth, their magnitude is weaker due to the <span
-class="math inline">\(r^{-3}\)</span> scaling with distance.</p>
-<p>When the Moon is either full or new, the Sun and Moon’s tidal forces
-act constructively, leading to spring tides. At first and third
-quarters, they interfere destructively, causing neap tides.
+Earth-Moon line.</p>
+<p>From this, several tidal effects become evident. For instance, the
+Earth’s oceans stretch along the Earth-Moon axis due to the Moon’s tidal
+forces. While the Sun also exerts tidal forces on Earth, their magnitude
+is weaker due to the <span class="math inline">\(r^{-3}\)</span> scaling
+with distance. When the Moon is either full or new, the Sun and Moon’s
+tidal forces act constructively, leading to spring tides. At first and
+third quarters, they interfere destructively, causing neap tides.
 Additionally, Earth’s tidal influence distorts the Moon from spherical
 symmetry into an ellipsoid. The Moon’s most stable orientation is one
 where its longest axis aligns with the Earth-Moon line—resulting in
@@ -1610,8 +1624,12 @@ configuration. Figure <a href="#fig:moon_tidal_simulation"
 data-reference-type="ref"
 data-reference="fig:moon_tidal_simulation">8</a> shows a toy model
 comparing two scenarios. In both, I used initial conditions based on JPL
-NASA ephemerides (citation needed) and integrated two sets of equations
-of motion.</p>
+NASA ephemerides <span class="citation"
+data-cites="2014IPNPR.196C...1F">(<strong>2014IPNPR.196C...1F?</strong>)</span>
+and integrated two sets of equations of motion. Neglecting solar tides
+causes the predicted Moon orbit to drift ahead of the more accurate
+trajectory. With about three to four years, the two body predicted
+solution would off by half a moon phase.</p>
 <p>In the first scenario, the Moon’s motion is governed by the two-body
 Earth-Moon problem with a rotating reference frame correction: <span
 class="math display">\[\ddot{\vec{r}} = -\frac{GM_\oplus}{r^3}\vec{r} -
@@ -1647,15 +1665,11 @@ components of Earth’s heliocentric position.</p>
 <figcaption>An illustrative experiment demonstrating the effect of the
 Sun’s tidal field. The left panels show the tidal field, and the right
 panels show two snapshots of the Moon’s orbital trajectory. The green
-curve corresponds to the solution of Eq. <strong>XXX</strong>, which
-includes the Sun’s tidal effects, while the orange curve corresponds to
-the simpler two-body problem that neglects them. The black ellipse
-represents the tidal ellipsoid, whose major axis remains aligned with
-the Sun’s position vector relative to the Earth. The bottom panel shows
-the accumulated phase difference between the two solutions. Neglecting
-solar tides causes the predicted Moon orbit to drift ahead of the more
-accurate trajectory. With about three to four years, the two body
-predicted solution would off by half a moon phase. </figcaption>
+curve include the Sun’s tidal effects, while the orange curve
+corresponds neglects them. The black ellipse represents the tidal
+ellipsoid, whose major axis aligns with the Sun’s position vector
+relative to the Earth. The bottom panel shows the accumulated phase
+difference between the two solutions. </figcaption>
 </figure>
 <h3 class="unnumbered" id="tides-in-the-galaxy">Tides in the Galaxy</h3>
 <p>How the tidal field varies throughout the Galaxy by evaluating the
@@ -1808,7 +1822,7 @@ data-reference="fig:martos_tidal_field_small_r">14</a>.</p>
 data-reference-type="ref"
 data-reference="eq:martos_f_s">[eq:martos_f_s]</a>, we can see that for
 <span class="math inline">\(\gamma &gt; 3\)</span> and <span
-class="math inline">\(s \ll  1\)</span>, then <span
+class="math inline">\(s &lt;&lt;  1\)</span>, then <span
 class="math inline">\(f(s)&lt; 0\)</span>. Physically, this would be a
 sphere whose density increases with distance. This is not natural, as,
 in general, gravity sends the more massive objects towards the center.
@@ -2110,9 +2124,9 @@ class="math inline">\(b\)</span>, and the target lies at the origin.
 Then the net force acts in the <span class="math inline">\(+y\)</span>
 direction. The gravitational force scales as <span
 class="math inline">\(1/d^2\)</span>, so for distances <span
-class="math inline">\(d \gg b\)</span>, the force becomes negligible. We
-can then approximate the force as roughly constant over a short time
-interval during the closest approach.</p>
+class="math inline">\(d &gt;&gt; b\)</span>, the force becomes
+negligible. We can then approximate the force as roughly constant over a
+short time interval during the closest approach.</p>
 <p>We estimate the duration of the interaction as the time it takes the
 perturber to travel a distance <span class="math inline">\(2b\)</span>
 (from <span class="math inline">\(x = -b\)</span> to <span

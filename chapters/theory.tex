@@ -79,7 +79,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
                                         - \Phi_{\rm gc}(\mathbf{r} - \mathbf{R}_{\rm gc}) \right]}_{\text{negligible correction to GC's motion}}
         \end{equation}
 
-        In the limit where \( m \ll M_{\rm gc} \), the terms in brackets become negligible, and the star's motion has no influence on the cluster. The Lagrangian for the cluster's orbit thus becomes:
+        In the limit where \( m << M_{\rm gc} \), the terms in brackets become negligible, and the star's motion has no influence on the cluster. The Lagrangian for the cluster's orbit thus becomes:
 
         \begin{equation}
             \frac{\mathcal{L}_{\mathrm{gc}}}{M_{\mathrm{gc}}} = \frac{1}{2} \dot{\mathbf{R}}_{\rm gc}^2 
@@ -497,16 +497,15 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
         % \textbf{NOTE from Ferrone. I wonder if the $L_4$ and $L_5$ exist in the galactic context... are there Tojan stars? or does the complexity of the galactic potential paired with non circular orbits render such a phenomena unnatural?}
 
     \subsection{The tidal tensor}
-        
-        
+        For star-particles within a globular cluster that is itself orbiting within a galaxy, there are no exact integrals of motion. The system lacks symmetries in its Lagrangian, and the potential varies with time, so even the orbital energy is not conserved. In such a time-dependent and asymmetric context, it is more insightful to frame the problem in terms of forces rather than conserved quantities. In particular, tidal forces arise when the gravitational field of the galaxy (the primary) is treated as an external perturbation to the field of the globular cluster (the secondary). In this section, I aim to build an intuitive and formal understanding of tidal forces, framing them as tensor quantities. We begin with the simplest case—the familiar Sun-Earth system—before extending the discussion to the galactic context. I also provide a broader overview of how tidal forces vary depending on the cluster's orbit within the galaxy.
 
-        Tidal forces arise due to spatial variations in the gravitational field and are especially apparent when comparing the accelerations experienced by nearby particles. To explore this, consider a Taylor expansion of the gravitational potential of the primary, \(\Phi_g\), evaluated at the star's position \(\vec{x}_s\), relative to the secondary's position \(\vec{x}_c\):
+        To start, tidal forces arise due to spatial variations in the gravitational field with respect to a reference point, which is almost always the secondary body. There are two equivalent optiosn to quanitfy this. The first is to consider a Taylor expansion of the gravitational potential of the primary, \(\Phi_g\), evaluated at the star's position \(\vec{x}_s\), relative to the secondary's position \(\vec{x}_c\):
         \begin{equation}
             \Phi_g\left(\vec{x}_s\right) \approx \Phi_g\left(\vec{x}_c\right) + \left[\nabla \Phi_g (\vec{x}_c)\cdot \Delta \vec{x}\right] + \left[\Delta \vec{x} \cdot \mathcal{D}^2\left(\Phi_g\right) \cdot \Delta\vec{x}\right],
         \end{equation}
         where \(\Delta \vec{x} = \vec{x}_s - \vec{x}_c\), and \(\mathcal{D}^2 \Phi_g\) is the Hessian matrix of second derivatives of the potential: \(\partial^2 \Phi/\partial x_i \partial x_j\).
 
-        An equivalent expression can be derived by linearizing the gravitational force in a non-inertial frame co-moving with the secondary. Let us write Newton's second law for the star-particle and the secondary in an inertial frame:
+        the second expression can be derived by linearizing the gravitational force in a non-inertial frame co-moving with the secondary. Let us write Newton's second law for the star-particle and the secondary in an inertial frame:
         \begin{eqnarray}
             \vec{F}_s &= \nabla \Phi_c\left(\Delta \vec{x}\right) + \nabla \Phi_g\left(\vec{x}_s\right),\\
             \vec{F}_c &= \nabla \Phi_g\left(\vec{x}_c\right).
@@ -517,7 +516,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
                     &= \nabla \Phi_c\left(\Delta \vec{x}\right) + \nabla \Phi_g\left(\vec{x}_s\right) - \nabla \Phi_g\left(\vec{x}_c\right) + \vec{F}_\mathrm{fictitious} \\
                     &\approx \nabla \Phi_c\left(\Delta \vec{x}\right) + \mathrm{Jac}\left(\nabla \Phi_g(\vec{x}_c)\right) \cdot \Delta \vec{x} + \vec{F}_\mathrm{fictitious},
         \end{eqnarray}
-        where the last line uses a first-order Taylor expansion of the gravitational force field, valid under the assumption that \(|\Delta \vec{x}| \ll |\vec{x}_c|\). 
+        where the last line uses a first-order Taylor expansion of the gravitational force field, valid under the assumption that \(|\Delta \vec{x}| << |\vec{x}_c|\). 
 
         The Jacobian of the gravitational field is equal to the Hessian of the potential, owing to the symmetry of second derivatives and the fact that \(\vec{g} = -\nabla \Phi_g\). This matrix, known as the \textit{tidal tensor} \(\mathcal{T}\), describes the linearized spatial variation of the gravitational field:
         \begin{equation}
@@ -531,15 +530,15 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
         While the Hessian and Jacobian are formally equivalent, the Jacobian viewpoint offers a more geometric interpretation: it acts as a linear transformation on nearby displacements, mapping them to differences in acceleration. Diagonalizing the tidal tensor reveals the principal axes of tidal deformation. A positive eigenvalue corresponds to stretching along the associated eigenvector; a negative eigenvalue indicates compression. The magnitude gives the rate of stretching or compression.
 
         Finally, we note that although many relevant potentials exhibit spherical or cylindrical symmetry, Cartesian coordinates are preferred here. In curvilinear systems, computing the Jacobian or Hessian requires accounting for Christoffel symbols, which complicates the interpretation and computation.
-
-
         
         \subsubsection*{The Moon}
             Nothing clarifies the concept of tides like the most familiar example: the Moon. Tidal forces are invoked to explain a wide range of phenomena in the Earth-Moon system. The most relatable effect is, of course, the periodic variation in sea level on Earth. While accurately modeling these changes requires fluid dynamics—beyond the scope of this thesis—NASA provides several accessible explanations and visualizations at \href{https://science.nasa.gov/moon/tides/}{https://science.nasa.gov/moon/tides/}, including daily high and low tides, as well as spring and neap tides.
 
             Another key example is the tidal deformation of the Moon, which ultimately led to its tidal locking—explaining why we always see the same side of the Moon from Earth.
 
-            A particularly insightful illustration is the angular offset between the Earth's tidal bulge and the Moon's position, caused by the Earth's rotation. This offset results in a torque that transfers angular momentum from the Earth's rotation to the Moon's orbit. As a consequence, Earth's rotation gradually slows while the Moon slowly recedes from Earth. Much of this behavior can be understood qualitatively using the tidal tensor for a Keplerian potential:
+            A particularly insightful illustration is the angular offset between the Earth's tidal bulge and the Moon's position, caused by the Earth's rotation. This offset results in a torque that transfers angular momentum from the Earth's rotation to the Moon's orbit. As a consequence, Earth's rotation gradually slows while the Moon slowly recedes from Earth. 
+            
+            All of the above phenomena requires using the tidal tensor for a Keplerian potential:
             \begin{equation}
                 \mathcal{T}= -\frac{GM}{r^3}\left(\begin{matrix}
                     1-\frac{3x^2}{r^2} & -\frac{3xy}{r^2} & -\frac{3xz}{r^2} \\
@@ -552,11 +551,11 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
                 \vec{v}_1,\vec{v}_2,\vec{v}_3 = \dfrac{1}{r}\begin{bmatrix} x \\ y \\ z \end{bmatrix}, \dfrac{1}{r}\begin{bmatrix} -x \\ y \\ 0 \end{bmatrix}, \dfrac{1}{r}\begin{bmatrix} -x \\ 0 \\ z \end{bmatrix}.
             \end{equation}
 
-            Notably, the first eigenvalue is positive and corresponds to a stretching deformation along the position vector. The other two are negative, representing compression in directions perpendicular to the stretching axis. These directions define a plane orthogonal to the Earth-Moon line. From this, several tidal effects become evident. For instance, the Earth's oceans stretch along the Earth-Moon axis due to the Moon's tidal forces. While the Sun also exerts tidal forces on Earth, their magnitude is weaker due to the $r^{-3}$ scaling with distance.
+            Notably, the first eigenvalue is positive and corresponds to a stretching deformation along the position vector. The other two are negative, representing compression in directions perpendicular to the stretching axis. These directions define a plane orthogonal to the Earth-Moon line. 
+            
+            From this, several tidal effects become evident. For instance, the Earth's oceans stretch along the Earth-Moon axis due to the Moon's tidal forces. While the Sun also exerts tidal forces on Earth, their magnitude is weaker due to the $r^{-3}$ scaling with distance. When the Moon is either full or new, the Sun and Moon's tidal forces act constructively, leading to spring tides. At first and third quarters, they interfere destructively, causing neap tides. Additionally, Earth's tidal influence distorts the Moon from spherical symmetry into an ellipsoid. The Moon's most stable orientation is one where its longest axis aligns with the Earth-Moon line—resulting in tidal locking.
 
-            When the Moon is either full or new, the Sun and Moon's tidal forces act constructively, leading to spring tides. At first and third quarters, they interfere destructively, causing neap tides. Additionally, Earth's tidal influence distorts the Moon from spherical symmetry into an ellipsoid. The Moon's most stable orientation is one where its longest axis aligns with the Earth-Moon line—resulting in tidal locking.
-
-            A more quantitative treatment of these phenomena would require modeling the Moon's internal structure and Earth's ocean dynamics—well beyond the gravity-only scope of this thesis. However, we can still explore one instructive effect: how solar tidal forces \textit{perturb} the Moon's orbit away from the idealized two-body Earth-Moon configuration. Figure~\ref{fig:moon_tidal_simulation} shows a toy model comparing two scenarios. In both, I used initial conditions based on JPL NASA ephemerides (citation needed) and integrated two sets of equations of motion.
+            A more quantitative treatment of these phenomena would require modeling the Moon's internal structure and Earth's ocean dynamics—well beyond the gravity-only scope of this thesis. However, we can still explore one instructive effect: how solar tidal forces \textit{perturb} the Moon's orbit away from the idealized two-body Earth-Moon configuration. Figure~\ref{fig:moon_tidal_simulation} shows a toy model comparing two scenarios. In both, I used initial conditions based on JPL NASA ephemerides \citep{2014IPNPR.196C...1F} and integrated two sets of equations of motion. Neglecting solar tides causes the predicted Moon orbit to drift ahead of the more accurate trajectory. With about three to four years, the two body predicted solution would off by half a moon phase. 
 
             In the first scenario, the Moon's motion is governed by the two-body Earth-Moon problem with a rotating reference frame correction:
             \begin{equation}
@@ -573,6 +572,8 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
             \end{equation}
             where $r_\oplus$ is the Earth's position relative to the Sun, $\vec{r}$ is the Moon's position relative to Earth, $M_\odot$ is the mass of the Sun, and $M_\oplus$ is the mass of the Earth. The coordinates $x, y, z$ refer to the components of Earth's heliocentric position.
 
+
+
             
             
             \begin{verbatim}
@@ -582,8 +583,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
             \begin{figure}
                 \centering
                 \includegraphics[width=\linewidth]{images/moon_tidal_simulation.png}
-                \caption{An illustrative experiment demonstrating the effect of the Sun's tidal field. The left panels show the tidal field, and the right panels show two snapshots of the Moon's orbital trajectory. The green curve corresponds to the solution of Eq.~\textbf{XXX}, which includes the Sun's tidal effects, while the orange curve corresponds to the simpler two-body problem that neglects them. The black ellipse represents the tidal ellipsoid, whose major axis remains aligned with the Sun's position vector relative to the Earth. The bottom panel shows the accumulated phase difference between the two solutions. Neglecting solar tides causes the predicted Moon orbit to drift ahead of the more accurate trajectory. With about three to four years, the two body predicted solution would off by half a moon phase.
-                }\label{fig:moon_tidal_simulation}
+                \caption{An illustrative experiment demonstrating the effect of the Sun's tidal field. The left panels show the tidal field, and the right panels show two snapshots of the Moon's orbital trajectory. The green curve include the Sun's tidal effects, while the orange curve corresponds neglects them. The black ellipse represents the tidal ellipsoid, whose major axis aligns with the Sun's position vector relative to the Earth. The bottom panel shows the accumulated phase difference between the two solutions. }\label{fig:moon_tidal_simulation}
             \end{figure}
 
         \subsubsection*{Tides in the Galaxy}
@@ -677,7 +677,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
 
             There is an interesting area in the parameter space where the tidal forces would impede creating stellar streams instead of making them, as shown in Fig.~\ref{fig:martos_tidal_field_small_r}.
 
-            Taking the Martos tidal tensor in Eq.~\ref{eq:martos_f_s}, we can see that for $\gamma > 3$ and $s \ll  1$, then $f(s)< 0$. Physically, this would be a sphere whose density increases with distance. This is not natural, as, in general, gravity sends the more massive objects towards the center. However, it's fun to indulge in this situation to learn some insight about the flexibility of tidal fields. The consequence of $f(s)< 0$ is that all terms in the tidal tensor are negative, which means that the force is compressive everywhere. Consequently, no stars escape from the cluster. 
+            Taking the Martos tidal tensor in Eq.~\ref{eq:martos_f_s}, we can see that for $\gamma > 3$ and $s <<  1$, then $f(s)< 0$. Physically, this would be a sphere whose density increases with distance. This is not natural, as, in general, gravity sends the more massive objects towards the center. However, it's fun to indulge in this situation to learn some insight about the flexibility of tidal fields. The consequence of $f(s)< 0$ is that all terms in the tidal tensor are negative, which means that the force is compressive everywhere. Consequently, no stars escape from the cluster. 
 
             In Fig.~\ref{fig:martos_tidal_field_small_r}, I present a small experiment demonstrating the consequence of such a tidal force on a globular cluster, which is that no tidal stream forms. Briefly, I created a plummer sphere of $10^6$~M$_\odot$ and half mass radius 20~pc and evolved it in a Martos halo potential of mass parameter $10^{12}$~M$_\odot$ a characteristic radius of $30$~kpc. Each cluster was placed at the same initial conditions, a distance of 1/4 the scale radius from the center of the potential. The initial velocity was made perpendicular to the position vector with a speed of $(1-e)v_\textrm{c}$. This is a pseudo-eccentricity, which was added to have a non-circular orbit to demonstrate how the trajectories change in the two cases. The top panel uses a $\gamma$ of 2.02, which is the same value in the model where the halo was originally presented, and the value I employ in this thesis. Next, the bottom panel uses $\gamma$ of 4.5, which corresponds to a density profile where $\rho(r) \propto r^{1.5}$. 
 
@@ -805,7 +805,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
 
         In this approximation, we compute the momentum change of the target by integrating the gravitational force over time. Gravity is always attractive: the perturber pulls the target particle to the left before the closest approach and to the right afterward. If the trajectory is symmetric and unperturbed, the components of the force parallel to the motion cancel out. Thus, the net momentum transfer is perpendicular to the motion of the perturber.
 
-        Assume the perturber moves along the $x$-axis with impact parameter $b$, and the target lies at the origin. Then the net force acts in the $+y$ direction. The gravitational force scales as $1/d^2$, so for distances $d \gg b$, the force becomes negligible. We can then approximate the force as roughly constant over a short time interval during the closest approach.
+        Assume the perturber moves along the $x$-axis with impact parameter $b$, and the target lies at the origin. Then the net force acts in the $+y$ direction. The gravitational force scales as $1/d^2$, so for distances $d >> b$, the force becomes negligible. We can then approximate the force as roughly constant over a short time interval during the closest approach.
 
         We estimate the duration of the interaction as the time it takes the perturber to travel a distance $2b$ (from $x = -b$ to $x = +b$), giving $\Delta t = 2b/v$. Assuming a constant perpendicular force $F_\perp \approx GMm/b^2$, the change in momentum is:
 
