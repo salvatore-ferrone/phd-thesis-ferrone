@@ -1672,14 +1672,13 @@ relative to the Earth. The bottom panel shows the accumulated phase
 difference between the two solutions. </figcaption>
 </figure>
 <h3 class="unnumbered" id="tides-in-the-galaxy">Tides in the Galaxy</h3>
-<p>How the tidal field varies throughout the Galaxy by evaluating the
-tidal tensor along different orbits and in different mass models. In the
-Milky Way, the disk, bulge, and halo each contribute differently to the
-tidal forces experienced by a globular cluster. The Miyamoto-Nagai disk
-produces strong, rapidly varying tidal fields near the Galactic plane,
-leading to phenomena such as disk shocking when clusters cross the disk.
-The Martos halo, on the other hand, provides a more slowly varying,
-generally weaker tidal field at large Galactocentric radii.</p>
+<p>In the Milky Way, the disk, bulge, and halo each contribute
+differently to the tidal forces experienced by a globular cluster. The
+Miyamoto-Nagai disk produces strong, rapidly varying tidal fields near
+the Galactic plane, leading to phenomena such as disk shocking when
+clusters cross the disk. The Martos halo, on the other hand, provides a
+more slowly varying, generally weaker tidal field at large
+Galactocentric radii.</p>
 <p>The strength and orientation of the tidal field at a cluster’s
 location determine both the rate at which stars are stripped and the
 geometry of the resulting stellar streams. For example, clusters on
@@ -1718,30 +1717,59 @@ class="math display">\[\mathcal{T}=-\frac{1}{D^3}\left(\begin{matrix}
 \beta&#39;}{D^2} \\
                     \dots &amp; \dots &amp; \beta&#39;^2 + \beta
 \beta&#39;&#39; -\frac{3\left(\beta\beta&#39;\right)^2}{D^2}
-                \end{matrix}\right).\]</span> We immediately notice
-that, due to the cylindrical symmetry, the eigenvectors are not as
-simple as in the spherical case. As long as <span
-class="math inline">\(\beta&#39;^2 + \beta \beta&#39;&#39;
--\frac{3\left(\beta\beta&#39;\right)^2}{D^2} \neq
-1-\frac{3z^2}{D^2}\)</span>, the three eigenvectors are no longer simply
-(1) parallel to the position vector and (2) the other two spanning the
-plane perpendicular to it. Instead, the exact orientation of all three
-eigenvectors depends on the cluster’s position in the galaxy. Note that
-if <span class="math inline">\(z=0\)</span>, we recover the stretching
-eigenvector being parallel to the position vector, although the
-orientations of the eigen vector are fixed as the compression axes are
-not the same in magnitude. If, we <span
-class="math inline">\(b=0\)</span>, then we recover spherical symmetry
-and the compression eigenvalues are the same in magnitude.</p>
+                \end{matrix}\right).\]</span></p>
+<p>We immediately notice that, due to the cylindrical symmetry, the
+eigenvectors are not as simple as in the spherical case. As long as
+<span class="math display">\[\beta&#39;^2 + \beta \beta&#39;&#39; -
+\frac{3\left(\beta \beta&#39;\right)^2}{D^2} \neq 1 -
+\frac{3z^2}{D^2},\]</span> (1) the stretching axis is no longer parallel
+to the position vector, and (2) the compression axes do not necessarily
+lie in the same plane—they may instead be fixed in orientation and
+differ in magnitude. The exact orientation of all three eigenvectors
+depends on the cluster’s position in the galaxy. Note that if <span
+class="math inline">\(z = 0\)</span>, we recover the case where the
+stretching eigenvector is parallel to the position vector, although the
+compression axes remain unequal in magnitude and fixed in orientation.
+If instead <span class="math inline">\(b = 0\)</span>, then we recover
+spherical symmetry, and the compression eigenvalues become equal.</p>
   <div class="video-container">
     <video controls style="max-width: 100%;">
       <source src="videos/tidal_deformation_ellipsoid.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </div>
-<p>Below I have prepared some selected orbits to demonstrate the variety
-of shocks and tidal forces than can influence a globular cluster
-system.</p>
+<p>I have prepared Fig.s <a
+href="#fig:miyamoto_disc_shocks_circular_inclined_orbit"
+data-reference-type="ref"
+data-reference="fig:miyamoto_disc_shocks_circular_inclined_orbit">9</a>–<a
+href="#fig:miyamoto_disc_shocks_weak_shocks" data-reference-type="ref"
+data-reference="fig:miyamoto_disc_shocks_weak_shocks">13</a> to
+demonstrate the diversity of tidal forces experienced by clusters on
+various orbits within a Miyamoto–Nagai disk potential.</p>
+<p>Fig. <a href="#fig:miyamoto_disc_shocks_circular_inclined_orbit"
+data-reference-type="ref"
+data-reference="fig:miyamoto_disc_shocks_circular_inclined_orbit">9</a>
+shows a cluster on an inclined, non-eccentric orbit. In contrast,
+Fig. <a href="#fig:miyamoto_disc_shocks_planar_eccentric_orbit"
+data-reference-type="ref"
+data-reference="fig:miyamoto_disc_shocks_planar_eccentric_orbit">10</a>
+presents a planar but eccentric orbit. The former experiences repeated
+disk shocks, while the latter undergoes enhanced tidal forces primarily
+near pericenter passages.</p>
+<p>Fig. <a href="#fig:miyamoto_disc_shocks_resonant_R_z"
+data-reference-type="ref"
+data-reference="fig:miyamoto_disc_shocks_resonant_R_z">[fig:miyamoto_disc_shocks_resonant_R_z]</a>
+presents an orbit in which the radial and vertical oscillation periods
+are nearly resonant, producing two disk shocks per pericenter passage.
+Fig. <a href="#fig:miyamoto_disc_shocks_big_apocenter"
+data-reference-type="ref"
+data-reference="fig:miyamoto_disc_shocks_big_apocenter">12</a> shows a
+cluster on an orbit with a large apocenter, resulting in very weak tidal
+forces overall. Finally, Fig. <a
+href="#fig:miyamoto_disc_shocks_weak_shocks" data-reference-type="ref"
+data-reference="fig:miyamoto_disc_shocks_weak_shocks">13</a>
+demonstrates a case with a very thick disk potential. In this case, disk
+shocks occur over longer timescales and are less abrupt.</p>
 <figure id="fig:miyamoto_disc_shocks_circular_inclined_orbit">
 <img
 src="images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.01_50.0.png" />
