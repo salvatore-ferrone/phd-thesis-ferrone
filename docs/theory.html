@@ -1132,22 +1132,22 @@ data-cites="2008gady.book.....B">Binney and Tremaine (2008)</span> and
 <span class="citation" data-cites="bovy_inprep">Bovy (n.d.)</span>. At
 this point, one can obtain a complete analytic expression for the
 distribution function. For a Plummer sphere, this distribution function
-is <span class="math inline">\(f = C -E^{7/2}\)</span>, where <span
+is <span class="math inline">\(f = C (-E)^{7/2}\)</span>, where <span
 class="math inline">\(C\)</span> is a constant that ensures <span
 class="math inline">\(\int f dE =1\)</span>.</p>
 <h3 id="sampling-the-initial-conditions">Sampling the Initial
 Conditions</h3>
 <p>There are many techniques for sampling from a distribution function.
-In my code, I use **inverse transform sampling**, a method that
+In my code, I use <em>inverse transform sampling</em>, a method that
 facilitates sampling from one-dimensional probability distribution
 functions.</p>
 <p>Although the full distribution function depends on six
 variables—three positions and three velocities—it can be marginalized
 such that we treat each variable independently. This allows us to apply
 inverse transform sampling to each component separately.</p>
-<p>Inverse transform sampling works by first constructing the
-**cumulative distribution function (CDF)** of the desired probability
-distribution function (PDF):</p>
+<p>Inverse transform sampling works by first constructing the cumulative
+distribution function (CDF) of the desired probability distribution
+function (PDF):</p>
 <p><span class="math display">\[\mathcal{F}(x) = \int_{-\infty}^{x}
 f(x&#39;)\,dx&#39;.\]</span></p>
 <p>By definition, the probability that a random variable <span
@@ -1173,6 +1173,17 @@ class="math inline">\(\mathcal{F}^{-1}\)</span> to uniformly distributed
 random numbers. This is practical, since uniform random number
 generators—such as <code>numpy.random.rand</code>—are widely
 available.</p>
+<p>The probability distribution for a isotropic plummer sphere depends
+on the energy only, which in turn depends on the radial distance and the
+speed of a particle: <span class="math inline">\(f(r,v) \propto
+(-E)^{7/2}\)</span>. If we marginalize over the velocities, we obtain
+the one dimensional density profile. The CDF of said distribution is the
+enclosed mass as a function of radius. For a Plummer sphere, this is:
+<span class="math display">\[M_{\mathrm{enc}}(r) =
+\frac{r^3}{\left(1+r^2\right)^{3/2}},\]</span> where <span
+class="math inline">\(M_{\mathrm{enc}}\)</span> is normalized to the
+total mass and <span class="math inline">\(r\)</span> is normalized to
+the characteristic radius.</p>
 <figure id="fig:">
 <img src="images/inverse_transform_sampling_distances.png" />
 <figcaption aria-hidden="true"></figcaption>
