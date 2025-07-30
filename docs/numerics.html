@@ -564,15 +564,15 @@ schemes can use more points to have more accurate estimations for the
 local derivatives.</p>
 <p><span class="citation" data-cites="1990PhyD...43..105F">Forest and
 Ruth (1990)</span> proposed one such method for symplectic integrations.
-The method involves finding roots of high order polynomials, and the
-roots of which determine the weights and distances about the local point
-for finding the best estimate of the derivative for evoling the system.
-The method involves solving a cubic polynomial to determine the optimal
-coefficients. While the derivation is mathematically involved, the final
-scheme is straightforward to implement. I implemented this method and
-tested its efficiency against the leapfrog and present the results in
-the following section. There are eight coefficients in this method,
-which are presented in table <a href="#tab:forest_ruth_coeffs"
+The method involves finding roots of high order polynomials which
+determine the distances about the local point for finding the best
+estimate of the derivative for evoling the system. The method involves
+solving a cubic polynomial to determine the optimal coefficients. While
+the derivation is mathematically involved, the final scheme is
+straightforward to implement. I implemented this method and tested its
+efficiency against the leapfrog and present the results in the following
+section. There are eight coefficients in this method, which are
+presented in Table <a href="#tab:forest_ruth_coeffs"
 data-reference-type="ref"
 data-reference="tab:forest_ruth_coeffs">2</a>.</p>
 <div id="tab:forest_ruth_coeffs">
@@ -661,14 +661,14 @@ faced with a choice: we can either work in a time-dependent inertial
 frame, where the potential rotates and the Hamiltonian explicitly
 depends on time, or we can transform to a rotating frame, in which case
 the kinetic energy becomes position-dependent due to Coriolis and
-centrifugal forces, which breaks the necessary criteron of separability:
-<span class="math inline">\(\mathcal{H}(q,p) = T(p)+\Phi(q)\)</span>. In
-both cases, the standard assumptions of the leapfrog algorithm are
-violated.</p>
+centrifugal forces, which breaks the necessary criterion of
+separability: <span class="math inline">\(\mathcal{H}(q,p) =
+T(p)+\Phi(q)\)</span>. In both cases, the standard assumptions of the
+leapfrog algorithm are violated.</p>
 <p>Nonetheless, we will continue to use leapfrog as it remains a robust
 and efficient integrator for a wide range of astrophysical systems. Its
-good long-term energy behavior makes it a reasonable approximation even
-when the ideal assumptions are not strictly met. However, this
+good long-term energy conservation makes it a reasonable approximation
+even when the ideal assumptions are not strictly met. However, this
 highlights the need for careful validation: we must verify that the
 integration errors remain within acceptable bounds, especially in
 systems with non-separable or time-dependent dynamics. This validation
@@ -682,10 +682,10 @@ error in the energy conservation is: <span
 class="math inline">\(\mathrm{err}(E) = \left|\frac{E -
 E_0}{E_0}\right|\)</span>, where <span
 class="math inline">\(E_0\)</span> is the initial energy and <span
-class="math inline">\(E\)</span> is the orbital energy at the index for
-a given time step <span class="math inline">\(t_i\)</span>. For the case
-of just globular clusters, the orbital energy is its own kinetic energy
-plus its gravitational potential energy in the Galaxy: <span
+class="math inline">\(E\)</span> is the orbital energy at a given time
+step <span class="math inline">\(t_i\)</span>. For the case of globular
+clusters, the total orbital energy is its own kinetic energy plus its
+gravitational potential energy in the Galaxy: <span
 class="math inline">\(E = T(\textbf{v}) +
 \Phi_{\mathrm{MW}}\left(\textbf{x}\right)\)</span>. For the case of a
 star-particle within a globular cluster, the potential energy of the
@@ -695,23 +695,19 @@ cluster is included: <span class="math inline">\(E_i = T(\textbf{v}_i) +
 \textbf{x}_{\mathrm{GC},i}\right)\)</span>. The same approach holds when
 a galactic bar is included, the only difference being that the Galactic
 potential has a time-dependent element.</p>
-<p>The second check is that simulations are time-reversable. In this
+<p>The second check is that the simulations are time-reversable. In this
 case, we integrate a cluster back in time, and then change the sign of
 its velocity to subsequently integrate forward in time. If the
 integration is correct, the cluster should remain on the same trajectory
-retracing its steps. We investigate this for four scenarios and show the
-results below:</p>
+retracing its steps. We investigate this for the following scenarios and
+show the results below:</p>
 <ul>
 <li><p>The globular cluster population orbiting with a time-static Milky
 Way potential;</p></li>
 <li><p>Star-particles orbiting with a stationary and isolated globular
 cluster;</p></li>
 <li><p>Full stream generation, i.e., star particles orbiting within a
-globular cluster that orbits the Galaxy,</p></li>
-<li><p>The globular clusters orbiting in a potential with a galactic
-bar;</p></li>
-<li><p>Star-particles orbiting within a globular cluster in a Milky Way
-with a Galactic bar.</p></li>
+globular cluster that orbits the Galaxy.</p></li>
 </ul>
 <h2 id="globular-cluster-orbits-in-a-static-galaxy">Globular Cluster
 Orbits in a Static Galaxy</h2>
@@ -729,14 +725,16 @@ class="math inline">\(10^4,10^5,10^6,10^7\)</span> years which
 corresponds to <span
 class="math inline">\(\left[500,5000,50000,500000\right]\)</span>
 integration steps, respectively. In general, the time step should scale
-with the dynamical time of the orbit, or be inversely proportional to
-the orbital energy. The farther the system is from the center, the
-larger the time step that can be used to obtain a given numerical error.
-Of course, the timestep does not just simply scale with a body’s orbital
-energy, it should scale with the maximum acceleration experienced in the
-system. A highly eccentric orbit requires a smaller timestep to properly
-integrate the motion near the pericenter, compared to a circular orbit
-at the same orbital energy. To not clutter the graph, Fig. <a
+with the dynamical time of the orbit. In other words, the time step
+should be inversely proportional to the orbital energy. The further the
+system is from the center, a larger time step can be used to obtain a
+given numerical error.</p>
+<p><strong>note on adaptive timesteps?</strong> Of course, the timestep
+does not just simply scale with a body’s orbital energy, it should scale
+with the maximum acceleration experienced in the system. A highly
+eccentric orbit requires a smaller timestep to properly integrate the
+motion near the pericenter, compared to a circular orbit at the same
+orbital energy. To not clutter the graph, Fig. <a
 href="#fig:numericalErrorLeapFrogVanilla" data-reference-type="ref"
 data-reference="fig:numericalErrorLeapFrogVanilla">1</a> only present
 the whole globular cluster system twice, once integrated with the
@@ -765,7 +763,10 @@ globular clusters, a time step of 10 million years resolves their orbits
 to an error of <span class="math inline">\(\langle \Delta E / E_0
 \rangle \sim 10^{-5}\)</span>, which is still far less than the
 uncertainties in the energy due to both modeling and observational
-uncertainties.</p>
+uncertainties. Note that in both cases, the errors neither accumulate
+nor grow with time. This is a testament to the quality of the leapfrog
+integration scheme, which is designed to conserve the Hamiltonian
+accurately.</p>
 <p>Fig. <a href="#fig:numericalErrorReverseIntegration"
 data-reference-type="ref"
 data-reference="fig:numericalErrorReverseIntegration">2</a> presents the

@@ -1480,7 +1480,7 @@ it is more fruitful to think in terms of tidal forces as the underlying
 mechanism that gradually transfers energy and angular momentum, nudging
 stars across Lagrange boundaries and ultimately enabling escape. It is
 to this process—tidal stripping—that we now turn.</p>
-<h2 id="the-tidal-tensor">The tidal tensor</h2>
+<h2 id="tidal-forces">Tidal Forces</h2>
 <p>For star-particles within a globular cluster that is itself orbiting
 within a galaxy, there are no exact integrals of motion. The system
 lacks symmetries in its Lagrangian, and the potential varies with time,
@@ -1855,7 +1855,7 @@ of the parameter space, that I would like to show here.</p>
 data-reference-type="ref"
 data-reference="eq:martos_f_s">[eq:martos_f_s]</a>, we can see that for
 <span class="math inline">\(\gamma &gt; 3\)</span> and <span
-class="math inline">\(s &lt;&lt;  1\)</span>, then <span
+class="math inline">\(s &lt;  1\)</span>, then <span
 class="math inline">\(f(s)&lt; 0\)</span>. Physically, this would be a
 sphere whose density increases with distance. This is not natural, as,
 in general, gravity sends the more massive objects towards the center.
@@ -1937,50 +1937,66 @@ data-reference="fig:martos_tidal_field_small_r">14</a>, the compression
 is stronger than the expansion. Both of these are different than the
 keplerian tidal deformation where the stronger deformation is stretching
 and whose axis is parallel to the position vector.</p>
-<h2 id="phase-mixing">Phase mixing</h2>
-<p><strong>NOTE: I want to add citations and discussions to Vasiliev
-Gaia DR3’s look on GCs</strong></p>
+<h2 id="the-distribution-of-escaped-stars">The Distribution of Escaped
+Stars</h2>
+<p>Tidal forces cause stars to escape from the Lagrange points of the
+globular cluster. As we’ve seen, these forces can be compressive—pushing
+stars toward the cluster—or stretching—pulling them away, and
+specifically toward the Lagrange points. The stretching component is
+significantly amplified during pericenter passages, causing many stars
+to escape in bursts.</p>
+<p>This process doesn’t fling stars into intergalactic space. Rather,
+the galactic tidal field is typically weak compared to the cluster’s own
+gravitational pull, and escaping stars gain just enough energy to leave
+the cluster. As a result, they are still on very similar orbits to the
+clusters once they escape.</p>
+<p>But once stars escape, why do they form coherent stellar streams? And
+do they do anything else? To answer this, I must first introduce the
+concept of <em>phase mixing</em>. This naturally leads us to discuss the
+range of possible orbits a globular cluster can follow, given
+observational uncertainties. I’ll cover this fully before returning to
+the topic of stellar streams, which will be much easier to understand
+once this groundwork is in place.</p>
 <p><em>Phase mixing</em> is a direct consequence of Liouville’s theorem,
-which itself follows from the collisionless Boltzmann equation.
-Liouville’s theorem states that the infinitesimal volume element in
-phase space is preserved under Hamiltonian evolution. In other words, as
-a system evolves in time, the phase-space density <span
-class="math inline">\(f(\mathbf{q}, \mathbf{p}, t)\)</span> is conserved
-along particle trajectories. Since the number of particles is conserved,
-and the phase-space volume they occupy does not change, any spatial
-spreading must be accompanied by a drop in phase-space density.</p>
-<p>This effect causes ensembles of nearby orbits to stretch and fold
-through phase space, spreading out and becoming more finely interleaved
-over time, even though the total volume is constant. In physical space,
-this corresponds to a decrease in local density as the particles become
-more dispersed—this is the essence of phase mixing.</p>
-<p>We can estimate the characteristic time scale for phase mixing by
-considering how long it takes for orbits with slightly different
-energies to drift apart in phase. For a Keplerian orbit, the orbital
-period is given by:</p>
-<p><span class="math display">\[T^2 = \frac{4\pi^2
-a^3}{GM},\]</span></p>
-<p>which implies that the period depends on the semi-major axis and thus
-on the orbital energy. In general, most orbits are not closed, so rather
-than returning to the exact same phase-space point, particles precess
-and fill out invariant tori over time. It is therefore useful to define
-a characteristic orbital timescale in terms of energy. From dimensional
-analysis, we argue that the characteristic time for a body to complete a
-phase space cycle is:</p>
-<p><span class="math display">\[T_\mathrm{char} = C
-\frac{GM}{E^{3/2}},\]</span></p>
-<p>where <span class="math inline">\(C\)</span> is a constant and <span
+which follows from the collisionless Boltzmann equation. Liouville’s
+theorem states that the infinitesimal volume element in phase space,
+<span class="math inline">\(d\mathbf{p}\,d\mathbf{q}\)</span>, is
+preserved under Hamiltonian evolution. In other words, the phase-space
+density <span class="math inline">\(f(\mathbf{q}, \mathbf{p},
+t)\)</span> remains constant along a particle’s trajectory.</p>
+<p>To visualize this, instead of considering a single infinitesimal
+element, imagine a small cloud of initial conditions centered around
+<span class="math inline">\((\mathbf{q}_0, \mathbf{p}_0)\)</span>, with
+spread <span class="math inline">\(\sigma_q\)</span> and <span
+class="math inline">\(\sigma_p\)</span>. While the total 6D volume of
+this cloud, <span class="math inline">\(\sigma_q^3 \sigma_p^3\)</span>,
+remains constant, differences in momentum cause the particles to move
+through phase space at different rates. Particles with higher momenta
+advance more quickly, while those with lower momenta lag behind. This
+leads to the cloud stretching and dispersing, even as its total volume
+is conserved. Since solutions to Hamilton’s equations are unique, this
+dispersion reflects how nearby trajectories gradually diverge and spread
+over the available phase space—a process we call phase mixing.</p>
+<p>We can estimate the timescale for this spreading by considering how
+long it takes for orbits with slightly different energies to drift apart
+in phase. For example, in a Keplerian potential, the orbital period is
+given by <span class="math display">\[T^2 = \frac{4\pi^2
+a^3}{GM},\]</span> which depends on the semi-major axis, and thus on
+energy. In general, orbits in non-Keplerian potentials are not closed;
+particles precess and eventually fill out invariant tori in phase space.
+A characteristic timescale for this process can be estimated by
+dimensional analysis as <span class="math display">\[T_\mathrm{char} = C
+\frac{GM}{E^{3/2}},\]</span> where <span
+class="math inline">\(C\)</span> is a constant and <span
 class="math inline">\(E\)</span> is the specific orbital energy.</p>
 <p>Consider now two nearby particles with energies <span
 class="math inline">\(E - \Delta E\)</span> and <span
 class="math inline">\(E + \Delta E\)</span>. Their orbital frequencies
-differ by:</p>
-<p><span class="math display">\[\Delta f = \frac{1}{T( E - \Delta E)} -
-\frac{1}{T(E + \Delta E)}.\]</span></p>
-<p>The time required for the faster particle to lap the slower one in
-phase is the <em>phase mixing time</em>, which is the inverse of the
-difference <span class="math inline">\(2\pi / \Delta f\)</span> and is
-given by:</p>
+differ by: <span class="math display">\[\Delta f = \frac{1}{T( E -
+\Delta E)} - \frac{1}{T(E + \Delta E)}.\]</span> The time required for
+the faster particle to lap the slower one in phase is the <em>phase
+mixing time</em>, which is the inverse of the difference <span
+class="math inline">\(2\pi / \Delta f\)</span> and is given by:</p>
 <p><span class="math display">\[T_\mathrm{mix} = \frac{2\pi}{\Delta f} =
 \frac{2\pi T_1 T_2}{T_2 - T_1}.\]</span></p>
 <p>For small energy differences <span class="math inline">\(\Delta E
@@ -2050,10 +2066,14 @@ phase-mixing time correlates with the orbital period, which itself is
 related to the cluster’s distance from the Galactic center. At large
 Galactocentric distances, the gravitational potential of the Milky Way
 becomes increasingly uncertain, as observational constraints on the
-Galactic mass distribution are weaker. Therefore, these extreme mixing
-times should not be interpreted as implying that we can predict the
-phase-space location of certain clusters with high confidence over
-cosmological timescales.</p>
+Galactic mass distribution are weaker–See Fig. <a
+href="#fig:vasiliev_2021_EDR3_GCS_FIG_10" data-reference-type="ref"
+data-reference="fig:vasiliev_2021_EDR3_GCS_FIG_10">4</a> <span
+class="citation" data-cites="2021MNRAS.505.5978V">(Vasiliev and
+Baumgardt 2021)</span>. Therefore, these extreme mixing times should not
+be interpreted as implying that we can predict the phase-space location
+of certain clusters with high confidence over cosmological
+timescales.</p>
 <figure id="fig:phase_mixing_orbital_errors_sample">
 <p><img src="images/phase_mixing_time_histogram_MWGCS.png"
 alt="image" /> <img src="images/phase_mixing_orbital_errors_sample.png"
@@ -2086,39 +2106,41 @@ holds the proper motions and radial velocities constant. It is plotted
 against the distance. The clusters are color-coated by their mean
 energies.</figcaption>
 </figure>
+<p>In short, the phase-mixing time for a given set of orbital solutions
+and the uncertainty in the initial conditions can be interpreted as:
+“how long until I have no idea where this cluster is?” Beyond this
+timescale, the cluster’s position has an equal probability of being
+anywhere in phase-space permitted by its integrals of motion. This
+concept will be important in Chapter 5, where we assess whether
+different possible orbits for the globular clusters could have brought
+them into contact with the Palomar 5 stream.</p>
 <h3 id="mixing-of-tidal-debris">Mixing of tidal debris</h3>
-<p>At first glance, Fig. <a
-href="#fig:phase_mixing_palomar_5_orbital_solutions"
+<p>A cloud of points together in phase-space that are initially tightly
+packed together and then subsequently drift apart from one another, is a
+great analogy for the evolution of stars that escape from globular
+clusters to subsequently create stellar streams. For instance, at first
+glance, Fig. <a href="#fig:phase_mixing_palomar_5_orbital_solutions"
 data-reference-type="ref"
 data-reference="fig:phase_mixing_palomar_5_orbital_solutions">16</a>
 might give the impression that we are looking at snapshots of a single
 stellar stream at different times. In reality, the figure shows
 different orbital solutions. This visual similarity underscores that
 both phenomena—stellar streams and diverging orbital solutions—are
-manifestations of phase mixing. However, there is a crucial distinction:
-phase mixing of tidal debris is a physical process involving actual
-particles with slightly different initial conditions, whereas diverging
-orbital solutions represent the increasing uncertainty in predicted
-trajectories over time.</p>
-<p>Still, it is useful to use phase mixing as an analogy, though the
-physical assumptions differ. In particular, the analogy breaks down
-because globular clusters are self-gravitating systems: stars interact
-gravitationally and remain bound for a significant time. This
-self-gravity slows down the mixing process. The time it takes for a
-globular cluster to dissolve and distribute its stars uniformly in phase
-space is typically longer than the idealized mixing time given by Eq. <a
-href="#EQ:phase_mixing" data-reference-type="ref"
-data-reference="EQ:phase_mixing">[EQ:phase_mixing]</a>.</p>
-<p>Let us briefly illustrate this with a conceptual calculation:</p>
-<ul>
-<li><p><strong>Case 1</strong>: Particles drift apart under phase mixing
-with no mutual gravitational influence.</p></li>
-<li><p><strong>Case 2</strong>: Particles are bound by a central
-potential, representing the cluster’s self-gravity.</p></li>
-</ul>
-<p>From this thought experiment, we see that phase mixing proceeds more
-slowly when self-gravity is included. Nevertheless, phase mixing still
-governs the long-term behavior of tidally escaped stars.</p>
+manifestations of phase mixing.</p>
+<p>However, there is an important distinction. The divergence of
+different orbital solutions is an exact instantiation of the Louiville
+theorem. The particles have no influence on one another and they are all
+independently orbiting within the gravitational field. For stars within
+a globular cluster, the analogy breaks down because globular clusters
+are self-gravitating systems: stars interact gravitationally and remain
+bound for a significant time. This self-gravity slows down the mixing
+process. The time it takes for a globular cluster to dissolve and
+distribute its stars uniformly in phase space is typically longer than
+the idealized mixing time given by Eq. <a href="#EQ:phase_mixing"
+data-reference-type="ref"
+data-reference="EQ:phase_mixing">[EQ:phase_mixing]</a>. Nevertheless,
+phase mixing still governs the long-term behavior of tidally escaped
+stars.</p>
 <p>Importantly, we need not consider all particles within the cluster to
 study phase mixing. For clusters with short orbital mixing times
 compared to the simulation duration, stars that escape during the
@@ -2127,6 +2149,28 @@ the resulting debris will not be uniformly distributed—an overdensity
 will remain at the cluster location—the tidal debris will broadly fill
 the phase space accessible to it. This point is crucial for the results
 discussed in Chapter 4.</p>
+<p>In fact, this can be seen in another <span class="citation"
+data-cites="2024ApJ...976...54P">Pearson et al. (2024)</span>. <span
+class="citation" data-cites="2024ApJ...976...54P">Pearson et al.
+(2024)</span> noted that today, there are roughly 170 known globular
+clusters. However, since they dissolve, there could have been many more.
+Thus, there could be many streams in the galaxy that are from now
+defunct globular clusters. Already, there are many known streams that
+are unassociated to globular clusters <span class="citation"
+data-cites="2022ApJ...926..107M">(Malhan et al. 2022)</span>. In fact,
+of the roughly 90 known stellar streams, only about 20 are associated to
+globular clusters <span class="citation"
+data-cites="2024ApJ...967...89I">(Ibata et al. 2024)</span>. Pearson
+make some fake GCs based on <span class="citation"
+data-cites="2022MNRAS.514.4736C 2023MNRAS.522.5638C">Chen and Gnedin
+(2022, 2023)</span>.</p>
+<figure id="fig:perason-2024-fig">
+<img src="images/perason-2024-fig.jpg" />
+<figcaption>Streaminess is a beaitful word. thank you <span
+class="citation" data-cites="2024ApJ...976...54P">(Pearson et al.
+2024)</span>. That top material is more phase mixed. Even though the
+metric is different. </figcaption>
+</figure>
 <h2 id="collisions">Collisions</h2>
 <p>Collisions are essential in this thesis for two reasons. Firstly, one
 of the main research questions is how the passage of a subhalo perturbs
@@ -2441,7 +2485,7 @@ error function and exponential functions, since they are the moments of
 a truncated Gaussian.</p>
 <p>In Fig. <a href="#fig:collisionless_1D_stream"
 data-reference-type="ref"
-data-reference="fig:collisionless_1D_stream">20</a>, I show a plot of
+data-reference="fig:collisionless_1D_stream">21</a>, I show a plot of
 the <em>density</em>, <em>mean velocity</em>, and <em>velocity
 dispersion</em> as a function of position at a given time. The figure
 illustrates how the leading edge of the stream (larger <span
@@ -2662,6 +2706,17 @@ Carlip, S. 2000. <span>“<span class="nocase">Aberration and the speed of
 gravity</span>.”</span> <em>Physics Letters A</em> 267 (2-3): 81–87. <a
 href="https://doi.org/10.1016/S0375-9601(00)00101-8">https://doi.org/10.1016/S0375-9601(00)00101-8</a>.
 </div>
+<div id="ref-2022MNRAS.514.4736C" class="csl-entry" role="listitem">
+Chen, Yingtian, and Oleg Y. Gnedin. 2022. <span>“<span
+class="nocase">Modeling the kinematics of globular cluster
+systems</span>”</span> 514 (4): 4736–55. <a
+href="https://doi.org/10.1093/mnras/stac1651">https://doi.org/10.1093/mnras/stac1651</a>.
+</div>
+<div id="ref-2023MNRAS.522.5638C" class="csl-entry" role="listitem">
+———. 2023. <span>“<span class="nocase">Formation of globular clusters in
+dwarf galaxies of the Local Group</span>”</span> 522 (4): 5638–53. <a
+href="https://doi.org/10.1093/mnras/stad1328">https://doi.org/10.1093/mnras/stad1328</a>.
+</div>
 <div id="ref-2015MNRAS.450.1136E" class="csl-entry" role="listitem">
 Erkal, Denis, and Vasily Belokurov. 2015. <span>“<span
 class="nocase">Forensics of subhalo-stream encounters: the three phases
@@ -2787,6 +2842,15 @@ Allende Prieto, Robert Barkhouser, Dmitry Bizyaev, Basil Blank, et al.
 Experiment (APOGEE)</span>”</span> 154 (3): 94. <a
 href="https://doi.org/10.3847/1538-3881/aa784d">https://doi.org/10.3847/1538-3881/aa784d</a>.
 </div>
+<div id="ref-2022ApJ...926..107M" class="csl-entry" role="listitem">
+Malhan, Khyati, Rodrigo A. Ibata, Sanjib Sharma, Benoit Famaey, Michele
+Bellazzini, Raymond G. Carlberg, Richard D’Souza, Zhen Yuan, Nicolas F.
+Martin, and Guillaume F. Thomas. 2022. <span>“<span class="nocase">The
+Global Dynamical Atlas of the Milky Way Mergers: Constraints from Gaia
+EDR3-based Orbits of Globular Clusters, Stellar Streams, and Satellite
+Galaxies</span>”</span> 926 (2): 107. <a
+href="https://doi.org/10.3847/1538-4357/ac4d2a">https://doi.org/10.3847/1538-4357/ac4d2a</a>.
+</div>
 <div id="ref-2012A&amp;A...546L...7M" class="csl-entry" role="listitem">
 Mastrobuono-Battisti, A., P. Di Matteo, M. Montuori, and M. Haywood.
 2012. <span>“<span class="nocase">Clumpy streams in a smooth dark halo:
@@ -2819,6 +2883,13 @@ galaxies.</span>”</span> 27 (January):533–43.
 Oort, J. H. 1927. <span>“<span class="nocase">Additional notes
 concerning the rotation of the galactic system</span>”</span> 4
 (October):91.
+</div>
+<div id="ref-2024ApJ...976...54P" class="csl-entry" role="listitem">
+Pearson, Sarah, Ana Bonaca, Yingtian Chen, and Oleg Y. Gnedin. 2024.
+<span>“<span class="nocase">Forecasting the Population of Globular
+Cluster Streams in Milky Way<span></span>type Galaxies</span>”</span>
+976 (1): 54. <a
+href="https://doi.org/10.3847/1538-4357/ad8348">https://doi.org/10.3847/1538-4357/ad8348</a>.
 </div>
 <div id="ref-1997A&amp;A...323L..49P" class="csl-entry" role="listitem">
 Perryman, M. A. C., L. Lindegren, J. Kovalevsky, E. Hoeg, U. Bastian, P.
@@ -2879,7 +2950,7 @@ Administration</em>.
 <div id="ref-2013ApJ...775..134V" class="csl-entry" role="listitem">
 VandenBerg, Don A., K. Brogaard, R. Leaman, and L. Casagrande. 2013.
 <span>“<span class="nocase">The Ages of 55 Globular Clusters as
-Determined Using an Improved VĤB_TO Method along with Color-Magnitude
+Determined Using an Improved VHBTO Method along with Color-Magnitude
 Diagram Constraints, and Their Implications for Broader
 Issues</span>”</span> 775 (2): 134. <a
 href="https://doi.org/10.1088/0004-637X/775/2/134">https://doi.org/10.1088/0004-637X/775/2/134</a>.
