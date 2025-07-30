@@ -1003,7 +1003,7 @@ potential at the center, recovers the potential of a point mass at large
 distances (<span class="math inline">\(r &gt;&gt; b\)</span>), and
 yields a density profile that decays as <span class="math inline">\(\rho
 \propto r^{-5}\)</span> at large radii.</p>
-<h2 id="subsec:initialconditions">The initial conditions</h2>
+<h2 id="subsec:initialconditions">Generating a Globular Cluster</h2>
 <p>Now that we have our equations of motion established, and we have an
 accurate model for computing the gravitational force at each point in
 the galaxy, what are the initial conditions? First, the initial
@@ -1135,10 +1135,44 @@ distribution function. For a Plummer sphere, this distribution function
 is <span class="math inline">\(f = C -E^{7/2}\)</span>, where <span
 class="math inline">\(C\)</span> is a constant that ensures <span
 class="math inline">\(\int f dE =1\)</span>.</p>
-<h3 id="inverse-transform-sampling">Inverse Transform Sampling</h3>
-<p>With the distribution funciton in hand, how do we sample it to a set
-of discrete particles? There are many techniques that exist. I choose
-inverse transform sampling as it was covered my course work.</p>
+<h3 id="sampling-the-initial-conditions">Sampling the Initial
+Conditions</h3>
+<p>There are many techniques for sampling from a distribution function.
+In my code, I use **inverse transform sampling**, a method that
+facilitates sampling from one-dimensional probability distribution
+functions.</p>
+<p>Although the full distribution function depends on six
+variables—three positions and three velocities—it can be marginalized
+such that we treat each variable independently. This allows us to apply
+inverse transform sampling to each component separately.</p>
+<p>Inverse transform sampling works by first constructing the
+**cumulative distribution function (CDF)** of the desired probability
+distribution function (PDF):</p>
+<p><span class="math display">\[\mathcal{F}(x) = \int_{-\infty}^{x}
+f(x&#39;)\,dx&#39;.\]</span></p>
+<p>By definition, the probability that a random variable <span
+class="math inline">\(x\)</span> is less than a given value <span
+class="math inline">\(x_0\)</span> is given by the value of the CDF at
+<span class="math inline">\(x_0\)</span>:</p>
+<p><span class="math display">\[\mathcal{P}(x &lt; x_0) =
+\mathcal{F}(x_0).\]</span></p>
+<p>Since CDFs are monotonically increasing and invertible, we also
+have:</p>
+<p><span class="math display">\[\mathcal{P}(\mathcal{F}(x) &lt;
+\mathcal{F}(x_0)) = \mathcal{P}(x &lt; x_0).\]</span></p>
+<p>Now, consider a uniform random variable <span
+class="math inline">\(Y\)</span> distributed on the interval <span
+class="math inline">\([0,1]\)</span>. Then,</p>
+<p><span class="math display">\[\mathcal{P}(Y &lt; \mathcal{F}(x_0)) =
+\mathcal{P}(x &lt; x_0),\]</span></p>
+<p>which implies:</p>
+<p><span class="math display">\[x = \mathcal{F}^{-1}(Y).\]</span></p>
+<p>Thus, we can generate samples from the target PDF <span
+class="math inline">\(f(x)\)</span> by applying the inverse CDF <span
+class="math inline">\(\mathcal{F}^{-1}\)</span> to uniformly distributed
+random numbers. This is practical, since uniform random number
+generators—such as <code>numpy.random.rand</code>—are widely
+available.</p>
 <figure id="fig:">
 <img src="images/inverse_transform_sampling_distances.png" />
 <figcaption aria-hidden="true"></figcaption>

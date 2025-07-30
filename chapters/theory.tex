@@ -259,7 +259,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
         where $M$ is the total mass and $b$ is the scale length. In the limit $a \rightarrow 0$, the Miyamoto-Nagai potential reduces to a Plummer sphere. This model has a minimum potential at the center, recovers the potential of a point mass at large distances ($r >> b$), and yields a density profile that decays as $\rho \propto r^{-5}$ at large radii.
 
     
-    \subsection{The initial conditions}\label{subsec:initialconditions}
+    \subsection{Generating a Globular Cluster}\label{subsec:initialconditions}
 
         Now that we have our equations of motion established, and we have an accurate model for computing the gravitational force at each point in the galaxy, what are the initial conditions? First, the initial conditions for the center's of mass of the globular clusters, their mass and size, are taken observationally from \citet{2018MNRAS.478.1520B}. What about the stars within the cluster? 
 
@@ -328,8 +328,45 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
 
         In fact, an inversion formula exists — known as the Abel transform — that allows one to reconstruct \( f(E) \) from a known \( \rho(r) \). This technique is presented in \citet{2008gady.book.....B} and \citet{bovy_inprep}. At this point, one can obtain a complete analytic expression for the distribution function. For a Plummer sphere, this distribution function is $f = C -E^{7/2}$, where $C$ is a constant that ensures $\int f dE =1$. 
 
-        \subsubsection{Inverse Transform Sampling}
-            With the distribution funciton in hand, how do we sample it to a set of discrete particles? There are many techniques that exist. I choose inverse transform sampling as it was covered my course work. 
+        \subsubsection{Sampling the Initial Conditions}
+
+        There are many techniques for sampling from a distribution function. In my code, I use \textit{inverse transform sampling}, a method that facilitates sampling from one-dimensional probability distribution functions.
+
+        Although the full distribution function depends on six variables—three positions and three velocities—it can be marginalized such that we treat each variable independently. This allows us to apply inverse transform sampling to each component separately.
+
+        Inverse transform sampling works by first constructing the cumulative distribution function (CDF) of the desired probability distribution function (PDF):
+
+        \begin{equation}
+            \mathcal{F}(x) = \int_{-\infty}^{x} f(x')\,dx'.
+        \end{equation}
+
+        By definition, the probability that a random variable $x$ is less than a given value $x_0$ is given by the value of the CDF at $x_0$:
+
+        \begin{equation}
+            \mathcal{P}(x < x_0) = \mathcal{F}(x_0).
+        \end{equation}
+
+        Since CDFs are monotonically increasing and invertible, we also have:
+
+        \begin{equation}
+            \mathcal{P}(\mathcal{F}(x) < \mathcal{F}(x_0)) = \mathcal{P}(x < x_0).
+        \end{equation}
+
+        Now, consider a uniform random variable $Y$ distributed on the interval $[0,1]$. Then,
+
+        \begin{equation}
+            \mathcal{P}(Y < \mathcal{F}(x_0)) = \mathcal{P}(x < x_0),
+        \end{equation}
+
+        which implies:
+
+        \begin{equation}
+            x = \mathcal{F}^{-1}(Y).
+        \end{equation}
+
+        Thus, we can generate samples from the target PDF $f(x)$ by applying the inverse CDF $\mathcal{F}^{-1}$ to uniformly distributed random numbers. This is practical, since uniform random number generators—such as \texttt{numpy.random.rand}—are widely available.
+
+
 
 
             \begin{figure}
