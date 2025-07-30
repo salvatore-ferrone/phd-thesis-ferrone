@@ -1307,11 +1307,22 @@ Finally, I introduce <em>gapology</em>—the study of how perturbations
 can impact a stream and generate observable gaps within it.</p>
 <h2 id="the-planar-circular-restricted-three-body-problem">The Planar
 Circular Restricted Three-Body Problem</h2>
-<p>Even if we simplify the simulation by modeling the cluster as <span
-class="math inline">\(\mathcal{N}\)</span> independent three-body
-problems, the problem remains challenging. Indeed, if we consider all
-three bodies to have mass, we can write down a Hamiltonian with 18
-dimensions: three positions and three momenta in <span
+<p>This section introduces the fundamental concept of the Lagrange
+points and regions of influence. In general, if a star is very close to
+the center of mass of a globular cluster, then its dynamics are
+determined by the cluster and the galaxy’s influence is minimal. On the
+otherhand, if the star is far from the cluster then its motion is
+completely describe by the galaxy’s gravitational field and the cluster
+is completely negligible. The Lagrange points are transitions between
+these two regime and are the points out of which the stars escape from
+the cluster. The magic that makes this analysis possible is decoupling
+the motion of the smallest body from the larger two, and studying the
+system in a non-inertial reference frame.</p>
+<p>To begin, even though we simplify the simulation by modeling the
+cluster as <span class="math inline">\(\mathcal{N}\)</span> independent
+three-body problems, the problem remains challenging. Indeed, if we
+consider all three bodies to have mass, we can write down a Hamiltonian
+with 18 dimensions: three positions and three momenta in <span
 class="math inline">\(\mathcal{R}^3\)</span> for each particle. The
 dimensionality of the problem can be reduced by using the conservation
 of total linear momentum and total angular momentum, and by expressing
@@ -1333,7 +1344,7 @@ conserved, as the primaries can exchange energy with it.</p>
 <p>We introduce a further simplifying assumption: the two primaries move
 on circular orbits. Under this assumption, we transform to a reference
 frame rotating with the primaries, placing them along the <span
-class="math inline">\(x-axis\)</span>. In this rotating frame, the
+class="math inline">\(x-\)</span>axis. In this rotating frame, the
 Lagrangian becomes autonomous; it no longer depends explicitly on time
 and requires no external information to determine the particle’s
 subsequent motion.</p>
@@ -1470,12 +1481,6 @@ is more insightful to think of tidal forces as the underlying mechanism
 that gradually transfers energy and angular momentum, nudging stars
 across the Lagrange boundaries and ultimately driving escape. It is to
 this process—tidal stripping—that we now turn.</p>
-<p><strong>NOTE from Ferrone. I wonder if the <span
-class="math inline">\(L_4\)</span> and <span
-class="math inline">\(L_5\)</span> exist in the galactic context... are
-there Tojan stars? or does the complexity of the galactic potential
-paired with non circular orbits render such a phenomena
-unnatural?</strong></p>
 <h2 id="the-tidal-tensor">The tidal tensor</h2>
 <p>Tidal forces arise due to spatial variations in the gravitational
 field and are especially apparent when comparing the accelerations
@@ -2861,8 +2866,8 @@ This ensures that the resulting spacetime curvature produces a force
 equivalent to attraction toward the body’s instantaneous position,
 rather than where it was when the gravitational influence was emitted.<a
 href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>The term "integral of motion" is often used
-interchangeably with "constant of motion," but strictly speaking, the
+<li id="fn2"><p>The term “integral of motion” is often used
+interchangeably with “constant of motion”, but strictly speaking, the
 latter is preferable since it refers to a quantity that remains constant
 throughout the orbital evolution, not to an integral in the mathematical
 sense of the word (area under a curve).<a href="#fnref2"
