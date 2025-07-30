@@ -1137,7 +1137,16 @@ class="math inline">\(C\)</span> is a constant that ensures <span
 class="math inline">\(\int f dE =1\)</span>.</p>
 <h3 id="inverse-transform-sampling">Inverse Transform Sampling</h3>
 <p>With the distribution funciton in hand, how do we sample it to a set
-of discrete particles?</p>
+of discrete particles? There are many techniques that exist. I choose
+inverse transform sampling as it was covered my course work.</p>
+<figure id="fig:">
+<img src="images/inverse_transform_sampling_distances.png" />
+<figcaption aria-hidden="true"></figcaption>
+</figure>
+<figure id="fig:">
+<img src="images/inverse_transform_sampling_velocities.png" />
+<figcaption aria-hidden="true"></figcaption>
+</figure>
 <h1 id="the-implicit-physics">The Implicit Physics</h1>
 <p><strong>Make note on why I call it the implicit physics
 again</strong></p>
@@ -1243,7 +1252,7 @@ escape through <span class="math inline">\(L_1\)</span>, while
 higher-energy particles can also escape through <span
 class="math inline">\(L_2\)</span>. Figure <a
 href="#fig:CR3BP_forbidden_region" data-reference-type="ref"
-data-reference="fig:CR3BP_forbidden_region">5</a> illustrates these
+data-reference="fig:CR3BP_forbidden_region">7</a> illustrates these
 forbidden and allowed regions clearly.</p>
 <figure id="fig:CR3BP_forbidden_region">
 <p><img src="images/CR3BP_forbidden_region_0.png" alt="image" /> <img
@@ -1439,7 +1448,7 @@ explore one instructive effect: how solar tidal forces <em>perturb</em>
 the Moon’s orbit away from the idealized two-body Earth-Moon
 configuration. Figure <a href="#fig:moon_tidal_simulation"
 data-reference-type="ref"
-data-reference="fig:moon_tidal_simulation">6</a> shows a toy model
+data-reference="fig:moon_tidal_simulation">8</a> shows a toy model
 comparing two scenarios. In both, I used initial conditions based on JPL
 NASA ephemerides (citation needed) and integrated two sets of equations
 of motion.</p>
@@ -1634,7 +1643,7 @@ class="math display">\[f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}
 forces would impede creating stellar streams instead of making them, as
 shown in Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">12</a>.</p>
+data-reference="fig:martos_tidal_field_small_r">14</a>.</p>
 <p>Taking the Martos tidal tensor in Eq. <a href="#eq:martos_f_s"
 data-reference-type="ref"
 data-reference="eq:martos_f_s">[eq:martos_f_s]</a>, we can see that for
@@ -1650,7 +1659,7 @@ tensor are negative, which means that the force is compressive
 everywhere. Consequently, no stars escape from the cluster.</p>
 <p>In Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">12</a>, I present a
+data-reference="fig:martos_tidal_field_small_r">14</a>, I present a
 small experiment demonstrating the consequence of such a tidal force on
 a globular cluster, which is that no tidal stream forms. Briefly, I
 created a plummer sphere of <span
@@ -1702,7 +1711,7 @@ ellipse.</figcaption>
 <img src="images/martos_tidal_field_450_10_400.png" alt="image" /></p>
 <figcaption>The same experiment as Fig. <a
 href="#fig:martos_tidal_field_small_r" data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">12</a>, but the cluster
+data-reference="fig:martos_tidal_field_small_r">14</a>, but the cluster
 was placed at a larger distance of 4 <span
 class="math inline">\(r_\textrm{halo}\)</span>, since we are beyond the
 characteristic radius, the tidal fields are the same, despite the
@@ -1711,13 +1720,13 @@ class="math inline">\(\gamma\)</span>.</figcaption>
 </figure>
 <p>In the case of Fig. <a href="#fig:martos_tidal_field_big_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_big_r">13</a>, the tidal field
+data-reference="fig:martos_tidal_field_big_r">15</a>, the tidal field
 returns to the typical situation where one axis is compressive and the
 other stretches. Notice how the deformations are similar in magnitude,
 while in the case of <span class="math inline">\(\gamma=2.02\)</span>
 for the top panel of Fig. <a href="#fig:martos_tidal_field_small_r"
 data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">12</a>, the compression
+data-reference="fig:martos_tidal_field_small_r">14</a>, the compression
 is stronger than the expansion. Both of these are different than the
 keplerian tidal deformation where the stronger deformation is stretching
 and whose axis is parallel to the position vector.</p>
@@ -1781,7 +1790,7 @@ from the initial spread in orbital energies caused by observational
 uncertainties. In Fig.<a
 href="#fig:phase_mixing_palomar_5_orbital_solutions"
 data-reference-type="ref"
-data-reference="fig:phase_mixing_palomar_5_orbital_solutions">14</a>, I
+data-reference="fig:phase_mixing_palomar_5_orbital_solutions">16</a>, I
 present an example based on Palomar 5, for which I compute 50 orbital
 solutions in our potential model. These initial conditions are sampled
 according to the uncertainties reported in the Baumgardt catalog. The
@@ -1819,7 +1828,7 @@ for all orbits, regardless of their periods. However, it is still
 illustrative to examine this behavior in the context of the globular
 cluster catalog. In Fig.<a
 href="#fig:phase_mixing_orbital_errors_sample" data-reference-type="ref"
-data-reference="fig:phase_mixing_orbital_errors_sample">15</a>, I
+data-reference="fig:phase_mixing_orbital_errors_sample">17</a>, I
 present the phase-mixing times for all Galactic globular clusters, based
 on current uncertainties from the Gaia DR3 catalog. The top panel shows
 the distribution for all 165 clusters. The bottom panels highlight the
@@ -1855,7 +1864,7 @@ orbital energy.</figcaption>
 energy relates to the uncertainties in each observable. In Fig. <a
 href="#fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu"
 data-reference-type="ref"
-data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">16</a>,
+data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">18</a>,
 I perform this quick calulation. The uncertainties are measured in
 Galactic coordinates the ICRS coordinate system. This is a direct
 transformation to Galactic coordinates and thus can be expressed
@@ -1874,7 +1883,7 @@ energies.</figcaption>
 <p>At first glance, Fig. <a
 href="#fig:phase_mixing_palomar_5_orbital_solutions"
 data-reference-type="ref"
-data-reference="fig:phase_mixing_palomar_5_orbital_solutions">14</a>
+data-reference="fig:phase_mixing_palomar_5_orbital_solutions">16</a>
 might give the impression that we are looking at snapshots of a single
 stellar stream at different times. In reality, the figure shows
 different orbital solutions. This visual similarity underscores that
@@ -2225,7 +2234,7 @@ error function and exponential functions, since they are the moments of
 a truncated Gaussian.</p>
 <p>In Fig. <a href="#fig:collisionless_1D_stream"
 data-reference-type="ref"
-data-reference="fig:collisionless_1D_stream">18</a>, I show a plot of
+data-reference="fig:collisionless_1D_stream">20</a>, I show a plot of
 the <em>density</em>, <em>mean velocity</em>, and <em>velocity
 dispersion</em> as a function of position at a given time. The figure
 illustrates how the leading edge of the stream (larger <span
