@@ -1279,8 +1279,32 @@ in place, and initial conditions assigned to each star particle, we are
 now ready to simulate the tidal disruption of a globular cluster in the
 Galaxy.</p>
 <h1 id="the-implicit-physics">The Implicit Physics</h1>
-<p><strong>Make note on why I call it the implicit physics
-again</strong></p>
+<p>The previous section provided everything needed to simulate the
+dissolution of globular clusters. However, given the equations of
+motion, the model for the gravitational field, and the initial
+conditions for both the globular clusters and their constituent stars,
+why should we expect stars to escape? While the formalisms in the
+previous section supply the necessary machinery for running simulations,
+they do not explain <em>why</em> disruption occurs.</p>
+<p>In this section, I aim to describe the underlying mechanisms that
+cause stars to escape from globular clusters and form stellar streams.
+Gaining intuition for this process involves simplifying the equations
+<em>even further</em>, in order to obtain analytical insights. I refer
+to this as the <em>implicit physics</em>—not because it was explicitly
+implemented in the simulations, but because it arises naturally from the
+equations that be.</p>
+<p>To provide a brief overview: I begin with the circular restricted
+three-body problem, the simplest formalism for understanding the kinds
+of motion a massless body can undergo when influenced by two much more
+massive ones. I then introduce the tidal tensor, which describes how and
+why the galactic field eventually strips stars from their host clusters.
+After that, I discuss phase mixing, which explains the evolution of
+escaped stars and how they come to form coherent stellar streams. This
+also helps explain the divergence of orbital solutions over time, which
+is particularly relevant for the work in Chapter 5, where we investigate
+whether the globular cluster system can affect the Palomar 5 stream.
+Finally, I introduce <em>gapology</em>—the study of how perturbations
+can impact a stream and generate observable gaps within it.</p>
 <h2 id="the-planar-circular-restricted-three-body-problem">The Planar
 Circular Restricted Three-Body Problem</h2>
 <p>Even if we simplify the simulation by modeling the cluster as <span
