@@ -1173,7 +1173,7 @@ class="math inline">\(\mathcal{F}^{-1}\)</span> to uniformly distributed
 random numbers. This is practical, since uniform random number
 generators—such as <code>numpy.random.rand</code>—are widely
 available.</p>
-<p>The probability distribution for a isotropic plummer sphere depends
+<p>The probability distribution for an isotropic Plummer sphere depends
 on the energy only, which in turn depends on the radial distance and the
 speed of a particle: <span class="math inline">\(f(r,v) \propto
 (-E)^{7/2}\)</span>. If we marginalize over the velocities, we obtain
@@ -1184,11 +1184,47 @@ enclosed mass as a function of radius. For a Plummer sphere, this is:
 class="math inline">\(M_{\mathrm{enc}}\)</span> is normalized to the
 total mass and <span class="math inline">\(r\)</span> is normalized to
 the characteristic radius.</p>
-<figure id="fig:">
+<p>A demonstration of applying the inverse transform sampling to this
+CDF is shown in Fig. <a href="#fig:inverse_transform_sampling_distances"
+data-reference-type="ref"
+data-reference="fig:inverse_transform_sampling_distances">5</a>. the
+intersections between the uniform random numbers and the CDF are found.
+The intersection then provide the radial distances.</p>
+<figure id="fig:inverse_transform_sampling_distances">
 <img src="images/inverse_transform_sampling_distances.png" />
-<figcaption aria-hidden="true"></figcaption>
+<figcaption>Inverse transform sampling of the mass distribution function
+of a Plummer sphere. 1000 uniform random numbers between [0,1] were
+generated and intersected with the normalized enclosed mass
+distribution. The intersection points then determine the corresponding
+sampled position, which is highlighted in the top panel. The top panel
+only shows 100 samplings to not over crow the plot. The bottom plot
+shows the resulting distribution of radii. </figcaption>
 </figure>
-<figure id="fig:">
+<p>A joint distribution function is the product of a conditional
+probability DF and a marginalized distribution function: <span
+class="math inline">\(f(r,v)=f(v|r)f(r)\)</span>. The number of
+particles at a given speed can be found by integrating over the DF and
+then redifferentiating with respect to the speed: <span
+class="math display">\[\frac{dN}{dv} = \frac{d}{dv}\int f(\textbf{v}|r)
+(v\sin(\theta)d\phi) (vd\theta)(dv) = 4\pi v^2 f(v|r).\]</span> Note
+that the angles here are not in physical space but rather velocity
+space. Lastly, to construct the CDF of this DF, we must know what the
+proper limits are. The speeds available to this particle range from zero
+to the escape speed, which is <span
+class="math inline">\(v_{\mathrm{esc}} = \sqrt{2\Phi(r)}\)</span>. Thus,
+the CDF is: <span class="math display">\[\mathcal{F}(v) = C
+\int_0^{v&lt;v_\mathrm{esc}} 4\pi v^2 f(v|r) dv\]</span> where <span
+class="math inline">\(C\)</span> is some normalization constant. I do
+not present this normalization constant analytically. Computationally, I
+ignore the scaling constants and renormalize everything at a posteriori.
+The CDF may easily be renormalized by the final value of the
+unnormalized CDF: <span
+class="math inline">\(C=1/\mathcal{F}(v_\mathrm{esc})\)</span>. This
+process is visualized in Fig. <a
+href="#fig:inverse_transform_sampling_velocities"
+data-reference-type="ref"
+data-reference="fig:inverse_transform_sampling_velocities">6</a>.</p>
+<figure id="fig:inverse_transform_sampling_velocities">
 <img src="images/inverse_transform_sampling_velocities.png" />
 <figcaption aria-hidden="true"></figcaption>
 </figure>
