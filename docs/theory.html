@@ -1207,8 +1207,7 @@ particles at a given speed can be obtained by integrating over the
 angular velocity components and differentiating with respect to speed:
 <span class="math display">\[\frac{dN}{dv} = \frac{d}{dv} \int
 f(\textbf{v}|r)\, v^2 \sin\theta\, d\theta\, d\phi\, dv = 4\pi v^2
-f(v|r).\]</span> Note that the angles here refer to velocity space, not
-physical space.</p>
+f(v|r).\]</span></p>
 <p>To construct the CDF of this conditional distribution, we must
 determine the appropriate limits. The allowed speed for a particle at
 radius <span class="math inline">\(r\)</span> ranges from zero to the
@@ -1252,6 +1251,23 @@ positions. While valid, this approach is less intuitive. Most models are
 motivated by their density profiles, which are observable and
 conceptually accessible, making them a natural starting point for
 inverse transform sampling.</p>
+<p>To convert radial distances into 3D positions, and speeds into
+velocity vectors, we must sample directions uniformly over the surface
+of a sphere. A common pitfall is to sample latitude and longitude
+uniformly, which leads to an over-density near the poles. Instead, we
+aim for a uniform distribution over the sphere’s surface, where the
+differential area element is given by: <span
+class="math display">\[f(\theta,\phi)=\frac{1}{4\pi}\sin(\theta)\]</span>
+with <span class="math inline">\(\theta\)</span> the co-latitude and
+<span class="math inline">\(\phi\)</span> the longitude. Since <span
+class="math inline">\(f\)</span> does not depend on <span
+class="math inline">\(\phi\)</span>, it can be sampled uniformly over
+its domain <span class="math inline">\([0, 2\pi)\)</span>. However, for
+<span class="math inline">\(\theta\)</span>, inverse transform sampling
+must be used. Drawing a uniform random variable <span
+class="math inline">\(y_i \in [0,1]\)</span>, the corresponding
+co-latitude is: <span class="math display">\[\theta_i =
+\cos^{-1}\left(1-2y_i\right).\]</span></p>
 <h1 id="the-implicit-physics">The Implicit Physics</h1>
 <p><strong>Make note on why I call it the implicit physics
 again</strong></p>

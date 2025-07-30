@@ -403,9 +403,20 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
             \end{figure}
 
             This process could be inverted: one could marginalize over position to obtain a global speed distribution, then condition on speed to sample positions. While valid, this approach is less intuitive. Most models are motivated by their density profiles, which are observable and conceptually accessible, making them a natural starting point for inverse transform sampling.
+            
+            To convert radial distances into 3D positions, and speeds into velocity vectors, we must sample directions uniformly over the surface of a sphere. A common pitfall is to sample latitude and longitude uniformly, which leads to an over-density near the poles. Instead, we aim for a uniform distribution over the sphere's surface, where the differential area element is given by:
+            \begin{equation}
+                f(\theta,\phi)=\frac{1}{4\pi}\sin(\theta)
+            \end{equation} 
+            with $\theta$ the co-latitude and $\phi$ the longitude. Since $f$ does not depend on $\phi$, it can be sampled uniformly over its domain $[0, 2\pi)$. However, for $\theta$, inverse transform sampling must be used. Drawing a uniform random variable $y_i \in [0,1]$, the corresponding co-latitude is:
+            \begin{equation}
+                \theta_i = \cos^{-1}\left(1-2y_i\right).
+            \end{equation}
+
+            By sampling radial distances, speeds, and directions uniformly over the unit sphere, we obtain full position and velocity vectors for each particle. With these, the initial conditions for a Plummer sphere are fully specified. The user need only provide the total mass, characteristic radius, and the desired number of star particles.
 
 
-        
+            With the equations of motion defined, a model for the galactic gravitational field established, a force model for the globular cluster in place, and initial conditions assigned to each star particle, we are now ready to simulate the tidal disruption of a globular cluster in the Galaxy.
 
 
 
