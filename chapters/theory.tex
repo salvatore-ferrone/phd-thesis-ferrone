@@ -366,7 +366,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
 
             Thus, we can generate samples from the target PDF $f(x)$ by applying the inverse CDF $\mathcal{F}^{-1}$ to uniformly distributed random numbers. This is practical, since uniform random number generators—such as \texttt{numpy.random.rand}—are widely available.
 
-            The probability distribution for an isotropic Plummer sphere depends only on the energy, which itself depends on a particle’s radial distance and speed: $f(r,v) \propto (-E)^{7/2}$. If we marginalize over the velocities, we obtain the one-dimensional density profile. The CDF of this marginalized distribution is the enclosed mass as a function of radius. For a Plummer sphere, it takes the form:
+            The probability distribution for an isotropic Plummer sphere depends only on the energy, which itself depends on a particle's radial distance and speed: $f(r,v) \propto (-E)^{7/2}$. If we marginalize over the velocities, we obtain the one-dimensional density profile. The CDF of this marginalized distribution is the enclosed mass as a function of radius. For a Plummer sphere, it takes the form:
             \begin{equation}
                 M_{\mathrm{enc}}(r) = \frac{r^3}{\left(1 + r^2\right)^{3/2}},
             \end{equation}
@@ -492,11 +492,9 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
 
         The Lagrange points, forbidden regions, and Jacobi energy are powerful concepts which, while they do not rigorously apply in our more complex setup, still offer valuable qualitative insights. In our regime, it is more fruitful to think in terms of tidal forces as the underlying mechanism that gradually transfers energy and angular momentum, nudging stars across Lagrange boundaries and ultimately enabling escape. It is to this process—tidal stripping—that we now turn.
 
-
-
         % \textbf{NOTE from Ferrone. I wonder if the $L_4$ and $L_5$ exist in the galactic context... are there Tojan stars? or does the complexity of the galactic potential paired with non circular orbits render such a phenomena unnatural?}
 
-    \subsection{The tidal tensor}
+    \subsection{Tidal Forces}
         For star-particles within a globular cluster that is itself orbiting within a galaxy, there are no exact integrals of motion. The system lacks symmetries in its Lagrangian, and the potential varies with time, so even the orbital energy is not conserved. In such a time-dependent and asymmetric context, it is more insightful to frame the problem in terms of forces rather than conserved quantities. In particular, tidal forces arise when the gravitational field of the galaxy (the primary) is treated as an external perturbation to the field of the globular cluster (the secondary). In this section, I aim to build an intuitive and formal understanding of tidal forces, framing them as tensor quantities. We begin with the simplest case—the familiar Sun-Earth system—before extending the discussion to the galactic context. I also provide a broader overview of how tidal forces vary depending on the cluster's orbit within the galaxy.
 
         To start, tidal forces arise due to spatial variations in the gravitational field with respect to a reference point, which is almost always the secondary body. There are two equivalent optiosn to quanitfy this. The first is to consider a Taylor expansion of the gravitational potential of the primary, \(\Phi_g\), evaluated at the star's position \(\vec{x}_s\), relative to the secondary's position \(\vec{x}_c\):
@@ -582,7 +580,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
                 \caption{An illustrative experiment demonstrating the effect of the Sun's tidal field. The left panels show the tidal field, and the right panels show two snapshots of the Moon's orbital trajectory. The green curve include the Sun's tidal effects, while the orange curve corresponds neglects them. The black ellipse represents the tidal ellipsoid, whose major axis aligns with the Sun's position vector relative to the Earth. The bottom panel shows the accumulated phase difference between the two solutions. }\label{fig:moon_tidal_simulation}
             \end{figure}
 
-        \subsubsection*{Tides in the Galaxy}
+        \subsubsection*{Tides from the disk}
             In the Milky Way, the disk, bulge, and halo each contribute differently to the tidal forces experienced by a globular cluster. The Miyamoto-Nagai disk produces strong, rapidly varying tidal fields near the Galactic plane, leading to phenomena such as disk shocking when clusters cross the disk. The Martos halo, on the other hand, provides a more slowly varying, generally weaker tidal field at large Galactocentric radii.
 
             The strength and orientation of the tidal field at a cluster's location determine both the rate at which stars are stripped and the geometry of the resulting stellar streams. For example, clusters on eccentric or inclined orbits experience time-dependent tidal forces, with strong compressive shocks during disk crossings and enhanced stretching near pericenter. The eigenvalues and eigenvectors of the tidal tensor at each point along the orbit reveal the principal axes of stretching and compression, which in turn set the directions along which stars are most likely to escape.
@@ -613,7 +611,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
             \[
             \beta'^2 + \beta \beta'' - \frac{3\left(\beta \beta'\right)^2}{D^2} \neq 1 - \frac{3z^2}{D^2},
             \]
-            (1) the stretching axis is no longer parallel to the position vector, and (2) the compression axes do not necessarily lie in the same plane—they may instead be fixed in orientation and differ in magnitude. The exact orientation of all three eigenvectors depends on the cluster’s position in the galaxy. Note that if $z = 0$, we recover the case where the stretching eigenvector is parallel to the position vector, although the compression axes remain unequal in magnitude and fixed in orientation. If instead $b = 0$, then we recover spherical symmetry, and the compression eigenvalues become equal.
+            (1) the stretching axis is no longer parallel to the position vector, and (2) the compression axes do not necessarily lie in the same plane—they may instead be fixed in orientation and differ in magnitude. The exact orientation of all three eigenvectors depends on the cluster's position in the galaxy. Note that if $z = 0$, we recover the case where the stretching eigenvector is parallel to the position vector, although the compression axes remain unequal in magnitude and fixed in orientation. If instead $b = 0$, then we recover spherical symmetry, and the compression eigenvalues become equal.
 
             \begin{verbatim}
             VIDEO: tidal_deformation_ellipsoid.mp4
@@ -625,14 +623,11 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
 
             Fig.~\ref{fig:miyamoto_disc_shocks_resonant_R_z} presents an orbit in which the radial and vertical oscillation periods are nearly resonant, producing two disk shocks per pericenter passage. Fig.~\ref{fig:miyamoto_disc_shocks_big_apocenter} shows a cluster on an orbit with a large apocenter, resulting in very weak tidal forces overall. Finally, Fig.~\ref{fig:miyamoto_disc_shocks_weak_shocks} demonstrates a case with a very thick disk potential. In this case, disk shocks occur over longer timescales and are less abrupt.
 
-
-            
             \begin{figure}
                 \includegraphics[width=\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.01_50.0.png}
                 \caption{Tidal forces on an inclined yet non-eccentric orbit. Disk shocks are present, yet there is no tidal stretching from pericenter passages. \textbf{Left}: The three eigenvalues of the tidal tensor matrix are plotted against time. Both the forces and time are normalized to the characteristic values of the Miyamoto-Nagai model, where $a$ is the radial scale length and $M$ is the total mass of the system. The red and green curves correspond to the two compressive axes, while the blue curve shows the magnitude of the stretching axis. The parameters listed at the top describe the orbit: the ratio of cylindrical to vertical scale lengths, the apocenter distance, the eccentricity, and the initial orbital inclination. \textbf{Right}: The orbit is shown in the meridional plane. The purple stars indicate disk crossing events and correspond to the peaks in the magnitude of the eigenvalues. }
                 \label{fig:miyamoto_disc_shocks_circular_inclined_orbit}
             \end{figure}
-
 
             \begin{figure}
                 \includegraphics[width=\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.50_0.0.png}
@@ -658,18 +653,17 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
                 \label{fig:miyamoto_disc_shocks_weak_shocks}
             \end{figure}
 
+        \subsubsection*{Tides from the halo}
 
-   
-        \subsubsection*{Interesting case}
-
-            The Marto's halo has this mass distribution:
+            Given spherical symmetry, the we expect the tidal tensor of the halo to be similar to that of a keplerian tidal tensor. Perhaps the magnitude of the tidal forces will not scale as simply with $\propto r^{-3}$, since the mass is not concentrated in a single point. However, we can still expect the stretching axis to be parallel with the position vector. 
             
+            To explore this, first we rewrite the mass distribution of the Martos halo:
             \begin{equation}
                 M'_\text{enc}(s) = \frac{s^\gamma}{1+s^{\gamma-1}}
             \end{equation}
-            The dimensionless tidal tensor is thus: 
+            From Poisson's equation in spherical symmetry: the force is: $\nabla \Phi = - M_\mathrm{enc}/r^2$. The dimensionless tidal tensor can be written as: 
             \begin{equation}
-                \mathcal{T'}_{i,j}= -\frac{M'_\text{enc}(s)}{s^3}\left(\begin{matrix}
+                \mathcal{T'}= -\frac{M'_\text{enc}(s)}{s^3}\left(\begin{matrix}
                     1-\frac{x^2}{s^2}f(s) & -\frac{xy}{s^2}f(s) & -\frac{xz}{s^2}f(s) \\
                     -\frac{yx}{s^2}f(s) & 1-\frac{y^2}{s^2}f(s) & -\frac{yz}{s^2}f(s) \\
                     -\frac{zx}{s^2}f(s) & -\frac{zy}{s^2}f(s) & 1-\frac{z^2}{s^2}f(s)
@@ -677,11 +671,11 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
             \end{equation}  
             where 
             \begin{equation}
-                f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}
+                f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}.
                 \label{eq:martos_f_s}
             \end{equation}
 
-            There is an interesting area in the parameter space where the tidal forces would impede creating stellar streams instead of making them, as shown in Fig.~\ref{fig:martos_tidal_field_small_r}.
+            While exploring this tidal tensor, I came across an interesting area of the parameter space, that I would like to show here. 
 
             Taking the Martos tidal tensor in Eq.~\ref{eq:martos_f_s}, we can see that for $\gamma > 3$ and $s <<  1$, then $f(s)< 0$. Physically, this would be a sphere whose density increases with distance. This is not natural, as, in general, gravity sends the more massive objects towards the center. However, it's fun to indulge in this situation to learn some insight about the flexibility of tidal fields. The consequence of $f(s)< 0$ is that all terms in the tidal tensor are negative, which means that the force is compressive everywhere. Consequently, no stars escape from the cluster. 
 
@@ -706,17 +700,20 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
             In the case of Fig.~\ref{fig:martos_tidal_field_big_r}, the tidal field returns to the typical situation where one axis is compressive and the other stretches. Notice how the deformations are similar in magnitude, while in the case of $\gamma=2.02$ for the top panel of Fig.~\ref{fig:martos_tidal_field_small_r}, the compression is stronger than the expansion. Both of these are different than the keplerian tidal deformation where the stronger deformation is stretching and whose axis is parallel to the position vector. 
 
 
+    \subsection{The Distribution of Escaped Stars}
 
+    \subsection{The Distribution of Escaped Stars}
+        Tidal forces cause stars to escape from the Lagrange points of the globular cluster. As we've seen, these forces can be compressive—pushing stars toward the cluster—or stretching—pulling them away, and specifically toward the Lagrange points. The stretching component is significantly amplified during pericenter passages, causing many stars to escape in bursts.
 
+        This process doesn't fling stars into intergalactic space. Rather, the galactic tidal field is typically weak compared to the cluster's own gravitational pull, and escaping stars gain just enough energy to leave the cluster. As a result, they are still on very similar orbits to the clusters once they escape.
 
-
-    \subsection{Phase mixing}
-        \textbf{NOTE: I want to add citations and discussions to Vasiliev Gaia DR3's look on GCs}
-
+        But once stars escape, why do they form coherent stellar streams? And do they do anything else? To answer this, I must first introduce the concept of \textit{phase mixing}. This naturally leads us to discuss the range of possible orbits a globular cluster can follow, given observational uncertainties. I'll cover this fully before returning to the topic of stellar streams, which will be much easier to understand once this groundwork is in place.
         
-        \textit{Phase mixing} is a direct consequence of Liouville's theorem, which itself follows from the collisionless Boltzmann equation. Liouville's theorem states that the infinitesimal volume element in phase space is preserved under Hamiltonian evolution. In other words, as a system evolves in time, the phase-space density \( f(\mathbf{q}, \mathbf{p}, t) \) is conserved along particle trajectories. Since the number of particles is conserved, and the phase-space volume they occupy does not change, any spatial spreading must be accompanied by a drop in phase-space density.
+        \textit{Phase mixing} is a direct consequence of Liouville's theorem, which itself follows from the collisionless Boltzmann equation. Liouville's theorem states that the infinitesimal volume element in phase-space, $d\matbf{p}d\mathbf{q}$, is preserved under Hamiltonian evolution. In other words, as a system evolves in time, the phase-space density \( f(\mathbf{q}, \mathbf{p}, t) \) is conserved along particle trajectories. Since the number of particles is conserved, and the phase-space volume they occupy does not change.
 
-        This effect causes ensembles of nearby orbits to stretch and fold through phase space, spreading out and becoming more finely interleaved over time, even though the total volume is constant. In physical space, this corresponds to a decrease in local density as the particles become more dispersed—this is the essence of phase mixing.
+        Insted of considering a infinitesimal volume of phase-space about some coordinate, consider a little cloud of many initial conditions dispersed about this coordinate. The total phase-space volume must be conserved, but the exact configuration does need to remain the same. Indeed,
+        
+        However, a phase-space volume is six dimensional. The particles may spread out spatial as long as the density decreases in a manner that preserves the original total phase-space volume. In physical space, this corresponds to a decrease in local density as the particles become more dispersed—this is the essence of phase mixing.
 
         We can estimate the characteristic time scale for phase mixing by considering how long it takes for orbits with slightly different energies to drift apart in phase. For a Keplerian orbit, the orbital period is given by:
 
@@ -730,7 +727,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
         T_\mathrm{char} = C \frac{GM}{E^{3/2}},
         \end{equation}
 
-        where $ C$ is a constant and $E$ is the specific orbital energy.
+        where $C$ is a constant and $E$ is the specific orbital energy.
 
         Consider now two nearby particles with energies $E - \Delta E$ and $ E + \Delta E $. Their orbital frequencies differ by:
 

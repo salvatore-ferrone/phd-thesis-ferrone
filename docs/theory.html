@@ -1671,7 +1671,7 @@ ellipsoid, whose major axis aligns with the Sun’s position vector
 relative to the Earth. The bottom panel shows the accumulated phase
 difference between the two solutions. </figcaption>
 </figure>
-<h3 class="unnumbered" id="tides-in-the-galaxy">Tides in the Galaxy</h3>
+<h3 class="unnumbered" id="tides-from-the-disk">Tides from the disk</h3>
 <p>In the Milky Way, the disk, bulge, and halo each contribute
 differently to the tidal forces experienced by a globular cluster. The
 Miyamoto-Nagai disk produces strong, rapidly varying tidal fields near
@@ -1741,11 +1741,11 @@ spherical symmetry, and the compression eigenvalues become equal.</p>
 <p>I have prepared Fig.s <a
 href="#fig:miyamoto_disc_shocks_circular_inclined_orbit"
 data-reference-type="ref"
-data-reference="fig:miyamoto_disc_shocks_circular_inclined_orbit">9</a>–<a
+data-reference="fig:miyamoto_disc_shocks_circular_inclined_orbit">9</a>-<a
 href="#fig:miyamoto_disc_shocks_weak_shocks" data-reference-type="ref"
 data-reference="fig:miyamoto_disc_shocks_weak_shocks">13</a> to
 demonstrate the diversity of tidal forces experienced by clusters on
-various orbits within a Miyamoto–Nagai disk potential.</p>
+various orbits within a Miyamoto-Nagai disk potential.</p>
 <p>Fig. <a href="#fig:miyamoto_disc_shocks_circular_inclined_orbit"
 data-reference-type="ref"
 data-reference="fig:miyamoto_disc_shocks_circular_inclined_orbit">9</a>
@@ -1826,11 +1826,19 @@ the cylindrical scale length to characteristic height (a/b) is close to
 1. The disk crossings still produce significant tidal compression, but
 the resulting shocks are broader.</figcaption>
 </figure>
-<h3 class="unnumbered" id="interesting-case">Interesting case</h3>
-<p>The Marto’s halo has this mass distribution:</p>
-<p><span class="math display">\[M&#39;_\text{enc}(s) =
-\frac{s^\gamma}{1+s^{\gamma-1}}\]</span> The dimensionless tidal tensor
-is thus: <span class="math display">\[\mathcal{T&#39;}_{i,j}=
+<h3 class="unnumbered" id="tides-from-the-halo">Tides from the halo</h3>
+<p>Given spherical symmetry, the we expect the tidal tensor of the halo
+to be similar to that of a keplerian tidal tensor. Perhaps the magnitude
+of the tidal forces will not scale as simply with <span
+class="math inline">\(\propto r^{-3}\)</span>, since the mass is not
+concentrated in a single point. However, we can still expect the
+stretching axis to be parallel with the position vector.</p>
+<p>To explore this, first we rewrite the mass distribution of the Martos
+halo: <span class="math display">\[M&#39;_\text{enc}(s) =
+\frac{s^\gamma}{1+s^{\gamma-1}}\]</span> From Poisson’s equation in
+spherical symmetry: the force is: <span class="math inline">\(\nabla
+\Phi = - M_\mathrm{enc}/r^2\)</span>. The dimensionless tidal tensor can
+be written as: <span class="math display">\[\mathcal{T&#39;}=
 -\frac{M&#39;_\text{enc}(s)}{s^3}\left(\begin{matrix}
                     1-\frac{x^2}{s^2}f(s) &amp; -\frac{xy}{s^2}f(s)
 &amp; -\frac{xz}{s^2}f(s) \\
@@ -1839,13 +1847,10 @@ is thus: <span class="math display">\[\mathcal{T&#39;}_{i,j}=
                     -\frac{zx}{s^2}f(s) &amp; -\frac{zy}{s^2}f(s) &amp;
 1-\frac{z^2}{s^2}f(s)
                 \end{matrix}\right)\]</span> where <span
-class="math display">\[f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}
+class="math display">\[f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}.
                 \label{eq:martos_f_s}\]</span></p>
-<p>There is an interesting area in the parameter space where the tidal
-forces would impede creating stellar streams instead of making them, as
-shown in Fig. <a href="#fig:martos_tidal_field_small_r"
-data-reference-type="ref"
-data-reference="fig:martos_tidal_field_small_r">14</a>.</p>
+<p>While exploring this tidal tensor, I came across an interesting area
+of the parameter space, that I would like to show here.</p>
 <p>Taking the Martos tidal tensor in Eq. <a href="#eq:martos_f_s"
 data-reference-type="ref"
 data-reference="eq:martos_f_s">[eq:martos_f_s]</a>, we can see that for
