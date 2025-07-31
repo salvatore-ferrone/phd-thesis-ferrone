@@ -529,7 +529,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
 
         Finally, we note that although many relevant potentials exhibit spherical or cylindrical symmetry, Cartesian coordinates are preferred here. In curvilinear systems, computing the Jacobian or Hessian requires accounting for Christoffel symbols, which complicates the interpretation and computation.
         
-        \subsubsection*{The Moon}
+        \subsubsection{The Moon}
             Nothing clarifies the concept of tides like the most familiar example: the Moon. Tidal forces are invoked to explain a wide range of phenomena in the Earth-Moon system. The most relatable effect is, of course, the periodic variation in sea level on Earth. While accurately modeling these changes requires fluid dynamics—beyond the scope of this thesis—NASA provides several accessible explanations and visualizations at \href{https://science.nasa.gov/moon/tides/}{https://science.nasa.gov/moon/tides/}, including daily high and low tides, as well as spring and neap tides.
 
             Another key example is the tidal deformation of the Moon, which ultimately led to its tidal locking—explaining why we always see the same side of the Moon from Earth.
@@ -580,7 +580,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
                 \caption{An illustrative experiment demonstrating the effect of the Sun's tidal field. The left panels show the tidal field, and the right panels show two snapshots of the Moon's orbital trajectory. The green curve include the Sun's tidal effects, while the orange curve corresponds neglects them. The black ellipse represents the tidal ellipsoid, whose major axis aligns with the Sun's position vector relative to the Earth. The bottom panel shows the accumulated phase difference between the two solutions. }\label{fig:moon_tidal_simulation}
             \end{figure}
 
-        \subsubsection*{Tides from the disk}
+        \subsubsection{Tides from the disk}
             In the Milky Way, the disk, bulge, and halo each contribute differently to the tidal forces experienced by a globular cluster. The Miyamoto-Nagai disk produces strong, rapidly varying tidal fields near the Galactic plane, leading to phenomena such as disk shocking when clusters cross the disk. The Martos halo, on the other hand, provides a more slowly varying, generally weaker tidal field at large Galactocentric radii.
 
             The strength and orientation of the tidal field at a cluster's location determine both the rate at which stars are stripped and the geometry of the resulting stellar streams. For example, clusters on eccentric or inclined orbits experience time-dependent tidal forces, with strong compressive shocks during disk crossings and enhanced stretching near pericenter. The eigenvalues and eigenvectors of the tidal tensor at each point along the orbit reveal the principal axes of stretching and compression, which in turn set the directions along which stars are most likely to escape.
@@ -624,36 +624,41 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
             Fig.~\ref{fig:miyamoto_disc_shocks_resonant_R_z} presents an orbit in which the radial and vertical oscillation periods are nearly resonant, producing two disk shocks per pericenter passage. Fig.~\ref{fig:miyamoto_disc_shocks_big_apocenter} shows a cluster on an orbit with a large apocenter, resulting in very weak tidal forces overall. Finally, Fig.~\ref{fig:miyamoto_disc_shocks_weak_shocks} demonstrates a case with a very thick disk potential. In this case, disk shocks occur over longer timescales and are less abrupt.
 
             \begin{figure}
-                \includegraphics[width=\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.01_50.0.png}
+                \centering
+                \includegraphics[width=.9\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.01_50.0.png}
                 \caption{Tidal forces on an inclined yet non-eccentric orbit. Disk shocks are present, yet there is no tidal stretching from pericenter passages. \textbf{Left}: The three eigenvalues of the tidal tensor matrix are plotted against time. Both the forces and time are normalized to the characteristic values of the Miyamoto-Nagai model, where $a$ is the radial scale length and $M$ is the total mass of the system. The red and green curves correspond to the two compressive axes, while the blue curve shows the magnitude of the stretching axis. The parameters listed at the top describe the orbit: the ratio of cylindrical to vertical scale lengths, the apocenter distance, the eccentricity, and the initial orbital inclination. \textbf{Right}: The orbit is shown in the meridional plane. The purple stars indicate disk crossing events and correspond to the peaks in the magnitude of the eigenvalues. }
                 \label{fig:miyamoto_disc_shocks_circular_inclined_orbit}
             \end{figure}
 
             \begin{figure}
-                \includegraphics[width=\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.50_0.0.png}
+                \centering
+                \includegraphics[width=.9\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.50_0.0.png}
                 \caption{Evolution of the tidal eigenvectors for an eccentric, non-inclined orbit, resulting in a compressed meridional plane. Orange dots mark the pericenter passages. Since the cluster remains confined to the plane, no disk shocks occur.}
                 \label{fig:miyamoto_disc_shocks_planar_eccentric_orbit}
             \end{figure}
 
             \begin{figure}
-                \includegraphics[width=\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.50_30.0.png}
+                \centering
+                \includegraphics[width=.9\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.50_30.0.png}
                 \caption{An inclined, eccentric orbit in which the frequencies in both the $R, p_R$ and $z, p_z$ planes are nearly resonant. The cluster crosses the disk just before and just after each pericenter passage. This is the same orbit as the video presented in this section that is available in the online version.}
-                \label{fig:miyamoto_disc_shocks_responant_R_z}
+                \label{fig:miyamoto_disc_shocks_resonant_R_z}
             \end{figure}
             
             \begin{figure}
-                \includegraphics[width=\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.20_31.6_0.60_50.0.png}
+                \centering
+                \includegraphics[width=.9\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.20_31.6_0.60_50.0.png}
                 \caption{An eccentric, inclined orbit with a large apocenter. As the cluster evolves through phase space, disk crossings that occur farther out happen at steeper angles and in lower-density regions, reducing the strength of the resulting disk shocks. In contrast, crossings near pericenter remain strong. Because this orbit has higher energy than the previous cases, the overall magnitude of the tidal forces is lower. }
                 \label{fig:miyamoto_disc_shocks_big_apocenter}
             \end{figure}
             
             \begin{figure}
-                \includegraphics[width=\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.88_4.0_0.50_45.0.png}
+                \centering
+                \includegraphics[width=.9\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.88_4.0_0.50_45.0.png}
                 \caption{Eccentric and inclined orbit in a weak disk. The ratio of the cylindrical scale length  to characteristic height (a/b) is close to 1. The disk crossings still produce significant tidal compression, but the resulting shocks are broader.}
                 \label{fig:miyamoto_disc_shocks_weak_shocks}
             \end{figure}
 
-        \subsubsection*{Tides from the halo}
+        \subsubsection{Tides from the halo}
 
             Given spherical symmetry, the we expect the tidal tensor of the halo to be similar to that of a keplerian tidal tensor. Perhaps the magnitude of the tidal forces will not scale as simply with $\propto r^{-3}$, since the mass is not concentrated in a single point. However, we can still expect the stretching axis to be parallel with the position vector. 
             
