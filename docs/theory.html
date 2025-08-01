@@ -2586,7 +2586,15 @@ emerging from galactic globular clusters. In this section, I want to lay
 out the landscape of what we’re missing and other techinques presented
 in the literature. The most important of which is certainly handing the
 globular cluster as a collisional system.</p>
-<h2 id="sec:collisionalDynamics">Collisional dynamics</h2>
+<h2 id="sec:collisionalDynamics">Globular Cluster Internal Dynamics</h2>
+<p>In this thesis, globular clusters are the <em>source</em> for stellar
+streams, because we are interested in stellar streams more than we are
+interseted in the globular clusters. We simplified the orbits of stars
+within clusters to feel the mean-field, knowing full well that this is a
+limiting assumption. We traded computational speed for accuracy.
+However, how much of a limiting assumption is this?</p>
+<h3 id="two-body-relaxation-time-derivation-and-example">Two-body
+relaxation time, derivation and example</h3>
 <p>While it is appropriate to treat the orbits of stars in galaxy as
 collisionless, this approximation breaks down in the context of globular
 clusters. Here, I present a brief numerical experiment to illustrate the
@@ -2609,8 +2617,8 @@ larger mass, each interaction can cause a significant deflection.</p>
 velocity is: <span class="math display">\[\delta \mathbf{v} =
 \frac{Gm}{bv} \begin{bmatrix} 0 \\ \cos\theta \\ \sin\theta
 \end{bmatrix},
-            \label{eq:delta_v_vec_impulse_approx}\]</span> where <span
-class="math inline">\(b\)</span> is the impact parameter, <span
+                \label{eq:delta_v_vec_impulse_approx}\]</span> where
+<span class="math inline">\(b\)</span> is the impact parameter, <span
 class="math inline">\(m\)</span> the perturber’s mass, <span
 class="math inline">\(v\)</span> the relative velocity, and <span
 class="math inline">\(\theta\)</span> the angle in the transverse plane.
@@ -2700,13 +2708,15 @@ Sagittarius II.</em></p>
 <p>Across the catalog, the average relaxation time is 1.5 Gyr, the
 median is 0.8 Gyr, the maximum is 21 Gyr, and the minimum is 0.03
 Gyr.</p>
-<ul>
-<li><p>not nbody</p></li>
-<li><p>no mass segregation</p></li>
-<li><p>no three body encounters</p></li>
-<li><p>no soft or hard binaries</p></li>
-<li><p>show some results from Corespray</p></li>
-</ul>
+<h3 id="other-collisional-dynamics">Other collisional dynamics</h3>
+<p>The two body relaxation time of how long it takes for an orbit to go
+off-traack due to the</p>
+<figure id="fig:grondin_et_al_core_spray">
+<img src="images/grondin_et_al_core_spray.jpeg" />
+<figcaption>From <span class="citation"
+data-cites="2024MNRAS.528.5189G">(Grondin et al.
+2024)</span></figcaption>
+</figure>
 <h2 id="stellar-evolution">Stellar evolution</h2>
 <ul>
 <li><p>They’re all point masses</p></li>
@@ -2873,6 +2883,13 @@ Girardi, L., M. A. T. Groenewegen, E. Hatziminaoglou, and L. da Costa.
 from very deep to very shallow photometric surveys with the TRILEGAL
 code</span>”</span> 436 (3): 895–915. <a
 href="https://doi.org/10.1051/0004-6361:20042352">https://doi.org/10.1051/0004-6361:20042352</a>.
+</div>
+<div id="ref-2024MNRAS.528.5189G" class="csl-entry" role="listitem">
+Grondin, Steffani M., Jeremy J. Webb, James M. M. Lane, Joshua S.
+Speagle, and Nathan W. C. Leigh. 2024. <span>“<span class="nocase">A
+catalogue of Galactic GEMS: Globular cluster Extra-tidal Mock
+Stars</span>”</span> 528 (3): 5189–5211. <a
+href="https://doi.org/10.1093/mnras/stae203">https://doi.org/10.1093/mnras/stae203</a>.
 </div>
 <div id="ref-1926ApJ....64..321H" class="csl-entry" role="listitem">
 Hubble, E. P. 1926. <span>“<span class="nocase">Extragalactic
