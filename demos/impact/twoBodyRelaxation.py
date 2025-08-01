@@ -118,7 +118,10 @@ def change_in_velocity_from_all_particles_in_the_disk(NP, speed, u, w, cutBmin=T
         if cutBmin:
             cond = b_mag > bmin
             b_mag = b_mag[cond]
+            u = u[cond]
+            w = w[cond]
         
+        # if there are no particles in the disk, return zero impulse
         if len(b_mag) == 0:
             # if there are no particles in the disk, skip this step
             mean_impulse = np.zeros(3)
@@ -128,7 +131,7 @@ def change_in_velocity_from_all_particles_in_the_disk(NP, speed, u, w, cutBmin=T
             # now compute the forces on the particle in this plane 
             b_vec = np.array([np.zeros_like(u), u, w])
             # cut the impact parameter if it is too small
-            impulse = 2 / (NP * speed * b_mag**2) * b_vec
+            impulse = 2 / (speed * b_mag**2) * b_vec
             mean_impulse = impulse.mean(axis=1)
 
         return mean_impulse
