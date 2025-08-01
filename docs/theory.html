@@ -2141,13 +2141,13 @@ data-reference="EQ:phase_mixing">[EQ:phase_mixing]</a>. Nevertheless,
 phase mixing still governs the long-term behavior of tidally escaped
 stars.</p>
 <p>Importantly, we need not consider all particles within the cluster to
-study phase mixing. For clusters with short orbital mixing times
-compared to the simulation duration, stars that escape during the
-simulation can redistribute throughout the available phase space. While
-the resulting debris will not be uniformly distributed—an overdensity
-will remain at the cluster location—the tidal debris will broadly fill
-the phase space accessible to it. This point is crucial for the results
-discussed in Chapter 4.</p>
+characterize the distribution of tidal debris as phase mixing. For
+clusters with short orbital mixing times compared to the simulation
+duration, stars that escape during the simulation can redistribute
+throughout the available phase space. While the resulting debris will
+not be uniformly distributed—an overdensity will remain at the cluster
+location—the tidal debris will broadly fill the phase space accessible
+to it. This point is crucial for the results discussed in Chapter 4.</p>
 <p>In fact, this can be seen in another <span class="citation"
 data-cites="2024ApJ...976...54P">Pearson et al. (2024)</span>. <span
 class="citation" data-cites="2024ApJ...976...54P">Pearson et al.
@@ -2159,18 +2159,81 @@ are unassociated to globular clusters <span class="citation"
 data-cites="2022ApJ...926..107M">(Malhan et al. 2022)</span>. In fact,
 of the roughly 90 known stellar streams, only about 20 are associated to
 globular clusters <span class="citation"
-data-cites="2024ApJ...967...89I">(Ibata et al. 2024)</span>. Pearson
-make some fake GCs based on <span class="citation"
+data-cites="2024ApJ...967...89I">(Ibata et al. 2024)</span>. <span
+class="citation"
+data-cites="Pearson et al. (2024)">(<strong>Pearson?</strong>;
+<strong>et?</strong>; <strong>al.?</strong>;
+<strong>(2024)?</strong>)</span> set out to predict the the total number
+of stellar streams we can expect in a Milky Way like Galaxy from
+IllustrusTNG <strong>get ref</strong>, by using inserting prescription
+of globular cluster formation and distribution within the Milky-Way
+analog as well as those that were imported by eaten dwarf galaxies
+following the methods of <span class="citation"
 data-cites="2022MNRAS.514.4736C 2023MNRAS.522.5638C">Chen and Gnedin
-(2022, 2023)</span>.</p>
+(2022, 2023)</span>. <span class="citation"
+data-cites="Pearson et al. (2024)">(<strong>Pearson?</strong>;
+<strong>et?</strong>; <strong>al.?</strong>;
+<strong>(2024)?</strong>)</span> simulates the dissolution of these
+hypothetical globular clusters adn studies the resultant tidal debris. A
+panorama of this is presented in Fig. <a href="#fig:perason-2024-fig"
+data-reference-type="ref"
+data-reference="fig:perason-2024-fig">19</a>.</p>
 <figure id="fig:perason-2024-fig">
 <img src="images/perason-2024-fig.jpg" />
-<figcaption>Streaminess is a beaitful word. thank you <span
-class="citation" data-cites="2024ApJ...976...54P">(Pearson et al.
-2024)</span>. That top material is more phase mixed. Even though the
-metric is different. </figcaption>
+<figcaption>A catalog of expected debris of a simulated totally
+disrupted population of globular clusters within a Milky Way analog. The
+y-axis is the normalized z-component of the angular momentum, with zero
+corresponding to polar orbits and 1 corresponding to planar orbits. The
+x-axis is a “distance” of the “center-of-mass” of a stream from the
+galactic center. Each stream is plotted in galactic coordinates annd are
+to scale with one-another. The bottom right quandrant satisfies their
+“streaminess criterion”. Credit: Fig 7 of <span class="citation"
+data-cites="2024ApJ...976...54P">Pearson et al.
+(2024)</span>.</figcaption>
 </figure>
-<h2 id="collisions">Collisions</h2>
+<p><span class="citation" data-cites="2024ApJ...976...54P">Pearson et
+al. (2024)</span> created a “streaminess” criterion. They base this on
+two metrics. The first, is the distance from the “center-of-mass” of a
+stream from the galactic-center in galactic coordinates. This metric is:
+<span class="math inline">\(\Delta_0 =
+\sqrt{\mathrm{medn}(b)^2+\mathrm{medn}(l)^2}\)</span>. The argument
+being that is this number is close to zero, then the tidal debris is
+symmetrically distributed about the center of the galaxy and fully
+phase-mixed.</p>
+<p><span class="citation" data-cites="2024ApJ...976...54P">Pearson et
+al. (2024)</span> results are promissing and note that the current
+catalog of stellar streams is very incomplete and we could expect up to
+1000 stellar streams within the Milky Way. I would like to note, that
+for even for totally phase mixed tidal debris, it is finds co-moving
+groups <span class="citation"
+data-cites="2018MNRAS.477.4063M 2018MNRAS.478.3862M">(Malhan and Ibata
+2018; Malhan et al. 2018)</span>. While the totally phase-mixed debris
+appears incoherrent, the stars are still moving along the same
+trajectory yet are offset by phase. For example, the stream
+<em>Fimbulthul</em> has been associated to <span
+class="math inline">\(\omega\)</span> centauri (NGC 5139), the most
+massive cluster that is suspective of being the remnant of an accreted
+dwarf galaxy (<strong>Majewski 2000</strong>, <strong>Johnson &amp;
+Pilachowski 2010</strong>, <strong>Bellini et al. 2018</strong>). Our
+simulations in Chapter 4 predict that the debris from <span
+class="math inline">\(\omega\)</span> centauri are totally phase-mixed
+and would not be classified as <em>streamy</em>. Nonetheless,
+<em>Fimbulthul</em> perfectly aligns the near-future orbital trajecotry
+of <span class="math inline">\(\omega\)</span> centauri and is
+consistent with <span class="math inline">\(N\)</span> body predictions
+<span class="citation" data-cites="2021ApJ...914..123I">(Ibata et al.
+2021)</span>.</p>
+<p><strong>What about the</strong> actions for classifying the
+streams?</p>
+<h2 id="massive-objects-colliding-with-stellar-streams">Massive objects
+colliding with stellar streams</h2>
+<p>Previous we described how they escape the globular clusters. Then we
+described how the escaped stars can redistribute themselves in the
+galaxy following a nice evolutionary flow in the gravitational field
+from normal hamiltonian evolution. However, other things can happen to
+the stream. Notably, other massive objects in the galactic field can
+fly-by and perturb the orbits of some of these stars. Here, I would ike
+to summarize this.</p>
 <p>Collisions are essential in this thesis for two reasons. Firstly, one
 of the main research questions is how the passage of a subhalo perturbs
 a stellar stream. This interaction can be treated as a gravitational
@@ -2787,6 +2850,14 @@ Hübner, Paul, Andong Hu, Ivy Peng, and Stefano Markidis. 2025.
 HPC Performance and Efficiency.”</span> <em>arXiv Preprint
 arXiv:2502.05317</em>.
 </div>
+<div id="ref-2021ApJ...914..123I" class="csl-entry" role="listitem">
+Ibata, Rodrigo, Khyati Malhan, Nicolas Martin, Dominique Aubert, Benoit
+Famaey, Paolo Bianchini, Giacomo Monari, et al. 2021. <span>“<span
+class="nocase">Charting the Galactic Acceleration Field. I. A Search for
+Stellar Streams with Gaia DR2 and EDR3 with Follow-up from ESPaDOnS and
+UVES</span>”</span> 914 (2): 123. <a
+href="https://doi.org/10.3847/1538-4357/abfcc2">https://doi.org/10.3847/1538-4357/abfcc2</a>.
+</div>
 <div id="ref-2024ApJ...967...89I" class="csl-entry" role="listitem">
 Ibata, Rodrigo, Khyati Malhan, Wassim Tenachi, Anke Ardern-Arentsen,
 Michele Bellazzini, Paolo Bianchini, Piercarlo Bonifacio, et al. 2024.
@@ -2840,6 +2911,19 @@ Allende Prieto, Robert Barkhouser, Dmitry Bizyaev, Basil Blank, et al.
 2017. <span>“<span>The Apache Point Observatory Galactic Evolution
 Experiment (APOGEE)</span>”</span> 154 (3): 94. <a
 href="https://doi.org/10.3847/1538-3881/aa784d">https://doi.org/10.3847/1538-3881/aa784d</a>.
+</div>
+<div id="ref-2018MNRAS.477.4063M" class="csl-entry" role="listitem">
+Malhan, Khyati, and Rodrigo A. Ibata. 2018. <span>“<span
+class="nocase">STREAMFINDER - I. A new algorithm for detecting stellar
+streams</span>”</span> 477 (3): 4063–76. <a
+href="https://doi.org/10.1093/mnras/sty912">https://doi.org/10.1093/mnras/sty912</a>.
+</div>
+<div id="ref-2018MNRAS.478.3862M" class="csl-entry" role="listitem">
+Malhan, Khyati, Rodrigo A. Ibata, Bertrand Goldman, Nicolas F. Martin,
+Eugene Magnier, and Kenneth Chambers. 2018. <span>“<span
+class="nocase">STREAMFINDER II: A possible fanning structure parallel to
+the GD-1 stream in Pan-STARRS1</span>”</span> 478 (3): 3862–70. <a
+href="https://doi.org/10.1093/mnras/sty1338">https://doi.org/10.1093/mnras/sty1338</a>.
 </div>
 <div id="ref-2022ApJ...926..107M" class="csl-entry" role="listitem">
 Malhan, Khyati, Rodrigo A. Ibata, Sanjib Sharma, Benoit Famaey, Michele

@@ -98,7 +98,7 @@ def deproject_all_particles(us, ws, x, v, dt):
     return np.array(xdp), np.array(ydp), np.array(zdp)
 
 def generate_uniform_disk(Ndisk):
-    R = np.random.uniform(0, 1, Ndisk)**(1/2)
+    R = np.random.uniform(0, 1, Ndisk)**(1/2) # inverse transform sampling for uniform distribution in a disk
     theta = np.random.uniform(0, 2*np.pi, Ndisk)
     return R, theta
     
@@ -131,7 +131,7 @@ def change_in_velocity_from_all_particles_in_the_disk(NP, speed, u, w, cutBmin=T
             # now compute the forces on the particle in this plane 
             b_vec = np.array([np.zeros_like(u), u, w])
             # cut the impact parameter if it is too small
-            impulse = 2 / (speed * b_mag**2) * b_vec
+            impulse = 2 / (NP * speed * b_mag**2) * b_vec
             mean_impulse = impulse.mean(axis=1)
 
         return mean_impulse
@@ -163,7 +163,12 @@ def generate_disk_and_compute_impulse(NP, v, dt, cutBmin=True):
 
 
 def experiment_always_in_the_center(NP, norbits=10, dtfactor=1/1000, x0=np.array([-1, 0, 0]), v0=np.array([1, 0, 0]),cutBmin=True):
-    """ Run the experiment where particles are always within a certain distance of the trajectory. """
+    """Find the random walk of a particle in a gravitational field in a cylinder of finite radius but infinite length, you're always in the center of the cylinder.
+        G = 1, M = 1, R = 1 (width and radius of the cylinder).
+        Thus, GM/R = V^2 = 1, so the speed of the particle is normalized to 1.
+        tcross = R/V = 1, so the time step is normalized to 1.
+        The mass of a single particle is m = 1/NP, so the total mass is M = m*NP = 1.
+    """
     dt, nsteps = set_integration_parameters(norbits=norbits, dtfactor=dtfactor)
     speed = 1 # starts @ 1 by normalization, but can be rescaled later
     numberDensity = NP / np.pi # number of particles in the "cylinder" (N / (pi R^2 * v * T)) T = R/v
