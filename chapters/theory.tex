@@ -1043,12 +1043,24 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
 
             \begin{figure}
                 \includegraphics[width=\linewidth]{images/grondin_et_al_core_spray.jpeg}
-                \caption{Stellar spray from core interactions in globular clusters, reproduced from \citet{2024MNRAS.528.5189G}.}
+                \caption{Expected distribution of stars from the Milky Way globular clusters that are ejected from globular cluster cores via 3-body interactions. Reproduced from \citet{2024MNRAS.528.5189G}.}
                 \label{fig:grondin_et_al_core_spray}
             \end{figure}
 
+            Not only does a new world of physics emerge when we consider stars to have mass, but a lot of interesting physics opens up once we consider them to have different masses. For instance, there is a similar process to two-body relaxation which is \textit{dynamical friction} \citep{1943ApJ....97..255C,1943ApJ....97..263C,1943ApJ....98...54C}.
+            
+            In essence, the amount of energy lost from the sum of all two body interactions on a body can be estimated  \textit{stars} and not just point masses. Indeed, stars are super-hot gaseous spheres sustaining themselves from thermo-nuclear reactions and they \textit{evolve} in time \citep{2013sse..book.....K}. Lynden bell? core collapse??
+            
+            \citet{2018MNRAS.474.2479B} consider how stellar evolution plays a role in stellar streams. What if you have mass segregation and subsequently eject the non-massive particles? counter intuitive result, more massive cluster has a dimmer stream! 
 
-    
-    \subsection{Time evolution}
+            \begin{figure}
+                \includegraphics[width=\linewidth]{images/balbinot-2018.jpeg}
+                \caption{The effects of stellar evolution on the visibility of stellar streams. Reproduced from \citep{2018MNRAS.474.2479B}.}
+                \label{fig:balbinot-2018}
+            \end{figure}
+
+
+
+   \section{time evolution} 
         In someways, we take time evolution into account, and in someways, we ignore and this has already been covered in the previous sections. i.e., the orbit of the star-particles depend on the position of the host globular cluster, which I do not solve for simoltaneously but instead opt to load it into the computation, as shown in Section~\ref{subsec:myEquationsOfMotion}. Also, things like mass segregation and stellar evolution are time-dependent which is completely ignored in my simulations. 
 
