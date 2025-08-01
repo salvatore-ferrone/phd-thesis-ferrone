@@ -2280,8 +2280,9 @@ GMm/b^2\)</span>, the change in momentum is:</p>
         
 \end{aligned}\]</span></p>
 <p>Dividing both sides by <span class="math inline">\(m\)</span>, the
-change in velocity is: <span class="math display">\[\delta v_y =
-\frac{2GM}{b v}\]</span></p>
+change in velocity is: <span
+class="math display">\[\label{eq:delta_v_impulse_approx}
+        \delta v_y = \frac{2GM}{b v}\]</span></p>
 <p>It is interesting to note that this result is inversely proportional
 to the velocity of the perturber. This behavior contrasts with contact
 collisions, where a higher speed typically results in a greater momentum
@@ -2576,84 +2577,123 @@ becomes periodic. I did begin studying such a model using a
 time-dependent Gaussian source, but at some point the “simple approach”
 becomes as complex as full numerical simulations.</p>
 <h1 id="sec:ignoredphysics">The Ignored Physics</h1>
-<p><strong>NOTE. I am trying to construct a narrative by starting with
-the collisional dynamics to show why it was ignored for the galaxy and
-show that it has an influence for globular clusters. I want to discuss
-aspects such as two body relaxation, evaporation, etc. and how the
-assumptions make above are not always valid, and the type of phenomena
-our model cannot cover. I want to cite the papers such as Balbinot (the
-devils in the tails), Baumgardt’s NBody library, and others. This
-section is quite incomlpete, I would appreciate ideas.</strong></p>
-<p>This section could be the longest of the thesis, but I’ll try to keep
-brief as it mostly discusses aspects of the problem that the textbooks,
-conferences, and the literature, and have shown me to be important. This
-section certainly serves as a base for more things to include in future
-experiments that improve on the previous ones. However, maxwells
-equations are not relevant here, nor schrondiners equation.</p>
+<p>Of course, this section could be extremely large since not all of
+physics are relevant for this problem. Schrodinger’s equation, or
+maxwells equation are irrelvant. But that’s not the point of this
+section. In the previous two sections I wanted to present our methods
+and justify that they are appropriate to gain insight to stellar streams
+emerging from galactic globular clusters. In this section, I want to lay
+out the landscape of what we’re missing and other techinques presented
+in the literature. The most important of which is certainly handing the
+globular cluster as a collisional system.</p>
 <h2 id="sec:collisionalDynamics">Collisional dynamics</h2>
-<p>In my experiment discussed in chapter 5, there are collisions in the
-sense that other globular clusters can impact a stream. However, this is
-not what I mean by collisional dynamics. Indeed, collisional dynamics
-are the effects of gravitational encounters driving the evolution of the
-system, instead of the orbits being determined by the mean field only.
-There is a fundamental derivation in gravitational dynamics that
-justifies when collisionless dynamics are justified and this is called
-the <strong>two-body relaxation time</strong>. The name of the game is
-to consider how long it takes for a particle to have it’s momentum
-vector changed by the same order of mangitude. Bovy and Binney &amp;
-Tremaine present this, and any expert in the field is familiar with such
-a fundamental derivation. I would like to present some aspects of the
-computation that I find to be insightful.</p>
-<p>First of all, we would like to find out how long it takes for <span
-class="math inline">\(|\Delta \vec{v}|/|\vec{v}|\approx 1\)</span>, as
-the particle traverses a realsitic gravitational environment made of
-many point masses. We would like a general solution, for arbitrary
-orbits in any galactic environment. However, that’s too much to ask for
-and we can obtain powerful insight with simpler computations. Here is
-how the problem is simplified:</p>
-<ul>
-<li><p>assume the star is traveling on a straight line</p></li>
-<li><p>assume all field stars are at rest with respect to the field
-star</p></li>
-<li><p>assume that the galaxy has a uniform stellar number
-density</p></li>
-<li><p>assume the impule approximation for all encounters</p></li>
-</ul>
-<p>Remember that this computation is calculating how long the it takes
-for the orbit to deviate from the current trajectory if it were in a
-perfect fluid and not in a environment made of discrete particles. These
-assumptions above are great for finding the relaxation time of stars on
-circular orbits within spherical stellar systems or the disk of
-galaxies. Eccentricities and inclinations would mean that the number
-density of the medium would change greatly with time. Also, a corrolary
-of the impules approximation for each encounter is that no single
-encounter greatly deviates the particle’s trajectory. Thus, there is a
-limit on the lowest minimum impact parameter.</p>
-<p>Remember, by definition, all impact parameters are perpendicular to
-the star’s trajectory. By applying the impulse approximation for each
-encounter, the change in momentum is always perpendicular to star’s
-trajectory. We can compute the number of encounters as a function of the
-impact parameter. this is the density in the medium multiplied with the
-number of particles within a ring about b. <span
-class="math display">\[\begin{aligned}
-            \sigma &amp;= \pi \left[(b+db)^2-(b-db)^2 \right]\\
-            \sigma &amp;= 4\pi bdb,
-        
-\end{aligned}\]</span> We can estimate the number density of the medium
-by using a sphere: <span class="math inline">\(n=\frac{3N}{4\pi
-R^3}\)</span>. With this, number of encounters as a function of impact
-parameter, per unit length is: <span class="math display">\[\frac{d
-N_\mathrm{int}}{db} = \frac{3N}{R^3} b\]</span> Remember, this is the
-number of interactions per unit length. We can change this to the total
-number of interactions per unit time by swapping <span
-class="math inline">\(dx=vdt\)</span>, assuming the star has constant
-velocity: <span class="math display">\[\frac{d N_\mathrm{int}}{dtdb} =
-\frac{3N}{R^3} vb\]</span> We can then find the rate at which the energy
-changes by integrating the</p>
-<p>Ok. I can finish this later. I just want to be insightful and show
-that MW va bene, for the disc. Then I want to show that this isn’t good
-for some globular clusters. Perhaps I can get a list where it would be
-appropraite? why didn’t I compute this before!</p>
+<p>As shown in multiple sources, it is appropraite to consider the
+orbits of stars within the disk or the galaxy as being collisionless.
+However, this is unsatisfactory for globular clusters. I want to show a
+little bit of that here.</p>
+<p>I don’t want to represent the whole derivation but present a little
+numerical experiment I conducted to show what two-body relaxation is as
+it is presented.</p>
+<p>Two body relaxation aims at quantifying the innaccurary of the
+mean-field approximation. It formualtes the question in this manner, how
+long does it take for the granularity of the medium to cause my
+trajecotry to significantly deviate from it’s trajectory if it were in a
+perfectly homogeneous medium? The metric is thus finding the amount time
+such that <span class="math inline">\(\delta v / v_0 \approx
+1\)</span>.</p>
+<p>These types of calculations really abstract the motion of a particle
+from that of an orbit in the galaxy. The exact orbit of the star is
+completely neglected. Instead, we consider uniform motion. Then, we
+consider the motion of a star in a medium made of discrete particles. If
+the mass is distributed onto many particles, then each one is smaller,
+and there are more of them, and we better approximate the mean field.
+However, if there are less of them, then each one is significant and can
+perturb the motion of our particle in a significant way.</p>
+<p>For instance, the consider the vector quanity of the change in
+velocity due to an impact within the impulse approximation. It is: <span
+class="math display">\[\label{eq:delta_v_vec_impulse_approx}
+            \delta \mathbf{v} = \frac{Gm}{bv}\begin{bmatrix} 0 \\
+\cos\left(\theta\right) \\ \sin\left(\theta\right)
+\end{bmatrix},\]</span> Imagine now, that this particle is flying
+through the galaxy. Now, instead of considering just one fly-by, we want
+to consider all fly-bys that could happen. It’s too difficult to
+consider a real galaxy. Since the stellar density decays with distance,
+and if we are never in the center, then one side should have more stars
+than the other. However, that would be considering the mean-field and we
+want to completely abstract the stochastic fluctuations from the mean
+field. So if the gravitational field of the Milky Way can be considered:
+<span class="math inline">\(\Phi_\mathrm{MW} =
+\Phi_\mathrm{mean}\left(\vec{r}\right) +
+\Phi_\mathrm{stochastic}\left(\vec{r}\right)\)</span>, then we only need
+consider the stochastic fluctuations and not the mean field that
+contains the over all density trends.</p>
+<p>So, to really simplify this problem, we can consider the galaxy to be
+a cylinder of finite width but infinite length, with a number density
+<span class="math inline">\(n=N_p/\pi R^3\)</span>, whose length and
+radius have the same length. As the particle passes through the medium,
+using the impulse approximation, we can track how the velocity changes.
+These impulses kick the particle to the left or the right but never give
+or take along the direction of motion, by definition within the impulse
+approximation. I present this little numerical experiment in Fig. <a
+href="#fig:twoBodyRelaxation" data-reference-type="ref"
+data-reference="fig:twoBodyRelaxation">22</a>.</p>
+<figure id="fig:twoBodyRelaxation">
+<img src="images/twoBodyRelaxation.png" />
+<figcaption>Demonstration of Two-Body Relaxation. A star traverses a
+medium of uniform number density. I present 5 different trajectories who
+sample their own media, of the same number density, yet each one is
+sampled stochastically. The number density is 1000/<span
+class="math inline">\(\pi R^3\)</span>. The particles are generated as
+the star moves and therefore they can keep diverging. The graph on the
+right presents the cummulative change in velocity squared. The vertical
+presents the two theoretical relaxation time.</figcaption>
+</figure>
+<p>Briefly, to perform the experiment in Fig. <a
+href="#fig:twoBodyRelaxation" data-reference-type="ref"
+data-reference="fig:twoBodyRelaxation">22</a>, I normalize the problem
+to: <span class="math inline">\(G=1\)</span>, <span
+class="math inline">\(M=1\)</span>, <span class="math inline">\(R=1,
+t_\mathrm{cross}=1\)</span>, which determines that <span
+class="math inline">\(v_0=1\)</span>, <span
+class="math inline">\(m=M/N_p\)</span>. For the example presented in
+Fig. <a href="#fig:twoBodyRelaxation" data-reference-type="ref"
+data-reference="fig:twoBodyRelaxation">22</a>, there are 500 particles.
+The density of the medium is thus: <span
+class="math inline">\(500/\pi\)</span>. I select a total integration
+period, and a time step <span class="math inline">\(dt\)</span>. At each
+time step, the volume a disk is found by: <span
+class="math inline">\(\pi R^2 v dt\)</span> and is populated with a
+uniform sample of particles. The number of particles to use is found
+through Poisson statistics by stating that the expected number of
+particles within the disk is <span class="math inline">\(\langle
+N_{p,\mathrm{disc}} \rangle = n \pi R^2 v dt\)</span>. By using Eq. <a
+href="#eq:delta_v_vec_impulse_approx" data-reference-type="ref"
+data-reference="eq:delta_v_vec_impulse_approx">[eq:delta_v_vec_impulse_approx]</a>
+and summed together to find the net change in velocity and position.
+This step is repeated at the next time step.</p>
+<p>Theoretically, in this idealized scenario, it can be shown that, on
+average: <span class="math display">\[\langle \delta \mathbf{v}\rangle =
+\mathbf{0},\]</span> which is unsurprisingly since the medium is
+uniformly distributed, and integrating sine or cosine over one full
+period is null. However, <span class="math inline">\(\langle \delta v^2
+\rangle\)</span> is not zero. Given the assumptions above, we can find
+the rate of change of <span class="math inline">\(\langle \delta v^2
+\rangle\)</span> per unit time: <span class="math inline">\(\frac{d
+\langle \delta v^2 \rangle} {dt}\)</span>. Once this is found, one can
+find the two body relaxation time as: <span
+class="math display">\[\tau_\mathrm{2-body} = \frac{v_0^2}{\frac{d
+\langle \delta v^2 \rangle}{dt}}.\]</span> The last trick to this is
+that <em>coloumb integral</em>, which is tricky since it integrates:
+<span class="math inline">\(\int \frac{1}{R} dR\)</span>, which
+diverges, therefore one has to pick appropriate limits. The upper limit
+is the extent of the system, since there are no particles beyond this.
+The lower limit is tricker. We choose this to be the point at which the
+assumption breaks down. I choose it to be the distance at which, for a
+given speed, the particles would be bounded. This is generous since the
+impulse approximation would breakdown before this. However, it’s just a
+quick esimate in the first place.</p>
+<p>This gives the result that: <span class="math display">\[\tau =
+t_\mathrm{cross}\frac{N}{8\ln\left(N/2\right)}\]</span></p>
 <p>Globular clusters are undoubteled collisional systems. The same
 computating using the columb law, to compute how long it takes for a
 given particles to change it’s momentum on same order of magnitude as
