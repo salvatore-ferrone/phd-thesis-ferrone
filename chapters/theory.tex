@@ -962,7 +962,9 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
      
 
     \subsection{Globular Cluster Internal Dynamics} \label{sec:collisionalDynamics}
-        In this thesis, globular clusters are the \textit{source} for stellar streams, because we are interested in stellar streams more than we are interseted in the globular clusters. We simplified the orbits of stars within clusters to feel the mean-field, knowing full well that this is a limiting assumption. We traded computational speed for accuracy. However, how much of a limiting assumption is this? 
+        In this thesis, globular clusters are the \textit{source} for stellar streams, because we are interested in stellar streams more than we are interseted in the globular clusters. We simplified the orbits of stars within clusters to feel the mean-field, knowing full well that this is a limiting assumption. We traded computational speed for accuracy. However, how much of a limiting assumption is this? In essence, by simplifying the dynamics of the globular cluster with a test-particle method, we are limiting our models fidelity of how many star-particles escape at any unit time, how they are ejected, and which stars go where. Below, I would like to present a basic demosntration of two-body relaxation and then summarize other papers that explore these works a little bit. 
+
+
         \subsubsection{Two-body Relaxation Time: a derivation and example}
             While it is appropriate to treat the orbits of stars in galaxy as collisionless, this approximation breaks down in the context of globular clusters. Here, I present a brief numerical experiment to illustrate the concept of two-body relaxation, which quantifies the breakdown of the mean-field approximation.
 
@@ -1033,21 +1035,17 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
     
         
         \subsubsection{Beyond Two-Body Relaxtion}
-            The granularity of a the medium  
+            The granularity of a the medium slowly deflecting the trajectory of a given orbit isn't the thing that happens within a globular cluster. Indeed, this is a vast subject. Simplifying the problem into a couple key ingredients is the subject of the authoratative text \citet{2003gmbp.book.....H}. In essence, with two-body relaxation we only considered stochastic variations off of a mean field. However, if one wishes to understand, then you need to quantify all of the different type of \textit{micro-interactions}. \textit{insert good description here}
 
+            \citet{2023MNRAS.518.4249G} \& \citet{2024MNRAS.528.5189G} investigated three-body encounters within globular clusters. The idea being that a solo star can take energy from a binary system, and take enough energy such that it gets ejected from the cluster. This is a completely different mechanism from the tidal stripping investigated in this thesis. Indeed, the tidal field gently gives particles energy so that they escape from the lagrange points. However, the three body encounters can provide \textit{alot} of energy to the star, the \textit{forbidden regions} of Fig.~\ref{fig:CR3BP_forbidden_region} disappear.
+            
+            \citet{2024MNRAS.528.5189G}, like the work presented in this thesis, studied the mass loss of the globular cluster catalog but instead of using tidal forces, they studied three body encounters within the cores of globular clusters. One of their results is presented in Fig.~\ref{fig:grondin_et_al_core_spray}. Indeed, here it is clear that many of the stars are not retaining the same orbit as the host cluter are they completely fill the sky. 
             \begin{figure}
                 \includegraphics[width=\linewidth]{images/grondin_et_al_core_spray.jpeg}
                 \caption{From \citep{2024MNRAS.528.5189G}}
                 \label{fig:grondin_et_al_core_spray}
             \end{figure}
-        \subsection{Stellar evolution}
-        \begin{itemize}
-            \item They're all point masses 
-            \item No salpeter's 
-            \item No strong initial mass loss 
-            \item No accurate model for the colors 
-            \item No multiple stellar populations 
-        \end{itemize}
+
     
     \subsection{Time evolution}
         In someways, we take time evolution into account, and in someways, we ignore and this has already been covered in the previous sections. i.e., the orbit of the star-particles depend on the position of the host globular cluster, which I do not solve for simoltaneously but instead opt to load it into the computation, as shown in Section~\ref{subsec:myEquationsOfMotion}. Also, things like mass segregation and stellar evolution are time-dependent which is completely ignored in my simulations. 
