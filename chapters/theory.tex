@@ -979,7 +979,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
             \end{equation}
             where $b$ is the impact parameter, $m$ the perturber's mass, $v$ the relative velocity, and $\theta$ the angle in the transverse plane. These impulses deflect the star sideways but not along the direction of motion — a key assumption in the impulse approximation.
 
-            Now consider not just one fly-by, but a sequence of them. A real galaxy has a radially decreasing density, so a star never sees a symmetric distribution unless it's exactly at the center — but we are interested in \textbf{fluctuations} from the mean field, not the mean field itself. That is, if $\Phi_\mathrm{MW} = \Phi_\mathrm{mean}(\vec{r}) + \Phi_\mathrm{stochastic}(\vec{r})$, we are isolating the stochastic part.
+            Now consider not just one fly-by, but a sequence of them. A real galaxy has a radially decreasing density, so a star never sees a symmetric distribution unless it's exactly at the center — but we are interested in fluctuations from the mean field, not the mean field itself. That is, if $\Phi_\mathrm{MW} = \Phi_\mathrm{mean}(\vec{r}) + \Phi_\mathrm{stochastic}(\vec{r})$, we are isolating the stochastic part.
 
             To simplify further, we idealize the galaxy as a cylinder of radius and length $R$, with uniform number density $n = N_p / (\pi R^3)$. As the star moves through this medium, we apply Eq.~\ref{eq:delta_v_vec_impulse_approx} to compute cumulative velocity kicks. This is demonstrated numerically in Fig.~\ref{fig:twoBodyRelaxation}.
 
@@ -1037,7 +1037,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
 
             Another example of a microphysical process within clusters are \textit{three-body encounters}. This occurs when one star interacts with a binary system. Recent studies by \citet{2023MNRAS.518.4249G} and \citet{2024MNRAS.528.5189G} have focused on the role of three-body encounters in globular clusters. In these interactions, a single star can extract energy from a binary system—sometimes enough to be ejected from the cluster entirely. This is a fundamentally different mechanism from the tidal stripping investigated in this thesis. Tidal fields gently transfer energy to stars, allowing them to escape through the Lagrange points. In contrast, three-body encounters can impart a significant energy boost to a star, potentially enabling it to escape the cluster altogether—even from regions that are otherwise forbidden, as indicated by Fig.~\ref{fig:CR3BP_forbidden_region}.
 
-            In \citet{2024MNRAS.528.5189G}, as in the present thesis, the authors investigated mass loss from the Milky Way globular clusters. However, rather than focusing on external tidal forces, they examined internal three-body encounters occurring in the cluster cores. One of their striking results is reproduced in Fig.~\ref{fig:grondin_et_al_core_spray}, which clearly shows that many stars are ejected onto orbits that no longer align with the parent cluster—effectively spreading across the entire sky.
+            In \citet{2024MNRAS.528.5189G}, similarly to our work in Chapter~4, the authors investigated mass loss from the Milky Way globular clusters. However, rather than focusing on external tidal forces, they examined internal three-body encounters occurring in the cluster cores. One of their striking results is reproduced in Fig.~\ref{fig:grondin_et_al_core_spray}, which clearly shows that many stars are ejected onto orbits that no longer align with the parent cluster—effectively spreading across the entire sky.
 
             \begin{figure}
                 \includegraphics[width=\linewidth]{images/grondin_et_al_core_spray.jpeg}
@@ -1047,7 +1047,10 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
 
             Not only does a new world of physics emerge when we consider stars to have mass, but a lot of interesting physics opens up once we consider them to have different masses. For instance, there is a similar process to two-body relaxation which is \textit{dynamical friction} \citep{1943ApJ....97..255C,1943ApJ....97..263C,1943ApJ....98...54C}.
             
-            In essence, the amount of energy lost from the sum of all two body interactions on a body can be estimated  \textit{stars} and not just point masses. Indeed, stars are super-hot gaseous spheres sustaining themselves from thermo-nuclear reactions and they \textit{evolve} in time \citep{2013sse..book.....K}. Lynden bell? core collapse??
+            In essence, if a body is flying through a medium and if it is more massive than the other bodies, then it will tend to \textit{lose} energy and fall toward the center of the system. When considering a population within a globular cluster, this effect at scale leads to \textit{mass-segregation}, where massive stars populate lower energy orbits while the lower mass stars populate higher energy orbits. Mass segregation is well known and is presented in a variety of works that simulate the internal dynamics of globular clusters \citep{1997A&ARv...8....1M,2002ApJ...570..171F,2016MNRAS.458.1450W}.
+
+            Stars, interestingly, are not just point masses that exert gravitational forces. Indeed, they are super-hot gaseous spheres in hydrostatic equilibrium, balancing their own gravitational collapse with an outward pressure sustained by thermonuclear fushion \citep{2013sse..book.....K}. Also, stars evolve with time. \citep{2023LRCA....9....3S}
+            
             
             \citet{2018MNRAS.474.2479B} consider how stellar evolution plays a role in stellar streams. What if you have mass segregation and subsequently eject the non-massive particles? counter intuitive result, more massive cluster has a dimmer stream! 
 
