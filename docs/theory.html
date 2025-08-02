@@ -256,7 +256,7 @@ time step.</p>
 operates at approximately one exaflop, or <span
 class="math inline">\(10^{18}\)</span> FLOPS (Floating Point Operations
 Per Second) <span class="citation"
-data-cites="atchley2023frontier">(Atchley et al. 2023)</span>.
+data-cites="atchley2023frontier">(<strong>atchley2023frontier?</strong>)</span>.
 Assuming—conservatively—that each pairwise computation requires a single
 FLOP, a full <span class="math inline">\(N\)</span>-body computation of
 the Galaxy at one time step would still require several hours. While
@@ -267,24 +267,25 @@ a task is therefore a considerable demand.</p>
 <p>Moreover, the cost of power is non-negligible. At an estimated rate
 of <span class="math inline">\(\sim
 0.10~\mathrm{USD}/\mathrm{kWh}\)</span> <span class="citation"
-data-cites="table20245">(Table 2024)</span>, and with Frontier consuming
-roughly 21 MW, a single 6-hour computation would cost approximately
-12,600 USD. Running the system for a full day would amount to about
-50,000 USD, or  42,000 EUR <span class="citation"
-data-cites="ECB_USD_EUR_2025">(European Central Bank 2025)</span>. This
-is nearly twice the annual salary of a PhD student in France <span
-class="citation" data-cites="MESR_financement_doctoral">(Ministere de
-l’Enseignement superieur et de la Recherche 2025)</span>.</p>
+data-cites="table20245">(<strong>table20245?</strong>)</span>, and with
+Frontier consuming roughly 21 MW, a single 6-hour computation would cost
+approximately 12,600 USD. Running the system for a full day would amount
+to about 50,000 USD, or  42,000 EUR <span class="citation"
+data-cites="ECB_USD_EUR_2025">(<strong>ECB_USD_EUR_2025?</strong>)</span>.
+This is nearly twice the annual salary of a PhD student in France <span
+class="citation"
+data-cites="MESR_financement_doctoral">(<strong>MESR_financement_doctoral?</strong>)</span>.</p>
 <p>Throughout this thesis, I have access to the Pairs observatoy’s super
-computer <span class="citation" data-cites="DIO_OBSPM">(l’Observatoire
-de Paris 2025)</span>, which currently has about 85 nodes. However, as a
-humorous aside, consider attempting this computation on a personal
-research laptop, such as a MacBook Air with an M2 processor. Its
-estimated speed of <span class="math inline">\(\sim\)</span>0.1 TFLOPS
-(i.e., <span class="math inline">\(10^{11}\)</span> FLOPS) <span
-class="citation" data-cites="hubner2025apple">(Hübner et al.
-2025)</span> is approximately 10 million times slower than Frontier. A
-single time step would thus take over 1,500 years.</p>
+computer <span class="citation"
+data-cites="DIO_OBSPM">(<strong>DIO_OBSPM?</strong>)</span>, which
+currently has about 85 nodes. However, as a humorous aside, consider
+attempting this computation on a personal research laptop, such as a
+MacBook Air with an M2 processor. Its estimated speed of <span
+class="math inline">\(\sim\)</span>0.1 TFLOPS (i.e., <span
+class="math inline">\(10^{11}\)</span> FLOPS) <span class="citation"
+data-cites="hubner2025apple">(<strong>hubner2025apple?</strong>)</span>
+is approximately 10 million times slower than Frontier. A single time
+step would thus take over 1,500 years.</p>
 <p>Clearly, we require a more tractable modeling approach for studying
 the evolution of globular clusters and the formation of stellar streams.
 Fortunately, it is well justified to approximate all the stars in the
@@ -301,8 +302,8 @@ significantly. We revist this in Section XXX.</p>
 <p>In globular clusters, where stars are densely packed into a
 relatively small volume, stellar encounters become significant over the
 system’s lifetime. According to Chapter 5.1 of <span class="citation"
-data-cites="bovy_inprep">Bovy (n.d.)</span>, the relaxation timescale
-within globular clusters is typically <span
+data-cites="bovy_inprep">(<strong>bovy_inprep?</strong>)</span>, the
+relaxation timescale within globular clusters is typically <span
 class="math inline">\(\sim1\)</span> Gyr. To contextualize this, we must
 consider the orbital period of a typical star within a cluster, and the
 age of a cluster. First, the characteristic time for a star to traverse
@@ -394,11 +395,12 @@ class="math inline">\(\Phi\)</span> is the gravitational potential. We
 use Newtonian mechanics throughout this work because <span
 class="math inline">\(\Phi &lt;&lt; c^2\)</span> in all relevant
 regimes, meaning General Relativity is not required <span
-class="citation" data-cites="bovy_inprep">(see Appendix C of Bovy,
-n.d.)</span>. Poisson’s equation assumes Newton’s postulate that
-gravitational forces act instantaneously and that masses attract each
-other along the line connecting them. <a href="#fn1"
-class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+class="citation" data-cites="bovy_inprep">(see Appendix C of
+<strong>bovy_inprep?</strong>)</span>. Poisson’s equation assumes
+Newton’s postulate that gravitational forces act instantaneously and
+that masses attract each other along the line connecting them. <a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
 <p>Instead of writing down the gravitational forces through Newton’s
 second law, I will write down Hamilton’s equations derived from the
 variational principle of Lagrangian mechanics. The full interacting
@@ -1129,8 +1131,9 @@ that allows one to reconstruct <span class="math inline">\(f(E)\)</span>
 from a known <span class="math inline">\(\rho(r)\)</span>. This
 technique is presented in <span class="citation"
 data-cites="2008gady.book.....B">Binney and Tremaine (2008)</span> and
-<span class="citation" data-cites="bovy_inprep">Bovy (n.d.)</span>. At
-this point, one can obtain a complete analytic expression for the
+<span class="citation"
+data-cites="bovy_inprep">(<strong>bovy_inprep?</strong>)</span>. At this
+point, one can obtain a complete analytic expression for the
 distribution function. For a Plummer sphere, this distribution function
 is <span class="math inline">\(f = C (-E)^{7/2}\)</span>, where <span
 class="math inline">\(C\)</span> is a constant that ensures <span
@@ -1427,17 +1430,18 @@ src="images/CR3BP_forbidden_region_2.png" alt="image" /></p>
 <p><img src="images/CR3BP_forbidden_region_3.png" alt="image" /> <img
 src="images/CR3BP_forbidden_region_4.png" alt="image" /></p>
 <figcaption>A reproduction of Fig. 2.4.2 from <span class="citation"
-data-cites="koon2000dynamical">Koon et al. (2000)</span>. Each plot is
-shown in the non-inertial reference frame rotating with the orbital
-frequency of the primary and secondary about their common center of
-mass. In this example, the mass ratio is <span class="math inline">\(m_1
-= 10 m_2\)</span>. The gray regions represent areas inaccessible to the
-test particle for a given energy. In the first case, where <span
-class="math inline">\(E &lt; E_1\)</span>, the particle remains confined
-to orbit either around the primary or the secondary, depending on its
-initial position. As the particle’s energy increases, more of the <span
-class="math inline">\(xy\)</span>-plane becomes accessible. The narrow
-passage between <span class="math inline">\(m_1\)</span> and <span
+data-cites="koon2000dynamical">(<strong>koon2000dynamical?</strong>)</span>.
+Each plot is shown in the non-inertial reference frame rotating with the
+orbital frequency of the primary and secondary about their common center
+of mass. In this example, the mass ratio is <span
+class="math inline">\(m_1 = 10 m_2\)</span>. The gray regions represent
+areas inaccessible to the test particle for a given energy. In the first
+case, where <span class="math inline">\(E &lt; E_1\)</span>, the
+particle remains confined to orbit either around the primary or the
+secondary, depending on its initial position. As the particle’s energy
+increases, more of the <span class="math inline">\(xy\)</span>-plane
+becomes accessible. The narrow passage between <span
+class="math inline">\(m_1\)</span> and <span
 class="math inline">\(m_2\)</span> corresponds to the <span
 class="math inline">\(L_1\)</span> Lagrange point, while the choke point
 allowing escape to the exterior when <span class="math inline">\(E &gt;
@@ -2633,9 +2637,9 @@ motion — a key assumption in the impulse approximation.</p>
 <p>Now consider not just one fly-by, but a sequence of them. A real
 galaxy has a radially decreasing density, so a star never sees a
 symmetric distribution unless it’s exactly at the center — but we are
-interested in <strong>fluctuations</strong> from the mean field, not the
-mean field itself. That is, if <span
-class="math inline">\(\Phi_\mathrm{MW} = \Phi_\mathrm{mean}(\vec{r}) +
+interested in fluctuations from the mean field, not the mean field
+itself. That is, if <span class="math inline">\(\Phi_\mathrm{MW} =
+\Phi_\mathrm{mean}(\vec{r}) +
 \Phi_\mathrm{stochastic}(\vec{r})\)</span>, we are isolating the
 stochastic part.</p>
 <p>To simplify further, we idealize the galaxy as a cylinder of radius
@@ -2714,41 +2718,94 @@ Sagittarius II.</em></p>
 median is 0.8 Gyr, the maximum is 21 Gyr, and the minimum is 0.03
 Gyr.</p>
 <h3 id="beyond-two-body-relaxation">Beyond Two-Body Relaxation</h3>
-<p>Two-body relaxation—is not the only process at play within globular
-clusters. In fact, the full range of dynamical interactions in such
-systems is vast and complex. A careful reduction of this complexity into
-a few key mechanisms is the aim of the authoritative textbook by <span
-class="citation" data-cites="2003gmbp.book.....H">Heggie and Hut
-(2003)</span>. Two-body relaxation is one example of
-<em>micro-physical</em> process within the globular clusters,
-specifically it is the cummulative sum of many two body
-interactions.</p>
-<p>Another example of a microphysical process within clusters are
-<em>three-body encounters</em>. This occurs when one star interacts with
-a binary system. Recent studies by <span class="citation"
-data-cites="2023MNRAS.518.4249G">Grondin et al. (2023)</span> and <span
+<p>By modeling globular clusters with the restricted three-body problem,
+we neglect mass loss due to internal dynamics. The internal dynamics of
+globular clusters involve a rich variety of physical processes that not
+only drive their internal evolution but also contribute to stellar
+escape through mechanisms other than tides. Many of these processes are
+reviewed in <span class="citation"
+data-cites="2003gmbp.book.....H">Heggie and Hut (2003)</span> and have
+been the subject of decades of study (citation dump). Interestingly,
+many macrophysical behaviors emerge from microscopic interactions, such
+as repeated two-body encounters or three-body interactions. In this
+section, I focus on how these internal processes can affect the
+morphology and properties of the stellar streams that globular clusters
+produce.</p>
+<p>To begin, recent works by <span class="citation"
+data-cites="2023MNRAS.518.4249G 2024MNRAS.528.5189G">Grondin et al.
+(2023, 2024)</span> performed a study similar to our Chapter 4. While we
+investigated the mass loss of the globular cluster catalog due to tidal
+stripping, they examined the cumulative mass loss induced by three-body
+interactions within globular cluster cores. An example of this mass
+ejection distribution is shown in Fig. <a
+href="#fig:grondin_et_al_core_spray" data-reference-type="ref"
+data-reference="fig:grondin_et_al_core_spray">23</a>. Indeed, globular
+clusters host many binary systems, and their properties can
+significantly influence cluster dynamics (citation dump). As <span
 class="citation" data-cites="2024MNRAS.528.5189G">Grondin et al.
-(2024)</span> have focused on the role of three-body encounters in
-globular clusters. In these interactions, a single star can extract
-energy from a binary system—sometimes enough to be ejected from the
-cluster entirely. This is a fundamentally different mechanism from the
-tidal stripping investigated in this thesis. Tidal fields gently
-transfer energy to stars, allowing them to escape through the Lagrange
-points. In contrast, three-body encounters can impart a significant
-energy boost to a star, potentially enabling it to escape the cluster
-altogether—even from regions that are otherwise forbidden, as indicated
-by Fig. <a href="#fig:CR3BP_forbidden_region" data-reference-type="ref"
-data-reference="fig:CR3BP_forbidden_region">7</a>.</p>
-<p>In <span class="citation" data-cites="2024MNRAS.528.5189G">Grondin et
-al. (2024)</span>, as in the present thesis, the authors investigated
-mass loss from the Milky Way globular clusters. However, rather than
-focusing on external tidal forces, they examined internal three-body
-encounters occurring in the cluster cores. One of their striking results
-is reproduced in Fig. <a href="#fig:grondin_et_al_core_spray"
+(2024)</span> describe, a third star can perturb a binary, leading to
+the ejection of one star with significant kinetic energy. Such
+velocities can exceed the cluster escape velocity and, in some cases, be
+high enough to completely erase the effective potential barrier (Fig. <a
+href="#fig:CR3BP_forbidden_region" data-reference-type="ref"
+data-reference="fig:CR3BP_forbidden_region">7</a>) — typically
+controlling escape through the Lagrange points — no longer applies. The
+result is a population of stars that escape in a more isotropic and
+diffuse manner than those lost through tidal stripping alone.</p>
+<p>These high-velocity escapers are of particular interest in light of
+stars in the Gaia catalog that appear to exceed the Galactic escape
+speed <span class="citation" data-cites="2021ApJS..252....3L">(Li et al.
+2021)</span>. Proposed origins for these stars include supernova kicks
+within binary systems, where one component goes supernova and imparts a
+substantial recoil to the companion, or dynamical ejections from dense
+cluster cores. Some studies even suggest that globular clusters may
+contribute to the population of hypervelocity stars.</p>
+<p>Introducing stellar masses into the system unlocks a suite of
+dynamical effects. One well-known example is <em>dynamical friction</em>
+<span class="citation"
+data-cites="1943ApJ....97..255C 1943ApJ....97..263C 1943ApJ....98...54C">(Chandrasekhar
+1943a, 1943b, 1943c)</span>, which describes how massive bodies lose
+orbital energy through interactions with less massive ones, causing them
+to sink toward the center of the cluster. This process is the basis for
+<em>mass segregation</em>, in which massive stars concentrate toward the
+core. The underlying statistical tendency is toward energy
+equipartition, where the average kinetic energy per particle is constant
+across the system. Since <span class="math inline">\(E_k \propto m
+\langle v^2 \rangle\)</span>, this implies <span
+class="math inline">\(\langle v^2 \rangle \propto 1/m\)</span>. However,
+in real clusters, relaxation times can be long, and equipartition may
+remain incomplete over the cluster lifetime <span class="citation"
+data-cites="2016MNRAS.458.3644B">(Bianchini et al. 2016)</span>.
+Moreover, since tides preferentially remove the stars on the most weakly
+bound (i.e., high-energy) orbits, they tend to strip low-mass stars
+first.</p>
+<p>When we consider not just that stars have mass, but that they are
+actually stars — luminous, gaseous bodies in hydrostatic equilibrium —
+an even more complex picture emerges. Stars vary in mass, age, and
+composition, which affect their luminosity and detectability. <span
+class="citation" data-cites="2018MNRAS.474.2479B">Balbinot and Gieles
+(2018)</span> explored how internal cluster dynamics shape the escape of
+stars with different luminosities. They arrived at a seemingly
+paradoxical result: more massive clusters can produce <em>less
+detectable</em> stellar streams. The reason is twofold: more massive
+clusters harbor more low-mass stars, which are intrinsically dimmer, and
+these same stars are preferentially stripped due to mass segregation.
+The resulting streams, though potentially more massive, are fainter and
+harder to detect (see Fig. <a href="#fig:balbinot-2018"
 data-reference-type="ref"
-data-reference="fig:grondin_et_al_core_spray">23</a>, which clearly
-shows that many stars are ejected onto orbits that no longer align with
-the parent cluster—effectively spreading across the entire sky.</p>
+data-reference="fig:balbinot-2018">24</a>).</p>
+<p>Adding another layer, stars themselves <em>evolve</em> over time.
+<span class="citation" data-cites="2018MNRAS.474.2479B">Balbinot and
+Gieles (2018)</span> incorporated stellar evolution in their
+simulations, capturing its early effects on cluster evolution. The most
+significant contribution occurs during the first <span
+class="math inline">\(\sim\)</span>1 Gyr, when massive stars end their
+lives as supernovae. These events eject mass from the cluster,
+shallowing its potential well. <a href="#fn4" class="footnote-ref"
+id="fnref4" role="doc-noteref"><sup>4</sup></a> The early stages of
+globular cluster evolution is particularly for our purposes, since our
+simulations begin 5 Gyr ago, and all clusters considered are much
+older.</p>
 <figure id="fig:grondin_et_al_core_spray">
 <img src="images/grondin_et_al_core_spray.jpeg" />
 <figcaption>Expected distribution of stars from the Milky Way globular
@@ -2757,25 +2814,6 @@ interactions. Reproduced from <span class="citation"
 data-cites="2024MNRAS.528.5189G">Grondin et al.
 (2024)</span>.</figcaption>
 </figure>
-<p>Not only does a new world of physics emerge when we consider stars to
-have mass, but a lot of interesting physics opens up once we consider
-them to have different masses. For instance, there is a similar process
-to two-body relaxation which is <em>dynamical friction</em> <span
-class="citation"
-data-cites="1943ApJ....97..255C 1943ApJ....97..263C 1943ApJ....98...54C">(Chandrasekhar
-1943a, 1943b, 1943c)</span>.</p>
-<p>In essence, the amount of energy lost from the sum of all two body
-interactions on a body can be estimated <em>stars</em> and not just
-point masses. Indeed, stars are super-hot gaseous spheres sustaining
-themselves from thermo-nuclear reactions and they <em>evolve</em> in
-time <span class="citation"
-data-cites="2013sse..book.....K">(Kippenhahn, Weigert, and Weiss
-2013)</span>. Lynden bell? core collapse??</p>
-<p><span class="citation" data-cites="2018MNRAS.474.2479B">Balbinot and
-Gieles (2018)</span> consider how stellar evolution plays a role in
-stellar streams. What if you have mass segregation and subsequently
-eject the non-massive particles? counter intuitive result, more massive
-cluster has a dimmer stream!</p>
 <figure id="fig:balbinot-2018">
 <img src="images/balbinot-2018.jpeg" />
 <figcaption>The effects of stellar evolution on the visibility of
@@ -2812,13 +2850,6 @@ Cunningham, Andrew Wetzel, and Nicolás Garavito-Camargo. 2022.
 Space</span>”</span> 939 (1): 2. <a
 href="https://doi.org/10.3847/1538-4357/ac93fb">https://doi.org/10.3847/1538-4357/ac93fb</a>.
 </div>
-<div id="ref-atchley2023frontier" class="csl-entry" role="listitem">
-Atchley, Scott, Christopher Zimmer, John Lange, David Bernholdt,
-Veronica Melesse Vergara, Thomas Beck, Michael Brim, et al. 2023.
-<span>“Frontier: Exploring Exascale.”</span> In <em>Proceedings of the
-International Conference for High Performance Computing, Networking,
-Storage and Analysis</em>, 1–16.
-</div>
 <div id="ref-2018MNRAS.474.2479B" class="csl-entry" role="listitem">
 Balbinot, Eduardo, and Mark Gieles. 2018. <span>“<span
 class="nocase">The devil is in the tails: the role of globular cluster
@@ -2831,6 +2862,12 @@ catalogue of masses, structural parameters, and velocity dispersion
 profiles of 112 Milky Way globular clusters</span>”</span> 478 (2):
 1520–57. <a
 href="https://doi.org/10.1093/mnras/sty1057">https://doi.org/10.1093/mnras/sty1057</a>.
+</div>
+<div id="ref-2016MNRAS.458.3644B" class="csl-entry" role="listitem">
+Bianchini, P., G. van de Ven, M. A. Norris, E. Schinnerer, and A. L.
+Varri. 2016. <span>“<span class="nocase">A novel look at energy
+equipartition in globular clusters</span>”</span> 458 (4): 3644–54. <a
+href="https://doi.org/10.1093/mnras/stw552">https://doi.org/10.1093/mnras/stw552</a>.
 </div>
 <div id="ref-2008gady.book.....B" class="csl-entry" role="listitem">
 Binney, James, and Scott Tremaine. 2008. <em><span>Galactic Dynamics:
@@ -2853,12 +2890,8 @@ class="nocase">The Galaxy in Context: Structural, Kinematic, and
 Integrated Properties</span>”</span> 54 (September):529–96. <a
 href="https://doi.org/10.1146/annurev-astro-081915-023441">https://doi.org/10.1146/annurev-astro-081915-023441</a>.
 </div>
-<div id="ref-bovy_inprep" class="csl-entry" role="listitem">
-Bovy, Jo. n.d. <em>Dynamics and Astrophysics of Galaxies</em>.
-Princeton, NJ: Princeton University Press.
-</div>
 <div id="ref-2015ApJS..216...29B" class="csl-entry" role="listitem">
-———. 2015. <span>“<span class="nocase">galpy: A python Library for
+Bovy, Jo. 2015. <span>“<span class="nocase">galpy: A python Library for
 Galactic Dynamics</span>”</span> 216 (2): 29. <a
 href="https://doi.org/10.1088/0067-0049/216/2/29">https://doi.org/10.1088/0067-0049/216/2/29</a>.
 </div>
@@ -2911,11 +2944,6 @@ Erkal, Denis, and Vasily Belokurov. 2015. <span>“<span
 class="nocase">Forensics of subhalo-stream encounters: the three phases
 of gap growth</span>”</span> 450 (1): 1136–49. <a
 href="https://doi.org/10.1093/mnras/stv655">https://doi.org/10.1093/mnras/stv655</a>.
-</div>
-<div id="ref-ECB_USD_EUR_2025" class="csl-entry" role="listitem">
-European Central Bank. 2025. <span>“<span class="nocase">Euro foreign
-exchange reference rate — US dollar: 1 EUR = 1.1726 USD</span>.”</span>
-Retrieved from ECB website.
 </div>
 <div id="ref-2014IPNPR.196C...1F" class="csl-entry" role="listitem">
 Folkner, W. M., J. G. Williams, D. H. Boggs, R. S. Park, and P.
@@ -2991,12 +3019,6 @@ Hubble, E. P. 1926. <span>“<span class="nocase">Extragalactic
 nebulae.</span>”</span> 64 (December):321–69. <a
 href="https://doi.org/10.1086/143018">https://doi.org/10.1086/143018</a>.
 </div>
-<div id="ref-hubner2025apple" class="csl-entry" role="listitem">
-Hübner, Paul, Andong Hu, Ivy Peng, and Stefano Markidis. 2025.
-<span>“Apple Vs. Oranges: Evaluating the Apple Silicon m-Series SoCs for
-HPC Performance and Efficiency.”</span> <em>arXiv Preprint
-arXiv:2502.05317</em>.
-</div>
 <div id="ref-2021ApJ...914..123I" class="csl-entry" role="listitem">
 Ibata, Rodrigo, Khyati Malhan, Nicolas Martin, Dominique Aubert, Benoit
 Famaey, Paolo Bianchini, Giacomo Monari, et al. 2021. <span>“<span
@@ -3018,11 +3040,6 @@ Kant, Immanuel, and Stanley L. Jaki. 1981. <em><span
 class="nocase">Universal natural history and theory of the
 heavens</span></em>.
 </div>
-<div id="ref-2013sse..book.....K" class="csl-entry" role="listitem">
-Kippenhahn, Rudolf, Alfred Weigert, and Achim Weiss. 2013. <em><span
-class="nocase">Stellar Structure and Evolution</span></em>. <a
-href="https://doi.org/10.1007/978-3-642-30304-3">https://doi.org/10.1007/978-3-642-30304-3</a>.
-</div>
 <div id="ref-2025AJ....169..317K" class="csl-entry" role="listitem">
 Klüter, Jonas, Macy J. Huston, Abigail Aronica, Samson A. Johnson,
 Matthew T. Penny, Marz Newman, Farzaneh Zohrabi, Alison L. Crisp, and
@@ -3031,16 +3048,12 @@ Framework for Synthetic Milky Way Population Generation</span>”</span>
 169 (6): 317. <a
 href="https://doi.org/10.3847/1538-3881/adcd7a">https://doi.org/10.3847/1538-3881/adcd7a</a>.
 </div>
-<div id="ref-koon2000dynamical" class="csl-entry" role="listitem">
-Koon, Wang Sang, Martin W Lo, Jerrold E Marsden, and Shane D Ross. 2000.
-<span>“Dynamical Systems, the Three-Body Problem and Space Mission
-Design.”</span> In <em>Equadiff 99: (In 2 Volumes)</em>, 1167–81. World
-Scientific.
-</div>
-<div id="ref-DIO_OBSPM" class="csl-entry" role="listitem">
-l’Observatoire de Paris. 2025. <span>“<span class="nocase">DIO
-Supercomputer at the Paris Observatory</span>.”</span> <a
-href="https://dio.obspm.fr/" class="uri">https://dio.obspm.fr/</a>.
+<div id="ref-2021ApJS..252....3L" class="csl-entry" role="listitem">
+Li, Yin-Bi, A. -Li Luo, You-Jun Lu, Xue-Sen Zhang, Jiao Li, Rui Wang,
+Fang Zuo, et al. 2021. <span>“<span class="nocase">591 High-velocity
+Stars in the Galactic Halo Selected from LAMOST DR7 and Gaia
+DR2</span>”</span> 252 (1): 3. <a
+href="https://doi.org/10.3847/1538-4365/abc16e">https://doi.org/10.3847/1538-4365/abc16e</a>.
 </div>
 <div id="ref-2015ApJ...806...96L" class="csl-entry" role="listitem">
 Licquia, Timothy C., and Jeffrey A. Newman. 2015. <span>“<span
@@ -3103,12 +3116,6 @@ gravitational potential of the Milky Way</span>”</span> 465 (1): 76–94.
 <a
 href="https://doi.org/10.1093/mnras/stw2759">https://doi.org/10.1093/mnras/stw2759</a>.
 </div>
-<div id="ref-MESR_financement_doctoral" class="csl-entry"
-role="listitem">
-Ministere de l’Enseignement superieur et de la Recherche. 2025.
-<span>“Le Financement Doctoral.”</span> <a
-href="https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-46472">https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-46472</a>.
-</div>
 <div id="ref-1975PASJ...27..533M" class="csl-entry" role="listitem">
 Miyamoto, M., and R. Nagai. 1975. <span>“<span
 class="nocase">Three-dimensional models for the distribution of mass in
@@ -3170,17 +3177,12 @@ Schneider, J. M. Carpenter, C. Beichman, et al. 2006. <span>“<span>The
 Two Micron All Sky Survey (2MASS)</span>”</span> 131 (2): 1163–83. <a
 href="https://doi.org/10.1086/498708">https://doi.org/10.1086/498708</a>.
 </div>
-<div id="ref-table20245" class="csl-entry" role="listitem">
-Table, EIA. 2024. <span>“5.6. A. Average Price of Electricity to
-Ultimate Customers by End-Use Sector.”</span> <em>US Energy Information
-Administration</em>.
-</div>
 <div id="ref-2013ApJ...775..134V" class="csl-entry" role="listitem">
 VandenBerg, Don A., K. Brogaard, R. Leaman, and L. Casagrande. 2013.
 <span>“<span class="nocase">The Ages of 55 Globular Clusters as
-Determined Using an Improved Method along with Color-Magnitude Diagram
-Constraints, and Their Implications for Broader Issues</span>”</span>
-775 (2): 134. <a
+Determined Using an Improved VĤB_TO Method along with Color-Magnitude
+Diagram Constraints, and Their Implications for Broader
+Issues</span>”</span> 775 (2): 134. <a
 href="https://doi.org/10.1088/0004-637X/775/2/134">https://doi.org/10.1088/0004-637X/775/2/134</a>.
 </div>
 <div id="ref-2021MNRAS.505.5978V" class="csl-entry" role="listitem">
@@ -3232,6 +3234,11 @@ discrepancy also worsens with increasing particle number. I rewrote the
 script several times but was unable to identify the issue. Nonetheless,
 the main takeaway remains valid: gravitational two-body encounters
 induce a random walk in velocity space.<a href="#fnref3"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>I once wondered whether the kinetic energy injected into
+surrounding stars by a supernova’s ejecta might be dynamically
+important. A back-of-the-envelope calculation shows it is negligible and
+mass of the exploded stars wisps out of the cluster.<a href="#fnref4"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
