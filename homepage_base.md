@@ -18,5 +18,7 @@ As part of making this thesis available and online before submission, please sen
 - [Introduction](introduction.html)
 - [Theory](theory.html)
 - [Numerics](numerics.html)
-- [Results](results.html)
+- [tidal](tidal.html)
+- [Gapology](Gapology.html)
+- [ongoing](ongoing.html)
 

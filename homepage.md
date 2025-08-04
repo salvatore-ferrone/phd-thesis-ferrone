@@ -17,5 +17,7 @@ Placeholder text for the abstract of my thesis.
 - [Introduction](introduction.html)
 - [Theory](theory.html)
 - [Numerics](numerics.html)
-- [Results](results.html)
+- [tidal](tidal.html)
+- [Gapology](Gapology.html)
+- [ongoing](ongoing.html)
 
