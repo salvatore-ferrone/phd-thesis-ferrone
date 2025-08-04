@@ -165,27 +165,7 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-    /* CSS for citations */
-    div.csl-bib-body { }
-    div.csl-entry {
-      clear: both;
-      margin-bottom: 0em;
-    }
-    .hanging-indent div.csl-entry {
-      margin-left:2em;
-      text-indent:-2em;
-    }
-    div.csl-left-margin {
-      min-width:2em;
-      float:left;
-    }
-    div.csl-right-inline {
-      margin-left:2em;
-      padding-left:1em;
-    }
-    div.csl-indent {
-      margin-left: 2em;
-    }  </style>
+  </style>
   <script
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
   type="text/javascript"></script>
@@ -282,11 +262,12 @@ class="math inline">\(\mu_\delta\)</span></th>
 acceleration? km/s<span class="math inline">\(^2\)</span>?
 parsec/year/second? To systematically manage units, we turn to
 dimensional analysis, notably the Buckingham Pi theorem <span
-class="citation" data-cites="1914PhRv....4..345B">(Buckingham
-1914)</span>. In classical mechanics, physical quantities are typically
-expressed in terms of three fundamental dimensions: length, time, and
-mass. Any quantity can then be represented as a product of powers of
-these base units:</p>
+class="citation"
+data-cites="1914PhRv....4..345B">(<strong>1914PhRv....4..345B?</strong>)</span>.
+In classical mechanics, physical quantities are typically expressed in
+terms of three fundamental dimensions: length, time, and mass. Any
+quantity can then be represented as a product of powers of these base
+units:</p>
 <p><span class="math display">\[\left[\mathrm{Quantity}\right] = l^a t^b
 m^c =
             \begin{bmatrix}
@@ -340,11 +321,12 @@ unit becomes: <span class="math display">\[\left[\mathrm{mass}\right] =
 was used in our first paper (see Chapter 4).</p>
 <p>The famous galactic dynamical python code, <code>Galpy</code> makes a
 different choice and introduced <em>natural units</em> <span
-class="citation" data-cites="2015ApJS..216...29B">(Bovy 2015)</span>.
+class="citation"
+data-cites="2015ApJS..216...29B">(<strong>2015ApJS..216...29B?</strong>)</span>.
 More specifically, <span class="citation"
-data-cites="2015ApJS..216...29B">Bovy (2015)</span> uses a normalization
-in which <span class="math inline">\(R\)</span>, the cylindrical scale
-length of the galaxy, and <span
+data-cites="2015ApJS..216...29B">(<strong>2015ApJS..216...29B?</strong>)</span>
+uses a normalization in which <span class="math inline">\(R\)</span>,
+the cylindrical scale length of the galaxy, and <span
 class="math inline">\(v_\mathrm{circ}\)</span>, the circular velocity at
 this radius, are both set to 1. This choice is motivated by a galaxy’s
 rotation curve and is embodied in: <span
@@ -374,21 +356,22 @@ hard-coded, so the user may pass any numerical values to the code as
 long as they are based on a self-consistent unit system. Nonetheless,
 the code comes equipped with parameters for the
 <code>pouliasis2017pii</code> potential <span class="citation"
-data-cites="2017A&amp;A...598A..66P">(Pouliasis, Di Matteo, and Haywood
-2017)</span> and for the catalog of globular clusters <span
-class="citation" data-cites="2018MNRAS.478.1520B">(Baumgardt and Hilker
-2018)</span> in units of kpc, km/s, and <span
+data-cites="2017A&amp;A...598A..66P">(<strong>2017A&amp;A...598A..66P?</strong>)</span>
+and for the catalog of globular clusters <span class="citation"
+data-cites="2018MNRAS.478.1520B">(<strong>2018MNRAS.478.1520B?</strong>)</span>
+in units of kpc, km/s, and <span
 class="math inline">\(\mathrm{M}_\odot\)</span>.</p>
 <p>A valid general strategy when developing numerical codes is to
 implement a module that converts user-defined units to the internal
 units. This functionality also exists in <code>Galpy</code> and a
 similar system is implemented in <code>Agama</code> <span
-class="citation" data-cites="2018arXiv180208255V">(Vasiliev
-2018)</span>. I chose not to add such a layer to <code>Tstrippy</code>
-since <code>Astropy</code> provides an excellent unit-handling module
-that allows users to convert between units easily <span class="citation"
-data-cites="2013A&amp;A...558A..33A">(Astropy Collaboration et al.
-2013)</span>, and I recommend its use in the documentation.</p>
+class="citation"
+data-cites="2018arXiv180208255V">(<strong>2018arXiv180208255V?</strong>)</span>.
+I chose not to add such a layer to <code>Tstrippy</code> since
+<code>Astropy</code> provides an excellent unit-handling module that
+allows users to convert between units easily <span class="citation"
+data-cites="2013A&amp;A...558A..33A">(<strong>2013A&amp;A...558A..33A?</strong>)</span>,
+and I recommend its use in the documentation.</p>
 <h1 id="solving-the-equations-of-motion">Solving the equations of
 motion</h1>
 <p>Long before the advent of computers, Euler (1707-1783) proposed a
@@ -435,7 +418,7 @@ the integration.</p></li>
 <p>For a more systematic treatment of integration methods and their
 error properties, Chapter 16 of <em>Numerical Recipes in C</em> provides
 an excellent introduction <span class="citation"
-data-cites="1992nrca.book.....P">(Press et al. 1992)</span>.</p>
+data-cites="1992nrca.book.....P">(<strong>1992nrca.book.....P?</strong>)</span>.</p>
 <p>Regardless of the method used, sanity checks are essential to
 validate the result. These include:</p>
 <ul>
@@ -448,11 +431,12 @@ correctness.</p></li>
 <p>For example, we can exploit the properties of Hamiltonain systems to
 design integrators. In this thesis, we implemented the Leapfrog
 integrator and the Forest-Ruth scheme <span class="citation"
-data-cites="bovy_inprep 1990PhyD...43..105F">(Bovy, n.d.; Forest and
-Ruth 1990)</span>. These schemes are derived from the structure of
-Hamiltonian mechanics and are known as <em>symplectic integrators</em>.
-Before continuing, I would like to quote <span class="citation"
-data-cites="bovy_inprep">(Bovy, n.d.)</span>:</p>
+data-cites="bovy_inprep 1990PhyD...43..105F">(<strong>bovy_inprep?</strong>;
+<strong>1990PhyD...43..105F?</strong>)</span>. These schemes are derived
+from the structure of Hamiltonian mechanics and are known as
+<em>symplectic integrators</em>. Before continuing, I would like to
+quote <span class="citation"
+data-cites="bovy_inprep">(<strong>bovy_inprep?</strong>)</span>:</p>
 <blockquote>
 <p>Hamiltonian integrators are often called symplectic. This name comes
 from the fact that these integrators are Hamiltonian maps, whose
@@ -463,14 +447,14 @@ and we do not discuss this further.</p>
 </blockquote>
 <p>However, my curiosity about linguistics pushed me to delve further:
 What does <em>symplectic</em> mean? <span class="citation"
-data-cites="weyl1946classical">Weyl (1946)</span> coined the term
-because <em>complex</em> was already taken. The prefix latin
-<em>com</em>- refers to <em>together</em>, and <em>plexus</em> comes
-from greek meaning “woven” or “braided”. Symplectic translates exactly
-the same way: <em>sym</em>- is a Greek prefix for “together.” The idea
-remains the same: in Hamiltonian dynamics, the evolution of position and
-momentum are interdependent. This becomes clearer in matrix form: <span
-class="math display">\[\begin{bmatrix}
+data-cites="weyl1946classical">(<strong>weyl1946classical?</strong>)</span>
+coined the term because <em>complex</em> was already taken. The prefix
+latin <em>com</em>- refers to <em>together</em>, and <em>plexus</em>
+comes from greek meaning “woven” or “braided”. Symplectic translates
+exactly the same way: <em>sym</em>- is a Greek prefix for “together.”
+The idea remains the same: in Hamiltonian dynamics, the evolution of
+position and momentum are interdependent. This becomes clearer in matrix
+form: <span class="math display">\[\begin{bmatrix}
             \dot{\bf{q}}\\
             \dot{\bf{p}}
         \end{bmatrix}
@@ -562,18 +546,18 @@ efficiency and numerical accuracy is ever present. Leapfrog uses the two
 local points about the position and momenta to evolve them. Other
 schemes can use more points to have more accurate estimations for the
 local derivatives.</p>
-<p><span class="citation" data-cites="1990PhyD...43..105F">Forest and
-Ruth (1990)</span> proposed one such method for symplectic integrations.
-The method involves finding roots of high order polynomials which
-determine the distances about the local point for finding the best
-estimate of the derivative for evoling the system. The method involves
-solving a cubic polynomial to determine the optimal coefficients. While
-the derivation is mathematically involved, the final scheme is
-straightforward to implement. I implemented this method and tested its
-efficiency against the leapfrog and present the results in the following
-section. There are eight coefficients in this method, which are
-presented in Table <a href="#tab:forest_ruth_coeffs"
-data-reference-type="ref"
+<p><span class="citation"
+data-cites="1990PhyD...43..105F">(<strong>1990PhyD...43..105F?</strong>)</span>
+proposed one such method for symplectic integrations. The method
+involves finding roots of high order polynomials which determine the
+distances about the local point for finding the best estimate of the
+derivative for evoling the system. The method involves solving a cubic
+polynomial to determine the optimal coefficients. While the derivation
+is mathematically involved, the final scheme is straightforward to
+implement. I implemented this method and tested its efficiency against
+the leapfrog and present the results in the following section. There are
+eight coefficients in this method, which are presented in Table <a
+href="#tab:forest_ruth_coeffs" data-reference-type="ref"
 data-reference="tab:forest_ruth_coeffs">2</a>.</p>
 <div id="tab:forest_ruth_coeffs">
 <table>
@@ -713,11 +697,13 @@ globular cluster that orbits the Galaxy.</p></li>
 Orbits in a Static Galaxy</h2>
 <p>As explained in the next chapter, the initial conditions for the
 globular cluster system (positions and velocities) were taken from <span
-class="citation" data-cites="2018MNRAS.478.1520B">Baumgardt and Hilker
-(2018)</span>’s online globular cluster catalog whose data derived from
-Gaia Early Data Release 3 among other sources <span class="citation"
-data-cites="2021MNRAS.505.5957B 2021A&amp;A...649A...1G 2023A&amp;A...674A...1G">(Baumgardt
-and Vasiliev 2021; Gaia Collaboration et al. 2021, 2023)</span>.</p>
+class="citation"
+data-cites="2018MNRAS.478.1520B">(<strong>2018MNRAS.478.1520B?</strong>)</span>’s
+online globular cluster catalog whose data derived from Gaia Early Data
+Release 3 among other sources <span class="citation"
+data-cites="2021MNRAS.505.5957B 2021A&amp;A...649A...1G 2023A&amp;A...674A...1G">(<strong>2021MNRAS.505.5957B?</strong>;
+<strong>2021A&amp;A...649A...1G?</strong>;
+<strong>2023A&amp;A...674A...1G?</strong>)</span>.</p>
 <p>To test the integrator, we integrated the whole globular cluster
 system for 5 Gyr, and then integrated it back to the initial conditions.
 We used four time steps: <span
@@ -1259,10 +1245,11 @@ the relative position vector as <span class="math display">\[\Delta
 of the correct expression: <span class="math display">\[\Delta \vec{r}_i
 = \vec{r}_{p,i+1/2} - \vec{r}_\mathrm{GC,i+1/2}.\]</span></p>
 <p>This mistake appeared in both <span class="citation"
-data-cites="2023A&amp;A...673A..44F">Ferrone et al. (2023)</span> and
-<span class="citation" data-cites="2025A&amp;A...699A.289F">Ferrone et
-al. (2025)</span>. Does this invalidate our results? To assess the
-impact, we can compare Figs. <a
+data-cites="2023A&amp;A...673A..44F">(<strong>2023A&amp;A...673A..44F?</strong>)</span>
+and <span class="citation"
+data-cites="2025A&amp;A...699A.289F">(<strong>2025A&amp;A...699A.289F?</strong>)</span>.
+Does this invalidate our results? To assess the impact, we can compare
+Figs. <a
 href="#fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420"
 data-reference-type="ref"
 data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">12</a>
@@ -1351,21 +1338,21 @@ meson</p></li>
 <li><p>what about other codes on the market? Why did I decide to write
 this code?</p></li>
 </ul>
-<p><span class="citation" data-cites="2018ComAC...5....2V">Varri et al.
-(2018)</span> talks about a series of papers between a larger
-collaboration of people who specialize in collisional dynamics and who
-have performed a series of workshops together. The introduction stated
-that the collaboration wants to tackle many open questions regarding
-stellar clusters and build the necessary codes to interprete the future
-large quantity of data that was destined to come. It has now come since
-the review was 2018. An interesting point was that in general globular
-clusters are approximated as being orderless, i.e. isotropic but order
-does present itself within these stelalr systems. Another large problem
-is no one knows what a good set of initial conditiosn is. Unresolved
-binaries pose a problem because you can overestiamte the total mass of
-the system. If I talk about this review, I should probably discuss some
-of the results from the papers that is builds on or at least their
-techinques.</p>
+<p><span class="citation"
+data-cites="2018ComAC...5....2V">(<strong>2018ComAC...5....2V?</strong>)</span>
+talks about a series of papers between a larger collaboration of people
+who specialize in collisional dynamics and who have performed a series
+of workshops together. The introduction stated that the collaboration
+wants to tackle many open questions regarding stellar clusters and build
+the necessary codes to interprete the future large quantity of data that
+was destined to come. It has now come since the review was 2018. An
+interesting point was that in general globular clusters are approximated
+as being orderless, i.e. isotropic but order does present itself within
+these stelalr systems. Another large problem is no one knows what a good
+set of initial conditiosn is. Unresolved binaries pose a problem because
+you can overestiamte the total mass of the system. If I talk about this
+review, I should probably discuss some of the results from the papers
+that is builds on or at least their techinques.</p>
 <p>The MODEST review led me to discover AMUSE, which is an framework for
 integrating various astrophysical codes for solving 4 types of problems:
 gravitational dynamics, radiative transfer, hydrodynamics, and stellar
@@ -1435,110 +1422,5 @@ However, I need to integer divide because the number of particles needs
 to be an integer. Then, with the last batch, I add the remaining
 particles, which is <span class="math inline">\(N_\mathrm{left over} =
 N_p - N_\mathrm{batches} \times N_\mathrm{per~batch}\)</span>.</p>
-<div id="refs" class="references csl-bib-body hanging-indent"
-data-entry-spacing="0" role="list">
-<div id="ref-2013A&amp;A...558A..33A" class="csl-entry" role="listitem">
-Astropy Collaboration, Thomas P. Robitaille, Erik J. Tollerud, Perry
-Greenfield, Michael Droettboom, Erik Bray, Tom Aldcroft, et al. 2013.
-<span>“<span class="nocase">Astropy: A community Python package for
-astronomy</span>”</span> 558 (October):A33. <a
-href="https://doi.org/10.1051/0004-6361/201322068">https://doi.org/10.1051/0004-6361/201322068</a>.
-</div>
-<div id="ref-2018MNRAS.478.1520B" class="csl-entry" role="listitem">
-Baumgardt, H., and M. Hilker. 2018. <span>“<span class="nocase">A
-catalogue of masses, structural parameters, and velocity dispersion
-profiles of 112 Milky Way globular clusters</span>”</span> 478 (2):
-1520–57. <a
-href="https://doi.org/10.1093/mnras/sty1057">https://doi.org/10.1093/mnras/sty1057</a>.
-</div>
-<div id="ref-2021MNRAS.505.5957B" class="csl-entry" role="listitem">
-Baumgardt, H., and E. Vasiliev. 2021. <span>“<span
-class="nocase">Accurate distances to Galactic globular clusters through
-a combination of Gaia EDR3, HST, and literature data</span>”</span> 505
-(4): 5957–77. <a
-href="https://doi.org/10.1093/mnras/stab1474">https://doi.org/10.1093/mnras/stab1474</a>.
-</div>
-<div id="ref-bovy_inprep" class="csl-entry" role="listitem">
-Bovy, Jo. n.d. <em>Dynamics and Astrophysics of Galaxies</em>.
-Princeton, NJ: Princeton University Press.
-</div>
-<div id="ref-2015ApJS..216...29B" class="csl-entry" role="listitem">
-———. 2015. <span>“<span class="nocase">galpy: A python Library for
-Galactic Dynamics</span>”</span> 216 (2): 29. <a
-href="https://doi.org/10.1088/0067-0049/216/2/29">https://doi.org/10.1088/0067-0049/216/2/29</a>.
-</div>
-<div id="ref-1914PhRv....4..345B" class="csl-entry" role="listitem">
-Buckingham, E. 1914. <span>“<span class="nocase">On Physically Similar
-Systems; Illustrations of the Use of Dimensional
-Equations</span>.”</span> <em>Physical Review</em> 4 (4): 345–76. <a
-href="https://doi.org/10.1103/PhysRev.4.345">https://doi.org/10.1103/PhysRev.4.345</a>.
-</div>
-<div id="ref-2023A&amp;A...673A..44F" class="csl-entry" role="listitem">
-Ferrone, Salvatore, Paola Di Matteo, Alessandra Mastrobuono-Battisti,
-Misha Haywood, Owain N. Snaith, Marco Montuori, Sergey Khoperskov, and
-David Valls-Gabaud. 2023. <span>“<span class="nocase">The e-TidalGCs
-project. Modeling the extra-tidal features generated by Galactic
-globular clusters</span>”</span> 673 (May):A44. <a
-href="https://doi.org/10.1051/0004-6361/202244141">https://doi.org/10.1051/0004-6361/202244141</a>.
-</div>
-<div id="ref-2025A&amp;A...699A.289F" class="csl-entry" role="listitem">
-Ferrone, Salvatore, Marco Montuori, Paola Di Matteo, Alessandra
-Mastrobuono-Battisti, Rodrigo Ibata, Paolo Bianchini, Sergey Khoperskov,
-et al. 2025. <span>“<span class="nocase">Gaps in stellar streams as a
-result of globular cluster flybys: The case of Palomar 5</span>”</span>
-699 (July):A289. <a
-href="https://doi.org/10.1051/0004-6361/202553923">https://doi.org/10.1051/0004-6361/202553923</a>.
-</div>
-<div id="ref-1990PhyD...43..105F" class="csl-entry" role="listitem">
-Forest, Etienne, and Ronald D. Ruth. 1990. <span>“<span
-class="nocase">Fourth-order symplectic integration</span>.”</span>
-<em>Physica D Nonlinear Phenomena</em> 43 (1): 105–17. <a
-href="https://doi.org/10.1016/0167-2789(90)90019-L">https://doi.org/10.1016/0167-2789(90)90019-L</a>.
-</div>
-<div id="ref-2021A&amp;A...649A...1G" class="csl-entry" role="listitem">
-Gaia Collaboration, A. G. A. Brown, A. Vallenari, T. Prusti, J. H. J. de
-Bruijne, C. Babusiaux, M. Biermann, et al. 2021. <span>“<span
-class="nocase">Gaia Early Data Release 3. Summary of the contents and
-survey properties</span>”</span> 649 (May):A1. <a
-href="https://doi.org/10.1051/0004-6361/202039657">https://doi.org/10.1051/0004-6361/202039657</a>.
-</div>
-<div id="ref-2023A&amp;A...674A...1G" class="csl-entry" role="listitem">
-Gaia Collaboration, A. Vallenari, A. G. A. Brown, T. Prusti, J. H. J. de
-Bruijne, F. Arenou, C. Babusiaux, et al. 2023. <span>“<span
-class="nocase">Gaia Data Release 3. Summary of the content and survey
-properties</span>”</span> 674 (June):A1. <a
-href="https://doi.org/10.1051/0004-6361/202243940">https://doi.org/10.1051/0004-6361/202243940</a>.
-</div>
-<div id="ref-2017A&amp;A...598A..66P" class="csl-entry" role="listitem">
-Pouliasis, E., P. Di Matteo, and M. Haywood. 2017. <span>“<span
-class="nocase">A Milky Way with a massive, centrally concentrated thick
-disc: new Galactic mass models for orbit computations</span>”</span> 598
-(February):A66. <a
-href="https://doi.org/10.1051/0004-6361/201527346">https://doi.org/10.1051/0004-6361/201527346</a>.
-</div>
-<div id="ref-1992nrca.book.....P" class="csl-entry" role="listitem">
-Press, William H., Saul A. Teukolsky, William T. Vetterling, and Brian
-P. Flannery. 1992. <em><span class="nocase">Numerical recipes in C. The
-art of scientific computing</span></em>.
-</div>
-<div id="ref-2018ComAC...5....2V" class="csl-entry" role="listitem">
-Varri, Anna Lisa, Maxwell Xu Cai, Francisca Concha-Ramı́rez, František
-Dinnbier, Nora Lützgendorf, Václav Pavlı́k, Sara Rastello, Antonio
-Sollima, Long Wang, and Alice Zocchi. 2018. <span>“<span
-class="nocase">A MODEST review</span>.”</span> <em>Computational
-Astrophysics and Cosmology</em> 5 (1): 2. <a
-href="https://doi.org/10.1186/s40668-018-0024-6">https://doi.org/10.1186/s40668-018-0024-6</a>.
-</div>
-<div id="ref-2018arXiv180208255V" class="csl-entry" role="listitem">
-Vasiliev, Eugene. 2018. <span>“<span class="nocase">Agama reference
-documentation</span>.”</span> <em>arXiv e-Prints</em>, February,
-arXiv:1802.08255. <a
-href="https://doi.org/10.48550/arXiv.1802.08255">https://doi.org/10.48550/arXiv.1802.08255</a>.
-</div>
-<div id="ref-weyl1946classical" class="csl-entry" role="listitem">
-Weyl, Hermann. 1946. <em>The Classical Groups: Their Invariants and
-Representations</em>. Vol. 1. Princeton university press.
-</div>
-</div>
 </body>
 </html>
