@@ -15,7 +15,16 @@
 \section{Dark matter subahlos}
 
 
-\section{Mock observations}
+\section{particle-spray methods}
+
+\citet{2012MNRAS.420.2700K} created the ``streak-line'' method, which in essence approximates streams as having the same orbital parameters as the progenitor. \citet{2014ApJ...795...94B} continued this and used it to quickly generate streams in a monte-carlo code to find the best halo parameters to reproduced observed streams to recover a galaxy's mass. They generate orbits on the fly giving the star particles the same parameters as the progenitor but offset. 
+
+The ``streak-line'' method is limited and ignores the dispersion in orbital parameters of the escaped stars. \citet{2011MNRAS.413.1852E} presented streams in action-angle variables. As stated by \citet{2015MNRAS.452..301F}, this is the most elegant description of stellar streams. Each stream star has an offset from the progenitor's hamiltonian which can be expressed with a second order taylor expansion. 
+
+\citet{2015MNRAS.452..301F} prescriptive stream generation model could be much faster than my simulations. Yes, this model is prescriptive but it the escape rate is tied to orbital properties, as is mine. It can operate at the on the dynamical time of the galaxy and not the dynamical time of the internal dynamics, which could greatly speed up simulations. \citet{2014ApJ...795...95B} did a good job of developing this in terms of the actions and angles. However, \citet{2015MNRAS.452..301F} provides an escape rate that is more motivated by the orbit of the progenitor, which is good since we know more particles escape at peri-center due to the scaling of tidal forces with $r^{-3}$. So the Fardal is pretty great. Perhaps adopting one of these methods for certain problems could be great. 
+
+The advantage of my method is that it is not prescriptive, so if we explore a region of the parameter space where the assumptions behind the prescriptions break down, we may be led astray. \dots but it's so fast \dots 
+
 
 
 \section{Globular cluster formation and multiple stellar populations}
@@ -44,11 +53,7 @@
     
     \citet{2006MNRAS.369..825S} proposed the initial mass function on pop III stars. I think this explains why the were expected to be soooo large and how the metals allow them to grow so much. I don't know what the  WMAP eletron scatter probe is. I think they're already talking about detectability. and saying that if a scenario produces many eave pop III stars, then it won't be detectable in the WMAP data. Perhaps pop III stars should do something to the electron scattering optical depth? What is a Larson initial mass function?  
 
-    \textit{Try and make some notes on multiple stellar populations. Show some of Milone's \& Alessandra's work. Talk about some things in general how we don't even know the formation of globular clusters. Say that in general they are pop II stars that are the stars that formed right after first stars exploded, which is a very interesting research question. Do they exist? or are they all dead? Try and cite some of Rafaella's papers, tying together stellar evolution, globular cluster formation, multiple stellar populations, and primordial stars.}
 
-    \textit{Anything else? Try to make a note on particle-spray methods. How those can be just send out a particles, while with accurate energies, with an escape rate that might not be realisitic due to the perscriptive nature.}
-
-    \textit{perhaps it can be interesting to try and detect multiple population stuff within the stelalr streams\dots that could constrain the globular cluster evolution}
 
 
 
