@@ -615,8 +615,8 @@ studied the motion of stars in the local solar neighborhood and showed
 that the Galaxy not only has net rotation, but also differential
 rotation—as opposed to solid-body rotation.</p>
 <p>The field has come a long way since then, and today we possess a
-number of viable models for the Galactic gravitational potential. Much
-of this progress owes to the fact that Poisson’s equation is linear:
+number of viable models for the Galactic gravitational field. Much of
+our understanding owes to the fact that Poisson’s equation is linear:
 <span class="math display">\[\label{eq:linear_poisson}
             \nabla^2 \left(a_0\Phi_0 + a_1\Phi_1 \right) = a_0 \nabla^2
 \Phi_0 + a_1 \nabla^2 \Phi_1 = 4\pi G \left(a_0\rho_0
@@ -682,8 +682,7 @@ spatial distribution of stars with spectroscopic observations from Gaia
 DR3, the bulk of high-quality measurements are clustered near the Sun.
 This is a natural consequence of the inverse-square law for luminosity,
 and it implies that any model of the Galactic potential must account for
-these biases. Such limitations are likely to remain significant for the
-foreseeable future.</p>
+these biases.</p>
 <figure id="fig:gaia_selection_function">
 <img src="images/recio-blanco-2023-fig5.png" />
 <figcaption>The Gaia spatial selection function for spectroscopic
@@ -764,26 +763,26 @@ variety, their construction generally follows the same template: the
 authors must choose which dataset to use, which tracer populations to
 include, and the parametric form of the Milky Way potential. Often,
 fitting all model parameters is infeasible, whether due to lack of data,
-high computational cost, or non-converging likelihoods.</p>
+high computational cost, or non-converging likelihoods. Thus, the
+authors will assume fixed values for some parameters.</p>
 <p>All of the above models assume axisymmetry, which is already a
 limitation. This makes it difficult to model the dynamics in the inner
-Galaxy (within <span class="math inline">\(2~\mathrm{kpc}\)</span>) or
-for the most bound stars — though these are not necessary for modeling
-orbits outside that region. Both <span class="citation"
-data-cites="2017MNRAS.465...76M">McMillan (2017)</span> and <span
-class="citation" data-cites="2024MNRAS.527.1915B">Binney and Vasiliev
-(2024)</span> fix the parameters describing the gas in the Galactic disk
-and only fit those related to the stellar and dark matter distributions.
-<span class="citation" data-cites="2017MNRAS.465...76M">McMillan
-(2017)</span> specifically constructed their model to support orbit
-calculations for stars in anticipation of Gaia data releases. They aimed
-to improve upon their earlier model <span class="citation"
+Galaxy (within <span class="math inline">\(2~\mathrm{kpc}\)</span>).
+Both <span class="citation" data-cites="2017MNRAS.465...76M">McMillan
+(2017)</span> and <span class="citation"
+data-cites="2024MNRAS.527.1915B">Binney and Vasiliev (2024)</span> fix
+the parameters describing the gas in the Galactic disk and only fit
+those related to the stellar and dark matter distributions. <span
+class="citation" data-cites="2017MNRAS.465...76M">McMillan (2017)</span>
+specifically constructed their model to support orbit calculations for
+stars in anticipation of Gaia data releases. They aimed to improve upon
+their earlier model <span class="citation"
 data-cites="2011MNRAS.414.2446M">(McMillan 2011)</span>, motivated by
 (1) a tripling of the maser population used to trace disk kinematics,
 and (2) the realization that omitting a gaseous disk in their earlier
 work had led to underestimating the forces in the solar vicinity.</p>
 <p>Many of the models described above rely on fitting data using
-kinematic information — comparing the model’s predictions for velocity
+kinematic information, comparing the model’s predictions for velocity
 dispersion to observations of large samples of stars. This is because
 direct astrometric measurements of stellar accelerations are still in
 their infancy. Measuring changes in angular position through parallax is
@@ -804,13 +803,14 @@ a baseline of over 25 years, long enough to detect accelerations for
 some stars. However, the Hipparcos catalog only contains around 100,000
 stars, and the typical acceleration of a field star in the Galaxy is
 extremely small. Consequently, the cross-matched catalog is currently
-being used to study stars with unusually high accelerations — typically
-in binary systems or with massive planets <span class="citation"
+being used to study stars with unusually high accelerations. These stars
+are typically in binary systems or have massive planets <span
+class="citation"
 data-cites="2023MNRAS.521.5232W 2025AJ....170...52G">(Waisberg, Klein,
-and Katz 2023; Giovinazzi et al. 2025)</span> — rather than to measure
-Galactic accelerations.</p>
+and Katz 2023; Giovinazzi et al. 2025)</span>, and their detectable
+accelerations are not due to the Galactic gravitational field.</p>
 <p>As stated in the motivation for undertaking this thesis, stellar
-streams are particularly to this recovering information about the
+streams are particularly useful for recovering information about the
 galactic gravitational field. The stars within a stream are on similar
 orbits (but shifted in phase), and their orientation and curvtature
 encodes detailed information about the Galactic gravitational field.
@@ -818,8 +818,8 @@ encodes detailed information about the Galactic gravitational field.
 (2024)</span> is the first study to use stellar streams to directly fit
 a gravitational potential model of the Milky Way. Even in that case,
 <span class="citation" data-cites="2024ApJ...967...89I">Ibata et al.
-(2024)</span> fixed some of the model parameters, adopting the same
-bulge model as <span class="citation"
+(2024)</span> needed to fix some of the model parameters. For example,
+they adopted the same bulge model as <span class="citation"
 data-cites="2017MNRAS.465...76M">McMillan (2017)</span>.</p>
 <p>In this thesis, we use the model of <span class="citation"
 data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
@@ -831,7 +831,7 @@ observational data similar to those used in <span class="citation"
 data-cites="2015ApJS..216...29B">Bovy (2015)</span>, including the
 galactic rotation curve and local stellar kinematics. <span
 class="citation" data-cites="2017A&amp;A...598A..66P">Pouliasis, Di
-Matteo, and Haywood (2017)</span> provides two versions of the model —
+Matteo, and Haywood (2017)</span> provides two versions of the model:
 one with a bulge and one without. Below, we describe the second version,
 which we used in both Chapter 4 and Chapter 5.</p>
 <p>The second version of <span class="citation"
@@ -850,13 +850,15 @@ smoothly interpolates between a flattened disk and a spherical
 distribution, depending on the values of <span
 class="math inline">\(a\)</span> and <span
 class="math inline">\(b\)</span>. <span class="citation"
-data-cites="2017MNRAS.465...76M">McMillan (2017)</span> also used this
-form for their disk model.</p>
-<p>However, it is worth noting that real galaxies are observed to have
-exponentially decaying disks: <span class="math display">\[\rho(R,z) =
-\rho_0 \mathrm{exp}\left(-\frac{R}{R_d}-\frac{|z|}{z_d}\right),\]</span>
-where <span class="math inline">\(\rho\)</span> is the mass density,
-<span class="math inline">\(R\)</span> is the cylindrical radius, <span
+data-cites="2015ApJS..216...29B">Bovy (2015)</span> also used this form
+for their disk model.</p>
+<p>However, it is worth noting that real galaxies are generally observed
+to have exponentially decaying disks <span class="citation"
+data-cites="1970ApJ...160..811F">(Freeman 1970)</span>: <span
+class="math display">\[\rho(R,z) = \rho_0
+\mathrm{exp}\left(-\frac{R}{R_d}-\frac{|z|}{z_d}\right),\]</span> where
+<span class="math inline">\(\rho\)</span> is the mass density, <span
+class="math inline">\(R\)</span> is the cylindrical radius, <span
 class="math inline">\(z\)</span> the vertical height, and the model has
 three parameters: a characteristic density <span
 class="math inline">\(\rho_0\)</span>, scale radius <span
@@ -2970,6 +2972,11 @@ Folkner, W. M., J. G. Williams, D. H. Boggs, R. S. Park, and P.
 Kuchynka. 2014. <span>“<span class="nocase">The Planetary and Lunar
 Ephemerides DE430 and DE431</span>.”</span> <em>Interplanetary Network
 Progress Report</em> 42-196 (February):1–81.
+</div>
+<div id="ref-1970ApJ...160..811F" class="csl-entry" role="listitem">
+Freeman, K. C. 1970. <span>“<span class="nocase">On the Disks of Spiral
+and S0 Galaxies</span>”</span> 160 (June):811. <a
+href="https://doi.org/10.1086/150474">https://doi.org/10.1086/150474</a>.
 </div>
 <div id="ref-2018A&amp;A...616A...1G" class="csl-entry" role="listitem">
 Gaia Collaboration, A. G. A. Brown, A. Vallenari, T. Prusti, J. H. J. de
