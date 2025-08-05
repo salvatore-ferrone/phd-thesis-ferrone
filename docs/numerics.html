@@ -208,12 +208,15 @@ the true dynamics, especially when the true solution is unknown? How do
 we handle performance, data volume, or the trade-offs between speed and
 accuracy?</p>
 <p>To do this, I chose to write my own code, <code>tstrippy</code>,
-despite other codes on the market already existing. My motivation was
-part practical: I wanted to avoid installation difficulties, steep
-learning curves, and uncertainty over whether existing tools could
-implement my specific setup. But above all else, I wanted to create a
-reliable product that works, allows me to reproduce my results, and run
-my simulations at scale.</p>
+despite other codes on the market already existing <span
+class="citation"
+data-cites="2013A&amp;A...557A..84P 2015ApJS..216...29B 2015MNRAS.450.4070W 2017JOSS....2..388P 2018arXiv180208255V">(Pelupessy
+et al. 2013; Bovy 2015; Wang et al. 2015; Price-Whelan 2017; Vasiliev
+2018)</span>. My motivation was part practical: I wanted to avoid
+installation difficulties, steep learning curves, and uncertainty over
+whether existing tools could implement my specific setup. But above all
+else, I wanted to create a reliable product that works, allows me to
+reproduce my results, and run my simulations at scale.</p>
 <p>This chapter documents how we solve the equations of motion
 numerically, how we validate the accuracy of the solutions, and how the
 code is organized under the hood.</p>
@@ -393,9 +396,9 @@ simple method for numerically solving differential equations. In this
 method, a solution is approximated by <span
 class="math display">\[y_{i+1} = y_i + \Delta t
 \frac{dy}{dt}\left(y_i,t_i\right),\]</span> where <span
-class="math inline">\(i\)</span> is a time step index. This means that
-at each point <span class="math inline">\((t_i, y_i)\)</span>, the
-function is extrapolated forward using a linear approximation.</p>
+class="math inline">\(i\)</span> is a timestep index. This means that at
+each point <span class="math inline">\((t_i, y_i)\)</span>, the function
+is extrapolated forward using a linear approximation.</p>
 <p>The accuracy of this method can be understood using a Taylor series
 expansion of the exact solution <span class="math inline">\(y(t_i +
 \Delta t)\)</span> about <span class="math inline">\(t_i\)</span>: <span
@@ -529,7 +532,7 @@ alternate these operations in a specific sequence to preserve the
 Hamiltonian and phase space volume.</p>
 <p>The scheme outlined above is essentially a first-order method and is
 closely related to Euler’s method. More sophisticated integrators use
-values from multiple time steps to construct higher-order estimates of
+values from multiple timesteps to construct higher-order estimates of
 the system’s evolution. For example, some schemes temporarily evolve the
 position to an intermediate value <span
 class="math inline">\(q_\mathrm{temp}\)</span>, use this to compute a
@@ -538,15 +541,15 @@ adjust both using weighted averages or predictor-corrector steps to
 reach the final state. These methods carefully balance forward and
 backward steps to optimize accuracy while preserving the symplectic
 structure.</p>
-<p>One of the most commonly used integrators in galactic dynamics is the
-leapfrog method. It works by interleaving updates of positions and
-momenta using time-centered averages. Specifically, the average momentum
-between <span class="math inline">\(q_i\)</span> and <span
-class="math inline">\(q_{i+1}\)</span> (denoted <span
+<p>One of the most commonly used symplectic integrators in galactic
+dynamics is the Leapfrog scheme. It works by interleaving updates of
+positions and momenta using time-centered averages. Specifically, the
+average momentum between <span class="math inline">\(q_i\)</span> and
+<span class="math inline">\(q_{i+1}\)</span> (denoted <span
 class="math inline">\(p_{i+1/2}\)</span>) is used to advance the
 position, and then the average force (derived from the potential) is
 used to update the momentum. In Cartesian coordinates—used throughout
-this thesis—the leapfrog algorithm can be written as: <span
+this thesis—the Leapfrog algorithm can be written as: <span
 class="math display">\[\begin{aligned}
         x_{i+1/2} &amp;= x_i + \frac{1}{2} \dot{x}_i \Delta t , \\
         \ddot{x}_{i+1/2} &amp;= -\nabla \Phi(x_{i+1/2}), \\
@@ -554,7 +557,7 @@ class="math display">\[\begin{aligned}
         x_{i+1} &amp;= x_{i+1/2} + \frac{1}{2} \dot{x}_{i+1} \Delta t.
     
 \end{aligned}\]</span> As will be shown in the next section, the
-leapfrog algorithm is sufficient. However, the question of computational
+Leapfrog algorithm is sufficient. However, the question of computational
 efficiency and numerical accuracy is ever present. Leapfrog uses the two
 local points about the position and momenta to evolve them. Other
 schemes can use more points to have more accurate estimations for the
@@ -567,7 +570,7 @@ estimate of the derivative for evoling the system. The method involves
 solving a cubic polynomial to determine the optimal coefficients. While
 the derivation is mathematically involved, the final scheme is
 straightforward to implement. I implemented this method and tested its
-efficiency against the leapfrog and present the results in the following
+efficiency against the Leapfrog and present the results in the following
 section. There are eight coefficients in this method, which are
 presented in Table <a href="#tab:forest_ruth_coeffs"
 data-reference-type="ref"
@@ -639,8 +642,8 @@ as follows: <span class="math display">\[\begin{aligned}
 the <em>mini-step</em>. Notice that the sum of <span
 class="math inline">\(\sum_n^4 c_n\)</span> and <span
 class="math inline">\(\sum_n^4 d_n\)</span> both equal 1, which is a
-full time step <span class="math inline">\(\Delta t\)</span>.</p>
-<p>Lastly, it is important to note that the leapfrog algorithm is
+full timestep <span class="math inline">\(\Delta t\)</span>.</p>
+<p>Lastly, it is important to note that the Leapfrog algorithm is
 symplectic and time-reversible only for Hamiltonians that are both
 time-independent and separable—that is, where the Hamiltonian can be
 written as a sum of a kinetic term depending only on momenta, <span
@@ -649,20 +652,20 @@ position <span class="math inline">\(\Phi(q)\)</span>. These conditions
 are satisfied for systems in an inertial frame with conservative forces.
 This is true when integrating the motion for the center of mass of the
 globular clusters. However, the Hamiltonian for the integration of the
-particles does depend on time. So the leapfrog algorithm may introduce
+particles does depend on time. So the Leapfrog algorithm may introduce
 systematic integration errors due to the violation of its underlying
 assumptions, beyond ordinary rounding errors.</p>
 <p>Similarly, when we integrate the orbits of either the particles or
-the globular clusters in the Galaxy containing a galactic bar, we are
-faced with a choice: we can either work in a time-dependent inertial
-frame, where the potential rotates and the Hamiltonian explicitly
-depends on time, or we can transform to a rotating frame, in which case
-the kinetic energy becomes position-dependent due to Coriolis and
-centrifugal forces, which breaks the necessary criterion of
-separability: <span class="math inline">\(\mathcal{H}(q,p) =
-T(p)+\Phi(q)\)</span>. In both cases, the standard assumptions of the
-leapfrog algorithm are violated.</p>
-<p>Nonetheless, we will continue to use leapfrog as it remains a robust
+the globular clusters in the Galaxy containing a bar, we are faced with
+a choice: we can either work in a time-dependent inertial frame, where
+the potential rotates and the Hamiltonian explicitly depends on time, or
+we can transform to a rotating frame, in which case the kinetic energy
+becomes position-dependent due to Coriolis and centrifugal forces, which
+breaks the necessary criterion of separability: <span
+class="math inline">\(\mathcal{H}(q,p) = T(p)+\Phi(q)\)</span>. In both
+cases, the standard assumptions of the Leapfrog algorithm are
+violated.</p>
+<p>Nonetheless, we will continue to use Leapfrog as it remains a robust
 and efficient integrator for a wide range of astrophysical systems. Its
 good long-term energy conservation makes it a reasonable approximation
 even when the ideal assumptions are not strictly met. However, this
@@ -670,34 +673,44 @@ highlights the need for careful validation: we must verify that the
 integration errors remain within acceptable bounds, especially in
 systems with non-separable or time-dependent dynamics. This validation
 is the subject of the next section.</p>
-<h1 id="numerical-error-computation-time">Numerical Error &amp;
+<h1 id="numerical-error-and-computation-time">Numerical Error and
 Computation Time</h1>
 <p>To ensure the quality of the integration, we perform two main checks.
 The first is to ensure that the initial orbital energy of a given
 particle is conserved to high precision. At each timestep, the relative
 error in the energy conservation is: <span
-class="math inline">\(\mathrm{err}(E) = \left|\frac{E -
-E_0}{E_0}\right|\)</span>, where <span
+class="math display">\[\mathrm{err}(E(t)) = \left|\frac{E(t) -
+E_0}{E_0}\right|,\]</span> where <span
 class="math inline">\(E_0\)</span> is the initial energy and <span
-class="math inline">\(E\)</span> is the orbital energy at a given time
-step <span class="math inline">\(t_i\)</span>. For the case of globular
-clusters, the total orbital energy is its own kinetic energy plus its
-gravitational potential energy in the Galaxy: <span
-class="math inline">\(E = T(\textbf{v}) +
-\Phi_{\mathrm{MW}}\left(\textbf{x}\right)\)</span>. For the case of a
+class="math inline">\(E\)</span> is the orbital energy at a given
+timestep <span class="math inline">\(t\)</span>. For the case of a
+globular cluster, the total orbital energy is its own kinetic energy
+plus its gravitational potential energy in the Galaxy: <span
+class="math inline">\(E = T(\mathbf{v}_{\mathrm{GC}}) +
+\Phi_{\mathrm{MW}}\left(\mathbf{x}_{\mathrm{GC}}\right)\)</span>, where
+<span class="math inline">\(\mathbf{x}_{\mathrm{GC}}\)</span> and <span
+class="math inline">\(\mathbf{v}_{\mathrm{GC}}\)</span> are the
+cartesian galactocentric position and velocity of the globular cluster.
+For the case of the <span class="math inline">\(i\)</span>-th
 star-particle within a globular cluster, the potential energy of the
 cluster is included: <span class="math inline">\(E_i = T(\textbf{v}_i) +
 \Phi_{\mathrm{MW}}\left(\textbf{x}_i\right) +
 \Phi_\mathrm{GC}\left(\textbf{x}_i -
-\textbf{x}_{\mathrm{GC},i}\right)\)</span>. The same approach holds when
-a galactic bar is included, the only difference being that the Galactic
-potential has a time-dependent element.</p>
-<p>The second check is that the simulations are time-reversable. In this
-case, we integrate a cluster back in time, and then change the sign of
-its velocity to subsequently integrate forward in time. If the
-integration is correct, the cluster should remain on the same trajectory
-retracing its steps. We investigate this for the following scenarios and
-show the results below:</p>
+\textbf{x}_{\mathrm{GC}}\right)\)</span>, where <span
+class="math inline">\(\mathbf{x}_i\)</span> is the position relative to
+the Galactic center. The same approach holds when a galactic bar is
+included, the only difference being that the Galactic potential has a
+time-dependent element.</p>
+<p>For potentials with the galactic bar, the total energy is not
+conserved but rather the Jacobi energy, and this is true only for the
+globular clusters. For the star-particles, the energy is not conserved
+in the simulations. However, we track the energy particularly when we
+perform the second check, which is time-reversability.</p>
+<p>To check the time-reversability, we integrate a cluster back in time,
+and then change the sign of its velocity to subsequently integrate
+forward in time. If the integration is correct, the cluster should
+remain on the same trajectory retracing its steps. We investigate this
+for the following scenarios and show the results below:</p>
 <ul>
 <li><p>The globular cluster population orbiting with a time-static Milky
 Way potential;</p></li>
@@ -706,96 +719,101 @@ cluster;</p></li>
 <li><p>Full stream generation, i.e., star particles orbiting within a
 globular cluster that orbits the Galaxy.</p></li>
 </ul>
+<p>At this stage in time, I did not have time to the full quality check
+for orbits within the barred potential. However, I refer the reader to
+the <code>tstrippy</code>’s documentation in which I present the
+time-reversability of the cluster’s orbits within the barred potential:
+<a
+href="https://tstrippy.readthedocs.io/en/latest/reverse_integrability_bar.html">https://tstrippy.readthedocs.io/en/latest/reverse_integrability_bar.html</a>.</p>
 <h2 id="globular-cluster-orbits-in-a-static-galaxy">Globular Cluster
 Orbits in a Static Galaxy</h2>
-<p>As explained in the next chapter, the initial conditions for the
-globular cluster system (positions and velocities) were taken from <span
-class="citation" data-cites="2018MNRAS.478.1520B">Baumgardt and Hilker
-(2018)</span>’s online globular cluster catalog whose data derived from
-Gaia Early Data Release 3 among other sources <span class="citation"
+<p>The initial conditions for the globular cluster system (positions and
+velocities) were taken from <span class="citation"
+data-cites="2018MNRAS.478.1520B">Baumgardt and Hilker (2018)</span>’s
+online globular cluster catalog whose data derived from Gaia Early Data
+Release 3 among other sources <span class="citation"
 data-cites="2021MNRAS.505.5957B 2021A&amp;A...649A...1G 2023A&amp;A...674A...1G">(Baumgardt
 and Vasiliev 2021; Gaia Collaboration et al. 2021, 2023)</span>.</p>
 <p>To test the integrator, we integrated the whole globular cluster
 system for 5 Gyr, and then integrated it back to the initial conditions.
-We used four time steps: <span
+We used four timesteps: <span
 class="math inline">\(10^4,10^5,10^6,10^7\)</span> years which
 corresponds to <span
 class="math inline">\(\left[500,5000,50000,500000\right]\)</span>
-integration steps, respectively. In general, the time step should scale
-with the dynamical time of the orbit. In other words, the time step
+integration steps, respectively. In general, the timestep should scale
+with the dynamical time of the orbit. In other words, the timestep
 should be inversely proportional to the orbital energy. The further the
-system is from the center, a larger time step can be used to obtain a
+system is from the center, a larger timestep can be used to obtain a
 given numerical error.</p>
-<p><strong>note on adaptive timesteps?</strong> Of course, the timestep
-does not just simply scale with a body’s orbital energy, it should scale
-with the maximum acceleration experienced in the system. A highly
-eccentric orbit requires a smaller timestep to properly integrate the
-motion near the pericenter, compared to a circular orbit at the same
-orbital energy. To not clutter the graph, Fig. <a
-href="#fig:numericalErrorLeapFrogVanilla" data-reference-type="ref"
-data-reference="fig:numericalErrorLeapFrogVanilla">1</a> only present
+<p>Of course, the timestep does not just simply scale with a body’s
+orbital energy, it should scale with the maximum acceleration
+experienced in the system. A highly eccentric orbit requires a smaller
+timestep to properly integrate the motion near the pericenter, compared
+to a circular orbit at the same orbital energy. To not clutter the
+graph, Fig. <a href="#fig:numericalErrorLeapfrogVanilla"
+data-reference-type="ref"
+data-reference="fig:numericalErrorLeapfrogVanilla">1</a> only present
 the whole globular cluster system twice, once integrated with the
 smallest timestep, <span class="math inline">\(10^4\)</span> years, and
 once with the largest timestep: <span
 class="math inline">\(10^7\)</span> years.</p>
-<figure id="fig:numericalErrorLeapFrogVanilla">
-<img src="images/numericalErrorLeapFrogVanilla.png" />
+<figure id="fig:numericalErrorLeapfrogVanilla">
+<img src="images/numericalErrorLeapfrogVanilla.png" />
 <figcaption>Error in orbital energy for the whole globular cluster
-system with two different time steps, dt = <span
+system with two different timesteps, dt = <span
 class="math inline">\(10^{7}\)</span> and <span
 class="math inline">\(10^{4}\)</span> years. Each cluster’s is colored
 by its initial orbital energy. The average of the whole system for a
 given timestep is indicated with dotted and solid black lines,
 respectively.</figcaption>
 </figure>
-<p>In Fig. <a href="#fig:numericalErrorLeapFrogVanilla"
+<p>In Fig. <a href="#fig:numericalErrorLeapfrogVanilla"
 data-reference-type="ref"
-data-reference="fig:numericalErrorLeapFrogVanilla">1</a> we can notice
+data-reference="fig:numericalErrorLeapfrogVanilla">1</a> we can notice
 that orbits with higher orbital energies (in red) have low numerical
 error compared to those with lower energies (in blue), which penetrate
 deeper in the potential well. It is clear that, for the whole system,
-<span class="math inline">\(10^7\)</span> years is a time step that is
+<span class="math inline">\(10^7\)</span> years is a timestep that is
 far too large, however, interestingly enough, for some of the farthest
-globular clusters, a time step of 10 million years resolves their orbits
+globular clusters, a timestep of 10 million years resolves their orbits
 to an error of <span class="math inline">\(\langle \Delta E / E_0
 \rangle \sim 10^{-5}\)</span>, which is still far less than the
 uncertainties in the energy due to both modeling and observational
 uncertainties. Note that in both cases, the errors neither accumulate
-nor grow with time. This is a testament to the quality of the leapfrog
+nor grow with time. This is a testament to the quality of the Leapfrog
 integration scheme, which is designed to conserve the Hamiltonian
 accurately.</p>
 <p>Fig. <a href="#fig:numericalErrorReverseIntegration"
 data-reference-type="ref"
 data-reference="fig:numericalErrorReverseIntegration">2</a> presents the
 <em>time reversibility</em>, or the integrator’s ability to retrace its
-own steps. For each given time step, I report the difference between the
+own steps. For each given timestep, I report the difference between the
 initial integration and the retrace normalized to the mean of the two
-position’s. I perform the same computation for the velocities. The time
-step of <span class="math inline">\(10^7\)</span> yr saturates only
+position’s. I perform the same computation for the velocities. The
+timestep of <span class="math inline">\(10^7\)</span> yr saturates only
 after 2 Gyr. The distances do not continue to grow becuase the orbital
-energy only differs by one part in ten, so at later time steps, the
+energy only differs by one part in ten, so at later timesteps, the
 cluster is still within the same region of phase-space, but the retrace
 is at a completely different location than the initial integration. The
-errors in the time step of <span
+errors in the timestep of <span
 class="math inline">\(10^6\)</span> yrbecome significant, though by the
 end of the integration period of 5 Gyr they are still only one part in
-ten thousand. The time steps of <span
-class="math inline">\(10^5\)</span> and <span
-class="math inline">\(10^4\)</span> yr have excellent retraceability and
-on average, only differ by one part in <span
+ten thousand. The timesteps of <span class="math inline">\(10^5\)</span>
+and <span class="math inline">\(10^4\)</span> yr have excellent
+retraceability and on average, only differ by one part in <span
 class="math inline">\(10^{-14}\)</span>, and are thus only limited by
 round off error from the use of double precision floating point
 numbers.</p>
 <figure id="fig:numericalErrorReverseIntegration">
 <img src="images/numericalErrorReverseIntegration.png" />
 <figcaption>The <em>time-reversability</em> of the Leapfrog scheme for
-the 165 Galactic globular cluster’s for four different time steps
+the 165 Galactic globular cluster’s for four different timesteps
 indicated in the legend. The whole system is only shown for <span
 class="math inline">\(10^4\)</span> yr and <span
 class="math inline">\(10^7\)</span> yr to avoid clutter. The clusters
 are color-coded to their initial orbital energy just as Fig. <a
-href="#fig:numericalErrorLeapFrogVanilla" data-reference-type="ref"
-data-reference="fig:numericalErrorLeapFrogVanilla">1</a></figcaption>
+href="#fig:numericalErrorLeapfrogVanilla" data-reference-type="ref"
+data-reference="fig:numericalErrorLeapfrogVanilla">1</a></figcaption>
 </figure>
 <p>Computation time is quite important. Fig. <a
 href="#fig:numericalErrorGlobularClustersComputationTime"
@@ -814,13 +832,13 @@ data-reference="fig:numericalErrorGlobularClustersComputationTime">3</a>
 is in part a coincidence, as some time realizations minimize this, and
 in part due to the overhead computation time with initializing and
 finalizing the calculation contributes less and less with increasing
-integration time. Nonetheless, for this processor, for a single
-integration step the mean time is <span
+integration time. Nonetheless, for this processor (Apple M2 processor),
+for a single integration step the mean time is <span
 class="math inline">\(\sim\)</span> 128 nanoseconds.</p>
 <figure id="fig:numericalErrorGlobularClustersComputationTime">
 <img src="images/numericalErrorGlobularClustersComputationTime.png" />
 <figcaption>Computation time for integrating the entire globular cluster
-system using the leapfrog scheme. The top panel shows the total time
+system using the Leapfrog scheme. The top panel shows the total time
 while the bottom shows computation time for a single step, for a single
 object being integrated. This was performed on a 2022 MacBook Air with
 an Apple M2 processor. </figcaption>
@@ -829,47 +847,47 @@ an Apple M2 processor. </figcaption>
 implemented and is reported in Fig. <a
 href="#fig:numericalErrorRuthForest" data-reference-type="ref"
 data-reference="fig:numericalErrorRuthForest">4</a>. Here, as expected,
-we see that the percision greatly increases when decreasing the time
-step. However, since there are four force evaluations for the for a
-single timestep, this method is naturally slower perstep than leapfrog.
+we see that the percision greatly increases when decreasing the
+timestep. However, since there are four force evaluations for the for a
+single timestep, this method is naturally slower per step than Leapfrog.
 How do the two methods compare over all?</p>
 <figure id="fig:numericalErrorRuthForest">
 <img src="images/numericalErrorRuthForest.png" />
 <figcaption>The conservation of energy error for the Ruth-Forest
 integration scheme for the globular cluster system. This plot is similar
-to Fig. <a href="#fig:numericalErrorLeapFrogVanilla"
+to Fig. <a href="#fig:numericalErrorLeapfrogVanilla"
 data-reference-type="ref"
-data-reference="fig:numericalErrorLeapFrogVanilla">1</a>, but does not
+data-reference="fig:numericalErrorLeapfrogVanilla">1</a>, but does not
 preesnt on the whole globular cluster system, just the average error in
-energy for the whole system with a given time step. The time step and
+energy for the whole system with a given timestep. The timestep and
 time-average numerical error for the whole system is presented next to
 each curve. The average computation time per integration step per single
 object is as well.</figcaption>
 </figure>
-<p>Fig. <a href="#fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog"
+<p>Fig. <a href="#fig:numericalErrorMeanEnergyErrorRuthForestLeapfrog"
 data-reference-type="ref"
-data-reference="fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog">5</a>
+data-reference="fig:numericalErrorMeanEnergyErrorRuthForestLeapfrog">5</a>
 compares the numerical error for again the total number of steps (which
-is inversely propertial to the time step). It is clear that for a given
-step size, the Ruth-forest out performs the leap frog, but is it
-actually better? To answer this question, I fit the two curves with
-their own trend lines to find the number of steps required to have a
-relative error of <span class="math inline">\(10^{-8}\)</span>. With
-this requirement, The leapfrog sceme requires 262,641 steps while the
+is inversely propertial to the timestep). It is clear that for a given
+step size, the Ruth-forest outperforms the Leapfrog, but is it actually
+better? To answer this question, I fit the two curves with their own
+trend lines to find the number of steps required to have a relative
+error of <span class="math inline">\(10^{-8}\)</span>. With this
+requirement, The Leapfrog sceme requires 262,641 steps while the
 Ruth-Forest scheme requires 102,773 steps. However, given the difference
 in computation time per step, on average, the Forest-Ruth scheme takes
 <span class="math inline">\(\sim 1.5\)</span>x more time for the same
-degree of numerical precision than the leapfrog. For this reason, we use
-the leapfrog algorithm. In this problem, numerical uncertainties are
+degree of numerical precision than the Leapfrog. For this reason, we use
+the Leapfrog algorithm. In this problem, numerical uncertainties are
 must less of a limiting factor compared to modeling uncertainties and
 observational uncertainties, so a better integrator for numerical
 precision is not worth the pay off of longer computation times.</p>
-<figure id="fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog">
-<img src="images/numericalErrorMeanEnergyErrorRuthForestLeapFrog.png" />
+<figure id="fig:numericalErrorMeanEnergyErrorRuthForestLeapfrog">
+<img src="images/numericalErrorMeanEnergyErrorRuthForestLeapfrog.png" />
 <figcaption>The time averaged error in the conservation of energy for
-the entire globular cluster system for four different time steps, for
-two different integration techinques: the Leapfrog against the
-Ruth-Forest. Their respective trend lines are shown.</figcaption>
+the entire globular cluster system for four different timesteps, for two
+different integration techinques: the Leapfrog against the Ruth-Forest.
+Their respective trend lines are shown.</figcaption>
 </figure>
 <h2 id="star-particles-in-a-static-globular-cluster">Star-particles in a
 static globular cluster</h2>
@@ -879,10 +897,10 @@ static globular cluster</h2>
       Your browser does not support the video tag.
     </video>
   </div>
-<p>A classic problem in astronomy and the physical sciences is that
-there are two different physical phenomena that are relevent to your
-problem but they have two very different time scales. This is certainly
-the case with globular clusters. Fig. <a
+<p>A classic problem in astronomy and the physical sciences is the case
+where there two or more different physical phenomena that are relevent
+to a problem but they have very different time scales. This is certainly
+the case when dealing with globular clusters. Fig. <a
 href="#fig:GCsystemCharacteristicTimes" data-reference-type="ref"
 data-reference="fig:GCsystemCharacteristicTimes">6</a> shows the order
 of magnitude differences in time scales across the globular cluster
@@ -896,11 +914,54 @@ distribution shows the orbital crossing time of each cluster within the
 Galaxy, while the blue distribution shows a characteristic internal
 dynamical time. <em>Bottom</em>: The distribution of crossing times for
 1,000 sampled star particles within the globular clusters with the
-smallest, median, and largest internal dynamical times. These times are
-inversely proportional to the clusters’ densities and are computed with
-isotropic Plummer distributions.</figcaption>
+smallest, median, and largest internal dynamical times. The vertical
+dashed lines are the characteristic internal dynamical time. These times
+are inversely proportional to the clusters’ densities and are computed
+with isotropic Plummer distributions.</figcaption>
 </figure>
-<figure>
+<p>One metric for the a characteristic time-scale is the
+<em>crossing-time</em>. The crossing-time is the time it would take to
+get to the center of the system given it’s current speed: <span
+class="math display">\[t_\mathrm{cross} = \frac{r}{v}.\]</span> Note
+that the crossing-time for a given star is not an integral of motion and
+will change as it moves. Additionally, this metric would would break
+down in the edge caes of a radial orbit at peri- or apo-center when the
+instantaneous velocity is zero. Neither of these are a concern, <span
+class="math inline">\(t_\mathrm{cross}\)</span> still provides a great
+and quick estimate of the time-scale for the dynamics of the orbit. We
+use the crossing time for the globular clusters in the galaxy, which is
+the red distribution in the top panel of Fig. <a
+href="#fig:GCsystemCharacteristicTimes" data-reference-type="ref"
+data-reference="fig:GCsystemCharacteristicTimes">6</a>. We also use the
+crossing time for each star-particles within the globular clusters.</p>
+<p>However, for the whole system there is a great way to estiamte a
+characteristic dynamical time. Of course, as shown in the bottom panel,
+each globular cluster has a distribution of characteristic times.
+However, a single value can be given with: <span
+class="math display">\[\tau = \sqrt{\frac{a^3}{GM}},\]</span> where
+<span class="math inline">\(a\)</span> is the characteristic radius.
+Oftentimes the half mass radius is used. For the computations presented
+in this chapter, I use the half mass radius as opposed to the
+characteristic radius of the plummer sphere, the two of which are
+related by <span class="math inline">\(r_{\mathrm{1/2}}\approx 1.3
+a\)</span>. This quantity was computed for each globular cluster and is
+plotted as the blue distribution in the top panel of Fig. <a
+href="#fig:GCsystemCharacteristicTimes" data-reference-type="ref"
+data-reference="fig:GCsystemCharacteristicTimes">6</a>.</p>
+<p>Note that distribution of the globular cluster characteristic times
+has a long tail towards longer time scales, and this tail overlaps with
+the galactic crossing time. Curiously, we may ask, do any of these
+clusters have longer internal dynamical times than crossing times?
+A-priori the answer should be <em>no</em>. If it takes long for a star
+to orbit the cluster than the entire galaxy, then there is no cluster
+and it is totally dessolved. I wanted to investigate this for the
+galactic globular cluster population and and present this in Fig. <a
+href="#fig:GCsystemStabilityDynamicalTimeRatios"
+data-reference-type="ref"
+data-reference="fig:GCsystemStabilityDynamicalTimeRatios">7</a>. As
+expected, all of the clusters have a longer galactic crossing time than
+an internal time.</p>
+<figure id="fig:GCsystemStabilityDynamicalTimeRatios">
 <img src="images/GCsystemStabilityDynamicalTimeRatios.png" />
 <figcaption>Ratio of each globular clusters’ galactic crossing time to
 it’s own internal dynamical time, which, individually, are the top
@@ -909,20 +970,36 @@ data-reference-type="ref"
 data-reference="fig:GCsystemCharacteristicTimes">6</a>. Clusters’ whose
 dynamical time approaches the crossing time are almost disrupted. Those
 that are must more dense are far more stable and not close to being
-disrupted. The vertiable bars show the selected thresholds for each.
-Both lists present stability in asending order, where Gran 1 is the
-least stable and NGC 6229 is the most stable. </figcaption>
+disrupted. The vertical bars show the selected thresholds for each. Both
+lists present stability in asending order, where Gran 1 is the least
+stable and NGC 6229 is the most stable. </figcaption>
 </figure>
 <p>Given the variety of timescales involved in this problem, how do we
-choose an appropriate timestep? The first is to recognize the practical
-constrain, which is that the number of steps needs to be an integer and
-divide the total integration time evenly by the timesteps: <span
+choose an appropriate timestep? There are two criteria, the first is to
+ensure that that the time-step is sufficiently small compared to some
+characteristic time that that characterizes the dynamics. The second
+criteria is that the timestep must evenly divide a choosen intergration
+period into equal steps, i.e., that the number of steps <span
+class="math inline">\(N\)</span> is an integer. We will call this
+characteristic time: <span class="math inline">\(\tau\)</span>. We will
+then choose a trial time step: <span class="math inline">\(\Delta t&#39;
+= \alpha&#39; \tau\)</span>, where <span
+class="math inline">\(\alpha\)</span> is a choosen factor that such
+that: <span class="math inline">\(0&lt;\alpha&lt;1\)</span>. Then, we
+must apply the second criterion: <span class="math inline">\(N = \lceil
+T / \alpha &#39; \tau \rceil\)</span>, where we round-up the number of
+steps to choose an even smaller time step, which becomes: <span
+class="math inline">\(\Delta t = T/N\)</span>, and this also adjusts:
+<span class="math inline">\(\alpha = \tau / \Delta t\)</span>.</p>
+<p>For this expierments presented in this section, I wanted to explore
+the fidelity of over a wide range of <span
+class="math inline">\(\alpha\)</span>. <span
 class="math display">\[\Delta t = \frac{T}{N} =
 \frac{T}{2^{k-1}}\]</span> where <span class="math inline">\(N\)</span>
 is the number of steps and <span class="math inline">\(k\)</span> is the
-number of intervals. <span class="math inline">\(N\)</span> must be an
-integer, so our criterion is that ensures the timestep is some fraction
-of a desired time and one that ensures <span
+number of intervals. First, <span class="math inline">\(N\)</span> must
+be an integer. Second, the timestep must be a criterion ensures the
+timestep is some fraction of a desired time and one that ensures <span
 class="math inline">\(N\)</span> properly divides the entire period into
 <span class="math inline">\(N\)</span>-1 equal segments. Our criterion
 is that the timestep will be some factor <span
@@ -940,8 +1017,8 @@ href="#fig:GCsystemCharacteristicTimes" data-reference-type="ref"
 data-reference="fig:GCsystemCharacteristicTimes">6</a>, we see that the
 typical globular cluster has a crossing time of <span
 class="math inline">\(5\times10^{7}~\mathrm{yr}\)</span>. From Fig. <a
-href="#fig:numericalErrorLeapFrogVanilla" data-reference-type="ref"
-data-reference="fig:numericalErrorLeapFrogVanilla">1</a> that selecting
+href="#fig:numericalErrorLeapfrogVanilla" data-reference-type="ref"
+data-reference="fig:numericalErrorLeapfrogVanilla">1</a> that selecting
 a <span class="math inline">\(\Delta t\)</span> of <span
 class="math inline">\(10^{4}~\mathrm{yr}\)</span>, which is <span
 class="math inline">\(2\times 10^{-4}\)</span> that of the crossing
@@ -956,8 +1033,8 @@ crossing-time.</p>
 <figure id="fig:numericalErrorStaticPlummerSphereEnergyError">
 <img src="images/numericalErrorStaticPlummerSphereEnergyError.png" />
 <figcaption>The relative error of the energy conservation for a plummer
-sphere with different time steps. Each sphere was sampled with a the
-same number of particles, <span class="math inline">\(N\)</span>, and
+sphere with different timesteps. Each sphere was sampled with a the same
+number of particles, <span class="math inline">\(N\)</span>, and
 integrated for the same amount of time, <span
 class="math inline">\(T\)</span>, both of which are indicated on the
 plot. The x-axis is the size of the time-step, <span
@@ -969,7 +1046,7 @@ internal dynamical time, <span class="math inline">\(\tau =
 <p>The preceding sections assessed the numerical stability of
 integrating globular cluster orbits within the Milky Way, focusing on
 time-reversibility and relative energy error across two integration
-schemes: leapfrog and Forest-Ruth. I also considered the computational
+schemes: Leapfrog and Forest-Ruth. I also considered the computational
 cost associated with different temporal resolutions. Separately, I
 evaluated the energy conservation for star particles evolving within a
 stationary Plummer sphere, quantifying the relative error as a function
@@ -981,12 +1058,12 @@ each cluster.</p>
 <p>In this section, I combine these two components: I examine the
 quality of orbit integration for star particles evolving within a
 globular cluster, itself orbiting in the Galactic potential.</p>
-<p>I restrict the analysis here to the leapfrog integrator for two main
+<p>I restrict the analysis here to the Leapfrog integrator for two main
 reasons. First, although the Forest-Ruth scheme achieves better energy
 conservation (see Fig. <a
-href="#fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog"
+href="#fig:numericalErrorMeanEnergyErrorRuthForestLeapfrog"
 data-reference-type="ref"
-data-reference="fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog">5</a>),
+data-reference="fig:numericalErrorMeanEnergyErrorRuthForestLeapfrog">5</a>),
 this comes at a significantly higher computational cost, which outweighs
 its marginal gains for this application. Second, the equations of motion
 used to model stream generation (see Eq. XXX in the theory chapter)
@@ -1003,7 +1080,7 @@ of full stream generation.</p>
 a quality assurance experiment illustrated in Fig. <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">8</a>.
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">9</a>.
 I began by integrating the orbit of a globular cluster’s center of mass
 backward in time by 1 Gyr. At this point, a Plummer sphere was sampled
 using the cluster’s half-mass radius and mass, with 512 star particles.
@@ -1021,11 +1098,11 @@ backward-integrated version of the stream is referred to as the
 <p>Figures <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">8</a>
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">9</a>
 and <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1">9</a>
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1">10</a>
 show the results of this experiment across four different timesteps. As
 expected, increasing the timestep degrades time-reversibility and
 worsens energy conservation.</p>
@@ -1054,14 +1131,14 @@ alt="image" /></p>
 <figcaption>Same experiment as in Fig. <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">8</a>,
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">9</a>,
 but using larger timesteps as indicated. Time-reversibility and energy
 conservation degrade as timestep increases.</figcaption>
 </figure>
 <p>The two smaller timesteps in Fig. <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">8</a>
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">9</a>
 sufficiently retrace the cluster’s initial configuration. I compare each
 particle’s energy change between its initial and retraced state. For
 <span class="math inline">\(\Delta t \sim 6\times10^{-3}~\tau\)</span>,
@@ -1081,8 +1158,8 @@ energy is not conserved by design. The fact that energy errors do not
 vary strongly with timestep suggests that even the coarsest resolutions
 used here are adequate for capturing the global motion within the
 Galactic potential. As shown in Figs. <a
-href="#fig:numericalErrorLeapFrogVanilla" data-reference-type="ref"
-data-reference="fig:numericalErrorLeapFrogVanilla">1</a> and <a
+href="#fig:numericalErrorLeapfrogVanilla" data-reference-type="ref"
+data-reference="fig:numericalErrorLeapfrogVanilla">1</a> and <a
 href="#fig:numericalErrorRuthForest" data-reference-type="ref"
 data-reference="fig:numericalErrorRuthForest">4</a>, timesteps of <span
 class="math inline">\(\sim10^5\)</span> years are sufficient for stable
@@ -1090,7 +1167,7 @@ orbit integration. Even the largest timestep used in the bottom panel of
 Fig. <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1">9</a>
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1">10</a>
 corresponds to <span class="math inline">\(\sim10^5\)</span>
 years—comparable to the cluster’s internal dynamical time.</p>
 <p>Although energy is not conserved in these simulations—since the
@@ -1134,16 +1211,16 @@ physical energy distribution inherited from the initial conditions.</p>
 <p>Fig. <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">8</a>
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">9</a>
 &amp; Fig. <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1">9</a>
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1">10</a>
 demonstrate the case of a single cluster. How is the energy conservation
 for the entire catalog? Fig. <a
 href="#fig:NumericalErrorStreamRetraceEnergyConservation"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetraceEnergyConservation">10</a>
+data-reference="fig:NumericalErrorStreamRetraceEnergyConservation">11</a>
 presents the realtive error in the conservation of energy for retracing
 the orbit of each individual star particle per globular cluster for each
 cluster in the catalog. Each data point reports the mean error in the
@@ -1154,8 +1231,8 @@ class="math inline">\(10^{-2}\)</span>.</p>
 <p>From inspecting Fig. <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">8</a>,
-a time step less than <span
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">9</a>,
+a timestep less than <span
 class="math inline">\(3\times10^{-2}~\tau\)</span> is great for
 retracing the orbit of each star particle and even <span
 class="math inline">\(2\times10^{-1}~\tau\)</span> isn’t horrible. This
@@ -1166,7 +1243,7 @@ system.</p>
 <img src="images/NumericalErrorStreamRetraceEnergyConservation.png" />
 <figcaption>The conservation of energy for the retrace of each globular
 cluster in the catalog. Each cluster was sampled with 512 particles and
-integrated for 5 Gyr. Four upper thresholds for each time step were
+integrated for 5 Gyr. Four upper thresholds for each timestep were
 logarithmically sampled between <span
 class="math inline">\(10^{0}\)</span> and <span
 class="math inline">\(10^{-2}\)</span>, and selected individually for
@@ -1185,7 +1262,7 @@ with the number of integration steps.</p>
 <p>How does <code>tstrippy</code> perform? Fig. <a
 href="#fig:NumericalErrorComputationTimeScalingForStreams"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorComputationTimeScalingForStreams">11</a>
+data-reference="fig:NumericalErrorComputationTimeScalingForStreams">12</a>
 presents an the results from an experiment with all the globular
 clusters integrating them each for 1 Gyr. I choose the timestep to be at
 most 1/20 of each internal dynamical time, thus since each cluster has a
@@ -1200,7 +1277,7 @@ class="math inline">\(\langle C\rangle\)</span> would be the mean
 computation time.</p>
 <p>Fig <a href="#fig:NumericalErrorComputationTimeScalingForStreams"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorComputationTimeScalingForStreams">11</a>
+data-reference="fig:NumericalErrorComputationTimeScalingForStreams">12</a>
 shows that the code is <em>less</em> efficient than linear scaling with
 number of particles, since the best fit exponent is <span
 class="math inline">\(1.35\)</span>. However, it scales <em>better</em>
@@ -1220,16 +1297,16 @@ particles and the number of steps taken.</figcaption>
 <p>Putting Fig. <a
 href="#fig:NumericalErrorStreamRetraceEnergyConservation"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetraceEnergyConservation">10</a>
+data-reference="fig:NumericalErrorStreamRetraceEnergyConservation">11</a>
 and Fig. <a href="#fig:NumericalErrorComputationTimeScalingForStreams"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorComputationTimeScalingForStreams">11</a>
+data-reference="fig:NumericalErrorComputationTimeScalingForStreams">12</a>
 together, we get can estimate for how long it completes to run these
 simulations. If we want all simualtions to have error better relative
 error on the retraced conservation of energy than about 10<span
-class="math inline">\(^{-3}\)</span>, then we must pick time steps that
+class="math inline">\(^{-3}\)</span>, then we must pick timesteps that
 are smaller than about 1/20 of the dynamical time. With this criteria
-selected, we can compute the number of time steps necessary for each
+selected, we can compute the number of timesteps necessary for each
 globular cluster, which is a function of it’s internal dynamical time.
 By doing so, I find that the fastest cluster can be computed in <span
 class="math inline">\(\sim\)</span> 30 minutes. The median computation
@@ -1243,13 +1320,13 @@ integration</h3>
 affected the integration scheme. Specifically, the error concerned the
 way I handled the host orbit during the integration of the star
 particles. In earlier implementations, I would integrate the orbit of
-the host using the same time step that I used later to integrate the
+the host using the same timestep that I used later to integrate the
 orbits of the star particles. However, this approach violated the
-structure of the leapfrog integration scheme.</p>
+structure of the Leapfrog integration scheme.</p>
 <p>In Hamiltonian integration, it is essential that the drift and kick
 steps alternate in a consistent manner. Since I implemented a
 <em>drift</em>-<em>kick</em>-<em>drift</em> (DKD) scheme, the kicks
-occur at the midpoint of each time step, meaning that forces should be
+occur at the midpoint of each timestep, meaning that forces should be
 evaluated at intermediate positions. Previously, I erroneously computed
 the relative position vector as <span class="math display">\[\Delta
 \vec{r}_i = \vec{r}_{p,i+1/2} - \vec{r}_\mathrm{GC,i},\]</span> instead
@@ -1262,7 +1339,7 @@ al. (2025)</span>. Does this invalidate our results? To assess the
 impact, we can compare Figs. <a
 href="#fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">12</a>
+data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">13</a>
 and <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311"
 data-reference-type="ref"
@@ -1270,7 +1347,7 @@ data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerT
 In Fig. <a
 href="#fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">12</a>,
+data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">13</a>,
 the same retracing experiment was performed, but using the flawed
 integration: the host orbit was only provided at the same grid points as
 the stream. In the left panel, we see that the globular cluster does not
@@ -1296,7 +1373,7 @@ A Plummer sphere with 464 particles was sampled around this position
 (labeled “Initial”), then integrated forward to produce the “Stream.”
 The right panel shows the distribution of relative energy error. The
 stream was then integrated backward in time by the same amount,
-resulting in the “Retrace” configuration. The time step was chosen as a
+resulting in the “Retrace” configuration. The timestep was chosen as a
 fraction of the internal dynamical timescale, <span
 class="math inline">\(\tau\)</span>.</figcaption>
 </figure>
@@ -1305,7 +1382,7 @@ code to warn users if the host orbit is not sampled at <span
 class="math inline">\(2N + 1\)</span> points, where <span
 class="math inline">\(N\)</span> is the number of integration steps.
 While the flawed implementation breaks strict symplecticity for the
-internal cluster dynamics, the leapfrog integration for the globular
+internal cluster dynamics, the Leapfrog integration for the globular
 cluster orbits was still used correctly. This ensures that the cluster
 center of mass returns to its present-day sky position and that stars
 outside the cluster follow accurate galactic orbits. Ultimately, the
@@ -1315,17 +1392,17 @@ error.</p>
 <p>Lastly, I discovered this error while writing about the Forest-Ruth
 integration method. To implement this scheme correctly, I would need to
 know the position of the globular cluster’s center of mass at four
-intermediate points across two time steps, with the spacing determined
-by the coefficients in Table <a href="#tab:forest_ruth_coeffs"
+intermediate points across two timesteps, with the spacing determined by
+the coefficients in Table <a href="#tab:forest_ruth_coeffs"
 data-reference-type="ref" data-reference="tab:forest_ruth_coeffs">2</a>.
 This would require either storing additional mini-time-step data or
 interpolating the globular cluster’s trajectory between saved snapshots.
 Both options would necessitate a substantial refactoring of the code or
 an impractical increase in memory usage per orbit. Given the results
 shown in Fig. <a
-href="#fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog"
+href="#fig:numericalErrorMeanEnergyErrorRuthForestLeapfrog"
 data-reference-type="ref"
-data-reference="fig:numericalErrorMeanEnergyErrorRuthForestLeapFrog">5</a>,
+data-reference="fig:numericalErrorMeanEnergyErrorRuthForestLeapfrog">5</a>,
 the gain in accuracy does not justify the computational cost.</p>
 <h2 id="the-galactic-bar">The Galactic Bar</h2>
 <h3 id="the-globular-cluster-population">The globular cluster
@@ -1506,6 +1583,12 @@ class="nocase">Gaia Data Release 3. Summary of the content and survey
 properties</span>”</span> 674 (June):A1. <a
 href="https://doi.org/10.1051/0004-6361/202243940">https://doi.org/10.1051/0004-6361/202243940</a>.
 </div>
+<div id="ref-2013A&amp;A...557A..84P" class="csl-entry" role="listitem">
+Pelupessy, F. I., A. van Elteren, N. de Vries, S. L. W. McMillan, N.
+Drost, and S. F. Portegies Zwart. 2013. <span>“<span>The Astrophysical
+Multipurpose Software Environment</span>”</span> 557 (September):A84. <a
+href="https://doi.org/10.1051/0004-6361/201321252">https://doi.org/10.1051/0004-6361/201321252</a>.
+</div>
 <div id="ref-2017A&amp;A...598A..66P" class="csl-entry" role="listitem">
 Pouliasis, E., P. Di Matteo, and M. Haywood. 2017. <span>“<span
 class="nocase">A Milky Way with a massive, centrally concentrated thick
@@ -1517,6 +1600,12 @@ href="https://doi.org/10.1051/0004-6361/201527346">https://doi.org/10.1051/0004-
 Press, William H., Saul A. Teukolsky, William T. Vetterling, and Brian
 P. Flannery. 1992. <em><span class="nocase">Numerical recipes in C. The
 art of scientific computing</span></em>.
+</div>
+<div id="ref-2017JOSS....2..388P" class="csl-entry" role="listitem">
+Price-Whelan, Adrian M. 2017. <span>“<span class="nocase">Gala: A Python
+package for galactic dynamics</span>.”</span> <em>The Journal of Open
+Source Software</em> 2 (October):388. <a
+href="https://doi.org/10.21105/joss.00388">https://doi.org/10.21105/joss.00388</a>.
 </div>
 <div id="ref-2018ComAC...5....2V" class="csl-entry" role="listitem">
 Varri, Anna Lisa, Maxwell Xu Cai, Francisca Concha-Ramı́rez, František
@@ -1531,6 +1620,13 @@ Vasiliev, Eugene. 2018. <span>“<span class="nocase">Agama reference
 documentation</span>.”</span> <em>arXiv e-Prints</em>, February,
 arXiv:1802.08255. <a
 href="https://doi.org/10.48550/arXiv.1802.08255">https://doi.org/10.48550/arXiv.1802.08255</a>.
+</div>
+<div id="ref-2015MNRAS.450.4070W" class="csl-entry" role="listitem">
+Wang, Long, Rainer Spurzem, Sverre Aarseth, Keigo Nitadori, Peter
+Berczik, M. B. N. Kouwenhoven, and Thorsten Naab. 2015. <span>“<span
+class="nocase">NBODY6++GPU: ready for the gravitational million-body
+problem</span>”</span> 450 (4): 4070–80. <a
+href="https://doi.org/10.1093/mnras/stv817">https://doi.org/10.1093/mnras/stv817</a>.
 </div>
 <div id="ref-weyl1946classical" class="csl-entry" role="listitem">
 Weyl, Hermann. 1946. <em>The Classical Groups: Their Invariants and
