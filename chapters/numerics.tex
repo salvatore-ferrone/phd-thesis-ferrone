@@ -197,12 +197,14 @@ This chapter documents how we solve the equations of motion numerically, how we 
 
     To check the time-reversability, we integrate a cluster back in time, and then change the sign of its velocity to subsequently integrate forward in time. If the integration is correct, the cluster should remain on the same trajectory retracing its steps. We investigate this for the following scenarios and show the results below: 
     \begin{itemize}
-        \item The globular cluster population orbiting with a time-static Milky Way potential;
+        \item The globular cluster population orbiting with a static Milky Way potential;
         \item Star-particles orbiting with a stationary and isolated globular cluster;
         \item Full stream generation, i.e., star particles orbiting within a globular cluster that orbits the Galaxy.
     \end{itemize}
 
-    At this stage in time, I did not have time to the full quality check for orbits within the barred potential. However, I refer the reader to the \texttt{tstrippy}'s documentation in which I present the time-reversability of the cluster's orbits within the barred potential: \href{https://tstrippy.readthedocs.io/en/latest/reverse_integrability_bar.html}{https://tstrippy.readthedocs.io/en/latest/reverse_integrability_bar.html}.
+    At this stage, I did not have time to perform a full quality check of orbits within the barred potential. However, I refer the reader to the \texttt{tstrippy} documentation, where I demonstrate the time-reversibility of cluster orbits in the barred potential: \href{https://tstrippy.readthedocs.io/en/latest/reverse_integrability_bar.html}{https://tstrippy.readthedocs.io/en/latest/reverse_integrability_bar.html}.
+
+
 
     \subsection{Globular Cluster Orbits in a Static Galaxy}
         The initial conditions for the globular cluster system (positions and velocities) were taken from \citet{2018MNRAS.478.1520B}'s online globular cluster catalog whose data derived from Gaia Early Data Release 3 among other sources \citep{2021MNRAS.505.5957B,2021A&A...649A...1G,2023A&A...674A...1G}. 
