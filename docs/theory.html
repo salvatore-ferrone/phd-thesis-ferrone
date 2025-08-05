@@ -1009,13 +1009,13 @@ yields a density profile that decays as <span class="math inline">\(\rho
 <p>Now that we have our equations of motion established, and we have an
 accurate model for computing the gravitational force at each point in
 the galaxy, what are the initial conditions? First, the initial
-conditions for the center’s of mass of the globular clusters, their mass
+conditions for the centers’ of mass of the globular clusters, their mass
 and size, are taken observationally from <span class="citation"
 data-cites="2018MNRAS.478.1520B">Baumgardt and Hilker (2018)</span>.
 What about the stars within the cluster?</p>
 <p>We have choosen the potential for each cluster to be a Plummer sphere
 from Eq. <a href="#eq:plummer" data-reference-type="ref"
-data-reference="eq:plummer">[eq:plummer]</a>, which meanns that it is
+data-reference="eq:plummer">[eq:plummer]</a>, which means that it is
 more massive in the center and whose density decreases with a power law
 beyond the characteristic radius. We can use this to obtain a mass
 profile, and then sample this distribution to obtain initial positions
@@ -1100,7 +1100,7 @@ f}{\partial t} + \dot{\mathbf{x}} \cdot \nabla_{\mathbf{x}} f +
 <p>This is a material (Lagrangian) derivative following a phase-space
 trajectory. The physical interpretation is that the DF is conserved
 along the orbits of stars in phase space. No bunching up, no spreading
-out — stars simply move under the influence of a smooth, mean
+out. Stars simply move under the influence of a smooth, mean
 gravitational potential.</p>
 <p>Next, we often impose the equilibrium condition: <span
 class="math display">\[\frac{\partial f}{\partial t} = 0\]</span> This
@@ -1122,8 +1122,9 @@ I assume isotropy, meaning that the DF depends only on the energy <span
 class="math inline">\(E\)</span>. Thus, we write:</p>
 <p><span class="math display">\[f(\mathbf{w}) = f(E)\]</span></p>
 <p>At this point, it is useful to mention Jeans equations, which relate
-the moments of the DF to observable quantities. By integrating the DF
-over all velocities, we recover the spatial mass density:</p>
+the moments of the DF to observable quantities. For example, by
+integrating the DF over all velocities, we recover the spatial mass
+density:</p>
 <p><span class="math display">\[\rho(\mathbf{r}) = M \int f(\mathbf{x},
 \mathbf{v}) \, d^3\mathbf{v}\]</span></p>
 <p>In fact, an inversion formula exists — known as the Abel transform —
@@ -1139,8 +1140,8 @@ class="math inline">\(C\)</span> is a constant that ensures <span
 class="math inline">\(\int f dE =1\)</span>.</p>
 <h3 id="sampling-the-initial-conditions">Sampling the Initial
 Conditions</h3>
-<p>There are many techniques for sampling from a distribution function.
-In my code, I use <em>inverse transform sampling</em>, a method that
+<p>There are many techniques for sampling a distribution function. In my
+code, I use <em>inverse transform sampling</em>, a method that
 facilitates sampling from one-dimensional probability distribution
 functions.</p>
 <p>Although the full distribution function depends on six
@@ -1253,7 +1254,7 @@ positions. While valid, this approach is less intuitive. Most models are
 motivated by their density profiles, which are observable and
 conceptually accessible, making them a natural starting point for
 inverse transform sampling.</p>
-<p>To convert radial distances into 3D positions, and speeds into
+<p>To convert radial distances into 3D positions and speeds into
 velocity vectors, we must sample directions uniformly over the surface
 of a sphere. A common pitfall is to sample latitude and longitude
 uniformly, which leads to an over-density near the poles. Instead, we
