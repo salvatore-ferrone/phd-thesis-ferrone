@@ -1001,7 +1001,8 @@ where <span class="math inline">\(k \in \mathbb{N}\)</span> is an
 integer index. The expression for <span class="math inline">\(k\)</span>
 becomes: <span class="math display">\[k = \left\lceil
 \log_2\left(\frac{T}{\alpha &#39;  \tau_\mathrm{dyn}}\right) +
-1  \right\rceil.\]</span></p>
+1  \right\rceil.
+            \label{eq:binary_time_step_criterion}\]</span></p>
 <p>Now, what is a good value of <span
 class="math inline">\(\alpha\)</span> to ensure energy conservation and
 time-reversibility? In the analysis presented in the previous sections,
@@ -1080,18 +1081,18 @@ whether time-reversibility is preserved with linear or cubic
 interpolation. For these reasons, I opted not to explore Forest-Ruth
 further in the context of full stream generation.</p>
 <p>To assess the performance of the stream-generation method, I designed
-a quality assurance experiment illustrated in Fig. <a
+a quality assurance experiment, illustrated in Fig. <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171"
 data-reference-type="ref"
 data-reference="fig:NumericalErrorStreamRetrace_NGC6171">9</a>. I began
 by integrating the orbit of a globular cluster’s center of mass backward
-in time by 1 Gyr. At this point, a Plummer sphere was sampled using the
-cluster’s half-mass radius and mass, with 512 star particles. This
+in time by 1 Gyr. At that point, I initialized a Plummer sphere with 512
+star particles using the cluster’s half-mass radius and total mass. This
 system was translated to the center-of-mass phase-space coordinates and
-then integrated forward in time to the present day, forming a stream. I
-saved the resulting positions and computation time. To assess
-time-reversibility, I then integrated the stream particles backward
-again for 1 Gyr.</p>
+then integrated forward to the present day, forming a stream. I recorded
+the resulting positions and computation time. To test
+time-reversibility, I subsequently integrated the stream particles
+backward again for 1 Gyr.</p>
 <p>A note on terminology: although the cluster orbit is initialized from
 present-day observations, in the context of stream generation, I refer
 to the past position (1 Gyr ago) as the “initial conditions”. The
@@ -1101,8 +1102,18 @@ backward-integrated version of the stream is referred to as the
 <p>Fig. <a href="#fig:NumericalErrorStreamRetrace_NGC6171"
 data-reference-type="ref"
 data-reference="fig:NumericalErrorStreamRetrace_NGC6171">9</a> shows the
-results of this experiment across four different timesteps. As expected,
-increasing the timestep degrades time-reversibility.</p>
+results for four different timesteps. As expected, increasing the
+timestep degrades time-reversibility. For the largest timestep (<span
+class="math inline">\(\alpha \approx 1\)</span>, top left), the retrace
+fails to recover the original configuration. The retraced structure
+remains a stream and does not re-coalesce into a cluster. The results
+improve rapidly with decreasing timestep: at <span
+class="math inline">\(\alpha \approx 2 \times 10^{-1}\)</span>, most
+particles return close to their starting positions with only slight
+offsets. At <span class="math inline">\(\alpha \approx 2 \times
+10^{-2}\)</span>, nearly all particles recover their initial conditions,
+and by <span class="math inline">\(\alpha \approx 6 \times
+10^{-3}\)</span>, the retrace is nearly perfect.</p>
 <figure id="fig:NumericalErrorStreamRetrace_NGC6171">
 <img src="images/NumericalErrorStreamRetrace_NGC6171.png" />
 <figcaption>Time-reversibility test for NGC 6171. The cluster’s orbit
@@ -1111,91 +1122,68 @@ was initialized at that position (“Initial”). The system was then
 integrated forward (“Stream”) and backward again (“Retrace”). Each panel
 shows a different timestep, which was selected as a fraction of the
 internal dynamical time <span class="math inline">\(\tau\)</span>. The
-sub-panels are zooms of the globular cluster, comparing the initial
-conditions to the retrace. The quality increases from top to bottom, as
-the timestep decreases.</figcaption>
+sub-panels zoom in on the cluster core, comparing the initial and
+retraced positions. Accuracy improves from top to bottom as the timestep
+decreases.</figcaption>
 </figure>
-<p>The two smaller timesteps sufficiently retrace the cluster’s initial
-configuration. I compare each particle’s energy change between its
-initial and retraced state. For <span class="math inline">\(\Delta t
-\sim 6\times10^{-3}~\tau\)</span>, the relative energy errors in the
-retraced state fall mostly between <span
-class="math inline">\(10^{-7}\)</span> and <span
-class="math inline">\(10^{-4}\)</span>. For <span
-class="math inline">\(\Delta t \sim 3\times10^{-2}~\tau\)</span>, the
-distribution shifts upward by about an order of magnitude, indicating
-reduced accuracy.</p>
+<p>Fig. <a href="#fig:NumericalErrorStreamRetrace_EnergyErrors"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorStreamRetrace_EnergyErrors">10</a>
+presents the integrator’s energy conservation performance during the
+retrace phase of Fig. <a href="#fig:NumericalErrorStreamRetrace_NGC6171"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171">9</a>, across
+the same timesteps.</p>
 <figure id="fig:NumericalErrorStreamRetrace_EnergyErrors">
 <img src="images/NumericalErrorStreamRetrace_EnergyErrors.png" />
-<figcaption>ok</figcaption>
+<figcaption>Relative error in energy conservation during the retrace. As
+expected, accuracy improves with decreasing timestep. The
+<em>stream</em> distribution shows the final energy of each particle
+relative to its initial energy and <em>not</em> the quality of the
+integration. This reflects the spread in orbital energies imparted
+during initial sampling. At large timesteps, the retrace energy
+distribution approaches that of the stream.</figcaption>
 </figure>
-<p>Interestingly, the energy distributions at the present-day timestep
-(i.e., for the stream) fall between <span
-class="math inline">\(10^{-4}\)</span> and <span
-class="math inline">\(10^{-1}\)</span> across all cases, and are largely
-insensitive to timestep. This is expected: the equations of motion are
-time-dependent due to the non-autonomous external Galactic potential, so
-energy is not conserved by design. The fact that energy errors do not
-vary strongly with timestep suggests that even the coarsest resolutions
-used here are adequate for capturing the global motion within the
-Galactic potential. As shown in Figs. <a
-href="#fig:numericalErrorLeapfrogVanilla" data-reference-type="ref"
-data-reference="fig:numericalErrorLeapfrogVanilla">1</a> and <a
-href="#fig:numericalErrorRuthForest" data-reference-type="ref"
-data-reference="fig:numericalErrorRuthForest">4</a>, timesteps of <span
-class="math inline">\(\sim10^5\)</span> years are sufficient for stable
-orbit integration. Even the largest timestep used in the top panel of
-Fig. <a href="#fig:NumericalErrorStreamRetrace_NGC6171"
+<p>Although the retrace fails for the largest timestep in Fig. <a
+href="#fig:NumericalErrorStreamRetrace_NGC6171"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171">9</a>
-corresponds to <span class="math inline">\(\sim10^5\)</span>
-years—comparable to the cluster’s internal dynamical time.</p>
-<p>Although energy is not conserved in these simulations—since the
-Hamiltonian includes a time-dependent Galactic potential—we find that
-the energy change for stream particles remains bounded around a relative
-error of <span class="math inline">\(10^{-1}\)</span>. Why is this the
-case?</p>
-<p>Consider a thought experiment: suppose the globular cluster were
-removed, and the stars were left to orbit freely in the Galactic
-potential. The initial velocities and positions of the stars would still
-reflect the distribution sampled from the Plummer sphere. As a result,
-they would exhibit a range of orbital energies rather than a single
-value. This intrinsic energy spread, denoted <span
-class="math inline">\(\sigma_E\)</span>, is not a numerical artifact but
-a physical property of the system’s initial conditions.</p>
-<p>The relative spread in energies, <span class="math inline">\(\sigma_E
-/ E_0\)</span>, where <span class="math inline">\(E_0\)</span> is the
-mean orbital energy of the system, provides an estimate of the apparent
-"energy error" we observe. We can make a rough estimate of this ratio by
-comparing the internal potential energy scale of the cluster to its
-orbital energy in the Galaxy. The characteristic internal potential is
-on the order of <span class="math inline">\(\Phi \sim GM/a\)</span>,
-where <span class="math inline">\(M \sim 10^5~M_\odot\)</span> and <span
-class="math inline">\(a \sim 0.005\)</span> kpc, yielding <span
-class="math inline">\(\Phi \sim
-10^2~\mathrm{km}^2\,\mathrm{s}^{-2}\)</span>. In contrast, the typical
-orbital energy of a globular cluster in the Milky Way is about <span
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171">9</a>, Fig. <a
+href="#fig:NumericalErrorStreamRetrace_EnergyErrors"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorStreamRetrace_EnergyErrors">10</a>
+shows that the relative energy error remains modest—between <span
+class="math inline">\(10^{-4}\)</span> and <span
+class="math inline">\(10^{-2}\)</span>. However, this metric requires
+careful interpretation. What appears as an “error” primarily reflects
+the intrinsic spread in orbital energies among star particles, relative
+to the center-of-mass energy.</p>
+<p>We can estimate this ratio by comparing the internal potential energy
+scale of the cluster to its orbital energy in the Galaxy. The cluster’s
+characteristic potential is roughly <span class="math inline">\(\Phi
+\sim GM/a\)</span>, with <span class="math inline">\(M \sim
+10^5~M_\odot\)</span> and <span class="math inline">\(a \sim
+0.005\)</span> kpc, giving <span class="math inline">\(\Phi \sim
+10^2~\mathrm{km}^2\,\mathrm{s}^{-2}\)</span>. Meanwhile, the typical
+orbital energy of a globular cluster is around <span
 class="math inline">\(10^5~\mathrm{km}^2\,\mathrm{s}^{-2}\)</span> (see
 Fig. <a href="#fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu"
 data-reference-type="ref"
 data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">[fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu]</a>).</p>
-<p>This discrepancy of roughly three orders of magnitude implies that
-the intrinsic energy spread from the initial Plummer sampling is about
-<span class="math inline">\(10^{-3}\)</span> times the absolute orbital
-energy. However, since we are examining the energy relative to each
-particle’s initial value—which is small—the observed fractional
-differences cluster around <span class="math inline">\(\sim
-10^{-1}\)</span>, consistent with what we measure in the stream. Thus,
-the apparent energy “error” reflects not integration drift but the
-physical energy distribution inherited from the initial conditions.</p>
-<p>Fig. <a
-href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
+<p>This three-order-of-magnitude difference implies that the intrinsic
+energy spread from the Plummer sampling is about <span
+class="math inline">\(10^{-3}\)</span> of the total orbital energy,
+which is consistent with the the apparent energy “error” in the stream
+of Fig. <a href="#fig:NumericalErrorStreamRetrace_EnergyErrors"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">[fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155]</a>
-&amp; Fig. <a
-href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1"
+data-reference="fig:NumericalErrorStreamRetrace_EnergyErrors">10</a>.
+Thus, this differences does not arise from numerical drift, but from the
+physical energy distribution encoded in the initial conditions.</p>
+<p>Fig. <a href="#fig:NumericalErrorStreamRetrace_NGC6171"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1">[fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1]</a>
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171">9</a> &amp;
+Fig. <a href="#fig:NumericalErrorStreamRetrace_EnergyErrors"
+data-reference-type="ref"
+data-reference="fig:NumericalErrorStreamRetrace_EnergyErrors">10</a>
 demonstrate the case of a single cluster. How is the energy conservation
 for the entire catalog? Fig. <a
 href="#fig:NumericalErrorStreamRetraceEnergyConservation"
@@ -1207,18 +1195,10 @@ cluster in the catalog. Each data point reports the mean error in the
 conservation of energy. Each cluster was integrated for 5 Gyr. The upper
 limits for the timesteps were sampeld logarithmically between <span
 class="math inline">\(10^{0}\)</span> and <span
-class="math inline">\(10^{-2}\)</span>.</p>
-<p>From inspecting Fig. <a
-href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
+class="math inline">\(10^{-2}\)</span>, the exact timesteps are based on
+the criterion from Eq. <a href="#eq:binary_time_step_criterion"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">[fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155]</a>,
-a timestep less than <span
-class="math inline">\(3\times10^{-2}~\tau\)</span> is great for
-retracing the orbit of each star particle and even <span
-class="math inline">\(2\times10^{-1}~\tau\)</span> isn’t horrible. This
-would place the retrace energy conservation between <span
-class="math inline">\(10^{-5}-10^{-3}\)</span> on average per
-system.</p>
+data-reference="eq:binary_time_step_criterion">[eq:binary_time_step_criterion]</a>.</p>
 <figure id="fig:NumericalErrorStreamRetraceEnergyConservation">
 <img src="images/NumericalErrorStreamRetraceEnergyConservation.png" />
 <figcaption>The conservation of energy for the retrace of each globular
@@ -1231,12 +1211,11 @@ each cluster in combination with it’s internal dynamical time that
 evenly divided the integration time. </figcaption>
 </figure>
 <p>The quality of the solutions is fundamental for proper results.
-However, computation time and cost is also very important. The spirit of
-choosing to solve the restricted three body problem instead of modeling
-the system as an N body for a faster computation. With N body, the
-computation time should scale with <span
-class="math inline">\(N_p^2\)</span>, while for the restricted three
-body problem it should scale with <span
+However, computation time and cost is also very important. The main
+motivation in using the restricted three body problem was to save
+computation time. With N body, the computation time should scale with
+<span class="math inline">\(N_p^2\)</span>, while for the restricted
+three body problem it should scale with <span
 class="math inline">\(N_p\)</span>. For both, it should scale linearly
 with the number of integration steps.</p>
 <p>How does <code>tstrippy</code> perform? Fig. <a
