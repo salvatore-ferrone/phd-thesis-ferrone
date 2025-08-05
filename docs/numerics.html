@@ -1081,15 +1081,15 @@ interpolation. For these reasons, I opted not to explore Forest-Ruth
 further in the context of full stream generation.</p>
 <p>To assess the performance of the stream-generation method, I designed
 a quality assurance experiment illustrated in Fig. <a
-href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
+href="#fig:NumericalErrorStreamRetrace_NGC6171"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">9</a>.
-I began by integrating the orbit of a globular cluster’s center of mass
-backward in time by 1 Gyr. At this point, a Plummer sphere was sampled
-using the cluster’s half-mass radius and mass, with 512 star particles.
-This system was translated to the center-of-mass phase-space coordinates
-and then integrated forward in time to the present day, forming a
-stream. I saved the resulting positions and computation time. To assess
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171">9</a>. I began
+by integrating the orbit of a globular cluster’s center of mass backward
+in time by 1 Gyr. At this point, a Plummer sphere was sampled using the
+cluster’s half-mass radius and mass, with 512 star particles. This
+system was translated to the center-of-mass phase-space coordinates and
+then integrated forward in time to the present day, forming a stream. I
+saved the resulting positions and computation time. To assess
 time-reversibility, I then integrated the stream particles backward
 again for 1 Gyr.</p>
 <p>A note on terminology: although the cluster orbit is initialized from
@@ -1098,59 +1098,37 @@ to the past position (1 Gyr ago) as the “initial conditions”. The
 forward-integrated system represents the “stream”, and the
 backward-integrated version of the stream is referred to as the
 “retrace”.</p>
-<p>Figures <a
-href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
+<p>Fig. <a href="#fig:NumericalErrorStreamRetrace_NGC6171"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">9</a>
-and <a
-href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1"
-data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1">10</a>
-show the results of this experiment across four different timesteps. As
-expected, increasing the timestep degrades time-reversibility and
-worsens energy conservation.</p>
-<figure
-id="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">
-<p><img
-src="images/NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155.png"
-alt="image" /> <img
-src="images/NumericalErrorStreamRetrace_NGC6171_Nsteps_131072_stepsPerTau_38.png"
-alt="image" /></p>
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171">9</a> shows the
+results of this experiment across four different timesteps. As expected,
+increasing the timestep degrades time-reversibility.</p>
+<figure id="fig:NumericalErrorStreamRetrace_NGC6171">
+<img src="images/NumericalErrorStreamRetrace_NGC6171.png" />
 <figcaption>Time-reversibility test for NGC 6171. The cluster’s orbit
 was integrated backward by 1 Gyr, and a Plummer sphere of 512 particles
-was initialized at that position ("Initial"). The system was then
-integrated forward ("Stream") and backward again ("Retrace"). Right
-panels show the relative error in energy. The timestep was selected as a
-fraction of the internal dynamical time <span
-class="math inline">\(\tau\)</span>.</figcaption>
+was initialized at that position (“Initial”). The system was then
+integrated forward (“Stream”) and backward again (“Retrace”). Each panel
+shows a different timestep, which was selected as a fraction of the
+internal dynamical time <span class="math inline">\(\tau\)</span>. The
+sub-panels are zooms of the globular cluster, comparing the initial
+conditions to the retrace. The quality increases from top to bottom, as
+the timestep decreases.</figcaption>
 </figure>
-<figure
-id="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1">
-<p><img
-src="images/NumericalErrorStreamRetrace_NGC6171_Nsteps_16384_stepsPerTau_4.png"
-alt="image" /> <img
-src="images/NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1.png"
-alt="image" /></p>
-<figcaption>Same experiment as in Fig. <a
-href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
-data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">9</a>,
-but using larger timesteps as indicated. Time-reversibility and energy
-conservation degrade as timestep increases.</figcaption>
-</figure>
-<p>The two smaller timesteps in Fig. <a
-href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
-data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">9</a>
-sufficiently retrace the cluster’s initial configuration. I compare each
-particle’s energy change between its initial and retraced state. For
-<span class="math inline">\(\Delta t \sim 6\times10^{-3}~\tau\)</span>,
-the relative energy errors in the retraced state fall mostly between
-<span class="math inline">\(10^{-7}\)</span> and <span
+<p>The two smaller timesteps sufficiently retrace the cluster’s initial
+configuration. I compare each particle’s energy change between its
+initial and retraced state. For <span class="math inline">\(\Delta t
+\sim 6\times10^{-3}~\tau\)</span>, the relative energy errors in the
+retraced state fall mostly between <span
+class="math inline">\(10^{-7}\)</span> and <span
 class="math inline">\(10^{-4}\)</span>. For <span
 class="math inline">\(\Delta t \sim 3\times10^{-2}~\tau\)</span>, the
 distribution shifts upward by about an order of magnitude, indicating
 reduced accuracy.</p>
+<figure id="fig:NumericalErrorStreamRetrace_EnergyErrors">
+<img src="images/NumericalErrorStreamRetrace_EnergyErrors.png" />
+<figcaption>ok</figcaption>
+</figure>
 <p>Interestingly, the energy distributions at the present-day timestep
 (i.e., for the stream) fall between <span
 class="math inline">\(10^{-4}\)</span> and <span
@@ -1166,11 +1144,10 @@ data-reference="fig:numericalErrorLeapfrogVanilla">1</a> and <a
 href="#fig:numericalErrorRuthForest" data-reference-type="ref"
 data-reference="fig:numericalErrorRuthForest">4</a>, timesteps of <span
 class="math inline">\(\sim10^5\)</span> years are sufficient for stable
-orbit integration. Even the largest timestep used in the bottom panel of
-Fig. <a
-href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1"
+orbit integration. Even the largest timestep used in the top panel of
+Fig. <a href="#fig:NumericalErrorStreamRetrace_NGC6171"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1">10</a>
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171">9</a>
 corresponds to <span class="math inline">\(\sim10^5\)</span>
 years—comparable to the cluster’s internal dynamical time.</p>
 <p>Although energy is not conserved in these simulations—since the
@@ -1214,11 +1191,11 @@ physical energy distribution inherited from the initial conditions.</p>
 <p>Fig. <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">9</a>
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">[fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155]</a>
 &amp; Fig. <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1">10</a>
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1">[fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_4096_stepsPerTau_1]</a>
 demonstrate the case of a single cluster. How is the energy conservation
 for the entire catalog? Fig. <a
 href="#fig:NumericalErrorStreamRetraceEnergyConservation"
@@ -1234,7 +1211,7 @@ class="math inline">\(10^{-2}\)</span>.</p>
 <p>From inspecting Fig. <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">9</a>,
+data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155">[fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155]</a>,
 a timestep less than <span
 class="math inline">\(3\times10^{-2}~\tau\)</span> is great for
 retracing the orbit of each star particle and even <span
