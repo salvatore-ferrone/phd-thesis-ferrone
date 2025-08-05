@@ -1001,50 +1001,49 @@ where <span class="math inline">\(k \in \mathbb{N}\)</span> is an
 integer index. The expression for <span class="math inline">\(k\)</span>
 becomes: <span class="math display">\[k = \left\lceil
 \log_2\left(\frac{T}{\alpha &#39;  \tau_\mathrm{dyn}}\right) +
-1  \right\rceil.\]</span> Now, what is a good value of <span
-class="math inline">\(\alpha\)</span> to ensure energy conservation?
-From the analysis presented in the previous sections, I choose
-timestamps without relating them to the crossing times of the globular
-clusters’ orbits. Fig. <a href="#fig:numericalErrorLeapfrogVanilla"
-data-reference-type="ref"
-data-reference="fig:numericalErrorLeapfrogVanilla">1</a> shows that
-<span class="math inline">\(\Delta t = 10^4~\mathrm{yr}\)</span>
-achieves a mean relative energy error of <span
+1  \right\rceil.\]</span></p>
+<p>Now, what is a good value of <span
+class="math inline">\(\alpha\)</span> to ensure energy conservation and
+time-reversibility? In the analysis presented in the previous sections,
+I selected timesteps without explicitly relating them to the crossing
+times of globular cluster orbits. Fig. <a
+href="#fig:numericalErrorLeapfrogVanilla" data-reference-type="ref"
+data-reference="fig:numericalErrorLeapfrogVanilla">1</a> shows that a
+timestep of <span class="math inline">\(\Delta t =
+10^4~\mathrm{yr}\)</span> achieves a mean relative energy error of <span
 class="math inline">\(10^{-8}\)</span>. Meanwhile, Fig. <a
 href="#fig:numericalErrorReverseIntegration" data-reference-type="ref"
 data-reference="fig:numericalErrorReverseIntegration">2</a> shows that a
 timestep of <span class="math inline">\(\Delta t =
 10^5~\mathrm{yr}\)</span> already achieves convergence in
-time-reversibility. If we relate these numbers to the mean crossing time
-from Fig. <a href="#fig:GCsystemCharacteristicTimes"
+time-reversibility. Comparing these values to the typical crossing time
+shown in Fig. <a href="#fig:GCsystemCharacteristicTimes"
 data-reference-type="ref"
-data-reference="fig:GCsystemCharacteristicTimes">6</a>, we obtain an
-<span class="math inline">\(\alpha\)</span> of about <span
-class="math inline">\(2 \times 10^{-4}\)</span> and <span
-class="math inline">\(2 \times 10^{-3}\)</span>, respectively. In
-Fig. <a href="#fig:numericalErrorStaticPlummerSphereEnergyError"
+data-reference="fig:GCsystemCharacteristicTimes">6</a>, we find that
+they correspond to <span class="math inline">\(\alpha\)</span> values of
+approximately <span class="math inline">\(2 \times 10^{-4}\)</span> and
+<span class="math inline">\(2 \times 10^{-3}\)</span>, respectively.</p>
+<p>In Fig. <a href="#fig:numericalErrorStaticPlummerSphereEnergyError"
 data-reference-type="ref"
-data-reference="fig:numericalErrorStaticPlummerSphereEnergyError">8</a>
-I investigate the energy conservation of a normalized plummer sphere
-with trial <span class="math inline">\(\alpha\)</span>’s of <span
-class="math inline">\([10^{-4},10^{-3},10^{-2},10^{-1},1,2]\)</span>.
-This experiment shows that <span class="math inline">\(\alpha\)</span>
-below <span class="math inline">\(10^{-2}\)</span> has excellent energy
-conservation. The experiment compares each star-particle’s final energy
-to it’s initial energy. In this section, we do not study the
-time-reversability, but present it for simulating the full disruption in
-the following section.</p>
+data-reference="fig:numericalErrorStaticPlummerSphereEnergyError">8</a>,
+I investigate energy conservation in a static Plummer sphere using trial
+values of <span class="math inline">\(\alpha \in [10^{-4}, 10^{-3},
+10^{-2}, 10^{-1}, 1, 2]\)</span>. This experiment shows that values of
+<span class="math inline">\(\alpha &lt; 10^{-2}\)</span> yield excellent
+energy conservation. In this section, we do not consider the
+time-reversability as the previous section has shown the integrations
+robustness with regard to this metric. However, this is our main metric
+for the next section.</p>
 <figure id="fig:numericalErrorStaticPlummerSphereEnergyError">
 <img src="images/numericalErrorStaticPlummerSphereEnergyError.png" />
-<figcaption>The relative error of the energy conservation for a plummer
-sphere with different timesteps. Each sphere was sampled with a the same
-number of particles, <span class="math inline">\(N_p\)</span>, and
-integrated for the same amount of time, <span
-class="math inline">\(T\)</span>, both of which are indicated on the
-plot. The x-axis is the size of the time-step, <span
-class="math inline">\(\alpha\)</span>, which is the fraction of the
-internal dynamical time, <span class="math inline">\(\tau =
-\sqrt{\frac{a^3}{GM}}\)</span>.</figcaption>
+<figcaption>Relative energy error for a static Plummer sphere evolved
+with different timesteps. Each model contains the same number of
+particles, <span class="math inline">\(N_p\)</span>, and is integrated
+for the same duration, <span class="math inline">\(T\)</span>, as
+indicated on the plot. The x-axis shows the timestep size <span
+class="math inline">\(\alpha\)</span>, defined as a fraction of the
+internal dynamical time <span class="math inline">\(\tau = \sqrt{a^3 /
+GM}\)</span>.</figcaption>
 </figure>
 <h2 id="full-stream-generation">Full stream generation</h2>
 <p>The preceding sections assessed the numerical stability of
@@ -1061,7 +1060,8 @@ the internal dynamical time <span class="math inline">\(\tau\)</span> of
 each cluster.</p>
 <p>In this section, I combine these two components: I examine the
 quality of orbit integration for star particles evolving within a
-globular cluster, itself orbiting in the Galactic potential.</p>
+globular cluster, which in turn is orbiting in the Galactic
+potential.</p>
 <p>I restrict the analysis here to the Leapfrog integrator for two main
 reasons. First, although the Forest-Ruth scheme achieves better energy
 conservation (see Fig. <a
@@ -1070,16 +1070,15 @@ data-reference-type="ref"
 data-reference="fig:numericalErrorMeanEnergyErrorRuthForestLeapfrog">5</a>),
 this comes at a significantly higher computational cost, which outweighs
 its marginal gains for this application. Second, the equations of motion
-used to model stream generation (see Eq. XXX in the theory chapter)
-require loading the center-of-mass orbit of the host cluster at each
-simulation time. Because Forest-Ruth evaluates forces at non-uniform
-substeps, using it would require either: (1) storing and loading the
-cluster orbit at each substep, which would demand excessive disk space
-and complex code restructuring; or (2) interpolating the orbit at
-intermediate times, which introduces ambiguity regarding whether
-time-reversibility is preserved with linear or cubic interpolation. For
-these reasons, I opted not to explore Fores-Ruth further in the context
-of full stream generation.</p>
+used to model stream generation require loading the position of the host
+cluster for each force computation. Because Forest-Ruth evaluates forces
+at non-uniform substeps, using it would require either: (1) storing and
+loading the cluster orbit at each substep, which would demand excessive
+disk space and complex code restructuring; or (2) interpolating the
+orbit at intermediate times, which introduces ambiguity regarding
+whether time-reversibility is preserved with linear or cubic
+interpolation. For these reasons, I opted not to explore Forest-Ruth
+further in the context of full stream generation.</p>
 <p>To assess the performance of the stream-generation method, I designed
 a quality assurance experiment illustrated in Fig. <a
 href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_524288_stepsPerTau_155"
