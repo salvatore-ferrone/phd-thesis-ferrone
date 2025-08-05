@@ -288,18 +288,21 @@ This chapter documents how we solve the equations of motion numerically, how we 
             \label{fig:GCsystemStabilityDynamicalTimeRatios}
         \end{figure}
         
-        Given the variety of timescales involved in this problem, how do we choose an appropriate timestep? There are two criteria, the first is to ensure that that the time-step is sufficiently small compared to some characteristic time that that characterizes the dynamics. The second criteria is that the timestep must evenly divide a choosen intergration period into equal steps, i.e., that the number of steps $N$ is an integer. We will call this characteristic time: $\tau$. We will then choose a trial time step: $\Delta t' = \alpha' \tau$, where $\alpha$ is a choosen factor that such that: $0<\alpha<1$. Then, we must apply the second criterion: $ N = \lceil T / \alpha ' \tau \rceil$, where we round-up the number of steps to choose an even smaller time step, which becomes: $\Delta t = T/N$, and this also adjusts: $\alpha = \tau / \Delta t$. 
+        To properly compute the orbits of the star-particles, the timestep must be small enough to properly resolve the orbit while it is inside the cluster. How should we pick that number? There are two criteria, the first is to ensure that the timestep is some fraction of the cluster's dynamical time:
+        \begin{equation}
+            \Delta t' = \alpha ' \tau.
+        \end{equation}
+        I mark each with a \textit{prime} becuase they are a trial time-step until the second criteria is also satisfied, which is simply that the resultant number of timesteps is an integer: $ N = \lceil T / \alpha ' \tau \rceil$, where $T$ is the total integration time. We round-up the number of steps to choose an even smaller timestep, which becomes: $\Delta t = T/N$, which also adjusts: $\alpha = \tau / \Delta t$. 
 
 
-        For this expierments presented in this section, I wanted to explore the fidelity of over a wide range of $\alpha$.
+        The way I present the experiments in this section, is that I select some fractions of each cluster's dynamical time, and explore the resultant numerical error. I wanted to test a wide range of $\alpha$. To do this, I only pick few different trial $\alpha '$, and then round each one down so that that the number of steps is not only an integer, but also a multiple of 2. This leads to the following criterion:
         \begin{equation}
-            \Delta t = \frac{T}{N} = \frac{T}{2^{k-1}}
+            N = 2^{k-1}
         \end{equation}
-        where $N$ is the number of steps and $k$ is the number of intervals. First, $N$ must be an integer. Second, the timestep must be a  criterion ensures the timestep is some fraction of a desired time and one that ensures $N$ properly divides the entire period into $N$-1 equal segments. Our criterion is that the timestep will be some factor $\alpha$ of the dynamical time $\tau_\mathrm{dyn}$. This criterion is thus: 
+        where $k$ is an integer index $ k \in [1,2,\dots]$. The criterion for the number of steps becomes: 
         \begin{equation}
-            \log_2\left(\frac{T}{\alpha \tau_\mathrm{dyn}}\right) + 1 < k.
+            k = \left\lceil \log_2\left(\frac{T}{\alpha '  \tau_\mathrm{dyn}}\right) + 1  \right\rceil.
         \end{equation}
-        The smallest number of intervals to make is thus rounding the criterion up to the nearest whole number: $\left\lceil \log_2\left(\frac{T}{\alpha \tau_\mathrm{dyn}}\right) + 1  \right\rceil$. 
         
         Now, what is a good $\alpha$ to ensure good energy conservation and time-reversability? From Fig.~\ref{fig:GCsystemCharacteristicTimes}, we see that the typical globular cluster has a crossing time of $5\times10^{7}~\mathrm{yr}$. From Fig.~\ref{fig:numericalErrorLeapfrogVanilla} that selecting a $\Delta t$ of $10^{4}~\mathrm{yr}$, which is $2\times 10^{-4}$ that of the crossing time, we have conserve energy with a relative error of $10^{-8}$. Then, from Fig.~\ref{fig:numericalErrorReverseIntegration}, we see that $\Delta t= 10^{5}~\mathrm{yr}$ already converges to the best we can do for time-reversability, which is $2\times10^{-3}$ the crossing-time. 
 
