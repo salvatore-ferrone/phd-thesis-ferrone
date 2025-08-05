@@ -399,19 +399,12 @@ This chapter documents how we solve the equations of motion numerically, how we 
         \begin{figure}
             \centering
             \includegraphics[width=\linewidth]{images/NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420.png}
-            \caption{An illustration of how an incorrect integration scheme breaks time reversibility. The center of mass of Palomar~5 was integrated backward in time by 1~$\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}$. A Plummer sphere with 464 particles was sampled around this position (labeled “Initial”), then integrated forward to produce the “Stream.” The right panel shows the distribution of relative energy error. The stream was then integrated backward in time by the same amount, resulting in the “Retrace” configuration. The timestep was chosen as a fraction of the internal dynamical timescale, $\tau$.}
+            \caption{An illustration of how an incorrect integration scheme breaks time reversibility. The center of mass of Palomar~5 was integrated backward in time by 1~$\mathrm{s}~\frac{\mathrm{kpc}}{\mathrm{km}}$. A Plummer sphere with 464 particles was sampled around this position (labeled “Initial”), then integrated forward to produce the “Stream.” The right panel shows the distribution of relative energy error. The stream was then integrated backward in time by the same amount, resulting in the “Retrace” configuration. The timestep was chosen as a fraction of the internal dynamical time scale, $\tau$.}
             \label{fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420}
         \end{figure}
         As a result of this discovery, I updated the \texttt{tstrippy} code to warn users if the host orbit is not sampled at $2N + 1$ points, where $N$ is the number of integration steps. While the flawed implementation breaks strict symplecticity for the internal cluster dynamics, the Leapfrog integration for the globular cluster orbits was still used correctly. This ensures that the cluster center of mass returns to its present-day sky position and that stars outside the cluster follow accurate galactic orbits. Ultimately, the simplification of using a static Plummer sphere—whose mass and size remain fixed—is a greater limitation than this particular numerical error.
 
         Lastly, I discovered this error while writing about the Forest-Ruth integration method. To implement this scheme correctly, I would need to know the position of the globular cluster's center of mass at four intermediate points across two timesteps, with the spacing determined by the coefficients in Table~\ref{tab:forest_ruth_coeffs}. This would require either storing additional mini-time-step data or interpolating the globular cluster's trajectory between saved snapshots. Both options would necessitate a substantial refactoring of the code or an impractical increase in memory usage per orbit. Given the results shown in Fig.~\ref{fig:numericalErrorMeanEnergyErrorRuthForestLeapfrog}, the gain in accuracy does not justify the computational cost.
-
-    \subsection{The Galactic Bar}
-
-        \subsubsection{The globular cluster population}
-
-
-        \subsubsection{Stream generation in a barred potential}
 
 
 \section{Tstrippy}
@@ -423,31 +416,16 @@ This chapter documents how we solve the equations of motion numerically, how we 
         \item f2py? 
         \item setuptools $\rightarrow$ meson 
         \item incompatbile with old mac processors and being blocked at numpy 1.23 until the meson migration 
-        \item what about other codes on the market? Why did I decide to write this code? 
-    \end{itemize}
-
-    \citet{2018ComAC...5....2V} talks about a series of papers between a larger collaboration of people who specialize in collisional dynamics and who have performed a series of workshops together. The introduction stated that the collaboration wants to tackle many open questions regarding stellar clusters and build the necessary codes to interprete the future large quantity of data that was destined to come. It has now come since the review was 2018. An interesting point was that in general globular clusters are approximated as being orderless, i.e. isotropic but order does present itself within these stelalr systems. Another large problem is no one knows what a good set of initial conditiosn is. Unresolved binaries pose a problem because you can overestiamte the total mass of the system. If I talk about this review, I should probably discuss some of the results from the papers that is builds on or at least their techinques.
-
-    The MODEST review led me to discover AMUSE, which is an framework for integrating various astrophysical codes for solving 4 types of problems: gravitational dynamics, radiative transfer, hydrodynamics, and stellar evolution. The codes are written by the community and are interfaced together with Amuse. The user end is python. I have spent some time reading the book, which is instructive and well written. Steve McMillian is one of the authors. The code has a large support on GitHub and is still being developped. I have had trouble trying to install the code. It seems as though their documentation is incoherrent. At one place, it said `pip' is the easiest way to install. It didn't work. In another place, I was instructed to install a zipped up tarball. The setup failed becuase it expected there to be a .git file in the directory. I successfully downloaded the code by cloneing the repository, despite the fact that this was not recommended. I can use some aspects of the code but not all of them. For instance, my memory tells me that about 80\% of the test suite passed, thus many scripts failed. This was when I only installed the frame-work, which was advised since installing the whole package is huge and unnecessary since I am not solving all astrophysical problems. However, I wasn't able to use one of the gravity solvers that was presented in the textbook `AstrophysicalRecipes The art of AMUSE'. The install still has some codes that failed for instance: amuse-adaptb, amuse-hermite-grx, amuse-mi6. However, I'm hoping that this isn't necessary. I want to educate myself and make some examples. 
-
-    Installing other codes and figuring out their functionalities to me has never been trivial. This is similar to galpy when I tried to figure out particle spray method and got less than good results. Agama also confused me a bit. The main point is that for each package, at the end of the day I decided that it was easier and better if I solved the problem myself with my own code. Because, even with the other packages, I know that they can be used to solve other astrophysical problems and it wasn't clear to me how to make the codes solve my specific set of of the restricted three body problems in a potential with other perturbers flying around. 
-
-    In this search, I also discovered another review called \textit{Computational methods for collisional stellar systems} by Spurzem and Kamlah 2023. It is also interesting and instructive. I found it insightful when they called NBody an industry. I think the story of GRAPE and Makino is really interesting, how he build dedicated hardware for the nbody problem which were great for 10 years but were quickly replaced by GPU technology. 
-    \begin{itemize}
         \item f2py, and why did we choose to use Fortran? 
         \item Bovy's guide for making a public python package
-        \item migrating going from setuptools to meson
         \item a brief overview of how it works. 
         \item how I can either save orbits or snapshots
+        \item some notes on parallelization
     \end{itemize}
 
-
-        \subsection{parallelization}
-            Since all star-particles are independent from one another, they can be parallelized. This is \textit{data}-parallelization, where the same job is being performed but the input data is changed. This is a much easier paradigm compared to \textit{task}-parallelization different processors do different things to do the data and may need to communicate with one another. In this experiment, since I am simulating the whole globular cluster catalog and sampling the orbital uncertainties with monte-carlo, as explained in Chapter~5, I often times parallelize over different clusters. 
+    Since all star-particles are independent from one another, they can be parallelized. This is \textit{data}-parallelization, where the same job is being performed but the input data is changed. This is a much easier paradigm compared to \textit{task}-parallelization different processors do different things to do the data and may need to communicate with one another. In this experiment, since I am simulating the whole globular cluster catalog and sampling the orbital uncertainties with monte-carlo, as explained in Chapter~5, I often times parallelize over different clusters. 
             
-            Here is an example slurm script that I use to submit all the jobs: XXX
-            
-            However, if I want to accelerate one particular computation, then I must split the number of particles into batches. If I run small simulations on my personal computer, I can take the total number of particles and divide by the number of desired batches. Usually, I divide into the number of processors that I am going to use. $N_\mathrm{per~batch}=N_p//N_\mathrm{batches}$. However, I need to integer divide because the number of particles needs to be an integer. Then, with the last batch, I add the remaining particles, which is $N_\mathrm{left over} = N_p - N_\mathrm{batches} \times N_\mathrm{per~batch}$. 
+    However, if I want to accelerate one particular computation, then I must split the number of particles into batches. If I run small simulations on my personal computer, I can take the total number of particles and divide by the number of desired batches. Usually, I divide into the number of processors that I am going to use. $N_\mathrm{per~batch}=N_p//N_\mathrm{batches}$. However, I need to integer divide because the number of particles needs to be an integer. Then, with the last batch, I add the remaining particles, which is $N_\mathrm{left over} = N_p - N_\mathrm{batches} \times N_\mathrm{per~batch}$. 
 
 
 
