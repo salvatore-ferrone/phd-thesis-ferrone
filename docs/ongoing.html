@@ -186,6 +186,9 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
 </head>
 <body>
 <header id="title-block-header">
@@ -193,12 +196,232 @@
 </header>
 <p><span class="citation" data-cites="DIO_OBSPM">l’Observatoire de Paris
 (2025)</span> citation test</p>
+<h1 id="dark-matter-subahlos">Dark matter subahlos</h1>
+<h1 id="particle-spray-methods">particle-spray methods</h1>
+<p><span class="citation" data-cites="2012MNRAS.420.2700K">Küpper, Lane,
+and Heggie (2012)</span> created the “streak-line” method, which in
+essence approximates streams as having the same orbital parameters as
+the progenitor. <span class="citation"
+data-cites="2014ApJ...795...94B">Bonaca et al. (2014)</span> continued
+this and used it to quickly generate streams in a monte-carlo code to
+find the best halo parameters to reproduced observed streams to recover
+a galaxy’s mass. They generate orbits on the fly giving the star
+particles the same parameters as the progenitor but offset.</p>
+<p>The “streak-line” method is limited and ignores the dispersion in
+orbital parameters of the escaped stars. <span class="citation"
+data-cites="2011MNRAS.413.1852E">Eyre and Binney (2011)</span> presented
+streams in action-angle variables. As stated by <span class="citation"
+data-cites="2015MNRAS.452..301F">Fardal, Huang, and Weinberg
+(2015)</span>, this is the most elegant description of stellar streams.
+Each stream star has an offset from the progenitor’s hamiltonian which
+can be expressed with a second order taylor expansion.</p>
+<p><span class="citation" data-cites="2015MNRAS.452..301F">Fardal,
+Huang, and Weinberg (2015)</span> prescriptive stream generation model
+could be much faster than my simulations. Yes, this model is
+prescriptive but it the escape rate is tied to orbital properties, as is
+mine. It can operate at the on the dynamical time of the galaxy and not
+the dynamical time of the internal dynamics, which could greatly speed
+up simulations. <span class="citation"
+data-cites="2014ApJ...795...95B">Bovy (2014)</span> did a good job of
+developing this in terms of the actions and angles. However, <span
+class="citation" data-cites="2015MNRAS.452..301F">Fardal, Huang, and
+Weinberg (2015)</span> provides an escape rate that is more motivated by
+the orbit of the progenitor, which is good since we know more particles
+escape at peri-center due to the scaling of tidal forces with <span
+class="math inline">\(r^{-3}\)</span>. So the Fardal is pretty great.
+Perhaps adopting one of these methods for certain problems could be
+great.</p>
+<p>The advantage of my method is that it is not prescriptive, so if we
+explore a region of the parameter space where the assumptions behind the
+prescriptions break down, we may be led astray. …but it’s so fast …</p>
+<h1
+id="globular-cluster-formation-and-multiple-stellar-populations">Globular
+cluster formation and multiple stellar populations</h1>
+<p>What if we wanted to go further? Indeed at somepoint, this is just
+considered other work or future considerations, or other research
+questions entirely.</p>
+<p>What if we wanted to further? this is certainly outside the scope of
+our work, but we could consider the globular cluster formation.</p>
+<p>The complexity doesn’t end here. For instance, we are unsure how
+globular clusters form. There are some mechanisms proposed (cite the
+extra galactic GC review). That review summarizes them as: (1), (2),
+(3). However, to completely understand them would involve understanding
+the chemical enrichment history of the universe. Starting from big-bang
+nucleosysntehsis, to first generation stars (POP III), and how these
+first stars chemically enrich the environment, and how the clusters form
+from said environment. <span class="citation"
+data-cites="2022A&amp;A...668A.191C">Corazza, Miranda, and Wuensche
+(2022)</span> studied cluster formation in environments that were
+enriched by just pop II stars or a mixture of pop III/II stars and
+showed that pop III stars were necessary to enrich the environment
+enough to reproduce current cluster qualtities.</p>
+<p>However, from my literature review there does seem to be a gap
+linking the chemical environment that could be enriched from a
+combination of pop II/popIII stars and how cluster formation. At least
+we know clusters are at least second generation (pop II) stars, since
+the first stars (pop III) form massive and die young <span
+class="citation" data-cites="2002ApJ...571...30S">(R. Schneider et al.
+2002)</span>.</p>
+<p>Ideally, we would like to know about the stars within the cluster to
+then infer the environment that it must have been born in.
+Extra-galactic census of globular clusters show that there isa
+bi-modality in color, making people believe that there are at least two
+generations or two different mechanisms for forming them.</p>
+<p><span class="citation" data-cites="2025arXiv250507491V">Vergara et
+al. (2025)</span> is looking at black hole formation inside of globular
+clusters that are being born.</p>
+<p><span class="citation" data-cites="2024A&amp;A...681A..45L">Lacchin
+et al. (2024)</span> Elena and Alessandra investigate a scenario that
+considers multiple populations in globular clusters where the second
+population is much less massive than the first, but evaporation and
+tidal stripping processes can mean that there present day contributions
+are similar to one another.</p>
+<p><span class="citation" data-cites="2025MNRAS.537.2342C">Cordoni et
+al. (2025)</span> is looking at the dynamics of the different
+populations within 47 Tuc.</p>
+<p><span class="citation" data-cites="2024MNRAS.529.2413U">Usman et al.
+(2024)</span> said that there’s evidence of multiple populations within
+the stellar streams. Something expected and now observationally
+confirmed</p>
+<p><span class="citation" data-cites="2023A&amp;A...673A.152I">Ishchenko
+et al. (2023)</span> showed that within the last 5 gyr the potential was
+stable enough where the orbital solutions are pretty stable.</p>
+<p><span class="citation" data-cites="2006ARA&amp;A..44..193B">Brodie
+and Strader (2006)</span> made a review on extra galactic globular
+clusters. They discuss things like the observation evidence, the
+globular cluster mass function (all clusters), and find it to have an
+equal power spectrum, but the issue is that you don’t know where to
+truncate the power law. maybe at lower end you can argue <span
+class="math inline">\(10^4 M_\odot\)</span> from two body relaxation and
+a tidal field. However, the upper limit is hard since you already don’t
+expect that many, and the inclusion of a couple more high mass members
+can significantly alter the “mean” mass GC. They also note how a lot of
+cluster properties match the galactic properties. They talk about a
+bi-modal distribution. It really isn’t that bimodal, there’s a ton of
+overlap. There’s a bluer one and a redder one. One of them might form
+during the collisions between galaxies while the other could be formed
+deeped in the potential wells. They also said that as of 2014 there is
+evidence that GCs are still forming. They also discuss the chemical
+abundance patterns within the clusters. It’s complicated stuff, I wish I
+was better at stellar physics and knowing all the different
+sequences…</p>
+<p><span class="citation" data-cites="2002ApJ...571...30S">R. Schneider
+et al. (2002)</span> proposed the of pair-unstable supernovae <span
+class="math inline">\(\gamma + \gamma \rightarrow e^{+} + e^{-}\)</span>
+to create the positrons and electrons, that reduces the radiation
+pressure, to then make the star implode then explode. This shows the
+expected yeild of some selected heavier elements as a function of the
+ZAMs. Pretty sick.</p>
+<p><span class="citation" data-cites="2006MNRAS.369..825S">Raffaella
+Schneider et al. (2006)</span> proposed the initial mass function on pop
+III stars. I think this explains why the were expected to be soooo large
+and how the metals allow them to grow so much. I don’t know what the
+WMAP eletron scatter probe is. I think they’re already talking about
+detectability. and saying that if a scenario produces many eave pop III
+stars, then it won’t be detectable in the WMAP data. Perhaps pop III
+stars should do something to the electron scattering optical depth? What
+is a Larson initial mass function?</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
+<div id="ref-2014ApJ...795...94B" class="csl-entry" role="listitem">
+Bonaca, Ana, Marla Geha, Andreas H. W. Küpper, Jürg Diemand, Kathryn V.
+Johnston, and David W. Hogg. 2014. <span>“<span class="nocase">Milky Way
+Mass and Potential Recovery Using Tidal Streams in a Realistic
+Halo</span>”</span> 795 (1): 94. <a
+href="https://doi.org/10.1088/0004-637X/795/1/94">https://doi.org/10.1088/0004-637X/795/1/94</a>.
+</div>
+<div id="ref-2014ApJ...795...95B" class="csl-entry" role="listitem">
+Bovy, Jo. 2014. <span>“<span class="nocase">Dynamical Modeling of Tidal
+Streams</span>”</span> 795 (1): 95. <a
+href="https://doi.org/10.1088/0004-637X/795/1/95">https://doi.org/10.1088/0004-637X/795/1/95</a>.
+</div>
+<div id="ref-2006ARA&amp;A..44..193B" class="csl-entry" role="listitem">
+Brodie, Jean P., and Jay Strader. 2006. <span>“<span
+class="nocase">Extragalactic Globular Clusters and Galaxy
+Formation</span>”</span> 44 (1): 193–267. <a
+href="https://doi.org/10.1146/annurev.astro.44.051905.092441">https://doi.org/10.1146/annurev.astro.44.051905.092441</a>.
+</div>
+<div id="ref-2022A&amp;A...668A.191C" class="csl-entry" role="listitem">
+Corazza, Lia C., Oswaldo D. Miranda, and Carlos A. Wuensche. 2022.
+<span>“<span class="nocase">Potential contributions of Pop III and
+intermediate-mass Pop II stars to cosmic chemical
+enrichment</span>”</span> 668 (December):A191. <a
+href="https://doi.org/10.1051/0004-6361/202244334">https://doi.org/10.1051/0004-6361/202244334</a>.
+</div>
+<div id="ref-2025MNRAS.537.2342C" class="csl-entry" role="listitem">
+Cordoni, G., L. Casagrande, A. P. Milone, E. Dondoglio, A.
+Mastrobuono-Battisti, S. Jang, A. F. Marino, et al. 2025. <span>“<span
+class="nocase">Internal dynamics of multiple populations in 28 Galactic
+globular clusters: a wide-field study with Gaia and the Hubble Space
+Telescope</span>”</span> 537 (3): 2342–61. <a
+href="https://doi.org/10.1093/mnras/staf102">https://doi.org/10.1093/mnras/staf102</a>.
+</div>
+<div id="ref-2011MNRAS.413.1852E" class="csl-entry" role="listitem">
+Eyre, Andy, and James Binney. 2011. <span>“<span class="nocase">The
+mechanics of tidal streams</span>”</span> 413 (3): 1852–74. <a
+href="https://doi.org/10.1111/j.1365-2966.2011.18270.x">https://doi.org/10.1111/j.1365-2966.2011.18270.x</a>.
+</div>
+<div id="ref-2015MNRAS.452..301F" class="csl-entry" role="listitem">
+Fardal, Mark A., Shuiyao Huang, and Martin D. Weinberg. 2015.
+<span>“<span class="nocase">Generation of mock tidal
+streams</span>”</span> 452 (1): 301–19. <a
+href="https://doi.org/10.1093/mnras/stv1198">https://doi.org/10.1093/mnras/stv1198</a>.
+</div>
+<div id="ref-2023A&amp;A...673A.152I" class="csl-entry" role="listitem">
+Ishchenko, Maryna, Margaryta Sobolenko, Peter Berczik, Sergey
+Khoperskov, Chingis Omarov, Olexander Sobodar, and Maxim Makukov. 2023.
+<span>“<span class="nocase">Milky Way globular clusters on cosmological
+timescales. I. Evolution of the orbital parameters in time-varying
+potentials</span>”</span> 673 (May):A152. <a
+href="https://doi.org/10.1051/0004-6361/202245117">https://doi.org/10.1051/0004-6361/202245117</a>.
+</div>
+<div id="ref-2012MNRAS.420.2700K" class="csl-entry" role="listitem">
+Küpper, Andreas H. W., Richard R. Lane, and Douglas C. Heggie. 2012.
+<span>“<span class="nocase">More on the structure of tidal
+tails</span>”</span> 420 (3): 2700–2714. <a
+href="https://doi.org/10.1111/j.1365-2966.2011.20242.x">https://doi.org/10.1111/j.1365-2966.2011.20242.x</a>.
+</div>
 <div id="ref-DIO_OBSPM" class="csl-entry" role="listitem">
 l’Observatoire de Paris. 2025. <span>“<span class="nocase">DIO
 Supercomputer at the Paris Observatory</span>.”</span> <a
 href="https://dio.obspm.fr/" class="uri">https://dio.obspm.fr/</a>.
+</div>
+<div id="ref-2024A&amp;A...681A..45L" class="csl-entry" role="listitem">
+Lacchin, E., A. Mastrobuono-Battisti, F. Calura, C. Nipoti, A. P.
+Milone, M. Meneghetti, and E. Vanzella. 2024. <span>“<span
+class="nocase">Multiple stellar population mass loss in massive Galactic
+globular clusters</span>”</span> 681 (January):A45. <a
+href="https://doi.org/10.1051/0004-6361/202347268">https://doi.org/10.1051/0004-6361/202347268</a>.
+</div>
+<div id="ref-2006MNRAS.369..825S" class="csl-entry" role="listitem">
+Schneider, Raffaella, Ruben Salvaterra, Andrea Ferrara, and Benedetta
+Ciardi. 2006. <span>“<span class="nocase">Constraints on the initial
+mass function of the first stars</span>”</span> 369 (2): 825–34. <a
+href="https://doi.org/10.1111/j.1365-2966.2006.10331.x">https://doi.org/10.1111/j.1365-2966.2006.10331.x</a>.
+</div>
+<div id="ref-2002ApJ...571...30S" class="csl-entry" role="listitem">
+Schneider, R., A. Ferrara, P. Natarajan, and K. Omukai. 2002.
+<span>“<span class="nocase">First Stars, Very Massive Black Holes, and
+Metals</span>”</span> 571 (1): 30–39. <a
+href="https://doi.org/10.1086/339917">https://doi.org/10.1086/339917</a>.
+</div>
+<div id="ref-2024MNRAS.529.2413U" class="csl-entry" role="listitem">
+Usman, Sam A., Alexander P. Ji, Ting S. Li, Andrew B. Pace, Lara R.
+Cullinane, Gary S. Da Costa, Sergey E. Koposov, et al. 2024.
+<span>“<span class="nocase">Multiple populations and a CH star found in
+the 300S globular cluster stellar stream</span>”</span> 529 (3):
+2413–27. <a
+href="https://doi.org/10.1093/mnras/stae185">https://doi.org/10.1093/mnras/stae185</a>.
+</div>
+<div id="ref-2025arXiv250507491V" class="csl-entry" role="listitem">
+Vergara, Marcelo C., Abbas Askar, Albrecht W. H. Kamlah, Rainer Spurzem,
+Francesco Flammini Dotti, Dominik R. G. Schleicher, Manuel Arca Sedda,
+et al. 2025. <span>“<span class="nocase">Rapid formation of a very
+massive star &gt;50000 <span class="math inline">\(M_\odot\)</span> and
+subsequently an IMBH from runaway collisions. Direct N-body and Monte
+Carlo simulations of dense star clusters</span>.”</span> <em>arXiv
+e-Prints</em>, May, arXiv:2505.07491. <a
+href="https://doi.org/10.48550/arXiv.2505.07491">https://doi.org/10.48550/arXiv.2505.07491</a>.
 </div>
 </div>
 </body>
