@@ -974,63 +974,77 @@ times are more stable. The vertical bars indicate selected thresholds.
 Both lists rank clusters by increasing stability, with Gran 1 being the
 least stable and NGC 6229 the most.</figcaption>
 </figure>
-<p>To properly compute the orbits of the star-particles, the timestep
-must be small enough to properly resolve the orbit while it is inside
-the cluster. How should we pick that number? There are two criteria, the
-first is to ensure that the timestep is some fraction of the cluster’s
-dynamical time: <span class="math display">\[\Delta t&#39; = \alpha
-&#39; \tau.\]</span> I mark each with a <em>prime</em> becuase they are
-a trial time-step until the second criteria is also satisfied, which is
-simply that the resultant number of timesteps is an integer: <span
-class="math inline">\(N = \lceil T / \alpha &#39; \tau \rceil\)</span>,
-where <span class="math inline">\(T\)</span> is the total integration
-time. We round-up the number of steps to choose an even smaller
-timestep, which becomes: <span class="math inline">\(\Delta t =
-T/N\)</span>, which also adjusts: <span class="math inline">\(\alpha =
-\tau / \Delta t\)</span>.</p>
-<p>The way I present the experiments in this section, is that I select
-some fractions of each cluster’s dynamical time, and explore the
-resultant numerical error. I wanted to test a wide range of <span
-class="math inline">\(\alpha\)</span>. To do this, I only pick few
-different trial <span class="math inline">\(\alpha &#39;\)</span>, and
-then round each one down so that that the number of steps is not only an
-integer, but also a multiple of 2. This leads to the following
-criterion: <span class="math display">\[N = 2^{k-1}\]</span> where <span
-class="math inline">\(k\)</span> is an integer index <span
-class="math inline">\(k \in [1,2,\dots]\)</span>. The criterion for the
-number of steps becomes: <span class="math display">\[k = \left\lceil
+<p>To properly compute the orbits of the star particles, the timestep
+must be small enough to resolve the orbit accurately while the star is
+inside the cluster. How should we choose this timestep? There are two
+criteria. The first is that the timestep should be some fraction of the
+cluster’s dynamical time: <span class="math display">\[\Delta t&#39; =
+\alpha &#39; \tau.\]</span> I use a prime to indicate that this is a
+trial timestep, since the second criterion must also be satisfied: the
+total number of timesteps should be an integer, <span
+class="math display">\[N = \left\lceil \frac{T}{\alpha&#39; \tau}
+\right\rceil,\]</span> where <span class="math inline">\(T\)</span> is
+the total integration time. We round <span
+class="math inline">\(N\)</span> up to ensure a slightly smaller
+timestep, which becomes <span class="math inline">\(\Delta t =
+T/N\)</span>. This also redefines the effective timestep fraction as
+<span class="math inline">\(\alpha = \Delta t / \tau\)</span>.</p>
+<p>In the experiments presented in this section, I choose several
+fractions of each cluster’s dynamical time and examine the resulting
+numerical errors. To efficiently explore a wide range of <span
+class="math inline">\(\alpha\)</span>, I begin with a few trial values
+of <span class="math inline">\(\alpha&#39;\)</span> and then round the
+number of steps down so that <span class="math inline">\(N\)</span> is
+not only an integer, but also a power of two. This leads to the
+following condition: <span class="math display">\[N = 2^{k-1}\]</span>
+where <span class="math inline">\(k \in \mathbb{N}\)</span> is an
+integer index. The expression for <span class="math inline">\(k\)</span>
+becomes: <span class="math display">\[k = \left\lceil
 \log_2\left(\frac{T}{\alpha &#39;  \tau_\mathrm{dyn}}\right) +
-1  \right\rceil.\]</span></p>
-<p>Now, what is a good <span class="math inline">\(\alpha\)</span> to
-ensure good energy conservation and time-reversability? From Fig. <a
-href="#fig:GCsystemCharacteristicTimes" data-reference-type="ref"
-data-reference="fig:GCsystemCharacteristicTimes">6</a>, we see that the
-typical globular cluster has a crossing time of <span
-class="math inline">\(5\times10^{7}~\mathrm{yr}\)</span>. From Fig. <a
-href="#fig:numericalErrorLeapfrogVanilla" data-reference-type="ref"
-data-reference="fig:numericalErrorLeapfrogVanilla">1</a> that selecting
-a <span class="math inline">\(\Delta t\)</span> of <span
-class="math inline">\(10^{4}~\mathrm{yr}\)</span>, which is <span
-class="math inline">\(2\times 10^{-4}\)</span> that of the crossing
-time, we have conserve energy with a relative error of <span
-class="math inline">\(10^{-8}\)</span>. Then, from Fig. <a
+1  \right\rceil.\]</span> Now, what is a good value of <span
+class="math inline">\(\alpha\)</span> to ensure energy conservation?
+From the analysis presented in the previous sections, I choose
+timestamps without relating them to the crossing times of the globular
+clusters’ orbits. Fig. <a href="#fig:numericalErrorLeapfrogVanilla"
+data-reference-type="ref"
+data-reference="fig:numericalErrorLeapfrogVanilla">1</a> shows that
+<span class="math inline">\(\Delta t = 10^4~\mathrm{yr}\)</span>
+achieves a mean relative energy error of <span
+class="math inline">\(10^{-8}\)</span>. Meanwhile, Fig. <a
 href="#fig:numericalErrorReverseIntegration" data-reference-type="ref"
-data-reference="fig:numericalErrorReverseIntegration">2</a>, we see that
-<span class="math inline">\(\Delta t= 10^{5}~\mathrm{yr}\)</span>
-already converges to the best we can do for time-reversability, which is
-<span class="math inline">\(2\times10^{-3}\)</span> the
-crossing-time.</p>
+data-reference="fig:numericalErrorReverseIntegration">2</a> shows that a
+timestep of <span class="math inline">\(\Delta t =
+10^5~\mathrm{yr}\)</span> already achieves convergence in
+time-reversibility. If we relate these numbers to the mean crossing time
+from Fig. <a href="#fig:GCsystemCharacteristicTimes"
+data-reference-type="ref"
+data-reference="fig:GCsystemCharacteristicTimes">6</a>, we obtain an
+<span class="math inline">\(\alpha\)</span> of about <span
+class="math inline">\(2 \times 10^{-4}\)</span> and <span
+class="math inline">\(2 \times 10^{-3}\)</span>, respectively. In
+Fig. <a href="#fig:numericalErrorStaticPlummerSphereEnergyError"
+data-reference-type="ref"
+data-reference="fig:numericalErrorStaticPlummerSphereEnergyError">8</a>
+I investigate the energy conservation of a normalized plummer sphere
+with trial <span class="math inline">\(\alpha\)</span>’s of <span
+class="math inline">\([10^{-4},10^{-3},10^{-2},10^{-1},1,2]\)</span>.
+This experiment shows that <span class="math inline">\(\alpha\)</span>
+below <span class="math inline">\(10^{-2}\)</span> has excellent energy
+conservation. The experiment compares each star-particle’s final energy
+to it’s initial energy. In this section, we do not study the
+time-reversability, but present it for simulating the full disruption in
+the following section.</p>
 <figure id="fig:numericalErrorStaticPlummerSphereEnergyError">
 <img src="images/numericalErrorStaticPlummerSphereEnergyError.png" />
 <figcaption>The relative error of the energy conservation for a plummer
 sphere with different timesteps. Each sphere was sampled with a the same
-number of particles, <span class="math inline">\(N\)</span>, and
+number of particles, <span class="math inline">\(N_p\)</span>, and
 integrated for the same amount of time, <span
 class="math inline">\(T\)</span>, both of which are indicated on the
 plot. The x-axis is the size of the time-step, <span
 class="math inline">\(\alpha\)</span>, which is the fraction of the
 internal dynamical time, <span class="math inline">\(\tau =
-\sqrt{\frac{a^3}{GM}}\)</span>. </figcaption>
+\sqrt{\frac{a^3}{GM}}\)</span>.</figcaption>
 </figure>
 <h2 id="full-stream-generation">Full stream generation</h2>
 <p>The preceding sections assessed the numerical stability of

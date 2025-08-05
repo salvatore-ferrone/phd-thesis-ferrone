@@ -288,28 +288,30 @@ This chapter documents how we solve the equations of motion numerically, how we 
             \label{fig:GCsystemStabilityDynamicalTimeRatios}
         \end{figure}
         
-        To properly compute the orbits of the star-particles, the timestep must be small enough to properly resolve the orbit while it is inside the cluster. How should we pick that number? There are two criteria, the first is to ensure that the timestep is some fraction of the cluster's dynamical time:
+        To properly compute the orbits of the star particles, the timestep must be small enough to resolve the orbit accurately while the star is inside the cluster. How should we choose this timestep? There are two criteria. The first is that the timestep should be some fraction of the cluster's dynamical time:
         \begin{equation}
             \Delta t' = \alpha ' \tau.
         \end{equation}
-        I mark each with a \textit{prime} becuase they are a trial time-step until the second criteria is also satisfied, which is simply that the resultant number of timesteps is an integer: $ N = \lceil T / \alpha ' \tau \rceil$, where $T$ is the total integration time. We round-up the number of steps to choose an even smaller timestep, which becomes: $\Delta t = T/N$, which also adjusts: $\alpha = \tau / \Delta t$. 
+        I use a prime to indicate that this is a trial timestep, since the second criterion must also be satisfied: the total number of timesteps should be an integer, 
+        \[
+            N = \left\lceil \frac{T}{\alpha' \tau} \right\rceil,
+        \]
+        where $T$ is the total integration time. We round $N$ up to ensure a slightly smaller timestep, which becomes $\Delta t = T/N$. This also redefines the effective timestep fraction as $\alpha = \Delta t / \tau$.
 
-
-        The way I present the experiments in this section, is that I select some fractions of each cluster's dynamical time, and explore the resultant numerical error. I wanted to test a wide range of $\alpha$. To do this, I only pick few different trial $\alpha '$, and then round each one down so that that the number of steps is not only an integer, but also a multiple of 2. This leads to the following criterion:
+        In the experiments presented in this section, I choose several fractions of each cluster's dynamical time and examine the resulting numerical errors. To efficiently explore a wide range of $\alpha$, I begin with a few trial values of $\alpha'$ and then round the number of steps down so that $N$ is not only an integer, but also a power of two. This leads to the following condition:
         \begin{equation}
             N = 2^{k-1}
         \end{equation}
-        where $k$ is an integer index $ k \in [1,2,\dots]$. The criterion for the number of steps becomes: 
+        where $k \in \mathbb{N}$ is an integer index. The expression for $k$ becomes:
         \begin{equation}
             k = \left\lceil \log_2\left(\frac{T}{\alpha '  \tau_\mathrm{dyn}}\right) + 1  \right\rceil.
         \end{equation}
         
-        Now, what is a good $\alpha$ to ensure good energy conservation and time-reversability? From Fig.~\ref{fig:GCsystemCharacteristicTimes}, we see that the typical globular cluster has a crossing time of $5\times10^{7}~\mathrm{yr}$. From Fig.~\ref{fig:numericalErrorLeapfrogVanilla} that selecting a $\Delta t$ of $10^{4}~\mathrm{yr}$, which is $2\times 10^{-4}$ that of the crossing time, we have conserve energy with a relative error of $10^{-8}$. Then, from Fig.~\ref{fig:numericalErrorReverseIntegration}, we see that $\Delta t= 10^{5}~\mathrm{yr}$ already converges to the best we can do for time-reversability, which is $2\times10^{-3}$ the crossing-time. 
-
+        Now, what is a good value of $\alpha$ to ensure energy conservation? From the analysis presented in the previous sections, I choose timestamps without relating them to the crossing times of the globular clusters' orbits. Fig.~\ref{fig:numericalErrorLeapfrogVanilla} shows that $\Delta t = 10^4~\mathrm{yr}$ achieves a mean relative energy error of $10^{-8}$. Meanwhile, Fig.~\ref{fig:numericalErrorReverseIntegration} shows that a timestep of $\Delta t = 10^5~\mathrm{yr}$ already achieves convergence in time-reversibility. If we relate these numbers to the mean crossing time from Fig.~\ref{fig:GCsystemCharacteristicTimes}, we obtain an $\alpha$ of about $2 \times 10^{-4}$ and $2 \times 10^{-3}$, respectively. In Fig.~\ref{fig:numericalErrorStaticPlummerSphereEnergyError} I investigate the energy conservation of a normalized plummer sphere with trial $\alpha$'s of $[10^{-4},10^{-3},10^{-2},10^{-1},1,2]$. This experiment shows that $\alpha$ below $10^{-2}$ has excellent energy conservation. The experiment compares each star-particle's final energy to it's initial energy. In this section, we do not study the time-reversability, but present it for simulating the full disruption in the following section. 
         \begin{figure}
             \centering
             \includegraphics[width=\linewidth]{images/numericalErrorStaticPlummerSphereEnergyError.png}
-            \caption{The relative error of the energy conservation for a plummer sphere with different timesteps. Each sphere was sampled with a the same number of particles, $N$, and integrated for the same amount of time, $T$, both of which are indicated on the plot. The x-axis is the size of the time-step, $\alpha$, which is the fraction of the internal dynamical time, $\tau = \sqrt{\frac{a^3}{GM}}$. }
+            \caption{The relative error of the energy conservation for a plummer sphere with different timesteps. Each sphere was sampled with a the same number of particles, $N_p$, and integrated for the same amount of time, $T$, both of which are indicated on the plot. The x-axis is the size of the time-step, $\alpha$, which is the fraction of the internal dynamical time, $\tau = \sqrt{\frac{a^3}{GM}}$.}
             \label{fig:numericalErrorStaticPlummerSphereEnergyError}
         \end{figure}
 
