@@ -286,18 +286,16 @@ class="citation" data-cites="1914PhRv....4..345B">(Buckingham
 1914)</span>. In classical mechanics, physical quantities are typically
 expressed in terms of three fundamental dimensions: length, time, and
 mass. Any quantity can then be represented as a product of powers of
-these base units:</p>
-<p><span class="math display">\[\left[\mathrm{Quantity}\right] = l^a t^b
-m^c =
+these base units: <span
+class="math display">\[\left[\mathrm{Quantity}\right] = l^a t^b m^c =
             \begin{bmatrix}
                 a\\
                 b\\
                 c
-            \end{bmatrix}\]</span></p>
-<p>For example, velocity has dimensions <span class="math inline">\([1,
--1, 0]\)</span>, momentum is <span class="math inline">\([1, -1,
-1]\)</span>, and acceleration is <span class="math inline">\([1, -2,
-0]\)</span>.</p>
+            \end{bmatrix}\]</span> For example, velocity has dimensions
+<span class="math inline">\([1, -1, 0]\)</span>, momentum is <span
+class="math inline">\([1, -1, 1]\)</span>, and acceleration is <span
+class="math inline">\([1, -2, 0]\)</span>.</p>
 <p>It is not strictly necessary to adopt length-time-mass as the
 fundamental basis, as long as the three chosen base units are linearly
 independent. In stellar dynamics, it is often more natural to use
@@ -320,9 +318,9 @@ class="math display">\[1\mathrm{Gyr} \approx
 class="math display">\[\left[G\right]=\frac{v^2 \cdot l}{m},\]</span>
 which evaluates numerically to: <span class="math display">\[G = 4.301
 \times 10^{-6} \left(\mathrm{km}/\mathrm{s}\right)^2 \cdot \mathrm{kpc}
-\cdot \mathrm{M}_\odot^{-1}.\]</span></p>
-<p>Once the base units are defined, derived quantities such as
-acceleration follow directly. Whether considering acceleration as <span
+\cdot \mathrm{M}_\odot^{-1}.\]</span> Once the base units are defined,
+derived quantities such as acceleration follow directly. Whether
+considering acceleration as <span
 class="math inline">\(v^2~l^{-1}\)</span> or <span
 class="math inline">\(l \cdot t^{-2}\)</span>, they are equivalent and
 yield: <span
@@ -337,17 +335,16 @@ instance, by choosing 1 kpc for distance and 1 km/s for velocity, and
 setting <span class="math inline">\(G = 1\)</span>, the derived mass
 unit becomes: <span class="math display">\[\left[\mathrm{mass}\right] =
 \frac{l \cdot v^2}{G} = 232509~\mathrm{M}_\odot.\]</span> This approach
-was used in our first paper (see Chapter 4).</p>
-<p>The famous galactic dynamical python code, <code>Galpy</code> makes a
-different choice and introduced <em>natural units</em> <span
-class="citation" data-cites="2015ApJS..216...29B">(Bovy 2015)</span>.
-More specifically, <span class="citation"
-data-cites="2015ApJS..216...29B">Bovy (2015)</span> uses a normalization
-in which <span class="math inline">\(R\)</span>, the cylindrical scale
-length of the galaxy, and <span
-class="math inline">\(v_\mathrm{circ}\)</span>, the circular velocity at
-this radius, are both set to 1. This choice is motivated by a galaxy’s
-rotation curve and is embodied in: <span
+was used in our first paper (see Chapter 4). The famous galactic
+dynamical python code, <code>Galpy</code> makes a different choice and
+introduced <em>natural units</em> <span class="citation"
+data-cites="2015ApJS..216...29B">(Bovy 2015)</span>. More specifically,
+<span class="citation" data-cites="2015ApJS..216...29B">Bovy
+(2015)</span> uses a normalization in which <span
+class="math inline">\(R\)</span>, the cylindrical scale length of the
+galaxy, and <span class="math inline">\(v_\mathrm{circ}\)</span>, the
+circular velocity at this radius, are both set to 1. This choice is
+motivated by a galaxy’s rotation curve and is embodied in: <span
 class="math display">\[\frac{v_\mathrm{circ}^2}{R_0} = \nabla  \Phi
 \left(R_0, z=0\right).
         \label{eq:vcirc}\]</span> Note that the gravitational constant
@@ -549,8 +546,8 @@ class="math inline">\(q_{i+1}\)</span> (denoted <span
 class="math inline">\(p_{i+1/2}\)</span>) is used to advance the
 position, and then the average force (derived from the potential) is
 used to update the momentum. In Cartesian coordinates—used throughout
-this thesis—the leapfrog algorithm can be written as:</p>
-<p><span class="math display">\[\begin{aligned}
+this thesis—the leapfrog algorithm can be written as: <span
+class="math display">\[\begin{aligned}
         x_{i+1/2} &amp;= x_i + \frac{1}{2} \dot{x}_i \Delta t , \\
         \ddot{x}_{i+1/2} &amp;= -\nabla \Phi(x_{i+1/2}), \\
         \dot{x}_{i+1} &amp;= \dot{x}_i + \ddot{x}_{i+1/2} \Delta t, \\
