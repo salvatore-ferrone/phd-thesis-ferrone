@@ -1003,9 +1003,9 @@ becomes: <span class="math display">\[k = \left\lceil
 \log_2\left(\frac{T}{\alpha &#39;  \tau_\mathrm{dyn}}\right) +
 1  \right\rceil.
             \label{eq:binary_time_step_criterion}\]</span></p>
-<p>Now, what is a good value of <span
+<p>The goal is now to determine the appropriate value of <span
 class="math inline">\(\alpha\)</span> to ensure energy conservation and
-time-reversibility? In the analysis presented in the previous sections,
+time-reversibility. In the analysis presented in the previous sections,
 I selected timesteps without explicitly relating them to the crossing
 times of globular cluster orbits. Fig. <a
 href="#fig:numericalErrorLeapfrogVanilla" data-reference-type="ref"
@@ -1059,10 +1059,9 @@ scale radius, mass, and the gravitational constant. This
 non-dimensionalization allowed me to select timesteps as fractions of
 the internal dynamical time <span class="math inline">\(\tau\)</span> of
 each cluster.</p>
-<p>In this section, I combine these two components: I examine the
-quality of orbit integration for star particles evolving within a
-globular cluster, which in turn is orbiting in the Galactic
-potential.</p>
+<p>In this section, I combine them: I examine the quality of orbit
+integration for star particles evolving within a globular cluster, which
+in turn is orbiting in the Galactic potential.</p>
 <p>I restrict the analysis here to the Leapfrog integrator for two main
 reasons. First, although the Forest-Ruth scheme achieves better energy
 conservation (see Fig. <a
@@ -1223,10 +1222,10 @@ href="#fig:NumericalErrorComputationTimeScalingForStreams"
 data-reference-type="ref"
 data-reference="fig:NumericalErrorComputationTimeScalingForStreams">12</a>
 presents an the results from an experiment with all the globular
-clusters integrating them each for 1 Gyr. I choose the timestep to be at
-most 1/20 of each internal dynamical time, thus since each cluster has a
-different dynamical time, it will require a different number of steps.
-For each of these tests I use <span
+clusters, integrating them each for 1 Gyr. I choose the timestep to be
+at most 1/20 of each internal dynamical time, thus since each cluster
+has a different dynamical time, it will require a different number of
+steps. For each of these tests I use <span
 class="math inline">\(10^1,~10^2,~10^2,~10^3\)</span> particles and
 launched them on cluster at the paris observatory. Then, I fit a scaling
 law of <span class="math inline">\(C(N_p,N_s) = \langle C\rangle N_p^a
