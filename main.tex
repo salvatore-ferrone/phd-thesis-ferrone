@@ -2,8 +2,9 @@
 \input{config/parameters.tex}
 \input{config/macro.tex}
 \usepackage{config/psl-cover/psl-cover}
-\usepackage{listings}
 \pslassetspath{config/psl-cover}
+\usepackage{listings}
+\newcommand{\paola}[1]{\textcolor{purple}{#1}}
 
 \title{Stellar Streams}
 \institute{l'Observatoire de Paris et \\ \sapred{l'Università di Roma ``La Sapienza''}}
@@ -43,19 +44,19 @@
 
 \mainmatter
 \setcounter{page}{1}
-% \chapter{Introduction}
+\chapter{Introduction}
 \input{chapters/introduction}
 
-% \chapter{Theory}
+\chapter{Theory}
 \input{chapters/theory}
 
-% \chapter{Numerical methods}
+\chapter{Numerical methods}
 \input{chapters/numerics}
 
-% \chapter{Tidal}
+\chapter{Tidal}
 \input{chapters/tidal}
 
-% \chapter{Gapology}
+\chapter{Gapology}
 \input{chapters/gapology}
 
 \chapter{On going experiments}
