@@ -4,6 +4,7 @@
 \usepackage{geometry}
 \usepackage{xcolor}
 \usepackage{config/psl-cover/aas_macros}
+\usepackage{url}
 \geometry{a4paper,
   left= 3cm,right = 2cm,  
   top = 3cm,bottom = 3cm,
@@ -12,38 +13,32 @@
 
 \begin{document}
 \section{Tstrippy}
-    This project is built on \texttt{f2py}, based on the paradigm that code compiled in Fortran is significantly faster than Python, while Python, especially within Jupyter notebooks, is far more convenient for development and visualization. \texttt{f2py} stands for \textit{Fortran to Python} \citep{peterson2009f2py}. The name, \texttt{t-strip-py}, is short for \texttt{T}idal \texttt{Strip}ping \texttt{Py}thon. 
 
-    \texttt{F2py} only supports \texttt{F77}/\texttt{F90}/\texttt{F95}. So we choose \texttt{F90} since it introduces \textit{modules}. A module is similar to Object Oriented Programming. A Module has its own data, and subroutines that can modify said data. However, modules do not have ineritences, and there can not be more than one instantiation of a module, as there can be many instances of the same class within the same program. 
+    This project is built on \texttt{f2py}, which allows integration between Fortran and Python. The core motivation behind this choice is performance: Fortran, as a compiled language, provides significantly faster execution for numerically intensive tasks, while Python—especially within Jupyter notebooks—offers a convenient environment for development, experimentation, and visualization. \texttt{F2py} stands for \textit{Fortran to Python} \citep{peterson2009f2py}, and it is included as a module within NumPy \citep{numpy_f2py_manual,2020Natur.585..357H}. The name of the project, \texttt{tstrippy}, stands for \texttt{T}idal \texttt{Strip}ping in \texttt{Py}thon.
 
-    \texttt{tstrippy} has five modules:
+    \texttt{F2py} supports Fortran 77, 90, and 95 standards, so we chose to write the code in Fortran 90 to make use of its support for \textit{modules}. In Fortran, a module encapsulates data and subroutines in a manner somewhat analogous to classes in object-oriented programming. However, Fortran modules do not support inheritance, and only a single instance of a module can exist at a time—unlike classes, which can be instantiated multiple times.
+
+    \texttt{Tstrippy} package is structured around five core Fortran modules, each responsible for a distinct aspect of the simulation:
     \begin{itemize}
-        \item \texttt{integrator}: the main module. This module stores the positions and velocities and computes the forces and time evolution of the orbits. It also writes out intermitten data during the simulations, if desired. It interfaces with the other modules within the code. 
-        \item \texttt{potentials}: The analytical potentials that are used for the force computations. At the moment, it includes: \texttt{Plummer}, \texttt{Hernquist}, \texttt{AllenSantillian}, \texttt{MiyamotoNagai}, \texttt{longmuralibar} \citep{1992ApJ...397...44L} and the composite potential \texttt{pouliasis2017pii}. The user can also access this module directly in python if they are interested in, for example, computing the energy of a body in post production.
-        \item \texttt{hostperturber}: this module handles the host globular cluster. It stores the orbit's timestamps, positions, and velocities. It coordinates the timestamps of the cluster with the integrator's internal clock. It computes the forces on the star-particles by the perturber. 
-        \item \texttt{perturbers}: this module practically does the same as the host perturber, but can handle multiple different clusters. When computing the force on each particle, it loops over all clusters. If Object Oriented Programming was an option, both \texttt{pertubers} and \texttt{hostperturbers} would be children of the same parent class.
-        \item \texttt{galacticbar}: This module stores the bar's parameters corresponding to the potential model. It also stores \texttt{barpoly} which are the polynomial coefficients for angular displacement as a function of time:
+        \item \texttt{integrator}: This is the central module of the code. It stores particle positions and velocities, computes forces, and evolves the system forward in time. It also handles the writing of output data at specified intervals and interfaces with all other modules in the code.
+        \item \texttt{potentials}: This module defines the analytical potentials used to compute gravitational forces. It currently supports several models, including \texttt{Plummer}, \texttt{Hernquist}, \texttt{AllenSantillian}, \texttt{MiyamotoNagai}, the bar model \texttt{LongMuraliBar} from \citet{1992ApJ...397...44L}, and the composite model from \texttt{pouliasis2017pii} \citep{2017A&A...598A..66P}. This module can also be called in Python, allowing users to call potential functions directly, e.g., for computing energies during post-processing.
+        \item \texttt{hostperturber}: This module handles the host globular cluster. It stores its orbit (i.e., timestamps, positions, and velocities) and ensures its synchronization with the simulation's internal clock. It computes the gravitational influence of the host cluster on each star particle. This is an internal module only.
+        \item \texttt{perturbers}: Similar in function to \texttt{hostperturber}, this module supports additional perturbing clusters. It allows for the inclusion of multiple perturbers and computes their collective force on each particle. If object-oriented programming were available in Fortran, both this module and \texttt{hostperturber} would naturally inherit from a shared parent class. This module only uses the positions, masses, and characteristic radii of the other perturbers. The velocities are not imported.
+        \item \texttt{galacticbar}: This module stores parameters for the Galactic bar, including the polynomial coefficients for its angular displacement as a function of time:
         \[
         \theta(t) = \theta_0 + \omega t + \dot{\omega} t^2 + \ddot{\omega} t^3 + \dots
         \]
-        This module also transforms the position of the particles of the bar frame, computes the forces, and transforms the forces back to Galactocentric frame.
+        It performs transformations into the rotating bar frame, computes the forces in that frame, and then transforms the forces back to the Galactocentric reference frame.
     \end{itemize}
-    The advantage of this structure is that I can add more modules to include different types of physics. 
+    This modular structure makes it straightforward to extend the code by adding new physics in the form of additional modules.
 
-    What else do I want to say: 
-    \begin{itemize}
-        \item f2py is a module within numpy \citep{numpy_f2py_manual,2020Natur.585..357H}
-        \item How I wrote the code following Bovy's guide for creating a python package \citep{pythonpackagingguide}.
-        \item That by using this guide, I used \texttt{setuptools}, which is the python standard for creating python packages (is it the native package builder for python?)
-        \item however, setuptools became incompatbile with f2py as of numpy1.22 and python3.9 (I must get the dates for these)
-        \item therefore, for a while, I required the code to have depreciated versions of numpy and python. 
-        \item additionally, with these outdated versions of numpy, I could not use them with the new mac processors (why was this the case again?)
-        \item However, one day I solved this issue by migrating to \texttt{meson}, which is a package builder and compiler that can work with codes written in a variety of langauges.
-        \item now the code is compiler independent, it works with the standard intel architecture as well as the new arm processors. 
-        \item I build a readthedocs.io page. It has some working examples. 
-        \item I have some tests built into the code, although not totally extensive, it is already very useful for ensuring that updates to the code don't break expected functionalities. I use \texttt{pytest} for the test suite. 
-        \item the code is open source and available on github. 
-    \end{itemize}
+    To make the package installable and easy to distribute, I initially followed the guide by \citet{pythonpackagingguide}, which describes how to create a Python package using \texttt{setuptools}—the standard build system in the Python ecosystem. However, compatibility between \texttt{setuptools} and \texttt{f2py} was broken starting with NumPy~$>$~1.22 (released June 22, 2022\footnote{\url{https://github.com/numpy/numpy/releases/tag/v1.22.0}}) and Python~$>$~3.9.18 (released June 24, 2024\footnote{\url{https://www.python.org/downloads/release/}}). This meant that Fortran extensions could only be compiled using deprecated versions of both. These older versions of NumPy were also not compatible with Apple's ARM-based M1 and M2 processors, rendering the code unusable on modern Mac systems.
+
+    This limitation stemmed from the deprecation and eventual removal of \texttt{numpy.distutils}, the tool that previously enabled seamless integration of Fortran code in NumPy-based packages. As of NumPy~1.23 and later, \texttt{numpy.distutils} was deprecated, and with NumPy~2.0, it was removed entirely. The NumPy developers recommended migrating to \texttt{meson} \citep{meson_manual} or \texttt{Cmake}.
+
+    To address these issues, I migrated the build process to \texttt{meson}, a language-agnostic build system capable of compiling Fortran, C, and Python extensions across architectures. This eliminated compatibility problems and made the build process architecture-independent. The build system now automatically detects the system architecture and compiles accordingly.
+
+    The code is fully open source and available on GitHub.\footnote{\url{https://github.com/salvatore-ferrone/tstrippy}} To support users, I created documentation hosted on \texttt{readthedocs.io}\footnote{\url{https://tstrippy.readthedocs.io/en/latest/}}, which includes working examples and basic usage guides. A minimal test suite, written using \texttt{pytest}, is also included. While not exhaustive, the tests ensure that core functionality remains intact as the code evolves. In the next section, I present a minimal example of how the user may use the code within a python script.
 
     \subsection{Minimum example}
         If the package is properly installed on the system, it can be imported at the top of any Python script:
@@ -157,6 +152,9 @@
         Deallocating is necessary to avoid memory leaks or crashes in Jupyter when rerunning code cells.
 
     \subsection{Was it worth developing my own code?}
+    Why did I get to meson? It was recommended to me by co-pilot. I am aware that others exist. However, the build eco-system is large. I found one that worked, and I kept going not feeling the need to explore all options. 
+
+    Why use f2py instead of doing something like cython or C++ to python? Inheritence. The first version of the code was built in fortran, so I kept going with this. 
 
     \begin{itemize}
         \item now I want to build on some reflection points. Was it worth building this code? I want to make a list of pro's and cons: 
