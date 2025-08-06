@@ -409,84 +409,159 @@ This chapter documents how we solve the equations of motion numerically, how we 
 
 
 \section{Tstrippy}
+    This project is built on \texttt{f2py}, which allows integration between Fortran and Python. The core motivation behind this choice is performance: Fortran, as a compiled language, provides significantly faster execution for numerically intensive tasks, while Python—especially within Jupyter notebooks—offers a convenient environment for development, experimentation, and visualization. \texttt{F2py} stands for \textit{Fortran to Python} \citep{peterson2009f2py}, and it is included as a module within NumPy \citep{numpy_f2py_manual,2020Natur.585..357H}. The name of the project, \texttt{tstrippy}, stands for \texttt{T}idal \texttt{Strip}ping in \texttt{Py}thon.
 
-    
-    \textbf{how the code works}
+    \texttt{F2py} supports Fortran 77, 90, and 95 standards, so we chose to write the code in Fortran 90 to make use of \textit{modules}. In Fortran, a module encapsulates data and subroutines in a manner somewhat analogous to classes in object-oriented programming. However, Fortran modules do not support inheritance, and only a single instance of a module can exist at a time—unlike classes, which can be instantiated multiple times.
 
-        \begin{verbatim}
-        in verbatim: YES
-        \end{verbatim}
+    \texttt{Tstrippy} package is structured around five core Fortran modules, each responsible for a distinct aspect of the simulation:
+    \begin{itemize}
+        \item \texttt{integrator}: This is the central module of the code. It stores particle positions and velocities, computes forces, and evolves the system forward in time. It also handles the writing of output data at specified intervals and interfaces with all other modules in the code.
+        \item \texttt{potentials}: This module defines the analytical potentials used to compute gravitational forces. It currently supports several models, including \texttt{Plummer}, \texttt{Hernquist}, \texttt{AllenSantillian}, \texttt{MiyamotoNagai}, the bar model \texttt{LongMuraliBar} from \citet{1992ApJ...397...44L}, and the composite model from \texttt{pouliasis2017pii} \citep{2017A&A...598A..66P}. This module can also be called in Python, allowing users to call potential functions directly, e.g., for computing energies during post-processing.
+        \item \texttt{hostperturber}: This module handles the host globular cluster. It stores its orbit (i.e., timestamps, positions, and velocities) and ensures its synchronization with the simulation's internal clock. It computes the gravitational influence of the host cluster on each star particle. This is an internal module only.
+        \item \texttt{perturbers}: Similar in function to \texttt{hostperturber}, this module supports additional perturbing clusters. It allows for the inclusion of multiple perturbers and computes their collective force on each particle. If object-oriented programming were available in Fortran, both this module and \texttt{hostperturber} would naturally inherit from a shared parent class. This module only uses the positions, masses, and characteristic radii of the other perturbers. The velocities are not imported.
+        \item \texttt{galacticbar}: This module stores parameters for the Galactic bar, including the polynomial coefficients for its angular displacement as a function of time:
+        \[
+        \theta(t) = \theta_0 + \omega t + \dot{\omega} t^2 + \ddot{\omega} t^3 + \dots
+        \]
+        If a user wants a bar with a constant rotation speed, then they may pass two coefficients. If they want a bar that accelerates for decelerates, they may mass more coefficients for the higher order terms. The module performs transformations into the rotating bar frame, computes the forces in that frame, and then transforms the forces back to the Galactocentric reference frame.
+    \end{itemize}
+    This modular structure makes it straightforward to extend the code by adding new physics in the form of additional modules.
 
-        This project is built on \texttt{f2py} and the paradigm that code compiled in fortran is faster than python, yet python is much more convenient that fortran, particularly given Jupyter notebooks. \texttt{f2py} means \texttt{Fortran} to \texttt{python} \citep{peterson2009f2py}.   
+    To make the package installable and easy to distribute, I initially followed the guide by \citet{pythonpackagingguide}, which describes how to create a Python package using \texttt{setuptools}—the standard build system in the Python ecosystem. However, compatibility between \texttt{setuptools} and \texttt{f2py} was broken starting with NumPy~$>$~1.22 (released June 22, 2022\footnote{\url{https://github.com/numpy/numpy/releases/tag/v1.22.0}}) and Python~$>$~3.9.18 (released June 24, 2024\footnote{\url{https://www.python.org/downloads/release/}}). This meant that Fortran extensions could only be compiled using deprecated versions of both. These older versions of NumPy were also not compatible with Apple's ARM-based M1 and M2 processors, rendering the code unusable on modern Mac systems.
 
-        At the python level,
-        \begin{enumerate}
-            \item sets the initial conditions and parameters 
-            \item launches the integration
-            \item extracts the data
-        \end{enumerate}
+    This limitation stemmed from the deprecation and eventual removal of \texttt{numpy.distutils}, the tool that previously enabled seamless integration of Fortran code in NumPy-based packages. As of NumPy~1.23 and later, \texttt{numpy.distutils} was deprecated, and with NumPy~2.0, it was removed entirely. The NumPy developers recommended migrating to \texttt{meson} \citep{meson_manual} or \texttt{Cmake}.
 
+    To address these issues, I migrated the build process to \texttt{meson}, a language-agnostic build system capable of compiling Fortran, C, and Python extensions across architectures. This eliminated compatibility problems and made the build process architecture-independent. The build system now automatically detects the system architecture and compiles accordingly.
+
+    The code is fully open source and available on GitHub.\footnote{\url{https://github.com/salvatore-ferrone/tstrippy}} To support users, I created documentation hosted on \texttt{readthedocs.io}\footnote{\url{https://tstrippy.readthedocs.io/en/latest/}}, which includes working examples and basic usage guides. A minimal test suite, written using \texttt{pytest}, is also included. While not exhaustive, the tests ensure that core functionality remains intact as the code evolves. In the next section, I present a minimal example of how the user may use the code within a python script.
+
+    \subsection{Minimum example}
+        If the package is properly installed on the system, it can be imported at the top of any Python script:
+        \small
         \begin{lstlisting}[language=python]
-            # import the module
             import tstrippy    
-            # set load or select the parameters 
+        \end{lstlisting}
+        \normalsize
+        Next, the user must load or define the initial conditions. The code provides:
+        \begin{itemize}
+            \item The masses, sizes, and kinematics of the globular cluster catalog from \citet{2018MNRAS.478.1520B};
+            \item The galactic potential parameters for model II of \citet{2017A&A...598A..66P}; and
+            \item A galactic reference frame.
+        \end{itemize}
 
-            # set the integrator
+        \small
+        \begin{lstlisting}[language=python]
+            GCdata      = \
+                tstrippy.Parsers.baumgardtMWGCs().data
+            MWparams    = \
+                tstrippy.Parsers.potential_parameters.pouliasis2017pii()
+            MWrefframe  = \
+                tstrippy.Parsers.potential_parameters.MWreferenceframe()
+        \end{lstlisting}
+        \normalsize
+        The user must then select the system to integrate. For example, to integrate the orbits of observed globular clusters, one must convert the ICRS coordinates to a Galactocentric frame using \texttt{astropy} and the provided MW reference frame. Alternatively, to simulate a star cluster, one can generate a Plummer sphere:
+        \small
+        \begin{lstlisting}[language=python]
+            xp,yp,zp,vxp,vyp,vzp=\
+            tstrippy.ergodic.isotropicplummer(G,massHost,halfmassradius,NP)
+        \end{lstlisting}
+        Here, \texttt{NP} is the number of particles, \texttt{halfmassradius} is the system's half-mass radius, \texttt{massHost} is the total mass of the Plummer sphere, and \texttt{G} is the gravitational constant. All values must be in the same unit system.
+
+        The integrator must then be initialized. All parameters are passed via lists that are unpacked at the function call. Here is an example of initializing the integrator for a stellar stream in a potential that includes a rotating galactic bar:
+        \small
+        \begin{lstlisting}[language=python]
             tstrippy.integrator.setstaticgalaxy(*staticgalaxy)
             tstrippy.integrator.setinitialkinematics(*initialkinematics)
             tstrippy.integrator.setintegrationparameters(*integrationparameters)
+            tstrippy.integrator.inithostperturber(*hostperturber)
             tstrippy.integrator.initgalacticbar(*galacticbar)
             tstrippy.integrator.setbackwardorbit()
         \end{lstlisting}
+        \normalsize
 
-        The the user has two integration options 
+        \begin{itemize}
+            \item \texttt{setstaticgalaxy} specifies the static potential model and passes its parameters.
+            \item \texttt{setinitialkinematics} provides the initial positions and velocities of the particles.
+            \item \texttt{setintegrationparameters} defines the initial time, timestep, and number of steps.
+            \item \texttt{inithostperturber} specifies the globular cluster's trajectory and mass as a function of time.
+            \item \texttt{initgalacticbar} defines a rotating bar. It takes the name of the bar model, potential parameters, and spin parameters.
+            \item \texttt{setbackwardorbit} reverses the velocity vectors and sets the internal clock to count down: $t_i = t_0 - i \cdot \Delta t$. For the usecase presented in this work, \texttt{setbackwardorbit} is used for computing the globular cluster orbits and not for the star-particles. 
+        \end{itemize}
+        The user can choose between two output modes during integration:
+        \begin{lstlisting}
+            tstrippy.integrator.initwriteparticleorbits(nskip,myoutname,myoutdir)
+            tstrippy.integrator.initwritestream(nskip,myoutname,myoutdir)
+        \end{lstlisting}
+        Conceptually, these represent two output paradigms:
+        \begin{itemize}
+            \item \texttt{initwriteparticleorbits} saves the full orbit of each particle to an individual file.
+            \item \texttt{initwritestream} saves full snapshots of all particles at selected timesteps.
+        \end{itemize}
+        Both functions take:
+        \begin{itemize}
+            \item \texttt{nskip}: number of timesteps to skip between outputs;
+            \item\texttt{myoutname}: the base file name;
+            \item \texttt{myoutdir}: the output directory.
+        \end{itemize}
+        The output files will be named like: \texttt{../dir/temp0.bin}, \texttt{../dir/temp1.bin}, ..., up to \texttt{../dir/tempN.bin}, where $N = N_\mathrm{step} / N_\mathrm{skip}$. Note that the files are written in Fortran binary format. Although \texttt{scipy.io.FortranFile} can read them, I use a custom parser based on \texttt{numpy.frombuffer} to avoid the SciPy dependency. Once all parameters are set, the user can proceed with integration using one of two methods:
+        \subsubsection*{Full orbit integration (in memory)}
+        \small
         \begin{lstlisting}
             xt,yt,zt,vxt,vyt,vzt=\
-            tstrippy.integrator.leapfrogintime(Ntimestep,nObj)
-            tBackward=tstrippy.integrator.timestamps.copy()
+                tstrippy.integrator.leapfrogintime(Ntimestep,nObj) 
+            timestamps=\
+                tstrippy.integrator.timestamps.copy()
         \end{lstlisting}
+        \normalsize
+        \texttt{leapfrogintime} stores the full orbit of each particle in memory. This is useful for a small number of particles or short integrations—e.g., rapid parameter studies in a notebook. However, for large simulations it can be prohibitively memory-intensive. For instance, integrating all globular clusters at high time resolution might require:
+        \begin{equation}
+            7 \times N_p \times N_\mathrm{step} \times 8~\mathrm{Byte} \approx 450~\mathrm{GB}
+        \end{equation}
+        if $N_\mathrm{step} \approx 10^7$. This will likely exceed system RAM.
 
-        Lastly, the integrator should be deallocated to ensure that the kernel doesn't crash:
+        \subsubsection*{Final state only}
+        \small
+        \begin{lstlisting}
+            tstrippy.integrator.leapfrogtofinalpositions()
+            xf  = tstrippy.integrator.xf.copy()
+            yf  = tstrippy.integrator.yf.copy()
+            zf  = tstrippy.integrator.zf.copy()
+            vxf = tstrippy.integrator.vxf.copy()
+            vyf = tstrippy.integrator.vyf.copy()
+            vzf = tstrippy.integrator.vzf.copy()
+            finaltime=tstrippy.integrator.currenttime.copy()
+        \end{lstlisting}
+        \normalsize
+        \texttt{leapfrogtofinalpositions()} performs the integration but only returns the final phase-space coordinates. These arrays must be copied before deallocating memory:
+        \small
         \begin{lstlisting}
             tstrippy.integrator.deallocate()
         \end{lstlisting}
+        \normalsize
+        Deallocating is necessary to avoid memory leaks or crashes in Jupyter when rerunning code cells.
 
-        After this point
+    \subsection{Reflection on developing \texttt{tstrippy}}
+        The earliest version of this code began as a simple Fortran script built to integrate test particles in specific gravitational potential models. Since I was already familiar with Fortran and had working routines, I chose to build on that foundation, gradually transforming the script into a modular and more reusable package. Rather than switching to C++ or a Python-only solution, I continued using Fortran in combination with \texttt{f2py}.
 
-        Setting the initial conditions looks like this: 
+        One of the primary motivations for writing my own code was flexibility. When I attempted to implement a particle spray method in \textit{Galpy}, I found that performance degraded significantly when using custom potentials not constructed from its internal C++ backend. For example, I wanted to use the \texttt{AllenSantillian} halo model, which is not natively supported. I followed the documentation and implemented a class for it. However, custom potentials bypass \texttt{Galpy}'s optimized C++ backend, resulting in slow computations and rendering actions uncomputable (or at least with the functions I tried). This pushed me to continue developping \texttt{tstrippy}. I had a similar experience with \texttt{Amuse}.
 
-    \textbf{how the code is structured and built}
+        This choice, however, came with challenges. At one point, I tried implementing potentials derived from exponential density profiles, which do not admit closed-form solutions for the potential. I attempted to work in elliptical coordinates, motivated by the idea that the potential would depend only on the ``distance'' from the center along the equipotential surfaces. While I successfully implemented simple potential models in elliptical coordinates, I naïvely overlooked that this changes the equations of motion entirely due to the underlying geometry. I found that my orbits always diverged (except in special cases). It was only later that I realized I would need to account for the metric tensor and Christoffel symbols to properly integrate orbits in elliptical coordinates. At that point, I chose not to pursue this further, prioritizing scientific analysis and launching other simulations instead. This experience helped me appreciate why codes like \texttt{Agama} and many published works prefer basis function expansions for such problems. In hindsight, this episode was a perfect example of how even unsuccessful attempts can lead to valuable insights. Below, I summarize some of the key advantages and limitations I encountered while developing a code from scratch to answer a scientific question.
 
-    There are many versions of fortran, we write the code in f90 since F2py does not support more modern versions of Fortran.
-
-    \textbf{somethings I learned along the way}
-
-    \citet{2020Natur.585..357H} is the numpy package
-    
-    \citet{2013A&A...558A..33A} \citet{2018AJ....156..123A} are the astropy papers
-    
-    \citet{pythonpackagingguide} is the guide 
-
-    \citet{peterson2009f2py} is the paper that presnts f2py, that I do not have access to. 
-    \citet{numpy_f2py_manual} is the manual. 
-
-    \citet{meson_manual} is the meson manual. 
-
-    \begin{itemize}
-        \item How does \texttt{tstrippy} actually work?
-        \item f2py? 
-        \item setuptools $\rightarrow$ meson 
-        \item incompatbile with old mac processors and being blocked at numpy 1.23 until the meson migration 
-        \item f2py, and why did we choose to use Fortran? 
-        \item Bovy's guide for making a public python package
-        \item a brief overview of how it works. 
-        \item how I can either save orbits or snapshots
-        \item some notes on parallelization
-    \end{itemize}
-
-    Since all star-particles are independent from one another, they can be parallelized. This is \textit{data}-parallelization, where the same job is being performed but the input data is changed. This is a much easier paradigm compared to \textit{task}-parallelization different processors do different things to do the data and may need to communicate with one another. In this experiment, since I am simulating the whole globular cluster catalog and sampling the orbital uncertainties with monte-carlo, as explained in Chapter~5, I often times parallelize over different clusters. 
-            
-    However, if I want to accelerate one particular computation, then I must split the number of particles into batches. If I run small simulations on my personal computer, I can take the total number of particles and divide by the number of desired batches. Usually, I divide into the number of processors that I am going to use. $N_\mathrm{per~batch}=N_p//N_\mathrm{batches}$. However, I need to integer divide because the number of particles needs to be an integer. Then, with the last batch, I add the remaining particles, which is $N_\mathrm{left over} = N_p - N_\mathrm{batches} \times N_\mathrm{per~batch}$. 
-
-
-
+        \subsubsection{Advantages and Limitations}
+        Developing and maintaining this codebase brought several clear benefits:
+        \begin{itemize}
+            \item \textit{Understanding.} Writing the code forced me to deeply understand the modeling techniques involved. Otherwise, the results would have been incorrect.
+            \item \textit{Flexibility.} I could implement exactly the models I needed and extend them as required.
+            \item \textit{Transparency.} Results produced by my code can be verified and reproduced by others.
+            \item \textit{Reusability.} Ongoing development helped me uncover and fix subtle bugs (e.g., related to non-symplectic integrators) that do not trigger obvious errors and only appear in edge cases or after close inspection. Long-term engagement with the code is key to catching these issues.
+            \item \textit{Collaboration.} A fellow researcher at the Paris Observatory is now using the code. I also used it to supervise a master's student during their semester research project, something that would not have been possible without building a user-friendly tool.
+            \item \textit{Growth.} This project pushed me to adopt best practices: version control, documentation, modularity. Developing my own code has also made it easier to understand external libraries. For example, when I implemented the King model, I studied \texttt{Galpy}'s internals to cross-check my own method. I was delighted by how much easier it was for me to use, despite the fact that I had not touched it within a year.
+        \end{itemize}
+        However, there were also drawbacks:
+        \begin{itemize}
+            \item \textit{Time cost.} Developing the code took time away from direct scientific analysis. It's possible I could have performed more simulations or performed more analyses had I not develop my code to such an extent.
+            \item \textit{Feature limitations.} My code still lacks capabilities present in other packages: such as basis function expansions, action-angle variable computation, or parallelization strategies using MPI or OpenMP.
+            \item \textit{Changing relevance.} Scientific priorities and available tools evolve rapidly. A general-purpose tool may become obsolete more quickly than a single-use script written for a specific question.
+            \item \textit{Compatibility and maintenance burden.} Making the code accessible to other users also introduces challenges related to cross-platform compatibility and dependency management. Software environments evolve, compilers are updated, dependencies can deprecate, and build tools change. Even with the help of modern tools like \texttt{meson} or \texttt{f2py}, ensuring continued compatibility requires regular testing and adaptation. As the codebase grows, the maintenance load increases, and sustaining it as a single developer becomes increasingly difficult, especially if the tool is made too general.
+        \end{itemize}
+        Nonetheless, the code was designed to address concrete scientific questions about Milky Way stellar streams and globular clusters. In the next two chapters, I present how this tool contributed to advancing our understanding of the Galaxy.

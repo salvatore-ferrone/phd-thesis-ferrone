@@ -1362,83 +1362,298 @@ data-reference-type="ref"
 data-reference="fig:numericalErrorMeanEnergyErrorRuthForestLeapfrog">5</a>,
 the gain in accuracy does not justify the computational cost.</p>
 <h1 id="tstrippy">Tstrippy</h1>
-<p><strong>how the code works</strong></p>
-<p>This project is built on <code>f2py</code> and the paradigm that code
-compiled in fortran is faster than python, yet python is much more
-convenient that fortran, particularly given Jupyter notebooks.
-<code>f2py</code> means <code>Fortran</code> to <code>python</code>
-<span class="citation" data-cites="peterson2009f2py">(Peterson
-2009)</span>.</p>
-<p>At the python level,</p>
-<ol>
-<li><p>sets the initial conditions and parameters</p></li>
-<li><p>launches the integration</p></li>
-<li><p>extracts the data</p></li>
-</ol>
-<p>The the user has two integration options</p>
-<p>Lastly, the integrator should be deallocated to ensure that the
-kernel doesn’t crash:</p>
-<p>After this point</p>
-<p>Setting the initial conditions looks like this:</p>
-<p><strong>how the code is structured and built</strong></p>
-<p>There are many versions of fortran, we write the code in f90 since
-F2py does not support more modern versions of Fortran.</p>
-<p><strong>somethings I learned along the way</strong></p>
-<p><span class="citation" data-cites="2020Natur.585..357H">Harris et al.
-(2020)</span> is the numpy package</p>
-<p><span class="citation" data-cites="2013A&amp;A...558A..33A">Astropy
-Collaboration et al. (2013)</span> <span class="citation"
-data-cites="2018AJ....156..123A">Astropy Collaboration et al.
-(2018)</span> are the astropy papers</p>
-<p><span class="citation" data-cites="pythonpackagingguide">Bovy
-(2025b)</span> is the guide</p>
-<p><span class="citation" data-cites="peterson2009f2py">Peterson
-(2009)</span> is the paper that presnts f2py, that I do not have access
-to. <span class="citation" data-cites="numpy_f2py_manual">NumPy
-Developers (2025)</span> is the manual.</p>
-<p><span class="citation" data-cites="meson_manual">Meson Developers
-(2025)</span> is the meson manual.</p>
+<p>This project is built on <code>f2py</code>, which allows integration
+between Fortran and Python. The core motivation behind this choice is
+performance: Fortran, as a compiled language, provides significantly
+faster execution for numerically intensive tasks, while
+Python—especially within Jupyter notebooks—offers a convenient
+environment for development, experimentation, and visualization.
+<code>F2py</code> stands for <em>Fortran to Python</em> <span
+class="citation" data-cites="peterson2009f2py">(Peterson 2009)</span>,
+and it is included as a module within NumPy <span class="citation"
+data-cites="numpy_f2py_manual 2020Natur.585..357H">(NumPy Developers
+2025; Harris et al. 2020)</span>. The name of the project,
+<code>tstrippy</code>, stands for <code>T</code>idal
+<code>Strip</code>ping in <code>Py</code>thon.</p>
+<p><code>F2py</code> supports Fortran 77, 90, and 95 standards, so we
+chose to write the code in Fortran 90 to make use of <em>modules</em>.
+In Fortran, a module encapsulates data and subroutines in a manner
+somewhat analogous to classes in object-oriented programming. However,
+Fortran modules do not support inheritance, and only a single instance
+of a module can exist at a time—unlike classes, which can be
+instantiated multiple times.</p>
+<p><code>Tstrippy</code> package is structured around five core Fortran
+modules, each responsible for a distinct aspect of the simulation:</p>
 <ul>
-<li><p>How does <code>tstrippy</code> actually work?</p></li>
-<li><p>f2py?</p></li>
-<li><p>setuptools <span class="math inline">\(\rightarrow\)</span>
-meson</p></li>
-<li><p>incompatbile with old mac processors and being blocked at numpy
-1.23 until the meson migration</p></li>
-<li><p>f2py, and why did we choose to use Fortran?</p></li>
-<li><p>Bovy’s guide for making a public python package</p></li>
-<li><p>a brief overview of how it works.</p></li>
-<li><p>how I can either save orbits or snapshots</p></li>
-<li><p>some notes on parallelization</p></li>
+<li><p><code>integrator</code>: This is the central module of the code.
+It stores particle positions and velocities, computes forces, and
+evolves the system forward in time. It also handles the writing of
+output data at specified intervals and interfaces with all other modules
+in the code.</p></li>
+<li><p><code>potentials</code>: This module defines the analytical
+potentials used to compute gravitational forces. It currently supports
+several models, including <code>Plummer</code>, <code>Hernquist</code>,
+<code>AllenSantillian</code>, <code>MiyamotoNagai</code>, the bar model
+<code>LongMuraliBar</code> from <span class="citation"
+data-cites="1992ApJ...397...44L">Long and Murali (1992)</span>, and the
+composite model from <code>pouliasis2017pii</code> <span
+class="citation" data-cites="2017A&amp;A...598A..66P">(Pouliasis, Di
+Matteo, and Haywood 2017)</span>. This module can also be called in
+Python, allowing users to call potential functions directly, e.g., for
+computing energies during post-processing.</p></li>
+<li><p><code>hostperturber</code>: This module handles the host globular
+cluster. It stores its orbit (i.e., timestamps, positions, and
+velocities) and ensures its synchronization with the simulation’s
+internal clock. It computes the gravitational influence of the host
+cluster on each star particle. This is an internal module only.</p></li>
+<li><p><code>perturbers</code>: Similar in function to
+<code>hostperturber</code>, this module supports additional perturbing
+clusters. It allows for the inclusion of multiple perturbers and
+computes their collective force on each particle. If object-oriented
+programming were available in Fortran, both this module and
+<code>hostperturber</code> would naturally inherit from a shared parent
+class. This module only uses the positions, masses, and characteristic
+radii of the other perturbers. The velocities are not imported.</p></li>
+<li><p><code>galacticbar</code>: This module stores parameters for the
+Galactic bar, including the polynomial coefficients for its angular
+displacement as a function of time: <span
+class="math display">\[\theta(t) = \theta_0 + \omega t + \dot{\omega}
+t^2 + \ddot{\omega} t^3 + \dots\]</span> If a user wants a bar with a
+constant rotation speed, then they may pass two coefficients. If they
+want a bar that accelerates for decelerates, they may mass more
+coefficients for the higher order terms. The module performs
+transformations into the rotating bar frame, computes the forces in that
+frame, and then transforms the forces back to the Galactocentric
+reference frame.</p></li>
 </ul>
-<p>Since all star-particles are independent from one another, they can
-be parallelized. This is <em>data</em>-parallelization, where the same
-job is being performed but the input data is changed. This is a much
-easier paradigm compared to <em>task</em>-parallelization different
-processors do different things to do the data and may need to
-communicate with one another. In this experiment, since I am simulating
-the whole globular cluster catalog and sampling the orbital
-uncertainties with monte-carlo, as explained in Chapter 5, I often times
-parallelize over different clusters.</p>
-<p>However, if I want to accelerate one particular computation, then I
-must split the number of particles into batches. If I run small
-simulations on my personal computer, I can take the total number of
-particles and divide by the number of desired batches. Usually, I divide
-into the number of processors that I am going to use. <span
-class="math inline">\(N_\mathrm{per~batch}=N_p//N_\mathrm{batches}\)</span>.
-However, I need to integer divide because the number of particles needs
-to be an integer. Then, with the last batch, I add the remaining
-particles, which is <span class="math inline">\(N_\mathrm{left over} =
-N_p - N_\mathrm{batches} \times N_\mathrm{per~batch}\)</span>.</p>
+<p>This modular structure makes it straightforward to extend the code by
+adding new physics in the form of additional modules.</p>
+<p>To make the package installable and easy to distribute, I initially
+followed the guide by <span class="citation"
+data-cites="pythonpackagingguide">Bovy (2025b)</span>, which describes
+how to create a Python package using <code>setuptools</code>—the
+standard build system in the Python ecosystem. However, compatibility
+between <code>setuptools</code> and <code>f2py</code> was broken
+starting with NumPy <span class="math inline">\(&gt;\)</span> 1.22
+(released June 22, 2022<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>) and Python <span
+class="math inline">\(&gt;\)</span> 3.9.18 (released June 24, 2024<a
+href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>). This meant that Fortran extensions
+could only be compiled using deprecated versions of both. These older
+versions of NumPy were also not compatible with Apple’s ARM-based M1 and
+M2 processors, rendering the code unusable on modern Mac systems.</p>
+<p>This limitation stemmed from the deprecation and eventual removal of
+<code>numpy.distutils</code>, the tool that previously enabled seamless
+integration of Fortran code in NumPy-based packages. As of NumPy 1.23
+and later, <code>numpy.distutils</code> was deprecated, and with
+NumPy 2.0, it was removed entirely. The NumPy developers recommended
+migrating to <code>meson</code> <span class="citation"
+data-cites="meson_manual">(Meson Developers 2025)</span> or
+<code>Cmake</code>.</p>
+<p>To address these issues, I migrated the build process to
+<code>meson</code>, a language-agnostic build system capable of
+compiling Fortran, C, and Python extensions across architectures. This
+eliminated compatibility problems and made the build process
+architecture-independent. The build system now automatically detects the
+system architecture and compiles accordingly.</p>
+<p>The code is fully open source and available on GitHub.<a href="#fn3"
+class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> To
+support users, I created documentation hosted on
+<code>readthedocs.io</code><a href="#fn4" class="footnote-ref"
+id="fnref4" role="doc-noteref"><sup>4</sup></a>, which includes working
+examples and basic usage guides. A minimal test suite, written using
+<code>pytest</code>, is also included. While not exhaustive, the tests
+ensure that core functionality remains intact as the code evolves. In
+the next section, I present a minimal example of how the user may use
+the code within a python script.</p>
+<h2 id="minimum-example">Minimum example</h2>
+<p>If the package is properly installed on the system, it can be
+imported at the top of any Python script:</p>
+<p>Next, the user must load or define the initial conditions. The code
+provides:</p>
+<ul>
+<li><p>The masses, sizes, and kinematics of the globular cluster catalog
+from <span class="citation" data-cites="2018MNRAS.478.1520B">Baumgardt
+and Hilker (2018)</span>;</p></li>
+<li><p>The galactic potential parameters for model II of <span
+class="citation" data-cites="2017A&amp;A...598A..66P">Pouliasis, Di
+Matteo, and Haywood (2017)</span>; and</p></li>
+<li><p>A galactic reference frame.</p></li>
+</ul>
+<p>The user must then select the system to integrate. For example, to
+integrate the orbits of observed globular clusters, one must convert the
+ICRS coordinates to a Galactocentric frame using <code>astropy</code>
+and the provided MW reference frame. Alternatively, to simulate a star
+cluster, one can generate a Plummer sphere:</p>
+<p>Here, <code>NP</code> is the number of particles,
+<code>halfmassradius</code> is the system’s half-mass radius,
+<code>massHost</code> is the total mass of the Plummer sphere, and
+<code>G</code> is the gravitational constant. All values must be in the
+same unit system.</p>
+<p>The integrator must then be initialized. All parameters are passed
+via lists that are unpacked at the function call. Here is an example of
+initializing the integrator for a stellar stream in a potential that
+includes a rotating galactic bar:</p>
+<ul>
+<li><p><code>setstaticgalaxy</code> specifies the static potential model
+and passes its parameters.</p></li>
+<li><p><code>setinitialkinematics</code> provides the initial positions
+and velocities of the particles.</p></li>
+<li><p><code>setintegrationparameters</code> defines the initial time,
+timestep, and number of steps.</p></li>
+<li><p><code>inithostperturber</code> specifies the globular cluster’s
+trajectory and mass as a function of time.</p></li>
+<li><p><code>initgalacticbar</code> defines a rotating bar. It takes the
+name of the bar model, potential parameters, and spin
+parameters.</p></li>
+<li><p><code>setbackwardorbit</code> reverses the velocity vectors and
+sets the internal clock to count down: <span class="math inline">\(t_i =
+t_0 - i \cdot \Delta t\)</span>. For the usecase presented in this work,
+<code>setbackwardorbit</code> is used for computing the globular cluster
+orbits and not for the star-particles.</p></li>
+</ul>
+<p>The user can choose between two output modes during integration:</p>
+<p>Conceptually, these represent two output paradigms:</p>
+<ul>
+<li><p><code>initwriteparticleorbits</code> saves the full orbit of each
+particle to an individual file.</p></li>
+<li><p><code>initwritestream</code> saves full snapshots of all
+particles at selected timesteps.</p></li>
+</ul>
+<p>Both functions take:</p>
+<ul>
+<li><p><code>nskip</code>: number of timesteps to skip between
+outputs;</p></li>
+<li><p><code>myoutname</code>: the base file name;</p></li>
+<li><p><code>myoutdir</code>: the output directory.</p></li>
+</ul>
+<p>The output files will be named like: <code>../dir/temp0.bin</code>,
+<code>../dir/temp1.bin</code>, ..., up to <code>../dir/tempN.bin</code>,
+where <span class="math inline">\(N = N_\mathrm{step} /
+N_\mathrm{skip}\)</span>. Note that the files are written in Fortran
+binary format. Although <code>scipy.io.FortranFile</code> can read them,
+I use a custom parser based on <code>numpy.frombuffer</code> to avoid
+the SciPy dependency. Once all parameters are set, the user can proceed
+with integration using one of two methods:</p>
+<h3 class="unnumbered" id="full-orbit-integration-in-memory">Full orbit
+integration (in memory)</h3>
+<p><code>leapfrogintime</code> stores the full orbit of each particle in
+memory. This is useful for a small number of particles or short
+integrations—e.g., rapid parameter studies in a notebook. However, for
+large simulations it can be prohibitively memory-intensive. For
+instance, integrating all globular clusters at high time resolution
+might require: <span class="math display">\[7 \times N_p \times
+N_\mathrm{step} \times 8~\mathrm{Byte} \approx 450~\mathrm{GB}\]</span>
+if <span class="math inline">\(N_\mathrm{step} \approx 10^7\)</span>.
+This will likely exceed system RAM.</p>
+<h3 class="unnumbered" id="final-state-only">Final state only</h3>
+<p><code>leapfrogtofinalpositions()</code> performs the integration but
+only returns the final phase-space coordinates. These arrays must be
+copied before deallocating memory:</p>
+<p>Deallocating is necessary to avoid memory leaks or crashes in Jupyter
+when rerunning code cells.</p>
+<h2 id="reflection-on-developing-tstrippy">Reflection on developing
+<code>tstrippy</code></h2>
+<p>The earliest version of this code began as a simple Fortran script
+built to integrate test particles in specific gravitational potential
+models. Since I was already familiar with Fortran and had working
+routines, I chose to build on that foundation, gradually transforming
+the script into a modular and more reusable package. Rather than
+switching to C++ or a Python-only solution, I continued using Fortran in
+combination with <code>f2py</code>.</p>
+<p>One of the primary motivations for writing my own code was
+flexibility. When I attempted to implement a particle spray method in
+<em>Galpy</em>, I found that performance degraded significantly when
+using custom potentials not constructed from its internal C++ backend.
+For example, I wanted to use the <code>AllenSantillian</code> halo
+model, which is not natively supported. I followed the documentation and
+implemented a class for it. However, custom potentials bypass
+<code>Galpy</code>’s optimized C++ backend, resulting in slow
+computations and rendering actions uncomputable (or at least with the
+functions I tried). This pushed me to continue developping
+<code>tstrippy</code>. I had a similar experience with
+<code>Amuse</code>.</p>
+<p>This choice, however, came with challenges. At one point, I tried
+implementing potentials derived from exponential density profiles, which
+do not admit closed-form solutions for the potential. I attempted to
+work in elliptical coordinates, motivated by the idea that the potential
+would depend only on the “distance” from the center along the
+equipotential surfaces. While I successfully implemented simple
+potential models in elliptical coordinates, I naïvely overlooked that
+this changes the equations of motion entirely due to the underlying
+geometry. I found that my orbits always diverged (except in special
+cases). It was only later that I realized I would need to account for
+the metric tensor and Christoffel symbols to properly integrate orbits
+in elliptical coordinates. At that point, I chose not to pursue this
+further, prioritizing scientific analysis and launching other
+simulations instead. This experience helped me appreciate why codes like
+<code>Agama</code> and many published works prefer basis function
+expansions for such problems. In hindsight, this episode was a perfect
+example of how even unsuccessful attempts can lead to valuable insights.
+Below, I summarize some of the key advantages and limitations I
+encountered while developing a code from scratch to answer a scientific
+question.</p>
+<h3 id="advantages-and-limitations">Advantages and Limitations</h3>
+<p>Developing and maintaining this codebase brought several clear
+benefits:</p>
+<ul>
+<li><p><em>Understanding.</em> Writing the code forced me to deeply
+understand the modeling techniques involved. Otherwise, the results
+would have been incorrect.</p></li>
+<li><p><em>Flexibility.</em> I could implement exactly the models I
+needed and extend them as required.</p></li>
+<li><p><em>Transparency.</em> Results produced by my code can be
+verified and reproduced by others.</p></li>
+<li><p><em>Reusability.</em> Ongoing development helped me uncover and
+fix subtle bugs (e.g., related to non-symplectic integrators) that do
+not trigger obvious errors and only appear in edge cases or after close
+inspection. Long-term engagement with the code is key to catching these
+issues.</p></li>
+<li><p><em>Collaboration.</em> A fellow researcher at the Paris
+Observatory is now using the code. I also used it to supervise a
+master’s student during their semester research project, something that
+would not have been possible without building a user-friendly
+tool.</p></li>
+<li><p><em>Growth.</em> This project pushed me to adopt best practices:
+version control, documentation, modularity. Developing my own code has
+also made it easier to understand external libraries. For example, when
+I implemented the King model, I studied <code>Galpy</code>’s internals
+to cross-check my own method. I was delighted by how much easier it was
+for me to use, despite the fact that I had not touched it within a
+year.</p></li>
+</ul>
+<p>However, there were also drawbacks:</p>
+<ul>
+<li><p><em>Time cost.</em> Developing the code took time away from
+direct scientific analysis. It’s possible I could have performed more
+simulations or performed more analyses had I not develop my code to such
+an extent.</p></li>
+<li><p><em>Feature limitations.</em> My code still lacks capabilities
+present in other packages: such as basis function expansions,
+action-angle variable computation, or parallelization strategies using
+MPI or OpenMP.</p></li>
+<li><p><em>Changing relevance.</em> Scientific priorities and available
+tools evolve rapidly. A general-purpose tool may become obsolete more
+quickly than a single-use script written for a specific
+question.</p></li>
+<li><p><em>Compatibility and maintenance burden.</em> Making the code
+accessible to other users also introduces challenges related to
+cross-platform compatibility and dependency management. Software
+environments evolve, compilers are updated, dependencies can deprecate,
+and build tools change. Even with the help of modern tools like
+<code>meson</code> or <code>f2py</code>, ensuring continued
+compatibility requires regular testing and adaptation. As the codebase
+grows, the maintenance load increases, and sustaining it as a single
+developer becomes increasingly difficult, especially if the tool is made
+too general.</p></li>
+</ul>
+<p>Nonetheless, the code was designed to address concrete scientific
+questions about Milky Way stellar streams and globular clusters. In the
+next two chapters, I present how this tool contributed to advancing our
+understanding of the Galaxy.</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
-<div id="ref-2018AJ....156..123A" class="csl-entry" role="listitem">
-Astropy Collaboration, A. M. Price-Whelan, B. M. Sipőcz, H. M. Günther,
-P. L. Lim, S. M. Crawford, S. Conseil, et al. 2018. <span>“<span
-class="nocase">The Astropy Project: Building an Open-science Project and
-Status of the v2.0 Core Package</span>”</span> 156 (3): 123. <a
-href="https://doi.org/10.3847/1538-3881/aabc4f">https://doi.org/10.3847/1538-3881/aabc4f</a>.
-</div>
 <div id="ref-2013A&amp;A...558A..33A" class="csl-entry" role="listitem">
 Astropy Collaboration, Thomas P. Robitaille, Erik J. Tollerud, Perry
 Greenfield, Michael Droettboom, Erik Bray, Tom Aldcroft, et al. 2013.
@@ -1523,6 +1738,12 @@ Gommers, Pauli Virtanen, David Cournapeau, Eric Wieser, et al. 2020.
 585 (7825): 357–62. <a
 href="https://doi.org/10.1038/s41586-020-2649-2">https://doi.org/10.1038/s41586-020-2649-2</a>.
 </div>
+<div id="ref-1992ApJ...397...44L" class="csl-entry" role="listitem">
+Long, Kevin, and Chigurupati Murali. 1992. <span>“<span
+class="nocase">Analytical Potentials for Barred Galaxies</span>”</span>
+397 (September):44. <a
+href="https://doi.org/10.1086/171764">https://doi.org/10.1086/171764</a>.
+</div>
 <div id="ref-meson_manual" class="csl-entry" role="listitem">
 Meson Developers. 2025. <span>“The Meson Build System: Manual and
 Reference Documentation.”</span> <a
@@ -1582,5 +1803,24 @@ Weyl, Hermann. 1946. <em>The Classical Groups: Their Invariants and
 Representations</em>. Vol. 1. Princeton university press.
 </div>
 </div>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a
+href="https://github.com/numpy/numpy/releases/tag/v1.22.0"
+class="uri">https://github.com/numpy/numpy/releases/tag/v1.22.0</a><a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://www.python.org/downloads/release/"
+class="uri">https://www.python.org/downloads/release/</a><a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://github.com/salvatore-ferrone/tstrippy"
+class="uri">https://github.com/salvatore-ferrone/tstrippy</a><a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://tstrippy.readthedocs.io/en/latest/"
+class="uri">https://tstrippy.readthedocs.io/en/latest/</a><a
+href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 </body>
 </html>
