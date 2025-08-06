@@ -410,7 +410,67 @@ This chapter documents how we solve the equations of motion numerically, how we 
 
 \section{Tstrippy}
 
-    Developing my own package gave me a deeper understanding of code structure, numerical algorithms, and the subtleties of scientific programming. It also gave me the confidence to later use other packages more effectively. The \texttt{tstrippy} code is available on GitHub and runs on macOS and Linux.
+    
+    \textbf{how the code works}
+
+        \begin{verbatim}
+        in verbatim: YES
+        \end{verbatim}
+
+        This project is built on \texttt{f2py} and the paradigm that code compiled in fortran is faster than python, yet python is much more convenient that fortran, particularly given Jupyter notebooks. \texttt{f2py} means \texttt{Fortran} to \texttt{python} \citep{peterson2009f2py}.   
+
+        At the python level,
+        \begin{enumerate}
+            \item sets the initial conditions and parameters 
+            \item launches the integration
+            \item extracts the data
+        \end{enumerate}
+
+        \begin{lstlisting}[language=python]
+            # import the module
+            import tstrippy    
+            # set load or select the parameters 
+
+            # set the integrator
+            tstrippy.integrator.setstaticgalaxy(*staticgalaxy)
+            tstrippy.integrator.setinitialkinematics(*initialkinematics)
+            tstrippy.integrator.setintegrationparameters(*integrationparameters)
+            tstrippy.integrator.initgalacticbar(*galacticbar)
+            tstrippy.integrator.setbackwardorbit()
+        \end{lstlisting}
+
+        The the user has two integration options 
+        \begin{lstlisting}
+            xt,yt,zt,vxt,vyt,vzt=\
+            tstrippy.integrator.leapfrogintime(Ntimestep,nObj)
+            tBackward=tstrippy.integrator.timestamps.copy()
+        \end{lstlisting}
+
+        Lastly, the integrator should be deallocated to ensure that the kernel doesn't crash:
+        \begin{lstlisting}
+            tstrippy.integrator.deallocate()
+        \end{lstlisting}
+
+        After this point
+
+        Setting the initial conditions looks like this: 
+
+    \textbf{how the code is structured and built}
+
+    There are many versions of fortran, we write the code in f90 since F2py does not support more modern versions of Fortran.
+
+    \textbf{somethings I learned along the way}
+
+    \citet{2020Natur.585..357H} is the numpy package
+    
+    \citet{2013A&A...558A..33A} \citet{2018AJ....156..123A} are the astropy papers
+    
+    \citet{pythonpackagingguide} is the guide 
+
+    \citet{peterson2009f2py} is the paper that presnts f2py, that I do not have access to. 
+    \citet{numpy_f2py_manual} is the manual. 
+
+    \citet{meson_manual} is the meson manual. 
 
     \begin{itemize}
         \item How does \texttt{tstrippy} actually work?
