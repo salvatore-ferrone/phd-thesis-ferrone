@@ -14,19 +14,36 @@
 \section{Tstrippy}
     This project is built on \texttt{f2py}, based on the paradigm that code compiled in Fortran is significantly faster than Python, while Python, especially within Jupyter notebooks, is far more convenient for development and visualization. \texttt{f2py} stands for \textit{Fortran to Python} \citep{peterson2009f2py}. The name, \texttt{t-strip-py}, is short for \texttt{T}idal \texttt{Strip}ping \texttt{Py}thon. 
 
-    \texttt{F2py} only supports \texttt{F77}/\texttt{F90}/\texttt{F95}. So we choose \texttt{F90} since it introduces \textit{modules}. A module is similar to an Object Oriented Programming. A Module has its own data, and subroutines that can modify said data. However, modules do not have ineritences, and there can not be more than one instantiation of a module, as there can be many instances of the same class within the same program. 
+    \texttt{F2py} only supports \texttt{F77}/\texttt{F90}/\texttt{F95}. So we choose \texttt{F90} since it introduces \textit{modules}. A module is similar to Object Oriented Programming. A Module has its own data, and subroutines that can modify said data. However, modules do not have ineritences, and there can not be more than one instantiation of a module, as there can be many instances of the same class within the same program. 
 
     \texttt{tstrippy} has five modules:
     \begin{itemize}
         \item \texttt{integrator}: the main module. This module stores the positions and velocities and computes the forces and time evolution of the orbits. It also writes out intermitten data during the simulations, if desired. It interfaces with the other modules within the code. 
-        \item \texttt{potentials}: The analytical potentials that are used for the force computations. At the moment, it includes: \texttt{Plummer}, \texttt{Hernquist}, \texttt{AllenSantillian}, \texttt{MiyamotoNagai}, and \texttt{pouliasis2017pii}, which is a composition of other sub components. The user can also access this module directly in python if they are interested in, for example, computing the energy of a body in post production.
-        \item \texttt{hostperturber}: this module stores the position of the host pertuber and  
-        \item \texttt{perturbers}
-        \item \texttt{galacticbar}
+        \item \texttt{potentials}: The analytical potentials that are used for the force computations. At the moment, it includes: \texttt{Plummer}, \texttt{Hernquist}, \texttt{AllenSantillian}, \texttt{MiyamotoNagai}, \texttt{longmuralibar} \citep{1992ApJ...397...44L} and the composite potential \texttt{pouliasis2017pii}. The user can also access this module directly in python if they are interested in, for example, computing the energy of a body in post production.
+        \item \texttt{hostperturber}: this module handles the host globular cluster. It stores the orbit's timestamps, positions, and velocities. It coordinates the timestamps of the cluster with the integrator's internal clock. It computes the forces on the star-particles by the perturber. 
+        \item \texttt{perturbers}: this module practically does the same as the host perturber, but can handle multiple different clusters. When computing the force on each particle, it loops over all clusters. If Object Oriented Programming was an option, both \texttt{pertubers} and \texttt{hostperturbers} would be children of the same parent class.
+        \item \texttt{galacticbar}: This module stores the bar's parameters corresponding to the potential model. It also stores \texttt{barpoly} which are the polynomial coefficients for angular displacement as a function of time:
+        \[
+        \theta(t) = \theta_0 + \omega t + \dot{\omega} t^2 + \ddot{\omega} t^3 + \dots
+        \]
+        This module also transforms the position of the particles of the bar frame, computes the forces, and transforms the forces back to Galactocentric frame.
     \end{itemize}
+    The advantage of this structure is that I can add more modules to include different types of physics. 
 
-
-
+    What else do I want to say: 
+    \begin{itemize}
+        \item f2py is a module within numpy \citep{numpy_f2py_manual,2020Natur.585..357H}
+        \item How I wrote the code following Bovy's guide for creating a python package \citep{pythonpackagingguide}.
+        \item That by using this guide, I used \texttt{setuptools}, which is the python standard for creating python packages (is it the native package builder for python?)
+        \item however, setuptools became incompatbile with f2py as of numpy1.22 and python3.9 (I must get the dates for these)
+        \item therefore, for a while, I required the code to have depreciated versions of numpy and python. 
+        \item additionally, with these outdated versions of numpy, I could not use them with the new mac processors (why was this the case again?)
+        \item However, one day I solved this issue by migrating to \texttt{meson}, which is a package builder and compiler that can work with codes written in a variety of langauges.
+        \item now the code is compiler independent, it works with the standard intel architecture as well as the new arm processors. 
+        \item I build a readthedocs.io page. It has some working examples. 
+        \item I have some tests built into the code, although not totally extensive, it is already very useful for ensuring that updates to the code don't break expected functionalities. I use \texttt{pytest} for the test suite. 
+        \item the code is open source and available on github. 
+    \end{itemize}
 
     \subsection{Minimum example}
         If the package is properly installed on the system, it can be imported at the top of any Python script:
@@ -77,10 +94,7 @@
             \item \texttt{setinitialkinematics} provides the initial positions and velocities of the particles.
             \item \texttt{setintegrationparameters} defines the initial time, timestep, and number of steps.
             \item \texttt{inithostperturber} specifies the globular cluster’s trajectory and mass as a function of time.
-            \item \texttt{initgalacticbar} defines a rotating bar. It takes the name of the bar model, potential parameters, and spin parameters (polynomial coefficients for angular velocity):  
-            \[
-            \theta(t) = \theta_0 + \omega t + \dot{\omega} t^2 + \ddot{\omega} t^3 + \dots
-            \]
+            \item \texttt{initgalacticbar} defines a rotating bar. It takes the name of the bar model, potential parameters, and spin parameters.
             \item \texttt{setbackwardorbit} reverses the velocity vectors and sets the internal clock to count down: $t_i = t_0 - i \cdot \Delta t$. For the usecase presented in this work, \texttt{setbackwardorbit} is used for computing the globular cluster orbits and not for the star-particles. 
         \end{itemize}
 
@@ -142,7 +156,17 @@
         \normalsize
         Deallocating is necessary to avoid memory leaks or crashes in Jupyter when rerunning code cells.
 
+    \subsection{Was it worth developing my own code?}
 
+    \begin{itemize}
+        \item now I want to build on some reflection points. Was it worth building this code? I want to make a list of pro's and cons: 
+        \item \textit{pro}. I don't know apriori if another code supports that I am after. I remember trying to implement a particle spray method in \textit{Galpy}. However, I wanted to use our potential model. The \texttt{AllenSantillian} halo model is not standard and was not implemented in \textit{galpy}. It can be implemented. However, the user must create a python class for this. I did this, however, custom potentials that are not combinations of existing potentails are not supoprted with C++, and the resulting computations are thus really slow. 
+        \item \textit{pro} so by writing my own code, I ensured that \textit{I knew what I was doing}. This was the most practical aspect of writing the code myself, it is not a black box (mostly, I don't know if I will ever truly understand the compilation process).
+        \item \textit{con}. You either have to reinvent the wheel, or just not do something. There are many times where I wanted to use the actions. However, the implementation was daunting. In somecases, I turned to Galpy or Agama for some quick analyses. 
+        \item \textit{con}. on the same note, I struggle with implementing exponential disks or flattened halos. At first, I tried to solve for the orbits of stars within those systems using \textit{elliptical coordinates}. This is great for describing the mass distribution in terms of just one variable. However, the basis vectors change in direction and size, requiring the Christoffel symbols. I hadn't realized this at first and spent much time wondering why my orbits were diverging. In the end, I realized I either had to implement the Christoffel symbols for the integration and then transform back to cartesian coordinates, or perform a basis function expansion, which is the standard practice in the field. However, at that point, I decided to leave code development on the side and start and analyzing other simulations. 
+        \item \textit{pro}: someone else is using my code for answering adjacent scientific questions that my code is adapted for. 
+        \item \textit{pro}: I like this line of work. This project pushed me to use the best practices of GitHub integration, documentation, and reusability. Perhaps I could be a valuable member of another project some day and not just be a developer of one.         
+    \end{itemize}    
 
 \bibliographystyle{plainnat}
 \bibliography{mybib}
