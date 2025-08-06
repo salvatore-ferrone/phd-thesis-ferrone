@@ -151,20 +151,33 @@
         \normalsize
         Deallocating is necessary to avoid memory leaks or crashes in Jupyter when rerunning code cells.
 
-    \subsection{Was it worth developing my own code?}
-    Why did I get to meson? It was recommended to me by co-pilot. I am aware that others exist. However, the build eco-system is large. I found one that worked, and I kept going not feeling the need to explore all options. 
+    \subsection{Reflection on developping \texttt{tstrippy}}
 
-    Why use f2py instead of doing something like cython or C++ to python? Inheritence. The first version of the code was built in fortran, so I kept going with this. 
+        The earliest version of this code began as a simple Fortran script, built to integrate test-particles in our specific gravitational potential models. Since I was already familiar with Fortran and had working routines, I chose to build on that foundation, gradually transforming the script into a modular and more reusable package. Instead of switching to C++ or Python-only solutions, I continued using Fortran with \texttt{f2py}.
 
-    \begin{itemize}
-        \item now I want to build on some reflection points. Was it worth building this code? I want to make a list of pro's and cons: 
-        \item \textit{pro}. I don't know apriori if another code supports that I am after. I remember trying to implement a particle spray method in \textit{Galpy}. However, I wanted to use our potential model. The \texttt{AllenSantillian} halo model is not standard and was not implemented in \textit{galpy}. It can be implemented. However, the user must create a python class for this. I did this, however, custom potentials that are not combinations of existing potentails are not supoprted with C++, and the resulting computations are thus really slow. 
-        \item \textit{pro} so by writing my own code, I ensured that \textit{I knew what I was doing}. This was the most practical aspect of writing the code myself, it is not a black box (mostly, I don't know if I will ever truly understand the compilation process).
-        \item \textit{con}. You either have to reinvent the wheel, or just not do something. There are many times where I wanted to use the actions. However, the implementation was daunting. In somecases, I turned to Galpy or Agama for some quick analyses. 
-        \item \textit{con}. on the same note, I struggle with implementing exponential disks or flattened halos. At first, I tried to solve for the orbits of stars within those systems using \textit{elliptical coordinates}. This is great for describing the mass distribution in terms of just one variable. However, the basis vectors change in direction and size, requiring the Christoffel symbols. I hadn't realized this at first and spent much time wondering why my orbits were diverging. In the end, I realized I either had to implement the Christoffel symbols for the integration and then transform back to cartesian coordinates, or perform a basis function expansion, which is the standard practice in the field. However, at that point, I decided to leave code development on the side and start and analyzing other simulations. 
-        \item \textit{pro}: someone else is using my code for answering adjacent scientific questions that my code is adapted for. 
-        \item \textit{pro}: I like this line of work. This project pushed me to use the best practices of GitHub integration, documentation, and reusability. Perhaps I could be a valuable member of another project some day and not just be a developer of one.         
-    \end{itemize}    
+        One of the primary motivations for writing my own code was flexibility. When I tried to implement a particle spray method in \textit{Galpy}, I found that its performance suffered when using custom potentials not built from its internal C++ combinations. For instance, I wanted to use the \texttt{AllenSantillian} halo model, which was not natively supported. I followed the documentation and wrote a class for it. However, custom potentials bypass \texttt{Galpy}'s C backend, which made the computation very slow and the actions were not computable. This made it clear that developing my own tool would give me more control for non-standard models.
+
+        However, this came with challenges. Once, I wanted to implement potentials from exponential density profiles. These do not admit analytical solutions for the potential. I tried to employ the elliptical coordinate system, so that the potential is just a function of ``distance'' from the center along the equipotential surfaces. While I properly implemented simple potential models in elliptical coordaintes, and naively did not realize that this changes the equations of motion completely given the geometry of the problem. I found my orbits always diverged (barring some special cases). Once I discovered that I must handle the metric tensor and the Christoffel symbols to properly integrate an orbit in elliptical coordaintes, I decided to not invest any more time into this problem and focus on scientific analysis and launching other simulations. This made me realize why many codes, like \texttt{Agama}, and many other papers use a basis function expansion for these potentials. This situation for me, highlights a great example. While I invested much time, and did even obtain the result I wanted, I learned a lot. Below, I would like to highlight some general pros and cons of developing a code from scratch to answer a scientific question. 
+        \subsubsection{Advantages and Limitations}
+            Writing and maintaining this codebase brought several clear benefits:
+            \begin{itemize}
+                \item \textit{Understanding.} Developing my own code forced me to really understand all of the modeling techniques. Otherwise, the solutions would not be correct. 
+                \item \textit{Flexibility.} I could implement exactly the models and expand as needed
+                \item \textit{Transparency.} Results can be verified and reproduced by others using my code.
+                \item \textit{Reusability.} Continued development allowed me to identify and fix subtle bugs (e.g., non-symplectic integrators). Some of these bugs are hard to notice since they do not trip error messages and only expose themselves when looking closely or when examining certain edge cases. Working on the same code for prolonged time eliminates these subtle bugs. 
+                \item \textit{Collaboration.} A fellow researcher at the Paris observatory is using the code. Additionally, I was aboe to use the code with a master's student and guide them during their semester research project. This would not have been possible without having developed the code in a user friendly way.
+                \item \textit{Growth.} This project pushed me to adopt best practices: version control, documentation, modularity, that I will carry into future work. Additionally, developing my own code really makes others easier to understand. For example, I wanted to implement a king model, and I parsed through \texttt{Galpy}'s code base to compare my method. 
+            \end{itemize}
+
+            But there are also significant drawbacks:
+            \begin{itemize}
+                \item \textit{Time cost.} Code development took time away from doing science. Perhaps I could have performed more simulations or analyses instead of improving the code.
+                \item \textit{Feature limitations.} I still lack many features common in other packages — such as basis function expansions, action computation, or parallelization strategies like MPI or OpenMP.
+                \item \textit{Changing relevance.} Scientific questions and the technology evolve quickly. A tool designed to be general and reusable may become obsolete faster than a single-use script.
+            \end{itemize}
+
+            Nonetheless, the code was designed to answer specific scientific questions about Milky Way stellar streams and globular clusters. In the next two chapers, I present how this code was used to improve our understanding of the Milky Way. 
+
 
 \bibliographystyle{plainnat}
 \bibliography{mybib}
