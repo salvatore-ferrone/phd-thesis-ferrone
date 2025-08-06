@@ -16,7 +16,7 @@
 
     This project is built on \texttt{f2py}, which allows integration between Fortran and Python. The core motivation behind this choice is performance: Fortran, as a compiled language, provides significantly faster execution for numerically intensive tasks, while Python—especially within Jupyter notebooks—offers a convenient environment for development, experimentation, and visualization. \texttt{F2py} stands for \textit{Fortran to Python} \citep{peterson2009f2py}, and it is included as a module within NumPy \citep{numpy_f2py_manual,2020Natur.585..357H}. The name of the project, \texttt{tstrippy}, stands for \texttt{T}idal \texttt{Strip}ping in \texttt{Py}thon.
 
-    \texttt{F2py} supports Fortran 77, 90, and 95 standards, so we chose to write the code in Fortran 90 to make use of its support for \textit{modules}. In Fortran, a module encapsulates data and subroutines in a manner somewhat analogous to classes in object-oriented programming. However, Fortran modules do not support inheritance, and only a single instance of a module can exist at a time—unlike classes, which can be instantiated multiple times.
+    \texttt{F2py} supports Fortran 77, 90, and 95 standards, so we chose to write the code in Fortran 90 to make use of \textit{modules}. In Fortran, a module encapsulates data and subroutines in a manner somewhat analogous to classes in object-oriented programming. However, Fortran modules do not support inheritance, and only a single instance of a module can exist at a time—unlike classes, which can be instantiated multiple times.
 
     \texttt{Tstrippy} package is structured around five core Fortran modules, each responsible for a distinct aspect of the simulation:
     \begin{itemize}
@@ -28,7 +28,7 @@
         \[
         \theta(t) = \theta_0 + \omega t + \dot{\omega} t^2 + \ddot{\omega} t^3 + \dots
         \]
-        It performs transformations into the rotating bar frame, computes the forces in that frame, and then transforms the forces back to the Galactocentric reference frame.
+        If a user wants a bar with a constant rotation speed, then they may pass two coefficients. If they want a bar that accelerates for decelerates, they may mass more coefficients for the higher order terms. The module performs transformations into the rotating bar frame, computes the forces in that frame, and then transforms the forces back to the Galactocentric reference frame.
     \end{itemize}
     This modular structure makes it straightforward to extend the code by adding new physics in the form of additional modules.
 
@@ -88,11 +88,10 @@
             \item \texttt{setstaticgalaxy} specifies the static potential model and passes its parameters.
             \item \texttt{setinitialkinematics} provides the initial positions and velocities of the particles.
             \item \texttt{setintegrationparameters} defines the initial time, timestep, and number of steps.
-            \item \texttt{inithostperturber} specifies the globular cluster’s trajectory and mass as a function of time.
+            \item \texttt{inithostperturber} specifies the globular cluster's trajectory and mass as a function of time.
             \item \texttt{initgalacticbar} defines a rotating bar. It takes the name of the bar model, potential parameters, and spin parameters.
             \item \texttt{setbackwardorbit} reverses the velocity vectors and sets the internal clock to count down: $t_i = t_0 - i \cdot \Delta t$. For the usecase presented in this work, \texttt{setbackwardorbit} is used for computing the globular cluster orbits and not for the star-particles. 
         \end{itemize}
-
         The user can choose between two output modes during integration:
         \begin{lstlisting}
             tstrippy.integrator.initwriteparticleorbits(nskip,myoutname,myoutdir)
@@ -103,18 +102,13 @@
             \item \texttt{initwriteparticleorbits} saves the full orbit of each particle to an individual file.
             \item \texttt{initwritestream} saves full snapshots of all particles at selected timesteps.
         \end{itemize}
-
         Both functions take:
         \begin{itemize}
             \item \texttt{nskip}: number of timesteps to skip between outputs;
             \item\texttt{myoutname}: the base file name;
             \item \texttt{myoutdir}: the output directory.
         \end{itemize}
-
-        The output files will be named like: \texttt{../dir/temp0.bin}, \texttt{../dir/temp1.bin}, ..., up to \texttt{../dir/tempN.bin}, where $N = N_\mathrm{step} / N_\mathrm{skip}$. Note that the files are written in Fortran binary format. Although \texttt{scipy.io.FortranFile} can read them, I use a custom parser based on \texttt{numpy.frombuffer} to avoid the SciPy dependency.
-
-        Once all parameters are set, the user can proceed with integration using one of two methods:
-
+        The output files will be named like: \texttt{../dir/temp0.bin}, \texttt{../dir/temp1.bin}, ..., up to \texttt{../dir/tempN.bin}, where $N = N_\mathrm{step} / N_\mathrm{skip}$. Note that the files are written in Fortran binary format. Although \texttt{scipy.io.FortranFile} can read them, I use a custom parser based on \texttt{numpy.frombuffer} to avoid the SciPy dependency. Once all parameters are set, the user can proceed with integration using one of two methods:
         \subsubsection*{Full orbit integration (in memory)}
         \small
         \begin{lstlisting}
@@ -151,33 +145,34 @@
         \normalsize
         Deallocating is necessary to avoid memory leaks or crashes in Jupyter when rerunning code cells.
 
-    \subsection{Reflection on developping \texttt{tstrippy}}
+    \subsection{Reflection on developing \texttt{tstrippy}}
 
-        The earliest version of this code began as a simple Fortran script, built to integrate test-particles in our specific gravitational potential models. Since I was already familiar with Fortran and had working routines, I chose to build on that foundation, gradually transforming the script into a modular and more reusable package. Instead of switching to C++ or Python-only solutions, I continued using Fortran with \texttt{f2py}.
+        The earliest version of this code began as a simple Fortran script built to integrate test particles in specific gravitational potential models. Since I was already familiar with Fortran and had working routines, I chose to build on that foundation, gradually transforming the script into a modular and more reusable package. Rather than switching to C++ or a Python-only solution, I continued using Fortran in combination with \texttt{f2py}.
 
-        One of the primary motivations for writing my own code was flexibility. When I tried to implement a particle spray method in \textit{Galpy}, I found that its performance suffered when using custom potentials not built from its internal C++ combinations. For instance, I wanted to use the \texttt{AllenSantillian} halo model, which was not natively supported. I followed the documentation and wrote a class for it. However, custom potentials bypass \texttt{Galpy}'s C backend, which made the computation very slow and the actions were not computable. This made it clear that developing my own tool would give me more control for non-standard models.
+        One of the primary motivations for writing my own code was flexibility. When I attempted to implement a particle spray method in \textit{Galpy}, I found that performance degraded significantly when using custom potentials not constructed from its internal C++ backend. For example, I wanted to use the \texttt{AllenSantillian} halo model, which is not natively supported. I followed the documentation and implemented a class for it. However, custom potentials bypass \texttt{Galpy}'s optimized C++ backend, resulting in slow computations and rendering actions uncomputable (or at least with the functions I tried). This pushed me to continue developping \texttt{tstrippy}. I had a similar experience with \texttt{Amuse}.
 
-        However, this came with challenges. Once, I wanted to implement potentials from exponential density profiles. These do not admit analytical solutions for the potential. I tried to employ the elliptical coordinate system, so that the potential is just a function of ``distance'' from the center along the equipotential surfaces. While I properly implemented simple potential models in elliptical coordaintes, and naively did not realize that this changes the equations of motion completely given the geometry of the problem. I found my orbits always diverged (barring some special cases). Once I discovered that I must handle the metric tensor and the Christoffel symbols to properly integrate an orbit in elliptical coordaintes, I decided to not invest any more time into this problem and focus on scientific analysis and launching other simulations. This made me realize why many codes, like \texttt{Agama}, and many other papers use a basis function expansion for these potentials. This situation for me, highlights a great example. While I invested much time, and did even obtain the result I wanted, I learned a lot. Below, I would like to highlight some general pros and cons of developing a code from scratch to answer a scientific question. 
+        This choice, however, came with challenges. At one point, I tried implementing potentials derived from exponential density profiles, which do not admit closed-form solutions for the potential. I attempted to work in elliptical coordinates, motivated by the idea that the potential would depend only on the ``distance'' from the center along the equipotential surfaces. While I successfully implemented simple potential models in elliptical coordinates, I naïvely overlooked that this changes the equations of motion entirely due to the underlying geometry. I found that my orbits always diverged (except in special cases). It was only later that I realized I would need to account for the metric tensor and Christoffel symbols to properly integrate orbits in elliptical coordinates. At that point, I chose not to pursue this further, prioritizing scientific analysis and launching other simulations instead. This experience helped me appreciate why codes like \texttt{Agama} and many published works prefer basis function expansions for such problems. In hindsight, this episode was a perfect example of how even unsuccessful attempts can lead to valuable insights. Below, I summarize some of the key advantages and limitations I encountered while developing a code from scratch to answer a scientific question.
+
         \subsubsection{Advantages and Limitations}
-            Writing and maintaining this codebase brought several clear benefits:
-            \begin{itemize}
-                \item \textit{Understanding.} Developing my own code forced me to really understand all of the modeling techniques. Otherwise, the solutions would not be correct. 
-                \item \textit{Flexibility.} I could implement exactly the models and expand as needed
-                \item \textit{Transparency.} Results can be verified and reproduced by others using my code.
-                \item \textit{Reusability.} Continued development allowed me to identify and fix subtle bugs (e.g., non-symplectic integrators). Some of these bugs are hard to notice since they do not trip error messages and only expose themselves when looking closely or when examining certain edge cases. Working on the same code for prolonged time eliminates these subtle bugs. 
-                \item \textit{Collaboration.} A fellow researcher at the Paris observatory is using the code. Additionally, I was aboe to use the code with a master's student and guide them during their semester research project. This would not have been possible without having developed the code in a user friendly way.
-                \item \textit{Growth.} This project pushed me to adopt best practices: version control, documentation, modularity, that I will carry into future work. Additionally, developing my own code really makes others easier to understand. For example, I wanted to implement a king model, and I parsed through \texttt{Galpy}'s code base to compare my method. 
-            \end{itemize}
 
-            But there are also significant drawbacks:
-            \begin{itemize}
-                \item \textit{Time cost.} Code development took time away from doing science. Perhaps I could have performed more simulations or analyses instead of improving the code.
-                \item \textit{Feature limitations.} I still lack many features common in other packages — such as basis function expansions, action computation, or parallelization strategies like MPI or OpenMP.
-                \item \textit{Changing relevance.} Scientific questions and the technology evolve quickly. A tool designed to be general and reusable may become obsolete faster than a single-use script.
-            \end{itemize}
+        Developing and maintaining this codebase brought several clear benefits:
+        \begin{itemize}
+            \item \textit{Understanding.} Writing the code forced me to deeply understand the modeling techniques involved. Otherwise, the results would have been incorrect.
+            \item \textit{Flexibility.} I could implement exactly the models I needed and extend them as required.
+            \item \textit{Transparency.} Results produced by my code can be verified and reproduced by others.
+            \item \textit{Reusability.} Ongoing development helped me uncover and fix subtle bugs (e.g., related to non-symplectic integrators) that do not trigger obvious errors and only appear in edge cases or after close inspection. Long-term engagement with the code is key to catching these issues.
+            \item \textit{Collaboration.} A fellow researcher at the Paris Observatory is now using the code. I also used it to supervise a master's student during their semester research project, something that would not have been possible without building a user-friendly tool.
+            \item \textit{Growth.} This project pushed me to adopt best practices: version control, documentation, modularity. Developing my own code has also made it easier to understand external libraries. For example, when I implemented the King model, I studied \texttt{Galpy}'s internals to cross-check my own method. I was delighted by how much easier it was for me to use, despite the fact that I had not touched it within a year.
+        \end{itemize}
 
-            Nonetheless, the code was designed to answer specific scientific questions about Milky Way stellar streams and globular clusters. In the next two chapers, I present how this code was used to improve our understanding of the Milky Way. 
-
+        However, there were also drawbacks:
+        \begin{itemize}
+            \item \textit{Time cost.} Developing the code took time away from direct scientific analysis. It's possible I could have performed more simulations or performed more analyses had I not develop my code to such an extent.
+            \item \textit{Feature limitations.} My code still lacks capabilities present in other packages: such as basis function expansions, action-angle variable computation, or parallelization strategies using MPI or OpenMP.
+            \item \textit{Changing relevance.} Scientific priorities and available tools evolve rapidly. A general-purpose tool may become obsolete more quickly than a single-use script written for a specific question.
+            \item \textit{Compatibility and maintenance burden.} Making the code accessible to other users also introduces challenges related to cross-platform compatibility and dependency management. Software environments evolve, compilers are updated, dependencies can deprecate, and build tools change. Even with the help of modern tools like \texttt{meson} or \texttt{f2py}, ensuring continued compatibility requires regular testing and adaptation. As the codebase grows, the maintenance load increases, and sustaining it as a single developer becomes increasingly difficult, especially if the tool is made too general.
+        \end{itemize}
+        Nonetheless, the code was designed to address concrete scientific questions about Milky Way stellar streams and globular clusters. In the next two chapters, I present how this tool contributed to advancing our understanding of the Galaxy.
 
 \bibliographystyle{plainnat}
 \bibliography{mybib}
