@@ -11,90 +11,137 @@
   marginparwidth = 16mm}
 
 \begin{document}
+\section{Tstrippy}
+    This project is built on \texttt{f2py}, based on the paradigm that code compiled in Fortran is significantly faster than Python, while Python, especially within Jupyter notebooks, is far more convenient for development and visualization. \texttt{f2py} stands for \textit{Fortran to Python} \citep{peterson2009f2py}. The name, \texttt{t-strip-py}, is short for \texttt{T}idal \texttt{Strip}ping \texttt{Py}thon. 
 
-    This project is built on \texttt{f2py} and the paradigm that code compiled in fortran is faster than python, yet python is much more convenient that fortran, particularly given Jupyter notebooks. \texttt{f2py} means \texttt{Fortran} to \texttt{python} \citep{peterson2009f2py}. 
+    \texttt{F2py} only supports \texttt{F77}/\texttt{F90}/\texttt{F95}. So we choose \texttt{F90} since it introduces \textit{modules}. A module is similar to an Object Oriented Programming. A Module has its own data, and subroutines that can modify said data. However, modules do not have ineritences, and there can not be more than one instantiation of a module, as there can be many instances of the same class within the same program. 
 
-    If the package is correctly installed on the system, then it just need be imported at the head of any python script:
-    \small
-    \begin{lstlisting}[language=python]
-        import tstrippy    
-    \end{lstlisting}
-    \normalsize
+    \texttt{tstrippy} has five modules:
+    \begin{itemize}
+        \item \texttt{integrator}: the main module. This module stores the positions and velocities and computes the forces and time evolution of the orbits. It also writes out intermitten data during the simulations, if desired. It interfaces with the other modules within the code. 
+        \item \texttt{potentials}: The analytical potentials that are used for the force computations. At the moment, it includes: \texttt{Plummer}, \texttt{Hernquist}, \texttt{AllenSantillian}, \texttt{MiyamotoNagai}, and \texttt{pouliasis2017pii}, which is a composition of other sub components. The user can also access this module directly in python if they are interested in, for example, computing the energy of a body in post production.
+        \item \texttt{hostperturber}: this module stores the position of the host pertuber and  
+        \item \texttt{perturbers}
+        \item \texttt{galacticbar}
+    \end{itemize}
 
-    Then, the user must select and/or load the initial conditions. In the code, I provide the masses, sizes, and kinematics of the globular cluster catalog \citep{2018MNRAS.478.1520B}; the galactic potential parameters for the second model of \citep{2017A&A...598A..66P}; and a galactic reference frame: 
-    \small
-    \begin{lstlisting}[language=python]
-        GCdata      = \
-            tstrippy.Parsers.baumgardtMWGCs().data
-        MWparams    = \
-            tstrippy.Parsers.potential_parameters.pouliasis2017pii()
-        MWrefframe  = \
-            tstrippy.Parsers.potential_parameters.MWreferenceframe()
-    \end{lstlisting}
-    \normalsize
 
-    The user must pick the initial conditions. For instance, if the user wants to integrate the globular clusters, they must use the MW reference frame to convert the IRCS coordinates to a Galactocentric reference frame using \texttt{astropy}. Or, the user can generate a plummer sphere if wishing to simulate a cluster: 
-    \small
-    \begin{lstlisting}[language=python]
-        xp,yp,zp,vxp,vyp,vzp=\
-        tstrippy.ergodic.isotropicplummer(G,massHost,halfmassradius,NP)
-    \end{lstlisting}
-    where \texttt{NP} is the number of particles, \texttt{halfmassradius} is the half mass radius of the system, \texttt{massHost} is the total mass of the plummer sphere, and \texttt{G} is of course, the gravitational constant. The values must be in the same unit basis. 
 
-    Then, the integrator must be prepared. All of the arguments can be packaged into a list and then unpacked in the function's arguments. Here is an example of initializing the integrator for a stream in a potential with a galactic bar:
-    \small
-    \begin{lstlisting}[language=python]
-        tstrippy.integrator.setstaticgalaxy(*staticgalaxy)
-        tstrippy.integrator.setinitialkinematics(*initialkinematics)
-        tstrippy.integrator.setintegrationparameters(*integrationparameters)
-        tstrippy.integrator.inithostperturber(*hostperturber)
-        tstrippy.integrator.initgalacticbar(*galacticbar)
-        tstrippy.integrator.setbackwardorbit()
-    \end{lstlisting}
-    \normalsize
-    \texttt{setstaticgalaxy} tells the code which potential model to use and also passes it's parameters. \texttt{setinitialkinematics} takes the initial positions and velocities of all the particles whose orbits are to be determined. \texttt{integrationparameters} gives the initial time, timestep, and number of steps for the integration. \texttt{inithostperturber} takes the timestamps, positions, velocities, mass, and characteristic radius of the host globular cluster. \texttt{initgalacticbar} is similar to \texttt{setstaticgalaxy}. It expects the name of the bar model, the parameters for the potential, and the parameters for the spin, which are coefficients to a polynomial: $\theta(t) = \theta_0 + \omega t + \dot{\omega}t^2 + \ddot{\omega}t^3 + \dots$, which allows the user to pass a galactic bar with a spin rate that changes in time. \texttt{setbackwardorbit} changes the signs of the velocities to send the bodies backward, and ensures that the internal clock of the integrator decreaes: $t_{i}= t_0 - i\cdot\Delta t$.  
 
-    The user has two options of writing out data during the integration:
-    \begin{lstlisting}
-        tstrippy.integrator.initwriteparticleorbits(nskip,myoutname,myoutdir)
-        tstrippy.integrator.initwritestream(nskip,myoutname,myoutdir)
-    \end{lstlisting}
-    conceptually, there are two paradigms. We can either same the orbit of each particle into its own file, \textit{or} save snapshots of the simulations at different times. Both functions take the same arguments, \texttt{nskip} controls how many integration timesteps to skip before writing out data. \texttt{myoutdir} is the output directory of where to save the files and \texttt{myoutname} is the base file name, which then gets appended an integer. The resultant filenames would be something like: \texttt{../dir/temp0.bin}, \texttt{../dir/temp1.bin}, \dots \texttt{../dir/tempN.bin}, where $N=N_\mathrm{step}/N_\mathrm{skip}$. \texttt{initwriteparticleorbits} writes the same number of files as the number of particles, and during the integration step it returns to said file and appends it with a particles full phase-space information and timestep. This is intended for saving the trajecotries of the globular clusters. \texttt{initwritestream} on the other hand, is intended for saving the positions and velocities of all the particles at a single timestamp. Note that the data are saved in Fortran binary files. They must be parsed knowing their structure. There is a scipy routine that reads Fortran files, \texttt{scipy.io.FortranFile}. However, I have written a custom script that parses the binary files using \texttt{numpy.frombuffer} to avoid a scipy dependency. 
+    \subsection{Minimum example}
+        If the package is properly installed on the system, it can be imported at the top of any Python script:
+        \small
+        \begin{lstlisting}[language=python]
+            import tstrippy    
+        \end{lstlisting}
+        \normalsize
+        Next, the user must load or define the initial conditions. The code provides:
+        \begin{itemize}
+            \item The masses, sizes, and kinematics of the globular cluster catalog from \citet{2018MNRAS.478.1520B};
+            \item The galactic potential parameters for model II of \citet{2017A&A...598A..66P}; and
+            \item A galactic reference frame.
+        \end{itemize}
 
-    After all the parameters the user has two options for integrating. The two options match paradigm for being interested either in orbits of individual bodies, or snapshots of the entire simulation. To save the whole orbit, the user must:
-    \small
-    \begin{lstlisting}
-        xt,yt,zt,vxt,vyt,vzt=\
-            tstrippy.integrator.leapfrogintime(Ntimestep,nObj) 
-        timestamps=\
-            tstrippy.integrator.timestamps.copy()
-    \end{lstlisting}
-    \normalsize
-    \texttt{leapfrogintime} must be used with caution. The resultant data size can be extremely large if the number of steps. For example, if we wanted to integrate the whole globular cluster system at the highest temporal resolution to resolve the internal dynamics of the denesest globular cluster: we would have a data volume of:
-    \begin{equation}
-        7 \times N_p \times N_\mathrm{step} \times 8~\mathrm{Byte} \approx 450~Gb,
-    \end{equation}
-    if $N_\mathrm{step}\approx 10^7$. This is much larger than the RAM. This breaks even easier if considering a stream even if at modest timestep size. However, \texttt{leapfrogintime} is useful when wanting to look at orbits of a few particles, or for a short period of time. It is very useful when quickly exploring parameters in a Jupyter notebook. When looking to get high resolution data, writing the data out must happen.  
+        \small
+        \begin{lstlisting}[language=python]
+            GCdata      = \
+                tstrippy.Parsers.baumgardtMWGCs().data
+            MWparams    = \
+                tstrippy.Parsers.potential_parameters.pouliasis2017pii()
+            MWrefframe  = \
+                tstrippy.Parsers.potential_parameters.MWreferenceframe()
+        \end{lstlisting}
+        \normalsize
+        The user must then select the system to integrate. For example, to integrate the orbits of observed globular clusters, one must convert the ICRS coordinates to a Galactocentric frame using \texttt{astropy} and the provided MW reference frame. Alternatively, to simulate a star cluster, one can generate a Plummer sphere:
+        \small
+        \begin{lstlisting}[language=python]
+            xp,yp,zp,vxp,vyp,vzp=\
+            tstrippy.ergodic.isotropicplummer(G,massHost,halfmassradius,NP)
+        \end{lstlisting}
+        Here, \texttt{NP} is the number of particles, \texttt{halfmassradius} is the system's half-mass radius, \texttt{massHost} is the total mass of the Plummer sphere, and \texttt{G} is the gravitational constant. All values must be in the same unit system.
 
-    To not store any of the intermediate positions in the integrator during the integration we can do this: 
-    \small
-    \begin{lstlisting}
-        tstrippy.integrator.leapfrogtofinalpositions()
-        xf  = tstrippy.integrator.xf.copy()
-        yf  = tstrippy.integrator.yf.copy()
-        zf  = tstrippy.integrator.zf.copy()
-        vxf = tstrippy.integrator.vxf.copy()
-        vyf = tstrippy.integrator.vyf.copy()
-        vzf = tstrippy.integrator.vzf.copy()
-        finaltime=tstrippy.integrator.currenttime.copy()
-    \end{lstlisting}
-    \normalsize
-    \texttt{leapfrogtofinalpositions()} just goes to the final positions. The resultant positions must be copied otherwise they will be deleted after deallocating the integrator, which must be done to ensure that the kernel doesn't crash:
-    \small
-    \begin{lstlisting}
-        tstrippy.integrator.deallocate()
-    \end{lstlisting}
-    \normalsize
+        The integrator must then be initialized. All parameters are passed via lists that are unpacked at the function call. Here is an example of initializing the integrator for a stellar stream in a potential that includes a rotating galactic bar:
+        \small
+        \begin{lstlisting}[language=python]
+            tstrippy.integrator.setstaticgalaxy(*staticgalaxy)
+            tstrippy.integrator.setinitialkinematics(*initialkinematics)
+            tstrippy.integrator.setintegrationparameters(*integrationparameters)
+            tstrippy.integrator.inithostperturber(*hostperturber)
+            tstrippy.integrator.initgalacticbar(*galacticbar)
+            tstrippy.integrator.setbackwardorbit()
+        \end{lstlisting}
+        \normalsize
+
+        \begin{itemize}
+            \item \texttt{setstaticgalaxy} specifies the static potential model and passes its parameters.
+            \item \texttt{setinitialkinematics} provides the initial positions and velocities of the particles.
+            \item \texttt{setintegrationparameters} defines the initial time, timestep, and number of steps.
+            \item \texttt{inithostperturber} specifies the globular cluster’s trajectory and mass as a function of time.
+            \item \texttt{initgalacticbar} defines a rotating bar. It takes the name of the bar model, potential parameters, and spin parameters (polynomial coefficients for angular velocity):  
+            \[
+            \theta(t) = \theta_0 + \omega t + \dot{\omega} t^2 + \ddot{\omega} t^3 + \dots
+            \]
+            \item \texttt{setbackwardorbit} reverses the velocity vectors and sets the internal clock to count down: $t_i = t_0 - i \cdot \Delta t$. For the usecase presented in this work, \texttt{setbackwardorbit} is used for computing the globular cluster orbits and not for the star-particles. 
+        \end{itemize}
+
+        The user can choose between two output modes during integration:
+        \begin{lstlisting}
+            tstrippy.integrator.initwriteparticleorbits(nskip,myoutname,myoutdir)
+            tstrippy.integrator.initwritestream(nskip,myoutname,myoutdir)
+        \end{lstlisting}
+        Conceptually, these represent two output paradigms:
+        \begin{itemize}
+            \item \texttt{initwriteparticleorbits} saves the full orbit of each particle to an individual file.
+            \item \texttt{initwritestream} saves full snapshots of all particles at selected timesteps.
+        \end{itemize}
+
+        Both functions take:
+        \begin{itemize}
+            \item \texttt{nskip}: number of timesteps to skip between outputs;
+            \item\texttt{myoutname}: the base file name;
+            \item \texttt{myoutdir}: the output directory.
+        \end{itemize}
+
+        The output files will be named like: \texttt{../dir/temp0.bin}, \texttt{../dir/temp1.bin}, ..., up to \texttt{../dir/tempN.bin}, where $N = N_\mathrm{step} / N_\mathrm{skip}$. Note that the files are written in Fortran binary format. Although \texttt{scipy.io.FortranFile} can read them, I use a custom parser based on \texttt{numpy.frombuffer} to avoid the SciPy dependency.
+
+        Once all parameters are set, the user can proceed with integration using one of two methods:
+
+        \subsubsection*{Full orbit integration (in memory)}
+        \small
+        \begin{lstlisting}
+            xt,yt,zt,vxt,vyt,vzt=\
+                tstrippy.integrator.leapfrogintime(Ntimestep,nObj) 
+            timestamps=\
+                tstrippy.integrator.timestamps.copy()
+        \end{lstlisting}
+        \normalsize
+        \texttt{leapfrogintime} stores the full orbit of each particle in memory. This is useful for a small number of particles or short integrations—e.g., rapid parameter studies in a notebook. However, for large simulations it can be prohibitively memory-intensive. For instance, integrating all globular clusters at high time resolution might require:
+        \begin{equation}
+            7 \times N_p \times N_\mathrm{step} \times 8~\mathrm{Byte} \approx 450~\mathrm{GB}
+        \end{equation}
+        if $N_\mathrm{step} \approx 10^7$. This will likely exceed system RAM.
+
+        \subsubsection*{Final state only}
+        \small
+        \begin{lstlisting}
+            tstrippy.integrator.leapfrogtofinalpositions()
+            xf  = tstrippy.integrator.xf.copy()
+            yf  = tstrippy.integrator.yf.copy()
+            zf  = tstrippy.integrator.zf.copy()
+            vxf = tstrippy.integrator.vxf.copy()
+            vyf = tstrippy.integrator.vyf.copy()
+            vzf = tstrippy.integrator.vzf.copy()
+            finaltime=tstrippy.integrator.currenttime.copy()
+        \end{lstlisting}
+        \normalsize
+        \texttt{leapfrogtofinalpositions()} performs the integration but only returns the final phase-space coordinates. These arrays must be copied before deallocating memory:
+        \small
+        \begin{lstlisting}
+            tstrippy.integrator.deallocate()
+        \end{lstlisting}
+        \normalsize
+        Deallocating is necessary to avoid memory leaks or crashes in Jupyter when rerunning code cells.
+
 
 
 \bibliographystyle{plainnat}
