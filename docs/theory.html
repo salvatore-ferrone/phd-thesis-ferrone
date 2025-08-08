@@ -1353,19 +1353,40 @@ Gaining intuition for this process involves simplifying the equations
 to this as the <em>implicit physics</em>—not because it was explicitly
 implemented in the simulations, but because it arises naturally from the
 equations that be.</p>
-<p>To provide a brief overview: I begin with the circular restricted
-three-body problem, the simplest formalism for understanding the kinds
-of motion a massless body can undergo when influenced by two much more
-massive ones. I then introduce the tidal tensor, which describes how and
-why the Galactic field eventually strips stars from their host clusters.
-After that, I discuss phase mixing, which explains the evolution of
-escaped stars and how they come to form coherent stellar streams. This
-also helps explain the divergence of orbital solutions over time, which
-is particularly relevant for the work in Chapter 5, where we investigate
-whether the globular cluster system can affect the Palomar 5 stream.
-Finally, I introduce <em>gapology</em>—the study of how perturbations
-can impact a stream and generate observable gaps within it.</p>
-<h2 id="the-planar-circular-restricted-three-body-problem">The Planar
+<p>To provide a brief overview: in Section <a
+href="#sec:thePlanarCircularRestrictedThreeBodyProblem"
+data-reference-type="ref"
+data-reference="sec:thePlanarCircularRestrictedThreeBodyProblem">2.1</a>,
+I present the circular restricted three-body problem, the simplest
+formalism for understanding the types of motion a massless body can
+undergo when influenced by two significantly more massive ones,
+following <span class="citation" data-cites="koon2000dynamical">Koon et
+al. (2000)</span>. In Section <a href="#sec:tidalForce"
+data-reference-type="ref" data-reference="sec:tidalForce">2.2</a>, I
+introduce the tidal tensor, which explains how and why the Galactic
+field eventually strips stars from their host clusters. This section is
+largely inspired by the works of <span class="citation"
+data-cites="2004AJ....127.2753D">Dehnen et al. (2004)</span> and <span
+class="citation" data-cites="bovy_inprep">Bovy (2025)</span>. In
+Section <a href="#sec:phaseMixing" data-reference-type="ref"
+data-reference="sec:phaseMixing">2.3</a>, I discuss phase mixing, which
+describes the evolution of escaped stars and how they come to form
+coherent stellar streams. This treatment is also primarily based on
+<span class="citation" data-cites="bovy_inprep">(see chatper 19.4 of
+Bovy; 2025)</span>, although I present the phenomenon in terms of
+orbital energy. Finally, I introduce the study of <em>gaps</em>—how
+perturbations can affect a stream and generate observable gaps within
+it. This topic is not yet formalized in textbooks and remains an active
+area of research. I primarily synthesize the works of <span
+class="citation"
+data-cites="2012ApJ...748...20C 2013ApJ...775...90C">Carlberg (2012,
+2013)</span>, <span class="citation"
+data-cites="2015MNRAS.450.1136E">Erkal and Belokurov (2015)</span>,
+<span class="citation" data-cites="2016PhRvL.116l1301B">Bovy
+(2016)</span>, and <span class="citation"
+data-cites="2016MNRAS.457.3817S">Sanders, Bovy, and Erkal
+(2016)</span>.</p>
+<h2 id="sec:thePlanarCircularRestrictedThreeBodyProblem">The Planar
 Circular Restricted Three-Body Problem</h2>
 <p>This section introduces the fundamental concept of the Lagrange
 points and regions of influence. In general, if a star is very close to
@@ -1540,7 +1561,7 @@ it is more fruitful to think in terms of tidal forces as the underlying
 mechanism that gradually transfers energy and angular momentum, nudging
 stars across Lagrange boundaries and ultimately enabling escape. It is
 to this process—tidal stripping—that we now turn.</p>
-<h2 id="tidal-forces">Tidal Forces</h2>
+<h2 id="sec:tidalForce">Tidal Forces</h2>
 <p>For star-particles within a globular cluster that is itself orbiting
 within a galaxy, there are no exact integrals of motion. The system
 lacks symmetries in its Lagrangian, and the potential varies with time,
@@ -1736,8 +1757,8 @@ difference between the two solutions. </figcaption>
 differently to the tidal forces experienced by a globular cluster. The
 Miyamoto-Nagai disk produces strong, rapidly varying tidal fields near
 the Galactic plane, leading to phenomena such as disk shocking when
-clusters cross the disk. The Martos halo, on the other hand, provides a
-more slowly varying, generally weaker tidal field at large
+clusters cross the disk. The Allen-Santillian halo, on the other hand,
+provides a more slowly varying, generally weaker tidal field at large
 Galactocentric radii.</p>
 <p>The strength and orientation of the tidal field at a cluster’s
 location determine both the rate at which stars are stripped and the
@@ -1748,13 +1769,13 @@ stretching near pericenter. The eigenvalues and eigenvectors of the
 tidal tensor at each point along the orbit reveal the principal axes of
 stretching and compression, which in turn set the directions along which
 stars are most likely to escape.</p>
-<p>By computing the tidal tensor for the Miyamoto-Nagai disk and Martos
-halo potentials, as shown below, we can visualize and quantify these
-effects. The following figures illustrate how the tidal field evolves
-for representative orbits, highlighting the interplay between the
-cluster’s trajectory and the Galactic mass distribution. This analysis
-underpins our understanding of stream formation and the morphological
-diversity of observed tidal tails.</p>
+<p>By computing the tidal tensor for the Miyamoto-Nagai disk and
+Allen-Santillian halo potentials, as shown below, we can visualize and
+quantify these effects. The following figures illustrate how the tidal
+field evolves for representative orbits, highlighting the interplay
+between the cluster’s trajectory and the Galactic mass distribution.
+This analysis underpins our understanding of stream formation and the
+morphological diversity of observed tidal tails.</p>
 <p>We can construct the tidal tensor for the Miyamoto-Nagai potential.
 First, it is convenient to non-dimensionalize the potential. Below, we
 normalize the potential by the total mass and gravitational constant,
@@ -1892,9 +1913,9 @@ of the tidal forces will not scale as simply with <span
 class="math inline">\(\propto r^{-3}\)</span>, since the mass is not
 concentrated in a single point. However, we can still expect the
 stretching axis to be parallel with the position vector.</p>
-<p>To explore this, first we rewrite the mass distribution of the Martos
-halo: <span class="math display">\[M&#39;_\text{enc}(s) =
-\frac{s^\gamma}{1+s^{\gamma-1}}\]</span> From Poisson’s equation in
+<p>To explore this, first we rewrite the mass distribution of the
+Allen-Santillian halo: <span class="math display">\[M&#39;_\text{enc}(s)
+= \frac{s^\gamma}{1+s^{\gamma-1}}\]</span> From Poisson’s equation in
 spherical symmetry: the force is: <span class="math inline">\(\nabla
 \Phi = - M_\mathrm{enc}/r^2\)</span>. The dimensionless tidal tensor can
 be written as: <span class="math display">\[\mathcal{T&#39;}=
@@ -1910,8 +1931,8 @@ class="math display">\[f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}.
                 \label{eq:martos_f_s}\]</span></p>
 <p>While exploring this tidal tensor, I came across an interesting area
 of the parameter space, that I would like to show here.</p>
-<p>Taking the Martos tidal tensor in Eq. <a href="#eq:martos_f_s"
-data-reference-type="ref"
+<p>Taking the Allen-Santillian tidal tensor in Eq. <a
+href="#eq:martos_f_s" data-reference-type="ref"
 data-reference="eq:martos_f_s">[eq:martos_f_s]</a>, we can see that for
 <span class="math inline">\(\gamma &gt; 3\)</span> and <span
 class="math inline">\(s &lt;  1\)</span>, then <span
@@ -1931,7 +1952,7 @@ a globular cluster, which is that no tidal stream forms. Briefly, I
 created a plummer sphere of <span
 class="math inline">\(10^6\)</span> M<span
 class="math inline">\(_\odot\)</span> and half mass radius 20 pc and
-evolved it in a Martos halo potential of mass parameter <span
+evolved it in a Allen-Santillian halo potential of mass parameter <span
 class="math inline">\(10^{12}\)</span> M<span
 class="math inline">\(_\odot\)</span> a characteristic radius of <span
 class="math inline">\(30\)</span> kpc. Each cluster was placed at the
@@ -1962,9 +1983,9 @@ v_\textrm{c}\)</span>.</p>
 <p><img src="images/martos_tidal_field_202_10_25.png" alt="image" />
 <img src="images/martos_tidal_field_450_10_25.png" alt="image" /></p>
 <figcaption>The plots show two low-resolution streams (N = 1000) created
-by dissolving a Plummer sphere in the Martos halo potential. The units
-are scaled to the halo’s characteristic radius. Gamma is the mass
-exponent and is the sole variable between the two simulations. The
+by dissolving a Plummer sphere in the Allen-Santillian halo potential.
+The units are scaled to the halo’s characteristic radius. Gamma is the
+mass exponent and is the sole variable between the two simulations. The
 panels on the left show the orbit in gray and the stars in black. The
 black arrow points towards the center of the potential. The panels on
 the right show the tidal field, which is the tidal tensor evaluated at
@@ -1996,8 +2017,7 @@ data-reference="fig:martos_tidal_field_small_r">14</a>, the compression
 is stronger than the expansion. Both of these are different than the
 keplerian tidal deformation where the stronger deformation is stretching
 and whose axis is parallel to the position vector.</p>
-<h2 id="the-distribution-of-escaped-stars">The Distribution of Escaped
-Stars</h2>
+<h2 id="sec:phaseMixing">The Distribution of Escaped Stars</h2>
 <p>Tidal forces cause stars to escape from the Lagrange points of the
 globular cluster. As we’ve seen, these forces can be compressive—pushing
 stars toward the cluster—or stretching—pulling them away, and
@@ -2344,7 +2364,7 @@ to the velocity of the perturber. This behavior contrasts with contact
 collisions, where a higher speed typically results in a greater momentum
 transfer. In gravitational encounters, a faster flyby leads to a shorter
 interaction time and thus less momentum exchange.</p>
-<h3 id="gapology">Gapology</h3>
+<h3 id="gap-formation-and-evolution">Gap formation and evolution</h3>
 <p>Gaps in stellar streams are underdensities that appear after
 encounters with dark matter subhalos or globular clusters. These can be
 understood as resulting from collisions. However, modeling the
@@ -2517,7 +2537,7 @@ the gap depends on the impact location.</p></li>
 <p>Drawing from these comprehensive investigations, <span
 class="citation" data-cites="2016MNRAS.457.3817S">Sanders, Bovy, and
 Erkal (2016)</span> reached several essential conclusions and insights
-into “gapology”:</p>
+into the physics of gaps:</p>
 <ul>
 <li><p><strong>Dominance of Frequency Kicks</strong>: They found that
 angle perturbations from a flyby are generally only significant on short
@@ -2986,6 +3006,12 @@ Bovy, Jo. 2015. <span>“<span class="nocase">galpy: A python Library for
 Galactic Dynamics</span>”</span> 216 (2): 29. <a
 href="https://doi.org/10.1088/0067-0049/216/2/29">https://doi.org/10.1088/0067-0049/216/2/29</a>.
 </div>
+<div id="ref-2016PhRvL.116l1301B" class="csl-entry" role="listitem">
+———. 2016. <span>“<span class="nocase">Detecting the Disruption of
+Dark-Matter Halos with Stellar Streams</span>”</span> 116 (12): 121301.
+<a
+href="https://doi.org/10.1103/PhysRevLett.116.121301">https://doi.org/10.1103/PhysRevLett.116.121301</a>.
+</div>
 <div id="ref-bovy_inprep" class="csl-entry" role="listitem">
 ———. 2025. <em>Dynamics and Astrophysics of Galaxies</em>. Princeton,
 NJ: Princeton University Press.
@@ -3006,6 +3032,16 @@ href="https://doi.org/10.3847/1538-4365/aaec06">https://doi.org/10.3847/1538-436
 ———. 2021. <span>“<span class="nocase">The Hipparcos-Gaia Catalog of
 Accelerations: Gaia EDR3 Edition</span>”</span> 254 (2): 42. <a
 href="https://doi.org/10.3847/1538-4365/abf93c">https://doi.org/10.3847/1538-4365/abf93c</a>.
+</div>
+<div id="ref-2012ApJ...748...20C" class="csl-entry" role="listitem">
+Carlberg, R. G. 2012. <span>“<span class="nocase">Dark Matter Sub-halo
+Counts via Star Stream Crossings</span>”</span> 748 (1): 20. <a
+href="https://doi.org/10.1088/0004-637X/748/1/20">https://doi.org/10.1088/0004-637X/748/1/20</a>.
+</div>
+<div id="ref-2013ApJ...775...90C" class="csl-entry" role="listitem">
+———. 2013. <span>“<span class="nocase">The Dynamics of Star Stream
+Gaps</span>”</span> 775 (2): 90. <a
+href="https://doi.org/10.1088/0004-637X/775/2/90">https://doi.org/10.1088/0004-637X/775/2/90</a>.
 </div>
 <div id="ref-2000PhLA..267...81C" class="csl-entry" role="listitem">
 Carlip, S. 2000. <span>“<span class="nocase">Aberration and the speed of
@@ -3046,6 +3082,13 @@ Chernoff, David F., and Martin D. Weinberg. 1990. <span>“<span
 class="nocase">Evolution of Globular Clusters in the
 Galaxy</span>”</span> 351 (March):121. <a
 href="https://doi.org/10.1086/168451">https://doi.org/10.1086/168451</a>.
+</div>
+<div id="ref-2004AJ....127.2753D" class="csl-entry" role="listitem">
+Dehnen, Walter, Michael Odenkirchen, Eva K. Grebel, and Hans-Walter Rix.
+2004. <span>“<span class="nocase">Modeling the Disruption of the
+Globular Cluster Palomar 5 by Galactic Tides</span>”</span> 127 (5):
+2753–70. <a
+href="https://doi.org/10.1086/383214">https://doi.org/10.1086/383214</a>.
 </div>
 <div id="ref-2015MNRAS.450.1136E" class="csl-entry" role="listitem">
 Erkal, Denis, and Vasily Belokurov. 2015. <span>“<span

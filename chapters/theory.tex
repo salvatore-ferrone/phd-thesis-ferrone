@@ -35,22 +35,16 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
     Despite the importance of collisional effects for the long-term evolution of globular clusters, explicitly modeling them via direct $N$-body simulations remains prohibitively expensive for our purposes. We return to this point in more detail in Section~\ref{sec:ignoredphysics}. In this thesis, we therefore adopt the collisionless approximation for both the Galactic background and the globular cluster. While this is well-justified for the Galaxy, treating the cluster as collisionless is a simplification that limits the generality of our results. Nonetheless, our goal is to accurately model the stellar streams, and the internal dynamics of the globular clusters are beyond the scope of this work.
 
     To make the problem computationally tractable, we model the stars as test particles—massless bodies that feel the gravitational potential but do not contribute to it. The Galaxy and the globular cluster are each represented as smooth, time-independent density distributions. In this approximation, the stars do not interact with one another or with the cluster, and their trajectories are determined solely by the external potentials. This setup is a version of the \textit{restricted three-body problem}, in which the Galaxy acts as the primary body (fixed at the origin), the globular cluster as the secondary (modeled by its center of mass), and the star as the tertiary object. This is shown in Fig.~\ref{fig:restricted_three_body_set_up}.
-
     \begin{figure}
         \centering
         \includegraphics[width=.8\linewidth]{images/restricted_three_body_set_up.png}
         \caption{Schematic illustration of the restricted three-body setup. The system is reduced to three interacting components: the Galaxy (primary), the globular cluster (secondary), and a single star (tertiary). Red vectors indicate forces that are neglected, while the black vectors are those that we model.}
         \label{fig:restricted_three_body_set_up}
     \end{figure}
-
     This formulation dramatically simplifies the dynamics: the full $N$-body problem is approximated by \(N\) independent realizations of the restricted three-body problem. This reduction allows us to efficiently simulate the formation and evolution of tidal features without incurring the computational cost of tracking all mutual interactions among stars. This approximation has been shown to work very well for certain stellar streams and this thesis is not the first time such methods have been employed. For instance, consider the work of \citet{2012A&A...546L...7M}, who modeled the evolution of the Palomar~5's stellar stream with both an $N$-body code as well as the restricted~three body problem. The differences between the two models for reproducing many characteristics of the stream are minimal. 
 
     In the remainder of this section, I present the theoretical framework underlying the simulations. At their core, the simulations involve solving \(N\) sets of six coupled ordinary differential equations—one set for each star particle. Section~\ref{subsec:myEquationsOfMotion} introduces the equations of motion. Section~\ref{subsec:gravfield} describes the gravitational field used to compute the forces acting on the particles. Finally, Section~\ref{subsec:initialconditions} details the procedure used to generate initial conditions that faithfully represent a globular cluster.
-
-
-    
     \subsection{Equations of Motion} \label{subsec:myEquationsOfMotion}
-
         In galactic dynamics, we can well describe the motion of stars through Poisson's equation, which extends Newton's law of gravity from point masses to smooth density distributions: 
         \begin{equation} \label{eq:poissonsequation}
             \nabla^2 \Phi = 4\pi G \rho,
@@ -137,7 +131,6 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \end{aligned}
         \end{equation}
         The first two sets of equations are used to model the streams associated with each of the Galactic globular clusters, in a system where each cluster is subject only to the gravitational pull of the Galaxy. The second set of equations takes into account the fact that each cluster, and each particle in its stream, is generally also influenced by the gravitational pull of all the other Galactic globular clusters. The next two subsections introduce the various forms that $\Phi$ can take, followed by the generation of the initial conditions. 
- 
 
     \subsection{The Gravitational Field} \label{subsec:gravfield}
         Determining the gravitational field of the Milky Way remains an open and complex problem. From our location within the Galaxy, it is difficult to obtain a global perspective. Since the advent of extragalactic astronomy and early classification efforts such as those by \citet{1926ApJ....64..321H}, we have begun to ask what the total structure of our own Galaxy is. Before providing a robust estimate for the global mass distribution, some simpler questions were addressed. For example, \citet{1927BAN.....4...91O} studied the motion of stars in the local solar neighborhood and showed that the Galaxy not only has net rotation, but also differential rotation—as opposed to solid-body rotation.
@@ -168,7 +161,6 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \caption{The Gaia spatial selection function for spectroscopic observations. Figure 5 from \citet{2023A&A...674A..38G}.}
             \label{fig:gaia_selection_function}
         \end{figure}
-
         In summary, while we now possess sophisticated models and rich datasets, constructing a comprehensive and precise model of the Milky Way's gravitational field is still inherently difficult—constrained both by observational incompleteness and the physical complexity of a system in which all components are tightly coupled. Given these challenges, the construction of a Galactic model depends on the scientific question being asked.
 
         Consider \texttt{TRILEGAL} \citep{2005A&A...436..895G}. This model aims to answer the question: if I observe the sky from a given location with a given instrument, what do I expect to see? The focus of these models are stellar populations. Dynamics—such as orbits or gravitational forces—are secondary and not included in the construction. The primary goal is to reproduce observed star counts and understand the underlying stellar populations. Such models are designed to simulate the sky as it would appear to missions like Hipparcos \citep{1997A&A...323L..49P}, 2MASS \citep{2006AJ....131.1163S}, and SDSS \citep{2000AJ....120.1579Y}.
@@ -263,7 +255,6 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \item One then assigns initial velocities and evolves the system forward in time.  
             \item The potential is updated based on the evolved mass distribution.
         \end{enumerate}
-
         If the system is in equilibrium and self-consistent, then the mass distribution remains stable under its own gravity. That is, the same density that generated the potential continues to persist as the system evolves. For the rest of the section, I will describe in detail how one creates a self consistent system through the Collisionless Boltzmann Equation, and the simplifying assumptions employed in this thesis tackle our specific problem.
 
         Our starting point is to characterize the system statistically, with a distribution function (DF) over phase-space. That is, what is the probability density of finding a particle at a given position and velocity? This is encoded in the function \( f(\vec{x}, \vec{v}, t) \). If we treat this as a true probability density function that integrates to 1 over all phase space, we are implicitly assuming a closed system: no stars enter, leave, are born, or die.
@@ -273,7 +264,6 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
         f(\mathbf{w}_1, \dots, \mathbf{w}_N)
         \]  
         This expression represents the joint probability density of finding particle 1 at \( \mathbf{w}_1 \), particle 2 at \( \mathbf{w}_2 \), and so on. In general, this object can be extremely complicated. But we can simplify it with two strong assumptions: that particles are independent and identically distributed (i.i.d.). This leads to:
-
         \[
         \begin{array}{rl}
         f 
@@ -285,20 +275,15 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
         \left[ f(\mathbf{w}) \right]^N
         \end{array}
         \]
-
         The consequence of this factorization is that the total DF no longer accounts for correlations in other variables — such as mass. Therefore, this model cannot represent mass segregation, multiple stellar populations, or any other effects that differentiate stars. Instead, we describe a single homogeneous population of stars, each drawn independently from the same distribution.
 
         Because of this, we can focus our attention entirely on the single-particle DF \( f(\mathbf{w}) \), which encodes all the statistical information we need about the system.
 
         The next key assumption is that particles are uncorrelated not just in identity, but dynamically — they do not scatter off one another. This means the system is \textit{collisionless}. The DF then evolves under the Collisionless Boltzmann Equation:
-
         \begin{equation}
         \frac{Df}{Dt} = \frac{\partial f}{\partial t} + \dot{\mathbf{x}} \cdot \nabla_{\mathbf{x}} f + \dot{\mathbf{v}} \cdot \nabla_{\mathbf{v}} f = 0
         \end{equation}
-
-        This is a material (Lagrangian) derivative following a phase-space trajectory. The physical interpretation is that the DF is conserved along the orbits of stars in phase space. No bunching up, no spreading out. Stars simply move under the influence of a smooth, mean gravitational potential.
-
-        Next, we often impose the equilibrium condition:
+        This is a material (Lagrangian) derivative following a phase-space trajectory. The physical interpretation is that the DF is conserved along the orbits of stars in phase space. No bunching up, no spreading out. Stars simply move under the influence of a smooth, mean gravitational potential. Next, we often impose the equilibrium condition:
         \[
         \frac{\partial f}{\partial t} = 0
         \]
@@ -309,49 +294,35 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
         f(\mathbf{w}) = f(E)
         \]
         At this point, it is useful to mention Jeans equations, which relate the moments of the DF to observable quantities. For example, by integrating the DF over all velocities, we recover the spatial mass density:
-
         \[
         \rho(\mathbf{r}) = M \int f(\mathbf{x}, \mathbf{v}) \, d^3\mathbf{v}
         \]
-
         In fact, an inversion formula exists — known as the Abel transform — that allows one to reconstruct \( f(E) \) from a known \( \rho(r) \). This technique is presented in \citet{2008gady.book.....B} and \citet{bovy_inprep}. At this point, one can obtain a complete analytic expression for the distribution function. For a Plummer sphere, this distribution function is $f = C (-E)^{7/2}$, where $C$ is a constant that ensures $\int f dE =1$. 
-
         \subsubsection{Sampling the Initial Conditions}
-
             There are many techniques for sampling a distribution function. In my code, I use \textit{inverse transform sampling}, a method that facilitates sampling from one-dimensional probability distribution functions.
 
             Although the full distribution function depends on six variables—three positions and three velocities—it can be marginalized such that we treat each variable independently. This allows us to apply inverse transform sampling to each component separately.
 
             Inverse transform sampling works by first constructing the cumulative distribution function (CDF) of the desired probability distribution function (PDF):
-
             \begin{equation}
                 \mathcal{F}(x) = \int_{-\infty}^{x} f(x')\,dx'.
             \end{equation}
-
             By definition, the probability that a random variable $x$ is less than a given value $x_0$ is given by the value of the CDF at $x_0$:
-
             \begin{equation}
                 \mathcal{P}(x < x_0) = \mathcal{F}(x_0).
             \end{equation}
-
             Since CDFs are monotonically increasing and invertible, we also have:
-
             \begin{equation}
                 \mathcal{P}(\mathcal{F}(x) < \mathcal{F}(x_0)) = \mathcal{P}(x < x_0).
             \end{equation}
-
             Now, consider a uniform random variable $Y$ distributed on the interval $[0,1]$. Then,
-
             \begin{equation}
                 \mathcal{P}(Y < \mathcal{F}(x_0)) = \mathcal{P}(x < x_0),
             \end{equation}
-
             which implies:
-
             \begin{equation}
                 x = \mathcal{F}^{-1}(Y).
             \end{equation}
-
             Thus, we can generate samples from the target PDF $f(x)$ by applying the inverse CDF $\mathcal{F}^{-1}$ to uniformly distributed random numbers. This is practical, since uniform random number generators—such as \texttt{numpy.random.rand}—are widely available.
 
             The probability distribution for an isotropic Plummer sphere depends only on the energy, which itself depends on a particle's radial distance and speed: $f(r,v) \propto (-E)^{7/2}$. If we marginalize over the velocities, we obtain the one-dimensional density profile. The CDF of this marginalized distribution is the enclosed mass as a function of radius. For a Plummer sphere, it takes the form:
@@ -361,18 +332,15 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             where $M_{\mathrm{enc}}$ is normalized to the total mass and $r$ is normalized to the characteristic radius.
 
             Figure~\ref{fig:inverse_transform_sampling_distances} demonstrates inverse transform sampling applied to this CDF. Intersections between uniform random numbers and the CDF are computed; these intersections yield the sampled radial distances.
-
             \begin{figure}
                 \includegraphics[width=\linewidth]{images/inverse_transform_sampling_distances.png}
                 \caption{Inverse transform sampling of the enclosed mass distribution of a Plummer sphere. One thousand uniform random numbers between [0,1] were generated and intersected with the normalized enclosed mass profile. The top panel shows the sampling of positions; only 100 samples are shown to avoid overcrowding. The bottom panel shows the resulting distribution of radial distances.}
                 \label{fig:inverse_transform_sampling_distances}
             \end{figure}
-
             The joint distribution function can be written as the product of a conditional and a marginal distribution: $f(r,v) = f(v|r) f(r)$. The number of particles at a given speed can be obtained by integrating over the angular velocity components and differentiating with respect to speed:
             \begin{equation}
                 \frac{dN}{dv} = \frac{d}{dv} \int f(\textbf{v}|r)\, v^2 \sin\theta\, d\theta\, d\phi\, dv = 4\pi v^2 f(v|r).
             \end{equation}
-
             To construct the CDF of this conditional distribution, we must determine the appropriate limits. The allowed speed for a particle at radius $r$ ranges from zero to the escape speed, $v_{\mathrm{esc}} = \sqrt{2\Phi(r)}$. The resulting CDF is:
             \begin{equation}
                 \mathcal{F}(v) = C \int_0^{v < v_\mathrm{esc}} 4\pi v^2 f(v|r) dv,
@@ -381,17 +349,13 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \begin{equation}
                 C = \frac{1}{\mathcal{F}(v_\mathrm{esc})}.
             \end{equation}
-
             Sampling the speeds is shown in Fig.~\ref{fig:inverse_transform_sampling_velocities}. Since this is a conditional distribution, each particle has its own CDF based on its position—unlike Fig.~\ref{fig:inverse_transform_sampling_distances}, where all particles are sampled from the same marginal distribution. Note that for particles located farther from the center, fewer speeds are available before they become unbound.
-
             \begin{figure}
                 \includegraphics[width=\linewidth]{images/inverse_transform_sampling_velocities.png}
                 \caption{Inverse transform sampling of the speed distribution conditioned on position for particles in a Plummer sphere ($N = 1000$). The top panel shows 25 samples (to avoid clutter), each colored by its sampled distance. For each particle, a uniform random number is mapped onto its corresponding CDF to obtain the speed. The bottom panel shows the distribution of sampled speeds. The theoretical maximum value, corresponding to the escape speed at the center, is $\sqrt{2GM/r_c}$.}
                 \label{fig:inverse_transform_sampling_velocities}
             \end{figure}
-
             This process could be inverted: one could marginalize over position to obtain a global speed distribution, then condition on speed to sample positions. While valid, this approach is less intuitive. Most models are motivated by their density profiles, which are observable and conceptually accessible, making them a natural starting point for inverse transform sampling.
-            
             To convert radial distances into 3D positions and speeds into velocity vectors, we must sample directions uniformly over the surface of a sphere. A common pitfall is to sample latitude and longitude uniformly, which leads to an over-density near the poles. Instead, we aim for a uniform distribution over the sphere's surface, where the differential area element is given by:
             \begin{equation}
                 f(\theta,\phi)=\frac{1}{4\pi}\sin(\theta)
@@ -400,22 +364,17 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \begin{equation}
                 \theta_i = \cos^{-1}\left(1-2y_i\right).
             \end{equation}
-
             By sampling radial distances, speeds, and directions uniformly over the unit sphere, we obtain full position and velocity vectors for each particle. With these, the initial conditions for a Plummer sphere are fully specified. The user need only provide the total mass, characteristic radius, and the desired number of star particles.
 
             With the equations of motion defined, a model for the Galactic gravitational field established, a force model for the globular cluster in place, and initial conditions assigned to each star particle, we are now ready to simulate the tidal disruption of a globular cluster in the Galaxy.
-
-
 
 \section{The Implicit Physics}
     The previous section provided everything needed to simulate the dissolution of globular clusters. However, given the equations of motion, the model for the gravitational field, and the initial conditions for both the globular clusters and their constituent stars, why should we expect stars to escape? While the formalisms in the previous section supply the necessary machinery for running simulations, they do not explain \textit{why} disruption occurs.
 
     In this section, I aim to describe the underlying mechanisms that cause stars to escape from globular clusters and form stellar streams. Gaining intuition for this process involves simplifying the equations \textit{even further}, in order to obtain analytical insights. I refer to this as the \textit{implicit physics}—not because it was explicitly implemented in the simulations, but because it arises naturally from the equations that be.
 
-    To provide a brief overview: I begin with the circular restricted three-body problem, the simplest formalism for understanding the kinds of motion a massless body can undergo when influenced by two much more massive ones. I then introduce the tidal tensor, which describes how and why the Galactic field eventually strips stars from their host clusters. After that, I discuss phase mixing, which explains the evolution of escaped stars and how they come to form coherent stellar streams. This also helps explain the divergence of orbital solutions over time, which is particularly relevant for the work in Chapter~5, where we investigate whether the globular cluster system can affect the Palomar~5 stream. Finally, I introduce \textit{gapology}—the study of how perturbations can impact a stream and generate observable gaps within it.
-
-    
-    \subsection{The Planar Circular Restricted Three-Body Problem}
+    To provide a brief overview: in Section~\ref{sec:thePlanarCircularRestrictedThreeBodyProblem}, I present the circular restricted three-body problem, the simplest formalism for understanding the types of motion a massless body can undergo when influenced by two significantly more massive ones, following \citet{koon2000dynamical}. In Section~\ref{sec:tidalForce}, I introduce the tidal tensor, which explains how and why the Galactic field eventually strips stars from their host clusters. This section is largely inspired by the works of \citet{2004AJ....127.2753D} and \citet{bovy_inprep}. In Section~\ref{sec:phaseMixing}, I discuss phase mixing, which describes the evolution of escaped stars and how they come to form coherent stellar streams. This treatment is also primarily based on \citet[see chatper 19.4 of][]{bovy_inprep}, although I present the phenomenon in terms of orbital energy. Finally, I introduce the study of \textit{gaps}—how perturbations can affect a stream and generate observable gaps within it. This topic is not yet formalized in textbooks and remains an active area of research. I primarily synthesize the works of \citet{2012ApJ...748...20C,2013ApJ...775...90C}, \citet{2015MNRAS.450.1136E}, \citet{2016PhRvL.116l1301B}, and \citet{2016MNRAS.457.3817S}.
+    \subsection{The Planar Circular Restricted Three-Body Problem}\label{sec:thePlanarCircularRestrictedThreeBodyProblem}
         
         This section introduces the fundamental concept of the Lagrange points and regions of influence. In general, if a star is very close to the center of mass of a globular cluster, then its dynamics are determined by the cluster and the galaxy's influence is minimal. On the otherhand, if the star is far from the cluster then its motion is completely describe by the galaxy's gravitational field and the cluster is completely negligible. The Lagrange points are transitions between these two regime and are the points out of which the stars escape from the cluster. The magic that makes this analysis possible is decoupling the motion of the smallest body from the larger two, and studying the system in a non-inertial reference frame. 
 
@@ -481,7 +440,7 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
 
         % \textbf{NOTE from Ferrone. I wonder if the $L_4$ and $L_5$ exist in the galactic context... are there Tojan stars? or does the complexity of the galactic potential paired with non circular orbits render such a phenomena unnatural?}
 
-    \subsection{Tidal Forces}
+    \subsection{Tidal Forces}\label{sec:tidalForce}
         For star-particles within a globular cluster that is itself orbiting within a galaxy, there are no exact integrals of motion. The system lacks symmetries in its Lagrangian, and the potential varies with time, so even the orbital energy is not conserved. In such a time-dependent and asymmetric context, it is more insightful to frame the problem in terms of forces rather than conserved quantities. In particular, tidal forces arise when the gravitational field of the galaxy (the primary) is treated as an external perturbation to the field of the globular cluster (the secondary). In this section, I aim to build an intuitive and formal understanding of tidal forces, framing them as tensor quantities. We begin with the simplest case—the familiar Sun-Earth system—before extending the discussion to the Galactic context. I also provide a broader overview of how tidal forces vary depending on the cluster's orbit within the galaxy.
 
         To start, tidal forces arise due to spatial variations in the gravitational field with respect to a reference point, which is almost always the secondary body. There are two equivalent optiosn to quanitfy this. The first is to consider a Taylor expansion of the gravitational potential of the primary, \(\Phi_g\), evaluated at the star's position \(\vec{x}_s\), relative to the secondary's position \(\vec{x}_c\):
@@ -511,11 +470,9 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
                 \partial_x g_z & \partial_y g_z & \partial_z g_z 
             \end{matrix}\right).
         \end{equation}
-
         While the Hessian and Jacobian are formally equivalent, the Jacobian viewpoint offers a more geometric interpretation: it acts as a linear transformation on nearby displacements, mapping them to differences in acceleration. Diagonalizing the tidal tensor reveals the principal axes of tidal deformation. A positive eigenvalue corresponds to stretching along the associated eigenvector; a negative eigenvalue indicates compression. The magnitude gives the rate of stretching or compression.
 
         Finally, we note that although many relevant potentials exhibit spherical or cylindrical symmetry, Cartesian coordinates are preferred here. In curvilinear systems, computing the Jacobian or Hessian requires accounting for Christoffel symbols, which complicates the interpretation and computation.
-        
         \subsubsection{The Moon}
             Nothing clarifies the concept of tides like the most familiar example: the Moon. Tidal forces are invoked to explain a wide range of phenomena in the Earth-Moon system. The most relatable effect is, of course, the periodic variation in sea level on Earth. While accurately modeling these changes requires fluid dynamics—beyond the scope of this thesis—NASA provides several accessible explanations and visualizations at \href{https://science.nasa.gov/moon/tides/}{https://science.nasa.gov/moon/tides/}, including daily high and low tides, as well as spring and neap tides.
 
@@ -535,7 +492,6 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \begin{equation}
                 \vec{v}_1,\vec{v}_2,\vec{v}_3 = \dfrac{1}{r}\begin{bmatrix} x \\ y \\ z \end{bmatrix}, \dfrac{1}{r}\begin{bmatrix} -x \\ y \\ 0 \end{bmatrix}, \dfrac{1}{r}\begin{bmatrix} -x \\ 0 \\ z \end{bmatrix}.
             \end{equation}
-
             Notably, the first eigenvalue is positive and corresponds to a stretching deformation along the position vector. The other two are negative, representing compression in directions perpendicular to the stretching axis. These directions define a plane orthogonal to the Earth-Moon line. 
             
             From this, several tidal effects become evident. For instance, the Earth's oceans stretch along the Earth-Moon axis due to the Moon's tidal forces. While the Sun also exerts tidal forces on Earth, their magnitude is weaker due to the $r^{-3}$ scaling with distance. When the Moon is either full or new, the Sun and Moon's tidal forces act constructively, leading to spring tides. At first and third quarters, they interfere destructively, causing neap tides. Additionally, Earth's tidal influence distorts the Moon from spherical symmetry into an ellipsoid. The Moon's most stable orientation is one where its longest axis aligns with the Earth-Moon line—resulting in tidal locking.
@@ -568,11 +524,11 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \end{figure}
 
         \subsubsection{Tides from the disk}
-            In the Milky Way, the disk, bulge, and halo each contribute differently to the tidal forces experienced by a globular cluster. The Miyamoto-Nagai disk produces strong, rapidly varying tidal fields near the Galactic plane, leading to phenomena such as disk shocking when clusters cross the disk. The Martos halo, on the other hand, provides a more slowly varying, generally weaker tidal field at large Galactocentric radii.
+            In the Milky Way, the disk, bulge, and halo each contribute differently to the tidal forces experienced by a globular cluster. The Miyamoto-Nagai disk produces strong, rapidly varying tidal fields near the Galactic plane, leading to phenomena such as disk shocking when clusters cross the disk. The Allen-Santillian halo, on the other hand, provides a more slowly varying, generally weaker tidal field at large Galactocentric radii.
 
             The strength and orientation of the tidal field at a cluster's location determine both the rate at which stars are stripped and the geometry of the resulting stellar streams. For example, clusters on eccentric or inclined orbits experience time-dependent tidal forces, with strong compressive shocks during disk crossings and enhanced stretching near pericenter. The eigenvalues and eigenvectors of the tidal tensor at each point along the orbit reveal the principal axes of stretching and compression, which in turn set the directions along which stars are most likely to escape.
 
-            By computing the tidal tensor for the Miyamoto-Nagai disk and Martos halo potentials, as shown below, we can visualize and quantify these effects. The following figures illustrate how the tidal field evolves for representative orbits, highlighting the interplay between the cluster's trajectory and the Galactic mass distribution. This analysis underpins our understanding of stream formation and the morphological diversity of observed tidal tails.
+            By computing the tidal tensor for the Miyamoto-Nagai disk and Allen-Santillian halo potentials, as shown below, we can visualize and quantify these effects. The following figures illustrate how the tidal field evolves for representative orbits, highlighting the interplay between the cluster's trajectory and the Galactic mass distribution. This analysis underpins our understanding of stream formation and the morphological diversity of observed tidal tails.
 
             We can construct the tidal tensor for the Miyamoto-Nagai potential. First, it is convenient to non-dimensionalize the potential. Below, we normalize the potential by the total mass and gravitational constant, $\Phi\prime = \Phi / (GM)$, and each distance by the characteristic length of the disk, $x\prime = x/a$, $b\prime = b/a$. For clarity, we omit the prime notation in what follows. The dimensionless potential then becomes:            
             \begin{eqnarray}
@@ -580,11 +536,6 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
                 D       &= \sqrt{x^2 + y^2 + \beta^2(z)},\\
                 \beta(z)   &= 1 + \sqrt{z^2 + b^2}.
             \end{eqnarray}
-            
-            % \begin{eqnarray}
-                % \beta^{\prime}(z) &= \frac{z}{\sqrt{z^2 + b^2}}\\
-                % \beta^{\prime\prime}(z)  &= \frac{b^2}{\left(z^2 + b^2\right)^{3/2}}
-            % \end{eqnarray}
             The dimensionless tidal tensor is then: 
             \begin{equation}
                 \mathcal{T}=-\frac{1}{D^3}\left(\begin{matrix}
@@ -593,23 +544,19 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
                     \dots & \dots & \beta'^2 + \beta \beta'' -\frac{3\left(\beta\beta'\right)^2}{D^2}
                 \end{matrix}\right).
             \end{equation}             
-
             We immediately notice that, due to the cylindrical symmetry, the eigenvectors are not as simple as in the spherical case. As long as 
             \[
             \beta'^2 + \beta \beta'' - \frac{3\left(\beta \beta'\right)^2}{D^2} \neq 1 - \frac{3z^2}{D^2},
             \]
             (1) the stretching axis is no longer parallel to the position vector, and (2) the compression axes do not necessarily lie in the same plane—they may instead be fixed in orientation and differ in magnitude. The exact orientation of all three eigenvectors depends on the cluster's position in the galaxy. Note that if $z = 0$, we recover the case where the stretching eigenvector is parallel to the position vector, although the compression axes remain unequal in magnitude and fixed in orientation. If instead $b = 0$, then we recover spherical symmetry, and the compression eigenvalues become equal.
-
             \begin{verbatim}
             VIDEO: tidal_deformation_ellipsoid.mp4
             \end{verbatim}
-
             I have prepared Fig.s~\ref{fig:miyamoto_disc_shocks_circular_inclined_orbit}-\ref{fig:miyamoto_disc_shocks_weak_shocks} to demonstrate the diversity of tidal forces experienced by clusters on various orbits within a Miyamoto-Nagai disk potential. 
 
             Fig.~\ref{fig:miyamoto_disc_shocks_circular_inclined_orbit} shows a cluster on an inclined, non-eccentric orbit. In contrast, Fig.~\ref{fig:miyamoto_disc_shocks_planar_eccentric_orbit} presents a planar but eccentric orbit. The former experiences repeated disk shocks, while the latter undergoes enhanced tidal forces primarily near pericenter passages.
 
             Fig.~\ref{fig:miyamoto_disc_shocks_resonant_R_z} presents an orbit in which the radial and vertical oscillation periods are nearly resonant, producing two disk shocks per pericenter passage. Fig.~\ref{fig:miyamoto_disc_shocks_big_apocenter} shows a cluster on an orbit with a large apocenter, resulting in very weak tidal forces overall. Finally, Fig.~\ref{fig:miyamoto_disc_shocks_weak_shocks} demonstrates a case with a very thick disk potential. In this case, disk shocks occur over longer timescales and are less abrupt.
-
             \begin{figure}
                 \centering
                 \includegraphics[width=.9\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.01_50.0.png}
@@ -646,10 +593,9 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \end{figure}
 
         \subsubsection{Tides from the halo}
-
             Given spherical symmetry, the we expect the tidal tensor of the halo to be similar to that of a keplerian tidal tensor. Perhaps the magnitude of the tidal forces will not scale as simply with $\propto r^{-3}$, since the mass is not concentrated in a single point. However, we can still expect the stretching axis to be parallel with the position vector. 
             
-            To explore this, first we rewrite the mass distribution of the Martos halo:
+            To explore this, first we rewrite the mass distribution of the Allen-Santillian halo:
             \begin{equation}
                 M'_\text{enc}(s) = \frac{s^\gamma}{1+s^{\gamma-1}}
             \end{equation}
@@ -666,19 +612,17 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
                 f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}.
                 \label{eq:martos_f_s}
             \end{equation}
-
             While exploring this tidal tensor, I came across an interesting area of the parameter space, that I would like to show here. 
 
-            Taking the Martos tidal tensor in Eq.~\ref{eq:martos_f_s}, we can see that for $\gamma > 3$ and $s <  1$, then $f(s)< 0$. Physically, this would be a sphere whose density increases with distance. This is not natural, as, in general, gravity sends the more massive objects towards the center. However, it's fun to indulge in this situation to learn some insight about the flexibility of tidal fields. The consequence of $f(s)< 0$ is that all terms in the tidal tensor are negative, which means that the force is compressive everywhere. Consequently, no stars escape from the cluster. 
+            Taking the Allen-Santillian tidal tensor in Eq.~\ref{eq:martos_f_s}, we can see that for $\gamma > 3$ and $s <  1$, then $f(s)< 0$. Physically, this would be a sphere whose density increases with distance. This is not natural, as, in general, gravity sends the more massive objects towards the center. However, it's fun to indulge in this situation to learn some insight about the flexibility of tidal fields. The consequence of $f(s)< 0$ is that all terms in the tidal tensor are negative, which means that the force is compressive everywhere. Consequently, no stars escape from the cluster. 
 
-            In Fig.~\ref{fig:martos_tidal_field_small_r}, I present a small experiment demonstrating the consequence of such a tidal force on a globular cluster, which is that no tidal stream forms. Briefly, I created a plummer sphere of $10^6$~M$_\odot$ and half mass radius 20~pc and evolved it in a Martos halo potential of mass parameter $10^{12}$~M$_\odot$ a characteristic radius of $30$~kpc. Each cluster was placed at the same initial conditions, a distance of 1/4 the scale radius from the center of the potential. The initial velocity was made perpendicular to the position vector with a speed of $(1-e)v_\textrm{c}$. This is a pseudo-eccentricity, which was added to have a non-circular orbit to demonstrate how the trajectories change in the two cases. The top panel uses a $\gamma$ of 2.02, which is the same value in the model where the halo was originally presented, and the value I employ in this thesis. Next, the bottom panel uses $\gamma$ of 4.5, which corresponds to a density profile where $\rho(r) \propto r^{1.5}$. 
+            In Fig.~\ref{fig:martos_tidal_field_small_r}, I present a small experiment demonstrating the consequence of such a tidal force on a globular cluster, which is that no tidal stream forms. Briefly, I created a plummer sphere of $10^6$~M$_\odot$ and half mass radius 20~pc and evolved it in a Allen-Santillian halo potential of mass parameter $10^{12}$~M$_\odot$ a characteristic radius of $30$~kpc. Each cluster was placed at the same initial conditions, a distance of 1/4 the scale radius from the center of the potential. The initial velocity was made perpendicular to the position vector with a speed of $(1-e)v_\textrm{c}$. This is a pseudo-eccentricity, which was added to have a non-circular orbit to demonstrate how the trajectories change in the two cases. The top panel uses a $\gamma$ of 2.02, which is the same value in the model where the halo was originally presented, and the value I employ in this thesis. Next, the bottom panel uses $\gamma$ of 4.5, which corresponds to a density profile where $\rho(r) \propto r^{1.5}$. 
 
             To get a feel for the strength of the tidal stretching and compression, I show a circle and the resulting ellipse after applying the tidal deformation. I computed the coordinates of the ellipse by adding $\vec{Ell} = \vec{C} + \frac{1}{2} t_\textrm{char}^2 \mathcal{T}\cdot \left(\vec{C} - \vec{r_o}\right)$. This way, force can be mapped to position space, and the strengths of the tidal forces can be seen visually. The characteristic time, $t_\textrm{char}$, was set to $\frac{1}{10} 2\pi r_\textrm{halo} / v_\textrm{c}$. 
-            
             \begin{figure}
                 \includegraphics[width=\linewidth]{images/martos_tidal_field_202_10_25.png}
                 \includegraphics[width=\linewidth]{images/martos_tidal_field_450_10_25.png}
-                \caption{The plots show two low-resolution streams (N = 1000) created by dissolving a Plummer sphere in the Martos halo potential. The units are scaled to the halo's characteristic radius. Gamma is the mass exponent and is the sole variable between the two simulations. The panels on the left show the orbit in gray and the stars in black. The black arrow points towards the center of the potential. The panels on the right show the tidal field, which is the tidal tensor evaluated at each position in space. The gray dotted circle is plotted with an arbitrary radius and is deformed by the tidal field into a black ellipse.}
+                \caption{The plots show two low-resolution streams (N = 1000) created by dissolving a Plummer sphere in the Allen-Santillian halo potential. The units are scaled to the halo's characteristic radius. Gamma is the mass exponent and is the sole variable between the two simulations. The panels on the left show the orbit in gray and the stars in black. The black arrow points towards the center of the potential. The panels on the right show the tidal field, which is the tidal tensor evaluated at each position in space. The gray dotted circle is plotted with an arbitrary radius and is deformed by the tidal field into a black ellipse.}
                 \label{fig:martos_tidal_field_small_r}
             \end{figure}
 
@@ -688,10 +632,9 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
                 \caption{The same experiment as Fig.~\ref{fig:martos_tidal_field_small_r}, but the cluster was placed at a larger distance of 4 $r_\textrm{halo}$, since we are beyond the characteristic radius, the tidal fields are the same, despite the different exponents $\gamma$.}
                 \label{fig:martos_tidal_field_big_r}
             \end{figure}
-
             In the case of Fig.~\ref{fig:martos_tidal_field_big_r}, the tidal field returns to the typical situation where one axis is compressive and the other stretches. Notice how the deformations are similar in magnitude, while in the case of $\gamma=2.02$ for the top panel of Fig.~\ref{fig:martos_tidal_field_small_r}, the compression is stronger than the expansion. Both of these are different than the keplerian tidal deformation where the stronger deformation is stretching and whose axis is parallel to the position vector. 
 
-    \subsection{The Distribution of Escaped Stars}
+    \subsection{The Distribution of Escaped Stars}\label{sec:phaseMixing}
         Tidal forces cause stars to escape from the Lagrange points of the globular cluster. As we've seen, these forces can be compressive—pushing stars toward the cluster—or stretching—pulling them away, and specifically toward the Lagrange points. The stretching component is significantly amplified during pericenter passages, causing many stars to escape in bursts.
 
         This process doesn't fling stars into intergalactic space. Rather, the Galactic tidal field is typically weak compared to the cluster's own gravitational pull, and escaping stars gain just enough energy to leave the cluster. As a result, they are still on very similar orbits to the clusters once they escape.
@@ -712,42 +655,31 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
         \end{equation}
         where \(C\) is a constant and \(E\) is the specific orbital energy.
 
-
         Consider now two nearby particles with energies $E - \Delta E$ and $ E + \Delta E $. Their orbital frequencies differ by:
         \begin{equation}
             \Delta f = \frac{1}{T( E - \Delta E)} - \frac{1}{T(E + \Delta E)}.
         \end{equation}
         The time required for the faster particle to lap the slower one in phase is the \textit{phase mixing time}, which is the inverse of the difference $2\pi / \Delta f$ and is given by:
-
         \begin{equation}
             T_\mathrm{mix} = \frac{2\pi}{\Delta f} = \frac{2\pi T_1 T_2}{T_2 - T_1}.
         \end{equation}
-
         For small energy differences \( \Delta E << E \), we can expand the period in a Taylor series to first order. This leads to:
-
         \begin{equation}
             T_\mathrm{mix} \approx T_\mathrm{char} \cdot 2\pi \left( \frac{E}{3 \Delta E} \right),
             \label{EQ:phase_mixing}
         \end{equation}
         Thus, the phase mixing time grows inversely with the relative energy spread in the population.
-
         \subsubsection{Orbital drift}
             The first manifestation of phase mixing is the growth of uncertainty in orbital solutions for globular clusters over time. This originates from the initial spread in orbital energies caused by observational uncertainties. In Fig.\ref{fig:phase_mixing_palomar_5_orbital_solutions}, I present an example based on Palomar~5, for which I compute 50 orbital solutions in our potential model. These initial conditions are sampled according to the uncertainties reported in the Baumgardt catalog. The figure shows that while the orbital solutions remain broadly similar, the lower-energy orbits progress through phase space more rapidly. In the bottom panel, the rightmost side includes overplotted dots indicating the final $(t, z)$ coordinates of each solution, illustrating that they span nearly the full range of $z$ values allowed by the initial conditions. In essence, once the integration time exceeds the phase-mixing timescale, any individual solution becomes speculative: the system could plausibly occupy any location in phase space permitted by the initial conditions.
-
-
             \begin{figure}
                 \centering
                 \includegraphics[width=\linewidth]{images/phase_mixing_palomar_5_orbital_solutions.png}
                 \caption{Phase mixing of Palomar~5's orbital solutions in the \texttt{Pouliasis2017pii} potential. We sample 50 different initial conditions based on the observational uncertainties in distance, radial velocity, and proper motions. Each orbital solution is color-coded by its initial total orbital energy $E$. The top six panels show snapshots of the positions in the $xy$-plane of the orbital solutions at different times. The bottom panel shows the evolution of the $z$ coordinate as a function of time. Black vertical bars mark the timestamps corresponding to the snapshots in the top panels, which are labeled with matching alphabetical identifiers.}
                 \label{fig:phase_mixing_palomar_5_orbital_solutions}
-            \end{figure}    
-
+            \end{figure}
             By inspecting Eq.\ref{EQ:phase_mixing}, we note that if the phase-mixing time is normalized by the characteristic orbital time, the resulting dimensionless mixing time is inversely proportional to the uncertainty in orbital energy. This relationship is general and holds for all orbits, regardless of their periods. However, it is still illustrative to examine this behavior in the context of the globular cluster catalog. In Fig.\ref{fig:phase_mixing_orbital_errors_sample}, I present the phase-mixing times for all Galactic globular clusters, based on current uncertainties from the Gaia DR3 catalog. The top panel shows the distribution for all 165 clusters. The bottom panels highlight the mixing behavior in cylindrical radius for a selection of statistically representative clusters: Gran~1, which has the shortest mixing time; Gran~5, the median case; NGC~6752, whose mixing time is closest to the mean; and NGC~2419, which has the longest mixing time.
 
             It is important to emphasize that these estimates are highly model-dependent. In some cases, the models predict phase-mixing timescales exceeding the age of the Universe. Unsurprisingly, the phase-mixing time correlates with the orbital period, which itself is related to the cluster's distance from the Galactic center. At large Galactocentric distances, the gravitational potential of the Milky Way becomes increasingly uncertain, as observational constraints on the Galactic mass distribution are weaker--See Fig.~\ref{fig:vasiliev_2021_EDR3_GCS_FIG_10} \citep{2021MNRAS.505.5978V}. Therefore, these extreme mixing times should not be interpreted as implying that we can predict the phase-space location of certain clusters with high confidence over cosmological timescales. 
-
-
-
             \begin{figure}
                 \centering
                 \includegraphics[width=.75\linewidth]{images/phase_mixing_time_histogram_MWGCS.png}
@@ -755,19 +687,14 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
                 \caption{The top panel shows the distribution of phase-mixing times for globular clusters, computed using Eq.~\ref{EQ:phase_mixing}. The following four rows illustrate the phase-mixing behavior for four selected clusters over the time range considered in this experiment. Orbital solutions are color-coded by their normalized deviation from the mean orbital energy.}
                 \label{fig:phase_mixing_orbital_errors_sample}
             \end{figure}
-     
             It's also interesting to note how the uncertainties in the orbital energy relates to the uncertainties in each observable. In Fig.~\ref{fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu}, I perform this quick calulation. The uncertainties are measured in Galactic coordinates the ICRS coordinate system. This is a direct transformation to Galactic coordinates and thus can be expressed analytically.
-
             \begin{figure}[p]
                 \includegraphics[width=\linewidth]{images/energy_sensitivity_analysis_MWGCS_to_errors.png}
                 \caption{An analysis on the spread in orbital energies of the globular cluster population for each of its reported uncertainties. Each panel finds the STD in the Hamiltonain given the uncertainties in the specific variable. So the top left allows the distances to vary but holds the proper motions and radial velocities constant. It is plotted against the distance. The clusters are color-coated by their mean energies.}
                 \label{fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu}
             \end{figure}
-
             In short, the phase-mixing time for a given set of orbital solutions and the uncertainty in the initial conditions can be interpreted as: ``how long until I have no idea where this cluster is?'' Beyond this timescale, the cluster's position has an equal probability of being anywhere in phase-space permitted by its integrals of motion. This concept will be important in Chapter~5, where we assess whether different possible orbits for the globular clusters could have brought them into contact with the Palomar~5 stream.
-
         \subsubsection{Mixing of tidal debris}
-
             A cloud of points together in phase-space that are initially tightly packed together and then subsequently drift apart from one another, is a great analogy for the evolution of stars that escape from globular clusters to subsequently create stellar streams. For instance, at first glance, Fig.~\ref{fig:phase_mixing_palomar_5_orbital_solutions} might give the impression that we are looking at snapshots of a single stellar stream at different times. In reality, the figure shows different orbital solutions. This visual similarity underscores that both phenomena—stellar streams and diverging orbital solutions—are manifestations of phase mixing. 
             
             However, there is an important distinction. The divergence of different orbital solutions is an exact instantiation of the Louiville theorem. The particles have no influence on one another and they are all independently orbiting within the gravitational field. For stars within a globular cluster, the analogy breaks down because globular clusters are self-gravitating systems: stars interact gravitationally and remain bound for a significant time. This self-gravity slows down the mixing process. The time it takes for a globular cluster to dissolve and distribute its stars uniformly in phase space is typically longer than the idealized mixing time given by Eq.~\ref{EQ:phase_mixing}. Nevertheless, phase mixing still governs the long-term behavior of tidally escaped stars.
@@ -775,13 +702,11 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             Importantly, we need not consider all particles within the cluster to characterize the distribution of tidal debris as phase mixing. For clusters with short orbital mixing times compared to the simulation duration, stars that escape during the simulation can redistribute throughout the available phase space. While the resulting debris will not be uniformly distributed—an overdensity will remain at the cluster location—the tidal debris will broadly fill the phase space accessible to it. This point is crucial for the results discussed in Chapter 4.
 
             In fact, this can be seen in another \citet{2024ApJ...976...54P}. \citet{2024ApJ...976...54P} noted that today, there are roughly 170 known globular clusters. However, since they dissolve, there could have been many more. Thus, there could be many streams in the galaxy that are from now defunct globular clusters. Already, there are many known streams that are unassociated to globular clusters \citep{2022ApJ...926..107M}. In fact, of the roughly 90 known stellar streams, only about 20 are associated to globular clusters \citep{2024ApJ...967...89I}. \citet{2024ApJ...976...54P} set out to predict the the total number of stellar streams we can expect in a Milky Way like Galaxy from IllustrusTNG \textbf{get ref}, by using inserting prescription of globular cluster formation and distribution within the Milky-Way analog as well as those that were imported by eaten dwarf galaxies following the methods of \citet{2022MNRAS.514.4736C,2023MNRAS.522.5638C}. \citet{2024ApJ...976...54P} simulates the dissolution of these hypothetical globular clusters adn studies the resultant tidal debris. A panorama of this is presented in Fig.~\ref{fig:perason-2024-fig}. 
-
             \begin{figure}
                 \includegraphics[width=\linewidth]{images/perason-2024-fig.jpg}
                 \caption{A catalog of expected debris of a simulated totally disrupted population of globular clusters within a Milky Way analog. The y-axis is the normalized z-component of the angular momentum, with zero corresponding to polar orbits and 1 corresponding to planar orbits. The x-axis is a ``distance'' of the ``center-of-mass'' of a stream from the Galactic center. Each stream is plotted in galactic coordinates annd are to scale with one-another. The bottom right quandrant satisfies their ``streaminess criterion''. Credit: Fig~7 of  \citet{2024ApJ...976...54P}.}
                 \label{fig:perason-2024-fig}
             \end{figure}
-
             \citet{2024ApJ...976...54P} created a ``streaminess'' criterion. They base this on two metrics. The first, is the distance from the ``center-of-mass'' of a stream from the galactic-center in galactic coordinates. This metric is:
             $\Delta_0 = \sqrt{\mathrm{medn}(b)^2+\mathrm{medn}(l)^2}$. The argument being that is this number is close to zero, then the tidal debris is symmetrically distributed about the center of the galaxy and fully phase-mixed. 
 
@@ -804,25 +729,20 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
         Assume the perturber moves along the $x$-axis with impact parameter $b$, and the target lies at the origin. Then the net force acts in the $+y$ direction. The gravitational force scales as $1/d^2$, so for distances $d >> b$, the force becomes negligible. We can then approximate the force as roughly constant over a short time interval during the closest approach.
 
         We estimate the duration of the interaction as the time it takes the perturber to travel a distance $2b$ (from $x = -b$ to $x = +b$), giving $\Delta t = 2b/v$. Assuming a constant perpendicular force $F_\perp \approx GMm/b^2$, the change in momentum is:
-
         \begin{eqnarray}
         m\,\delta v_y &=& \int F_\perp \, dt \\
                     &\approx& F_\perp \cdot \Delta t \\
                     &=& \frac{GMm}{b^2} \cdot \frac{2b}{v}
         \end{eqnarray}
-
         Dividing both sides by $m$, the change in velocity is:
         \begin{equation}\label{eq:delta_v_impulse_approx}
         \delta v_y = \frac{2GM}{b v}
         \end{equation}
-
         It is interesting to note that this result is inversely proportional to the velocity of the perturber. This behavior contrasts with contact collisions, where a higher speed typically results in a greater momentum transfer. In gravitational encounters, a faster flyby leads to a shorter interaction time and thus less momentum exchange.
-
-        \subsubsection{Gapology}
+        \subsubsection{Gap formation and evolution}
             Gaps in stellar streams are underdensities that appear after encounters with dark matter subhalos or globular clusters. These can be understood as resulting from collisions. However, modeling the interaction as one point mass hitting another is too simplistic. What happens when an extended object, like a subhalo, interacts with a continuous stellar stream? Before delving into the technical details, it is worth clarifying a misconception--one that I myself held when first approaching this problem. Encounters between stellar streams and perturbers are not violent collisions in which stars are physically ejected or stripped from the stream. Rather, the perturber imparts a small, localized change in velocity to nearby stars, subtly altering their orbital periods. Over time, these tiny shifts accumulate, causing stars to drift apart and gradually sculpting a visible underdensity: the gap. 
             
             To address this, we turn to the work of \citet{2015MNRAS.450.1136E}, who studied a simplified model: a stream with uniform density on a circular orbit. This idealized setup allows for an analytical treatment of the gap's formation and evolution. A gap can be characterized by two main quantities: its angular width, $\Delta \theta$, and the density contrast, $\rho_{\mathrm{peak}}/\rho_0$, between the overdensities at the gap's edges and the central underdensity.
-
 
             To understand how these evolve, the authors derived a parameterization of the change in velocity $\Delta \vec{v}$ for stars along the stream after a perturbation. This vector function depends on the position $y$ along the stream relative to the impact point and on several parameters describing the perturber and the impact geometry:
             \[
@@ -837,7 +757,6 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \Delta v_y\left(y\,|\, M, r_s, b, w_\parallel, w_\perp\right) = - \frac{2GM w_\perp^2 y}{w\left[\left(b^2 + r_s^2\right)w^2 + w_\perp^2 y^2\right]},
             \]
             which is an odd function of $y$, as expected for a gravitationally attractive force: stars ahead of the impact point ($y>0$) are slowed down, while those behind ($y<0$) are sped up.
-
             \begin{figure}
                 \centering
                 \includegraphics[width=0.5\linewidth]{images/erkal_et_al_2015_fig_3.png}
@@ -867,14 +786,12 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             While powerful, the authors describe how the limiting assumptions impact the interpretations of this work. First, the framework is limited to circular orbits which poses a significant constraint especially for globular clusters which often have inclined and eccentric trajectories. Indeed, as they discussed in their work, streams do not have uniform densities. Stars that populate the streams come from tidally disrupting stellar systems. As they leave the cluster and enter the stream, they come with a range of energies and and angular momenta that in essence eliminate any casutic features. 
 
             \citet{2016MNRAS.457.3817S} expanded on this foundation and provided a truly exchaustive and comprehensive exploration of stream-subhalo interactions. Their primary methodological innovation was the development of a framework for modeling the impact of dark matter subhaloes on cold, thin streams in angle-frequency space. This space significantly simplifies stream dynamics, allowing for the rapid generation of general stream models and proving ideal for incorporating velocity perturbations from subhaloes. They developed methods to compute velocity, angle, and frequency kicks for general subhaloes and impact geometries, then translated these into angle and frequency perturbations. This framework allowed for an extensive range of experiments:
-
             \begin{itemize}
                 \item \textbf{Various perturber models}: \citet{2016MNRAS.457.3817S} compared velocity kicks produced by various astrophysically relevant subhalo profiles, including Plummer, Hernquist, truncated Navarro-Frenk-White (NFW), and non-truncated NFW profiles. They found that while there are differences in kick amplitudes depending on the profile, the absolute differences between these methods were generally small, especially for lower-mass impacts, suggesting the simpler "curved approximation" (which accounts for stream curvature but assumes fixed relative velocity during flyby) is often sufficient
                 \item \textbf{Different Orbits for the Progenitor}: key advancement was the focus on streams formed from progenitors on eccentric orbits. This directly addressed a limitation of \citet{2015MNRAS.450.1136E}, which primarily restricted its analysis to streams on circular orbits. The angle-frequency space formalism is particularly well-suited for modeling these more complex, realistic eccentric stream dynamics.
                 \item \textbf{Different Impact Points}: The study thoroughly investigated how the stream changes depending on where along the stream the impact occurs. They simulated impacts both close to the progenitor (where particles are more mixed in energy) and further downstream (where particles are better ordered by energy), finding that the growth rate of the gap depends on the impact location. 
             \end{itemize}
-
-            Drawing from these comprehensive investigations, \citet{2016MNRAS.457.3817S} reached several essential conclusions and insights into ``gapology'':
+            Drawing from these comprehensive investigations, \citet{2016MNRAS.457.3817S} reached several essential conclusions and insights into the physics of gaps:
             \begin{itemize}
                 \item \textbf{Dominance of Frequency Kicks}: They found that angle perturbations from a flyby are generally only significant on short timescales (less than a radial period). At later times, the frequency perturbations become much more important, controlling the future structure of the gap. These frequency perturbations are simply related to the velocity perturbations (specifically, the change in energy, $v \cdot \delta v_g$) in scale-free potentials.
                 \item \textbf{Gap Growth and Density Plateau}: While \citet{2015MNRAS.450.1136E} predicted gap growth slowing to a $t^{1/2}$ rate in the caustic phase and the central density decreasing as $t^{-1}$, \citet{2016MNRAS.457.3817S} observed that the minimum gap density eventually plateaus in time. This plateau value decreases with increasing subhalo mass and is attributed to the stream's non-zero velocity dispersion, allowing upstream material to fill in the gap, and the non-uniform unperturbed stream density.
@@ -882,23 +799,17 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \end{itemize}
             For many of the experiments, the authors cross validate the semi-analytic formalism against NBody simulations and present truly robust results. Below, I want to show how one can understand a 1D stream. 
 
-
             To first order, a stellar stream can be modeled as a \textit{collisionless}, non-accelerating ensemble of stars, i.e., a one-dimensional \textit{streaming} solution to the collisionless Boltzmann equation. In this case, the equation simplifies to:
-
             \begin{equation}
                 \frac{\partial f}{\partial t} + v \frac{\partial f}{\partial x} = 0,
             \end{equation}
-
             where \( f(x,v,t) \) is the phase-space distribution function. We assume the initial condition \( f(x,v,t=0) = 0 \), and a boundary condition of a constant source at \( x=0 \):
-
             \begin{equation}
                 f(0,v,t) = g(v \,|\, v_0, \sigma_v) = \mathcal{N}(v \,|\, v_0, \sigma_v),
             \end{equation}
-
             i.e., a Gaussian ejection velocity distribution centered at \( v_0 \) with dispersion \( \sigma_v \). The total flux amplitude is arbitrary here.
 
             Using the method of characteristics, we find that \( f \) is constant along lines of the form \( x - vt = \text{const} \). This means we are solving a PDE in the \( (x,t) \) plane for fixed values of \( v \). The initial condition implies that \( f=0 \) in regions not yet reached by any particles — that is, wherever \( x/t > v \). Thus, the solution is:
-
             \begin{equation}
                 f(x,v,t) = 
                 \begin{cases}
@@ -907,53 +818,37 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
                 \end{cases}
                 \label{eq:one_dimensional_collisionless_streaming}
             \end{equation}
-
             We can now compute the moments of this distribution. The density at each position is given by:
-
             \begin{equation}
                 \rho(x,t) = \int_{x/t}^{\infty} f(x,v,t) \, dv = \frac{1}{2} \, \mathrm{erfc}\left( \frac{x/t - v_0}{\sqrt{2}\sigma_v} \right),
             \end{equation}
-
             i.e., the integral of a truncated Gaussian. Similarly, the \textit{mean velocity} and \textit{velocity dispersion} at fixed \( (x,t) \) are computed from the conditional distribution \( f(v|x,t) = f(x,v,t)/\rho(x,t) \), via:
-
-            \begin{align}
-                \langle v \rangle(x,t) &= \frac{1}{\rho(x,t)} \int_{x/t}^\infty v f(x,v,t) \, dv, \\
-                \langle v^2 \rangle(x,t) &= \frac{1}{\rho(x,t)} \int_{x/t}^\infty v^2 f(x,v,t) \, dv, \\
-                \sigma_v^2(x,t) &= \langle v^2 \rangle(x,t) - \langle v \rangle(x,t)^2.
-            \end{align}
-
+            \begin{equation}
+                \begin{aligned}
+                    \langle v \rangle(x,t) &= \frac{1}{\rho(x,t)} \int_{x/t}^\infty v f(x,v,t) \, dv, \\
+                    \langle v^2 \rangle(x,t) &= \frac{1}{\rho(x,t)} \int_{x/t}^\infty v^2 f(x,v,t) \, dv, \\
+                    \sigma_v^2(x,t) &= \langle v^2 \rangle(x,t) - \langle v \rangle(x,t)^2.
+                \end{aligned}
+            \end{equation}
             Each of these integrals can be expressed analytically in terms of the error function and exponential functions, since they are the moments of a truncated Gaussian.
 
-
             In Fig.~\ref{fig:collisionless_1D_stream}, I show a plot of the \textit{density}, \textit{mean velocity}, and \textit{velocity dispersion} as a function of position at a given time. The figure illustrates how the leading edge of the stream (larger \( x \)) contains only the fastest particles and thus has a lower density and higher average velocity. Conversely, the trailing regions have a broader mix of velocities and higher local dispersion.
-            
             \begin{figure}
                 \centering
                 \includegraphics[width=\linewidth]{images/collisionless_1D_stream.png}
                 \caption{A snapshot at a fixed time of selected moments of the distribution function describing one-dimensional collisionless streaming, used here as an approximation for a stellar stream, as given by Eq.~\ref{eq:one_dimensional_collisionless_streaming}. Particles are continuously injected at the origin with velocities drawn from a Gaussian distribution with mean $v_0 $ and dispersion $ \sigma_v$. Shown are the particle density, local mean velocity, and local velocity dispersion, all normalized. }
                 \label{fig:collisionless_1D_stream}
             \end{figure}
-
-
             \textit{Note:} I would love to explore this more rigorously in the context of time-dependent or eccentric mass loss, where the source term becomes periodic. I did begin studying such a model using a time-dependent Gaussian source, but at some point the ``simple approach'' becomes as complex as full numerical simulations. 
-
-            
-
-
-
-
 
 \section{The Ignored Physics} \label{sec:ignoredphysics}
     This section could, in principle, be extremely large, since much of physics is irrelevant to our specific problem—neither Schrödinger's equation nor Maxwell's equations are of concern here. But that is not the point. In the previous two sections, I presented our methods and argued for their appropriateness in studying stellar streams originating from Galactic globular clusters. Here, I want to step back and sketch the landscape of what we have chosen to ignore, and highlight other techniques used in the literature. Chief among these is treating the globular cluster as a collisional system.
 
     I had originally considered discussing additional physical processes, such as a time-varying Milky Way potential or particle-spray methods for modeling globular cluster disruption. However, these are more properly regarded as alternative approaches rather than corrections to our framework. Thus, I limit the discussion here to internal cluster dynamics, and cite two exemplary works that demonstrate how our simulated tidal tails can differ—not only from other models, but potentially from reality itself. For discussion of a time-evolving Galactic potential and particle-spray techniques, see the concluding section on future prospects.
-
     \subsection{Globular Cluster Internal Dynamics} \label{sec:collisionalDynamics}
         In this thesis, globular clusters are treated primarily as the sources of stellar streams, because our interest lies more in the streams themselves than in the internal structure of the clusters. To that end, we simplified the internal dynamics by assuming a smooth, mean-field potential, fully aware that this is a limiting assumption. We made a deliberate trade: computational efficiency at the cost of dynamical fidelity.
 
         But how severe is this limitation? By neglecting the collisional nature of globular clusters and adopting a test-particle framework, we constrain our ability to model the rate at which stars escape, the manner of their ejection, and the identity of the stars that escape. Below, I present a basic demonstration of two-body relaxation, followed by a summary of key studies that explore the consequences of including internal cluster dynamics more fully.
-
-
         \subsubsection{Two-body Relaxation Time: a derivation and example} \label{sec:twoBodyRelaxation}
             While it is appropriate to treat the orbits of stars in galaxy as collisionless, this approximation breaks down in the context of globular clusters. Here, I present a brief numerical experiment to illustrate the concept of two-body relaxation, which quantifies the breakdown of the mean-field approximation.
 
@@ -971,13 +866,11 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             Now consider not just one fly-by, but a sequence of them. A real galaxy has a radially decreasing density, so a star never sees a symmetric distribution unless it's exactly at the center — but we are interested in fluctuations from the mean field, not the mean field itself. That is, if $\Phi_\mathrm{MW} = \Phi_\mathrm{mean}(\vec{r}) + \Phi_\mathrm{stochastic}(\vec{r})$, we are isolating the stochastic part.
 
             To simplify further, we idealize the galaxy as a cylinder of radius and length $R$, with uniform number density $n = N_p / (\pi R^3)$. As the star moves through this medium, we apply Eq.~\ref{eq:delta_v_vec_impulse_approx} to compute cumulative velocity kicks. This is demonstrated numerically in Fig.~\ref{fig:twoBodyRelaxation}.
-
             \begin{figure}
                 \includegraphics[]{images/twoBodyRelaxation.png}
                 \caption{Demonstration of two-body relaxation. A star travels through a medium with uniform number density ($n = 500/\pi R^3$). Six independent trajectories are shown, each sampling a different realization of the same underlying number density. Particles are generated on-the-fly as the star moves. The right panel shows the cumulative squared change in velocity. The vertical line indicates the theoretical two-body relaxation time}
                 \label{fig:twoBodyRelaxation}
             \end{figure}
-
             To perform this experiment, I normalize units such that $G = M = R = t_\mathrm{cross} = 1$, giving $v_0 = 1$ and $m = M/N_p$. For Fig.~\ref{fig:twoBodyRelaxation}\footnote{The two-body relaxation experiment is purely illustrative. Despite multiple attempts, I was unable to make the numerical results consistent with the theoretical prediction. Not only is the relaxation process significantly slower than expected, but the discrepancy also worsens with increasing particle number. I rewrote the script several times but was unable to identify the issue. Nonetheless, the main takeaway remains valid: gravitational two-body encounters induce a random walk in velocity space.}, $N_p = 500$, so the number density is $500/\pi$. 
 
             At each timestep $dt$, a cylindrical volume $\pi R^2 v dt$ is populated with a Poisson-sampled number of particles, where the expected number is $\langle N_{p,\mathrm{disc}} \rangle = n \pi R^2 v dt$. Each particle contributes a velocity kick via Eq.~\ref{eq:delta_v_vec_impulse_approx}, which is summed over time to compute the net velocity and trajectory.
@@ -994,7 +887,6 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \begin{equation}
                 \tau_\mathrm{2-body} = \frac{v_0^2}{\frac{d \left\langle \delta v^2 \right\rangle}{dt}}.
             \end{equation}
-
             Another key in this derivation is the Coulomb integral, which involves a logarithmic divergence:
             \[
             \int \frac{1}{R} \, dR.
@@ -1005,22 +897,15 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \begin{equation}
                 \tau = t_\mathrm{cross} \, \frac{N}{8 \ln(N/2)}.
             \end{equation}
-
             Let's apply this to globular clusters using their catalog values. Take the median crossing time per star as
             \[
             t_\mathrm{cross} = \sqrt{\frac{r_{1/2}^3}{GM}},
             \]
             assuming an average stellar mass of 0.8 $M_\odot$ [citation needed]. With this, only a handful of clusters have relaxation times greater than the 5 Gyr integration time used in our simulations. These include: 
-            
+
             \textit{NGC~2419, NGC~5139, Pal~14, Pal~15, FSR1758, Ter~8, Sagittarius~II.}
 
             Across the catalog, the average relaxation time is 1.5 Gyr, the median is 0.8 Gyr, the maximum is 21 Gyr, and the minimum is 0.03 Gyr.
-
-
-
-
-    
-        
         \subsubsection{Beyond Two-Body Relaxation}
             Our modeling of globular cluster dissolution via the restricted three-body problem neglects internal dynamics such as two-body relaxation, binary interactions, and stellar evolution. While this simplification allows us to isolate the effects of tidal stripping, it limits the generality of our predictions. In particular, internal processes can influence both the rate and nature of stellar escape, affecting the morphology, kinematics, and observability of stellar streams.
 
@@ -1030,10 +915,7 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
                 \caption{Expected distribution of stars from the Milky Way globular clusters that are ejected from globular cluster cores via 3-body interactions. Reproduced from \citet{2024MNRAS.528.5189G}.}
                 \label{fig:grondin_et_al_core_spray}
             \end{figure}            
-
             Incorporating a stellar mass function introduces additional dynamical effects. One of the earliest empirical mass functions was proposed by \citet{1955ApJ...121..161S}, and a widely used modern version is the piecewise form by \citet{2001MNRAS.322..231K}, which accounts for the tapering at the low-mass end. A well-known consequence of having a range of masses is \textit{dynamical friction} \citep{1943ApJ....97..255C,1943ApJ....97..263C,1943ApJ....98...54C}, whereby massive stars lose orbital energy through interactions with lighter stars and sink toward the cluster center. This process leads to \textit{mass segregation}, the tendency for massive stars to concentrate near the core. The statistical trend underlying this is toward energy equipartition, where the average kinetic energy per star is constant. Since $E \propto m \langle v^2 \rangle$, this implies $\langle v^2 \rangle \propto 1/m$. In real clusters, however, the relaxation time can be long, and complete equipartition may never be achieved \citep{2016MNRAS.458.3644B,2025A&A...698A.209Z}. Moreover, tides preferentially remove stars on weakly bound (i.e., high-energy) orbits, which tend to be lower-mass stars—so tidal stripping acts as a mass filter.
-
-
 
             Beyond assigning mass to the stars, we can consider them as actual stars, i.e., luminous, gaseous bodies in hydrostatic equilibrium. Relaxing the point-mass assumption leads to a much richer picture. Stars differ in mass, age, and composition, all of which affect their luminosities and thus their detectability. \citet{2008A&A...490..151K} showed that low-mass stars and remnants like white dwarfs are preferentially ejected from globular clusters, altering the cluste's global luminosity profile. Extending this, \citet{2018MNRAS.474.2479B} explored how internal dynamics shape the escape of stars with different luminosities and found a seemingly paradoxical result: more massive clusters can produce \textit{less detectable} streams. The reasoning is twofold: more massive clusters retain more low-mass stars, which are intrinsically fainter, and these same stars are more likely to be stripped. As a result, even though the streams may be more massive, they are harder to detect (see Fig.~\ref{fig:balbinot-2018}).
             \begin{figure}
@@ -1041,5 +923,4 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
                 \caption{The effects of stellar evolution on the visibility of stellar streams. Reproduced from \citep{2018MNRAS.474.2479B}.}
                 \label{fig:balbinot-2018}
             \end{figure}
-
             Stellar evolution affects not only the stars' luminosities but also the dynamics of the cluster. \citet{2018MNRAS.474.2479B} included stellar evolution in their simulations and showed how mass loss from evolving stars alters the cluster's potential. The most significant phase occurs in the first $\sim$1~Gyr, when massive stars explode as supernovae, ejecting substantial mass and weakening the cluster's potential well. \citet{2010MNRAS.409..305L} decomposed cluster mass loss into three stages, the first of which—driven by stellar evolution—dominates the early lifetime. If an exploding star is part of a binary, its companion may also be ejected. The extent of this effect depends strongly on both the initial mass function and metallicity of the cluster.\footnote{I once wondered whether the kinetic energy deposited by a supernova's ejecta might dynamically affect nearby stars. A quick back-of-the-envelope estimate suggests it is negligible. The mass simply puffs out of the cluster.}
