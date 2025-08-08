@@ -376,7 +376,7 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
     To provide a brief overview: in Section~\ref{sec:thePlanarCircularRestrictedThreeBodyProblem}, I present the circular restricted three-body problem, the simplest formalism for understanding the types of motion a massless body can undergo when influenced by two significantly more massive ones, following \citet{koon2000dynamical}. In Section~\ref{sec:tidalForce}, I introduce the tidal tensor, which explains how and why the Galactic field eventually strips stars from their host clusters. This section is largely inspired by the works of \citet{2004AJ....127.2753D} and \citet{bovy_inprep}. In Section~\ref{sec:phaseMixing}, I discuss phase mixing, which describes the evolution of escaped stars and how they come to form coherent stellar streams. This treatment is also primarily based on \citet[see chatper 19.4 of][]{bovy_inprep}, although I present the phenomenon in terms of orbital energy. Finally, I introduce the study of \textit{gaps}—how perturbations can affect a stream and generate observable gaps within it. This topic is not yet formalized in textbooks and remains an active area of research. I primarily synthesize the works of \citet{2012ApJ...748...20C,2013ApJ...775...90C}, \citet{2015MNRAS.450.1136E}, \citet{2016PhRvL.116l1301B}, and \citet{2016MNRAS.457.3817S}.
     \subsection{The Planar Circular Restricted Three-Body Problem}\label{sec:thePlanarCircularRestrictedThreeBodyProblem}
         
-        This section introduces the fundamental concept of the Lagrange points and regions of influence. In general, if a star is very close to the center of mass of a globular cluster, then its dynamics are determined by the cluster and the galaxy's influence is minimal. On the otherhand, if the star is far from the cluster then its motion is completely describe by the galaxy's gravitational field and the cluster is completely negligible. The Lagrange points are transitions between these two regime and are the points out of which the stars escape from the cluster. The magic that makes this analysis possible is decoupling the motion of the smallest body from the larger two, and studying the system in a non-inertial reference frame. 
+        This section introduces the fundamental concept of the Lagrange points and regions of influence. In general, if a star is very close to the center of mass of a globular cluster, then its dynamics are determined by the cluster and the galaxy's influence is minimal. On the otherhand, if the star is far from the cluster then its motion is completely describe by the galaxy's gravitational field and the cluster is completely negligible. The Lagrange points are transitions between these two regime and are the points out of which the stars escape from the cluster. The magic that makes this analysis possible is decoupling the motion of the smallest body from the larger two, and studying the system in a non-inertial reference frame with a constant angular rotation rate: $\omega = 2\pi/T$, where $T$ is the orbital period of the primary and secondary. 
 
         To begin, even though we simplify the simulation by modeling the cluster as $\mathcal{N}$ independent three-body problems, the problem remains challenging. Indeed, if we consider all three bodies to have mass, we can write down a Hamiltonian with 18 dimensions: three positions and three momenta in $\mathcal{R}^3$ for each particle. The dimensionality of the problem can be reduced by using the conservation of total linear momentum and total angular momentum, and by expressing the dynamics in terms of relative coordinates about the system's center of mass. This reduces the total dimensionality to 9. Nevertheless, the problem remains analytically intractable due to its high dimensionality. To gain analytical insight, we simplify the system further.
         
@@ -392,21 +392,18 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
         \begin{equation}
             \Phi_\mathrm{eff}(x,y) = -\frac{1}{2} \omega^2 (x^2 + y^2) - \frac{G m_1}{|r_1|} - \frac{G m_2}{|r_2|}.
         \end{equation}
-
         The potential can be normalized by noting that the orbital angular velocity from the two-body problem satisfies \(\omega^2 = \frac{G M}{a^3}\), where \(a\) is the separation between the primaries and \(M = m_1 + m_2\) is the total mass of the system. With this normalization, the system depends on a single dimensionless parameter \(\mu\), the relative mass ratio defined as \(\mu = \frac{m_2}{m_1 + m_2}\).
 
         At this point, the system can be studied qualitatively. Unfortunately, no general closed-form solution exists for the circular restricted three-body problem that describes the subsequent motion as a function of time. However, by studying the effective potential \(\Phi_\mathrm{eff}\), we gain valuable insights.
 
-        Our Hamiltonian depends on the four variables \((x, y, p_x, p_y)\) and has one integral of motion.\footnote{The term ``integral of motion'' is often used interchangeably with ``constant of motion'', but strictly speaking, the latter is preferable since it refers to a quantity that remains constant throughout the orbital evolution, not to an integral in the mathematical sense of the word (area under a curve).} A famous quantity in this context is the Jacobi integral (or Jacobi constant), often written as \(C_j = -2E\). Defining this constant is somewhat arbitrary since the total mechanical energy \(E\) is itself conserved, and any scalar multiple of it is also conserved. The utility of the Jacobi constant is mostly conventional: it is often defined to be positive and multiplied by 2, which simplifies the expression for forbidden regions and zero-velocity curves. For example, one can write
+        Our Hamiltonian depends on the four variables \((x, y, p_x, p_y)\) and has one integral of motion.\footnote{The term ``integral of motion'' is often used interchangeably with ``constant of motion,'' but strictly speaking, the latter is preferable, as it refers to a quantity that remains constant throughout the orbital evolution—not to an integral in the mathematical sense of the word (i.e., the area under a curve).} A well-known quantity in this context is the Jacobi integral (or Jacobi constant), often written as \(C_j = -2\mathcal{H}\). Defining this constant is somewhat arbitrary, since the non-inertial mechanical energy \(\mathcal{H}\) is itself conserved, and any scalar multiple of it is also conserved. The utility of the Jacobi constant is mostly conventional: it is often defined to be positive and multiplied by 2, which simplifies the expression for forbidden regions and zero-velocity curves. By using $p_x = \dot{x}-\omega y$ and $p_y = \dot{y} + \omega x$, one can write:
         \[
-        \dot{x}^2 + \dot{y}^2 = 2 \Phi_\mathrm{eff}(x,y) + C_j,
+        \dot{x}^2 + \dot{y}^2 = - \left(2 \Phi_\mathrm{eff}(x,y) + C_j\right),
         \]
-        instead of the equivalent
+        instead of the equivalent:
         \[
-        \dot{x}^2 + \dot{y}^2 = -2 \Phi_\mathrm{eff}(x,y) + 2E.
+        \dot{x}^2 + \dot{y}^2 = -2 \Phi_\mathrm{eff}(x,y) + 2 \mathcal{H}.
         \]
-        
-
         Since we have four variables and one constraint, the motion is restricted to a three-dimensional hypersurface (or manifold) embedded in the four-dimensional phase space.
 
         At this stage, we find the points where \(\nabla \Phi_\mathrm{eff} = 0\), which correspond to the Lagrange points—locations where all effective forces balance. Of particular importance are the first two Lagrange points \(L_1\) and \(L_2\), which lie along the line connecting the primary and secondary. The effective potential at \(L_1\) is lower than at \(L_2\).
@@ -414,10 +411,6 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
         Given a certain energy level, setting the kinetic energy to zero defines boundaries between regions where the particle can and cannot move. Regions where the kinetic energy would have to be negative (which is physically impossible) are forbidden, since that would require imaginary velocities.
 
         The points \(L_1\) and \(L_2\) are especially important for our study of a globular cluster with stars initially bound to it. Stars can escape through these Lagrange points: lower-energy particles tend to escape through \(L_1\), while higher-energy particles can also escape through \(L_2\). Figure~\ref{fig:CR3BP_forbidden_region} illustrates these forbidden and allowed regions clearly.
-
-
-
-
         \begin{figure}
             \centering
             \includegraphics[width=.32\linewidth]{images/CR3BP_forbidden_region_0.png}
@@ -429,12 +422,9 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \caption{A reproduction of Fig.~2.4.2 from \citet{koon2000dynamical}. Each plot is shown in the non-inertial reference frame rotating with the orbital frequency of the primary and secondary about their common center of mass. In this example, the mass ratio is \(m_1 = 10 m_2\). The gray regions represent areas inaccessible to the test particle for a given energy. In the first case, where \(E < E_1\), the particle remains confined to orbit either around the primary or the secondary, depending on its initial position. As the particle's energy increases, more of the \(xy\)-plane becomes accessible. The narrow passage between \(m_1\) and \(m_2\) corresponds to the \(L_1\) Lagrange point, while the choke point allowing escape to the exterior when \(E > E_2\) is the \(L_2\) point.}
             \label{fig:CR3BP_forbidden_region}
         \end{figure}
-
         The distance from the secondary to the first and second Lagrange points is approximately equal, defining a region around the secondary known as the Hill sphere. Within this zone, the gravitational influence of the secondary dominates over that of the primary. The Hill radius is commonly approximated as \( r_h \approx r\sqrt[3]{m_2/m_1} \), where \( r \) is the separation between the primaries. Interestingly, the expression for the Hill radius arises from a fifth-order polynomial expansion of the effective potential—a detail that might seem minor, but is actually quite delightful. In most areas of physics, approximations typically emerge from Taylor expansions, basis function decompositions, or limits where the governing equations simplify.
 
-        At conferences, we have been asked whether we have ever observed \textit{recapture}—that is, a star particle leaving a globular cluster and eventually returning. If the system were as simple as the circular restricted three-body problem, recapture could occur for star particles with energies in the range \( E_1 < E < E_2 \) or \( E_2 < E < E_3 \). In such cases, depending on initial conditions, a particle might orbit the secondary, escape, and later return.
-
-        However, in our simulations, the galaxy and globular clusters are not treated as point masses, and the clusters follow eccentric, inclined, and non-closed orbits. This means the topology of the forbidden region evolves over time. For a particle with a given energy \( E \), it may be unbound at one moment but later find itself within the Hill sphere again, as the potential landscape changes dynamically. Indeed, we have observed such behavior in our simulations.
+        At conferences, we have been asked whether we have ever observed \textit{recapture}—that is, a star particle leaving a globular cluster and eventually returning. If the system were as simple as the circular restricted three-body problem, recapture could occur for star particles with energies in the range \( E_1 < E < E_2 \) or \( E_2 < E < E_3 \). In such cases, depending on initial conditions, a particle might orbit the secondary, escape, and later return. However, in our simulations, the galaxy and globular clusters are not treated as point masses, and the clusters follow eccentric, inclined, and non-closed orbits. This means the topology of the forbidden region evolves over time. For a particle with a given energy \( E \), it may be unbound at one moment but later find itself within the Hill sphere again, as the potential landscape changes dynamically. Indeed, we have observed such behavior in our simulations.
 
         The Lagrange points, forbidden regions, and Jacobi energy are powerful concepts which, while they do not rigorously apply in our more complex setup, still offer valuable qualitative insights. In our regime, it is more fruitful to think in terms of tidal forces as the underlying mechanism that gradually transfers energy and angular momentum, nudging stars across Lagrange boundaries and ultimately enabling escape. It is to this process—tidal stripping—that we now turn.
 
@@ -490,7 +480,9 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \end{equation}
             which has eigenvalues $2\frac{GM}{r^3}$, $-\frac{GM}{r^3}$, and $-\frac{GM}{r^3}$, with corresponding eigenvectors:
             \begin{equation}
-                \vec{v}_1,\vec{v}_2,\vec{v}_3 = \dfrac{1}{r}\begin{bmatrix} x \\ y \\ z \end{bmatrix}, \dfrac{1}{r}\begin{bmatrix} -x \\ y \\ 0 \end{bmatrix}, \dfrac{1}{r}\begin{bmatrix} -x \\ 0 \\ z \end{bmatrix}.
+                \vec{v}_0 = \dfrac{1}{r}\begin{bmatrix} x \\ y \\ z \end{bmatrix},\quad
+                \vec{v}_1 = \dfrac{1}{\sqrt{x^2 + y^2}} \begin{bmatrix} -y \\ x \\ 0 \end{bmatrix},\quad
+                \vec{v}_2 = \dfrac{1}{r\sqrt{x^2 + y^2}} \begin{bmatrix} -xz \\ -yz \\ x^2 + y^2 \end{bmatrix}.
             \end{equation}
             Notably, the first eigenvalue is positive and corresponds to a stretching deformation along the position vector. The other two are negative, representing compression in directions perpendicular to the stretching axis. These directions define a plane orthogonal to the Earth-Moon line. 
             
@@ -519,16 +511,16 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
 
             \begin{figure}
                 \centering
-                \includegraphics[width=\linewidth]{images/moon_tidal_simulation.png}
-                \caption{An illustrative experiment demonstrating the effect of the Sun's tidal field. The left panels show the tidal field, and the right panels show two snapshots of the Moon's orbital trajectory. The green curve include the Sun's tidal effects, while the orange curve corresponds neglects them. The black ellipse represents the tidal ellipsoid, whose major axis aligns with the Sun's position vector relative to the Earth. The bottom panel shows the accumulated phase difference between the two solutions. }\label{fig:moon_tidal_simulation}
+                \includegraphics[width=.8\linewidth]{images/moon_tidal_simulation.png}
+                \caption[Solar tides on the lunar orbit]{An illustrative experiment demonstrating the effect of the Sun's tidal field. The left panels show the tidal field, and the right panels show two snapshots of the Moon's orbital trajectory. The green curve include the Sun's tidal effects, while the orange curve corresponds neglects them. The black ellipse represents the tidal ellipsoid, whose major axis aligns with the Sun's position vector relative to the Earth. The bottom panel shows the accumulated phase difference between the two solutions. }\label{fig:moon_tidal_simulation}
             \end{figure}
 
         \subsubsection{Tides from the disk}
-            In the Milky Way, the disk, bulge, and halo each contribute differently to the tidal forces experienced by a globular cluster. The Miyamoto-Nagai disk produces strong, rapidly varying tidal fields near the Galactic plane, leading to phenomena such as disk shocking when clusters cross the disk. The Allen-Santillian halo, on the other hand, provides a more slowly varying, generally weaker tidal field at large Galactocentric radii.
+            In the Milky Way, the disk, bulge, and halo each contribute differently to the tidal forces experienced by a globular cluster. The Miyamoto-Nagai disk produces strong, rapidly varying tidal fields near the Galactic plane, leading to phenomena such as disk shocking when clusters cross the disk. The Allen-Santillan halo, on the other hand, provides a more slowly varying, generally weaker tidal field at large Galactocentric radii.
 
             The strength and orientation of the tidal field at a cluster's location determine both the rate at which stars are stripped and the geometry of the resulting stellar streams. For example, clusters on eccentric or inclined orbits experience time-dependent tidal forces, with strong compressive shocks during disk crossings and enhanced stretching near pericenter. The eigenvalues and eigenvectors of the tidal tensor at each point along the orbit reveal the principal axes of stretching and compression, which in turn set the directions along which stars are most likely to escape.
 
-            By computing the tidal tensor for the Miyamoto-Nagai disk and Allen-Santillian halo potentials, as shown below, we can visualize and quantify these effects. The following figures illustrate how the tidal field evolves for representative orbits, highlighting the interplay between the cluster's trajectory and the Galactic mass distribution. This analysis underpins our understanding of stream formation and the morphological diversity of observed tidal tails.
+            By computing the tidal tensor for the Miyamoto-Nagai disk and Allen-Santillan halo potentials, as shown below, we can visualize and quantify these effects. The following figures illustrate how the tidal field evolves for representative orbits, highlighting the interplay between the cluster's trajectory and the Galactic mass distribution. This analysis underpins our understanding of stream formation and the morphological diversity of observed tidal tails.
 
             We can construct the tidal tensor for the Miyamoto-Nagai potential. First, it is convenient to non-dimensionalize the potential. Below, we normalize the potential by the total mass and gravitational constant, $\Phi\prime = \Phi / (GM)$, and each distance by the characteristic length of the disk, $x\prime = x/a$, $b\prime = b/a$. For clarity, we omit the prime notation in what follows. The dimensionless potential then becomes:            
             \begin{eqnarray}
@@ -560,28 +552,28 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \begin{figure}
                 \centering
                 \includegraphics[width=.9\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.01_50.0.png}
-                \caption{Tidal forces on an inclined yet non-eccentric orbit. Disk shocks are present, yet there is no tidal stretching from pericenter passages. \textbf{Left}: The three eigenvalues of the tidal tensor matrix are plotted against time. Both the forces and time are normalized to the characteristic values of the Miyamoto-Nagai model, where $a$ is the radial scale length and $M$ is the total mass of the system. The red and green curves correspond to the two compressive axes, while the blue curve shows the magnitude of the stretching axis. The parameters listed at the top describe the orbit: the ratio of cylindrical to vertical scale lengths, the apocenter distance, the eccentricity, and the initial orbital inclination. \textbf{Right}: The orbit is shown in the meridional plane. The purple stars indicate disk crossing events and correspond to the peaks in the magnitude of the eigenvalues. }
+                \caption[Tidal forces on an inclined circular orbit]{Tidal forces on an inclined yet non-eccentric orbit. Disk shocks are present, yet there is no tidal stretching from pericenter passages. \textbf{Left}: The three eigenvalues of the tidal tensor matrix are plotted against time. Both the forces and time are normalized to the characteristic values of the Miyamoto-Nagai model, where $a$ is the radial scale length and $M$ is the total mass of the system. The red and green curves correspond to the two compressive axes, while the blue curve shows the magnitude of the stretching axis. The parameters listed at the top describe the orbit: the ratio of cylindrical to vertical scale lengths, the apocenter distance, the eccentricity, and the initial orbital inclination. \textbf{Right}: The orbit is shown in the meridional plane. The purple stars indicate disk crossing events and correspond to the peaks in the magnitude of the eigenvalues. }
                 \label{fig:miyamoto_disc_shocks_circular_inclined_orbit}
             \end{figure}
 
             \begin{figure}
                 \centering
                 \includegraphics[width=.9\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.50_0.0.png}
-                \caption{Evolution of the tidal eigenvectors for an eccentric, non-inclined orbit, resulting in a compressed meridional plane. Orange dots mark the pericenter passages. Since the cluster remains confined to the plane, no disk shocks occur.}
+                \caption[Tidal forces on an eccentric planar orbit]{Same as Fig.~\ref{fig:miyamoto_disc_shocks_circular_inclined_orbit}. Evolution of the tidal eigenvectors for an eccentric, non-inclined orbit, resulting in a compressed meridional plane. Orange dots mark the pericenter passages. Since the cluster remains confined to the plane, no disk shocks occur.}
                 \label{fig:miyamoto_disc_shocks_planar_eccentric_orbit}
             \end{figure}
 
             \begin{figure}
                 \centering
                 \includegraphics[width=.9\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.50_30.0.png}
-                \caption{An inclined, eccentric orbit in which the frequencies in both the $R, p_R$ and $z, p_z$ planes are nearly resonant. The cluster crosses the disk just before and just after each pericenter passage. This is the same orbit as the video presented in this section that is available in the online version.}
+                \caption[Tidal forces on a resonant inclined and eccentric orbit]{An inclined, eccentric orbit in which the frequencies in both the $R, p_R$ and $z, p_z$ planes are nearly resonant. The axis are the same as: Fig.~\ref{fig:miyamoto_disc_shocks_resonant_R_z}. The cluster crosses the disk just before and just after each pericenter passage. This is the same orbit as the video presented in this section that is available in the online version.}
                 \label{fig:miyamoto_disc_shocks_resonant_R_z}
             \end{figure}
             
             \begin{figure}
                 \centering
                 \includegraphics[width=.9\linewidth]{images/miyamoto_disc_shocks_ab_rp_e_i_0.20_31.6_0.60_50.0.png}
-                \caption{An eccentric, inclined orbit with a large apocenter. As the cluster evolves through phase space, disk crossings that occur farther out happen at steeper angles and in lower-density regions, reducing the strength of the resulting disk shocks. In contrast, crossings near pericenter remain strong. Because this orbit has higher energy than the previous cases, the overall magnitude of the tidal forces is lower. }
+                \caption[An eccentric, inclined orbit with a large apocenter]{ As the cluster evolves through phase space, disk crossings that occur farther out happen at steeper angles and in lower-density regions, reducing the strength of the resulting disk shocks. In contrast, crossings near pericenter remain strong. Because this orbit has higher energy than the previous cases, the overall magnitude of the tidal forces is lower. }
                 \label{fig:miyamoto_disc_shocks_big_apocenter}
             \end{figure}
             
@@ -592,14 +584,14 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
                 \label{fig:miyamoto_disc_shocks_weak_shocks}
             \end{figure}
 
-        \subsubsection{Tides from the halo}
+        \subsubsection{Tides from the dark matter halo}
             Given spherical symmetry, the we expect the tidal tensor of the halo to be similar to that of a keplerian tidal tensor. Perhaps the magnitude of the tidal forces will not scale as simply with $\propto r^{-3}$, since the mass is not concentrated in a single point. However, we can still expect the stretching axis to be parallel with the position vector. 
             
-            To explore this, first we rewrite the mass distribution of the Allen-Santillian halo:
+            To explore this, first we rewrite equation~\ref{eq:martos_enclosed_mass}, the mass distribution of the Allen-Santillan halo \citep{1986RMxAA..13..137A,1991RMxAA..22..255A}, in a non-dimensional form:
             \begin{equation}
-                M'_\text{enc}(s) = \frac{s^\gamma}{1+s^{\gamma-1}}
+                M'_\text{enc}(s) = \frac{s^\gamma}{1+s^{\gamma-1}},
             \end{equation}
-            From Poisson's equation in spherical symmetry: the force is: $\nabla \Phi = - M_\mathrm{enc}/r^2$. The dimensionless tidal tensor can be written as: 
+            where $\gamma$ is the exponential slope parameter, $s$ is the radial distance scaled to the characterisitic radius $r_0$ and $M'$ is the enclosed mass normalized to the mass parameter: $M_\mathrm{enc}/M_0$. From Poisson's equation in spherical symmetry: the force is: $\nabla \Phi = - M_\mathrm{enc}/r^2$. The dimensionless tidal tensor can be written as: 
             \begin{equation}
                 \mathcal{T'}= -\frac{M'_\text{enc}(s)}{s^3}\left(\begin{matrix}
                     1-\frac{x^2}{s^2}f(s) & -\frac{xy}{s^2}f(s) & -\frac{xz}{s^2}f(s) \\
@@ -614,15 +606,19 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \end{equation}
             While exploring this tidal tensor, I came across an interesting area of the parameter space, that I would like to show here. 
 
-            Taking the Allen-Santillian tidal tensor in Eq.~\ref{eq:martos_f_s}, we can see that for $\gamma > 3$ and $s <  1$, then $f(s)< 0$. Physically, this would be a sphere whose density increases with distance. This is not natural, as, in general, gravity sends the more massive objects towards the center. However, it's fun to indulge in this situation to learn some insight about the flexibility of tidal fields. The consequence of $f(s)< 0$ is that all terms in the tidal tensor are negative, which means that the force is compressive everywhere. Consequently, no stars escape from the cluster. 
+            Taking the Allen-Santillan tidal tensor in Eq.~\ref{eq:martos_f_s}, we can see that for $\gamma > 3$ and $s <  1$, then $f(s)< 0$. Physically, this would be a sphere whose density increases with distance. This is not natural, as, in general, gravity sends the more massive objects towards the center. However, it's interesting to indulge in this situation to learn some insight about the flexibility of tidal fields. The consequence of $f(s)< 0$ is that all terms in the tidal tensor are negative, which means that the force is compressive everywhere. Consequently, no stars escape from the cluster. 
 
-            In Fig.~\ref{fig:martos_tidal_field_small_r}, I present a small experiment demonstrating the consequence of such a tidal force on a globular cluster, which is that no tidal stream forms. Briefly, I created a plummer sphere of $10^6$~M$_\odot$ and half mass radius 20~pc and evolved it in a Allen-Santillian halo potential of mass parameter $10^{12}$~M$_\odot$ a characteristic radius of $30$~kpc. Each cluster was placed at the same initial conditions, a distance of 1/4 the scale radius from the center of the potential. The initial velocity was made perpendicular to the position vector with a speed of $(1-e)v_\textrm{c}$. This is a pseudo-eccentricity, which was added to have a non-circular orbit to demonstrate how the trajectories change in the two cases. The top panel uses a $\gamma$ of 2.02, which is the same value in the model where the halo was originally presented, and the value I employ in this thesis. Next, the bottom panel uses $\gamma$ of 4.5, which corresponds to a density profile where $\rho(r) \propto r^{1.5}$. 
+            In Fig.~\ref{fig:martos_tidal_field_small_r}, I present a small experiment demonstrating the consequence of such a tidal force on a globular cluster, which is that no tidal stream forms. Briefly, I created a plummer sphere of $10^6$~M$_\odot$ and half mass radius 20~pc and evolved it in a Allen-Santillan halo potential of mass parameter $10^{12}$~M$_\odot$ a characteristic radius of $30$~kpc. Each cluster was placed at the same initial conditions, a distance of 1/4 the scale radius from the center of the potential. The initial velocity was made perpendicular to the position vector with a speed of $(1-e)v_\textrm{c}$. This is a pseudo-eccentricity, which was added to have a non-circular orbit to demonstrate how the trajectories change in the two cases. The top panel uses a $\gamma$ of 2.02, which is the same value in the model where the halo was originally presented, and the value I employ in this thesis. Next, the bottom panel uses $\gamma$ of 4.5, which corresponds to a density profile where $\rho(r) \propto r^{1.5}$. 
 
-            To get a feel for the strength of the tidal stretching and compression, I show a circle and the resulting ellipse after applying the tidal deformation. I computed the coordinates of the ellipse by adding $\vec{Ell} = \vec{C} + \frac{1}{2} t_\textrm{char}^2 \mathcal{T}\cdot \left(\vec{C} - \vec{r_o}\right)$. This way, force can be mapped to position space, and the strengths of the tidal forces can be seen visually. The characteristic time, $t_\textrm{char}$, was set to $\frac{1}{10} 2\pi r_\textrm{halo} / v_\textrm{c}$. 
+            To get a feel for the strength of the tidal stretching and compression, I apply the tidal deformation to a circle and show the resulting ellipse, as shown by the black lines in the right panels of Fig.~\ref{fig:martos_tidal_field_small_r} and Fig.~\ref{fig:martos_tidal_field_big_r}. I computed the coordinates of the ellipse by adding 
+            \begin{equation}
+            \vec{Ell} = \vec{C} + \frac{1}{2} t_\textrm{char}^2 \mathcal{T}\cdot \left(\vec{C} - \vec{r_o}\right).
+            \end{equation} 
+            This way, force can be mapped to position space, and the strengths of the tidal forces can be seen visually. The characteristic time, $t_\textrm{char}$, is a free parameter that scales the deformation. I choose to set it to $\frac{1}{10} 2\pi r_\textrm{halo} / v_\textrm{c}$. 
             \begin{figure}
                 \includegraphics[width=\linewidth]{images/martos_tidal_field_202_10_25.png}
                 \includegraphics[width=\linewidth]{images/martos_tidal_field_450_10_25.png}
-                \caption{The plots show two low-resolution streams (N = 1000) created by dissolving a Plummer sphere in the Allen-Santillian halo potential. The units are scaled to the halo's characteristic radius. Gamma is the mass exponent and is the sole variable between the two simulations. The panels on the left show the orbit in gray and the stars in black. The black arrow points towards the center of the potential. The panels on the right show the tidal field, which is the tidal tensor evaluated at each position in space. The gray dotted circle is plotted with an arbitrary radius and is deformed by the tidal field into a black ellipse.}
+                \caption{The plots show two low-resolution streams (N = 1000) created by dissolving a Plummer sphere in the Allen-Santillan halo potential. The units are scaled to the halo's characteristic radius. Gamma is the mass exponent and is the sole variable between the two simulations. The panels on the left show the orbit in gray and the stars in black. The black arrow points towards the center of the potential. The panels on the right show the tidal field, which is the tidal tensor evaluated at each position in space. The gray dotted circle is plotted with an arbitrary radius and is deformed by the tidal field into a black ellipse.}
                 \label{fig:martos_tidal_field_small_r}
             \end{figure}
 

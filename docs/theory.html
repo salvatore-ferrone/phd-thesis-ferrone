@@ -1121,8 +1121,8 @@ class="math inline">\(\mathbf{w}_1\)</span>, particle 2 at <span
 class="math inline">\(\mathbf{w}_2\)</span>, and so on. In general, this
 object can be extremely complicated. But we can simplify it with two
 strong assumptions: that particles are independent and identically
-distributed (i.i.d.). This leads to:</p>
-<p><span class="math display">\[\begin{array}{rl}
+distributed (i.i.d.). This leads to: <span
+class="math display">\[\begin{array}{rl}
         f
         &amp; \stackrel{\text{(1) $N$-body DF}}{\longrightarrow}
         f(\mathbf{w}_1, \dots, \mathbf{w}_N) \\[2ex]
@@ -1131,13 +1131,12 @@ distributed (i.i.d.). This leads to:</p>
         &amp; \stackrel{\text{(3) identical
 distribution}}{\longrightarrow}
         \left[ f(\mathbf{w}) \right]^N
-        \end{array}\]</span></p>
-<p>The consequence of this factorization is that the total DF no longer
-accounts for correlations in other variables — such as mass. Therefore,
-this model cannot represent mass segregation, multiple stellar
-populations, or any other effects that differentiate stars. Instead, we
-describe a single homogeneous population of stars, each drawn
-independently from the same distribution.</p>
+        \end{array}\]</span> The consequence of this factorization is
+that the total DF no longer accounts for correlations in other variables
+— such as mass. Therefore, this model cannot represent mass segregation,
+multiple stellar populations, or any other effects that differentiate
+stars. Instead, we describe a single homogeneous population of stars,
+each drawn independently from the same distribution.</p>
 <p>Because of this, we can focus our attention entirely on the
 single-particle DF <span class="math inline">\(f(\mathbf{w})\)</span>,
 which encodes all the statistical information we need about the
@@ -1145,16 +1144,15 @@ system.</p>
 <p>The next key assumption is that particles are uncorrelated not just
 in identity, but dynamically — they do not scatter off one another. This
 means the system is <em>collisionless</em>. The DF then evolves under
-the Collisionless Boltzmann Equation:</p>
-<p><span class="math display">\[\frac{Df}{Dt} = \frac{\partial
-f}{\partial t} + \dot{\mathbf{x}} \cdot \nabla_{\mathbf{x}} f +
-\dot{\mathbf{v}} \cdot \nabla_{\mathbf{v}} f = 0\]</span></p>
-<p>This is a material (Lagrangian) derivative following a phase-space
-trajectory. The physical interpretation is that the DF is conserved
-along the orbits of stars in phase space. No bunching up, no spreading
-out. Stars simply move under the influence of a smooth, mean
-gravitational potential.</p>
-<p>Next, we often impose the equilibrium condition: <span
+the Collisionless Boltzmann Equation: <span
+class="math display">\[\frac{Df}{Dt} = \frac{\partial f}{\partial t} +
+\dot{\mathbf{x}} \cdot \nabla_{\mathbf{x}} f + \dot{\mathbf{v}} \cdot
+\nabla_{\mathbf{v}} f = 0\]</span> This is a material (Lagrangian)
+derivative following a phase-space trajectory. The physical
+interpretation is that the DF is conserved along the orbits of stars in
+phase space. No bunching up, no spreading out. Stars simply move under
+the influence of a smooth, mean gravitational potential. Next, we often
+impose the equilibrium condition: <span
 class="math display">\[\frac{\partial f}{\partial t} = 0\]</span> This
 implies that the DF is time-independent: the number of stars at any
 given phase-space location remains constant. If some leave a region,
@@ -1181,13 +1179,12 @@ only on the energy: <span class="math display">\[f(\mathbf{w}) =
 f(E)\]</span> At this point, it is useful to mention Jeans equations,
 which relate the moments of the DF to observable quantities. For
 example, by integrating the DF over all velocities, we recover the
-spatial mass density:</p>
-<p><span class="math display">\[\rho(\mathbf{r}) = M \int f(\mathbf{x},
-\mathbf{v}) \, d^3\mathbf{v}\]</span></p>
-<p>In fact, an inversion formula exists — known as the Abel transform —
-that allows one to reconstruct <span class="math inline">\(f(E)\)</span>
-from a known <span class="math inline">\(\rho(r)\)</span>. This
-technique is presented in <span class="citation"
+spatial mass density: <span class="math display">\[\rho(\mathbf{r}) = M
+\int f(\mathbf{x}, \mathbf{v}) \, d^3\mathbf{v}\]</span> In fact, an
+inversion formula exists — known as the Abel transform — that allows one
+to reconstruct <span class="math inline">\(f(E)\)</span> from a known
+<span class="math inline">\(\rho(r)\)</span>. This technique is
+presented in <span class="citation"
 data-cites="2008gady.book.....B">Binney and Tremaine (2008)</span> and
 <span class="citation" data-cites="bovy_inprep">Bovy (2025)</span>. At
 this point, one can obtain a complete analytic expression for the
@@ -1207,27 +1204,23 @@ such that we treat each variable independently. This allows us to apply
 inverse transform sampling to each component separately.</p>
 <p>Inverse transform sampling works by first constructing the cumulative
 distribution function (CDF) of the desired probability distribution
-function (PDF):</p>
-<p><span class="math display">\[\mathcal{F}(x) = \int_{-\infty}^{x}
-f(x&#39;)\,dx&#39;.\]</span></p>
-<p>By definition, the probability that a random variable <span
+function (PDF): <span class="math display">\[\mathcal{F}(x) =
+\int_{-\infty}^{x} f(x&#39;)\,dx&#39;.\]</span> By definition, the
+probability that a random variable <span
 class="math inline">\(x\)</span> is less than a given value <span
 class="math inline">\(x_0\)</span> is given by the value of the CDF at
-<span class="math inline">\(x_0\)</span>:</p>
-<p><span class="math display">\[\mathcal{P}(x &lt; x_0) =
-\mathcal{F}(x_0).\]</span></p>
-<p>Since CDFs are monotonically increasing and invertible, we also
-have:</p>
-<p><span class="math display">\[\mathcal{P}(\mathcal{F}(x) &lt;
-\mathcal{F}(x_0)) = \mathcal{P}(x &lt; x_0).\]</span></p>
-<p>Now, consider a uniform random variable <span
-class="math inline">\(Y\)</span> distributed on the interval <span
-class="math inline">\([0,1]\)</span>. Then,</p>
-<p><span class="math display">\[\mathcal{P}(Y &lt; \mathcal{F}(x_0)) =
-\mathcal{P}(x &lt; x_0),\]</span></p>
-<p>which implies:</p>
-<p><span class="math display">\[x = \mathcal{F}^{-1}(Y).\]</span></p>
-<p>Thus, we can generate samples from the target PDF <span
+<span class="math inline">\(x_0\)</span>: <span
+class="math display">\[\mathcal{P}(x &lt; x_0) =
+\mathcal{F}(x_0).\]</span> Since CDFs are monotonically increasing and
+invertible, we also have: <span
+class="math display">\[\mathcal{P}(\mathcal{F}(x) &lt; \mathcal{F}(x_0))
+= \mathcal{P}(x &lt; x_0).\]</span> Now, consider a uniform random
+variable <span class="math inline">\(Y\)</span> distributed on the
+interval <span class="math inline">\([0,1]\)</span>. Then, <span
+class="math display">\[\mathcal{P}(Y &lt; \mathcal{F}(x_0)) =
+\mathcal{P}(x &lt; x_0),\]</span> which implies: <span
+class="math display">\[x = \mathcal{F}^{-1}(Y).\]</span> Thus, we can
+generate samples from the target PDF <span
 class="math inline">\(f(x)\)</span> by applying the inverse CDF <span
 class="math inline">\(\mathcal{F}^{-1}\)</span> to uniformly distributed
 random numbers. This is practical, since uniform random number
@@ -1267,11 +1260,10 @@ particles at a given speed can be obtained by integrating over the
 angular velocity components and differentiating with respect to speed:
 <span class="math display">\[\frac{dN}{dv} = \frac{d}{dv} \int
 f(\textbf{v}|r)\, v^2 \sin\theta\, d\theta\, d\phi\, dv = 4\pi v^2
-f(v|r).\]</span></p>
-<p>To construct the CDF of this conditional distribution, we must
-determine the appropriate limits. The allowed speed for a particle at
-radius <span class="math inline">\(r\)</span> ranges from zero to the
-escape speed, <span class="math inline">\(v_{\mathrm{esc}} =
+f(v|r).\]</span> To construct the CDF of this conditional distribution,
+we must determine the appropriate limits. The allowed speed for a
+particle at radius <span class="math inline">\(r\)</span> ranges from
+zero to the escape speed, <span class="math inline">\(v_{\mathrm{esc}} =
 \sqrt{2\Phi(r)}\)</span>. The resulting CDF is: <span
 class="math display">\[\mathcal{F}(v) = C \int_0^{v &lt; v_\mathrm{esc}}
 4\pi v^2 f(v|r) dv,\]</span> where <span
@@ -1280,9 +1272,8 @@ do not present an analytical expression for <span
 class="math inline">\(C\)</span>, it is straightforward to normalize
 numerically. In practice, I omit multiplicative constants and normalize
 a posteriori using: <span class="math display">\[C =
-\frac{1}{\mathcal{F}(v_\mathrm{esc})}.\]</span></p>
-<p>Sampling the speeds is shown in Fig. <a
-href="#fig:inverse_transform_sampling_velocities"
+\frac{1}{\mathcal{F}(v_\mathrm{esc})}.\]</span> Sampling the speeds is
+shown in Fig. <a href="#fig:inverse_transform_sampling_velocities"
 data-reference-type="ref"
 data-reference="fig:inverse_transform_sampling_velocities">6</a>. Since
 this is a conditional distribution, each particle has its own CDF based
@@ -1310,13 +1301,12 @@ to obtain a global speed distribution, then condition on speed to sample
 positions. While valid, this approach is less intuitive. Most models are
 motivated by their density profiles, which are observable and
 conceptually accessible, making them a natural starting point for
-inverse transform sampling.</p>
-<p>To convert radial distances into 3D positions and speeds into
-velocity vectors, we must sample directions uniformly over the surface
-of a sphere. A common pitfall is to sample latitude and longitude
-uniformly, which leads to an over-density near the poles. Instead, we
-aim for a uniform distribution over the sphere’s surface, where the
-differential area element is given by: <span
+inverse transform sampling. To convert radial distances into 3D
+positions and speeds into velocity vectors, we must sample directions
+uniformly over the surface of a sphere. A common pitfall is to sample
+latitude and longitude uniformly, which leads to an over-density near
+the poles. Instead, we aim for a uniform distribution over the sphere’s
+surface, where the differential area element is given by: <span
 class="math display">\[f(\theta,\phi)=\frac{1}{4\pi}\sin(\theta)\]</span>
 with <span class="math inline">\(\theta\)</span> the co-latitude and
 <span class="math inline">\(\phi\)</span> the longitude. Since <span
@@ -1327,12 +1317,12 @@ its domain <span class="math inline">\([0, 2\pi)\)</span>. However, for
 must be used. Drawing a uniform random variable <span
 class="math inline">\(y_i \in [0,1]\)</span>, the corresponding
 co-latitude is: <span class="math display">\[\theta_i =
-\cos^{-1}\left(1-2y_i\right).\]</span></p>
-<p>By sampling radial distances, speeds, and directions uniformly over
-the unit sphere, we obtain full position and velocity vectors for each
-particle. With these, the initial conditions for a Plummer sphere are
-fully specified. The user need only provide the total mass,
-characteristic radius, and the desired number of star particles.</p>
+\cos^{-1}\left(1-2y_i\right).\]</span> By sampling radial distances,
+speeds, and directions uniformly over the unit sphere, we obtain full
+position and velocity vectors for each particle. With these, the initial
+conditions for a Plummer sphere are fully specified. The user need only
+provide the total mass, characteristic radius, and the desired number of
+star particles.</p>
 <p>With the equations of motion defined, a model for the Galactic
 gravitational field established, a force model for the globular cluster
 in place, and initial conditions assigned to each star particle, we are
@@ -1398,7 +1388,10 @@ is completely negligible. The Lagrange points are transitions between
 these two regime and are the points out of which the stars escape from
 the cluster. The magic that makes this analysis possible is decoupling
 the motion of the smallest body from the larger two, and studying the
-system in a non-inertial reference frame.</p>
+system in a non-inertial reference frame with a constant angular
+rotation rate: <span class="math inline">\(\omega = 2\pi/T\)</span>,
+where <span class="math inline">\(T\)</span> is the orbital period of
+the primary and secondary.</p>
 <p>To begin, even though we simplify the simulation by modeling the
 cluster as <span class="math inline">\(\mathcal{N}\)</span> independent
 three-body problems, the problem remains challenging. Indeed, if we
@@ -1442,13 +1435,13 @@ class="math display">\[\mathcal{H} = \frac{1}{2}\left(\left(p_x + \omega
 y\right)^2 + \left(p_y - \omega x\right)^2 \right) +
 \Phi_\mathrm{eff}(x,y),\]</span> where <span
 class="math display">\[\Phi_\mathrm{eff}(x,y) = -\frac{1}{2} \omega^2
-(x^2 + y^2) - \frac{G m_1}{|r_1|} - \frac{G m_2}{|r_2|}.\]</span></p>
-<p>The potential can be normalized by noting that the orbital angular
-velocity from the two-body problem satisfies <span
-class="math inline">\(\omega^2 = \frac{G M}{a^3}\)</span>, where <span
-class="math inline">\(a\)</span> is the separation between the primaries
-and <span class="math inline">\(M = m_1 + m_2\)</span> is the total mass
-of the system. With this normalization, the system depends on a single
+(x^2 + y^2) - \frac{G m_1}{|r_1|} - \frac{G m_2}{|r_2|}.\]</span> The
+potential can be normalized by noting that the orbital angular velocity
+from the two-body problem satisfies <span class="math inline">\(\omega^2
+= \frac{G M}{a^3}\)</span>, where <span class="math inline">\(a\)</span>
+is the separation between the primaries and <span
+class="math inline">\(M = m_1 + m_2\)</span> is the total mass of the
+system. With this normalization, the system depends on a single
 dimensionless parameter <span class="math inline">\(\mu\)</span>, the
 relative mass ratio defined as <span class="math inline">\(\mu =
 \frac{m_2}{m_1 + m_2}\)</span>.</p>
@@ -1461,22 +1454,24 @@ insights.</p>
 <p>Our Hamiltonian depends on the four variables <span
 class="math inline">\((x, y, p_x, p_y)\)</span> and has one integral of
 motion.<a href="#fn4" class="footnote-ref" id="fnref4"
-role="doc-noteref"><sup>4</sup></a> A famous quantity in this context is
-the Jacobi integral (or Jacobi constant), often written as <span
-class="math inline">\(C_j = -2E\)</span>. Defining this constant is
-somewhat arbitrary since the total mechanical energy <span
-class="math inline">\(E\)</span> is itself conserved, and any scalar
-multiple of it is also conserved. The utility of the Jacobi constant is
-mostly conventional: it is often defined to be positive and multiplied
-by 2, which simplifies the expression for forbidden regions and
-zero-velocity curves. For example, one can write <span
-class="math display">\[\dot{x}^2 + \dot{y}^2 = 2 \Phi_\mathrm{eff}(x,y)
-+ C_j,\]</span> instead of the equivalent <span
-class="math display">\[\dot{x}^2 + \dot{y}^2 = -2 \Phi_\mathrm{eff}(x,y)
-+ 2E.\]</span></p>
-<p>Since we have four variables and one constraint, the motion is
-restricted to a three-dimensional hypersurface (or manifold) embedded in
-the four-dimensional phase space.</p>
+role="doc-noteref"><sup>4</sup></a> A well-known quantity in this
+context is the Jacobi integral (or Jacobi constant), often written as
+<span class="math inline">\(C_j = -2\mathcal{H}\)</span>. Defining this
+constant is somewhat arbitrary, since the non-inertial mechanical energy
+<span class="math inline">\(\mathcal{H}\)</span> is itself conserved,
+and any scalar multiple of it is also conserved. The utility of the
+Jacobi constant is mostly conventional: it is often defined to be
+positive and multiplied by 2, which simplifies the expression for
+forbidden regions and zero-velocity curves. By using <span
+class="math inline">\(p_x = \dot{x}-\omega y\)</span> and <span
+class="math inline">\(p_y = \dot{y} + \omega x\)</span>, one can write:
+<span class="math display">\[\dot{x}^2 + \dot{y}^2 = - \left(2
+\Phi_\mathrm{eff}(x,y) + C_j\right),\]</span> instead of the equivalent:
+<span class="math display">\[\dot{x}^2 + \dot{y}^2 = -2
+\Phi_\mathrm{eff}(x,y) + 2 \mathcal{H}.\]</span> Since we have four
+variables and one constraint, the motion is restricted to a
+three-dimensional hypersurface (or manifold) embedded in the
+four-dimensional phase space.</p>
 <p>At this stage, we find the points where <span
 class="math inline">\(\nabla \Phi_\mathrm{eff} = 0\)</span>, which
 correspond to the Lagrange points—locations where all effective forces
@@ -1545,11 +1540,11 @@ restricted three-body problem, recapture could occur for star particles
 with energies in the range <span class="math inline">\(E_1 &lt; E &lt;
 E_2\)</span> or <span class="math inline">\(E_2 &lt; E &lt;
 E_3\)</span>. In such cases, depending on initial conditions, a particle
-might orbit the secondary, escape, and later return.</p>
-<p>However, in our simulations, the galaxy and globular clusters are not
-treated as point masses, and the clusters follow eccentric, inclined,
-and non-closed orbits. This means the topology of the forbidden region
-evolves over time. For a particle with a given energy <span
+might orbit the secondary, escape, and later return. However, in our
+simulations, the galaxy and globular clusters are not treated as point
+masses, and the clusters follow eccentric, inclined, and non-closed
+orbits. This means the topology of the forbidden region evolves over
+time. For a particle with a given energy <span
 class="math inline">\(E\)</span>, it may be unbound at one moment but
 later find itself within the Hill sphere again, as the potential
 landscape changes dynamically. Indeed, we have observed such behavior in
@@ -1629,15 +1624,14 @@ class="math display">\[\mathcal{T} = -\mathcal{D}^2\Phi_g =
                 \partial_x g_y &amp; \partial_y g_y &amp; \partial_z g_y
 \\
                 \partial_x g_z &amp; \partial_y g_z &amp; \partial_z g_z
-            \end{matrix}\right).\]</span></p>
-<p>While the Hessian and Jacobian are formally equivalent, the Jacobian
-viewpoint offers a more geometric interpretation: it acts as a linear
-transformation on nearby displacements, mapping them to differences in
-acceleration. Diagonalizing the tidal tensor reveals the principal axes
-of tidal deformation. A positive eigenvalue corresponds to stretching
-along the associated eigenvector; a negative eigenvalue indicates
-compression. The magnitude gives the rate of stretching or
-compression.</p>
+            \end{matrix}\right).\]</span> While the Hessian and Jacobian
+are formally equivalent, the Jacobian viewpoint offers a more geometric
+interpretation: it acts as a linear transformation on nearby
+displacements, mapping them to differences in acceleration.
+Diagonalizing the tidal tensor reveals the principal axes of tidal
+deformation. A positive eigenvalue corresponds to stretching along the
+associated eigenvector; a negative eigenvalue indicates compression. The
+magnitude gives the rate of stretching or compression.</p>
 <p>Finally, we note that although many relevant potentials exhibit
 spherical or cylindrical symmetry, Cartesian coordinates are preferred
 here. In curvilinear systems, computing the Jacobian or Hessian requires
@@ -1676,15 +1670,16 @@ Keplerian potential: <span class="math display">\[\mathcal{T}=
 <span class="math inline">\(2\frac{GM}{r^3}\)</span>, <span
 class="math inline">\(-\frac{GM}{r^3}\)</span>, and <span
 class="math inline">\(-\frac{GM}{r^3}\)</span>, with corresponding
-eigenvectors: <span class="math display">\[\vec{v}_1,\vec{v}_2,\vec{v}_3
-= \dfrac{1}{r}\begin{bmatrix} x \\ y \\ z \end{bmatrix},
-\dfrac{1}{r}\begin{bmatrix} -x \\ y \\ 0 \end{bmatrix},
-\dfrac{1}{r}\begin{bmatrix} -x \\ 0 \\ z \end{bmatrix}.\]</span></p>
-<p>Notably, the first eigenvalue is positive and corresponds to a
-stretching deformation along the position vector. The other two are
-negative, representing compression in directions perpendicular to the
-stretching axis. These directions define a plane orthogonal to the
-Earth-Moon line.</p>
+eigenvectors: <span class="math display">\[\vec{v}_0 =
+\dfrac{1}{r}\begin{bmatrix} x \\ y \\ z \end{bmatrix},\quad
+                \vec{v}_1 = \dfrac{1}{\sqrt{x^2 + y^2}} \begin{bmatrix}
+-y \\ x \\ 0 \end{bmatrix},\quad
+                \vec{v}_2 = \dfrac{1}{r\sqrt{x^2 + y^2}} \begin{bmatrix}
+-xz \\ -yz \\ x^2 + y^2 \end{bmatrix}.\]</span> Notably, the first
+eigenvalue is positive and corresponds to a stretching deformation along
+the position vector. The other two are negative, representing
+compression in directions perpendicular to the stretching axis. These
+directions define a plane orthogonal to the Earth-Moon line.</p>
 <p>From this, several tidal effects become evident. For instance, the
 Earth’s oceans stretch along the Earth-Moon axis due to the Moon’s tidal
 forces. While the Sun also exerts tidal forces on Earth, their magnitude
@@ -1757,7 +1752,7 @@ difference between the two solutions. </figcaption>
 differently to the tidal forces experienced by a globular cluster. The
 Miyamoto-Nagai disk produces strong, rapidly varying tidal fields near
 the Galactic plane, leading to phenomena such as disk shocking when
-clusters cross the disk. The Allen-Santillian halo, on the other hand,
+clusters cross the disk. The Allen-Santillan halo, on the other hand,
 provides a more slowly varying, generally weaker tidal field at large
 Galactocentric radii.</p>
 <p>The strength and orientation of the tidal field at a cluster’s
@@ -1770,7 +1765,7 @@ tidal tensor at each point along the orbit reveal the principal axes of
 stretching and compression, which in turn set the directions along which
 stars are most likely to escape.</p>
 <p>By computing the tidal tensor for the Miyamoto-Nagai disk and
-Allen-Santillian halo potentials, as shown below, we can visualize and
+Allen-Santillan halo potentials, as shown below, we can visualize and
 quantify these effects. The following figures illustrate how the tidal
 field evolves for representative orbits, highlighting the interplay
 between the cluster’s trajectory and the Galactic mass distribution.
@@ -1789,8 +1784,7 @@ becomes: <span class="math display">\[\begin{aligned}
                 D       &amp;= \sqrt{x^2 + y^2 + \beta^2(z)},\\
                 \beta(z)   &amp;= 1 + \sqrt{z^2 + b^2}.
             
-\end{aligned}\]</span></p>
-<p>The dimensionless tidal tensor is then: <span
+\end{aligned}\]</span> The dimensionless tidal tensor is then: <span
 class="math display">\[\mathcal{T}=-\frac{1}{D^3}\left(\begin{matrix}
                     1-\frac{3x^2}{D^2} &amp; -\frac{3xy}{D^2} &amp;
 -\frac{3x\beta \beta&#39;}{D^2} \\
@@ -1798,10 +1792,10 @@ class="math display">\[\mathcal{T}=-\frac{1}{D^3}\left(\begin{matrix}
 \beta&#39;}{D^2} \\
                     \dots &amp; \dots &amp; \beta&#39;^2 + \beta
 \beta&#39;&#39; -\frac{3\left(\beta\beta&#39;\right)^2}{D^2}
-                \end{matrix}\right).\]</span></p>
-<p>We immediately notice that, due to the cylindrical symmetry, the
-eigenvectors are not as simple as in the spherical case. As long as
-<span class="math display">\[\beta&#39;^2 + \beta \beta&#39;&#39; -
+                \end{matrix}\right).\]</span> We immediately notice
+that, due to the cylindrical symmetry, the eigenvectors are not as
+simple as in the spherical case. As long as <span
+class="math display">\[\beta&#39;^2 + \beta \beta&#39;&#39; -
 \frac{3\left(\beta \beta&#39;\right)^2}{D^2} \neq 1 -
 \frac{3z^2}{D^2},\]</span> (1) the stretching axis is no longer parallel
 to the position vector, and (2) the compression axes do not necessarily
@@ -1872,10 +1866,14 @@ in the magnitude of the eigenvalues. </figcaption>
 <figure id="fig:miyamoto_disc_shocks_planar_eccentric_orbit">
 <img
 src="images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.50_0.0.png" />
-<figcaption>Evolution of the tidal eigenvectors for an eccentric,
-non-inclined orbit, resulting in a compressed meridional plane. Orange
-dots mark the pericenter passages. Since the cluster remains confined to
-the plane, no disk shocks occur.</figcaption>
+<figcaption>Same as Fig. <a
+href="#fig:miyamoto_disc_shocks_circular_inclined_orbit"
+data-reference-type="ref"
+data-reference="fig:miyamoto_disc_shocks_circular_inclined_orbit">9</a>.
+Evolution of the tidal eigenvectors for an eccentric, non-inclined
+orbit, resulting in a compressed meridional plane. Orange dots mark the
+pericenter passages. Since the cluster remains confined to the plane, no
+disk shocks occur.</figcaption>
 </figure>
 <figure id="fig:miyamoto_disc_shocks_resonant_R_z">
 <img
@@ -1883,6 +1881,9 @@ src="images/miyamoto_disc_shocks_ab_rp_e_i_0.20_4.0_0.50_30.0.png" />
 <figcaption>An inclined, eccentric orbit in which the frequencies in
 both the <span class="math inline">\(R, p_R\)</span> and <span
 class="math inline">\(z, p_z\)</span> planes are nearly resonant. The
+axis are the same as: Fig. <a
+href="#fig:miyamoto_disc_shocks_resonant_R_z" data-reference-type="ref"
+data-reference="fig:miyamoto_disc_shocks_resonant_R_z">11</a>. The
 cluster crosses the disk just before and just after each pericenter
 passage. This is the same orbit as the video presented in this section
 that is available in the online version.</figcaption>
@@ -1890,13 +1891,12 @@ that is available in the online version.</figcaption>
 <figure id="fig:miyamoto_disc_shocks_big_apocenter">
 <img
 src="images/miyamoto_disc_shocks_ab_rp_e_i_0.20_31.6_0.60_50.0.png" />
-<figcaption>An eccentric, inclined orbit with a large apocenter. As the
-cluster evolves through phase space, disk crossings that occur farther
-out happen at steeper angles and in lower-density regions, reducing the
-strength of the resulting disk shocks. In contrast, crossings near
-pericenter remain strong. Because this orbit has higher energy than the
-previous cases, the overall magnitude of the tidal forces is lower.
-</figcaption>
+<figcaption> As the cluster evolves through phase space, disk crossings
+that occur farther out happen at steeper angles and in lower-density
+regions, reducing the strength of the resulting disk shocks. In
+contrast, crossings near pericenter remain strong. Because this orbit
+has higher energy than the previous cases, the overall magnitude of the
+tidal forces is lower. </figcaption>
 </figure>
 <figure id="fig:miyamoto_disc_shocks_weak_shocks">
 <img
@@ -1906,19 +1906,33 @@ the cylindrical scale length to characteristic height (a/b) is close to
 1. The disk crossings still produce significant tidal compression, but
 the resulting shocks are broader.</figcaption>
 </figure>
-<h3 id="tides-from-the-halo">Tides from the halo</h3>
+<h3 id="tides-from-the-dark-matter-halo">Tides from the dark matter
+halo</h3>
 <p>Given spherical symmetry, the we expect the tidal tensor of the halo
 to be similar to that of a keplerian tidal tensor. Perhaps the magnitude
 of the tidal forces will not scale as simply with <span
 class="math inline">\(\propto r^{-3}\)</span>, since the mass is not
 concentrated in a single point. However, we can still expect the
 stretching axis to be parallel with the position vector.</p>
-<p>To explore this, first we rewrite the mass distribution of the
-Allen-Santillian halo: <span class="math display">\[M&#39;_\text{enc}(s)
-= \frac{s^\gamma}{1+s^{\gamma-1}}\]</span> From Poisson’s equation in
-spherical symmetry: the force is: <span class="math inline">\(\nabla
-\Phi = - M_\mathrm{enc}/r^2\)</span>. The dimensionless tidal tensor can
-be written as: <span class="math display">\[\mathcal{T&#39;}=
+<p>To explore this, first we rewrite equation <a
+href="#eq:martos_enclosed_mass" data-reference-type="ref"
+data-reference="eq:martos_enclosed_mass">[eq:martos_enclosed_mass]</a>,
+the mass distribution of the Allen-Santillan halo <span class="citation"
+data-cites="1986RMxAA..13..137A 1991RMxAA..22..255A">(C. Allen and
+Martos 1986; Christine Allen and Santillan 1991)</span>, in a
+non-dimensional form: <span class="math display">\[M&#39;_\text{enc}(s)
+= \frac{s^\gamma}{1+s^{\gamma-1}},\]</span> where <span
+class="math inline">\(\gamma\)</span> is the exponential slope
+parameter, <span class="math inline">\(s\)</span> is the radial distance
+scaled to the characterisitic radius <span
+class="math inline">\(r_0\)</span> and <span
+class="math inline">\(M&#39;\)</span> is the enclosed mass normalized to
+the mass parameter: <span
+class="math inline">\(M_\mathrm{enc}/M_0\)</span>. From Poisson’s
+equation in spherical symmetry: the force is: <span
+class="math inline">\(\nabla \Phi = - M_\mathrm{enc}/r^2\)</span>. The
+dimensionless tidal tensor can be written as: <span
+class="math display">\[\mathcal{T&#39;}=
 -\frac{M&#39;_\text{enc}(s)}{s^3}\left(\begin{matrix}
                     1-\frac{x^2}{s^2}f(s) &amp; -\frac{xy}{s^2}f(s)
 &amp; -\frac{xz}{s^2}f(s) \\
@@ -1928,10 +1942,10 @@ be written as: <span class="math display">\[\mathcal{T&#39;}=
 1-\frac{z^2}{s^2}f(s)
                 \end{matrix}\right)\]</span> where <span
 class="math display">\[f(s) = 2-\frac{\gamma-1}{1+s^{\gamma-1}}.
-                \label{eq:martos_f_s}\]</span></p>
-<p>While exploring this tidal tensor, I came across an interesting area
-of the parameter space, that I would like to show here.</p>
-<p>Taking the Allen-Santillian tidal tensor in Eq. <a
+                \label{eq:martos_f_s}\]</span> While exploring this
+tidal tensor, I came across an interesting area of the parameter space,
+that I would like to show here.</p>
+<p>Taking the Allen-Santillan tidal tensor in Eq. <a
 href="#eq:martos_f_s" data-reference-type="ref"
 data-reference="eq:martos_f_s">[eq:martos_f_s]</a>, we can see that for
 <span class="math inline">\(\gamma &gt; 3\)</span> and <span
@@ -1939,8 +1953,8 @@ class="math inline">\(s &lt;  1\)</span>, then <span
 class="math inline">\(f(s)&lt; 0\)</span>. Physically, this would be a
 sphere whose density increases with distance. This is not natural, as,
 in general, gravity sends the more massive objects towards the center.
-However, it’s fun to indulge in this situation to learn some insight
-about the flexibility of tidal fields. The consequence of <span
+However, it’s interesting to indulge in this situation to learn some
+insight about the flexibility of tidal fields. The consequence of <span
 class="math inline">\(f(s)&lt; 0\)</span> is that all terms in the tidal
 tensor are negative, which means that the force is compressive
 everywhere. Consequently, no stars escape from the cluster.</p>
@@ -1952,7 +1966,7 @@ a globular cluster, which is that no tidal stream forms. Briefly, I
 created a plummer sphere of <span
 class="math inline">\(10^6\)</span> M<span
 class="math inline">\(_\odot\)</span> and half mass radius 20 pc and
-evolved it in a Allen-Santillian halo potential of mass parameter <span
+evolved it in a Allen-Santillan halo potential of mass parameter <span
 class="math inline">\(10^{12}\)</span> M<span
 class="math inline">\(_\odot\)</span> a characteristic radius of <span
 class="math inline">\(30\)</span> kpc. Each cluster was placed at the
@@ -1969,21 +1983,27 @@ class="math inline">\(\gamma\)</span> of 4.5, which corresponds to a
 density profile where <span class="math inline">\(\rho(r) \propto
 r^{1.5}\)</span>.</p>
 <p>To get a feel for the strength of the tidal stretching and
-compression, I show a circle and the resulting ellipse after applying
-the tidal deformation. I computed the coordinates of the ellipse by
-adding <span class="math inline">\(\vec{Ell} = \vec{C} + \frac{1}{2}
+compression, I apply the tidal deformation to a circle and show the
+resulting ellipse, as shown by the black lines in the right panels of
+Fig. <a href="#fig:martos_tidal_field_small_r" data-reference-type="ref"
+data-reference="fig:martos_tidal_field_small_r">14</a> and Fig. <a
+href="#fig:martos_tidal_field_big_r" data-reference-type="ref"
+data-reference="fig:martos_tidal_field_big_r">15</a>. I computed the
+coordinates of the ellipse by adding <span
+class="math display">\[\vec{Ell} = \vec{C} + \frac{1}{2}
 t_\textrm{char}^2 \mathcal{T}\cdot \left(\vec{C} -
-\vec{r_o}\right)\)</span>. This way, force can be mapped to position
+\vec{r_o}\right).\]</span> This way, force can be mapped to position
 space, and the strengths of the tidal forces can be seen visually. The
 characteristic time, <span
-class="math inline">\(t_\textrm{char}\)</span>, was set to <span
+class="math inline">\(t_\textrm{char}\)</span>, is a free parameter that
+scales the deformation. I choose to set it to <span
 class="math inline">\(\frac{1}{10} 2\pi r_\textrm{halo} /
 v_\textrm{c}\)</span>.</p>
 <figure id="fig:martos_tidal_field_small_r">
 <p><img src="images/martos_tidal_field_202_10_25.png" alt="image" />
 <img src="images/martos_tidal_field_450_10_25.png" alt="image" /></p>
 <figcaption>The plots show two low-resolution streams (N = 1000) created
-by dissolving a Plummer sphere in the Allen-Santillian halo potential.
+by dissolving a Plummer sphere in the Allen-Santillan halo potential.
 The units are scaled to the halo’s characteristic radius. Gamma is the
 mass exponent and is the sole variable between the two simulations. The
 panels on the left show the orbit in gray and the stars in black. The
@@ -2075,14 +2095,13 @@ differ by: <span class="math display">\[\Delta f = \frac{1}{T( E -
 \Delta E)} - \frac{1}{T(E + \Delta E)}.\]</span> The time required for
 the faster particle to lap the slower one in phase is the <em>phase
 mixing time</em>, which is the inverse of the difference <span
-class="math inline">\(2\pi / \Delta f\)</span> and is given by:</p>
-<p><span class="math display">\[T_\mathrm{mix} = \frac{2\pi}{\Delta f} =
-\frac{2\pi T_1 T_2}{T_2 - T_1}.\]</span></p>
-<p>For small energy differences <span class="math inline">\(\Delta E
-&lt;&lt; E\)</span>, we can expand the period in a Taylor series to
-first order. This leads to:</p>
-<p><span class="math display">\[T_\mathrm{mix} \approx T_\mathrm{char}
-\cdot 2\pi \left( \frac{E}{3 \Delta E} \right),
+class="math inline">\(2\pi / \Delta f\)</span> and is given by: <span
+class="math display">\[T_\mathrm{mix} = \frac{2\pi}{\Delta f} =
+\frac{2\pi T_1 T_2}{T_2 - T_1}.\]</span> For small energy differences
+<span class="math inline">\(\Delta E &lt;&lt; E\)</span>, we can expand
+the period in a Taylor series to first order. This leads to: <span
+class="math display">\[T_\mathrm{mix} \approx T_\mathrm{char} \cdot 2\pi
+\left( \frac{E}{3 \Delta E} \right),
             \label{EQ:phase_mixing}\]</span> Thus, the phase mixing time
 grows inversely with the relative energy spread in the population.</p>
 <h3 id="orbital-drift">Orbital drift</h3>
@@ -2348,22 +2367,21 @@ perturber to travel a distance <span class="math inline">\(2b\)</span>
 class="math inline">\(x = +b\)</span>), giving <span
 class="math inline">\(\Delta t = 2b/v\)</span>. Assuming a constant
 perpendicular force <span class="math inline">\(F_\perp \approx
-GMm/b^2\)</span>, the change in momentum is:</p>
-<p><span class="math display">\[\begin{aligned}
+GMm/b^2\)</span>, the change in momentum is: <span
+class="math display">\[\begin{aligned}
         m\,\delta v_y &amp;=&amp; \int F_\perp \, dt \\
                     &amp;\approx&amp; F_\perp \cdot \Delta t \\
                     &amp;=&amp; \frac{GMm}{b^2} \cdot \frac{2b}{v}
         
-\end{aligned}\]</span></p>
-<p>Dividing both sides by <span class="math inline">\(m\)</span>, the
-change in velocity is: <span
+\end{aligned}\]</span> Dividing both sides by <span
+class="math inline">\(m\)</span>, the change in velocity is: <span
 class="math display">\[\label{eq:delta_v_impulse_approx}
-        \delta v_y = \frac{2GM}{b v}\]</span></p>
-<p>It is interesting to note that this result is inversely proportional
-to the velocity of the perturber. This behavior contrasts with contact
-collisions, where a higher speed typically results in a greater momentum
-transfer. In gravitational encounters, a faster flyby leads to a shorter
-interaction time and thus less momentum exchange.</p>
+        \delta v_y = \frac{2GM}{b v}\]</span> It is interesting to note
+that this result is inversely proportional to the velocity of the
+perturber. This behavior contrasts with contact collisions, where a
+higher speed typically results in a greater momentum transfer. In
+gravitational encounters, a faster flyby leads to a shorter interaction
+time and thus less momentum exchange.</p>
 <h3 id="gap-formation-and-evolution">Gap formation and evolution</h3>
 <p>Gaps in stellar streams are underdensities that appear after
 encounters with dark matter subhalos or globular clusters. These can be
@@ -2572,16 +2590,16 @@ stream.</p>
 <p>To first order, a stellar stream can be modeled as a
 <em>collisionless</em>, non-accelerating ensemble of stars, i.e., a
 one-dimensional <em>streaming</em> solution to the collisionless
-Boltzmann equation. In this case, the equation simplifies to:</p>
-<p><span class="math display">\[\frac{\partial f}{\partial t} + v
-\frac{\partial f}{\partial x} = 0,\]</span></p>
-<p>where <span class="math inline">\(f(x,v,t)\)</span> is the
-phase-space distribution function. We assume the initial condition <span
+Boltzmann equation. In this case, the equation simplifies to: <span
+class="math display">\[\frac{\partial f}{\partial t} + v \frac{\partial
+f}{\partial x} = 0,\]</span> where <span
+class="math inline">\(f(x,v,t)\)</span> is the phase-space distribution
+function. We assume the initial condition <span
 class="math inline">\(f(x,v,t=0) = 0\)</span>, and a boundary condition
-of a constant source at <span class="math inline">\(x=0\)</span>:</p>
-<p><span class="math display">\[f(0,v,t) = g(v \,|\, v_0, \sigma_v) =
-\mathcal{N}(v \,|\, v_0, \sigma_v),\]</span></p>
-<p>i.e., a Gaussian ejection velocity distribution centered at <span
+of a constant source at <span class="math inline">\(x=0\)</span>: <span
+class="math display">\[f(0,v,t) = g(v \,|\, v_0, \sigma_v) =
+\mathcal{N}(v \,|\, v_0, \sigma_v),\]</span> i.e., a Gaussian ejection
+velocity distribution centered at <span
 class="math inline">\(v_0\)</span> with dispersion <span
 class="math inline">\(\sigma_v\)</span>. The total flux amplitude is
 arbitrary here.</p>
@@ -2592,36 +2610,33 @@ we are solving a PDE in the <span class="math inline">\((x,t)\)</span>
 plane for fixed values of <span class="math inline">\(v\)</span>. The
 initial condition implies that <span class="math inline">\(f=0\)</span>
 in regions not yet reached by any particles — that is, wherever <span
-class="math inline">\(x/t &gt; v\)</span>. Thus, the solution is:</p>
-<p><span class="math display">\[f(x,v,t) =
+class="math inline">\(x/t &gt; v\)</span>. Thus, the solution is: <span
+class="math display">\[f(x,v,t) =
                 \begin{cases}
                     \mathcal{N}(v \,|\, v_0, \sigma_v) &amp; \text{if }
 v &gt; \frac{x}{t}, \\
                     0 &amp; \text{otherwise}.
                 \end{cases}
-                \label{eq:one_dimensional_collisionless_streaming}\]</span></p>
-<p>We can now compute the moments of this distribution. The density at
-each position is given by:</p>
-<p><span class="math display">\[\rho(x,t) = \int_{x/t}^{\infty} f(x,v,t)
-\, dv = \frac{1}{2} \, \mathrm{erfc}\left( \frac{x/t -
-v_0}{\sqrt{2}\sigma_v} \right),\]</span></p>
-<p>i.e., the integral of a truncated Gaussian. Similarly, the <em>mean
-velocity</em> and <em>velocity dispersion</em> at fixed <span
+                \label{eq:one_dimensional_collisionless_streaming}\]</span>
+We can now compute the moments of this distribution. The density at each
+position is given by: <span class="math display">\[\rho(x,t) =
+\int_{x/t}^{\infty} f(x,v,t) \, dv = \frac{1}{2} \, \mathrm{erfc}\left(
+\frac{x/t - v_0}{\sqrt{2}\sigma_v} \right),\]</span> i.e., the integral
+of a truncated Gaussian. Similarly, the <em>mean velocity</em> and
+<em>velocity dispersion</em> at fixed <span
 class="math inline">\((x,t)\)</span> are computed from the conditional
 distribution <span class="math inline">\(f(v|x,t) =
-f(x,v,t)/\rho(x,t)\)</span>, via:</p>
-<p><span class="math display">\[\begin{aligned}
-                \langle v \rangle(x,t) &amp;= \frac{1}{\rho(x,t)}
+f(x,v,t)/\rho(x,t)\)</span>, via: <span
+class="math display">\[\begin{aligned}
+                    \langle v \rangle(x,t) &amp;= \frac{1}{\rho(x,t)}
 \int_{x/t}^\infty v f(x,v,t) \, dv, \\
-                \langle v^2 \rangle(x,t) &amp;= \frac{1}{\rho(x,t)}
+                    \langle v^2 \rangle(x,t) &amp;= \frac{1}{\rho(x,t)}
 \int_{x/t}^\infty v^2 f(x,v,t) \, dv, \\
-                \sigma_v^2(x,t) &amp;= \langle v^2 \rangle(x,t) -
+                    \sigma_v^2(x,t) &amp;= \langle v^2 \rangle(x,t) -
 \langle v \rangle(x,t)^2.
-            
-\end{aligned}\]</span></p>
-<p>Each of these integrals can be expressed analytically in terms of the
-error function and exponential functions, since they are the moments of
-a truncated Gaussian.</p>
+                \end{aligned}\]</span> Each of these integrals can be
+expressed analytically in terms of the error function and exponential
+functions, since they are the moments of a truncated Gaussian.</p>
 <p>In Fig. <a href="#fig:collisionless_1D_stream"
 data-reference-type="ref"
 data-reference="fig:collisionless_1D_stream">21</a>, I show a plot of
@@ -2777,20 +2792,19 @@ class="math inline">\(rd\theta dr(vdt)\)</span>. We find that this
 <em>diffusion</em> grows linearly with time, and its rate of change
 gives the two-body relaxation timescale: <span
 class="math display">\[\tau_\mathrm{2-body} = \frac{v_0^2}{\frac{d
-\left\langle \delta v^2 \right\rangle}{dt}}.\]</span></p>
-<p>Another key in this derivation is the Coulomb integral, which
-involves a logarithmic divergence: <span class="math display">\[\int
-\frac{1}{R} \, dR.\]</span> We must regularize this with appropriate
-limits. The upper limit is the system size (no perturbers beyond this).
-The lower limit corresponds to where the impulse approximation breaks
-down — I choose the distance at which a star becomes gravitationally
-bound to the perturber, though this is generous and the impulse
-approximation breaks down at larger distances.</p>
+\left\langle \delta v^2 \right\rangle}{dt}}.\]</span> Another key in
+this derivation is the Coulomb integral, which involves a logarithmic
+divergence: <span class="math display">\[\int \frac{1}{R} \,
+dR.\]</span> We must regularize this with appropriate limits. The upper
+limit is the system size (no perturbers beyond this). The lower limit
+corresponds to where the impulse approximation breaks down — I choose
+the distance at which a star becomes gravitationally bound to the
+perturber, though this is generous and the impulse approximation breaks
+down at larger distances.</p>
 <p>The resulting expression for the two-body relaxation time is: <span
 class="math display">\[\tau = t_\mathrm{cross} \, \frac{N}{8
-\ln(N/2)}.\]</span></p>
-<p>Let’s apply this to globular clusters using their catalog values.
-Take the median crossing time per star as <span
+\ln(N/2)}.\]</span> Let’s apply this to globular clusters using their
+catalog values. Take the median crossing time per star as <span
 class="math display">\[t_\mathrm{cross} =
 \sqrt{\frac{r_{1/2}^3}{GM}},\]</span> assuming an average stellar mass
 of 0.8 <span class="math inline">\(M_\odot\)</span> [citation needed].
@@ -3515,10 +3529,10 @@ href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>https://people.smp.uq.edu.au/HolgerBaumgardt/globular/<a
 href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>The term “integral of motion” is often used
-interchangeably with “constant of motion”, but strictly speaking, the
-latter is preferable since it refers to a quantity that remains constant
-throughout the orbital evolution, not to an integral in the mathematical
-sense of the word (area under a curve).<a href="#fnref4"
+interchangeably with “constant of motion,” but strictly speaking, the
+latter is preferable, as it refers to a quantity that remains constant
+throughout the orbital evolution—not to an integral in the mathematical
+sense of the word (i.e., the area under a curve).<a href="#fnref4"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>The two-body relaxation experiment is purely
 illustrative. Despite multiple attempts, I was unable to make the
