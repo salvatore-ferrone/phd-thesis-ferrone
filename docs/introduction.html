@@ -206,7 +206,7 @@ initial conditions (mass, size, position, and velocity) and an
 axisymmetric, time-independent model of the Milky Way’s gravitational
 potential. Chapter 5 builds on this work, exploring how the collective
 gravitational influence of all globular clusters can perturb stellar
-streams, producing underdensities known as “gaps.” These features are of
+streams, producing underdensities known as “gaps”. These features are of
 central interest in the field, as they may encode information about the
 dark matter distribution in the Galaxy.</p>
 <p>The structure of the thesis is as follows. The remainder of this
@@ -239,49 +239,202 @@ class="math inline">\(^7\)</span>Li. By mass, the composition of the
 universe was 75 % Hydrogen and 25 % Helium <span class="citation"
 data-cites="1966ApJ...146..542P 2016RvMP...88a5004C">Peebles (1966;
 Cyburt et al. 2016)</span>.</p>
-<p>By mass, there’s about 5 times more dark matter in the universe,
-which only interacts with us gravitationally, than ordinary matter <span
-class="citation" data-cites="2020A&amp;A...641A...6P">Planck
-Collaboration et al. (2020)</span>. This overwhelming amount of dark
-matter started as a roughly uniform density distribution, but as the
-universe evolved, it coalesced into the cosmic web. The nodes of the
-cosmic web contain a lot of mass, which creates a deep potential well
-that subsequently sucked primordial material into one place. Then, this
-material formed stars, and the collection of these stars, the gas, and
-dark matter is a galaxy. <span class="citation"
+<p>Dark matter constitutes approximately five times more mass than
+ordinary (baryonic) matter in the universe <span class="citation"
+data-cites="2020A&amp;A...641A...6P">(Planck Collaboration et al.
+2020)</span>. In the early universe, dark matter was distributed nearly
+uniformly, but gravitational instabilities caused it to coalesce and
+form the cosmic web. The nodes of the web are very massive and contain
+deep gravitational potential wells that attracted surrounding ordinary
+material. This infalling gas subsequently formed stars. The resulting
+assemblage of stars, gas, and dark matter constitutes a galaxy <span
+class="citation"
 data-cites="2008LNP...740.....P 2010gfe..book.....M">(Plionis,
-López-Cruz, and Hughes 2008; Mo, van den Bosch, and White
-2010)</span></p>
-<p>There is more than just one galaxy. The CDM model predicts that the
-universe grew hierarchically <span class="citation"
-data-cites="2015ARA&amp;A..53...51S">(Somerville and Davé 2015)</span>.
-Galaxies originally formed small and then merged to form bigger
-galaxies. Sometimes, these mergers are between two galaxies of similar
-sizes. For over a century, observatories all over the Earth and in space
-have been capturing images of such events. Take, for example, the
-Antennae galaxies, shown in Fig. <a href="#" data-reference-type="ref"
-data-reference="">1</a> <span class="citation"
-data-cites="2010AJ....140...75W">(Whitmore et al. 2010)</span>. As the
-universe becomes more mature, there are larger galaxies that can be
-surrounded by smaller, dwarf galaxies that, in turn, orbit the host
-galaxy. They can eventually infall and merge with the host as well.</p>
-<p>There is more than just one galaxy. The <span
-class="math inline">\(\Lambda\)</span>CDM model predicts that the
-universe grew hierarchically, with galaxies originally forming small and
-then merging to form larger galaxies <span class="citation"
-data-cites="White1978 Somerville2015">(<strong>White1978?</strong>;
-<strong>Somerville2015?</strong>)</span>. Sometimes, these mergers are
-between two galaxies of similar sizes. For over a century, observatories
-all over the Earth and in space have been capturing images of such
-events. Take, for example, the Antennae galaxies <span class="citation"
-data-cites="Whitmore1999">(<strong>Whitmore1999?</strong>)</span>. As
-the universe becomes more mature, there are larger galaxies that can be
-surrounded by smaller, dwarf galaxies that, in turn, orbit the host
-galaxy. These satellites can eventually infall and merge with the host
-as well <span class="citation"
-data-cites="Conselice2014">(<strong>Conselice2014?</strong>)</span>.</p>
+López-Cruz, and Hughes 2008; Mo, van den Bosch, and White 2010)</span>.
+In certain situations, the star</p>
+<p>The universe contains not just a single galaxy, but a vast population
+of them. According to the <span
+class="math inline">\(\Lambda\)</span>CDM paradigm, cosmic structure
+formed hierarchically, with small protogalaxies merging over time to
+build larger systems <span class="citation"
+data-cites="2015ARA&amp;A..53...51S">(Somerville and Davé
+2015)</span>.</p>
+<p>As galaxies evolve, their stars fuse hydrogen and helium into heavier
+elements, enriching the interstellar medium with each generation.
+Massive stars live short lives and often end in supernovae, ejecting
+enriched material back into their surroundings. This gas can then
+collapse to form new stars. When galaxies interact or merge, their gas
+mixes, further driving star formation and chemical enrichment <span
+class="citation" data-cites="2019A&amp;ARv..27....3M">(Maiolino and
+Mannucci 2019)</span>.</p>
+<p>When stars are made, in many circumstances, they may not just form
+single stars but clusters of stars. These star clusters come to be when
+many stars form at once and are also bound to each other
+gravitationally. One of the most essential objects in this thesis is
+globular clusters, which are clusters containing hundreds of thousands
+to millions of stars.</p>
+<p>These star clusters, or any extended object that orbits around a
+larger host, experience tidal forces. There are many examples of this in
+nature. The most familiar example is how the lunar tides control the
+water. But for this work, we are interested in more extreme tidal
+forces, those that are strong enough to disintegrate a body. For
+example, some hypotheses say that Saturn’s rings come from a body that
+was ripped apart by Saturn’s tidal field and then became a collection of
+rocks and dust <span class="citation"
+data-cites="2009Icar..199..413C">(Charnoz et al. 2009)</span>. Also,
+tidal forces played a pivotal role in the Earth-Moon formation scenario;
+an excellent visualization of the code SWIFT <a
+href="https://swift.strw.leidenuniv.nl/about.html"
+class="uri">https://swift.strw.leidenuniv.nl/about.html</a> <span
+class="citation" data-cites="2024MNRAS.530.2378S">(Schaller et al.
+2024)</span>, as the proto-moon came to close to the earth, the tidal
+forces disintegrated it, the earth absorbed a portion and a portion
+distanced itself from the world to create the moon.</p>
+<p>Those are examples in which the tidal forces rip apart solid bodies.
+However, star clusters are not solid objects but are instead composed of
+many stars that are bound together gravitationally. The tidal forces
+disintegrate star clusters in a much more gentle way. The tidal forces
+inject enough energy to gently and slowly pull the cluster apart. A
+result is that the stars that escape from the cluster have more or less
+the same orbit as the cluster’s center of mass <span class="citation"
+data-cites="1972ApJ...178..623T 1995AJ....109.2553G">(Toomre and Toomre
+1972; Grillmair et al. 1995)</span>. As the system moves along, the
+stars coherently spread out along one orbital trajectory and create
+stellar streams. See Fig. <a href="#fig:S5MilkywayStreams"
+data-reference-type="ref"
+data-reference="fig:S5MilkywayStreams">1</a>.</p>
+<figure id="fig:S5MilkywayStreams">
+<img src="images/S5MilkywayStreams.jpg" />
+<figcaption>An artist’s rendition of a galaxy surrounded by stellar
+streams. Credit: James Josephides and S<span
+class="math inline">\(^5\)</span> Collaboration <span class="citation"
+data-cites="2019MNRAS.490.3508L">(Li et al. 2019)</span>.</figcaption>
+</figure>
+<p>Globular clusters are among the oldest stellar systems in the
+universe and thus serve as invaluable fossil records of early star
+formation <span class="citation"
+data-cites="1992ApJ...400..265M">(Murray and Lin 1992)</span>. With the
+universe’s age estimated at approximately 13.8 billion years, these
+clusters provide insights into conditions prevalent during the
+universe’s formative epochs. Observationally, globular clusters display
+properties characteristic of single stellar populations <span
+class="citation" data-cites="1970ApJ...162..841S">(Sandage 1970)</span>,
+meaning their constituent stars formed nearly simultaneously from
+chemically homogeneous material, though with a range of stellar masses.
+Stellar evolution within these clusters is predominantly driven by mass,
+with more massive stars evolving more rapidly. This progression
+manifests clearly in color-magnitude diagrams, allowing age
+determinations of stellar populations. For Milky Way globular clusters,
+typical age estimates fall between 8 and 12 billion years <span
+class="citation" data-cites="2013ApJ...775..134V">(VandenBerg et al.
+2013)</span>.</p>
+<p>Globular clusters and their associated stellar streams offer many
+powerful avenues for astrophysical investigation. First, because direct
+observations provide only a snapshot of the universe at present,
+astrophysical phenomena evolving over timescales vastly exceeding human
+lifespans remain challenging to study. For instance, the Sun takes
+roughly 220 million years to complete a single orbit around the Galaxy.
+Stellar streams, by encoding orbital trajectories of their progenitor
+clusters, provide a unique window into millions of years of dynamical
+history. By characterizing their shapes and extents, we gain precise
+constraints on the Galactic gravitational potential.</p>
+<p>Second, as relics of the early universe, globular clusters encode
+critical information about their formation environments. For this
+reason, the field of study is often referred to as “galactic
+archaeology”, as globular clusters serve to astronomers much like
+fossils do to archaeologists. Their properties reveal details about the
+interstellar medium at the time of their formation, as well as the
+Galaxy’s assembly history <span class="citation"
+data-cites="2021ApJ...909L..26B 2023A&amp;A...673A..86P">(Bonaca et al.
+2021; Pagnini et al. 2023)</span>. Some Milky Way globular clusters
+formed in situ, while others were accreted from satellite galaxies or
+formed during merger events.</p>
+<p>Third, globular clusters serve as natural laboratories for studying
+the interplay of diverse physical processes. Their evolution involves
+stellar structure and evolution, gravitational dynamics, and
+relativistic effects in dense environments. For instance, close stellar
+encounters and binary interactions—such as mass transfer or mergers—are
+common in such environments and significantly shape cluster evolution
+<span class="citation"
+data-cites="2004MNRAS.349..129D 2016MNRAS.458.1450W 2024MNRAS.528.5119A">(Davies,
+Piotto, and de Angeli 2004; Wang et al. 2016; Arca Sedda et al.
+2024)</span>.</p>
+<p>Globular clusters are also prime candidates for hosting
+intermediate-mass black holes (IMBHs) <span class="citation"
+data-cites="2013MNRAS.432.2779B 2015MNRAS.454.3150G">(Breen and Heggie
+2013; Giersz et al. 2015)</span>. The origin of IMBHs remains uncertain,
+as their masses are too large to be explained by isolated stellar
+evolution, yet too small to fall into the supermassive category <span
+class="citation" data-cites="2020ARA&amp;A..58..257G">(Greene, Strader,
+and Ho 2020)</span>.</p>
+<p>Furthermore, while globular clusters were once thought to consist of
+single stellar populations, detailed observations of chemical abundances
+have revealed the presence of multiple populations, with distinct
+patterns in light elements (i.e., carbon, oxygen, nitrogen). This
+phenomenon reflects a complex history of star formation, feedback, and
+internal dynamical evolution <span class="citation"
+data-cites="2008MNRAS.391..825D 2012A&amp;ARv..20...50G 2018ARA&amp;A..56...83B">(D’Ercole
+et al. 2008; Gratton, Carretta, and Bragaglia 2012; Bastian and Lardo
+2018)</span>.</p>
+<p>Lastly, globular clusters are everywhere in the universe <span
+class="citation"
+data-cites="2006ARA&amp;A..44..193B 2019ARA&amp;A..57..227K">(Brodie and
+Strader 2006; Krumholz, McKee, and Bland-Hawthorn 2019)</span>. They are
+observed far in the past (the high redshift universe), and have though
+to have been more numerous but yet many of them persist until today. Not
+only this but they properties of a globular cluster system is tightly
+related to it’s host galaxy. Additionally, it has been demonstrated that
+extra galactic stellar streams, even with just projected information
+(latitude and longitude), some parameters of the gravitational field can
+be recovered <span class="citation"
+data-cites="2011MNRAS.417..198V 2023ApJ...954..195N">(Varghese, Ibata,
+and Lewis 2011; Nibauer, Bonaca, and Johnston 2023)</span>.</p>
+<p>Thus, the stellar streams and globular clusters contain much
+information that can inform us various aspects of fundamental phyiscs
+our own galaxies, neighboring galaxies, and the past, and they can give
+us information about the current dynamical state of the galaxy.</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
+<div id="ref-2024MNRAS.528.5119A" class="csl-entry" role="listitem">
+Arca Sedda, Manuel, Albrecht W. H. Kamlah, Rainer Spurzem, Mirek Giersz,
+Peter Berczik, Sara Rastello, Giuliano Iorio, Michela Mapelli,
+Massimiliano Gatto, and Eva K. Grebel. 2024. <span>“<span
+class="nocase">The DRAGON-II simulations - I. Evolution of single and
+binary compact objects in star clusters with up to 1 million
+stars</span>”</span> 528 (3): 5119–39. <a
+href="https://doi.org/10.1093/mnras/stad3952">https://doi.org/10.1093/mnras/stad3952</a>.
+</div>
+<div id="ref-2018ARA&amp;A..56...83B" class="csl-entry" role="listitem">
+Bastian, Nate, and Carmela Lardo. 2018. <span>“<span
+class="nocase">Multiple Stellar Populations in Globular
+Clusters</span>”</span> 56 (September):83–136. <a
+href="https://doi.org/10.1146/annurev-astro-081817-051839">https://doi.org/10.1146/annurev-astro-081817-051839</a>.
+</div>
+<div id="ref-2021ApJ...909L..26B" class="csl-entry" role="listitem">
+Bonaca, Ana, Rohan P. Naidu, Charlie Conroy, Nelson Caldwell, Phillip A.
+Cargile, Jiwon Jesse Han, Benjamin D. Johnson, et al. 2021. <span>“<span
+class="nocase">Orbital Clustering Identifies the Origins of Galactic
+Stellar Streams</span>”</span> 909 (2): L26. <a
+href="https://doi.org/10.3847/2041-8213/abeaa9">https://doi.org/10.3847/2041-8213/abeaa9</a>.
+</div>
+<div id="ref-2013MNRAS.432.2779B" class="csl-entry" role="listitem">
+Breen, Philip G., and Douglas C. Heggie. 2013. <span>“<span
+class="nocase">Dynamical evolution of black hole subsystems in idealized
+star clusters</span>”</span> 432 (4): 2779–97. <a
+href="https://doi.org/10.1093/mnras/stt628">https://doi.org/10.1093/mnras/stt628</a>.
+</div>
+<div id="ref-2006ARA&amp;A..44..193B" class="csl-entry" role="listitem">
+Brodie, Jean P., and Jay Strader. 2006. <span>“<span
+class="nocase">Extragalactic Globular Clusters and Galaxy
+Formation</span>”</span> 44 (1): 193–267. <a
+href="https://doi.org/10.1146/annurev.astro.44.051905.092441">https://doi.org/10.1146/annurev.astro.44.051905.092441</a>.
+</div>
+<div id="ref-2009Icar..199..413C" class="csl-entry" role="listitem">
+Charnoz, Sébastien, Alessandro Morbidelli, Luke Dones, and Julien
+Salmon. 2009. <span>“<span class="nocase">Did Saturn’s rings form during
+the Late Heavy Bombardment?</span>”</span> 199 (2): 413–28. <a
+href="https://doi.org/10.1016/j.icarus.2008.10.019">https://doi.org/10.1016/j.icarus.2008.10.019</a>.
+</div>
 <div id="ref-2016RvMP...88a5004C" class="csl-entry" role="listitem">
 Cyburt, Richard H., Brian D. Fields, Keith A. Olive, and Tsung-Han Yeh.
 2016. <span>“<span class="nocase">Big bang nucleosynthesis: Present
@@ -289,10 +442,90 @@ status</span>.”</span> <em>Reviews of Modern Physics</em> 88 (1):
 015004. <a
 href="https://doi.org/10.1103/RevModPhys.88.015004">https://doi.org/10.1103/RevModPhys.88.015004</a>.
 </div>
+<div id="ref-2008MNRAS.391..825D" class="csl-entry" role="listitem">
+D’Ercole, Annibale, Enrico Vesperini, Francesca D’Antona, Stephen L. W.
+McMillan, and Simone Recchi. 2008. <span>“<span class="nocase">Formation
+and dynamical evolution of multiple stellar generations in globular
+clusters</span>”</span> 391 (2): 825–43. <a
+href="https://doi.org/10.1111/j.1365-2966.2008.13915.x">https://doi.org/10.1111/j.1365-2966.2008.13915.x</a>.
+</div>
+<div id="ref-2004MNRAS.349..129D" class="csl-entry" role="listitem">
+Davies, Melvyn B., Giampaolo Piotto, and Francesca de Angeli. 2004.
+<span>“<span class="nocase">Blue straggler production in globular
+clusters</span>”</span> 349 (1): 129–34. <a
+href="https://doi.org/10.1111/j.1365-2966.2004.07474.x">https://doi.org/10.1111/j.1365-2966.2004.07474.x</a>.
+</div>
+<div id="ref-2015MNRAS.454.3150G" class="csl-entry" role="listitem">
+Giersz, Mirek, Nathan Leigh, Arkadiusz Hypki, Nora Lützgendorf, and
+Abbas Askar. 2015. <span>“<span class="nocase">MOCCA code for star
+cluster simulations - IV. A new scenario for intermediate mass black
+hole formation in globular clusters</span>”</span> 454 (3): 3150–65. <a
+href="https://doi.org/10.1093/mnras/stv2162">https://doi.org/10.1093/mnras/stv2162</a>.
+</div>
+<div id="ref-2012A&amp;ARv..20...50G" class="csl-entry" role="listitem">
+Gratton, Raffaele G., Eugenio Carretta, and Angela Bragaglia. 2012.
+<span>“<span class="nocase">Multiple populations in globular clusters.
+Lessons learned from the Milky Way globular clusters</span>”</span> 20
+(February):50. <a
+href="https://doi.org/10.1007/s00159-012-0050-3">https://doi.org/10.1007/s00159-012-0050-3</a>.
+</div>
+<div id="ref-2020ARA&amp;A..58..257G" class="csl-entry" role="listitem">
+Greene, Jenny E., Jay Strader, and Luis C. Ho. 2020.
+<span>“<span>Intermediate-Mass Black Holes</span>”</span> 58
+(August):257–312. <a
+href="https://doi.org/10.1146/annurev-astro-032620-021835">https://doi.org/10.1146/annurev-astro-032620-021835</a>.
+</div>
+<div id="ref-1995AJ....109.2553G" class="csl-entry" role="listitem">
+Grillmair, Carl J., K. C. Freeman, M. Irwin, and P. J. Quinn. 1995.
+<span>“<span class="nocase">Globular Clusters with Tidal Tails: Deep
+Two-Color Star Counts</span>”</span> 109 (June):2553. <a
+href="https://doi.org/10.1086/117470">https://doi.org/10.1086/117470</a>.
+</div>
+<div id="ref-2019ARA&amp;A..57..227K" class="csl-entry" role="listitem">
+Krumholz, Mark R., Christopher F. McKee, and Joss Bland-Hawthorn. 2019.
+<span>“<span>Star Clusters Across Cosmic Time</span>”</span> 57
+(August):227–303. <a
+href="https://doi.org/10.1146/annurev-astro-091918-104430">https://doi.org/10.1146/annurev-astro-091918-104430</a>.
+</div>
+<div id="ref-2019MNRAS.490.3508L" class="csl-entry" role="listitem">
+Li, T. S., S. E. Koposov, D. B. Zucker, G. F. Lewis, K. Kuehn, J. D.
+Simpson, A. P. Ji, et al. 2019. <span>“<span class="nocase">The southern
+stellar stream spectroscopic survey (S<span
+class="math inline">\(^{5}\)</span>): Overview, target selection, data
+reduction, validation, and early science</span>”</span> 490 (3):
+3508–31. <a
+href="https://doi.org/10.1093/mnras/stz2731">https://doi.org/10.1093/mnras/stz2731</a>.
+</div>
+<div id="ref-2019A&amp;ARv..27....3M" class="csl-entry" role="listitem">
+Maiolino, R., and F. Mannucci. 2019. <span>“<span class="nocase">De re
+metallica: the cosmic chemical evolution of galaxies</span>”</span> 27
+(1): 3. <a
+href="https://doi.org/10.1007/s00159-018-0112-2">https://doi.org/10.1007/s00159-018-0112-2</a>.
+</div>
 <div id="ref-2010gfe..book.....M" class="csl-entry" role="listitem">
 Mo, Houjun, Frank C. van den Bosch, and Simon White. 2010. <em><span
 class="nocase">Galaxy Formation and Evolution</span></em>. <a
 href="https://doi.org/10.1017/CBO9780511807244">https://doi.org/10.1017/CBO9780511807244</a>.
+</div>
+<div id="ref-1992ApJ...400..265M" class="csl-entry" role="listitem">
+Murray, Stephen D., and Douglas N. C. Lin. 1992. <span>“<span>Globular
+Cluster Formation: The Fossil Record</span>”</span> 400 (November):265.
+<a
+href="https://doi.org/10.1086/171993">https://doi.org/10.1086/171993</a>.
+</div>
+<div id="ref-2023ApJ...954..195N" class="csl-entry" role="listitem">
+Nibauer, Jacob, Ana Bonaca, and Kathryn V. Johnston. 2023. <span>“<span
+class="nocase">Constraining the Gravitational Potential from the
+Projected Morphology of Extragalactic Tidal Streams</span>”</span> 954
+(2): 195. <a
+href="https://doi.org/10.3847/1538-4357/ace9bc">https://doi.org/10.3847/1538-4357/ace9bc</a>.
+</div>
+<div id="ref-2023A&amp;A...673A..86P" class="csl-entry" role="listitem">
+Pagnini, G., P. Di Matteo, S. Khoperskov, A. Mastrobuono-Battisti, M.
+Haywood, F. Renaud, and F. Combes. 2023. <span>“<span class="nocase">The
+distribution of globular clusters in kinematic spaces does not trace the
+accretion history of the host galaxy</span>”</span> 673 (May):A86. <a
+href="https://doi.org/10.1051/0004-6361/202245128">https://doi.org/10.1051/0004-6361/202245128</a>.
 </div>
 <div id="ref-1966ApJ...146..542P" class="csl-entry" role="listitem">
 Peebles, P. J. E. 1966. <span>“<span class="nocase">Primordial Helium
@@ -313,6 +546,20 @@ class="nocase">A Pan-Chromatic View of Clusters of Galaxies and the
 Large-Scale Structure</span></em>. Vol. 740. <a
 href="https://doi.org/10.1007/978-1-4020-6941-3">https://doi.org/10.1007/978-1-4020-6941-3</a>.
 </div>
+<div id="ref-1970ApJ...162..841S" class="csl-entry" role="listitem">
+Sandage, A. 1970. <span>“<span class="nocase">Main-sequence photometry,
+color-magnitude diagrams, and ages for the globular clusters M3, M13,
+M15 and M92.</span>”</span> 162 (December):841. <a
+href="https://doi.org/10.1086/150715">https://doi.org/10.1086/150715</a>.
+</div>
+<div id="ref-2024MNRAS.530.2378S" class="csl-entry" role="listitem">
+Schaller, Matthieu, Josh Borrow, Peter W. Draper, Mladen Ivkovic, Stuart
+McAlpine, Bert Vandenbroucke, Yannick Bahé, et al. 2024. <span>“<span
+class="nocase">SWIFT: A modern highly-parallel gravity and smoothed
+particle hydrodynamics solver for astrophysical and cosmological
+applications</span>”</span> 530 (2): 2378–2419. <a
+href="https://doi.org/10.1093/mnras/stae922">https://doi.org/10.1093/mnras/stae922</a>.
+</div>
 <div id="ref-2015ARA&amp;A..53...51S" class="csl-entry" role="listitem">
 Somerville, Rachel S., and Romeel Davé. 2015. <span>“<span
 class="nocase">Physical Models of Galaxy Formation in a Cosmological
@@ -326,14 +573,34 @@ Nucleosynthesis in the Precision Cosmology Era</span>.”</span>
 <a
 href="https://doi.org/10.1146/annurev.nucl.56.080805.140437">https://doi.org/10.1146/annurev.nucl.56.080805.140437</a>.
 </div>
-<div id="ref-2010AJ....140...75W" class="csl-entry" role="listitem">
-Whitmore, Bradley C., Rupali Chandar, François Schweizer, Barry
-Rothberg, Claus Leitherer, Marcia Rieke, George Rieke, W. P. Blair, S.
-Mengel, and A. Alonso-Herrero. 2010. <span>“<span class="nocase">The
-Antennae Galaxies (NGC 4038/4039) Revisited: Advanced Camera for Surveys
-and NICMOS Observations of a Prototypical Merger</span>”</span> 140 (1):
-75–109. <a
-href="https://doi.org/10.1088/0004-6256/140/1/75">https://doi.org/10.1088/0004-6256/140/1/75</a>.
+<div id="ref-1972ApJ...178..623T" class="csl-entry" role="listitem">
+Toomre, Alar, and Juri Toomre. 1972. <span>“<span
+class="nocase">Galactic Bridges and Tails</span>”</span> 178
+(December):623–66. <a
+href="https://doi.org/10.1086/151823">https://doi.org/10.1086/151823</a>.
+</div>
+<div id="ref-2013ApJ...775..134V" class="csl-entry" role="listitem">
+VandenBerg, Don A., K. Brogaard, R. Leaman, and L. Casagrande. 2013.
+<span>“<span class="nocase">The Ages of 55 Globular Clusters as
+Determined Using an Improved VĤB_TO Method along with Color-Magnitude
+Diagram Constraints, and Their Implications for Broader
+Issues</span>”</span> 775 (2): 134. <a
+href="https://doi.org/10.1088/0004-637X/775/2/134">https://doi.org/10.1088/0004-637X/775/2/134</a>.
+</div>
+<div id="ref-2011MNRAS.417..198V" class="csl-entry" role="listitem">
+Varghese, A., R. Ibata, and G. F. Lewis. 2011. <span>“<span
+class="nocase">Stellar streams as probes of dark halo mass and
+morphology: a Bayesian reconstruction</span>”</span> 417 (1): 198–215.
+<a
+href="https://doi.org/10.1111/j.1365-2966.2011.19097.x">https://doi.org/10.1111/j.1365-2966.2011.19097.x</a>.
+</div>
+<div id="ref-2016MNRAS.458.1450W" class="csl-entry" role="listitem">
+Wang, Long, Rainer Spurzem, Sverre Aarseth, Mirek Giersz, Abbas Askar,
+Peter Berczik, Thorsten Naab, Riko Schadow, and M. B. N. Kouwenhoven.
+2016. <span>“<span class="nocase">The DRAGON simulations: globular
+cluster evolution with a million stars</span>”</span> 458 (2): 1450–65.
+<a
+href="https://doi.org/10.1093/mnras/stw274">https://doi.org/10.1093/mnras/stw274</a>.
 </div>
 </div>
 </body>

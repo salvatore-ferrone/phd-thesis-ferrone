@@ -4,9 +4,7 @@
     \item To describe the physical mechanisms that govern this process;
     \item To acknowledge other physical ingredients that are relevant to globular cluster evolution but were deliberately omitted in our modeling, and to discuss the consequences of these omissions. 
 \end{enumerate}
-This chapter serves multiple roles: half learning resource for a Master's-level student interested in modeling stellar streams; half documentation and reflection for myself, consolidating what I've learned; half annotated bibliography pointing to more complete references; and half justification for the methodological choices made in this project. That's four halves—because none of them is fully complete on its own. Still, together they form something useful. I tried to write the chapter I wish I could hand to myself in 2022 to jump-start this research.
-
-Conceptually, the chapter is divided into three sections that mirror these motivations:
+I aimed to write the chapter, if handed to myself in 2022, would have jumped-start this research. Conceptually, the chapter is divided into three sections that mirror these motivations:
 
 \begin{itemize}
     \item \textbf{Explicit physics}: These are the fundamental equations that underpin our models;
@@ -16,8 +14,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
 
 
 \section{The Explicit Physics}
-
-    Globular clusters are dense stellar systems containing hundreds of thousands to millions of stars. Each star orbits within the gravitational potential of the cluster, while the cluster itself orbits the center of mass of the host galaxy. The galaxy, in turn, is composed of billions of stars, along with gas and dark matter, all contributing to its gravitational potential. A natural modeling approach is to treat the stars as point masses and to represent the gas and dark matter as continuous density distributions. This strategy would allow the construction of the Galactic gravitational field, potentially through a combination of hydrodynamical simulations for the gas and $N$-body simulations for the stars and dark matter. However, the feasibility of such an approach must be carefully considered.
+    Globular clusters are dense stellar systems containing hundreds of thousands to millions of stars. Each star orbits within the gravitational potential of the cluster, while the cluster itself orbits the center of mass of the host galaxy. This galaxy, in turn, is composed of billions of stars, along with gas and dark matter, all contributing to its gravitational potential. A natural modeling approach is to treat the stars as point masses and to represent the gas and dark matter as continuous density distributions. This strategy would allow the construction of the Galactic gravitational field, potentially through a combination of hydrodynamical simulations for the gas and $N$-body simulations for the stars and dark matter. However, the feasibility of such an approach must be carefully considered.
 
     The scaling of computation time is often analyzed using Big-O notation. For direct $N$-body simulations, the computational cost scales as $\mathcal{O}(N^2)$, since the gravitational force on each particle must be computed from every other particle. For the Milky Way, with approximately $10^{11}$ stars, we need to compute $5 \times 10^{21}$ pairwise distances per time step.
 
@@ -25,15 +22,14 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
 
     Moreover, the cost of power is non-negligible. At an estimated rate of $\sim 0.10~\mathrm{USD}/\mathrm{kWh}$ \citep{table20245}, and with Frontier consuming roughly 21 MW, a single 6-hour computation would cost approximately 12,600~USD. Running the system for a full day would amount to about 50,000~USD, or ~42,000 EUR \citep{ECB_USD_EUR_2025}. This is nearly twice the annual salary of a PhD student in France \citep{MESR_financement_doctoral}.
 
-    Throughout this thesis, I have access to the Pairs observatoy's super computer \citep{DIO_OBSPM}, which currently has about 85 nodes. However, as a humorous aside, consider attempting this computation on a personal research laptop, such as a MacBook Air with an M2 processor. Its estimated speed of $\sim$0.1 TFLOPS (i.e., $10^{11}$ FLOPS) \citep{hubner2025apple} is approximately 10 million times slower than Frontier. A single time step would thus take over 1,500 years.
+    Throughout this thesis, I have access to the Pairs observatoy's super computer \citep[tycho]{DIO_OBSPM}, which currently has about 85 nodes. However, as a humorous aside, consider attempting this computation on a personal research laptop, such as a MacBook Air with an M2 processor. Its estimated speed of $\sim$0.1 TFLOPS (i.e., $10^{11}$ FLOPS) \citep{hubner2025apple} is approximately 10 million times slower than Frontier. A single time step would thus take over 1,500 years.
 
-    Clearly, we require a more tractable modeling approach for studying the evolution of globular clusters and the formation of stellar streams. Fortunately, it is well justified to approximate all the stars in the galaxy as a smooth background density field rather than as a collection of point masses. This argument, presented in Section 1.2 of \citet{2008gady.book.....B}, shows that the inaccuracy of such a model becomes significant only on timescales far exceeding the age of the Universe. This is known as two-body relaxation. This process compares two hypothetical orbits for the same star. One within a smooth medium, and a second within a medium composed of point masses. The two-body relaxation time is how long it takes for these two trajectories to deviate significantly. We revist this in Section~XXX.
+    Clearly, we require a more tractable modeling approach for studying the evolution of globular clusters and the formation of stellar streams. Fortunately, it is well justified to approximate all the stars in the galaxy as a smooth background density field rather than as a collection of point masses. This argument, presented in Section 1.2 of \citet{2008gady.book.....B}, shows that the inaccuracy of such a model becomes significant only on timescales far exceeding the age of the Universe. This is known as two-body relaxation. This process compares two hypothetical orbits for the same star. One within a smooth medium, and a second within a medium composed of point masses. The two-body relaxation time is how long it takes for these two trajectories to deviate significantly. We revist this in Section~\ref{sec:twoBodyRelaxation}.
         
-    In globular clusters, where stars are densely packed into a relatively small volume, stellar encounters become significant over the system's lifetime. According to Chapter 5.1 of \citet{bovy_inprep}, the relaxation timescale within globular clusters is typically $\sim1$~Gyr. To contextualize this, we must consider the orbital period of a typical star within a cluster, and the age of a cluster. First, the characteristic time for a star to traverse the system—is roughly 1 Myr \citep[which can be estimated as the size of a system divided by its internal velocity dispersion][]{2018MNRAS.478.1520B}. Secondly, globular clusters are old systems, with ages ranging from several billion to over ten billion years \citep{2013ApJ...775..134V}. These timescales establish the following hierarchy for globular clusters:
+    In globular clusters, where stars are densely packed into a relatively small volume, stellar encounters become significant over the system's lifetime. According to Chapter~5.1 of \citet{bovy_inprep}, the relaxation timescale within globular clusters is typically $\sim1$~Gyr. To contextualize this, we must consider the orbital period of a typical star within a cluster, and the age of a cluster. First, the characteristic time for a star to traverse the system—is roughly 1 Myr \citep[which can be estimated as the size of a system divided by its internal velocity dispersion][]{2018MNRAS.478.1520B}. Secondly, globular clusters are old systems, with ages ranging from several billion to over ten billion years \citep{2013ApJ...775..134V}. These timescales establish the following hierarchy for globular clusters:
     \begin{equation*}
         t_\mathrm{cross} << t_\mathrm{relax} < t_\mathrm{age}
     \end{equation*}
-
     This has two major consequences. First, because the crossing time is much shorter than the relaxation time, the cluster can be considered in dynamical equilibrium at any given moment. The stars thus follow orbits determined by a smooth potential. Second, since the age of the cluster exceeds the relaxation time, cumulative stellar encounters (i.e., ``collisions'') significantly influence the system's long-term evolution.
 
     Despite the importance of collisional effects for the long-term evolution of globular clusters, explicitly modeling them via direct $N$-body simulations remains prohibitively expensive for our purposes. We return to this point in more detail in Section~\ref{sec:ignoredphysics}. In this thesis, we therefore adopt the collisionless approximation for both the Galactic background and the globular cluster. While this is well-justified for the Galaxy, treating the cluster as collisionless is a simplification that limits the generality of our results. Nonetheless, our goal is to accurately model the stellar streams, and the internal dynamics of the globular clusters are beyond the scope of this work.
@@ -69,8 +65,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
                         - m \Phi_{\rm gal}(\mathbf{r}) 
                         - m \Phi_{\rm gc}(\mathbf{r} - \mathbf{R}_{\rm gc}).
         \end{equation}  
-        \textbf{annotate the equations}. We decouple the equations of motion of the globular cluster and the star. The justification for this approximation is evident when we normalize the Lagrangian by the cluster mass, \( M_{\rm gc} \). This yields:
-
+        $M_{\mathrm{gc}}$ is the mass of the globular cluster, $m$ is the mass of a star, $\mathbf{R}_{\mathrm{gc}}$ is the galacto-centric position of the globular clusterm $r$ is the galacto-centric position of the star, $\Phi_{\rm gal}$ is the potential of the galaxy and $\Phi_{\mathrm{gc}}$ is the potential of the globular cluster. We decouple the equations of motion of the globular cluster and the star. The justification for this approximation is evident when we normalize the Lagrangian by the cluster mass. This yields:
         \begin{equation}
             \frac{\mathcal{L}}{M_{\rm gc}} = \frac{1}{2} \dot{\mathbf{R}}_{\rm gc}^2 
                                         - \Phi_{\rm gal}(\mathbf{R}_{\rm gc}) 
@@ -78,68 +73,71 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
                                         - \Phi_{\rm gal}(\mathbf{r}) 
                                         - \Phi_{\rm gc}(\mathbf{r} - \mathbf{R}_{\rm gc}) \right]}_{\text{negligible correction to GC's motion}}
         \end{equation}
-
         In the limit where \( m << M_{\rm gc} \), the terms in brackets become negligible, and the star's motion has no influence on the cluster. The Lagrangian for the cluster's orbit thus becomes:
-
         \begin{equation}
             \frac{\mathcal{L}_{\mathrm{gc}}}{M_{\mathrm{gc}}} = \frac{1}{2} \dot{\mathbf{R}}_{\rm gc}^2 
                                 - \Phi_{\rm gal}(\mathbf{R}_{\rm gc})
         \end{equation}
-
         Switching to the star's perspective, we normalize the Lagrangian by the particle mass \( m \), obtaining:
-
-        \begin{equation}
+        \begin{equation}\label{eq:starParticleLagrangian}
             \frac{\mathcal{L}_{\rm star}}{m} = \frac{1}{2} \dot{\mathbf{r}}^2 
                                 - \Phi_{\rm gal}(\mathbf{r}) 
                                 - \Phi_{\rm gc}(\mathbf{r} - \mathbf{R}_{\rm gc}(t))
         \end{equation}
-
-        Here, the cluster's influence on the particle is retained through its time-dependent position \( \mathbf{R}_{\rm gc}(t) \). This influence becomes important when the gravitational forces from the cluster and the galaxy on the particle are comparable. For a quick estimate, we treat both the galaxy and the cluster as point masses. The two forces become comparable when the particle is sufficiently close to the cluster, which occurs when: $|\mathbf{r} - \mathbf{R}_\mathrm{GC}| < \sqrt{\frac{M_{\mathrm{gc}}}{M_{\mathrm{ gal}}}} |\mathbf{r}|.$ In other words, the cluster's gravitational field dominates over the galaxy's on sufficiently small scales around the cluster — as expected. For a quick sanity check: a typical globular cluster may have a mass of \(10^5\, M_\odot\), while the galaxy may be around \(10^{11}\, M_\odot\). If the cluster is a few kiloparsecs from the galactic center, then the cluster's influence dominates within a region of order a few parsecs — which checks out. A better limit is the tidal radius and is presented in the next section.
+        Here, the cluster's influence on the particle is retained through its time-dependent position \( \mathbf{R}_{\rm gc}(t) \). This influence becomes important when the gravitational forces from the cluster and the galaxy on the particle are comparable. For a quick estimate, we can treat both the galaxy and the cluster as point masses. The two forces become comparable when the particle is sufficiently close to the cluster, which occurs when: $|\mathbf{r} - \mathbf{R}_\mathrm{GC}| < \sqrt{\frac{M_{\mathrm{gc}}}{M_{\mathrm{ gal}}}} |\mathbf{r}|.$ In other words, the cluster's gravitational field dominates over the galaxy's on sufficiently small scales around the cluster — as expected. For a quick sanity check: a typical globular cluster may have a mass of \(10^5\, M_\odot\), while the Milky Way may be around \(10^{12}\, M_\odot\) \citep{2025NewAR.10001721H}. If the cluster is a few kiloparsecs from the galactic center, then the cluster's influence dominates within a region of order a few parsecs — which checks out. A better limit is the tidal radius and is presented in the next section.
 
         Next, working in the Hamiltonian formalism often provides deeper insight into the physics of the system. Additionally, Hamiltonian mechanics reduces the equations of motion to a set of \(2N\) first-order differential equations, rather than \(N\) second-order ones, which is more convenient for computational integration.
 
-        The Hamiltonian can then be obtained via a Legendre transform: \(\mathcal{H} = \sum p_i \dot{q}_i - \mathcal{L},\) where $q$ is a generic position coordinate, $p$ is its conjugate momentum, while $i$ indicates the coordinate of interest. If we use the \textit{specific} Lagrangian—normalized by the mass of the body of interest—then, in Cartesian coordinates, the conjugate momenta reduce to the velocities: $p_i=\frac{\partial \mathcal{L}}{\partial q} \rightarrow p_i = v_i$. Another useful result comes from Noether's theorem: if a coordinate does not explicitly appear in the Lagrangian, its conjugate momentum is conserved. All galactic potentials considered in our simulation are axis-symmetric meaning they have cylindrical symmetry (see next section). Since the Lagrangian does not depend on the azimuthal angle \( \theta \) in the \(x\text{-}y\) plane for the cluster's motion, the conservation of the \(z\)-component of angular momentum is conserved: $p_\theta = L_z = \frac{\partial \mathcal{L}}{\partial \dot{\theta}} = R^2 \dot{\theta} = \mathrm{constant.}$
+        The Hamiltonian can then be obtained via a Legendre transform: \(\mathcal{H} = \sum p_i \dot{q}_i - \mathcal{L},\) where $q$ is a generic position coordinate, $p$ is its conjugate momentum, while $i$ indicates the coordinate of interest. If we use the \textit{specific} Lagrangian—normalized by the mass of the body of interest—then, in Cartesian coordinates, the conjugate momenta reduce to the velocities: $p_i=\frac{\partial \mathcal{L}}{\partial q} \rightarrow p_i = v_i$. Another useful result comes from Noether's theorem: if a coordinate does not explicitly appear in the Lagrangian, its conjugate momentum is conserved. Most of the galactic potentials considered in our simulation are axis-symmetric meaning they have cylindrical symmetry, except for case of a rotating stelalr bar. Since the Lagrangian does not depend on the azimuthal angle \( \theta \) in the \(x\text{-}y\) plane for the cluster's motion, the conservation of the \(z\)-component of angular momentum is conserved: $p_\theta = L_z = \frac{\partial \mathcal{L}}{\partial \dot{\theta}} = R^2 \dot{\theta} = \mathrm{constant.}$
 
-        This conservation generally does not hold for star particles within the globular cluster, as their dynamics are significantly influenced by the cluster's gravitational potential. However, once a star-particle escapes the cluster the conservation of the z-component of the angular momentum is recovered in the regime where their motion becomes dominated by the galaxy's potential. 
+        If we consider a star within an isolated globular cluster with spherical symmetry, its total angular momentum vector is conserved. whole angular momentum vector is conserved. However, if we consider the Eq.~\ref{eq:starParticleLagrangian}, then no quantities are conserved. There are no symmetries, and due to the explicit time dependence, energy is not conserved either. On the other hand, if a star-particle is sufficiently far from the globular cluster, such that its motion is governed solely by the galactic potential, then conservation of $L_z$ is recovered. 
 
         Hamilton's equations thus provide the time evolution of the momenta and the positions. In cartesian coordaintes, the equations of motion for the cluster are: 
-
-        \begin{align}\label{eq:equations_of_motion_cluster}
-            \dot{p}_{\mathrm{gc},x} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{R}_{\mathrm{gc}}\right)}{\partial x} \\
-            \dot{p}_{\mathrm{gc},y} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{R}_{\mathrm{gc}}\right)}{\partial y} \\
-            \dot{p}_{\mathrm{gc},z} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{R}_{\mathrm{gc}}\right)}{\partial z} \\
-            \dot{x}_{\mathrm{gc}} &= p_{\mathrm{gc},x} \\
-            \dot{y}_{\mathrm{gc}} &= p_{\mathrm{gc},y} \\
-            \dot{z}_{\mathrm{gc}} &= p_{\mathrm{gc},z}.
-        \end{align}
+        \begin{equation}\label{eq:equations_of_motion_cluster}
+            \begin{aligned}
+                \dot{p}_{x,\mathrm{gc}} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{R}_{\mathrm{gc}}\right)}{\partial x} \\
+                \dot{p}_{y,\mathrm{gc}} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{R}_{\mathrm{gc}}\right)}{\partial y} \\
+                \dot{p}_{z,\mathrm{gc}} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{R}_{\mathrm{gc}}\right)}{\partial z} \\
+                \dot{x}_{\mathrm{gc}} &= p_{\mathrm{gc},x} \\
+                \dot{y}_{\mathrm{gc}} &= p_{\mathrm{gc},y} \\
+                \dot{z}_{\mathrm{gc}} &= p_{\mathrm{gc},z}.
+            \end{aligned}
+        \end{equation}
         For the star particle, the equations of motion become: 
-        \begin{align}\label{eq:equations_of_motion_stream}
-            \dot{p}_{x} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial x} - \frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} - \mathbf{R}_{\mathrm{gc}}(t)\right)}{\partial x}\\
-            \dot{p}_{y} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial y} - \frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} - \mathbf{R}_{\mathrm{gc}}(t)\right)}{\partial y}\\
-            \dot{p}_{z} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial z} - \frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} - \mathbf{R}_{\mathrm{gc}}(t)\right)}{\partial z}\\
-            \dot{x} &= p_x \\
-            \dot{y} &= p_y \\
-            \dot{z} &= p_z,
-        \end{align} 
-        where $\mathbf{r} = \left(x,y,z\right)$. Note that equation~\ref{eq:equations_of_motion_stream} describes the motion of a single particle. In general, if we use 100,000 particles, the motion of each is described with this same equation, but has different initial conditions. 
+        \begin{equation}\label{eq:equations_of_motion_stream}
+            \begin{aligned}
+                \dot{p}_{x} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial x} - \frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} - \mathbf{R}_{\mathrm{gc}}(t)\right)}{\partial x}\\
+                \dot{p}_{y} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial y} - \frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} - \mathbf{R}_{\mathrm{gc}}(t)\right)}{\partial y}\\
+                \dot{p}_{z} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial z} - \frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} - \mathbf{R}_{\mathrm{gc}}(t)\right)}{\partial z}\\
+                \dot{x} &= p_x \\
+                \dot{y} &= p_y \\
+                \dot{z} &= p_z,
+            \end{aligned}
+        \end{equation} 
+        Note that equation~\ref{eq:equations_of_motion_stream} describes the motion of a single particle. In general, if we use 100,000 particles, the motion of each is described with this same equation, but has different initial conditions. 
         
-        In Chapter~5, we modify Equation~\ref{eq:equations_of_motion_cluster} to compute the $N$~body forces between all the clusters. While we created these equations to avoid $N$-body computations, it is not too computationally expensive to implement this for the cluster's themselves since we only have about 160 clusters. These equations are modified by:  
-        \begin{align}\label{eq:equations_of_motion_cluster_n_body}
-            \dot{p}_{x,i} = - \frac{\partial \Phi_\mathrm{gal}}{\partial x} - \sum_{j\neq i}^N \left[\frac{\partial \Phi_\mathrm{gc}\left(\mathbf{R}_i-\mathbf{R}_j|M_j,b_j\right)}{\partial x}\right], \\ 
-            \dot{p}_{y,i} = - \frac{\partial \Phi_\mathrm{gal}}{\partial y} - \sum_{j\neq i}^N \left[\frac{\partial \Phi_\mathrm{gc}\left(\mathbf{R}_i-\mathbf{R}_j|M_j,b_j\right)}{\partial y}\right], \\ 
-            \dot{p}_{z,i} = - \frac{\partial \Phi_\mathrm{gal}}{\partial z} - \sum_{j\neq i}^N \left[\frac{\partial \Phi_\mathrm{gc}\left(\mathbf{R}_i-\mathbf{R}_j|M_j,b_j\right)}{\partial z}\right],
-        \end{align}
-        where $i$ is the index of a target cluster and $j$ iterates over the others. Note that in $\Phi_{\mathrm{gc}}$, I explicitly write $M_j,b_j$ to indicate the mass and scale length of the $j^{\mathrm{th}}$ cluster. Each cluster has it's own scale-length, which were computed from the half-mass radii reported in \citet{2018MNRAS.478.1520B}. Since the scale lengths differ from each cluster, we violate Newton's third law: $\dot{p}_{ij} \neq - \dot{p}_{ji}$. However, this is a minor consequence. Since I model each cluster as a Plummer sphere (as explained in the next section), at distances much greater than the scale radius, the functional form is the same as a point mass. 
+        Equation~\ref{eq:equations_of_motion_cluster} describes the motion of a globular cluster within the Galactic potential, while Equation~\ref{eq:equations_of_motion_stream} models the evolution of stars within the cluster and the formation of a stellar stream, assuming a fixed orbital path for the cluster. However, globular clusters do not evolve in isolation. To explore interactions, such as those between clusters and nearby streams, we must extend the equations of motion accordingly. This is the central focus of Chapter~5, which investigates how globular clusters can perturb neighboring stellar streams.
+
+        To capture such interactions, we first modify Equation~\ref{eq:equations_of_motion_cluster} to include mutual gravitational forces between all clusters, effectively computing $N$-body interactions among them. While full $N$-body dynamics are typically avoided due to computational cost, this extension is tractable here, as the system includes only about 160 clusters. The resulting modified equations are:
+        \begin{equation}\label{eq:equations_of_motion_cluster_n_body}
+            \begin{aligned}
+                \dot{p}_{x,i} = - \frac{\partial \Phi_\mathrm{gal}}{\partial x} - \sum_{j\neq i}^N \left[\frac{\partial \Phi_\mathrm{gc}\left(\mathbf{R}_i-\mathbf{R}_j|M_j,b_j\right)}{\partial x}\right], \\ 
+                \dot{p}_{y,i} = - \frac{\partial \Phi_\mathrm{gal}}{\partial y} - \sum_{j\neq i}^N \left[\frac{\partial \Phi_\mathrm{gc}\left(\mathbf{R}_i-\mathbf{R}_j|M_j,b_j\right)}{\partial y}\right], \\ 
+                \dot{p}_{z,i} = - \frac{\partial \Phi_\mathrm{gal}}{\partial z} - \sum_{j\neq i}^N \left[\frac{\partial \Phi_\mathrm{gc}\left(\mathbf{R}_i-\mathbf{R}_j|M_j,b_j\right)}{\partial z}\right],
+            \end{aligned}
+        \end{equation}
+        where $i$ is the index of a target cluster and $j$ iterates over the others. Note that in $\Phi_{\mathrm{gc}}$, I explicitly write $M_j,b_j$ to indicate the mass and scale length of the $j^{\mathrm{th}}$ cluster. Each cluster has it's own scale-length, which were computed from the half-mass radii reported in \citet{2018MNRAS.478.1520B}. Since each cluster is modeled with a distinct scale radius, Newton's third law is not strictly satisfied: $\dot{\mathbf{p}}_{ij} \neq -\dot{\mathbf{p}}_{ji}$\footnote{We define the force exerted by cluster $j$ on cluster $i$ as $\mathbf{p}_{ij} = \frac{-G M_i M_j}{\left(b_j^2 + r_{ij}^2\right)^{3/2}} \mathbf{r}_{ij}$, where $\mathbf{r}_{ij} = \mathbf{r}_i - \mathbf{r}_j$ and $b_j$ is the Plummer scale radius of cluster $j$. When $b_i \neq b_j$, the forces are not equal and opposite, thus violating Newton's third law. However, in the limit $r_{ij} \gg b_i, b_j$, this asymmetry vanishes, and the interaction reduces to that of point masses.}. This violation is not dynamically significant in practice. Since each cluster is modeled as a Plummer sphere (see Section~\ref{sec:plummer_model}), the force profile converges to that of a point mass at distances much greater than the scale radius. As a result, the approximation remains valid for most inter-cluster separations.
 
         Lastly, in terms of the stream generation for Chapter~5, equation~\ref{eq:equations_of_motion_stream} are also modified to include the force from all the clusters, instead of just the host cluster. This becomes: 
-        \begin{align}
-            \dot{p}_{x} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial x} - \sum_i^N \frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} - \mathbf{R}_i(t)\right)}{\partial x}\\
-            \dot{p}_{y} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial y} - \sum_i^N \frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} - \mathbf{R}_i(t)\right)}{\partial y}\\
-            \dot{p}_{z} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial z} - \sum_i^N \frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} - \mathbf{R}_i(t)\right)}{\partial z}
-        \end{align}
-
-        The equations of motion listed above are what are used for the experiments presented in Chapters~4~\&~5, respectively. The first two sets of equations are those used when generating the streams through the resectried three body problem, while the second set generate the streams in a Milky Way where other globular clusters fly around and can perturb a given stream. The next two subsections introduce the various forms that $\Phi$ can take, followed by the generation of the initial conditions. 
-
+        \begin{equation}
+            \begin{aligned}
+                \dot{p}_{x} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial x} - \sum_i^N \frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} - \mathbf{R}_i(t)\right)}{\partial x}\\
+                \dot{p}_{y} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial y} - \sum_i^N \frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} - \mathbf{R}_i(t)\right)}{\partial y}\\
+                \dot{p}_{z} &= -\frac{\partial \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial z} - \sum_i^N \frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} - \mathbf{R}_i(t)\right)}{\partial z}
+            \end{aligned}
+        \end{equation}
+        The first two sets of equations are used to model the streams associated with each of the Galactic globular clusters, in a system where each cluster is subject only to the gravitational pull of the Galaxy. The second set of equations takes into account the fact that each cluster, and each particle in its stream, is generally also influenced by the gravitational pull of all the other Galactic globular clusters. The next two subsections introduce the various forms that $\Phi$ can take, followed by the generation of the initial conditions. 
+ 
 
     \subsection{The Gravitational Field} \label{subsec:gravfield}
         Determining the gravitational field of the Milky Way remains an open and complex problem. From our location within the Galaxy, it is difficult to obtain a global perspective. Since the advent of extragalactic astronomy and early classification efforts such as those by \citet{1926ApJ....64..321H}, we have begun to ask what the total structure of our own Galaxy is. Before providing a robust estimate for the global mass distribution, some simpler questions were addressed. For example, \citet{1927BAN.....4...91O} studied the motion of stars in the local solar neighborhood and showed that the Galaxy not only has net rotation, but also differential rotation—as opposed to solid-body rotation.
@@ -967,7 +965,7 @@ Conceptually, the chapter is divided into three sections that mirror these motiv
         But how severe is this limitation? By neglecting the collisional nature of globular clusters and adopting a test-particle framework, we constrain our ability to model the rate at which stars escape, the manner of their ejection, and the identity of the stars that escape. Below, I present a basic demonstration of two-body relaxation, followed by a summary of key studies that explore the consequences of including internal cluster dynamics more fully.
 
 
-        \subsubsection{Two-body Relaxation Time: a derivation and example}
+        \subsubsection{Two-body Relaxation Time: a derivation and example} \label{sec:twoBodyRelaxation}
             While it is appropriate to treat the orbits of stars in galaxy as collisionless, this approximation breaks down in the context of globular clusters. Here, I present a brief numerical experiment to illustrate the concept of two-body relaxation, which quantifies the breakdown of the mean-field approximation.
 
             Two-body relaxation asks: how long does it take for the discrete, granular nature of the stellar medium to cause a star's trajectory to deviate significantly from the one it would follow in a perfectly smooth (mean-field) potential? This timescale is defined by the condition: $\delta v / v_0 \sim 1$, meaning that the change in the velocity due to the medium roughly the original speed.

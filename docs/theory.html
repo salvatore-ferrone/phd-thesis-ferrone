@@ -205,17 +205,9 @@ process;</p></li>
 globular cluster evolution but were deliberately omitted in our
 modeling, and to discuss the consequences of these omissions.</p></li>
 </ol>
-<p>This chapter serves multiple roles: half learning resource for a
-Master’s-level student interested in modeling stellar streams; half
-documentation and reflection for myself, consolidating what I’ve
-learned; half annotated bibliography pointing to more complete
-references; and half justification for the methodological choices made
-in this project. That’s four halves—because none of them is fully
-complete on its own. Still, together they form something useful. I tried
-to write the chapter I wish I could hand to myself in 2022 to jump-start
-this research.</p>
-<p>Conceptually, the chapter is divided into three sections that mirror
-these motivations:</p>
+<p>I aimed to write the chapter, if handed to myself in 2022, would have
+jumped-start this research. Conceptually, the chapter is divided into
+three sections that mirror these motivations:</p>
 <ul>
 <li><p><strong>Explicit physics</strong>: These are the fundamental
 equations that underpin our models;</p></li>
@@ -232,7 +224,7 @@ results.</p></li>
 <p>Globular clusters are dense stellar systems containing hundreds of
 thousands to millions of stars. Each star orbits within the
 gravitational potential of the cluster, while the cluster itself orbits
-the center of mass of the host galaxy. The galaxy, in turn, is composed
+the center of mass of the host galaxy. This galaxy, in turn, is composed
 of billions of stars, along with gas and dark matter, all contributing
 to its gravitational potential. A natural modeling approach is to treat
 the stars as point masses and to represent the gas and dark matter as
@@ -256,7 +248,7 @@ time step.</p>
 operates at approximately one exaflop, or <span
 class="math inline">\(10^{18}\)</span> FLOPS (Floating Point Operations
 Per Second) <span class="citation"
-data-cites="atchley2023frontier">(Atchley et al. 2023)</span>.
+data-cites="atchley2023frontier">(<strong>atchley2023frontier?</strong>)</span>.
 Assuming—conservatively—that each pairwise computation requires a single
 FLOP, a full <span class="math inline">\(N\)</span>-body computation of
 the Galaxy at one time step would still require several hours. While
@@ -267,24 +259,25 @@ a task is therefore a considerable demand.</p>
 <p>Moreover, the cost of power is non-negligible. At an estimated rate
 of <span class="math inline">\(\sim
 0.10~\mathrm{USD}/\mathrm{kWh}\)</span> <span class="citation"
-data-cites="table20245">(Table 2024)</span>, and with Frontier consuming
-roughly 21 MW, a single 6-hour computation would cost approximately
-12,600 USD. Running the system for a full day would amount to about
-50,000 USD, or  42,000 EUR <span class="citation"
-data-cites="ECB_USD_EUR_2025">(European Central Bank 2025)</span>. This
-is nearly twice the annual salary of a PhD student in France <span
-class="citation" data-cites="MESR_financement_doctoral">(Ministere de
-l’Enseignement superieur et de la Recherche 2025)</span>.</p>
+data-cites="table20245">(<strong>table20245?</strong>)</span>, and with
+Frontier consuming roughly 21 MW, a single 6-hour computation would cost
+approximately 12,600 USD. Running the system for a full day would amount
+to about 50,000 USD, or  42,000 EUR <span class="citation"
+data-cites="ECB_USD_EUR_2025">(<strong>ECB_USD_EUR_2025?</strong>)</span>.
+This is nearly twice the annual salary of a PhD student in France <span
+class="citation"
+data-cites="MESR_financement_doctoral">(<strong>MESR_financement_doctoral?</strong>)</span>.</p>
 <p>Throughout this thesis, I have access to the Pairs observatoy’s super
-computer <span class="citation" data-cites="DIO_OBSPM">(l’Observatoire
-de Paris 2025)</span>, which currently has about 85 nodes. However, as a
-humorous aside, consider attempting this computation on a personal
-research laptop, such as a MacBook Air with an M2 processor. Its
-estimated speed of <span class="math inline">\(\sim\)</span>0.1 TFLOPS
-(i.e., <span class="math inline">\(10^{11}\)</span> FLOPS) <span
-class="citation" data-cites="hubner2025apple">(Hübner et al.
-2025)</span> is approximately 10 million times slower than Frontier. A
-single time step would thus take over 1,500 years.</p>
+computer <span class="citation"
+data-cites="DIO_OBSPM">(<strong>DIO_OBSPM?</strong>, tycho)</span>,
+which currently has about 85 nodes. However, as a humorous aside,
+consider attempting this computation on a personal research laptop, such
+as a MacBook Air with an M2 processor. Its estimated speed of <span
+class="math inline">\(\sim\)</span>0.1 TFLOPS (i.e., <span
+class="math inline">\(10^{11}\)</span> FLOPS) <span class="citation"
+data-cites="hubner2025apple">(<strong>hubner2025apple?</strong>)</span>
+is approximately 10 million times slower than Frontier. A single time
+step would thus take over 1,500 years.</p>
 <p>Clearly, we require a more tractable modeling approach for studying
 the evolution of globular clusters and the formation of stellar streams.
 Fortunately, it is well justified to approximate all the stars in the
@@ -297,12 +290,14 @@ This is known as two-body relaxation. This process compares two
 hypothetical orbits for the same star. One within a smooth medium, and a
 second within a medium composed of point masses. The two-body relaxation
 time is how long it takes for these two trajectories to deviate
-significantly. We revist this in Section XXX.</p>
+significantly. We revist this in Section <a
+href="#sec:twoBodyRelaxation" data-reference-type="ref"
+data-reference="sec:twoBodyRelaxation">3.1.1</a>.</p>
 <p>In globular clusters, where stars are densely packed into a
 relatively small volume, stellar encounters become significant over the
-system’s lifetime. According to Chapter 5.1 of <span class="citation"
-data-cites="bovy_inprep">Bovy (2025)</span>, the relaxation timescale
-within globular clusters is typically <span
+system’s lifetime. According to Chapter 5.1 of <span class="citation"
+data-cites="bovy_inprep">(<strong>bovy_inprep?</strong>)</span>, the
+relaxation timescale within globular clusters is typically <span
 class="math inline">\(\sim1\)</span> Gyr. To contextualize this, we must
 consider the orbital period of a typical star within a cluster, and the
 age of a cluster. First, the characteristic time for a star to traverse
@@ -314,14 +309,13 @@ ages ranging from several billion to over ten billion years <span
 class="citation" data-cites="2013ApJ...775..134V">(VandenBerg et al.
 2013)</span>. These timescales establish the following hierarchy for
 globular clusters: <span class="math display">\[t_\mathrm{cross}
-&lt;&lt; t_\mathrm{relax} &lt; t_\mathrm{age}\]</span></p>
-<p>This has two major consequences. First, because the crossing time is
-much shorter than the relaxation time, the cluster can be considered in
-dynamical equilibrium at any given moment. The stars thus follow orbits
-determined by a smooth potential. Second, since the age of the cluster
-exceeds the relaxation time, cumulative stellar encounters (i.e.,
-“collisions”) significantly influence the system’s long-term
-evolution.</p>
+&lt;&lt; t_\mathrm{relax} &lt; t_\mathrm{age}\]</span> This has two
+major consequences. First, because the crossing time is much shorter
+than the relaxation time, the cluster can be considered in dynamical
+equilibrium at any given moment. The stars thus follow orbits determined
+by a smooth potential. Second, since the age of the cluster exceeds the
+relaxation time, cumulative stellar encounters (i.e., “collisions”)
+significantly influence the system’s long-term evolution.</p>
 <p>Despite the importance of collisional effects for the long-term
 evolution of globular clusters, explicitly modeling them via direct
 <span class="math inline">\(N\)</span>-body simulations remains
@@ -394,11 +388,12 @@ class="math inline">\(\Phi\)</span> is the gravitational potential. We
 use Newtonian mechanics throughout this work because <span
 class="math inline">\(\Phi &lt;&lt; c^2\)</span> in all relevant
 regimes, meaning General Relativity is not required <span
-class="citation" data-cites="bovy_inprep">(see Appendix C of Bovy
-2025)</span>. Poisson’s equation assumes Newton’s postulate that
-gravitational forces act instantaneously and that masses attract each
-other along the line connecting them. <a href="#fn1"
-class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+class="citation" data-cites="bovy_inprep">(see Appendix C of
+<strong>bovy_inprep?</strong>)</span>. Poisson’s equation assumes
+Newton’s postulate that gravitational forces act instantaneously and
+that masses attract each other along the line connecting them. <a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
 <p>Instead of writing down the gravitational forces through Newton’s
 second law, I will write down Hamilton’s equations derived from the
 variational principle of Lagrangian mechanics. The full interacting
@@ -411,12 +406,19 @@ particle-cluster interaction: <span class="math display">\[\mathcal{L} =
                         - M_{\rm gc} \Phi_{\rm gal}(\mathbf{R}_{\rm gc})
                         - m \Phi_{\rm gal}(\mathbf{r})
                         - m \Phi_{\rm gc}(\mathbf{r} - \mathbf{R}_{\rm
-gc}).\]</span> <strong>annotate the equations</strong>. We decouple the
-equations of motion of the globular cluster and the star. The
-justification for this approximation is evident when we normalize the
-Lagrangian by the cluster mass, <span class="math inline">\(M_{\rm
-gc}\)</span>. This yields:</p>
-<p><span class="math display">\[\frac{\mathcal{L}}{M_{\rm gc}} =
+gc}).\]</span> <span class="math inline">\(M_{\mathrm{gc}}\)</span> is
+the mass of the globular cluster, <span class="math inline">\(m\)</span>
+is the mass of a star, <span
+class="math inline">\(\mathbf{R}_{\mathrm{gc}}\)</span> is the
+galacto-centric position of the globular clusterm <span
+class="math inline">\(r\)</span> is the galacto-centric position of the
+star, <span class="math inline">\(\Phi_{\rm gal}\)</span> is the
+potential of the galaxy and <span
+class="math inline">\(\Phi_{\mathrm{gc}}\)</span> is the potential of
+the globular cluster. We decouple the equations of motion of the
+globular cluster and the star. The justification for this approximation
+is evident when we normalize the Lagrangian by the cluster mass. This
+yields: <span class="math display">\[\frac{\mathcal{L}}{M_{\rm gc}} =
 \frac{1}{2} \dot{\mathbf{R}}_{\rm gc}^2
                                         - \Phi_{\rm gal}(\mathbf{R}_{\rm
 gc})
@@ -425,41 +427,41 @@ gc}} \left[ \frac{1}{2} \dot{\mathbf{r}}^2
                                         - \Phi_{\rm gal}(\mathbf{r})
                                         - \Phi_{\rm gc}(\mathbf{r} -
 \mathbf{R}_{\rm gc}) \right]}_{\text{negligible correction to GC&#39;s
-motion}}\]</span></p>
-<p>In the limit where <span class="math inline">\(m &lt;&lt; M_{\rm
-gc}\)</span>, the terms in brackets become negligible, and the star’s
-motion has no influence on the cluster. The Lagrangian for the cluster’s
-orbit thus becomes:</p>
-<p><span
+motion}}\]</span> In the limit where <span class="math inline">\(m
+&lt;&lt; M_{\rm gc}\)</span>, the terms in brackets become negligible,
+and the star’s motion has no influence on the cluster. The Lagrangian
+for the cluster’s orbit thus becomes: <span
 class="math display">\[\frac{\mathcal{L}_{\mathrm{gc}}}{M_{\mathrm{gc}}}
 = \frac{1}{2} \dot{\mathbf{R}}_{\rm gc}^2
                                 - \Phi_{\rm gal}(\mathbf{R}_{\rm
-gc})\]</span></p>
-<p>Switching to the star’s perspective, we normalize the Lagrangian by
-the particle mass <span class="math inline">\(m\)</span>, obtaining:</p>
-<p><span class="math display">\[\frac{\mathcal{L}_{\rm star}}{m} =
-\frac{1}{2} \dot{\mathbf{r}}^2
+gc})\]</span> Switching to the star’s perspective, we normalize the
+Lagrangian by the particle mass <span class="math inline">\(m\)</span>,
+obtaining: <span
+class="math display">\[\label{eq:starParticleLagrangian}
+            \frac{\mathcal{L}_{\rm star}}{m} = \frac{1}{2}
+\dot{\mathbf{r}}^2
                                 - \Phi_{\rm gal}(\mathbf{r})
                                 - \Phi_{\rm gc}(\mathbf{r} -
-\mathbf{R}_{\rm gc}(t))\]</span></p>
-<p>Here, the cluster’s influence on the particle is retained through its
-time-dependent position <span class="math inline">\(\mathbf{R}_{\rm
-gc}(t)\)</span>. This influence becomes important when the gravitational
-forces from the cluster and the galaxy on the particle are comparable.
-For a quick estimate, we treat both the galaxy and the cluster as point
-masses. The two forces become comparable when the particle is
-sufficiently close to the cluster, which occurs when: <span
-class="math inline">\(|\mathbf{r} - \mathbf{R}_\mathrm{GC}| &lt;
-\sqrt{\frac{M_{\mathrm{gc}}}{M_{\mathrm{ gal}}}} |\mathbf{r}|.\)</span>
-In other words, the cluster’s gravitational field dominates over the
-galaxy’s on sufficiently small scales around the cluster — as expected.
-For a quick sanity check: a typical globular cluster may have a mass of
-<span class="math inline">\(10^5\, M_\odot\)</span>, while the galaxy
-may be around <span class="math inline">\(10^{11}\, M_\odot\)</span>. If
-the cluster is a few kiloparsecs from the galactic center, then the
-cluster’s influence dominates within a region of order a few parsecs —
-which checks out. A better limit is the tidal radius and is presented in
-the next section.</p>
+\mathbf{R}_{\rm gc}(t))\]</span> Here, the cluster’s influence on the
+particle is retained through its time-dependent position <span
+class="math inline">\(\mathbf{R}_{\rm gc}(t)\)</span>. This influence
+becomes important when the gravitational forces from the cluster and the
+galaxy on the particle are comparable. For a quick estimate, we can
+treat both the galaxy and the cluster as point masses. The two forces
+become comparable when the particle is sufficiently close to the
+cluster, which occurs when: <span class="math inline">\(|\mathbf{r} -
+\mathbf{R}_\mathrm{GC}| &lt; \sqrt{\frac{M_{\mathrm{gc}}}{M_{\mathrm{
+gal}}}} |\mathbf{r}|.\)</span> In other words, the cluster’s
+gravitational field dominates over the galaxy’s on sufficiently small
+scales around the cluster — as expected. For a quick sanity check: a
+typical globular cluster may have a mass of <span
+class="math inline">\(10^5\, M_\odot\)</span>, while the Milky Way may
+be around <span class="math inline">\(10^{12}\, M_\odot\)</span> <span
+class="citation" data-cites="2025NewAR.10001721H">(Hunt and Vasiliev
+2025)</span>. If the cluster is a few kiloparsecs from the galactic
+center, then the cluster’s influence dominates within a region of order
+a few parsecs — which checks out. A better limit is the tidal radius and
+is presented in the next section.</p>
 <p>Next, working in the Hamiltonian formalism often provides deeper
 insight into the physics of the system. Additionally, Hamiltonian
 mechanics reduces the equations of motion to a set of <span
@@ -477,10 +479,10 @@ Cartesian coordinates, the conjugate momenta reduce to the velocities:
 <span class="math inline">\(p_i=\frac{\partial \mathcal{L}}{\partial q}
 \rightarrow p_i = v_i\)</span>. Another useful result comes from
 Noether’s theorem: if a coordinate does not explicitly appear in the
-Lagrangian, its conjugate momentum is conserved. All galactic potentials
-considered in our simulation are axis-symmetric meaning they have
-cylindrical symmetry (see next section). Since the Lagrangian does not
-depend on the azimuthal angle <span
+Lagrangian, its conjugate momentum is conserved. Most of the galactic
+potentials considered in our simulation are axis-symmetric meaning they
+have cylindrical symmetry, except for case of a rotating stelalr bar.
+Since the Lagrangian does not depend on the azimuthal angle <span
 class="math inline">\(\theta\)</span> in the <span
 class="math inline">\(x\text{-}y\)</span> plane for the cluster’s
 motion, the conservation of the <span
@@ -488,119 +490,142 @@ class="math inline">\(z\)</span>-component of angular momentum is
 conserved: <span class="math inline">\(p_\theta = L_z = \frac{\partial
 \mathcal{L}}{\partial \dot{\theta}} = R^2 \dot{\theta} =
 \mathrm{constant.}\)</span></p>
-<p>This conservation generally does not hold for star particles within
-the globular cluster, as their dynamics are significantly influenced by
-the cluster’s gravitational potential. However, once a star-particle
-escapes the cluster the conservation of the z-component of the angular
-momentum is recovered in the regime where their motion becomes dominated
-by the galaxy’s potential.</p>
+<p>If we consider a star within an isolated globular cluster with
+spherical symmetry, its total angular momentum vector is conserved.
+whole angular momentum vector is conserved. However, if we consider the
+Eq. <a href="#eq:starParticleLagrangian" data-reference-type="ref"
+data-reference="eq:starParticleLagrangian">[eq:starParticleLagrangian]</a>,
+then no quantities are conserved. There are no symmetries, and due to
+the explicit time dependence, energy is not conserved either. On the
+other hand, if a star-particle is sufficiently far from the globular
+cluster, such that its motion is governed solely by the galactic
+potential, then conservation of <span class="math inline">\(L_z\)</span>
+is recovered.</p>
 <p>Hamilton’s equations thus provide the time evolution of the momenta
 and the positions. In cartesian coordaintes, the equations of motion for
-the cluster are:</p>
-<p><span class="math display">\[\begin{aligned}
-\label{eq:equations_of_motion_cluster}
-            \dot{p}_{\mathrm{gc},x} &amp;= -\frac{\partial
+the cluster are: <span
+class="math display">\[\label{eq:equations_of_motion_cluster}
+            \begin{aligned}
+                \dot{p}_{x,\mathrm{gc}} &amp;= -\frac{\partial
 \Phi_\mathrm{gal}\left(\mathbf{R}_{\mathrm{gc}}\right)}{\partial x} \\
-            \dot{p}_{\mathrm{gc},y} &amp;= -\frac{\partial
+                \dot{p}_{y,\mathrm{gc}} &amp;= -\frac{\partial
 \Phi_\mathrm{gal}\left(\mathbf{R}_{\mathrm{gc}}\right)}{\partial y} \\
-            \dot{p}_{\mathrm{gc},z} &amp;= -\frac{\partial
+                \dot{p}_{z,\mathrm{gc}} &amp;= -\frac{\partial
 \Phi_\mathrm{gal}\left(\mathbf{R}_{\mathrm{gc}}\right)}{\partial z} \\
-            \dot{x}_{\mathrm{gc}} &amp;= p_{\mathrm{gc},x} \\
-            \dot{y}_{\mathrm{gc}} &amp;= p_{\mathrm{gc},y} \\
-            \dot{z}_{\mathrm{gc}} &amp;= p_{\mathrm{gc},z}.
-        
-\end{aligned}\]</span> For the star particle, the equations of motion
-become: <span class="math display">\[\begin{aligned}
-\label{eq:equations_of_motion_stream}
-            \dot{p}_{x} &amp;= -\frac{\partial
+                \dot{x}_{\mathrm{gc}} &amp;= p_{\mathrm{gc},x} \\
+                \dot{y}_{\mathrm{gc}} &amp;= p_{\mathrm{gc},y} \\
+                \dot{z}_{\mathrm{gc}} &amp;= p_{\mathrm{gc},z}.
+            \end{aligned}\]</span> For the star particle, the equations
+of motion become: <span
+class="math display">\[\label{eq:equations_of_motion_stream}
+            \begin{aligned}
+                \dot{p}_{x} &amp;= -\frac{\partial
 \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial x} - \frac{\partial
 \Phi_\mathrm{gc}\left(\mathbf{r} -
 \mathbf{R}_{\mathrm{gc}}(t)\right)}{\partial x}\\
-            \dot{p}_{y} &amp;= -\frac{\partial
+                \dot{p}_{y} &amp;= -\frac{\partial
 \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial y} - \frac{\partial
 \Phi_\mathrm{gc}\left(\mathbf{r} -
 \mathbf{R}_{\mathrm{gc}}(t)\right)}{\partial y}\\
-            \dot{p}_{z} &amp;= -\frac{\partial
+                \dot{p}_{z} &amp;= -\frac{\partial
 \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial z} - \frac{\partial
 \Phi_\mathrm{gc}\left(\mathbf{r} -
 \mathbf{R}_{\mathrm{gc}}(t)\right)}{\partial z}\\
-            \dot{x} &amp;= p_x \\
-            \dot{y} &amp;= p_y \\
-            \dot{z} &amp;= p_z,
-        
-\end{aligned}\]</span> where <span class="math inline">\(\mathbf{r} =
-\left(x,y,z\right)\)</span>. Note that equation <a
+                \dot{x} &amp;= p_x \\
+                \dot{y} &amp;= p_y \\
+                \dot{z} &amp;= p_z,
+            \end{aligned}\]</span> Note that equation <a
 href="#eq:equations_of_motion_stream" data-reference-type="ref"
 data-reference="eq:equations_of_motion_stream">[eq:equations_of_motion_stream]</a>
 describes the motion of a single particle. In general, if we use 100,000
 particles, the motion of each is described with this same equation, but
 has different initial conditions.</p>
-<p>In Chapter 5, we modify Equation <a
+<p>Equation <a href="#eq:equations_of_motion_cluster"
+data-reference-type="ref"
+data-reference="eq:equations_of_motion_cluster">[eq:equations_of_motion_cluster]</a>
+describes the motion of a globular cluster within the Galactic
+potential, while Equation <a href="#eq:equations_of_motion_stream"
+data-reference-type="ref"
+data-reference="eq:equations_of_motion_stream">[eq:equations_of_motion_stream]</a>
+models the evolution of stars within the cluster and the formation of a
+stellar stream, assuming a fixed orbital path for the cluster. However,
+globular clusters do not evolve in isolation. To explore interactions,
+such as those between clusters and nearby streams, we must extend the
+equations of motion accordingly. This is the central focus of Chapter 5,
+which investigates how globular clusters can perturb neighboring stellar
+streams.</p>
+<p>To capture such interactions, we first modify Equation <a
 href="#eq:equations_of_motion_cluster" data-reference-type="ref"
 data-reference="eq:equations_of_motion_cluster">[eq:equations_of_motion_cluster]</a>
-to compute the <span class="math inline">\(N\)</span> body forces
-between all the clusters. While we created these equations to avoid
-<span class="math inline">\(N\)</span>-body computations, it is not too
-computationally expensive to implement this for the cluster’s themselves
-since we only have about 160 clusters. These equations are modified by:
-<span class="math display">\[\begin{aligned}
-\label{eq:equations_of_motion_cluster_n_body}
-            \dot{p}_{x,i} = - \frac{\partial \Phi_\mathrm{gal}}{\partial
-x} - \sum_{j\neq i}^N \left[\frac{\partial
+to include mutual gravitational forces between all clusters, effectively
+computing <span class="math inline">\(N\)</span>-body interactions among
+them. While full <span class="math inline">\(N\)</span>-body dynamics
+are typically avoided due to computational cost, this extension is
+tractable here, as the system includes only about 160 clusters. The
+resulting modified equations are: <span
+class="math display">\[\label{eq:equations_of_motion_cluster_n_body}
+            \begin{aligned}
+                \dot{p}_{x,i} = - \frac{\partial
+\Phi_\mathrm{gal}}{\partial x} - \sum_{j\neq i}^N \left[\frac{\partial
 \Phi_\mathrm{gc}\left(\mathbf{R}_i-\mathbf{R}_j|M_j,b_j\right)}{\partial
 x}\right], \\
-            \dot{p}_{y,i} = - \frac{\partial \Phi_\mathrm{gal}}{\partial
-y} - \sum_{j\neq i}^N \left[\frac{\partial
+                \dot{p}_{y,i} = - \frac{\partial
+\Phi_\mathrm{gal}}{\partial y} - \sum_{j\neq i}^N \left[\frac{\partial
 \Phi_\mathrm{gc}\left(\mathbf{R}_i-\mathbf{R}_j|M_j,b_j\right)}{\partial
 y}\right], \\
-            \dot{p}_{z,i} = - \frac{\partial \Phi_\mathrm{gal}}{\partial
-z} - \sum_{j\neq i}^N \left[\frac{\partial
+                \dot{p}_{z,i} = - \frac{\partial
+\Phi_\mathrm{gal}}{\partial z} - \sum_{j\neq i}^N \left[\frac{\partial
 \Phi_\mathrm{gc}\left(\mathbf{R}_i-\mathbf{R}_j|M_j,b_j\right)}{\partial
 z}\right],
-        
-\end{aligned}\]</span> where <span class="math inline">\(i\)</span> is
-the index of a target cluster and <span class="math inline">\(j\)</span>
-iterates over the others. Note that in <span
-class="math inline">\(\Phi_{\mathrm{gc}}\)</span>, I explicitly write
-<span class="math inline">\(M_j,b_j\)</span> to indicate the mass and
-scale length of the <span class="math inline">\(j^{\mathrm{th}}\)</span>
-cluster. Each cluster has it’s own scale-length, which were computed
-from the half-mass radii reported in <span class="citation"
+            \end{aligned}\]</span> where <span
+class="math inline">\(i\)</span> is the index of a target cluster and
+<span class="math inline">\(j\)</span> iterates over the others. Note
+that in <span class="math inline">\(\Phi_{\mathrm{gc}}\)</span>, I
+explicitly write <span class="math inline">\(M_j,b_j\)</span> to
+indicate the mass and scale length of the <span
+class="math inline">\(j^{\mathrm{th}}\)</span> cluster. Each cluster has
+it’s own scale-length, which were computed from the half-mass radii
+reported in <span class="citation"
 data-cites="2018MNRAS.478.1520B">Baumgardt and Hilker (2018)</span>.
-Since the scale lengths differ from each cluster, we violate Newton’s
-third law: <span class="math inline">\(\dot{p}_{ij} \neq -
-\dot{p}_{ji}\)</span>. However, this is a minor consequence. Since I
-model each cluster as a Plummer sphere (as explained in the next
-section), at distances much greater than the scale radius, the
-functional form is the same as a point mass.</p>
+Since each cluster is modeled with a distinct scale radius, Newton’s
+third law is not strictly satisfied: <span
+class="math inline">\(\dot{\mathbf{p}}_{ij} \neq
+-\dot{\mathbf{p}}_{ji}\)</span><a href="#fn2" class="footnote-ref"
+id="fnref2" role="doc-noteref"><sup>2</sup></a>. his violation is not
+dynamically significant in practice. Since each cluster is modeled as a
+Plummer sphere (see Section <a href="#sec:plummer_model"
+data-reference-type="ref"
+data-reference="sec:plummer_model">[sec:plummer_model]</a>), the force
+profile converges to that of a point mass at distances much greater than
+the scale radius. As a result, the approximation remains valid for most
+inter-cluster separations.</p>
 <p>Lastly, in terms of the stream generation for Chapter 5, equation <a
 href="#eq:equations_of_motion_stream" data-reference-type="ref"
 data-reference="eq:equations_of_motion_stream">[eq:equations_of_motion_stream]</a>
 are also modified to include the force from all the clusters, instead of
 just the host cluster. This becomes: <span
 class="math display">\[\begin{aligned}
-            \dot{p}_{x} &amp;= -\frac{\partial
+                \dot{p}_{x} &amp;= -\frac{\partial
 \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial x} - \sum_i^N
 \frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} -
 \mathbf{R}_i(t)\right)}{\partial x}\\
-            \dot{p}_{y} &amp;= -\frac{\partial
+                \dot{p}_{y} &amp;= -\frac{\partial
 \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial y} - \sum_i^N
 \frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} -
 \mathbf{R}_i(t)\right)}{\partial y}\\
-            \dot{p}_{z} &amp;= -\frac{\partial
+                \dot{p}_{z} &amp;= -\frac{\partial
 \Phi_\mathrm{gal}\left(\mathbf{r}\right)}{\partial z} - \sum_i^N
 \frac{\partial \Phi_\mathrm{gc}\left(\mathbf{r} -
 \mathbf{R}_i(t)\right)}{\partial z}
-        
-\end{aligned}\]</span></p>
-<p>The equations of motion listed above are what are used for the
-experiments presented in Chapters 4 &amp; 5, respectively. The first two
-sets of equations are those used when generating the streams through the
-resectried three body problem, while the second set generate the streams
-in a Milky Way where other globular clusters fly around and can perturb
-a given stream. The next two subsections introduce the various forms
-that <span class="math inline">\(\Phi\)</span> can take, followed by the
-generation of the initial conditions.</p>
+            \end{aligned}\]</span> The equations of motion listed above
+are what are used for the experiments presented in Chapters 4 &amp; 5,
+respectively. The first two sets of equations are those used when
+generating the streams through the resectried three body problem, while
+the second set generate the streams in a Milky Way where other globular
+clusters fly around and can perturb a given stream. The next two
+subsections introduce the various forms that <span
+class="math inline">\(\Phi\)</span> can take, followed by the generation
+of the initial conditions.</p>
 <h2 id="subsec:gravfield">The Gravitational Field</h2>
 <p>Determining the gravitational field of the Milky Way remains an open
 and complex problem. From our location within the Galaxy, it is
@@ -1132,8 +1157,9 @@ that allows one to reconstruct <span class="math inline">\(f(E)\)</span>
 from a known <span class="math inline">\(\rho(r)\)</span>. This
 technique is presented in <span class="citation"
 data-cites="2008gady.book.....B">Binney and Tremaine (2008)</span> and
-<span class="citation" data-cites="bovy_inprep">Bovy (2025)</span>. At
-this point, one can obtain a complete analytic expression for the
+<span class="citation"
+data-cites="bovy_inprep">(<strong>bovy_inprep?</strong>)</span>. At this
+point, one can obtain a complete analytic expression for the
 distribution function. For a Plummer sphere, this distribution function
 is <span class="math inline">\(f = C (-E)^{7/2}\)</span>, where <span
 class="math inline">\(C\)</span> is a constant that ensures <span
@@ -1382,8 +1408,8 @@ class="math inline">\(\Phi_\mathrm{eff}\)</span>, we gain valuable
 insights.</p>
 <p>Our Hamiltonian depends on the four variables <span
 class="math inline">\((x, y, p_x, p_y)\)</span> and has one integral of
-motion.<a href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a> A famous quantity in this context is
+motion.<a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a> A famous quantity in this context is
 the Jacobi integral (or Jacobi constant), often written as <span
 class="math inline">\(C_j = -2E\)</span>. Defining this constant is
 somewhat arbitrary since the total mechanical energy <span
@@ -1430,17 +1456,18 @@ src="images/CR3BP_forbidden_region_2.png" alt="image" /></p>
 <p><img src="images/CR3BP_forbidden_region_3.png" alt="image" /> <img
 src="images/CR3BP_forbidden_region_4.png" alt="image" /></p>
 <figcaption>A reproduction of Fig. 2.4.2 from <span class="citation"
-data-cites="koon2000dynamical">Koon et al. (2000)</span>. Each plot is
-shown in the non-inertial reference frame rotating with the orbital
-frequency of the primary and secondary about their common center of
-mass. In this example, the mass ratio is <span class="math inline">\(m_1
-= 10 m_2\)</span>. The gray regions represent areas inaccessible to the
-test particle for a given energy. In the first case, where <span
-class="math inline">\(E &lt; E_1\)</span>, the particle remains confined
-to orbit either around the primary or the secondary, depending on its
-initial position. As the particle’s energy increases, more of the <span
-class="math inline">\(xy\)</span>-plane becomes accessible. The narrow
-passage between <span class="math inline">\(m_1\)</span> and <span
+data-cites="koon2000dynamical">(<strong>koon2000dynamical?</strong>)</span>.
+Each plot is shown in the non-inertial reference frame rotating with the
+orbital frequency of the primary and secondary about their common center
+of mass. In this example, the mass ratio is <span
+class="math inline">\(m_1 = 10 m_2\)</span>. The gray regions represent
+areas inaccessible to the test particle for a given energy. In the first
+case, where <span class="math inline">\(E &lt; E_1\)</span>, the
+particle remains confined to orbit either around the primary or the
+secondary, depending on its initial position. As the particle’s energy
+increases, more of the <span class="math inline">\(xy\)</span>-plane
+becomes accessible. The narrow passage between <span
+class="math inline">\(m_1\)</span> and <span
 class="math inline">\(m_2\)</span> corresponds to the <span
 class="math inline">\(L_1\)</span> Lagrange point, while the choke point
 allowing escape to the exterior when <span class="math inline">\(E &gt;
@@ -2610,8 +2637,8 @@ manner of their ejection, and the identity of the stars that escape.
 Below, I present a basic demonstration of two-body relaxation, followed
 by a summary of key studies that explore the consequences of including
 internal cluster dynamics more fully.</p>
-<h3 id="two-body-relaxation-time-a-derivation-and-example">Two-body
-Relaxation Time: a derivation and example</h3>
+<h3 id="sec:twoBodyRelaxation">Two-body Relaxation Time: a derivation
+and example</h3>
 <p>While it is appropriate to treat the orbits of stars in galaxy as
 collisionless, this approximation breaks down in the context of globular
 clusters. Here, I present a brief numerical experiment to illustrate the
@@ -2673,8 +2700,8 @@ class="math inline">\(G = M = R = t_\mathrm{cross} = 1\)</span>, giving
 <span class="math inline">\(v_0 = 1\)</span> and <span
 class="math inline">\(m = M/N_p\)</span>. For Fig. <a
 href="#fig:twoBodyRelaxation" data-reference-type="ref"
-data-reference="fig:twoBodyRelaxation">22</a><a href="#fn3"
-class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>,
+data-reference="fig:twoBodyRelaxation">22</a><a href="#fn4"
+class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>,
 <span class="math inline">\(N_p = 500\)</span>, so the number density is
 <span class="math inline">\(500/\pi\)</span>.</p>
 <p>At each timestep <span class="math inline">\(dt\)</span>, a
@@ -2830,8 +2857,8 @@ data-cites="2010MNRAS.409..305L">Lamers, Baumgardt, and Gieles
 of which—driven by stellar evolution—dominates the early lifetime. If an
 exploding star is part of a binary, its companion may also be ejected.
 The extent of this effect depends strongly on both the initial mass
-function and metallicity of the cluster.<a href="#fn4"
-class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+function and metallicity of the cluster.<a href="#fn5"
+class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
 <div id="ref-1991RMxAA..22..255A" class="csl-entry" role="listitem">
@@ -2850,13 +2877,6 @@ Cunningham, Andrew Wetzel, and Nicolás Garavito-Camargo. 2022.
 <span>“<span class="nocase">On the Stability of Tidal Streams in Action
 Space</span>”</span> 939 (1): 2. <a
 href="https://doi.org/10.3847/1538-4357/ac93fb">https://doi.org/10.3847/1538-4357/ac93fb</a>.
-</div>
-<div id="ref-atchley2023frontier" class="csl-entry" role="listitem">
-Atchley, Scott, Christopher Zimmer, John Lange, David Bernholdt,
-Veronica Melesse Vergara, Thomas Beck, Michael Brim, et al. 2023.
-<span>“Frontier: Exploring Exascale.”</span> In <em>Proceedings of the
-International Conference for High Performance Computing, Networking,
-Storage and Analysis</em>, 1–16.
 </div>
 <div id="ref-2018MNRAS.474.2479B" class="csl-entry" role="listitem">
 Balbinot, Eduardo, and Mark Gieles. 2018. <span>“<span
@@ -2902,10 +2922,6 @@ href="https://doi.org/10.1146/annurev-astro-081915-023441">https://doi.org/10.11
 Bovy, Jo. 2015. <span>“<span class="nocase">galpy: A python Library for
 Galactic Dynamics</span>”</span> 216 (2): 29. <a
 href="https://doi.org/10.1088/0067-0049/216/2/29">https://doi.org/10.1088/0067-0049/216/2/29</a>.
-</div>
-<div id="ref-bovy_inprep" class="csl-entry" role="listitem">
-———. 2025. <em>Dynamics and Astrophysics of Galaxies</em>. Princeton,
-NJ: Princeton University Press.
 </div>
 <div id="ref-2018ApJS..239...31B" class="csl-entry" role="listitem">
 Brandt, Timothy D. 2018. <span>“<span class="nocase">The Hipparcos-Gaia
@@ -2962,11 +2978,6 @@ Erkal, Denis, and Vasily Belokurov. 2015. <span>“<span
 class="nocase">Forensics of subhalo-stream encounters: the three phases
 of gap growth</span>”</span> 450 (1): 1136–49. <a
 href="https://doi.org/10.1093/mnras/stv655">https://doi.org/10.1093/mnras/stv655</a>.
-</div>
-<div id="ref-ECB_USD_EUR_2025" class="csl-entry" role="listitem">
-European Central Bank. 2025. <span>“<span class="nocase">Euro foreign
-exchange reference rate US dollar: 1 EUR = 1.1726 USD</span>.”</span>
-Retrieved from ECB website.
 </div>
 <div id="ref-2014IPNPR.196C...1F" class="csl-entry" role="listitem">
 Folkner, W. M., J. G. Williams, D. H. Boggs, R. S. Park, and P.
@@ -3047,11 +3058,11 @@ Hubble, E. P. 1926. <span>“<span class="nocase">Extragalactic
 nebulae.</span>”</span> 64 (December):321–69. <a
 href="https://doi.org/10.1086/143018">https://doi.org/10.1086/143018</a>.
 </div>
-<div id="ref-hubner2025apple" class="csl-entry" role="listitem">
-Hübner, Paul, Andong Hu, Ivy Peng, and Stefano Markidis. 2025.
-<span>“Apple Vs. Oranges: Evaluating the Apple Silicon m-Series SoCs for
-HPC Performance and Efficiency.”</span> <em>arXiv Preprint
-arXiv:2502.05317</em>.
+<div id="ref-2025NewAR.10001721H" class="csl-entry" role="listitem">
+Hunt, Jason A. S., and Eugene Vasiliev. 2025. <span>“<span
+class="nocase">Milky Way dynamics in light of Gaia</span>”</span> 100
+(June):101721. <a
+href="https://doi.org/10.1016/j.newar.2024.101721">https://doi.org/10.1016/j.newar.2024.101721</a>.
 </div>
 <div id="ref-2021ApJ...914..123I" class="csl-entry" role="listitem">
 Ibata, Rodrigo, Khyati Malhan, Nicolas Martin, Dominique Aubert, Benoit
@@ -3082,12 +3093,6 @@ Framework for Synthetic Milky Way Population Generation</span>”</span>
 169 (6): 317. <a
 href="https://doi.org/10.3847/1538-3881/adcd7a">https://doi.org/10.3847/1538-3881/adcd7a</a>.
 </div>
-<div id="ref-koon2000dynamical" class="csl-entry" role="listitem">
-Koon, Wang Sang, Martin W Lo, Jerrold E Marsden, and Shane D Ross. 2000.
-<span>“Dynamical Systems, the Three-Body Problem and Space Mission
-Design.”</span> In <em>Equadiff 99: (In 2 Volumes)</em>, 1167–81. World
-Scientific.
-</div>
 <div id="ref-2001MNRAS.322..231K" class="csl-entry" role="listitem">
 Kroupa, Pavel. 2001. <span>“<span class="nocase">On the variation of the
 initial mass function</span>”</span> 322 (2): 231–46. <a
@@ -3099,11 +3104,6 @@ class="nocase">The photometric evolution of star clusters and the
 preferential loss of low-mass bodies - with an application to globular
 clusters</span>”</span> 490 (1): 151–71. <a
 href="https://doi.org/10.1051/0004-6361:200810167">https://doi.org/10.1051/0004-6361:200810167</a>.
-</div>
-<div id="ref-DIO_OBSPM" class="csl-entry" role="listitem">
-l’Observatoire de Paris. 2025. <span>“<span class="nocase">DIO
-Supercomputer at the Paris Observatory</span>.”</span> <a
-href="https://dio.obspm.fr/" class="uri">https://dio.obspm.fr/</a>.
 </div>
 <div id="ref-2010MNRAS.409..305L" class="csl-entry" role="listitem">
 Lamers, Henny J. G. L. M., Holger Baumgardt, and Mark Gieles. 2010.
@@ -3191,12 +3191,6 @@ Meylan, G., and D. C. Heggie. 1997. <span>“<span class="nocase">Internal
 dynamics of globular clusters</span>”</span> 8 (January):1–143. <a
 href="https://doi.org/10.1007/s001590050008">https://doi.org/10.1007/s001590050008</a>.
 </div>
-<div id="ref-MESR_financement_doctoral" class="csl-entry"
-role="listitem">
-Ministere de l’Enseignement superieur et de la Recherche. 2025.
-<span>“Le Financement Doctoral.”</span> <a
-href="https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-46472">https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-46472</a>.
-</div>
 <div id="ref-1975PASJ...27..533M" class="csl-entry" role="listitem">
 Miyamoto, M., and R. Nagai. 1975. <span>“<span
 class="nocase">Three-dimensional models for the distribution of mass in
@@ -3263,17 +3257,12 @@ Schneider, J. M. Carpenter, C. Beichman, et al. 2006. <span>“<span>The
 Two Micron All Sky Survey (2MASS)</span>”</span> 131 (2): 1163–83. <a
 href="https://doi.org/10.1086/498708">https://doi.org/10.1086/498708</a>.
 </div>
-<div id="ref-table20245" class="csl-entry" role="listitem">
-Table, EIA. 2024. <span>“5.6. A. Average Price of Electricity to
-Ultimate Customers by End-Use Sector.”</span> <em>US Energy Information
-Administration</em>.
-</div>
 <div id="ref-2013ApJ...775..134V" class="csl-entry" role="listitem">
 VandenBerg, Don A., K. Brogaard, R. Leaman, and L. Casagrande. 2013.
 <span>“<span class="nocase">The Ages of 55 Globular Clusters as
-Determined Using an Improved Method along with Color-Magnitude Diagram
-Constraints, and Their Implications for Broader Issues</span>”</span>
-775 (2): 134. <a
+Determined Using an Improved VĤB_TO Method along with Color-Magnitude
+Diagram Constraints, and Their Implications for Broader
+Issues</span>”</span> 775 (2): 134. <a
 href="https://doi.org/10.1088/0004-637X/775/2/134">https://doi.org/10.1088/0004-637X/775/2/134</a>.
 </div>
 <div id="ref-2021MNRAS.505.5978V" class="csl-entry" role="listitem">
@@ -3318,25 +3307,39 @@ This ensures that the resulting spacetime curvature produces a force
 equivalent to attraction toward the body’s instantaneous position,
 rather than where it was when the gravitational influence was emitted.<a
 href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>The term “integral of motion” is often used
+<li id="fn2"><p>We define the force exerted by cluster <span
+class="math inline">\(j\)</span> on cluster <span
+class="math inline">\(i\)</span> as <span
+class="math inline">\(\mathbf{p}_{ij} = \frac{-G M_i M_j}{\left(b_j^2 +
+r_{ij}^2\right)^{3/2}} \mathbf{r}_{ij}\)</span>, where <span
+class="math inline">\(\mathbf{r}_{ij} = \mathbf{r}_i -
+\mathbf{r}_j\)</span> and <span class="math inline">\(b_j\)</span> is
+the Plummer scale radius of cluster <span
+class="math inline">\(j\)</span>. When <span class="math inline">\(b_i
+\neq b_j\)</span>, the forces are not equal and opposite, thus violating
+Newton’s third law. However, in the limit <span
+class="math inline">\(r_{ij} \gg b_i, b_j\)</span>, this asymmetry
+vanishes, and the interaction reduces to that of point masses.<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>The term “integral of motion” is often used
 interchangeably with “constant of motion”, but strictly speaking, the
 latter is preferable since it refers to a quantity that remains constant
 throughout the orbital evolution, not to an integral in the mathematical
-sense of the word (area under a curve).<a href="#fnref2"
+sense of the word (area under a curve).<a href="#fnref3"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>The two-body relaxation experiment is purely
+<li id="fn4"><p>The two-body relaxation experiment is purely
 illustrative. Despite multiple attempts, I was unable to make the
 numerical results consistent with the theoretical prediction. Not only
 is the relaxation process significantly slower than expected, but the
 discrepancy also worsens with increasing particle number. I rewrote the
 script several times but was unable to identify the issue. Nonetheless,
 the main takeaway remains valid: gravitational two-body encounters
-induce a random walk in velocity space.<a href="#fnref3"
+induce a random walk in velocity space.<a href="#fnref4"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>I once wondered whether the kinetic energy deposited by
+<li id="fn5"><p>I once wondered whether the kinetic energy deposited by
 a supernova’s ejecta might dynamically affect nearby stars. A quick
 back-of-the-envelope estimate suggests it is negligible. The mass simply
-puffs out of the cluster.<a href="#fnref4" class="footnote-back"
+puffs out of the cluster.<a href="#fnref5" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
