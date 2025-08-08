@@ -126,11 +126,11 @@ AXIS00 = {"xticks":[], "yticks":yticks,
 AXIS01 = {"xticks":[], "yticks":[],
         "ylabel":"","title":"xz plane","aspect":"equal",}
 AXIS10 = {"xticks":[], "yticks":yticks,
-        "ylabel":"Thin Disc","title":"","aspect":"equal",}
+        "ylabel":"Thick Disc","title":"","aspect":"equal",}
 AXIS11 = {"xticks":[], "yticks":[],
         "ylabel":"","title":"","aspect":"equal",}
 AXIS20 = {"xticks":[], "yticks":yticks,
-        "ylabel":"Martos Halo","title":"","aspect":"equal",}
+        "ylabel":"AS Halo","title":"","aspect":"equal",}
 AXIS21 = {"xticks":[], "yticks":[],
         "ylabel":"","title":"","aspect":"equal",}
 AXIS30 = {"xticks":xticks, "yticks":yticks,
@@ -146,7 +146,7 @@ AXIS31 = {"xticks":xticks, "yticks":[],
 fig_name="../../images/figure_pouliasis2017pii_potential_{:d}_{:d}.png".format(xlims[0],xlims[1])
 
 
-fig=plt.figure(figsize=(8.27-2,11.69-3.5))
+fig=plt.figure(figsize=(8.3-2,8.3-2))
 gs = mpl.gridspec.GridSpec(4, 3, hspace=0.0, wspace=0,width_ratios=[1,1,0.05],height_ratios=[1,1,1,1])
 axes = []
 for i in range(4):
