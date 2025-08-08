@@ -13,8 +13,8 @@ import pouliasis2017pii as p2017pii
 import multiprocessing as mp
 mpl.rcParams['text.usetex']=True
 
-pagewidth,pageheight=8.27,11.69
-horizontalmargin=2*1.73
+pagewidth,pageheight=8.3,11.69
+horizontalmargin=2
 potential = tstrippy.potentials.miyamotonagai
 
 def get_tidal_eigenvalues_along_orbit(params,tensor_func,orbit,):
@@ -50,7 +50,7 @@ def make_and_save_figure(apocenter, inclination, pseudo_e, bp, dtfactor, Ndyntim
     outfname = "../tidalTensorImages/miyamoto_disc_shocks_ab_rp_e_i_{:0.2f}_{:0.1f}_{:0.2f}_{:0.1f}.png".format(bp, apocenter, pseudo_e, inclination)
 
     fig.subplots_adjust(left=0.18,bottom=0.25)  # Increase if needed
-
+    fig.tight_layout()
     fig.savefig(outfname, dpi=300)
     print(f"Saved figure to {outfname}")
     plt.close(fig)
@@ -123,7 +123,7 @@ def compute_orbit_and_shocks_and_make_figure(
     axis2 = fig.add_subplot(gs[0, 1])
 
 
-    axis2.plot(Rt,zt, color="k",linewidth=1)
+    
     axis2.set(**AXIS2)
     axis2.yaxis.set_label_position("right")
     axis2.yaxis.tick_right()
@@ -143,15 +143,24 @@ def compute_orbit_and_shocks_and_make_figure(
     axis.set_ylim(3e-5,3e0)
 
     if inclination > 5:
+        print("inclination", inclination)
         for i in range(0,len(disccrossings),1):
         #     axis.text(timesteps[disccrossings[i]],np.abs(eigenvalues[disccrossings[i],2]),r'$|z|_{\mathrm{min}}$',color='k',fontsize=8)
             axis.scatter(timesteps[disccrossings[i]],np.abs(eigenvalues[disccrossings[i],2]),marker='*',c='MediumPurple',s=10,zorder=10)
             axis2.scatter(Rt[disccrossings[i]],zt[disccrossings[i]],marker='*',c='MediumPurple',s=10,zorder=10)
+        axis2.plot(Rt,zt, color="k",linewidth=1)
+    else:
+        axis2.plot(xt,yt,color="k",linewidth=1)
+        axis2.set_xlabel(r"$\mathrm{x} [a]$")
+        axis2.set_ylabel(r"$\mathrm{y} [a]$")
 
     if pseudo_e > 0.1:
         for i in range(0,len(pericenters),1):
             axis.scatter(timesteps[pericenters[i]],np.abs(eigenvalues[pericenters[i],0]),marker='o',color='DarkOrange',s=10,zorder=10)
-            axis2.scatter(Rt[pericenters[i]],zt[pericenters[i]],marker='o',color='DarkOrange',s=10,zorder=10)
+            if inclination > 5:
+                axis2.scatter(Rt[pericenters[i]],zt[pericenters[i]],marker='o',color='DarkOrange',s=10,zorder=10)
+            else:
+                axis2.scatter(xt[pericenters[i]],yt[pericenters[i]],marker='o',color='DarkOrange',s=10,zorder=10)
             # axis.text(timesteps[pericenters[i]],np.abs(eigenvalues[pericenters[i],2]) -2e-3,r'$r_{\mathrm{max}}$',color='k',fontsize=8)
 
     axis.set_xlim(timesteps[0],timesteps[-1])

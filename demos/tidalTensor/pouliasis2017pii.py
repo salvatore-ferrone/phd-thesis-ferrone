@@ -108,7 +108,7 @@ def tidally_deform_sphere(tidal_tensor,radius,t_dyn,npoints=30):
 def get_planar_velocity_vector(potential, params, apocenter, pseudo_e):
     """
     Sets a velocity vectors perpendicular to the radius vector and the orbital plane
-    It is assumed that you are giving a position vector AT PERICENTER.
+    It is assumed that you are giving a position vector AT APOCENTER.
     This way, the dynamical time is the shortest time. 
     """
     # params          =   [1.0,1.0,1.0,bp] # G,M,a=1,1,1
