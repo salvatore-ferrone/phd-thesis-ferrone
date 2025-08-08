@@ -1051,28 +1051,35 @@ extrapolate properties of the halo, it is prudent to explore a variety
 of Galactic models, especially when no single model is clearly
 preferred.</p>
 <h2 id="subsec:initialconditions">Generating a Globular Cluster</h2>
-<p>Now that we have our equations of motion established, and we have an
-accurate model for computing the gravitational force at each point in
-the galaxy, what are the initial conditions? First, the initial
-conditions for the centers’ of mass of the globular clusters, their mass
-and size, are taken observationally from <span class="citation"
-data-cites="2018MNRAS.478.1520B">Baumgardt and Hilker (2018)</span>.
-What about the stars within the cluster?</p>
-<p>We have choosen the potential for each cluster to be a Plummer sphere
-from Eq. <a href="#eq:plummer" data-reference-type="ref"
-data-reference="eq:plummer">[eq:plummer]</a>, which means that it is
-more massive in the center and whose density decreases with a power law
-beyond the characteristic radius. We can use this to obtain a mass
-profile, and then sample this distribution to obtain initial positions
-for each particle.</p>
-<p>Unfortunately, positions alone are not enough, for we must also know
-the velocities. After sampling the positions, we could do something
-crude by saying that each star has a velocity vector that could point in
-any direction with equal probability. This is known as being
-<em>isotropic</em> or equally random. Next, we could say that a star’s
-speed could be anywhere from zero to the escape velocity. While this
-would work to create a set of plausible initial conditions, it would not
-be <em>self-consistent</em>.</p>
+<p>Now that the equations of motion established, and we have an accurate
+model for computing the gravitational force at each point in the galaxy,
+what are the initial conditions? First, the initial conditions for the
+kinematics, mass, and size, of the globular clusters are taken
+observationally from <span class="citation"
+data-cites="2018MNRAS.478.1520B">Baumgardt and Hilker (2018)</span>
+<span class="citation"
+data-cites="2017MNRAS.464.2174B 2019MNRAS.482.5138B 2020PASA...37...46B 2021MNRAS.505.5957B">(this
+catalog was assembled across a series of works, see also Baumgardt 2017;
+Baumgardt et al. 2019; Baumgardt, Sollima, and Hilker 2020; Baumgardt
+and Vasiliev 2021)</span><a href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a>. Specifically, their estiamted total
+masses, half-mass radii, as well as their on-sky ICRS coordinates, that
+we then convert to galacto-centric coordinates (see Chapters 4 and 5).
+What about intidial conditions for the stars within the cluster?</p>
+<p>We have chosen the gravitational potential of each cluster to follow
+a Plummer sphere, as given in Eq. <a href="#eq:plummer"
+data-reference-type="ref" data-reference="eq:plummer">[eq:plummer]</a>.
+The corresponding mass profile can be sampled to generate initial
+positions for individual particles. However, positional information
+alone is insufficient, we must also assign appropriate velocities. One
+crude approach, following the sampling of positions, is to assign a
+velocity vector drawn isotropically; that is, with a direction uniformly
+distributed over the sphere. Furthermore, the speed could be sampled
+uniformly between zero and the local escape velocity. While this method
+can produce plausible initial conditions, it lacks
+<em>self-consistency</em>, as the resulting phase-space distribution
+would not correspond to a stable equilibrium configuration of the chosen
+potential.</p>
 <p>In galactic dynamics, a fundamental challenge is the
 <em>self-consistency problem</em>. This involves a loop of three
 steps:</p>
@@ -1326,7 +1333,7 @@ the unit sphere, we obtain full position and velocity vectors for each
 particle. With these, the initial conditions for a Plummer sphere are
 fully specified. The user need only provide the total mass,
 characteristic radius, and the desired number of star particles.</p>
-<p>With the equations of motion defined, a model for the galactic
+<p>With the equations of motion defined, a model for the Galactic
 gravitational field established, a force model for the globular cluster
 in place, and initial conditions assigned to each star particle, we are
 now ready to simulate the tidal disruption of a globular cluster in the
@@ -1350,7 +1357,7 @@ equations that be.</p>
 three-body problem, the simplest formalism for understanding the kinds
 of motion a massless body can undergo when influenced by two much more
 massive ones. I then introduce the tidal tensor, which describes how and
-why the galactic field eventually strips stars from their host clusters.
+why the Galactic field eventually strips stars from their host clusters.
 After that, I discuss phase mixing, which explains the evolution of
 escaped stars and how they come to form coherent stellar streams. This
 also helps explain the divergence of orbital solutions over time, which
@@ -1432,8 +1439,8 @@ class="math inline">\(\Phi_\mathrm{eff}\)</span>, we gain valuable
 insights.</p>
 <p>Our Hamiltonian depends on the four variables <span
 class="math inline">\((x, y, p_x, p_y)\)</span> and has one integral of
-motion.<a href="#fn3" class="footnote-ref" id="fnref3"
-role="doc-noteref"><sup>3</sup></a> A famous quantity in this context is
+motion.<a href="#fn4" class="footnote-ref" id="fnref4"
+role="doc-noteref"><sup>4</sup></a> A famous quantity in this context is
 the Jacobi integral (or Jacobi constant), often written as <span
 class="math inline">\(C_j = -2E\)</span>. Defining this constant is
 somewhat arbitrary since the total mechanical energy <span
@@ -1545,7 +1552,7 @@ treated as an external perturbation to the field of the globular cluster
 (the secondary). In this section, I aim to build an intuitive and formal
 understanding of tidal forces, framing them as tensor quantities. We
 begin with the simplest case—the familiar Sun-Earth system—before
-extending the discussion to the galactic context. I also provide a
+extending the discussion to the Galactic context. I also provide a
 broader overview of how tidal forces vary depending on the cluster’s
 orbit within the galaxy.</p>
 <p>To start, tidal forces arise due to spatial variations in the
@@ -1998,7 +2005,7 @@ specifically toward the Lagrange points. The stretching component is
 significantly amplified during pericenter passages, causing many stars
 to escape in bursts.</p>
 <p>This process doesn’t fling stars into intergalactic space. Rather,
-the galactic tidal field is typically weak compared to the cluster’s own
+the Galactic tidal field is typically weak compared to the cluster’s own
 gravitational pull, and escaping stars gain just enough energy to leave
 the cluster. As a result, they are still on very similar orbits to the
 clusters once they escape.</p>
@@ -2234,7 +2241,7 @@ disrupted population of globular clusters within a Milky Way analog. The
 y-axis is the normalized z-component of the angular momentum, with zero
 corresponding to polar orbits and 1 corresponding to planar orbits. The
 x-axis is a “distance” of the “center-of-mass” of a stream from the
-galactic center. Each stream is plotted in galactic coordinates annd are
+Galactic center. Each stream is plotted in galactic coordinates annd are
 to scale with one-another. The bottom right quandrant satisfies their
 “streaminess criterion”. Credit: Fig 7 of <span class="citation"
 data-cites="2024ApJ...976...54P">Pearson et al.
@@ -2280,7 +2287,7 @@ colliding with stellar streams</h2>
 described how the escaped stars can redistribute themselves in the
 galaxy following a nice evolutionary flow in the gravitational field
 from normal hamiltonian evolution. However, other things can happen to
-the stream. Notably, other massive objects in the galactic field can
+the stream. Notably, other massive objects in the Galactic field can
 fly-by and perturb the orbits of some of these stars. Here, I would ike
 to summarize this.</p>
 <p>Collisions are essential in this thesis for two reasons. Firstly, one
@@ -2447,7 +2454,7 @@ sublinear rate, scaling roughly as <span class="math inline">\(\propto
 \sqrt{t}\)</span>.</p></li>
 </ol>
 <p>The author’s make an important realization. Even in a scenario where
-the galactic potential and the stream’s orbit are known, with just the
+the Galactic potential and the stream’s orbit are known, with just the
 gap’s density profile there are still seven parameters that describe
 it’s shape: <span
 class="math inline">\(M,r_s,b,w_\perp,w_\parallel,\alpha,t\)</span>. The
@@ -2631,7 +2638,7 @@ physics is irrelevant to our specific problem—neither Schrödinger’s
 equation nor Maxwell’s equations are of concern here. But that is not
 the point. In the previous two sections, I presented our methods and
 argued for their appropriateness in studying stellar streams originating
-from galactic globular clusters. Here, I want to step back and sketch
+from Galactic globular clusters. Here, I want to step back and sketch
 the landscape of what we have chosen to ignore, and highlight other
 techniques used in the literature. Chief among these is treating the
 globular cluster as a collisional system.</p>
@@ -2723,8 +2730,8 @@ class="math inline">\(G = M = R = t_\mathrm{cross} = 1\)</span>, giving
 <span class="math inline">\(v_0 = 1\)</span> and <span
 class="math inline">\(m = M/N_p\)</span>. For Fig. <a
 href="#fig:twoBodyRelaxation" data-reference-type="ref"
-data-reference="fig:twoBodyRelaxation">22</a><a href="#fn4"
-class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>,
+data-reference="fig:twoBodyRelaxation">22</a><a href="#fn5"
+class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>,
 <span class="math inline">\(N_p = 500\)</span>, so the number density is
 <span class="math inline">\(500/\pi\)</span>.</p>
 <p>At each timestep <span class="math inline">\(dt\)</span>, a
@@ -2880,8 +2887,8 @@ data-cites="2010MNRAS.409..305L">Lamers, Baumgardt, and Gieles
 of which—driven by stellar evolution—dominates the early lifetime. If an
 exploding star is part of a binary, its companion may also be ejected.
 The extent of this effect depends strongly on both the initial mass
-function and metallicity of the cluster.<a href="#fn5"
-class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+function and metallicity of the cluster.<a href="#fn6"
+class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
 <div id="ref-1991RMxAA..22..255A" class="csl-entry" role="listitem">
@@ -2914,12 +2921,38 @@ class="nocase">The devil is in the tails: the role of globular cluster
 mass evolution on stream properties</span>”</span> 474 (2): 2479–92. <a
 href="https://doi.org/10.1093/mnras/stx2708">https://doi.org/10.1093/mnras/stx2708</a>.
 </div>
+<div id="ref-2017MNRAS.464.2174B" class="csl-entry" role="listitem">
+Baumgardt, H. 2017. <span>“<span class="nocase">N -body modelling of
+globular clusters: masses, mass-to-light ratios and intermediate-mass
+black holes</span>”</span> 464 (2): 2174–2202. <a
+href="https://doi.org/10.1093/mnras/stw2488">https://doi.org/10.1093/mnras/stw2488</a>.
+</div>
 <div id="ref-2018MNRAS.478.1520B" class="csl-entry" role="listitem">
 Baumgardt, H., and M. Hilker. 2018. <span>“<span class="nocase">A
 catalogue of masses, structural parameters, and velocity dispersion
 profiles of 112 Milky Way globular clusters</span>”</span> 478 (2):
 1520–57. <a
 href="https://doi.org/10.1093/mnras/sty1057">https://doi.org/10.1093/mnras/sty1057</a>.
+</div>
+<div id="ref-2019MNRAS.482.5138B" class="csl-entry" role="listitem">
+Baumgardt, H., M. Hilker, A. Sollima, and A. Bellini. 2019. <span>“<span
+class="nocase">Mean proper motions, space orbits, and velocity
+dispersion profiles of Galactic globular clusters derived from Gaia DR2
+data</span>”</span> 482 (4): 5138–55. <a
+href="https://doi.org/10.1093/mnras/sty2997">https://doi.org/10.1093/mnras/sty2997</a>.
+</div>
+<div id="ref-2020PASA...37...46B" class="csl-entry" role="listitem">
+Baumgardt, H., A. Sollima, and M. Hilker. 2020. <span>“<span
+class="nocase">Absolute V-band magnitudes and mass-to-light ratios of
+Galactic globular clusters</span>”</span> 37 (November):e046. <a
+href="https://doi.org/10.1017/pasa.2020.38">https://doi.org/10.1017/pasa.2020.38</a>.
+</div>
+<div id="ref-2021MNRAS.505.5957B" class="csl-entry" role="listitem">
+Baumgardt, H., and E. Vasiliev. 2021. <span>“<span
+class="nocase">Accurate distances to Galactic globular clusters through
+a combination of Gaia EDR3, HST, and literature data</span>”</span> 505
+(4): 5957–77. <a
+href="https://doi.org/10.1093/mnras/stab1474">https://doi.org/10.1093/mnras/stab1474</a>.
 </div>
 <div id="ref-2016MNRAS.458.3644B" class="csl-entry" role="listitem">
 Bianchini, P., G. van de Ven, M. A. Norris, E. Schinnerer, and A. L.
@@ -3369,9 +3402,9 @@ Administration</em>.
 <div id="ref-2013ApJ...775..134V" class="csl-entry" role="listitem">
 VandenBerg, Don A., K. Brogaard, R. Leaman, and L. Casagrande. 2013.
 <span>“<span class="nocase">The Ages of 55 Globular Clusters as
-Determined Using an Improved VĤB_TO Method along with Color-Magnitude
-Diagram Constraints, and Their Implications for Broader
-Issues</span>”</span> 775 (2): 134. <a
+Determined Using an Improved Method along with Color-Magnitude Diagram
+Constraints, and Their Implications for Broader Issues</span>”</span>
+775 (2): 134. <a
 href="https://doi.org/10.1088/0004-637X/775/2/134">https://doi.org/10.1088/0004-637X/775/2/134</a>.
 </div>
 <div id="ref-2021MNRAS.505.5978V" class="csl-entry" role="listitem">
@@ -3436,25 +3469,27 @@ Newton’s third law. However, in the limit <span
 class="math inline">\(r_{ij} \gg b_i, b_j\)</span>, this asymmetry
 vanishes, and the interaction reduces to that of point masses.<a
 href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>The term “integral of motion” is often used
+<li id="fn3"><p>https://people.smp.uq.edu.au/HolgerBaumgardt/globular/<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>The term “integral of motion” is often used
 interchangeably with “constant of motion”, but strictly speaking, the
 latter is preferable since it refers to a quantity that remains constant
 throughout the orbital evolution, not to an integral in the mathematical
-sense of the word (area under a curve).<a href="#fnref3"
+sense of the word (area under a curve).<a href="#fnref4"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>The two-body relaxation experiment is purely
+<li id="fn5"><p>The two-body relaxation experiment is purely
 illustrative. Despite multiple attempts, I was unable to make the
 numerical results consistent with the theoretical prediction. Not only
 is the relaxation process significantly slower than expected, but the
 discrepancy also worsens with increasing particle number. I rewrote the
 script several times but was unable to identify the issue. Nonetheless,
 the main takeaway remains valid: gravitational two-body encounters
-induce a random walk in velocity space.<a href="#fnref4"
+induce a random walk in velocity space.<a href="#fnref5"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>I once wondered whether the kinetic energy deposited by
+<li id="fn6"><p>I once wondered whether the kinetic energy deposited by
 a supernova’s ejecta might dynamically affect nearby stars. A quick
 back-of-the-envelope estimate suggests it is negligible. The mass simply
-puffs out of the cluster.<a href="#fnref5" class="footnote-back"
+puffs out of the cluster.<a href="#fnref6" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>

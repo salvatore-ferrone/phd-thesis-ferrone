@@ -251,18 +251,11 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \label{fig:vasiliev_2021_EDR3_GCS_FIG_10}
         \end{figure}
         Differences in cluster orbits-or in stellar streams evolved in different potentials-can help constrain the underlying Galactic potential and eventually lead to more accurate models of the Milky Way. This was the motivation behind recent work such as \citet{2024ApJ...967...89I}. However, if the goal is to make robust predictions or extrapolate properties of the halo, it is prudent to explore a variety of Galactic models, especially when no single model is clearly preferred.
-
-
-
-
     
     \subsection{Generating a Globular Cluster}\label{subsec:initialconditions}
+        Now that the equations of motion established, and we have an accurate model for computing the gravitational force at each point in the galaxy, what are the initial conditions? First, the initial conditions for the kinematics, mass, and size, of the globular clusters are taken observationally from \citet{2018MNRAS.478.1520B} \citep[this catalog was assembled across a series of works, see also][]{2017MNRAS.464.2174B,2019MNRAS.482.5138B,2020PASA...37...46B,2021MNRAS.505.5957B}\footnote{https://people.smp.uq.edu.au/HolgerBaumgardt/globular/}. Specifically, their estiamted total masses, half-mass radii, as well as their on-sky ICRS coordinates, that we then convert to galacto-centric coordinates (see Chapters 4 and 5). What about intidial conditions for the stars within the cluster? 
 
-        Now that we have our equations of motion established, and we have an accurate model for computing the gravitational force at each point in the galaxy, what are the initial conditions? First, the initial conditions for the centers' of mass of the globular clusters, their mass and size, are taken observationally from \citet{2018MNRAS.478.1520B}. What about the stars within the cluster? 
-
-        We have choosen the potential for each cluster to be a Plummer sphere from Eq.~\ref{eq:plummer}, which means that it is more massive in the center and whose density decreases with a power law beyond the characteristic radius. We can use this to obtain a mass profile, and then sample this distribution to obtain initial positions for each particle. 
-
-        Unfortunately, positions alone are not enough, for we must also know the velocities. After sampling the positions, we could do something crude by saying that each star has a velocity vector that could point in any direction with equal probability. This is known as being \textit{isotropic} or equally random. Next, we could say that a star's speed could be anywhere from zero to the escape velocity. While this would work to create a set of plausible initial conditions, it would not be \textit{self-consistent}. 
+        We have chosen the gravitational potential of each cluster to follow a Plummer sphere, as given in Eq.~\ref{eq:plummer}. The corresponding mass profile can be sampled to generate initial positions for individual particles. However, positional information alone is insufficient, we must also assign appropriate velocities. One crude approach, following the sampling of positions, is to assign a velocity vector drawn isotropically; that is, with a direction uniformly distributed over the sphere. Furthermore, the speed could be sampled uniformly between zero and the local escape velocity. While this method can produce plausible initial conditions, it lacks \textit{self-consistency}, as the resulting phase-space distribution would not correspond to a stable equilibrium configuration of the chosen potential.
 
         In galactic dynamics, a fundamental challenge is the \textit{self-consistency problem}. This involves a loop of three steps:  
         \begin{enumerate}
@@ -410,8 +403,7 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
 
             By sampling radial distances, speeds, and directions uniformly over the unit sphere, we obtain full position and velocity vectors for each particle. With these, the initial conditions for a Plummer sphere are fully specified. The user need only provide the total mass, characteristic radius, and the desired number of star particles.
 
-
-            With the equations of motion defined, a model for the galactic gravitational field established, a force model for the globular cluster in place, and initial conditions assigned to each star particle, we are now ready to simulate the tidal disruption of a globular cluster in the Galaxy.
+            With the equations of motion defined, a model for the Galactic gravitational field established, a force model for the globular cluster in place, and initial conditions assigned to each star particle, we are now ready to simulate the tidal disruption of a globular cluster in the Galaxy.
 
 
 
@@ -420,7 +412,7 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
 
     In this section, I aim to describe the underlying mechanisms that cause stars to escape from globular clusters and form stellar streams. Gaining intuition for this process involves simplifying the equations \textit{even further}, in order to obtain analytical insights. I refer to this as the \textit{implicit physics}—not because it was explicitly implemented in the simulations, but because it arises naturally from the equations that be.
 
-    To provide a brief overview: I begin with the circular restricted three-body problem, the simplest formalism for understanding the kinds of motion a massless body can undergo when influenced by two much more massive ones. I then introduce the tidal tensor, which describes how and why the galactic field eventually strips stars from their host clusters. After that, I discuss phase mixing, which explains the evolution of escaped stars and how they come to form coherent stellar streams. This also helps explain the divergence of orbital solutions over time, which is particularly relevant for the work in Chapter~5, where we investigate whether the globular cluster system can affect the Palomar~5 stream. Finally, I introduce \textit{gapology}—the study of how perturbations can impact a stream and generate observable gaps within it.
+    To provide a brief overview: I begin with the circular restricted three-body problem, the simplest formalism for understanding the kinds of motion a massless body can undergo when influenced by two much more massive ones. I then introduce the tidal tensor, which describes how and why the Galactic field eventually strips stars from their host clusters. After that, I discuss phase mixing, which explains the evolution of escaped stars and how they come to form coherent stellar streams. This also helps explain the divergence of orbital solutions over time, which is particularly relevant for the work in Chapter~5, where we investigate whether the globular cluster system can affect the Palomar~5 stream. Finally, I introduce \textit{gapology}—the study of how perturbations can impact a stream and generate observable gaps within it.
 
     
     \subsection{The Planar Circular Restricted Three-Body Problem}
@@ -490,7 +482,7 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
         % \textbf{NOTE from Ferrone. I wonder if the $L_4$ and $L_5$ exist in the galactic context... are there Tojan stars? or does the complexity of the galactic potential paired with non circular orbits render such a phenomena unnatural?}
 
     \subsection{Tidal Forces}
-        For star-particles within a globular cluster that is itself orbiting within a galaxy, there are no exact integrals of motion. The system lacks symmetries in its Lagrangian, and the potential varies with time, so even the orbital energy is not conserved. In such a time-dependent and asymmetric context, it is more insightful to frame the problem in terms of forces rather than conserved quantities. In particular, tidal forces arise when the gravitational field of the galaxy (the primary) is treated as an external perturbation to the field of the globular cluster (the secondary). In this section, I aim to build an intuitive and formal understanding of tidal forces, framing them as tensor quantities. We begin with the simplest case—the familiar Sun-Earth system—before extending the discussion to the galactic context. I also provide a broader overview of how tidal forces vary depending on the cluster's orbit within the galaxy.
+        For star-particles within a globular cluster that is itself orbiting within a galaxy, there are no exact integrals of motion. The system lacks symmetries in its Lagrangian, and the potential varies with time, so even the orbital energy is not conserved. In such a time-dependent and asymmetric context, it is more insightful to frame the problem in terms of forces rather than conserved quantities. In particular, tidal forces arise when the gravitational field of the galaxy (the primary) is treated as an external perturbation to the field of the globular cluster (the secondary). In this section, I aim to build an intuitive and formal understanding of tidal forces, framing them as tensor quantities. We begin with the simplest case—the familiar Sun-Earth system—before extending the discussion to the Galactic context. I also provide a broader overview of how tidal forces vary depending on the cluster's orbit within the galaxy.
 
         To start, tidal forces arise due to spatial variations in the gravitational field with respect to a reference point, which is almost always the secondary body. There are two equivalent optiosn to quanitfy this. The first is to consider a Taylor expansion of the gravitational potential of the primary, \(\Phi_g\), evaluated at the star's position \(\vec{x}_s\), relative to the secondary's position \(\vec{x}_c\):
         \begin{equation}
@@ -702,7 +694,7 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
     \subsection{The Distribution of Escaped Stars}
         Tidal forces cause stars to escape from the Lagrange points of the globular cluster. As we've seen, these forces can be compressive—pushing stars toward the cluster—or stretching—pulling them away, and specifically toward the Lagrange points. The stretching component is significantly amplified during pericenter passages, causing many stars to escape in bursts.
 
-        This process doesn't fling stars into intergalactic space. Rather, the galactic tidal field is typically weak compared to the cluster's own gravitational pull, and escaping stars gain just enough energy to leave the cluster. As a result, they are still on very similar orbits to the clusters once they escape.
+        This process doesn't fling stars into intergalactic space. Rather, the Galactic tidal field is typically weak compared to the cluster's own gravitational pull, and escaping stars gain just enough energy to leave the cluster. As a result, they are still on very similar orbits to the clusters once they escape.
 
         But once stars escape, why do they form coherent stellar streams? And do they do anything else? To answer this, I must first introduce the concept of \textit{phase mixing}. This naturally leads us to discuss the range of possible orbits a globular cluster can follow, given observational uncertainties. I'll cover this fully before returning to the topic of stellar streams, which will be much easier to understand once this groundwork is in place.
         
@@ -786,7 +778,7 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
 
             \begin{figure}
                 \includegraphics[width=\linewidth]{images/perason-2024-fig.jpg}
-                \caption{A catalog of expected debris of a simulated totally disrupted population of globular clusters within a Milky Way analog. The y-axis is the normalized z-component of the angular momentum, with zero corresponding to polar orbits and 1 corresponding to planar orbits. The x-axis is a ``distance'' of the ``center-of-mass'' of a stream from the galactic center. Each stream is plotted in galactic coordinates annd are to scale with one-another. The bottom right quandrant satisfies their ``streaminess criterion''. Credit: Fig~7 of  \citet{2024ApJ...976...54P}.}
+                \caption{A catalog of expected debris of a simulated totally disrupted population of globular clusters within a Milky Way analog. The y-axis is the normalized z-component of the angular momentum, with zero corresponding to polar orbits and 1 corresponding to planar orbits. The x-axis is a ``distance'' of the ``center-of-mass'' of a stream from the Galactic center. Each stream is plotted in galactic coordinates annd are to scale with one-another. The bottom right quandrant satisfies their ``streaminess criterion''. Credit: Fig~7 of  \citet{2024ApJ...976...54P}.}
                 \label{fig:perason-2024-fig}
             \end{figure}
 
@@ -799,8 +791,7 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
 
             
     \subsection{Massive objects colliding with stellar streams}
-        
-        Previous we described how they escape the globular clusters. Then we described how the escaped stars can redistribute themselves in the galaxy following a nice evolutionary flow in the gravitational field from normal hamiltonian evolution. However, other things can happen to the stream. Notably, other massive objects in the galactic field can fly-by and perturb the orbits of some of these stars. Here, I would ike to summarize this. 
+        Previous we described how they escape the globular clusters. Then we described how the escaped stars can redistribute themselves in the galaxy following a nice evolutionary flow in the gravitational field from normal hamiltonian evolution. However, other things can happen to the stream. Notably, other massive objects in the Galactic field can fly-by and perturb the orbits of some of these stars. Here, I would ike to summarize this. 
 
         Collisions are essential in this thesis for two reasons. Firstly, one of the main research questions is how the passage of a subhalo perturbs a stellar stream. This interaction can be treated as a gravitational collision.
 
@@ -871,7 +862,7 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \end{enumerate}
 
 
-            The author's make an important realization. Even in a scenario where the galactic potential and the stream's orbit are known, with just the gap's density profile there are still seven parameters that describe it's shape: $M,r_s,b,w_\perp,w_\parallel,\alpha,t$. The authors state that the gap's profile provide two more piece of information and with a constraint on the perturber's density, we would still be left with four degrees of freedom. The problem is thus underdetermined and it is thus impossible to uniquely determine the properties of the perturber. A large statistical sample of gaps would be required to constrain a population of dark matter subhalos. With the ever increasing data quality, perhaps this could be possible someday.  
+            The author's make an important realization. Even in a scenario where the Galactic potential and the stream's orbit are known, with just the gap's density profile there are still seven parameters that describe it's shape: $M,r_s,b,w_\perp,w_\parallel,\alpha,t$. The authors state that the gap's profile provide two more piece of information and with a constraint on the perturber's density, we would still be left with four degrees of freedom. The problem is thus underdetermined and it is thus impossible to uniquely determine the properties of the perturber. A large statistical sample of gaps would be required to constrain a population of dark matter subhalos. With the ever increasing data quality, perhaps this could be possible someday.  
 
             While powerful, the authors describe how the limiting assumptions impact the interpretations of this work. First, the framework is limited to circular orbits which poses a significant constraint especially for globular clusters which often have inclined and eccentric trajectories. Indeed, as they discussed in their work, streams do not have uniform densities. Stars that populate the streams come from tidally disrupting stellar systems. As they leave the cluster and enter the stream, they come with a range of energies and and angular momenta that in essence eliminate any casutic features. 
 
@@ -953,7 +944,7 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
 
 
 \section{The Ignored Physics} \label{sec:ignoredphysics}
-    This section could, in principle, be extremely large, since much of physics is irrelevant to our specific problem—neither Schrödinger's equation nor Maxwell's equations are of concern here. But that is not the point. In the previous two sections, I presented our methods and argued for their appropriateness in studying stellar streams originating from galactic globular clusters. Here, I want to step back and sketch the landscape of what we have chosen to ignore, and highlight other techniques used in the literature. Chief among these is treating the globular cluster as a collisional system.
+    This section could, in principle, be extremely large, since much of physics is irrelevant to our specific problem—neither Schrödinger's equation nor Maxwell's equations are of concern here. But that is not the point. In the previous two sections, I presented our methods and argued for their appropriateness in studying stellar streams originating from Galactic globular clusters. Here, I want to step back and sketch the landscape of what we have chosen to ignore, and highlight other techniques used in the literature. Chief among these is treating the globular cluster as a collisional system.
 
     I had originally considered discussing additional physical processes, such as a time-varying Milky Way potential or particle-spray methods for modeling globular cluster disruption. However, these are more properly regarded as alternative approaches rather than corrections to our framework. Thus, I limit the discussion here to internal cluster dynamics, and cite two exemplary works that demonstrate how our simulated tidal tails can differ—not only from other models, but potentially from reality itself. For discussion of a time-evolving Galactic potential and particle-spray techniques, see the concluding section on future prospects.
 
