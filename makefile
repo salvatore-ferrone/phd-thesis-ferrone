@@ -29,7 +29,7 @@ html: copy_images copy_videos generate_homepage
 	pandoc -s -o $(HTML_DIR)/theory.html chapters/theory.tex $(PANDOC_FLAGS) --lua-filter=video-filter.lua --metadata title="Theory"
 	pandoc -s -o $(HTML_DIR)/tidal.html chapters/tidal.tex $(PANDOC_FLAGS) --lua-filter=video-filter.lua --metadata title="Tidal"
 	pandoc -s -o $(HTML_DIR)/gapology.html chapters/gapology.tex $(PANDOC_FLAGS) --lua-filter=video-filter.lua --metadata title="Gapology"
-	pandoc -s -o $(HTML_DIR)/ongoing.html chapters/ongoing.tex $(PANDOC_FLAGS) --lua-filter=video-filter.lua --metadata title="On going"
+	pandoc -s -o $(HTML_DIR)/conclusion.html chapters/conclusion.tex $(PANDOC_FLAGS) --lua-filter=video-filter.lua --metadata title="Conclusion"
 
 copy_videos:
 	mkdir -p $(HTML_DIR)/videos
