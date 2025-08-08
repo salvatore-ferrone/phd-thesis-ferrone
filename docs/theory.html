@@ -775,9 +775,10 @@ abundances. The model is constrained using Gaia DR3 data <span
 class="citation" data-cites="2023A&amp;A...674A...1G">(Gaia
 Collaboration, Vallenari, et al. 2023)</span>, particularly stars with
 full phase-space information, as well as APOGEE DR17 <span
-class="citation" data-cites="2017AJ....154...94M">(Majewski et al.
-2017)</span>. Their model involves over 40 parameters to describe the
-distributions of stars and metallicities throughout the Milky Way.</p>
+class="citation" data-cites="2017AJ....154...94M">(Steven R. Majewski et
+al. 2017)</span>. Their model involves over 40 parameters to describe
+the distributions of stars and metallicities throughout the Milky
+Way.</p>
 <p>Then, there are many models of the Milky Way that are primarily
 dynamically motivated, with stellar populations treated as secondary
 <span class="citation"
@@ -2048,12 +2049,12 @@ keplerian tidal deformation where the stronger deformation is stretching
 and whose axis is parallel to the position vector.</p>
 <h2 id="sec:phaseMixing">The Distribution of Escaped Stars</h2>
 <p>Tidal forces cause stars to escape from the Lagrange points of the
-globular cluster. As we’ve seen, these forces can be compressive—pushing
-stars toward the cluster—or stretching—pulling them away, and
-specifically toward the Lagrange points. The stretching component is
-significantly amplified during pericenter passages, causing many stars
-to escape in bursts.</p>
-<p>This process doesn’t fling stars into intergalactic space. Rather,
+globular cluster. As we have seen, these forces can be
+compressive—pushing stars toward the cluster—or stretching—pulling them
+away, and specifically toward the Lagrange points. The stretching
+component is significantly amplified during pericenter passages, causing
+many stars to escape in bursts.</p>
+<p>This process does not fling stars into intergalactic space. Rather,
 the Galactic tidal field is typically weak compared to the cluster’s own
 gravitational pull, and escaping stars gain just enough energy to leave
 the cluster. As a result, they are still on very similar orbits to the
@@ -2137,11 +2138,13 @@ by the initial conditions.</p>
 <figure id="fig:phase_mixing_palomar_5_orbital_solutions">
 <img src="images/phase_mixing_palomar_5_orbital_solutions.png" />
 <figcaption>Phase mixing of Palomar 5’s orbital solutions in the
-<code>Pouliasis2017pii</code> potential. We sample 50 different initial
-conditions based on the observational uncertainties in distance, radial
-velocity, and proper motions. Each orbital solution is color-coded by
-its initial total orbital energy <span class="math inline">\(E\)</span>.
-The top six panels show snapshots of the positions in the <span
+bulge-less model potential of <span class="citation"
+data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
+(2017)</span>. We sample 50 different initial conditions based on the
+observational uncertainties in distance, radial velocity, and proper
+motions. Each orbital solution is color-coded by its initial total
+orbital energy <span class="math inline">\(E\)</span>. The top six
+panels show snapshots of the positions in the <span
 class="math inline">\(xy\)</span>-plane of the orbital solutions at
 different times. The bottom panel shows the evolution of the <span
 class="math inline">\(z\)</span> coordinate as a function of time. Black
@@ -2194,15 +2197,15 @@ clusters over the time range considered in this experiment. Orbital
 solutions are color-coded by their normalized deviation from the mean
 orbital energy.</figcaption>
 </figure>
-<p>It’s also interesting to note how the uncertainties in the orbital
-energy relates to the uncertainties in each observable. In Fig. <a
+<p>It is also informative to examine how uncertainties in orbital energy
+relate to uncertainties in the individual observables. In Fig. <a
 href="#fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu"
 data-reference-type="ref"
 data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">18</a>,
-I perform this quick calulation. The uncertainties are measured in
-Galactic coordinates the ICRS coordinate system. This is a direct
-transformation to Galactic coordinates and thus can be expressed
-analytically.</p>
+I illustrate this with a simple calculation. The measurements of the
+globular clusters, along with their associated uncertainties, are
+reported in the ICRS. I sample the observables assuming Gaussian errors
+and transform the coordinates to the Galactocentric reference frame.</p>
 <figure id="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">
 <img src="images/energy_sensitivity_analysis_MWGCS_to_errors.png" />
 <figcaption>An analysis on the spread in orbital energies of the
@@ -2221,114 +2224,99 @@ anywhere in phase-space permitted by its integrals of motion. This
 concept will be important in Chapter 5, where we assess whether
 different possible orbits for the globular clusters could have brought
 them into contact with the Palomar 5 stream.</p>
-<h3 id="mixing-of-tidal-debris">Mixing of tidal debris</h3>
-<p>A cloud of points together in phase-space that are initially tightly
-packed together and then subsequently drift apart from one another, is a
-great analogy for the evolution of stars that escape from globular
-clusters to subsequently create stellar streams. For instance, at first
-glance, Fig. <a href="#fig:phase_mixing_palomar_5_orbital_solutions"
+<h3 id="mixing-of-globular-cluster-tidal-debris">Mixing of globular
+cluster tidal debris</h3>
+<p>A cloud of points that starts tightly packed in phase space and
+gradually disperses provides a useful analogy for the evolution of
+tidally escaped stars from globular clusters into stellar streams. At
+first glance, Fig. <a
+href="#fig:phase_mixing_palomar_5_orbital_solutions"
 data-reference-type="ref"
-data-reference="fig:phase_mixing_palomar_5_orbital_solutions">16</a>
-might give the impression that we are looking at snapshots of a single
-stellar stream at different times. In reality, the figure shows
-different orbital solutions. This visual similarity underscores that
-both phenomena—stellar streams and diverging orbital solutions—are
-manifestations of phase mixing.</p>
-<p>However, there is an important distinction. The divergence of
-different orbital solutions is an exact instantiation of the Louiville
-theorem. The particles have no influence on one another and they are all
-independently orbiting within the gravitational field. For stars within
-a globular cluster, the analogy breaks down because globular clusters
-are self-gravitating systems: stars interact gravitationally and remain
-bound for a significant time. This self-gravity slows down the mixing
-process. The time it takes for a globular cluster to dissolve and
-distribute its stars uniformly in phase space is typically longer than
-the idealized mixing time given by Eq. <a href="#EQ:phase_mixing"
-data-reference-type="ref"
-data-reference="EQ:phase_mixing">[EQ:phase_mixing]</a>. Nevertheless,
-phase mixing still governs the long-term behavior of tidally escaped
-stars.</p>
-<p>Importantly, we need not consider all particles within the cluster to
-characterize the distribution of tidal debris as phase mixing. For
-clusters with short orbital mixing times compared to the simulation
-duration, stars that escape during the simulation can redistribute
-throughout the available phase space. While the resulting debris will
-not be uniformly distributed—an overdensity will remain at the cluster
-location—the tidal debris will broadly fill the phase space accessible
-to it. This point is crucial for the results discussed in Chapter 4.</p>
-<p>In fact, this can be seen in another <span class="citation"
-data-cites="2024ApJ...976...54P">Pearson et al. (2024)</span>. <span
+data-reference="fig:phase_mixing_palomar_5_orbital_solutions">16</a> may
+appear to show the time evolution of a single stream, but it actually
+depicts different orbital solutions. The visual similarity highlights
+that both phenomena are governed by phase mixing.</p>
+<p>However, there is a key distinction. The divergence of orbital
+solutions is a direct consequence of Liouville’s theorem: the particles
+are non-interacting and evolve independently in a fixed potential. In
+contrast, stars in globular clusters are bound by their mutual gravity,
+which slows down phase mixing. As a result, the cluster dissolves over a
+longer timescale than the idealized mixing time in Eq. <a
+href="#EQ:phase_mixing" data-reference-type="ref"
+data-reference="EQ:phase_mixing">[EQ:phase_mixing]</a>. Still, phase
+mixing governs the long-term behavior of the unbound stars.</p>
+<p>Crucially, we do not need to model the entire cluster to study tidal
+debris as a phase-mixed population. For clusters with short mixing times
+relative to the simulation length, the escaped stars can explore the
+accessible phase space, even if the debris remains non-uniform and
+overdense near the cluster. This insight is central to the results
+presented in Chapter 4.</p>
+<p>This idea is evident in <span class="citation"
+data-cites="2024ApJ...976...54P">Pearson et al. (2024)</span>, who
+predict that many more stellar streams remain to be discovered in the
+Milky Way. They note that while about 170 globular clusters are known
+today, many others likely existed in the past but have since dissolved.
+Their tidal debris may now form stellar streams, many of which remain
+undetected. Indeed, most of the <span
+class="math inline">\(\sim\)</span>90 known streams are unassociated
+with any surviving globular cluster <span class="citation"
+data-cites="2022ApJ...926..107M">(Malhan et al. 2022)</span>, and only
+about 20 have confirmed associations <span class="citation"
+data-cites="2024ApJ...967...89I">(Ibata et al. 2024)</span>.</p>
+<p>To estimate the full population of globular cluster streams, <span
 class="citation" data-cites="2024ApJ...976...54P">Pearson et al.
-(2024)</span> noted that today, there are roughly 170 known globular
-clusters. However, since they dissolve, there could have been many more.
-Thus, there could be many streams in the galaxy that are from now
-defunct globular clusters. Already, there are many known streams that
-are unassociated to globular clusters <span class="citation"
-data-cites="2022ApJ...926..107M">(Malhan et al. 2022)</span>. In fact,
-of the roughly 90 known stellar streams, only about 20 are associated to
-globular clusters <span class="citation"
-data-cites="2024ApJ...967...89I">(Ibata et al. 2024)</span>. <span
-class="citation" data-cites="2024ApJ...976...54P">Pearson et al.
-(2024)</span> set out to predict the the total number of stellar streams
-we can expect in a Milky Way like Galaxy from IllustrusTNG <strong>get
-ref</strong>, by using inserting prescription of globular cluster
-formation and distribution within the Milky-Way analog as well as those
-that were imported by eaten dwarf galaxies following the methods of
-<span class="citation"
+(2024)</span> used the IllustrisTNG simulations <span class="citation"
+data-cites="2019ComAC...6....2N">(Nelson et al. 2019)</span>, injecting
+globular clusters both formed in situ and accreted via dwarf galaxies
+following the prescriptions of <span class="citation"
 data-cites="2022MNRAS.514.4736C 2023MNRAS.522.5638C">Chen and Gnedin
-(2022, 2023)</span>. <span class="citation"
-data-cites="2024ApJ...976...54P">Pearson et al. (2024)</span> simulates
-the dissolution of these hypothetical globular clusters adn studies the
-resultant tidal debris. A panorama of this is presented in Fig. <a
-href="#fig:perason-2024-fig" data-reference-type="ref"
+(2022, 2023)</span>. They then modeled the dissolution of these clusters
+and studied the resulting tidal debris. A panorama of their predicted
+streams is shown in Fig. <a href="#fig:perason-2024-fig"
+data-reference-type="ref"
 data-reference="fig:perason-2024-fig">19</a>.</p>
 <figure id="fig:perason-2024-fig">
 <img src="images/perason-2024-fig.jpg" />
-<figcaption>A catalog of expected debris of a simulated totally
-disrupted population of globular clusters within a Milky Way analog. The
-y-axis is the normalized z-component of the angular momentum, with zero
-corresponding to polar orbits and 1 corresponding to planar orbits. The
-x-axis is a “distance” of the “center-of-mass” of a stream from the
-Galactic center. Each stream is plotted in galactic coordinates annd are
-to scale with one-another. The bottom right quandrant satisfies their
-“streaminess criterion”. Credit: Fig 7 of <span class="citation"
-data-cites="2024ApJ...976...54P">Pearson et al.
+<figcaption>A catalog of predicted debris from a fully disrupted
+population of globular clusters in a Milky Way analog. The y-axis shows
+the normalized <span class="math inline">\(z\)</span>-component of
+angular momentum (0 = polar, 1 = planar). The x-axis shows the distance
+of the stream’s center of mass from the Galactic center. Each stream is
+plotted in Galactic coordinates and to scale. The bottom-right quadrant
+satisfies their “streaminess” criterion. Credit: Fig. 7 of <span
+class="citation" data-cites="2024ApJ...976...54P">Pearson et al.
 (2024)</span>.</figcaption>
 </figure>
-<p><span class="citation" data-cites="2024ApJ...976...54P">Pearson et
-al. (2024)</span> created a “streaminess” criterion. They base this on
-two metrics. The first, is the distance from the “center-of-mass” of a
-stream from the galactic-center in galactic coordinates. This metric is:
-<span class="math inline">\(\Delta_0 =
-\sqrt{\mathrm{medn}(b)^2+\mathrm{medn}(l)^2}\)</span>. The argument
-being that is this number is close to zero, then the tidal debris is
-symmetrically distributed about the center of the galaxy and fully
+<p>To assess stream detectability, <span class="citation"
+data-cites="2024ApJ...976...54P">Pearson et al. (2024)</span> introduced
+a “streaminess” criterion based on two metrics. One is the angular
+distance between a stream’s center of mass and the Galactic center in
+Galactic coordinates: <span class="math display">\[\Delta_0 =
+\sqrt{\mathrm{medn}(b)^2 + \mathrm{medn}(l)^2}.\]</span> A small <span
+class="math inline">\(\Delta_0\)</span> indicates the debris is
+symmetrically distributed about the Galaxy, and thus fully
 phase-mixed.</p>
-<p><span class="citation" data-cites="2024ApJ...976...54P">Pearson et
-al. (2024)</span> results are promissing and note that the current
-catalog of stellar streams is very incomplete and we could expect up to
-1000 stellar streams within the Milky Way. I would like to note, that
-for even for totally phase mixed tidal debris, it is finds co-moving
-groups <span class="citation"
+<p>Remarkably, even such fully mixed debris can still be detected as
+co-moving groups <span class="citation"
 data-cites="2018MNRAS.477.4063M 2018MNRAS.478.3862M">(Malhan and Ibata
-2018; Malhan et al. 2018)</span>. While the totally phase-mixed debris
-appears incoherrent, the stars are still moving along the same
-trajectory yet are offset by phase. For example, the stream
-<em>Fimbulthul</em> has been associated to <span
-class="math inline">\(\omega\)</span> centauri (NGC 5139), the most
-massive cluster that is suspective of being the remnant of an accreted
-dwarf galaxy (<strong>Majewski 2000</strong>, <strong>Johnson &amp;
-Pilachowski 2010</strong>, <strong>Bellini et al. 2018</strong>). Our
-simulations in Chapter 4 predict that the debris from <span
-class="math inline">\(\omega\)</span> centauri are totally phase-mixed
-and would not be classified as <em>streamy</em>. Nonetheless,
-<em>Fimbulthul</em> perfectly aligns the near-future orbital trajecotry
-of <span class="math inline">\(\omega\)</span> centauri and is
-consistent with <span class="math inline">\(N\)</span> body predictions
+2018; Malhan et al. 2018)</span>. Although these stars appear spatially
+diffuse, they continue to follow similar orbits, merely offset in phase.
+A striking example is the <em>Fimbulthul</em> stream, which has been
+linked to <span class="math inline">\(\omega\)</span> Centauri
+(NGC 5139), the most massive globular cluster and a suspected remnant of
+an accreted dwarf galaxy <span class="citation"
+data-cites="2000LIACo..35..619M 2010ApJ...722.1373J">(S. R. Majewski et
+al. 2000; Johnson and Pilachowski 2010)</span>. Our simulations in
+Chapter 4 predict that <span
+class="math inline">\(\omega\)</span> Centauri’s debris should be fully
+phase-mixed and fail the “streaminess” criterion. Yet,
+<em>Fimbulthul</em> aligns precisely with the cluster’s predicted orbit
+and matches <span class="math inline">\(N\)</span>-body expectations
 <span class="citation" data-cites="2021ApJ...914..123I">(Ibata et al.
 2021)</span>.</p>
-<p><strong>What about the</strong> actions for classifying the
-streams?</p>
+<p>This highlights an important point: even when tidal debris is diffuse
+and mixed, the underlying orbital coherence can still enable its
+detection as a stellar stream.</p>
 <h2 id="massive-objects-colliding-with-stellar-streams">Massive objects
 colliding with stellar streams</h2>
 <p>Previous we described how they escape the globular clusters. Then we
@@ -3238,6 +3226,12 @@ II. A Global Mass Model of the Milky Way from the STREAMFINDER Atlas of
 Stellar Streams Detected in Gaia DR3</span>”</span> 967 (2): 89. <a
 href="https://doi.org/10.3847/1538-4357/ad382d">https://doi.org/10.3847/1538-4357/ad382d</a>.
 </div>
+<div id="ref-2010ApJ...722.1373J" class="csl-entry" role="listitem">
+Johnson, Christian I., and Catherine A. Pilachowski. 2010. <span>“<span
+class="nocase">Chemical Abundances for 855 Giants in the Globular
+Cluster Omega Centauri (NGC 5139)</span>”</span> 722 (2): 1373–1410. <a
+href="https://doi.org/10.1088/0004-637X/722/2/1373">https://doi.org/10.1088/0004-637X/722/2/1373</a>.
+</div>
 <div id="ref-1981unht.book.....K" class="csl-entry" role="listitem">
 Kant, Immanuel, and Stanley L. Jaki. 1981. <em><span
 class="nocase">Universal natural history and theory of the
@@ -3324,6 +3318,16 @@ of galaxies from the Sloan Digital Sky Survey</span>”</span> 389 (3):
 1179–89. <a
 href="https://doi.org/10.1111/j.1365-2966.2008.13689.x">https://doi.org/10.1111/j.1365-2966.2008.13689.x</a>.
 </div>
+<div id="ref-2000LIACo..35..619M" class="csl-entry" role="listitem">
+Majewski, S. R., R. J. Patterson, D. I. Dinescu, W. Y. Johnson, J. C.
+Ostheimer, W. E. Kunkel, and C. Palma. 2000. <span>“<span
+class="nocase"><span><span class="math inline">\(\omega\)</span></span>
+Centauri : Nucleus of a milky way dwarf spheroidal ?</span>”</span> In
+<em>Liege International Astrophysical Colloquia</em>, edited by A.
+Noels, P. Magain, D. Caro, E. Jehin, G. Parmentier, and A. A. Thoul,
+35:619. Liege International Astrophysical Colloquia. <a
+href="https://doi.org/10.48550/arXiv.astro-ph/9910278">https://doi.org/10.48550/arXiv.astro-ph/9910278</a>.
+</div>
 <div id="ref-2017AJ....154...94M" class="csl-entry" role="listitem">
 Majewski, Steven R., Ricardo P. Schiavon, Peter M. Frinchaboy, Carlos
 Allende Prieto, Robert Barkhouser, Dmitry Bizyaev, Basil Blank, et al.
@@ -3385,6 +3389,14 @@ href="https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-4
 Miyamoto, M., and R. Nagai. 1975. <span>“<span
 class="nocase">Three-dimensional models for the distribution of mass in
 galaxies.</span>”</span> 27 (January):533–43.
+</div>
+<div id="ref-2019ComAC...6....2N" class="csl-entry" role="listitem">
+Nelson, Dylan, Volker Springel, Annalisa Pillepich, Vicente
+Rodriguez-Gomez, Paul Torrey, Shy Genel, Mark Vogelsberger, et al. 2019.
+<span>“<span class="nocase">The IllustrisTNG simulations: public data
+release</span>.”</span> <em>Computational Astrophysics and
+Cosmology</em> 6 (1): 2. <a
+href="https://doi.org/10.1186/s40668-019-0028-x">https://doi.org/10.1186/s40668-019-0028-x</a>.
 </div>
 <div id="ref-1927BAN.....4...91O" class="csl-entry" role="listitem">
 Oort, J. H. 1927. <span>“<span class="nocase">Additional notes
