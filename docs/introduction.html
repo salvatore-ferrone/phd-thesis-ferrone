@@ -196,83 +196,132 @@
 </header>
 <p>This thesis investigates stellar streams originating from globular
 clusters in the Milky Way. Stellar streams are long, thin structures
-composed of stars that have escaped their parent clusters, forming
-coherent trails that can span large regions of the sky. Globular
-clusters—dense, gravitationally bound systems containing hundreds of
-thousands to millions of stars—are particularly prolific sources of such
-streams. In Chapter 4, I present the first study to simulate streams
-from the entire Galactic globular cluster system, using realistic
-initial conditions (mass, size, position, and velocity) and an
-axisymmetric, time-independent model of the Milky Way’s gravitational
-potential. Chapter 5 builds on this work, exploring how the collective
-gravitational influence of all globular clusters can perturb stellar
-streams, producing underdensities known as “gaps”. These features are of
-central interest in the field, as they may encode information about the
-dark matter distribution in the Galaxy.</p>
-<p>The structure of the thesis is as follows. The remainder of this
-introductory chapter provides background on stellar streams, globular
-clusters, and their astrophysical context, as well as an overview of the
-current state of the field. Chapter 2 outlines the physical framework
-used to model stream formation and interpret their morphology. Chapter 3
+composed of stars that have escaped a host stellar system, forming
+coherent tails that can span large regions of the sky. Globular clusters
+are dense gravitationally bound systems containing hundreds of thousands
+to millions of stars. They are one source of stellar streams. In Chapter
+4, I present our study in which we simulated the expected distribution
+of stellar streams originating from the entire Milky Way globular
+cluster system. This study was the first of its kind. Stellar streams
+have high hopes for being inferential tools for inferreing the presence
+of dark matter sub halos within the Galaxy. These halos may perturb the
+stellar streams leaving “gaps” in their wake. In Chapter 5, we explored
+how the collective gravitational influence of all globular clusters can
+also perturb produce such gaps.</p>
+<p>The structure of the thesis is as follows. The remainder of the
+introduction provides background on stellar streams, globular clusters,
+and their astrophysical context, as well as an overview of the current
+state of the field. Chapter 2 outlines the physical framework used to
+model stream formation and interpret their morphology. Chapter 3
 describes the numerical methods employed in the simulations, including
 convergence tests and estimates of computational cost. Chapters 4 and 5
 present two published studies, with the final chapter discussing these
 results in the broader context of the literature and highlighting future
 directions.</p>
 <h1 id="general-context">General context</h1>
-<p>Before I explain why it is scientifically interesting to study such
-objects, I must first lay out the scene. This thesis fits neatly in the
-field of galactic astronomy, which, in essence, is the study of the
-state of our very own galaxy and how it came to be within the larger
+<p>Before explaining why Milky Way globular clusters and stellar streams
+are scientifically interesting, it is important to first set the scene.
+This thesis fits neatly within the field of galactic astronomy, which,
+at its core, studies the current state of our galaxy and the processes
+that shaped its formation within the broader context of the
 universe.</p>
-<p>A natural starting point of this narrative is the beginning of the
-universe. Essentially, just a few minutes after the Big Bang, conditions
-were favorable enough to allow protons and electrons to exist. For a few
-minutes, these particles collided with one another to fuse into heavier
-elements. This phase of the universe is known as Big Bang
-Nucleosysntehsis <span class="citation"
-data-cites="2007ARNPS..57..463S">(Steigman 2007)</span>. They mostly
-hydrogen, deuterium <span class="math inline">\(^2\)</span>H, <span
-class="math inline">\(^4\)</span>He, and some trace amounts of <span
-class="math inline">\(^3\)</span>He and <span
-class="math inline">\(^7\)</span>Li. By mass, the composition of the
-universe was 75 % Hydrogen and 25 % Helium <span class="citation"
-data-cites="1966ApJ...146..542P 2016RvMP...88a5004C">Peebles (1966;
+<p>If we start this narrative from the beginning and place stellar
+streams and globular clusters in the timeline of cosmic history, their
+importance becomes clearer. The story begins best at the very start. The
+Lambda Cold Dark Matter (<span
+class="math inline">\(\Lambda\)</span>CDM) cosmological model is
+currently the leading theory of the universe, successfully unifying a
+variety of observational evidence—from the Cosmic Microwave Background
+Radiation and the large-scale distribution of galaxies to the
+accelerating expansion of the universe <span class="citation"
+data-cites="2001LRR.....4....1C 2022NewAR..9501659P">(Carroll 2001;
+Perivolaropoulos and Skara 2022)</span>.</p>
+<p>Shortly after the Big Bang, conditions allowed protons, neutrons, and
+electrons to form and interact. For a few minutes, these particles
+collided and fused into heavier elements in a process known as Big Bang
+Nucleosynthesis <span class="citation"
+data-cites="2007ARNPS..57..463S">(Steigman 2007)</span>. When this phase
+ended, the universe’s composition was mostly hydrogen, deuterium (<span
+class="math inline">\(^2\)</span>H), helium-4 (<span
+class="math inline">\(^4\)</span>He), and trace amounts of helium-3
+(<span class="math inline">\(^3\)</span>He) and lithium-7 (<span
+class="math inline">\(^7\)</span>Li). By mass, hydrogen made up roughly
+75%, and helium about 25% of the primordial universe <span
+class="citation"
+data-cites="1966ApJ...146..542P 2016RvMP...88a5004C">(Peebles 1966;
 Cyburt et al. 2016)</span>.</p>
-<p>Dark matter constitutes approximately five times more mass than
-ordinary (baryonic) matter in the universe <span class="citation"
-data-cites="2020A&amp;A...641A...6P">(Planck Collaboration et al.
-2020)</span>. In the early universe, dark matter was distributed nearly
-uniformly, but gravitational instabilities caused it to coalesce and
-form the cosmic web. The nodes of the web are very massive and contain
-deep gravitational potential wells that attracted surrounding ordinary
-material. This infalling gas subsequently formed stars. The resulting
-assemblage of stars, gas, and dark matter constitutes a galaxy <span
+<p>Dark matter, which accounts for about five times more mass than
+ordinary matter, played a critical role in structure formation <span
+class="citation" data-cites="2020A&amp;A...641A...6P">(Planck
+Collaboration et al. 2020)</span>. In the early universe, dark matter
+was distributed nearly uniformly but developed gravitational
+instabilities that caused it to collapse into a cosmic web of filaments
+and nodes. These massive nodes created deep gravitational wells that
+attracted ordinary matter <span class="citation"
+data-cites="1974ApJ...187..425P">(Press and Schechter 1974)</span>. The
+infalling gas subsequently cooled and formed stars. The resulting
+complex of stars, gas, and dark matter constitutes a galaxy <span
 class="citation"
 data-cites="2008LNP...740.....P 2010gfe..book.....M">(Plionis,
-López-Cruz, and Hughes 2008; Mo, van den Bosch, and White 2010)</span>.
-In certain situations, the star</p>
-<p>The universe contains not just a single galaxy, but a vast population
-of them. According to the <span
-class="math inline">\(\Lambda\)</span>CDM paradigm, cosmic structure
-formed hierarchically, with small protogalaxies merging over time to
-build larger systems <span class="citation"
-data-cites="2015ARA&amp;A..53...51S">(Somerville and Davé
-2015)</span>.</p>
-<p>As galaxies evolve, their stars fuse hydrogen and helium into heavier
-elements, enriching the interstellar medium with each generation.
-Massive stars live short lives and often end in supernovae, ejecting
-enriched material back into their surroundings. This gas can then
-collapse to form new stars. When galaxies interact or merge, their gas
-mixes, further driving star formation and chemical enrichment <span
-class="citation" data-cites="2019A&amp;ARv..27....3M">(Maiolino and
-Mannucci 2019)</span>.</p>
+López-Cruz, and Hughes 2008; Mo, van den Bosch, and White
+2010)</span>.</p>
+<p>Galaxies contain stars that are born, fuse hydrogen and helium into
+heavier elements, and eventually die—often as supernovae—enriching the
+interstellar medium with these heavier elements <span class="citation"
+data-cites="2019A&amp;ARv..27....3M">(Maiolino and Mannucci
+2019)</span>. This process is a strong function of cosmic time as the
+chemical evolution of the universe becomes more metal rich. For example
+the first generation of stars, known as Population III (Pop III) stars<a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a>, formed in a very different
+environment, one devoid of metals <span class="citation"
+data-cites="2002Sci...295...93A 2005SSRv..117..445G 2013RPPh...76k2901B">(Abel,
+Bryan, and Norman 2002; Glover 2005; Bromm 2013)</span>. The chemical
+composition of the gas is crucial since it influences the initial mass
+function (IMF) of stars. Stars formed from pristine, metal-free gas tend
+to have a top-heavy IMF, favoring the formation of massive stars <span
+class="citation"
+data-cites="2002ApJ...571...30S 2006MNRAS.369..825S">(R. Schneider et
+al. 2002; Raffaella Schneider et al. 2006)</span>. In contrast, even
+small amounts of metals introduced into the gas can dramatically shift
+the IMF toward the formation of lighter stars <span class="citation"
+data-cites="2021MNRAS.508.4175C">(Chon, Omukai, and Schneider
+2021)</span>.</p>
+<p><span class="citation"
+data-cites="2015ARA&amp;A..53...51S">(Somerville and Davé 2015)</span>
+provides a review discussing galaxy evolution. It has everything from
+merger trees to chemical enrichment as a function of redshift.</p>
+<p>- dark matter coalesce along filaments, and the the intersection
+points of such filaments in the cosmic web host lots of dark matter that
+then suck in orindary matter (springel, first results from the
+IllustrisTNG simulation. press-schecter?)</p>
+<p>- <span class="citation" data-cites="2025arXiv250116438K">Kruijssen
+(2025)</span> is laying out a great review for globular cluster
+formation …</p>
+<p>- it is at this point where we may introduce the globular clusters as
+we know them.</p>
+<p>- so efficient that the formation of the N stars must have happened
+within one dynamical crossing time (what was the paper that said
+this?)</p>
+<p>- globular clusters are also incredibly interesting becuase of their
+old ages</p>
+<p>- in fact it was one of the first ways we were able to date the age
+of the universe.</p>
+<p>- Paolo Padoan, Raul Jimenez, Jones proposed a path way to form proto
+clusters.</p>
+<p>- Aarseth wrote “on the collapse and violent relaxation of
+protoglobular clustres” 1987</p>
 <p>When stars are made, in many circumstances, they may not just form
 single stars but clusters of stars. These star clusters come to be when
 many stars form at once and are also bound to each other
 gravitationally. One of the most essential objects in this thesis is
 globular clusters, which are clusters containing hundreds of thousands
 to millions of stars.</p>
+<p><span class="citation" data-cites="1988ApJ...324..288A">Aarseth, Lin,
+and Papaloizou (1988)</span> talks about the conditions for globular
+clusters to form. He states that the fragmentation process must be
+efficient since the spread in iron abundance is small, therefore all the
+stars formed within once crossing time.</p>
 <p>These star clusters, or any extended object that orbits around a
 larger host, experience tidal forces. There are many examples of this in
 nature. The most familiar example is how the lunar tides control the
@@ -393,8 +442,22 @@ and Lewis 2011; Nibauer, Bonaca, and Johnston 2023)</span>.</p>
 information that can inform us various aspects of fundamental phyiscs
 our own galaxies, neighboring galaxies, and the past, and they can give
 us information about the current dynamical state of the galaxy.</p>
+<h1 class="unnumbered" id="the-state-of-the-art">The State of the
+Art</h1>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
+<div id="ref-1988ApJ...324..288A" class="csl-entry" role="listitem">
+Aarseth, S. J., D. N. C. Lin, and J. C. B. Papaloizou. 1988.
+<span>“<span class="nocase">On the Collapse and Violent Relaxation of
+Protoglobular Clusters</span>”</span> 324 (January):288. <a
+href="https://doi.org/10.1086/165895">https://doi.org/10.1086/165895</a>.
+</div>
+<div id="ref-2002Sci...295...93A" class="csl-entry" role="listitem">
+Abel, Tom, Greg L. Bryan, and Michael L. Norman. 2002. <span>“<span
+class="nocase">The Formation of the First Star in the
+Universe</span>.”</span> <em>Science</em> 295 (5552): 93–98. <a
+href="https://doi.org/10.1126/science.1063991">https://doi.org/10.1126/science.1063991</a>.
+</div>
 <div id="ref-2024MNRAS.528.5119A" class="csl-entry" role="listitem">
 Arca Sedda, Manuel, Albrecht W. H. Kamlah, Rainer Spurzem, Mirek Giersz,
 Peter Berczik, Sara Rastello, Giuliano Iorio, Michela Mapelli,
@@ -429,11 +492,29 @@ class="nocase">Extragalactic Globular Clusters and Galaxy
 Formation</span>”</span> 44 (1): 193–267. <a
 href="https://doi.org/10.1146/annurev.astro.44.051905.092441">https://doi.org/10.1146/annurev.astro.44.051905.092441</a>.
 </div>
+<div id="ref-2013RPPh...76k2901B" class="csl-entry" role="listitem">
+Bromm, Volker. 2013. <span>“<span class="nocase">Formation of the first
+stars</span>.”</span> <em>Reports on Progress in Physics</em> 76 (11):
+112901. <a
+href="https://doi.org/10.1088/0034-4885/76/11/112901">https://doi.org/10.1088/0034-4885/76/11/112901</a>.
+</div>
+<div id="ref-2001LRR.....4....1C" class="csl-entry" role="listitem">
+Carroll, Sean M. 2001. <span>“<span>The Cosmological
+Constant</span>.”</span> <em>Living Reviews in Relativity</em> 4 (1): 1.
+<a
+href="https://doi.org/10.12942/lrr-2001-1">https://doi.org/10.12942/lrr-2001-1</a>.
+</div>
 <div id="ref-2009Icar..199..413C" class="csl-entry" role="listitem">
 Charnoz, Sébastien, Alessandro Morbidelli, Luke Dones, and Julien
 Salmon. 2009. <span>“<span class="nocase">Did Saturn’s rings form during
 the Late Heavy Bombardment?</span>”</span> 199 (2): 413–28. <a
 href="https://doi.org/10.1016/j.icarus.2008.10.019">https://doi.org/10.1016/j.icarus.2008.10.019</a>.
+</div>
+<div id="ref-2021MNRAS.508.4175C" class="csl-entry" role="listitem">
+Chon, Sunmyon, Kazuyuki Omukai, and Raffaella Schneider. 2021.
+<span>“<span class="nocase">Transition of the initial mass function in
+the metal-poor environments</span>”</span> 508 (3): 4175–92. <a
+href="https://doi.org/10.1093/mnras/stab2497">https://doi.org/10.1093/mnras/stab2497</a>.
 </div>
 <div id="ref-2016RvMP...88a5004C" class="csl-entry" role="listitem">
 Cyburt, Richard H., Brian D. Fields, Keith A. Olive, and Tsung-Han Yeh.
@@ -462,6 +543,11 @@ cluster simulations - IV. A new scenario for intermediate mass black
 hole formation in globular clusters</span>”</span> 454 (3): 3150–65. <a
 href="https://doi.org/10.1093/mnras/stv2162">https://doi.org/10.1093/mnras/stv2162</a>.
 </div>
+<div id="ref-2005SSRv..117..445G" class="csl-entry" role="listitem">
+Glover, Simon. 2005. <span>“<span>The Formation Of The First Stars In
+The Universe</span>”</span> 117 (3-4): 445–508. <a
+href="https://doi.org/10.1007/s11214-005-5821-y">https://doi.org/10.1007/s11214-005-5821-y</a>.
+</div>
 <div id="ref-2012A&amp;ARv..20...50G" class="csl-entry" role="listitem">
 Gratton, Raffaele G., Eugenio Carretta, and Angela Bragaglia. 2012.
 <span>“<span class="nocase">Multiple populations in globular clusters.
@@ -480,6 +566,12 @@ Grillmair, Carl J., K. C. Freeman, M. Irwin, and P. J. Quinn. 1995.
 <span>“<span class="nocase">Globular Clusters with Tidal Tails: Deep
 Two-Color Star Counts</span>”</span> 109 (June):2553. <a
 href="https://doi.org/10.1086/117470">https://doi.org/10.1086/117470</a>.
+</div>
+<div id="ref-2025arXiv250116438K" class="csl-entry" role="listitem">
+Kruijssen, J. M. Diederik. 2025. <span>“<span class="nocase">The
+Formation of Globular Clusters</span>.”</span> <em>arXiv e-Prints</em>,
+January, arXiv:2501.16438. <a
+href="https://doi.org/10.48550/arXiv.2501.16438">https://doi.org/10.48550/arXiv.2501.16438</a>.
 </div>
 <div id="ref-2019ARA&amp;A..57..227K" class="csl-entry" role="listitem">
 Krumholz, Mark R., Christopher F. McKee, and Joss Bland-Hawthorn. 2019.
@@ -533,6 +625,13 @@ Abundance and the Primordial Fireball. II</span>”</span> 146
 (November):542. <a
 href="https://doi.org/10.1086/148918">https://doi.org/10.1086/148918</a>.
 </div>
+<div id="ref-2022NewAR..9501659P" class="csl-entry" role="listitem">
+Perivolaropoulos, L., and F. Skara. 2022. <span>“<span
+class="nocase">Challenges for <span><span
+class="math inline">\(\Lambda\)</span></span>CDM: An
+update</span>”</span> 95 (December):101659. <a
+href="https://doi.org/10.1016/j.newar.2022.101659">https://doi.org/10.1016/j.newar.2022.101659</a>.
+</div>
 <div id="ref-2020A&amp;A...641A...6P" class="csl-entry" role="listitem">
 Planck Collaboration, N. Aghanim, Y. Akrami, M. Ashdown, J. Aumont, C.
 Baccigalupi, M. Ballardini, et al. 2020. <span>“<span
@@ -545,6 +644,13 @@ Plionis, M., O. López-Cruz, and D. Hughes. 2008. <em><span
 class="nocase">A Pan-Chromatic View of Clusters of Galaxies and the
 Large-Scale Structure</span></em>. Vol. 740. <a
 href="https://doi.org/10.1007/978-1-4020-6941-3">https://doi.org/10.1007/978-1-4020-6941-3</a>.
+</div>
+<div id="ref-1974ApJ...187..425P" class="csl-entry" role="listitem">
+Press, William H., and Paul Schechter. 1974. <span>“<span
+class="nocase">Formation of Galaxies and Clusters of Galaxies by
+Self-Similar Gravitational Condensation</span>”</span> 187
+(February):425–38. <a
+href="https://doi.org/10.1086/152650">https://doi.org/10.1086/152650</a>.
 </div>
 <div id="ref-1970ApJ...162..841S" class="csl-entry" role="listitem">
 Sandage, A. 1970. <span>“<span class="nocase">Main-sequence photometry,
@@ -559,6 +665,18 @@ class="nocase">SWIFT: A modern highly-parallel gravity and smoothed
 particle hydrodynamics solver for astrophysical and cosmological
 applications</span>”</span> 530 (2): 2378–2419. <a
 href="https://doi.org/10.1093/mnras/stae922">https://doi.org/10.1093/mnras/stae922</a>.
+</div>
+<div id="ref-2006MNRAS.369..825S" class="csl-entry" role="listitem">
+Schneider, Raffaella, Ruben Salvaterra, Andrea Ferrara, and Benedetta
+Ciardi. 2006. <span>“<span class="nocase">Constraints on the initial
+mass function of the first stars</span>”</span> 369 (2): 825–34. <a
+href="https://doi.org/10.1111/j.1365-2966.2006.10331.x">https://doi.org/10.1111/j.1365-2966.2006.10331.x</a>.
+</div>
+<div id="ref-2002ApJ...571...30S" class="csl-entry" role="listitem">
+Schneider, R., A. Ferrara, P. Natarajan, and K. Omukai. 2002.
+<span>“<span class="nocase">First Stars, Very Massive Black Holes, and
+Metals</span>”</span> 571 (1): 30–39. <a
+href="https://doi.org/10.1086/339917">https://doi.org/10.1086/339917</a>.
 </div>
 <div id="ref-2015ARA&amp;A..53...51S" class="csl-entry" role="listitem">
 Somerville, Rachel S., and Romeel Davé. 2015. <span>“<span
@@ -582,9 +700,9 @@ href="https://doi.org/10.1086/151823">https://doi.org/10.1086/151823</a>.
 <div id="ref-2013ApJ...775..134V" class="csl-entry" role="listitem">
 VandenBerg, Don A., K. Brogaard, R. Leaman, and L. Casagrande. 2013.
 <span>“<span class="nocase">The Ages of 55 Globular Clusters as
-Determined Using an Improved Method along with Color-Magnitude Diagram
-Constraints, and Their Implications for Broader Issues</span>”</span>
-775 (2): 134. <a
+Determined Using an Improved VĤB_TO Method along with Color-Magnitude
+Diagram Constraints, and Their Implications for Broader
+Issues</span>”</span> 775 (2): 134. <a
 href="https://doi.org/10.1088/0004-637X/775/2/134">https://doi.org/10.1088/0004-637X/775/2/134</a>.
 </div>
 <div id="ref-2011MNRAS.417..198V" class="csl-entry" role="listitem">
@@ -603,5 +721,17 @@ cluster evolution with a million stars</span>”</span> 458 (2): 1450–65.
 href="https://doi.org/10.1093/mnras/stw274">https://doi.org/10.1093/mnras/stw274</a>.
 </div>
 </div>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Stellar populations are named in reverse order of
+discovery. The first population identified corresponds to stars in the
+local solar neighborhood, which include third-generation stars or
+higher. Population II stars are second-generation, while Population III
+are the very first stars in the universe.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 </body>
 </html>
