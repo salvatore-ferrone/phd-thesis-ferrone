@@ -4,6 +4,7 @@
 \usepackage{geometry}
 \usepackage{xcolor}
 \usepackage{config/psl-cover/aas_macros}
+\usepackage{graphicx}
 \usepackage{url}
 \geometry{a4paper,
   left= 3cm,right = 2cm,  
@@ -12,167 +13,60 @@
   marginparwidth = 16mm}
 
 \begin{document}
-\section{Tstrippy}
+This thesis investigates stellar streams originating from globular clusters in the Milky Way. Stellar streams are long, thin structures composed of stars that have escaped a host stellar system, forming coherent tails that can span large regions of the sky. Globular clusters are dense gravitationally bound systems containing hundreds of thousands to millions of stars. They are one source of stellar streams. In Chapter 4, I present our study in which we simulated the expected distribution of stellar streams originating from the entire Milky Way globular cluster system. This study was the first of its kind. Stellar streams have high hopes for being inferential tools for inferreing the presence of dark matter sub halos within the Galaxy. These halos may perturb the stellar streams leaving ``gaps'' in their wake. In Chapter~5, we explored how the collective gravitational influence of all globular clusters can also perturb produce such gaps.
 
-    This project is built on \texttt{f2py}, which allows integration between Fortran and Python. The core motivation behind this choice is performance: Fortran, as a compiled language, provides significantly faster execution for numerically intensive tasks, while Python—especially within Jupyter notebooks—offers a convenient environment for development, experimentation, and visualization. \texttt{F2py} stands for \textit{Fortran to Python} \citep{peterson2009f2py}, and it is included as a module within NumPy \citep{numpy_f2py_manual,2020Natur.585..357H}. The name of the project, \texttt{tstrippy}, stands for \texttt{T}idal \texttt{Strip}ping in \texttt{Py}thon.
+The structure of the thesis is as follows. The remainder of the introduction provides background on stellar streams, globular clusters, and their astrophysical context, as well as an overview of the current state of the field. Chapter~2 outlines the physical framework used to model stream formation and interpret their morphology. Chapter~3 describes the numerical methods employed in the simulations, including convergence tests and estimates of computational cost. Chapters~4 and~5 present two published studies, with the final chapter discussing these results in the broader context of the literature and highlighting future directions.
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{images/S5MilkywayStreams.jpg}
+    \caption{An artist's rendition of a galaxy surrounded by stellar streams. Credit: James Josephides and S$^5$ Collaboration \citep{2019MNRAS.490.3508L}.}
+    \label{fig:S5MilkywayStreams}
+\end{figure}
 
-    \texttt{F2py} supports Fortran 77, 90, and 95 standards, so we chose to write the code in Fortran 90 to make use of \textit{modules}. In Fortran, a module encapsulates data and subroutines in a manner somewhat analogous to classes in object-oriented programming. However, Fortran modules do not support inheritance, and only a single instance of a module can exist at a time—unlike classes, which can be instantiated multiple times.
+\section{General context}
+    Before explaining why Milky Way globular clusters and stellar streams are scientifically interesting, it is important to first set the scene. This thesis fits neatly within the field of galactic astronomy, which, at its core, studies the current state of our galaxy and the processes that shaped its formation within the broader context of the universe.
 
-    \texttt{Tstrippy} package is structured around five core Fortran modules, each responsible for a distinct aspect of the simulation:
-    \begin{itemize}
-        \item \texttt{integrator}: This is the central module of the code. It stores particle positions and velocities, computes forces, and evolves the system forward in time. It also handles the writing of output data at specified intervals and interfaces with all other modules in the code.
-        \item \texttt{potentials}: This module defines the analytical potentials used to compute gravitational forces. It currently supports several models, including \texttt{Plummer}, \texttt{Hernquist}, \texttt{AllenSantillian}, \texttt{MiyamotoNagai}, the bar model \texttt{LongMuraliBar} from \citet{1992ApJ...397...44L}, and the composite model from \texttt{pouliasis2017pii} \citep{2017A&A...598A..66P}. This module can also be called in Python, allowing users to call potential functions directly, e.g., for computing energies during post-processing.
-        \item \texttt{hostperturber}: This module handles the host globular cluster. It stores its orbit (i.e., timestamps, positions, and velocities) and ensures its synchronization with the simulation's internal clock. It computes the gravitational influence of the host cluster on each star particle. This is an internal module only.
-        \item \texttt{perturbers}: Similar in function to \texttt{hostperturber}, this module supports additional perturbing clusters. It allows for the inclusion of multiple perturbers and computes their collective force on each particle. If object-oriented programming were available in Fortran, both this module and \texttt{hostperturber} would naturally inherit from a shared parent class. This module only uses the positions, masses, and characteristic radii of the other perturbers. The velocities are not imported.
-        \item \texttt{galacticbar}: This module stores parameters for the Galactic bar, including the polynomial coefficients for its angular displacement as a function of time:
-        \[
-        \theta(t) = \theta_0 + \omega t + \dot{\omega} t^2 + \ddot{\omega} t^3 + \dots
-        \]
-        If a user wants a bar with a constant rotation speed, then they may pass two coefficients. If they want a bar that accelerates for decelerates, they may mass more coefficients for the higher order terms. The module performs transformations into the rotating bar frame, computes the forces in that frame, and then transforms the forces back to the Galactocentric reference frame.
-    \end{itemize}
-    This modular structure makes it straightforward to extend the code by adding new physics in the form of additional modules.
+    If we start this narrative from the beginning and place stellar streams and globular clusters in the timeline of cosmic history, their importance becomes clearer. The story begins best at the very start. The Lambda Cold Dark Matter ($\Lambda$CDM) cosmological model is currently the leading theory of the universe, successfully unifying a variety of observational evidence—from the Cosmic Microwave Background Radiation and the large-scale distribution of galaxies to the accelerating expansion of the universe \citep{2001LRR.....4....1C,2022NewAR..9501659P}.
 
-    To make the package installable and easy to distribute, I initially followed the guide by \citet{pythonpackagingguide}, which describes how to create a Python package using \texttt{setuptools}—the standard build system in the Python ecosystem. However, compatibility between \texttt{setuptools} and \texttt{f2py} was broken starting with NumPy~$>$~1.22 (released June 22, 2022\footnote{\url{https://github.com/numpy/numpy/releases/tag/v1.22.0}}) and Python~$>$~3.9.18 (released June 24, 2024\footnote{\url{https://www.python.org/downloads/release/}}). This meant that Fortran extensions could only be compiled using deprecated versions of both. These older versions of NumPy were also not compatible with Apple's ARM-based M1 and M2 processors, rendering the code unusable on modern Mac systems.
+    Shortly after the Big Bang, conditions allowed protons, neutrons, and electrons to form and interact. For a few minutes, these particles collided and fused into heavier elements in a process known as Big Bang Nucleosynthesis \citep{2007ARNPS..57..463S}. When this phase ended, the universe's composition was mostly hydrogen, deuterium ($^2$H), helium-4 ($^4$He), and trace amounts of helium-3 ($^3$He) and lithium-7 ($^7$Li). By mass, hydrogen made up roughly 75\%, and helium about 25\% of the primordial universe \citep{1966ApJ...146..542P,2016RvMP...88a5004C}.
 
-    This limitation stemmed from the deprecation and eventual removal of \texttt{numpy.distutils}, the tool that previously enabled seamless integration of Fortran code in NumPy-based packages. As of NumPy~1.23 and later, \texttt{numpy.distutils} was deprecated, and with NumPy~2.0, it was removed entirely. The NumPy developers recommended migrating to \texttt{meson} \citep{meson_manual} or \texttt{Cmake}.
+    Dark matter, which accounts for about five times more mass than ordinary matter, played a critical role in structure formation \citep{2020A&A...641A...6P}. In the early universe, dark matter was distributed nearly uniformly but developed gravitational instabilities that caused it to collapse into a cosmic web of filaments and nodes. These massive nodes created deep gravitational wells that attracted ordinary matter \citep{1974ApJ...187..425P}. The infalling gas subsequently cooled and formed stars. The resulting complex of stars, gas, and dark matter constitutes a galaxy \citep{2008LNP...740.....P,2010gfe..book.....M}.
 
-    To address these issues, I migrated the build process to \texttt{meson}, a language-agnostic build system capable of compiling Fortran, C, and Python extensions across architectures. This eliminated compatibility problems and made the build process architecture-independent. The build system now automatically detects the system architecture and compiles accordingly.
+    Galaxies contain stars that are born, fuse hydrogen and helium into heavier elements, and eventually die, often as supernovae, enriching the interstellar medium with these heavier elements \citep{2019A&ARv..27....3M}. This process is a strong function of cosmic time as the chemical evolution of the universe becomes more metal rich. For example, the first generation of stars, known as Population III (Pop III) stars\footnote{Stellar populations are named in reverse order of discovery. Population I stars are the youngest, metal-rich stars (including the Sun), Population II stars are older and metal-poor, and Population III stars are the very first, metal-free stars.}, formed in a very different environment, one devoid of metals \citep{2002Sci...295...93A,2005SSRv..117..445G,2013RPPh...76k2901B}. 
 
-    The code is fully open source and available on GitHub.\footnote{\url{https://github.com/salvatore-ferrone/tstrippy}} To support users, I created documentation hosted on \texttt{readthedocs.io}\footnote{\url{https://tstrippy.readthedocs.io/en/latest/}}, which includes working examples and basic usage guides. A minimal test suite, written using \texttt{pytest}, is also included. While not exhaustive, the tests ensure that core functionality remains intact as the code evolves. In the next section, I present a minimal example of how the user may use the code within a python script.
+    The chemical composition of the gas is crucial since it influences the initial mass function (IMF) of stars. Stars formed from pristine, metal-free gas tend to have a top-heavy IMF, favoring the formation of massive stars \citep{2002ApJ...571...30S,2006MNRAS.369..825S}. In contrast, even small amounts of metals introduced into the gas can dramatically shift the IMF toward the formation of lighter stars \citep{2021MNRAS.508.4175C}.
 
-    \subsection{Minimum example}
-        If the package is properly installed on the system, it can be imported at the top of any Python script:
-        \small
-        \begin{lstlisting}[language=python]
-            import tstrippy    
-        \end{lstlisting}
-        \normalsize
-        Next, the user must load or define the initial conditions. The code provides:
-        \begin{itemize}
-            \item The masses, sizes, and kinematics of the globular cluster catalog from \citet{2018MNRAS.478.1520B};
-            \item The galactic potential parameters for model II of \citet{2017A&A...598A..66P}; and
-            \item A galactic reference frame.
-        \end{itemize}
+    Globular clusters are, to first approximation, single-stellar populations: their constituent stars formed from the same molecular cloud over a timescale shorter than the internal dynamical time \citep{1988ApJ...324..288A,2009MNRAS.397..954F,2014PhR...539...49K}. Owing to their uniform chemical composition, stellar evolution within a cluster proceeds along the color-magnitude diagram as a function solely of initial mass \citep{2013sse..book.....K}. This property enables precise age determinations from photometric observations, a method that historically provided the first robust lower limits on the age of the Universe \citep{1959MNRAS.119..124H,1970ApJ...162..841S,1985A&A...147..169G,1992ApJ...400..265M}. With their low metallicities and advanced ages, globular clusters are dominated by Population~II stars, indicating that they formed in environments enriched exclusively by the earliest generations of stars \citep{2022A&A...668A.191C}. They thus constitute valuable fossil records of the initial phases of star formation and chemical evolution in the Universe.
+    
+    Globular clusters are among the most ubiquitous stellar systems in the Universe \citep{2006ARA&A..44..193B,2019ARA&A..57..227K}. They are found in virtually all galaxy types, from dwarfs to giant ellipticals, and their total number correlates with global properties of their host galaxies such as mass and luminosity \citep[e.g.,][]{2013ApJ...772...82H,2018MNRAS.481.5592F}. In the local Universe, we can directly observe the formation of massive bound stellar systems—so-called young massive star clusters—which may represent present-day analogs of the GC formation process \citep[e.g.,][]{2010ARA&A..48..431P,2020SSRv..216...69A}, though whether all such systems will evolve into globular clusters remains an open question.
 
-        \small
-        \begin{lstlisting}[language=python]
-            GCdata      = \
-                tstrippy.Parsers.baumgardtMWGCs().data
-            MWparams    = \
-                tstrippy.Parsers.potential_parameters.pouliasis2017pii()
-            MWrefframe  = \
-                tstrippy.Parsers.potential_parameters.MWreferenceframe()
-        \end{lstlisting}
-        \normalsize
-        The user must then select the system to integrate. For example, to integrate the orbits of observed globular clusters, one must convert the ICRS coordinates to a Galactocentric frame using \texttt{astropy} and the provided MW reference frame. Alternatively, to simulate a star cluster, one can generate a Plummer sphere:
-        \small
-        \begin{lstlisting}[language=python]
-            xp,yp,zp,vxp,vyp,vzp=\
-            tstrippy.ergodic.isotropicplummer(G,massHost,halfmassradius,NP)
-        \end{lstlisting}
-        Here, \texttt{NP} is the number of particles, \texttt{halfmassradius} is the system's half-mass radius, \texttt{massHost} is the total mass of the Plummer sphere, and \texttt{G} is the gravitational constant. All values must be in the same unit system.
+    Globular clusters serve as unique astrophysical laboratories, offering insights into stellar dynamics, stellar evolution, and galaxy assembly. Their evolution involves stellar structure and evolution, gravitational dynamics, and relativistic effects in dense environments. For instance, close stellar encounters and binary interactions—such as mass transfer or mergers—are common in such environments and significantly shape cluster evolution \citep{2004MNRAS.349..129D,2016MNRAS.458.1450W,2024MNRAS.528.5119A}. Additionally, globular clusters are suspected to be a pathway for forming intermediate-mass black holes \citep{2013MNRAS.432.2779B,2015MNRAS.454.3150G}. The origin of IMBHs remains uncertain, as their masses are too large to be explained by isolated stellar evolution, yet too small to fall into the supermassive category \citep{2020ARA&A..58..257G}. 
+    
+    Moreover, while traditionally considered as single stellar populations—homogeneous in age and chemical composition—decades of spectroscopic and photometric evidence have revealed the presence of multiple stellar populations in most GCs \citep{2008MNRAS.391..825D,2012A&ARv..20...50G,2018ARA&A..56...83B}. The origin of these multiple populations remains debated, with proposed explanations ranging from self-enrichment to accretion of external material, but no consensus has yet emerged.
 
-        The integrator must then be initialized. All parameters are passed via lists that are unpacked at the function call. Here is an example of initializing the integrator for a stellar stream in a potential that includes a rotating galactic bar:
-        \small
-        \begin{lstlisting}[language=python]
-            tstrippy.integrator.setstaticgalaxy(*staticgalaxy)
-            tstrippy.integrator.setinitialkinematics(*initialkinematics)
-            tstrippy.integrator.setintegrationparameters(*integrationparameters)
-            tstrippy.integrator.inithostperturber(*hostperturber)
-            tstrippy.integrator.initgalacticbar(*galacticbar)
-            tstrippy.integrator.setbackwardorbit()
-        \end{lstlisting}
-        \normalsize
+    A striking property of many GC systems is the bimodality in their metallicity distribution, with one population of metal-poor GCs and another of metal-rich GCs \citep[e.g.,][]{2006ARA&A..44..193B, 2015ApJ...806...36H}. This bimodality is now widely interpreted as evidence for multiple formation channels: metal-rich GCs likely formed in situ within the main progenitor galaxy during intense star-formation episodes, whereas metal-poor GCs were predominantly accreted from lower-mass satellites. The persistence of this bimodality across a wide range of galaxies suggests that hierarchical accretion has been a fundamental process shaping GC systems.
 
-        \begin{itemize}
-            \item \texttt{setstaticgalaxy} specifies the static potential model and passes its parameters.
-            \item \texttt{setinitialkinematics} provides the initial positions and velocities of the particles.
-            \item \texttt{setintegrationparameters} defines the initial time, timestep, and number of steps.
-            \item \texttt{inithostperturber} specifies the globular cluster's trajectory and mass as a function of time.
-            \item \texttt{initgalacticbar} defines a rotating bar. It takes the name of the bar model, potential parameters, and spin parameters.
-            \item \texttt{setbackwardorbit} reverses the velocity vectors and sets the internal clock to count down: $t_i = t_0 - i \cdot \Delta t$. For the usecase presented in this work, \texttt{setbackwardorbit} is used for computing the globular cluster orbits and not for the star-particles. 
-        \end{itemize}
-        The user can choose between two output modes during integration:
-        \begin{lstlisting}
-            tstrippy.integrator.initwriteparticleorbits(nskip,myoutname,myoutdir)
-            tstrippy.integrator.initwritestream(nskip,myoutname,myoutdir)
-        \end{lstlisting}
-        Conceptually, these represent two output paradigms:
-        \begin{itemize}
-            \item \texttt{initwriteparticleorbits} saves the full orbit of each particle to an individual file.
-            \item \texttt{initwritestream} saves full snapshots of all particles at selected timesteps.
-        \end{itemize}
-        Both functions take:
-        \begin{itemize}
-            \item \texttt{nskip}: number of timesteps to skip between outputs;
-            \item\texttt{myoutname}: the base file name;
-            \item \texttt{myoutdir}: the output directory.
-        \end{itemize}
-        The output files will be named like: \texttt{../dir/temp0.bin}, \texttt{../dir/temp1.bin}, ..., up to \texttt{../dir/tempN.bin}, where $N = N_\mathrm{step} / N_\mathrm{skip}$. Note that the files are written in Fortran binary format. Although \texttt{scipy.io.FortranFile} can read them, I use a custom parser based on \texttt{numpy.frombuffer} to avoid the SciPy dependency. Once all parameters are set, the user can proceed with integration using one of two methods:
-        \subsubsection*{Full orbit integration (in memory)}
-        \small
-        \begin{lstlisting}
-            xt,yt,zt,vxt,vyt,vzt=\
-                tstrippy.integrator.leapfrogintime(Ntimestep,nObj) 
-            timestamps=\
-                tstrippy.integrator.timestamps.copy()
-        \end{lstlisting}
-        \normalsize
-        \texttt{leapfrogintime} stores the full orbit of each particle in memory. This is useful for a small number of particles or short integrations—e.g., rapid parameter studies in a notebook. However, for large simulations it can be prohibitively memory-intensive. For instance, integrating all globular clusters at high time resolution might require:
-        \begin{equation}
-            7 \times N_p \times N_\mathrm{step} \times 8~\mathrm{Byte} \approx 450~\mathrm{GB}
-        \end{equation}
-        if $N_\mathrm{step} \approx 10^7$. This will likely exceed system RAM.
+    From the perspective of galaxy formation, the hierarchical model of structure growth posits that galaxies assemble through repeated mergers and accretion of smaller systems \citep{2015ARA&A..53...51S}. In this framework, GCs can form in situ within the main progenitor or be accreted from satellite galaxies \citep[e.g.,][]{2018MNRAS.479.4760F,2020MNRAS.498.2472K,2023A&A...673A..86P,2024MNRAS.528.3198B,2025A&A...693A.155P}. Consequently, the spatial distribution, kinematics, chemical abundances, and metallicity substructure of a galaxy's GC system retain valuable information about its merger history and assembly pathways. This makes GCs not only tracers of early star formation, but also fossil records of the build-up of their host galaxies.
+    
 
-        \subsubsection*{Final state only}
-        \small
-        \begin{lstlisting}
-            tstrippy.integrator.leapfrogtofinalpositions()
-            xf  = tstrippy.integrator.xf.copy()
-            yf  = tstrippy.integrator.yf.copy()
-            zf  = tstrippy.integrator.zf.copy()
-            vxf = tstrippy.integrator.vxf.copy()
-            vyf = tstrippy.integrator.vyf.copy()
-            vzf = tstrippy.integrator.vzf.copy()
-            finaltime=tstrippy.integrator.currenttime.copy()
-        \end{lstlisting}
-        \normalsize
-        \texttt{leapfrogtofinalpositions()} performs the integration but only returns the final phase-space coordinates. These arrays must be copied before deallocating memory:
-        \small
-        \begin{lstlisting}
-            tstrippy.integrator.deallocate()
-        \end{lstlisting}
-        \normalsize
-        Deallocating is necessary to avoid memory leaks or crashes in Jupyter when rerunning code cells.
+    \citet{2025arXiv250116438K} wrote a solid review about different globular cluster formation path ways and summarized some that work in predicting the currently observed number distirbution and statistics \dots
+    \citet{2018RSPSA.47470616F} talks about cluster formation in the cosmological context with galactic assembly. 
+    \citet{2022A&A...667A.112V} is one study that looked at how the presence of a dark matter subhalo could \textit{influence} the observed kinematics of a cluster today. 
 
-    \subsection{Reflection on developing \texttt{tstrippy}}
+    Stellar streams — formed by stars gradually escaping from globular clusters due to tidal forces — are especially valuable. These streams preserve dynamical information about both their progenitor clusters and the gravitational potential of the host galaxy. The timing and properties of escaping stars can reveal the recent internal evolution of the cluster itself \citep{1972ApJ...178..623T,1995AJ....109.2553G}. 
 
-        The earliest version of this code began as a simple Fortran script built to integrate test particles in specific gravitational potential models. Since I was already familiar with Fortran and had working routines, I chose to build on that foundation, gradually transforming the script into a modular and more reusable package. Rather than switching to C++ or a Python-only solution, I continued using Fortran in combination with \texttt{f2py}.
 
-        One of the primary motivations for writing my own code was flexibility. When I attempted to implement a particle spray method in \textit{Galpy}, I found that performance degraded significantly when using custom potentials not constructed from its internal C++ backend. For example, I wanted to use the \texttt{AllenSantillian} halo model, which is not natively supported. I followed the documentation and implemented a class for it. However, custom potentials bypass \texttt{Galpy}'s optimized C++ backend, resulting in slow computations and rendering actions uncomputable (or at least with the functions I tried). This pushed me to continue developping \texttt{tstrippy}. I similar difficulties with \texttt{Amuse} \citep{2013A&A...557A..84P}.
+    %     Globular clusters and their associated stellar streams offer many powerful avenues for astrophysical investigation. First, because direct observations provide only a snapshot of the universe at present, astrophysical phenomena evolving over timescales vastly exceeding human lifespans remain challenging to study. For instance, the Sun takes roughly 220 million years to complete a single orbit around the Galaxy. Stellar streams, by encoding orbital trajectories of their progenitor clusters, provide a unique window into millions of years of dynamical history. By characterizing their shapes and extents, we gain precise constraints on the Galactic gravitational potential.
 
-        This choice, however, came with challenges. At one point, I tried implementing potentials derived from exponential density profiles, which do not admit closed-form solutions for the potential. I attempted to work in elliptical coordinates, motivated by the idea that the potential would depend only on the ``distance'' from the center along the equipotential surfaces. While I successfully implemented simple potential models in elliptical coordinates, I naïvely overlooked that this changes the equations of motion entirely due to the underlying geometry. I found that my orbits always diverged (except in special cases). It was only later that I realized I would need to account for the metric tensor and Christoffel symbols to properly integrate orbits in elliptical coordinates. At that point, I chose not to pursue this further, prioritizing scientific analysis and launching other simulations instead. This experience helped me appreciate why codes like \texttt{Agama} and many published works prefer basis function expansions for such problems. In hindsight, this episode was a perfect example of how even unsuccessful attempts can lead to valuable insights. Below, I summarize some of the key advantages and limitations I encountered while developing a code from scratch to answer a scientific question.
+    Moreover, as stellar streams trace arcs across the sky, they serve as natural probes of the Galactic gravitational field. Their coherent kinematics allow constraints on the mass distribution and substructure of the Milky Way \citep{2011MNRAS.417..198V,2023ApJ...954..195N}. This dual insight into cluster dynamics and galactic environment makes streams a uniquely powerful tool for modern galactic archaeology and dynamics.
 
-        \subsubsection{Advantages and Limitations}
 
-        Developing and maintaining this codebase brought several clear benefits:
-        \begin{itemize}
-            \item \textit{Understanding.} Writing the code forced me to deeply understand the modeling techniques involved. Otherwise, the results would have been incorrect.
-            \item \textit{Flexibility.} I could implement exactly the models I needed and extend them as required.
-            \item \textit{Transparency.} Results produced by my code can be verified and reproduced by others.
-            \item \textit{Reusability.} Ongoing development helped me uncover and fix subtle bugs (e.g., related to non-symplectic integrators) that do not trigger obvious errors and only appear in edge cases or after close inspection. Long-term engagement with the code is key to catching these issues.
-            \item \textit{Collaboration.} A fellow researcher at the Paris Observatory is now using the code. I also used it to supervise a master's student during their semester research project, something that would not have been possible without building a user-friendly tool.
-            \item \textit{Growth.} This project pushed me to adopt best practices: version control, documentation, modularity. Developing my own code has also made it easier to understand external libraries. For example, when I implemented the King model, I studied \texttt{Galpy}'s internals to cross-check my own method. I was delighted by how much easier it was for me to use, despite the fact that I had not touched it within a year.
-        \end{itemize}
+\section{The state of the art}
 
-        However, there were also drawbacks:
-        \begin{itemize}
-            \item \textit{Time cost.} Developing the code took time away from direct scientific analysis. It's possible I could have performed more simulations or performed more analyses had I not develop my code to such an extent.
-            \item \textit{Feature limitations.} My code still lacks capabilities present in other packages: such as basis function expansions, action-angle variable computation, or parallelization strategies using MPI or OpenMP.
-            \item \textit{Changing relevance.} Scientific priorities and available tools evolve rapidly. A general-purpose tool may become obsolete more quickly than a single-use script written for a specific question.
-            \item \textit{Compatibility and maintenance burden.} Making the code accessible to other users also introduces challenges related to cross-platform compatibility and dependency management. Software environments evolve, compilers are updated, dependencies can deprecate, and build tools change. Even with the help of modern tools like \texttt{meson} or \texttt{f2py}, ensuring continued compatibility requires regular testing and adaptation. As the codebase grows, the maintenance load increases, and sustaining it as a single developer becomes increasingly difficult, especially if the tool is made too general.
-        \end{itemize}
-        Nonetheless, the code was designed to address concrete scientific questions about Milky Way stellar streams and globular clusters. In the next two chapters, I present how this tool contributed to advancing our understanding of the Galaxy.
+\citet{2021ApJ...909L..26B} showed that streams can also be used to get at the accretion history of the Milky Way. 
+
+
+
 
 \bibliographystyle{plainnat}
 \bibliography{mybib}
