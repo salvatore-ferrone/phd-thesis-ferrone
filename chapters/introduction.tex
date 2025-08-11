@@ -65,7 +65,6 @@ The structure of the thesis is as follows. The remainder of the introduction pro
     \citet{2010ApJ...712..260K} used the GD-1 stream to try and constrain the gravitational potential.
 
 \section{The state of the art}
-
     Gaia $\rightarrow$ other data sets $\rightarrow$ \texttt{streamfinder} and other discoveries $\rightarrow$ advances in simulations in udnerstanding the physics of the environment on the creation of stellar streams $\rightarrow$ The studies of Malhan and Bonaca that are begining to have enough information to start tackeling some of these inference problems 
 
     The current era of Galactic astronomy is undoubtedly defined by the \emph{Gaia} space mission \citep{2016A&A...595A...1G,2016A&A...595A...2G,2018A&A...616A...1G,2021A&A...650C...3G,2023A&A...674A...1G}. The European Space Agency's space-based observatory has been conducting continuous observations of the sky to perform precise astrometric measurements. Operating since 2014, Gaia improves its data volume and quality each year through repeated parallax measurements.  As of Data Release~3, the mission has provided distances and proper motions for nearly two billion stars in the Galaxy, along with millions of radial velocity measurements \citep{2023A&A...674A...1G}. This yields five-dimensional phase-space information (positions and on-sky velocities) for about 1-2\% of the Galactic stellar population. Although the radial velocities are limited to relatively bright stars, the resulting dataset is still unprecedented in scope.
@@ -74,36 +73,29 @@ The structure of the thesis is as follows. The remainder of the introduction pro
 
     Several ground-based spectroscopic surveys are specifically designed to extend \emph{Gaia}'s radial velocity measurements to fainter magnitudes or more crowded regions.  Examples include the Apache Point Observatory Galactic Evolution Experiment (APOGEE; \citep{2017AJ....154...94M}), the Gaia-ESO Survey \citep{2023A&A...676A.129H}, and upcoming wide-field facilities such as 4MOST \citep{2019Msngr.175....3D} and WEAVE \citep{2014SPIE.9147E..0LD}.  Other large surveys primarily focus on providing detailed chemical abundances for a wide range of stellar populations, including GALAH \citep{2012ASPC..458..421Z}, the Gaia-ESO Survey \citep{2023A&A...676A.129H}, PAN-STARRS \citep{2016arXiv161205560C}, and APOGEE \citep{2017AJ....154...94M}, often delivering both radial velocities and multi-element abundance measurements in the same observations.
 
-    \textit{a paragraph discussing the stream finder and the large number of discoveries of stellar streams}
+    These large data sets have led to a rapidly increasing number of stellar stream discoveries. Earlier searches relied on detailed analyses of color–magnitude diagrams and isochrone fitting. With the advent of the \texttt{streamfinder} algorithm \citep{2018MNRAS.477.4063M,2018MNRAS.478.3862M}, many streams could be detected simultaneously. This was possible because \texttt{streamfinder} agnostically applies a friend-finding algorithm to identify coherent stellar groups in the data. It was initially applied to a small number of streams to reassess their properties and discuss their characteristics in light of the improved quality and quantity of the data \citep{2019NatAs...3..667I,2020ApJ...891..161I}.
 
-    These large data sets had lead to large discoveries of stellar streams that are increasing. Previous methods involved detailed searches for stellar streams based on color magnitude diagrams and isochrone fitting. However, with the advent of the \texttt{streamfinder} algorithm \citep{2018MNRAS.477.4063M, 2018MNRAS.478.3862M}, many new streams were detected at once. It was able to do so becuase it agnostically uses a friend-finding algorithm to search for coherrent groups within the data. This was first applied to a few streams to reasses them and discuss their characteristics with the high data quality and quantity \citet{2019NatAs...3..667I,2020ApJ...891..161I}. 
-    
-    However, \citet{2021ApJ...914..123I}, reported a mass of discoveries for many stellar streams by applying \texttt{streamfinder} to Gaia DR2 and EDR2. This lead to an improve in data quality for many streams already known streams as well as several discoveries. a selection of which is reproduced in Fig.~\ref{fig:ibata_2021_fig1}. They found 9 new streams\dots bringing the total number of known galactic stellar streams to about sixty. 
+    Encouraged by these initial successes, the method was scaled up to the full \emph{Gaia} dataset, allowing for a systematic search across a much larger region of the sky. \citet{2021ApJ...914..123I} subsequently applied \texttt{streamfinder} to \emph{Gaia}~DR2 and EDR3, resulting in a major increase in the number of known stellar streams. This analysis improved the data quality for many previously known streams and led to several new detections, a selection of which is reproduced in Fig.~\ref{fig:ibata_2021_fig1}. They reported nine new streams, bringing the total number of known Galactic stellar streams to about sixty. 
     \begin{figure}
         \centering
         \includegraphics[width=\linewidth]{images/ibata_2021_fig1.jpg}
-        \caption[Milky Way stellar streams discovered with \texttt{streamfinder} in Gaia DR2]{Milky Way stellar streams discovered with \texttt{streamfinder} in Gaia DR2. Both plots are in Galactic coordinates. The top panels is color-coated by proper motion in longitude while the bottom is color-coated in proper motion in latitde. This is Fig.~1 from \citet{2021ApJ...914..123I}. }
+        \caption[Milky Way stellar streams discovered with \texttt{streamfinder} in \emph{Gaia} DR2]{Milky Way stellar streams discovered with \texttt{streamfinder} in \emph{Gaia}~DR2. Both plots are shown in Galactic coordinates. The top panel is color-coded by proper motion in longitude, while the bottom is color-coded by proper motion in latitude. This is Fig.~1 from \citet{2021ApJ...914..123I}.}
         \label{fig:ibata_2021_fig1}
-    \end{figure}       
+    \end{figure}
+    \citet{2021ApJ...914..123I} served as a primary motivator for our study. They showed that of the then sixty known streams only twenty are associated with globular cluster. This means that \textit{most} of the globular clusters do not have tidal streams despite the fact that it should be a normal phenomenon. As summarized by Fig.~\ref{2020A&A...637L...2P}, there are no clear correlations between orbital and structural parameters of globular clusters and the presence of tidal tails or not. This fact inspired us to simulate the expect mass loss distribution of the entire Mikly Way globular cluster catalog.
+    
+    Already with the improved stellar stream data, people have quickly begun trying to see at what point we can: (1) gain info on the local presence of dark matter locally, (2) accreation history of the Milky Way, (2) the global gravitational field. 
 
-
+    \textit{people using this data to learn something about the Milky Way}\dots
     \citet{2018ApJ...867..101B} did an information theory prospective on how much informaiton can be extract from each stellar streams when inferring the galactic potential of the Milky Way, noting that a single stream will not be able to simultaneously constrain all galactic parameters and some will be strongly detenerage with one another. However, they note that simultaneously fitting many streams will get the job done...
 
     This was done with \citet{2024ApJ...967...89I}. 
 
-
     \citet{2018MNRAS.478.3862M} shows the fanning structure of GD-1
- 
-
-
-    \textit{Transition into the physical simulations that are being made with these streams to understand how the environment shapes the streams.}
-
-    \textit{Show the link between the two}
 
     For instance, stellar streams are proving useful for theories of globular cluster formation. As summarized in \citet{2025arXiv250116438K}, there are many proposed scenarios for globular cluster formation. One of which is that they are formed within their own dark-matter subhalos. Many people study if a globular cluster were embedded in a dark matter halo what the effects of the kinematics would be \citep{2022A&A...667A.112V}. However, as noted by \citet{2025arXiv250116438K}, this scenario is not favored for a few reasons. First, it would be able to predict the number of globular clusters within the Milky Way today. There's a couple other \citet{2016ApJ...823...52K} perfomed a study on the formation of globular clusters within dark matter sub-halos and found that the deeper potential well could leave to star formation with a larger spread in metallicities between the cluster's members than is observed in real globular clusters. Thanks to Gaia data, \citet{2022ApJ...941L..38M}, was able to study the morphology of a collection of Milky Way streams. \citet{2022ApJ...941L..38M} studied that the velocity dispersion of the Milky Way streams are inconsistent with model predictions for streams coming from clusters embedded in massive and \textit{cuspy} profiled dark-matter subhalos.
 
     Not only can the globular clusters be used to infer the accretion history of the Galaxy, but also the \textit{streams} \citep{2021ApJ...909L..26B}. For example, \citet{2020ApJ...898L..37Y} discovered a ``Low Mass Stream'' that was later characterized by \citet{2021ApJ...920...51M} to have a wide spread in metallicities and high velocity dispersion, making it more like to be a stream associated to a dwarf galaxy merger and not a globular cluster. 
-
 
     \citet{2019ApJ...880...38B} the famous paper that I cite all the time what tries to infer the presence of DM. \citet{2020ApJ...892L..37B} did a follow up to say that they could localize the potential dark matter sub halo. It's trajectory is consistent with the dark matter subhalos that could emerge from the sagittarious dwarf galaxy.
 
