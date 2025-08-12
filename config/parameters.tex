@@ -5,7 +5,7 @@
 \usepackage{lmodern}
 \usepackage[english,french]{babel}
 \usepackage{textgreek}
-\usepackage{config/psl-cover/aas_macros}
+% \usepackage{config/psl-cover/aas_macros}
 \setcounter{tocdepth}{3} % Pour que les subsubsections n'apparaissent pas dans la TOC
 \setcounter{secnumdepth}{3} % Pour que les subsubsections ne soient pas numérotées
 \usepackage{fixltx2e}
@@ -148,19 +148,25 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%% Bibliography ref  %%%%%%%%%%%
-\usepackage[hyperref=true,natbib=true,
-			backref=true,date=year,
-			backend=biber,
-			url=false,doi=false,isbn=false,%
-			minbibnames=6, % nb min authors in biblio
-			maxbibnames=6, % nb max authors in biblio
-			maxcitenames=1,mincitenames=1, % nb min authors as textual
-			maxalphanames=1, %nb author ref
-			style=alphabetic,%authoryear, numeric ,  alphabetic
-			sorting=nyt]{biblatex}
+\usepackage[
+    backend=biber,
+    style=authoryear,
+    sorting=nyt,
+    maxcitenames=2,
+    mincitenames=1,
+    maxbibnames=6,
+    minbibnames=6,
+    natbib=true,
+    hyperref=true,
+    backref=true,
+    url=false,
+    doi=false,
+    isbn=false
+]{biblatex}
+
 \renewcommand*{\bibfont}{\footnotesize}
 \setlength\bibitemsep{\itemsep}
-\renewbibmacro{in:}{} % remove In 
+\renewbibmacro{in:}{} % remove "In:"
 
 \renewcommand*{\labelalphaothers}{}
 \DeclareLabelalphaTemplate{

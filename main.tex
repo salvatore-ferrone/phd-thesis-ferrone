@@ -1,13 +1,13 @@
 \documentclass[a4paper,12pt]{book}
 \input{config/parameters.tex}
 \input{config/macro.tex}
+\input{config/journals.tex}
 \usepackage{config/psl-cover/psl-cover}
-\pslassetspath{config/psl-cover}
-\usepackage{listings}
+\pslassetspath{config/psl-cover/}
 \newcommand{\paola}[1]{\textcolor{purple}{#1}}
-
-\title{Stellar Streams}
-\institute{l'Observatoire de Paris et \\ \sapred{l'Università di Roma ``La Sapienza''}}
+\usepackage{listings}
+\title{Stellar Streams QUI METTI IL TITOLO CHE AVEVAMO FORNITO}
+\institute{Observatoire de Paris-PSL, LIRA, UMR 8254 CNRS\\ \sapred{l'Università di Roma ``La Sapienza''}}
 \doctoralschool{PhD program in Astronomy, Astrophysics, and Space Science (XXXVIII cycle)}{127}
 \specialty{Astrophysics}
 \author{Salvatore Ferrone}
@@ -20,7 +20,7 @@
 \jurymember{5}{Eugene Vasiliev}{University of Surrey}{Examinateur}
 \jurymember{6}{Raffaella Schneider}{University of Rome ``La Sapienza''}{Examinatrice}
 \jurymember{7}{Paola Di Matteo}{Paris Sciences et Lettres}{Supervisor}
-\jurymember{8}{Marco Montuori}{Consiglio Nazionale Delle Ricerche}{Supervisor}
+\jurymember{8}{Marco Montuori}{Centro Nazionale Delle Ricerche}{Supervisor}
 \frabstract{The Galaxy\dots}
 \enabstract{La galaxie\dots}
 \frkeywords{galaxie, dynamique}
@@ -48,26 +48,26 @@
 \input{chapters/introduction}
 
 \chapter{Theory}
-% \input{chapters/theory}
+\input{chapters/theory}
 
 \chapter{Numerical methods}
-% \input{chapters/numerics}
+\input{chapters/numerics}
 
 \chapter{Tidal}
-% \input{chapters/tidal}
+\input{chapters/tidal}
 
 \chapter{Gapology}
-% \input{chapters/gapology}
+\input{chapters/gapology}
 
-\chapter{Conclusion}
-% \input{chapters/conclusion}
+\chapter{Conclusions}
+\input{chapters/conclusion}
 
 \backmatter
 
 
 \begin{singlespace}
 \setlength\labelalphawidth{0em}
-\small\printbibliography[heading=bibintoc,title=Bibliographie]
+\small\printbibliography[heading=bibintoc,title=Bibliography]
 \end{singlespace}
 
 \end{document}
