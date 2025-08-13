@@ -194,42 +194,108 @@
 <header id="title-block-header">
 <h1 class="title">Conclusion</h1>
 </header>
-<h1 id="conclusion">Conclusion</h1>
 <p><span class="citation"
 data-cites="2022A&amp;A...664A..31C">Casamiquela et al. (2022)</span>
 Laia’s paper that used the first version of the code.</p>
-<ul>
-<li><p>I need to restate the importance of stellar streams</p></li>
-<li><p>I need to recap the conclusions of this work</p></li>
-<li><p>I need to restate the state of the art</p></li>
-<li><p>I need to introduce the rest of the chapter, which are discussing
-prospects of future work, both in scientific questions and modeling
-techinques</p></li>
-</ul>
-<h1 id="future-scientific-questions">Future scientific questions</h1>
-<h2 id="dark-matter-subhalos">dark matter subhalos</h2>
-<ul>
-<li><p>Press-schecter</p></li>
-<li><p>Pierre’s dark matter subhaloes</p></li>
-<li><p>Duncan’s paper</p></li>
-<li><p>Bayesian hierarchal models</p></li>
-<li><p>Infer the parameters of the distribution function from dark
-matter subhaloes</p></li>
-</ul>
-<h2 id="time-varying-bulk-components-of-the-milky-way">Time-varying bulk
-components of the Milky Way </h2>
-<h2 id="internal-dynamics">internal dynamics</h2>
-<p><span class="citation" data-cites="2004AJ....127.2753D">Dehnen et al.
-(2004)</span> presented a great work on Palomar 5 and found the
-parameters of a king model that best reproduce Palomar 5. Perhaps I can
-take form this study to have the best description of the tidal tails
-that corresponds to Palomar 5, and iterate over this to have the best
-description of of the tails as possible.</p>
-<h2 id="mock-observations">mock observations</h2>
-<p>Knowing where the stars should</p>
-<h1
-id="globular-cluster-formation-and-multiple-stellar-populations">Globular
-cluster formation and multiple stellar populations</h1>
+<p>In this chapter, I summarize the works undertaken in this thesis and
+reconnect it to the broader literature with proposing more avenues for
+investigation.</p>
+<h1 id="summary">Summary</h1>
+<p>In Chapter 1, I outlined the importance of stellar streams from
+globular clusters, highlighting both their intrinsic scientific interest
+and their role as probes for a wide range of astrophysical questions.
+These include the chemical enrichment of the Universe, the assembly
+history of the Milky Way, pathways of black hole formation, and
+constraints on the global and local properties of the Galactic
+gravitational field—particularly in relation to the detection of dark
+matter.</p>
+<p>In Chapter 2, I presented the exact equations of motion used to model
+the formation of stellar streams from globular clusters, formulated as a
+restricted three-body problem. I then explained how these equations can
+be interpreted to describe the escape of stars through the Lagrange
+points under tidal forces, followed by their evolution via phase mixing
+to form the streams. I summarized the literature on the mechanisms by
+which perturbations can create gaps. I also discussed the limitations of
+our models: specifically, that without <span
+class="math inline">\(N\)</span>-body simulations or analytical
+prescriptions for internal cluster dynamics, certain questions cannot be
+addressed.</p>
+<p>In Chapter 3, I introduced my simulation code, <code>tstrippy</code>,
+describing its numerical solution of the equations of motion, its
+performance in terms of accuracy and computation time, and a comparison
+of two numerical schemes. I explained how the code is written in Fortran
+and interfaced with Python via <code>f2py</code>, and provided a
+minimal, <span>non</span>-working example illustrating the workflow from
+the user’s perspective.</p>
+<p>In Chapter 4, I presented <span class="citation"
+data-cites="2023A&amp;A...673A..44F">Ferrone et al. (2023)</span>, in
+which we simulated the expected tidal debris from the entire globular
+cluster catalogue. These simulations have been made publicly available
+and are now used by the community, including in searches for additional
+tidal debris beyond some of the clusters in our sample <span
+class="citation"
+data-cites="2025arXiv250705590K 2025ApJ...988...39W">(Kuzma et al. 2025;
+Wang et al. 2025)</span>.</p>
+<p>In Chapter 5, I present <span class="citation"
+data-cites="2025A&amp;A...699A.289F">Ferrone et al. (2025)</span>, where
+we investigated how the Palomar 5 stellar stream responds to the
+granularity of the Milky Way’s gravitational field—specifically, the
+presence of other globular clusters. We showed that the internal
+dynamics of globular clusters can strongly influence the morphology of
+their stellar streams. In particular, gap formation from the fly-by of a
+massive perturber requires very specific stream conditions: regions
+close to the progenitor, where the morphology is still dominated by
+epicyclic overdensities, are unfavorable for gap formation, as different
+stellar packets respond differently to the perturbation and subsequently
+drift out of phase. This is a new contribution, as previous studies
+primarily considered the effects of random motions, such as velocity
+dispersion.</p>
+<h1 id="prospectives">Prospectives</h1>
+<p>I think the good thing here is that we really focus on Milky Way
+streams and globular clusters. Idealized toy models and set ups are good
+for investigating new ideas and various types of theoretical phenomena
+…However, …by focusing on the Milky Way, we can truly …know how much of
+these we can expect to see, with what significance, and always tie back
+around to the observations …</p>
+<h1 id="future-works">Future works</h1>
+<p>The ubiquity anf sensitivity of stellar streams really do make them
+amazing for inferring properties of various distributions. There are
+thus various avenues of investigation that can be taken on next. Some
+phenomena still needs to be explored with numerical forward modeling.
+Either for understanding physical mecanisms, or for obtaining
+predictions on how often something should be observed. On the otherhand,
+where the phenomena is well understood we can turn to observations to
+begin actually perform the inference.</p>
+<h2 id="dark-matter">Dark Matter</h2>
+<p><em>forward modelling</em> <span class="citation"
+data-cites="2025arXiv250207781L">Lu et al. (2025)</span> just did what I
+proposed to do for Strasbourg. But not exactly as I would do it. I need
+to read it better. It looks like an amazing work…<span class="citation"
+data-cites="2024arXiv241213144A">Adams et al. (2024)</span> used the
+press-schecter foramlism to analyze about how many impacts we can expect
+to see on the stream.</p>
+<p>A paper just came out in which they did it. RIP</p>
+<p><em>inference</em> What about the inference aspect? Can we reliably
+transalte a distribution of gaps into an understanding of the Dark
+Matter Distribution Function? Hierarchical Baesian modeling…</p>
+<h2 id="the-gravitational-field-of-the-mw">The gravitational field of
+the MW</h2>
+<p>We wanted to investigate more stuff like spiral arms, the large and
+small magallenic clouds.</p>
+<p><span class="citation" data-cites="2023A&amp;A...673A.152I">Ishchenko
+et al. (2023)</span> showed that within the last 5 gyr the potential was
+stable enough where the orbital solutions are pretty stable.</p>
+<p>Ibata 2024 made a good model. However it’s still axis symmetric. A
+Malhan article showed that the structure of the MW can twist a stream. I
+see that too in my simulations. This mecanism needs to be understood
+theoretically better and also employed in the MW…</p>
+<p>Yaaquib (2025) is showing that we can use streams to get at how the
+gravitational field changes due the LMC infall…maybe in the
+conclusion</p>
+<h2
+id="multiple-stellar-populations-stellar-evolution-and-globular-cluster-formation-and-internal-dynamics-stellar-populations">Multiple-stellar
+populations, Stellar evolution, and globular cluster formation and
+internal dynamics, stellar populations</h2>
 <p>What if we wanted to go further? Indeed at somepoint, this is just
 considered other work or future considerations, or other research
 questions entirely.</p>
@@ -253,16 +319,13 @@ linking the chemical environment that could be enriched from a
 combination of pop II/popIII stars and how cluster formation. At least
 we know clusters are at least second generation (pop II) stars, since
 the first stars (pop III) form massive and die young <span
-class="citation" data-cites="2002ApJ...571...30S">(R. Schneider et al.
+class="citation" data-cites="2002ApJ...571...30S">(Schneider et al.
 2002)</span>.</p>
 <p>Ideally, we would like to know about the stars within the cluster to
 then infer the environment that it must have been born in.
 Extra-galactic census of globular clusters show that there isa
 bi-modality in color, making people believe that there are at least two
 generations or two different mechanisms for forming them.</p>
-<p>Yaaquib (2025) is showing that we can use streams to get at how the
-gravitational field changes due the LMC infall…maybe in the
-conclusion</p>
 <p><span class="citation" data-cites="2025arXiv250507491V">Vergara et
 al. (2025)</span> is looking at black hole formation inside of globular
 clusters that are being born.</p>
@@ -279,9 +342,18 @@ populations within 47 Tuc.</p>
 (2024)</span> said that there’s evidence of multiple populations within
 the stellar streams. Something expected and now observationally
 confirmed</p>
-<p><span class="citation" data-cites="2023A&amp;A...673A.152I">Ishchenko
-et al. (2023)</span> showed that within the last 5 gyr the potential was
-stable enough where the orbital solutions are pretty stable.</p>
+<p><span class="citation" data-cites="2025MNRAS.540.1235C">Chen, Mo, and
+Wang (2025)</span> presents a cool scenario for investigating globular
+cluster formation during galaxy formation and mergers. They discuss the
+chemical environment the clusters form in as an enrichment process from
+POP III and POP II stars. I must read this more in detail. It is
+fascinating work.</p>
+<p><span class="citation" data-cites="2004AJ....127.2753D">Dehnen et al.
+(2004)</span> presented a great work on Palomar 5 and found the
+parameters of a king model that best reproduce Palomar 5. Perhaps I can
+take form this study to have the best description of the tidal tails
+that corresponds to Palomar 5, and iterate over this to have the best
+description of of the tails as possible.</p>
 <p><span class="citation" data-cites="2006ARA&amp;A..44..193B">Brodie
 and Strader (2006)</span> made a review on extra galactic globular
 clusters. They discuss things like the observation evidence, the
@@ -301,29 +373,19 @@ evidence that GCs are still forming. They also discuss the chemical
 abundance patterns within the clusters. It’s complicated stuff, I wish I
 was better at stellar physics and knowing all the different
 sequences…</p>
-<p><span class="citation" data-cites="2002ApJ...571...30S">R. Schneider
-et al. (2002)</span> proposed the of pair-unstable supernovae <span
-class="math inline">\(\gamma + \gamma \rightarrow e^{+} + e^{-}\)</span>
-to create the positrons and electrons, that reduces the radiation
-pressure, to then make the star implode then explode. This shows the
-expected yeild of some selected heavier elements as a function of the
-ZAMs. Pretty sick.</p>
-<p><span class="citation" data-cites="2006MNRAS.369..825S">Raffaella
-Schneider et al. (2006)</span> proposed the initial mass function on pop
-III stars. I think this explains why the were expected to be soooo large
-and how the metals allow them to grow so much. I don’t know what the
-WMAP eletron scatter probe is. I think they’re already talking about
-detectability. and saying that if a scenario produces many eave pop III
-stars, then it won’t be detectable in the WMAP data. Perhaps pop III
-stars should do something to the electron scattering optical depth? What
-is a Larson initial mass function?</p>
-<p><span class="citation" data-cites="2025MNRAS.540.1235C">Chen, Mo, and
-Wang (2025)</span> presents a cool scenario for investigating globular
-cluster formation during galaxy formation and mergers. They discuss the
-chemical environment the clusters form in as an enrichment process from
-POP III and POP II stars. I must read this more in detail. It is
-fascinating work.</p>
+<p>Something about the chemical abundance patterns of the halo stars
+that can be consistent with the globular clusters …</p>
+<p>Schiavon (2017) showing that there exist many N-rich stars which have
+chemical abundance patterns similar to stars within the clusters all
+over the galactic field.</p>
+<p>Fernández-Trincado, José G (2021) says that there are some metal rich
+cluster debris, which is interesting</p>
+<p>Fernández-Trincado, J. G (2017) said they found 11 stars with the
+chemical abundance patterms of second general stars within globular
+cluster …</p>
 <h1 id="future-modeling-techinques">Future modeling techinques</h1>
+<p>I want to integrate these discussions in smoothly with the other
+scientific questions and not separate the modelling techinques.</p>
 <h2 id="n-body-codes">N-body codes</h2>
 <p><span class="citation" data-cites="2012MNRAS.424..545N">(Nitadori and
 Aarseth 2012)</span> showed the GPU’s can replace GRAPE</p>
@@ -423,6 +485,15 @@ explore a region of the parameter space where the assumptions behind the
 prescriptions break down, we may be led astray. …but it’s so fast …</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
+<div id="ref-2024arXiv241213144A" class="csl-entry" role="listitem">
+Adams, Duncan K., Aditya Parikh, Oren Slone, Rouven Essig, Manoj
+Kaplinghat, and Adrian M. Price-Whelan. 2024. <span>“<span
+class="nocase">Semi-Analytic Modeling of Dark Matter Subhalo Encounters
+with Thin Stellar Streams: Statistical Predictions for GD-1-like Streams
+in CDM</span>.”</span> <em>arXiv e-Prints</em>, December,
+arXiv:2412.13144. <a
+href="https://doi.org/10.48550/arXiv.2412.13144">https://doi.org/10.48550/arXiv.2412.13144</a>.
+</div>
 <div id="ref-2014ApJ...795...94B" class="csl-entry" role="listitem">
 Bonaca, Ana, Marla Geha, Andreas H. W. Küpper, Jürg Diemand, Kathryn V.
 Johnston, and David W. Hogg. 2014. <span>“<span class="nocase">Milky Way
@@ -488,6 +559,22 @@ Fardal, Mark A., Shuiyao Huang, and Martin D. Weinberg. 2015.
 streams</span>”</span> 452 (1): 301–19. <a
 href="https://doi.org/10.1093/mnras/stv1198">https://doi.org/10.1093/mnras/stv1198</a>.
 </div>
+<div id="ref-2023A&amp;A...673A..44F" class="csl-entry" role="listitem">
+Ferrone, Salvatore, Paola Di Matteo, Alessandra Mastrobuono-Battisti,
+Misha Haywood, Owain N. Snaith, Marco Montuori, Sergey Khoperskov, and
+David Valls-Gabaud. 2023. <span>“<span class="nocase">The e-TidalGCs
+project. Modeling the extra-tidal features generated by Galactic
+globular clusters</span>”</span> 673 (May):A44. <a
+href="https://doi.org/10.1051/0004-6361/202244141">https://doi.org/10.1051/0004-6361/202244141</a>.
+</div>
+<div id="ref-2025A&amp;A...699A.289F" class="csl-entry" role="listitem">
+Ferrone, Salvatore, Marco Montuori, Paola Di Matteo, Alessandra
+Mastrobuono-Battisti, Rodrigo Ibata, Paolo Bianchini, Sergey Khoperskov,
+et al. 2025. <span>“<span class="nocase">Gaps in stellar streams as a
+result of globular cluster flybys: The case of Palomar 5</span>”</span>
+699 (July):A289. <a
+href="https://doi.org/10.1051/0004-6361/202553923">https://doi.org/10.1051/0004-6361/202553923</a>.
+</div>
 <div id="ref-2023A&amp;A...673A.152I" class="csl-entry" role="listitem">
 Ishchenko, Maryna, Margaryta Sobolenko, Peter Berczik, Sergey
 Khoperskov, Chingis Omarov, Olexander Sobodar, and Maxim Makukov. 2023.
@@ -502,6 +589,13 @@ Küpper, Andreas H. W., Richard R. Lane, and Douglas C. Heggie. 2012.
 tails</span>”</span> 420 (3): 2700–2714. <a
 href="https://doi.org/10.1111/j.1365-2966.2011.20242.x">https://doi.org/10.1111/j.1365-2966.2011.20242.x</a>.
 </div>
+<div id="ref-2025arXiv250705590K" class="csl-entry" role="listitem">
+Kuzma, Pete B., Miho N. Ishigaki, Takanobu Kirihara, and Itsuki Ogami.
+2025. <span>“<span class="nocase">Constructing a Pristine View of
+Extended Globular Cluster Structure</span>.”</span> <em>arXiv
+e-Prints</em>, July, arXiv:2507.05590. <a
+href="https://doi.org/10.48550/arXiv.2507.05590">https://doi.org/10.48550/arXiv.2507.05590</a>.
+</div>
 <div id="ref-2024A&amp;A...681A..45L" class="csl-entry" role="listitem">
 Lacchin, E., A. Mastrobuono-Battisti, F. Calura, C. Nipoti, A. P.
 Milone, M. Meneghetti, and E. Vanzella. 2024. <span>“<span
@@ -509,17 +603,18 @@ class="nocase">Multiple stellar population mass loss in massive Galactic
 globular clusters</span>”</span> 681 (January):A45. <a
 href="https://doi.org/10.1051/0004-6361/202347268">https://doi.org/10.1051/0004-6361/202347268</a>.
 </div>
+<div id="ref-2025arXiv250207781L" class="csl-entry" role="listitem">
+Lu, Junyang, Tongyan Lin, Mukul Sholapurkar, and Ana Bonaca. 2025.
+<span>“<span class="nocase">Detectability of dark matter subhalo impacts
+in Milky Way stellar streams</span>.”</span> <em>arXiv e-Prints</em>,
+February, arXiv:2502.07781. <a
+href="https://doi.org/10.48550/arXiv.2502.07781">https://doi.org/10.48550/arXiv.2502.07781</a>.
+</div>
 <div id="ref-2012MNRAS.424..545N" class="csl-entry" role="listitem">
 Nitadori, Keigo, and Sverre J. Aarseth. 2012. <span>“<span
 class="nocase">Accelerating NBODY6 with graphics processing
 units</span>”</span> 424 (1): 545–52. <a
 href="https://doi.org/10.1111/j.1365-2966.2012.21227.x">https://doi.org/10.1111/j.1365-2966.2012.21227.x</a>.
-</div>
-<div id="ref-2006MNRAS.369..825S" class="csl-entry" role="listitem">
-Schneider, Raffaella, Ruben Salvaterra, Andrea Ferrara, and Benedetta
-Ciardi. 2006. <span>“<span class="nocase">Constraints on the initial
-mass function of the first stars</span>”</span> 369 (2): 825–34. <a
-href="https://doi.org/10.1111/j.1365-2966.2006.10331.x">https://doi.org/10.1111/j.1365-2966.2006.10331.x</a>.
 </div>
 <div id="ref-2002ApJ...571...30S" class="csl-entry" role="listitem">
 Schneider, R., A. Ferrara, P. Natarajan, and K. Omukai. 2002.
@@ -552,6 +647,13 @@ subsequently an IMBH from runaway collisions. Direct N-body and Monte
 Carlo simulations of dense star clusters</span>.”</span> <em>arXiv
 e-Prints</em>, May, arXiv:2505.07491. <a
 href="https://doi.org/10.48550/arXiv.2505.07491">https://doi.org/10.48550/arXiv.2505.07491</a>.
+</div>
+<div id="ref-2025ApJ...988...39W" class="csl-entry" role="listitem">
+Wang, Shouzhi, Jundan Nie, Biwei Jiang, Hao Tian, Chao Liu, and Ying-Hua
+Zhang. 2025. <span>“<span class="nocase">The Structural and Kinematical
+Properties of NGC 5634, a Globular Cluster Associated with the
+Sagittarius Dwarf Galaxy?</span>”</span> 988 (1): 39. <a
+href="https://doi.org/10.3847/1538-4357/ade0b6">https://doi.org/10.3847/1538-4357/ade0b6</a>.
 </div>
 </div>
 </body>
