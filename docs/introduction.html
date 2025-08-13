@@ -471,14 +471,6 @@ Gaia?</em></p>
 and Hogg (2010)</span> used the GD-1 stream to try and constrain the
 gravitational potential.</p>
 <h1 id="the-state-of-the-art">The state of the art</h1>
-<p>Gaia <span class="math inline">\(\rightarrow\)</span> other data sets
-<span class="math inline">\(\rightarrow\)</span>
-<code>streamfinder</code> and other discoveries <span
-class="math inline">\(\rightarrow\)</span> advances in simulations in
-udnerstanding the physics of the environment on the creation of stellar
-streams <span class="math inline">\(\rightarrow\)</span> The studies of
-Malhan and Bonaca that are begining to have enough information to start
-tackeling some of these inference problems</p>
 <p>The current era of Galactic astronomy is undoubtedly defined by the
 <em>Gaia</em> space mission <span class="citation"
 data-cites="2016A&amp;A...595A...1G 2016A&amp;A...595A...2G 2018A&amp;A...616A...1G 2021A&amp;A...650C...3G 2023A&amp;A...674A...1G">(Gaia
@@ -507,12 +499,12 @@ data-cites="2021MNRAS.505.5957B">Baumgardt and Vasiliev (2021)</span>
 combined <em>Gaia</em> EDR3 astrometry with <em>Hubble Space
 Telescope</em> observations, enabling precise distance measurements for
 162 globular clusters.</p>
-<p>Several ground-based spectroscopic surveys are specifically designed
-to extend <em>Gaia</em>’s radial velocity measurements to fainter
-magnitudes or more crowded regions. Examples include the Apache Point
-Observatory Galactic Evolution Experiment (APOGEE; <span
-class="citation" data-cites="2017AJ....154...94M">(Majewski et al.
-2017)</span>), the Gaia-ESO Survey <span class="citation"
+<p>Several ground-based spectroscopic surveys aid in extending
+<em>Gaia</em>’s radial velocity measurements to fainter magnitudes.
+Examples include the Apache Point Observatory Galactic Evolution
+Experiment (APOGEE; <span class="citation"
+data-cites="2017AJ....154...94M">(Majewski et al. 2017)</span>), the
+Gaia-ESO Survey <span class="citation"
 data-cites="2023A&amp;A...676A.129H">(Hourihane et al. 2023)</span>, and
 upcoming wide-field facilities such as 4MOST <span class="citation"
 data-cites="2019Msngr.175....3D">(de Jong et al. 2019)</span> and WEAVE
@@ -528,9 +520,8 @@ APOGEE <span class="citation" data-cites="2017AJ....154...94M">(Majewski
 et al. 2017)</span>, often delivering both radial velocities and
 multi-element abundance measurements in the same observations.</p>
 <p>These large data sets have led to a rapidly increasing number of
-stellar stream discoveries. Earlier searches relied on detailed analyses
-of color-magnitude diagrams and isochrone fitting. With the advent of
-the <code>streamfinder</code> algorithm <span class="citation"
+stellar stream discoveries. With the advent of the
+<code>streamfinder</code> algorithm <span class="citation"
 data-cites="2018MNRAS.477.4063M 2018MNRAS.478.3862M">(Malhan and Ibata
 2018; Malhan et al. 2018)</span>, many streams could be detected
 simultaneously. This was possible because <code>streamfinder</code>
@@ -567,21 +558,17 @@ data-cites="2021ApJ...914..123I">R. Ibata et al.
 data-cites="2021ApJ...914..123I">R. Ibata et al. (2021)</span> was a
 primary motivation for this study. They showed that, of the roughly
 sixty stellar streams known at the time, only twenty were associated
-with globular clusters. This implies that <em>most</em> Milky Way
-globular clusters do not presently exhibit tidal streams, despite the
-expectation that mass loss through tidal stripping is a common
-phenomenon. As summarized in Fig. <a href="#2020A&amp;A...637L...2P"
-data-reference-type="ref"
-data-reference="2020A&amp;A...637L...2P">[2020A&amp;A...637L...2P]</a>,
-no clear correlations have been found between a cluster’s orbital or
-structural parameters and the presence (or absence) of tidal tails. This
-motivated our simulation of the expected mass-loss distribution for the
-entire Milky Way globular cluster population, presented in
-Chapter 4.</p>
+with globular clusters. As summarized in <span class="citation"
+data-cites="2020A&amp;A...637L...2P">Piatti and Carballo-Bello
+(2020)</span>, no clear correlations have been found between a cluster’s
+orbital or structural parameters and the presence (or absence) of tidal
+tails. This motivated our simulation of the expected mass-loss
+distribution for the entire Milky Way globular cluster population,
+presented in Chapter 4.</p>
 <p>The improved quality and completeness of stellar stream catalogs in
 the Gaia era have rapidly expanded the scope of scientific applications.
-With these data, researchers have begun to address a wide range of
-questions, including:</p>
+With these data, many studies have already begun to address a wide range
+of questions, including:</p>
 <ol>
 <li><p>reconstructing the accretion history of the Milky Way;</p></li>
 <li><p>measuring the local and global gravitational potential;</p></li>
@@ -590,13 +577,13 @@ as the bar, giant molecular clouds, and dark matter subhalos.</p></li>
 </ol>
 <p>A recent review by <span class="citation"
 data-cites="2025NewAR.10001713B">Bonaca and Price-Whelan (2025)</span>
-provides a comprehensive overview of these efforts, classifying stream
-morphology as the result of three main factors: (1) the internal
-dynamics of the progenitor system, which determine the rate and energy
-of escaping stars; (2) the smooth, time-independent gravitational field,
-which sets the orbital path and tidal forces; and (3) time-dependent
-perturbations, including those from baryonic and dark matter
-substructure. We refer the reader to that review for a detailed
+provides a comprehensive overview of some of these efforts. Usefully,
+they classify stream morphology as the result of three main factors: (1)
+the internal dynamics of the progenitor system, which determine the rate
+and energy of escaping stars; (2) the smooth, time-independent
+gravitational field, which sets the orbital path and tidal forces; and
+(3) time-dependent perturbations, including those from baryonic and dark
+matter substructure. We refer the reader to that review for a detailed
 discussion, and return to some of these aspects in Chapters 4 and 5.</p>
 <p>Stellar streams are also providing new insights into globular cluster
 formation. Several proposed scenarios exist, one of which suggests that
@@ -620,14 +607,25 @@ data-cites="2020ApJ...898L..37Y">Yuan et al. (2020)</span> discovered a
 class="citation" data-cites="2021ApJ...920...51M">Malhan et al.
 (2021)</span>, was found to have a broad metallicity distribution and a
 high velocity dispersion—properties more consistent with a disrupted
-dwarf galaxy than with a globular cluster. Particularly intriguing are
-the most metal-poor streams, which in some cases are even more
-metal-poor than any surviving Milky Way globular cluster. This suggests
-the accretion of ancient, chemically primitive systems. Moreover,
-chemical tagging studies have shown that some halo field stars share the
-distinctive light-element abundance patterns of globular clusters,
-supporting the idea that disrupted clusters have contributed
-significantly to the stellar halo.</p>
+dwarf galaxy than with a globular cluster.</p>
+<p>Schiavon (2017) showing that there exist many N-rich stars which have
+chemical abundance patterns similar to stars within the clusters all
+over the galactic field.</p>
+<p>Fernández-Trincado, José G (2021) says that there are some metal rich
+cluster debris, which is interesting</p>
+<p>Fernández-Trincado, J. G (2017) said they found 11 stars with the
+chemical abundance patterms of second general stars within globular
+cluster …</p>
+<p>Yaaquib (2025) is showing that we can use streams to get at how the
+gravitational field changes due the LMC infall…maybe in the
+conclusion</p>
+<p>Particularly intriguing are the most metal-poor streams, which in
+some cases are even more metal-poor than any surviving Milky Way
+globular cluster. This suggests the accretion of ancient, chemically
+primitive systems. Moreover, chemical tagging studies have shown that
+some halo field stars share the distinctive light-element abundance
+patterns of globular clusters, supporting the idea that disrupted
+clusters have contributed significantly to the stellar halo.</p>
 <p>On smaller scales, streams are being used to probe the granularity of
 the Milky Way’s gravitational field. A striking example is the GD-1
 stream: <span class="citation" data-cites="2019ApJ...880...38B">Bonaca
@@ -1150,6 +1148,12 @@ class="nocase">Challenges for <span><span
 class="math inline">\(\Lambda\)</span></span>CDM: An
 update</span>”</span> 95 (December):101659. <a
 href="https://doi.org/10.1016/j.newar.2022.101659">https://doi.org/10.1016/j.newar.2022.101659</a>.
+</div>
+<div id="ref-2020A&amp;A...637L...2P" class="csl-entry" role="listitem">
+Piatti, Andrés E., and Julio A. Carballo-Bello. 2020. <span>“<span
+class="nocase">The tidal tails of Milky Way globular
+clusters</span>”</span> 637 (May):L2. <a
+href="https://doi.org/10.1051/0004-6361/202037994">https://doi.org/10.1051/0004-6361/202037994</a>.
 </div>
 <div id="ref-2020A&amp;A...641A...6P" class="csl-entry" role="listitem">
 Planck Collaboration, N. Aghanim, Y. Akrami, M. Ashdown, J. Aumont, C.
