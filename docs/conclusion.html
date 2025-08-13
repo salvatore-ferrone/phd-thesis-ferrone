@@ -235,7 +235,7 @@ and are now used by the community, including in searches for additional
 tidal debris beyond some of the clusters in our sample <span
 class="citation"
 data-cites="2025arXiv250705590K 2025ApJ...988...39W">(Kuzma et al. 2025;
-Wang et al. 2025)</span>.</p>
+S. Wang et al. 2025)</span>.</p>
 <p>In Chapter 5, I present <span class="citation"
 data-cites="2025A&amp;A...699A.289F">Ferrone et al. (2025)</span>, where
 we investigated how the Palomar 5 stellar stream responds to the
@@ -266,38 +266,94 @@ predictions on how often something should be observed. On the otherhand,
 where the phenomena is well understood we can turn to observations to
 begin actually perform the inference.</p>
 <h2 id="dark-matter">Dark Matter</h2>
+<p>The question of inferring the presence of dark matter on lower-mass
+scales than from the extra-galactic context excites us. We aim to
+perform a similar study to Chapter 5, but in addition to only using the
+populating og galactic globular clusters, we would like to use a <span
+class="math inline">\(\Lambda\)</span>CDM motivated population of dark
+matter subhalos (Boldrini et al. In prep). See Fig. <a
+href="#fig:mollweide-density-with-haloes.png" data-reference-type="ref"
+data-reference="fig:mollweide-density-with-haloes.png">1</a> in which a
+population of dark matter sub-haloes from a cosmological simulation in a
+Milky Way analog is displayed. <span class="citation"
+data-cites="2024arXiv241213144A">Adams et al. (2024)</span> recently
+performed a similar work for just the GD-1 stream. They found, that the
+GD-1 stream in the last few billion years has on average, one gap from
+the passage of a dark matter sub-halo. <span class="citation"
+data-cites="2025arXiv250207781L">Lu et al. (2025)</span> used the
+average of <span class="math inline">\(1\)</span> gap per stream to
+discuss the observability about 50 known Milky Way streams.</p>
+<figure id="fig:mollweide-density-with-haloes.png">
+<img src="images/mollweide-density-with-haloes.png" />
+<figcaption>Plausible <span class="math inline">\(\Lambda\)</span>CDM
+Dark matter subhalo population as seen from the Sun. The subhaloes are
+modelled as Plummer sphere’s and their light was integrated over the
+line of sight from the sun. Their “luminosity” was scaled as to the
+total halo’s total mass. They are also overlain the integrated surface
+light density profile of Milky Way’s stellar disk, as modeled with a
+Miyamoto-Nagai that models the Milky Way potential.</figcaption>
+</figure>
+<p>There also exists more modeling to understand the phenomenon of gap
+formation in the Milky Way stellar streams. Yes, we want to do some
+theoretical predictions to know how many we should expect. However, it
+must be in a more realisitic Milky Way with other known time-dependent
+and non axis-symmetric features. Until now, studies have only considered
+subhaloes impacting streams in isolation <span class="citation"
+data-cites="2013ApJ...775...90C 2015MNRAS.450.1136E 2016MNRAS.463..102E 2016MNRAS.457.3817S 2024arXiv241213144A 2025arXiv250207781L">(Carlberg
+2013; Erkal and Belokurov 2015; Erkal et al. 2016; Sanders, Bovy, and
+Erkal 2016; Adams et al. 2024; Lu et al. 2025)</span>. Or just the
+effects of the galactic bar on individual streams in isolation <span
+class="citation"
+data-cites="2016MNRAS.460..497H 2016ApJ...824..104P 2017NatAs...1..633P 2023A&amp;A...678A.180T">(Hattori,
+Erkal, and Sanders 2016; Price-Whelan et al. 2016; Pearson,
+Price-Whelan, and Johnston 2017; Thomas et al. 2023)</span>. However, it
+is known that perturbations of stream from ordinary matter gap explain
+gap signals that some attribute to the passage of dark matter halos
+<span class="citation" data-cites="2020ApJ...891..161I">(Ibata et al.
+2020)</span>. In order to properly set up the inference problem, the
+false positive rate must be known and calibrated.</p>
+<p>Then, overall, fully inverting the problem is an example problem of
+bayesian hierarchical models <span class="citation"
+data-cites="2020sdmm.book.....I">(Ivezić et al. 2020)</span>.
+Interestingly, each gap detection is under-determined <span
+class="citation" data-cites="2015MNRAS.450.1136E">(Erkal and Belokurov
+2015)</span>. Even in the absence of uncertainties, the presence of a
+gap cannot uniquiely and simultaneously determine the perturber mass,
+perturber size, time of impact, and relative velocity <span
+class="citation" data-cites="2015MNRAS.450.1136E">(Erkal and Belokurov
+2015)</span>. However, with enough gaps and posterior distributions of
+each encounter, we can eventual build a statistic on the types of DM
+sub-halos.</p>
+<p>This problem is tricky tricky. To solve it we need to understand
+other important physical processes that can erase signatures or
+contribute to false positives and in what quantity, and build a
+hierarchical model to complete the inference–let alone to apply this to
+the Milky Way have very high data quality. Quality that may be available
+with LSST and the final Gaia data releases.</p>
+<p>However, as highlighted in Chapter 5, the coherence within the stream
+is important for gap persistence and we must make sure they are modeled
+correctly or else we may have too many gaps. Of course, full <span
+class="math inline">\(N\)</span>-body simulations maybe tempting to
+properly capture the internal dynamics of the cluster in order to
+propely map them to the streams. As discussed in <span class="citation"
+data-cites="2018ComAC...5....2V 2023LRCA....9....3S">Varri et al. (2018;
+Spurzem and Kamlah 2023)</span> there are many N body modeling
+techniques and the field is an active area of research. It is often at
+the avant-garde of hard-ware soft-ware synergy to create the fastest
+codes with the highest accuracy. For example, GRAPE, was hardware
+specifically used for this problem and was used until replaced by GPU
+<span class="citation"
+data-cites="2012MNRAS.424..545N 2015MNRAS.450.4070W">(Nitadori and
+Aarseth 2012; L. Wang et al. 2015)</span>. Despite the advancements in
+both fields, they remain too expensive for the statistics that we
+require. Indeed, in order to properly theoretically calibrate our
+expectations for inferring dark matter sbhalos. we may need to run over
+a parameter space including different various models for the Galaxy’s
+gravitational field, internal dynamics of the cluster, orbial initial
+conditions, dark matter-subhalo populations, various streams, etc. We
+can design an experiment in which we must compute tens of thousands of
+streams.</p>
 <ol>
-<li><p>doing the forward modeling to understand how many gaps we should
-see per stream. <span class="citation"
-data-cites="2025arXiv250207781L">Lu et al. (2025)</span> just did what I
-proposed to do for Strasbourg. But not exactly as I would do it. I need
-to read it better. It looks like an amazing work…</p></li>
-<li><p><span class="citation" data-cites="2024arXiv241213144A">Adams et
-al. (2024)</span> used the press-schecter foramlism to analyze about how
-many impacts we can expect to see on the stream.</p></li>
-<li><p>we are also posed to model this problem in a similar way. We want
-to use a hydrodynamical DM only simulation to go down to lower mass
-limits that could provoke the gaps.</p></li>
-<li><p>There also exists the work to couple the DM sub-halos with other
-dynamic properties of the MW. For example, does a bar erase gap
-signatures? What about the number of false positives</p></li>
-<li><p>Then there is the inference problem. This is a problem bayesian
-hierarchical models. We want to know a universal distribution function
-for a dark matter sub-halo population. Can we use one instantiation of
-gaps within MW streams to set constraints on that universal function?
-Also, we would like to quantify how many would be needed. The parameters
-that create a gap, such as time of impact, mass of the perturber,
-relative velocity, etc, are all degenerate and a single gap would be
-tough. However, if we had multiple of these gaps, perhaps we can start
-saying something. How many gaps do we need? This is a far lower mass
-regieme then ever known before and can constrain the particle phyiscs
-nature of dark matter.</p></li>
-<li><p>Also, I would like to highlight the modelling chalenges. Do the
-little story about GRAPE and GPU’s. NBody is still expensive. My
-simulations aren’t that cheap either, especially if we need to explore a
-large parameter space for dark matter subhaloes, with lots of streams,
-we could easily be running hundreds of thousands to millions of
-simulations.</p></li>
 <li><p>this is where I will highlight some particle spray codes with
 semi-analytical methods. Perhaps I can switch to this or be more smart,
 like how Adams only simulated the orbits at first, but then simulated
@@ -336,19 +392,6 @@ escape at peri-center due to the scaling of tidal forces with <span
 class="math inline">\(r^{-3}\)</span>. So the Fardal is pretty great.
 Perhaps adopting one of these methods for certain problems could be
 great.</p>
-<p>The advantage of my method is that it is not prescriptive, so if we
-explore a region of the parameter space where the assumptions behind the
-prescriptions break down, we may be led astray. …but it’s so fast …</p>
-<figure id="fig:mollweide-density-with-haloes.png">
-<img src="images/mollweide-density-with-haloes.png" />
-<figcaption>Plausible <span class="math inline">\(\Lambda\)</span>CDM
-Dark matter subhalo population as seen from the Sun. The subhaloes are
-modelled as Plummer sphere’s and their light was integrated over the
-line of sight from the sun. Their “luminosity” was scaled as to the
-total halo’s total mass. They are also overlain the integrated surface
-light density profile of Milky Way’s stellar disk, as modeled with a
-Miyamoto-Nagai that models the Milky Way potential.</figcaption>
-</figure>
 <h2 id="the-bulk-gravitational-field-of-the-mw">The bulk gravitational
 field of the MW</h2>
 <ol>
@@ -607,6 +650,11 @@ class="nocase">Extragalactic Globular Clusters and Galaxy
 Formation</span>”</span> 44 (1): 193–267. <a
 href="https://doi.org/10.1146/annurev.astro.44.051905.092441">https://doi.org/10.1146/annurev.astro.44.051905.092441</a>.
 </div>
+<div id="ref-2013ApJ...775...90C" class="csl-entry" role="listitem">
+Carlberg, R. G. 2013. <span>“<span class="nocase">The Dynamics of Star
+Stream Gaps</span>”</span> 775 (2): 90. <a
+href="https://doi.org/10.1088/0004-637X/775/2/90">https://doi.org/10.1088/0004-637X/775/2/90</a>.
+</div>
 <div id="ref-2022A&amp;A...664A..31C" class="csl-entry" role="listitem">
 Casamiquela, L., J. Olivares, Y. Tarricq, S. Ferrone, C. Soubiran, P.
 Jofré, P. di Matteo, et al. 2022. <span>“<span
@@ -643,6 +691,18 @@ Globular Cluster Palomar 5 by Galactic Tides</span>”</span> 127 (5):
 2753–70. <a
 href="https://doi.org/10.1086/383214">https://doi.org/10.1086/383214</a>.
 </div>
+<div id="ref-2015MNRAS.450.1136E" class="csl-entry" role="listitem">
+Erkal, Denis, and Vasily Belokurov. 2015. <span>“<span
+class="nocase">Forensics of subhalo-stream encounters: the three phases
+of gap growth</span>”</span> 450 (1): 1136–49. <a
+href="https://doi.org/10.1093/mnras/stv655">https://doi.org/10.1093/mnras/stv655</a>.
+</div>
+<div id="ref-2016MNRAS.463..102E" class="csl-entry" role="listitem">
+Erkal, Denis, Vasily Belokurov, Jo Bovy, and Jason L. Sanders. 2016.
+<span>“<span class="nocase">The number and size of subhalo-induced gaps
+in stellar streams</span>”</span> 463 (1): 102–19. <a
+href="https://doi.org/10.1093/mnras/stw1957">https://doi.org/10.1093/mnras/stw1957</a>.
+</div>
 <div id="ref-2011MNRAS.413.1852E" class="csl-entry" role="listitem">
 Eyre, Andy, and James Binney. 2011. <span>“<span class="nocase">The
 mechanics of tidal streams</span>”</span> 413 (3): 1852–74. <a
@@ -669,6 +729,27 @@ et al. 2025. <span>“<span class="nocase">Gaps in stellar streams as a
 result of globular cluster flybys: The case of Palomar 5</span>”</span>
 699 (July):A289. <a
 href="https://doi.org/10.1051/0004-6361/202553923">https://doi.org/10.1051/0004-6361/202553923</a>.
+</div>
+<div id="ref-2016MNRAS.460..497H" class="csl-entry" role="listitem">
+Hattori, Kohei, Denis Erkal, and Jason L. Sanders. 2016. <span>“<span
+class="nocase">Shepherding tidal debris with the Galactic bar: the
+Ophiuchus stream</span>”</span> 460 (1): 497–512. <a
+href="https://doi.org/10.1093/mnras/stw1006">https://doi.org/10.1093/mnras/stw1006</a>.
+</div>
+<div id="ref-2020ApJ...891..161I" class="csl-entry" role="listitem">
+Ibata, Rodrigo, Guillaume Thomas, Benoit Famaey, Khyati Malhan, Nicolas
+Martin, and Giacomo Monari. 2020. <span>“<span class="nocase">Detection
+of Strong Epicyclic Density Spikes in the GD-1 Stellar Stream: An
+Absence of Evidence for the Influence of Dark Matter
+Subhalos?</span>”</span> 891 (2): 161. <a
+href="https://doi.org/10.3847/1538-4357/ab7303">https://doi.org/10.3847/1538-4357/ab7303</a>.
+</div>
+<div id="ref-2020sdmm.book.....I" class="csl-entry" role="listitem">
+Ivezić, Željko, Andrew J. Connolly, Jacob T. VanderPlas, and Alexander
+Gray. 2020. <em><span class="nocase">Statistics, Data Mining, and
+Machine Learning in Astronomy. A Practical Python Guide for the Analysis
+of Survey Data, Updated Edition</span></em>. <a
+href="https://doi.org/10.1515/9780691197050">https://doi.org/10.1515/9780691197050</a>.
 </div>
 <div id="ref-2012MNRAS.420.2700K" class="csl-entry" role="listitem">
 Küpper, Andreas H. W., Richard R. Lane, and Douglas C. Heggie. 2012.
@@ -709,6 +790,13 @@ class="nocase">Accelerating NBODY6 with graphics processing
 units</span>”</span> 424 (1): 545–52. <a
 href="https://doi.org/10.1111/j.1365-2966.2012.21227.x">https://doi.org/10.1111/j.1365-2966.2012.21227.x</a>.
 </div>
+<div id="ref-2017NatAs...1..633P" class="csl-entry" role="listitem">
+Pearson, Sarah, Adrian M. Price-Whelan, and Kathryn V. Johnston. 2017.
+<span>“<span class="nocase">Gaps and length asymmetry in the stellar
+stream Palomar 5 as effects of Galactic bar rotation</span>.”</span>
+<em>Nature Astronomy</em> 1 (August):633–39. <a
+href="https://doi.org/10.1038/s41550-017-0220-3">https://doi.org/10.1038/s41550-017-0220-3</a>.
+</div>
 <div id="ref-2017A&amp;A...598A..66P" class="csl-entry" role="listitem">
 Pouliasis, E., P. Di Matteo, and M. Haywood. 2017. <span>“<span
 class="nocase">A Milky Way with a massive, centrally concentrated thick
@@ -716,11 +804,39 @@ disc: new Galactic mass models for orbit computations</span>”</span> 598
 (February):A66. <a
 href="https://doi.org/10.1051/0004-6361/201527346">https://doi.org/10.1051/0004-6361/201527346</a>.
 </div>
+<div id="ref-2016ApJ...824..104P" class="csl-entry" role="listitem">
+Price-Whelan, Adrian M., Branimir Sesar, Kathryn V. Johnston, and
+Hans-Walter Rix. 2016. <span>“<span class="nocase">Spending Too Much
+Time at the Galactic Bar: Chaotic Fanning of the Ophiuchus
+Stream</span>”</span> 824 (2): 104. <a
+href="https://doi.org/10.3847/0004-637X/824/2/104">https://doi.org/10.3847/0004-637X/824/2/104</a>.
+</div>
+<div id="ref-2016MNRAS.457.3817S" class="csl-entry" role="listitem">
+Sanders, Jason L., Jo Bovy, and Denis Erkal. 2016. <span>“<span
+class="nocase">Dynamics of stream-subhalo interactions</span>”</span>
+457 (4): 3817–35. <a
+href="https://doi.org/10.1093/mnras/stw232">https://doi.org/10.1093/mnras/stw232</a>.
+</div>
 <div id="ref-2002ApJ...571...30S" class="csl-entry" role="listitem">
 Schneider, R., A. Ferrara, P. Natarajan, and K. Omukai. 2002.
 <span>“<span class="nocase">First Stars, Very Massive Black Holes, and
 Metals</span>”</span> 571 (1): 30–39. <a
 href="https://doi.org/10.1086/339917">https://doi.org/10.1086/339917</a>.
+</div>
+<div id="ref-2023LRCA....9....3S" class="csl-entry" role="listitem">
+Spurzem, Rainer, and Albrecht Kamlah. 2023. <span>“<span
+class="nocase">Computational methods for collisional stellar
+systems</span>.”</span> <em>Living Reviews in Computational
+Astrophysics</em> 9 (1): 3. <a
+href="https://doi.org/10.1007/s41115-023-00018-w">https://doi.org/10.1007/s41115-023-00018-w</a>.
+</div>
+<div id="ref-2023A&amp;A...678A.180T" class="csl-entry" role="listitem">
+Thomas, Guillaume F., Benoit Famaey, Giacomo Monari, Chervin F. P.
+Laporte, Rodrigo Ibata, Patrick de Laverny, Vanessa Hill, and Christian
+Boily. 2023. <span>“<span class="nocase">Impact of the Galactic bar on
+tidal streams within the Galactic disc. The case of the tidal stream of
+the Hyades</span>”</span> 678 (October):A180. <a
+href="https://doi.org/10.1051/0004-6361/202346650">https://doi.org/10.1051/0004-6361/202346650</a>.
 </div>
 <div id="ref-2024MNRAS.529.2413U" class="csl-entry" role="listitem">
 Usman, Sam A., Alexander P. Ji, Ting S. Li, Andrew B. Pace, Lara R.
@@ -747,6 +863,13 @@ subsequently an IMBH from runaway collisions. Direct N-body and Monte
 Carlo simulations of dense star clusters</span>.”</span> <em>arXiv
 e-Prints</em>, May, arXiv:2505.07491. <a
 href="https://doi.org/10.48550/arXiv.2505.07491">https://doi.org/10.48550/arXiv.2505.07491</a>.
+</div>
+<div id="ref-2015MNRAS.450.4070W" class="csl-entry" role="listitem">
+Wang, Long, Rainer Spurzem, Sverre Aarseth, Keigo Nitadori, Peter
+Berczik, M. B. N. Kouwenhoven, and Thorsten Naab. 2015. <span>“<span
+class="nocase">NBODY6++GPU: ready for the gravitational million-body
+problem</span>”</span> 450 (4): 4070–80. <a
+href="https://doi.org/10.1093/mnras/stv817">https://doi.org/10.1093/mnras/stv817</a>.
 </div>
 <div id="ref-2025ApJ...988...39W" class="csl-entry" role="listitem">
 Wang, Shouzhi, Jundan Nie, Biwei Jiang, Hao Tian, Chao Liu, and Ying-Hua
