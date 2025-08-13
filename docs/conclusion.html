@@ -251,20 +251,22 @@ drift out of phase. This is a new contribution, as previous studies
 primarily considered the effects of random motions, such as velocity
 dispersion.</p>
 <h1 id="prospectives">Prospectives</h1>
-<p>I think the good thing here is that we really focus on Milky Way
-streams and globular clusters. Idealized toy models and set ups are good
-for investigating new ideas and various types of theoretical phenomena
-…However, …by focusing on the Milky Way, we can truly …know how much of
-these we can expect to see, with what significance, and always tie back
-around to the observations …</p>
-<p>The ubiquity and sensitivity of stellar streams really do make them
-amazing for inferring properties of various distributions. There are
-thus various avenues of investigation that can be taken on next. Some
-phenomena still needs to be explored with numerical forward modeling.
-Either for understanding physical mecanisms, or for obtaining
-predictions on how often something should be observed. On the otherhand,
-where the phenomena is well understood we can turn to observations to
-begin actually perform the inference.</p>
+<p>One of the main strengths of this work is its focus on Milky Way
+streams and globular clusters. While idealised toy models are invaluable
+for testing new ideas and exploring a wide range of theoretical
+phenomena, our emphasis on the Milky Way allows us to ask more grounded
+questions: how often should these phenomena occur in our Galaxy, with
+what significance, and how do they connect directly to what we observe?
+By anchoring our models to the Milky Way, we can close the loop between
+theory and data.</p>
+<p>The ubiquity and sensitivity of stellar streams make them exceptional
+probes for inferring the properties of various mass distributions. This
+opens multiple avenues for future investigation. Some phenomena still
+require detailed numerical forward modelling—either to understand the
+underlying physical mechanisms or to obtain robust predictions for their
+expected occurrence rates. In other cases, where the theoretical picture
+is mature, we can turn directly to observations and begin the task of
+inference.</p>
 <h2 id="dark-matter-subhalos">Dark Matter Subhalos</h2>
 <p>The prospect of detecting dark matter (DM) on scales smaller than
 those accessible in the extragalactic context is particularly
@@ -332,38 +334,45 @@ Way will require extremely high-quality data, which may be achievable
 with future LSST observations and the final Gaia data releases.</p>
 <p>As highlighted in Chapter 5, the coherence of a stream is crucial for
 gap survival, and this must be modelled accurately to avoid
-overestimating gap counts. While full <span
+overestimating gap counts. In order to obtain proper predictions, we
+must accurate model stream generation. While full <span
 class="math inline">\(N\)</span>-body simulations would be the most
 physically accurate way to model internal cluster dynamics and their
 mapping into streams, they are computationally prohibitive for the
 parameter space we must explore. Capturing variations in the Galaxy’s
 potential, cluster internal dynamics, orbital initial conditions, DM
 subhalo populations, and the properties of multiple streams could
-require computing tens of thousands of stream realisations. Despite
-advances in high-performance computing—including specialised hardware
-such as GRAPE systems, now largely replaced by GPUs <span
+require computing tens of thousands of stream realisations. <span
+class="math inline">\(N\)</span>-body simulations have long been at the
+avant-garde of computational astrophysics, often driving innovations in
+both hardware and software. A notable example is the GRAPE (GRAvity
+PipE) series of special-purpose computers developed for gravitational
+<span class="math inline">\(N\)</span>-body problems <span
 class="citation"
+data-cites="1991PASJ...43..841F 1997ApJ...480..432M">(Fukushige et al.
+1991; Makino et al. 1997)</span>. For over a decade, GRAPE systems
+enabled simulations that would have been prohibitively slow on
+general-purpose hardware, pushing the limits of the field. Eventually,
+advances in general-purpose graphics processing units (GPUs) offered
+comparable performance with greater flexibility, leading to the
+widespread adoption of GPU-accelerated <span
+class="math inline">\(N\)</span>-body codes <span class="citation"
 data-cites="2012MNRAS.424..545N 2015MNRAS.450.4070W">(Nitadori and
-Aarseth 2012; L. Wang et al. 2015)</span>—this remains expensive for our
-purposes.</p>
+Aarseth 2012; L. Wang et al. 2015)</span>. Despite these hardware
+revolutions, the computational cost of the large ensembles of
+simulations required for our purposes remains high.</p>
 <p>Several methods have been developed to avoid the need for full <span
 class="math inline">\(N\)</span>-body modelling. The “streak-line”
 method <span class="citation" data-cites="2012MNRAS.420.2700K">(Küpper,
 Lane, and Heggie 2012)</span> approximates streams as having the same
-orbital parameters as their progenitor. <span class="citation"
-data-cites="2014ApJ...795...94B">Bonaca et al. (2014)</span> implemented
-this in a Monte Carlo framework, rapidly generating streams by assigning
-progenitor-like parameters with small offsets to star particles. This
-approach is fast but neglects the spread in orbital parameters of
-escaped stars.</p>
-<p>The action–angle formalism of <span class="citation"
-data-cites="2011MNRAS.413.1852E">Eyre and Binney (2011)</span> describes
-each stream star as having a small offset from the progenitor’s
-Hamiltonian, expressible via a second-order Taylor expansion. <span
-class="citation" data-cites="2014ApJ...795...95B">Bovy (2014)</span>
-used this to develop the “particle-spray” method, which improves upon
-the streak-line model by introducing velocity dispersion into the
-streams. As noted by <span class="citation"
+orbital parameters as their progenitor. The action-angle formalism of
+<span class="citation" data-cites="2011MNRAS.413.1852E">Eyre and Binney
+(2011)</span> describes each stream star as having a small offset from
+the progenitor’s Hamiltonian, expressible via a second-order Taylor
+expansion. <span class="citation" data-cites="2014ApJ...795...95B">Bovy
+(2014)</span> used this to develop the “particle-spray” method, which
+improves upon the streak-line model by introducing velocity dispersion
+into the streams. As noted by <span class="citation"
 data-cites="2015MNRAS.452..301F">Fardal, Huang, and Weinberg
 (2015)</span>, this is one of the most elegant stream modelling
 approaches to date.</p>
@@ -393,26 +402,39 @@ either adopt an existing stream simulation method in place of
 it.</p>
 <h2 id="the-bulk-gravitational-field-of-the-mw">The bulk gravitational
 field of the MW</h2>
-<ol>
-<li><p>we wanted to explore many aspects of the MW that are
-time-dependent and see what features they leave on streams.</p></li>
-<li><p>there are many of these and many studies that have investigated
-this stuff, as spoke about in Bonaca conroy review such as caotic
-orbits, the stellar bar, spiral arms, etc,.</p></li>
-<li><p>however, we have run more simulations with the galactic bar and
-recognize that there is more theoretical understanding to be made about
-how the bars effect the stellar stream that what is yet reported in the
-literature.</p></li>
-<li><p>Prelim result shown in Fig. <a href="#fig:pal5_with_bar"
-data-reference-type="ref" data-reference="fig:pal5_with_bar">2</a>.
-Indeed, we know that the bar can create long streams, and that it can
-deflect them. But we have seen the bar stund the growth before…Malhan
-showed one of the twisting streams</p></li>
-<li><p>Ibata 2024 made a good model. However it’s still axis symmetric.
-A Malhan article showed that the structure of the MW can twist a stream.
-I see that too in my simulations. This mecanism needs to be understood
-theoretically better and also employed in the MW…</p></li>
-</ol>
+<p>At the onset of this thesis, our aim was to investigate large-scale
+features of the Milky Way such as spiral arms, the Galactic bar, giant
+molecular clouds, and satellite galaxies. Each of these components
+represents a potential avenue for further study.</p>
+<p>In particular, we are interested in the role of the Galactic bar.
+Previous works have shown that the bar can induce chaotic orbits,
+causing stellar streams to “fan out” more than they otherwise would
+<span class="citation"
+data-cites="2016ApJ...824..104P 2020ApJ...889...70B">(Price-Whelan et
+al. 2016; Bonaca et al. 2020)</span>. Our preliminary investigation,
+based on the simulations of <span class="citation"
+data-cites="2023A&amp;A...673A..44F">Ferrone et al. (2023)</span>,
+revealed several intriguing effects. As noted by other authors <span
+class="citation" data-cites="2025NewAR.10001713B">(see Fig. 9 of Bonaca
+and Price-Whelan 2025)</span>, the bar can generate large underdensities
+along streams. Our own simulations suggest additional signatures beyond
+this.</p>
+<p>The total mass, orientation, and length of the bar have been
+constrained in previous studies, though significant uncertainties
+remain. Most notably, the bar pattern speed (its angular velocity) still
+has two plausible regimes: slow or fast rotation <span class="citation"
+data-cites="2015MNRAS.450.4050W 2016ARA&amp;A..54..529B 2023MNRAS.520.4779L 2024MNRAS.528.3576V">(Wegg,
+Gerhard, and Portail 2015; Bland-Hawthorn and Gerhard 2016; Lucey et al.
+2023; Vislosky et al. 2024)</span>.</p>
+<p>We are conducting new experiments to explore whether stellar streams
+can help break some of these degeneracies. As an example, Fig. <a
+href="#fig:pal5_with_bar" data-reference-type="ref"
+data-reference="fig:pal5_with_bar">2</a> shows simulations of the
+Palomar 5 stream for a range of bar pattern speeds. In some cases, the
+bar splits the stream and creates prominent gaps; in others, it shifts
+part of the stream off its typical track; in yet others, it suppresses
+the stream’s growth entirely, keeping debris bound near the progenitor
+cluster.</p>
   <div class="video-container">
     <video controls style="max-width: 100%;">
       <source src="videos/Pal5_longmurali_5000_monte_carlo_002_white_bg.mp4" type="video/mp4">
@@ -456,18 +478,31 @@ alt="image" /></td>
 </tr>
 </tbody>
 </table>
-<figcaption>Various simulations of producing the Palomar 5 stream using
-<code>tstrippy</code> with 5000 particles. The galaxy was modeled using
-<span class="citation" data-cites="2017A&amp;A...598A..66P">Pouliasis,
-Di Matteo, and Haywood (2017)</span> and the bar was modeled with <span
-class="citation" data-cites="1997MNRAS.291..717M">Murali and Weinberg
-(1997)</span>, as describe in chapter 4. However, we vary the bar
-pattern speed. We run the simulation for the same initial conditions but
-with the different bar pattern speeds. We varied the bar pattern speed
-between 25-61 km/(s kpc) with a 150 samples. There is an animated
-version of this graph availble on the online version of this
-thesis.</figcaption>
+<figcaption>Simulations of the Palomar 5 stream using
+<code>tstrippy</code> with 5000 particles. The Galactic potential
+follows <span class="citation"
+data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
+(2017)</span> with a bar model from <span class="citation"
+data-cites="1997MNRAS.291..717M">Murali and Weinberg (1997)</span>, as
+described in Chapter 4. The initial conditions are identical in all
+runs, but the bar pattern speed is varied between 25 and 61 km s<span
+class="math inline">\(^{-1}\)</span> kpc<span
+class="math inline">\(^{-1}\)</span> over 150 samples. The animated
+version of this figure is available in the online thesis.</figcaption>
 </figure>
+<p>The results in Fig. <a href="#fig:pal5_with_bar"
+data-reference-type="ref" data-reference="fig:pal5_with_bar">2</a> raise
+several questions. There is room to understand the underlying mechanisms
+theoretically, and to identify whether any Milky Way globular clusters
+or streams occupy one of these “special” resonances. Such signatures
+could occur only for a restricted range of bar pattern speeds (or other
+bar parameters), making them valuable dynamical probes. This is
+especially important because most existing models of the Milky Way
+potential, such as that of <span class="citation"
+data-cites="2024ApJ...967...89I">Ibata et al. (2024)</span>, are static
+and axisymmetric, omitting the bar due to its complexity. If these
+resonances can be robustly identified in observed streams, they may
+offer a new route to constraining the Galactic bar.</p>
 <h2
 id="multiple-stellar-populations-stellar-evolution-and-globular-cluster-formation-and-internal-dynamics-stellar-populations">Multiple-stellar
 populations, Stellar evolution, and globular cluster formation and
@@ -559,67 +594,6 @@ cluster debris, which is interesting</p>
 <p>Fernández-Trincado, J. G (2017) said they found 11 stars with the
 chemical abundance patterms of second general stars within globular
 cluster …</p>
-<h1 id="future-modeling-techinques">Future modeling techinques</h1>
-<p>I want to integrate these discussions in smoothly with the other
-scientific questions and not separate the modelling techinques.</p>
-<h2 id="n-body-codes">N-body codes</h2>
-<p><span class="citation" data-cites="2012MNRAS.424..545N">(Nitadori and
-Aarseth 2012)</span> showed the GPU’s can replace GRAPE</p>
-<p><span class="citation" data-cites="2018ComAC...5....2V">Varri et al.
-(2018)</span> talks about a series of papers between a larger
-collaboration of people who specialize in collisional dynamics and who
-have performed a series of workshops together. The introduction stated
-that the collaboration wants to tackle many open questions regarding
-stellar clusters and build the necessary codes to interprete the future
-large quantity of data that was destined to come. It has now come since
-the review was 2018. An interesting point was that in general globular
-clusters are approximated as being orderless, i.e. isotropic but order
-does present itself within these stelalr systems. Another large problem
-is no one knows what a good set of initial conditiosn is. Unresolved
-binaries pose a problem because you can overestiamte the total mass of
-the system. If I talk about this review, I should probably discuss some
-of the results from the papers that is builds on or at least their
-techinques.</p>
-<p>The MODEST review led me to discover AMUSE, which is an framework for
-integrating various astrophysical codes for solving 4 types of problems:
-gravitational dynamics, radiative transfer, hydrodynamics, and stellar
-evolution. The codes are written by the community and are interfaced
-together with Amuse. The user end is python. I have spent some time
-reading the book, which is instructive and well written. Steve McMillian
-is one of the authors. The code has a large support on GitHub and is
-still being developped. I have had trouble trying to install the code.
-It seems as though their documentation is incoherrent. At one place, it
-said ‘pip’ is the easiest way to install. It didn’t work. In another
-place, I was instructed to install a zipped up tarball. The setup failed
-becuase it expected there to be a .git file in the directory. I
-successfully downloaded the code by cloneing the repository, despite the
-fact that this was not recommended. I can use some aspects of the code
-but not all of them. For instance, my memory tells me that about 80% of
-the test suite passed, thus many scripts failed. This was when I only
-installed the frame-work, which was advised since installing the whole
-package is huge and unnecessary since I am not solving all astrophysical
-problems. However, I wasn’t able to use one of the gravity solvers that
-was presented in the textbook ‘AstrophysicalRecipes The art of AMUSE’.
-The install still has some codes that failed for instance: amuse-adaptb,
-amuse-hermite-grx, amuse-mi6. However, I’m hoping that this isn’t
-necessary. I want to educate myself and make some examples.</p>
-<p>Installing other codes and figuring out their functionalities to me
-has never been trivial. This is similar to galpy when I tried to figure
-out particle spray method and got less than good results. Agama also
-confused me a bit. The main point is that for each package, at the end
-of the day I decided that it was easier and better if I solved the
-problem myself with my own code. Because, even with the other packages,
-I know that they can be used to solve other astrophysical problems and
-it wasn’t clear to me how to make the codes solve my specific set of of
-the restricted three body problems in a potential with other perturbers
-flying around.</p>
-<p>In this search, I also discovered another review called
-<em>Computational methods for collisional stellar systems</em> by
-Spurzem and Kamlah 2023. It is also interesting and instructive. I found
-it insightful when they called NBody an industry. I think the story of
-GRAPE and Makino is really interesting, how he build dedicated hardware
-for the nbody problem which were great for 10 years but were quickly
-replaced by GPU technology.</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
 <div id="ref-2024arXiv241213144A" class="csl-entry" role="listitem">
@@ -631,12 +605,24 @@ in CDM</span>.”</span> <em>arXiv e-Prints</em>, December,
 arXiv:2412.13144. <a
 href="https://doi.org/10.48550/arXiv.2412.13144">https://doi.org/10.48550/arXiv.2412.13144</a>.
 </div>
-<div id="ref-2014ApJ...795...94B" class="csl-entry" role="listitem">
-Bonaca, Ana, Marla Geha, Andreas H. W. Küpper, Jürg Diemand, Kathryn V.
-Johnston, and David W. Hogg. 2014. <span>“<span class="nocase">Milky Way
-Mass and Potential Recovery Using Tidal Streams in a Realistic
-Halo</span>”</span> 795 (1): 94. <a
-href="https://doi.org/10.1088/0004-637X/795/1/94">https://doi.org/10.1088/0004-637X/795/1/94</a>.
+<div id="ref-2016ARA&amp;A..54..529B" class="csl-entry" role="listitem">
+Bland-Hawthorn, Joss, and Ortwin Gerhard. 2016. <span>“<span
+class="nocase">The Galaxy in Context: Structural, Kinematic, and
+Integrated Properties</span>”</span> 54 (September):529–96. <a
+href="https://doi.org/10.1146/annurev-astro-081915-023441">https://doi.org/10.1146/annurev-astro-081915-023441</a>.
+</div>
+<div id="ref-2020ApJ...889...70B" class="csl-entry" role="listitem">
+Bonaca, Ana, Sarah Pearson, Adrian M. Price-Whelan, Arjun Dey, Marla
+Geha, Nitya Kallivayalil, John Moustakas, et al. 2020. <span>“<span
+class="nocase">Variations in the Width, Density, and Direction of the
+Palomar 5 Tidal Tails</span>”</span> 889 (1): 70. <a
+href="https://doi.org/10.3847/1538-4357/ab5afe">https://doi.org/10.3847/1538-4357/ab5afe</a>.
+</div>
+<div id="ref-2025NewAR.10001713B" class="csl-entry" role="listitem">
+Bonaca, Ana, and Adrian M. Price-Whelan. 2025. <span>“<span
+class="nocase">Stellar streams in the Gaia era</span>”</span> 100
+(June):101713. <a
+href="https://doi.org/10.1016/j.newar.2024.101713">https://doi.org/10.1016/j.newar.2024.101713</a>.
 </div>
 <div id="ref-2014ApJ...795...95B" class="csl-entry" role="listitem">
 Bovy, Jo. 2014. <span>“<span class="nocase">Dynamical Modeling of Tidal
@@ -729,11 +715,25 @@ result of globular cluster flybys: The case of Palomar 5</span>”</span>
 699 (July):A289. <a
 href="https://doi.org/10.1051/0004-6361/202553923">https://doi.org/10.1051/0004-6361/202553923</a>.
 </div>
+<div id="ref-1991PASJ...43..841F" class="csl-entry" role="listitem">
+Fukushige, Toshiyuki, Tomoyoshi Ito, Junichiro Makino, Toshikazu
+Ebisuzaki, Daiichiro Sugimoto, and Masayuki Umemura. 1991. <span>“<span
+class="nocase">GRAPE-1A: Special-Purpose Computer for N-body Simulation
+with a Tree Code</span>”</span> 43 (December):841–58.
+</div>
 <div id="ref-2016MNRAS.460..497H" class="csl-entry" role="listitem">
 Hattori, Kohei, Denis Erkal, and Jason L. Sanders. 2016. <span>“<span
 class="nocase">Shepherding tidal debris with the Galactic bar: the
 Ophiuchus stream</span>”</span> 460 (1): 497–512. <a
 href="https://doi.org/10.1093/mnras/stw1006">https://doi.org/10.1093/mnras/stw1006</a>.
+</div>
+<div id="ref-2024ApJ...967...89I" class="csl-entry" role="listitem">
+Ibata, Rodrigo, Khyati Malhan, Wassim Tenachi, Anke Ardern-Arentsen,
+Michele Bellazzini, Paolo Bianchini, Piercarlo Bonifacio, et al. 2024.
+<span>“<span class="nocase">Charting the Galactic Acceleration Field.
+II. A Global Mass Model of the Milky Way from the STREAMFINDER Atlas of
+Stellar Streams Detected in Gaia DR3</span>”</span> 967 (2): 89. <a
+href="https://doi.org/10.3847/1538-4357/ad382d">https://doi.org/10.3847/1538-4357/ad382d</a>.
 </div>
 <div id="ref-2020ApJ...891..161I" class="csl-entry" role="listitem">
 Ibata, Rodrigo, Guillaume Thomas, Benoit Famaey, Khyati Malhan, Nicolas
@@ -776,6 +776,20 @@ Lu, Junyang, Tongyan Lin, Mukul Sholapurkar, and Ana Bonaca. 2025.
 in Milky Way stellar streams</span>.”</span> <em>arXiv e-Prints</em>,
 February, arXiv:2502.07781. <a
 href="https://doi.org/10.48550/arXiv.2502.07781">https://doi.org/10.48550/arXiv.2502.07781</a>.
+</div>
+<div id="ref-2023MNRAS.520.4779L" class="csl-entry" role="listitem">
+Lucey, Madeline, Sarah Pearson, Jason A. S. Hunt, Keith Hawkins, Melissa
+Ness, Michael S. Petersen, Adrian M. Price-Whelan, and Martin D.
+Weinberg. 2023. <span>“<span class="nocase">Dynamically constraining the
+length of the Milky way bar</span>”</span> 520 (3): 4779–92. <a
+href="https://doi.org/10.1093/mnras/stad406">https://doi.org/10.1093/mnras/stad406</a>.
+</div>
+<div id="ref-1997ApJ...480..432M" class="csl-entry" role="listitem">
+Makino, Junichiro, Makoto Taiji, Toshikazu Ebisuzaki, and Daiichiro
+Sugimoto. 1997. <span>“<span class="nocase">GRAPE-4: A Massively
+Parallel Special-Purpose Computer for Collisional N-Body
+Simulations</span>”</span> 480 (1): 432–46. <a
+href="https://doi.org/10.1086/303972">https://doi.org/10.1086/303972</a>.
 </div>
 <div id="ref-1997A&amp;ARv...8....1M" class="csl-entry" role="listitem">
 Meylan, G., and D. C. Heggie. 1997. <span>“<span class="nocase">Internal
@@ -850,14 +864,6 @@ the 300S globular cluster stellar stream</span>”</span> 529 (3):
 2413–27. <a
 href="https://doi.org/10.1093/mnras/stae185">https://doi.org/10.1093/mnras/stae185</a>.
 </div>
-<div id="ref-2018ComAC...5....2V" class="csl-entry" role="listitem">
-Varri, Anna Lisa, Maxwell Xu Cai, Francisca Concha-Ramı́rez, František
-Dinnbier, Nora Lützgendorf, Václav Pavlı́k, Sara Rastello, Antonio
-Sollima, Long Wang, and Alice Zocchi. 2018. <span>“<span
-class="nocase">A MODEST review</span>.”</span> <em>Computational
-Astrophysics and Cosmology</em> 5 (1): 2. <a
-href="https://doi.org/10.1186/s40668-018-0024-6">https://doi.org/10.1186/s40668-018-0024-6</a>.
-</div>
 <div id="ref-2025arXiv250507491V" class="csl-entry" role="listitem">
 Vergara, Marcelo C., Abbas Askar, Albrecht W. H. Kamlah, Rainer Spurzem,
 Francesco Flammini Dotti, Dominik R. G. Schleicher, Manuel Arca Sedda,
@@ -867,6 +873,13 @@ subsequently an IMBH from runaway collisions. Direct N-body and Monte
 Carlo simulations of dense star clusters</span>.”</span> <em>arXiv
 e-Prints</em>, May, arXiv:2505.07491. <a
 href="https://doi.org/10.48550/arXiv.2505.07491">https://doi.org/10.48550/arXiv.2505.07491</a>.
+</div>
+<div id="ref-2024MNRAS.528.3576V" class="csl-entry" role="listitem">
+Vislosky, E., I. Minchev, S. Khoperskov, M. Martig, T. Buck, T. Hilmi,
+B. Ratcliffe, et al. 2024. <span>“<span class="nocase">Gaia DR3 data
+consistent with a short bar connected to a spiral arm</span>”</span> 528
+(2): 3576–91. <a
+href="https://doi.org/10.1093/mnras/stae083">https://doi.org/10.1093/mnras/stae083</a>.
 </div>
 <div id="ref-2015MNRAS.450.4070W" class="csl-entry" role="listitem">
 Wang, Long, Rainer Spurzem, Sverre Aarseth, Keigo Nitadori, Peter
@@ -881,6 +894,12 @@ Zhang. 2025. <span>“<span class="nocase">The Structural and Kinematical
 Properties of NGC 5634, a Globular Cluster Associated with the
 Sagittarius Dwarf Galaxy?</span>”</span> 988 (1): 39. <a
 href="https://doi.org/10.3847/1538-4357/ade0b6">https://doi.org/10.3847/1538-4357/ade0b6</a>.
+</div>
+<div id="ref-2015MNRAS.450.4050W" class="csl-entry" role="listitem">
+Wegg, Christopher, Ortwin Gerhard, and Matthieu Portail. 2015.
+<span>“<span class="nocase">The structure of the Milky Way’s bar outside
+the bulge</span>”</span> 450 (4): 4050–69. <a
+href="https://doi.org/10.1093/mnras/stv745">https://doi.org/10.1093/mnras/stv745</a>.
 </div>
 </div>
 </body>

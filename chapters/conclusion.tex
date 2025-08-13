@@ -44,42 +44,42 @@ In this chapter, I summarize the works undertaken in this thesis and reconnect i
         In summary, with upcoming improvements in both data quality and modelling techniques, there is strong potential to make significant progress in this field. Depending on computational constraints, I may either adopt an existing stream simulation method in place of \texttt{tstrippy} or implement a particle-spray approach within it.
 
     \subsection{The bulk gravitational field of the MW}
+        At the onset of this thesis, our aim was to investigate large-scale features of the Milky Way such as spiral arms, the Galactic bar, giant molecular clouds, and satellite galaxies. Each of these components represents a potential avenue for further study.  
 
-            \begin{enumerate}
-                \item we wanted to explore many aspects of the MW that are time-dependent and see what features they leave on streams. 
-                \item there are many of these and many studies that have investigated this stuff, as spoke about in Bonaca conroy review such as caotic orbits, the stellar bar, spiral arms, etc,. 
-                \item however, we have run more simulations with the galactic bar and recognize that there is more theoretical understanding to be made about how the bars effect the stellar stream that what is yet reported in the literature. 
-                \item Prelim result shown in Fig.~\ref{fig:pal5_with_bar}. Indeed, we know that the bar can create long streams, and that it can deflect them. But we have seen the bar stund the growth before\dots Malhan showed one of the twisting streams 
-                \item Ibata 2024 made a good model. However it's still axis symmetric. A Malhan article showed that the structure of the MW can twist a stream. I see that too in my simulations. This mecanism needs to be understood theoretically better and also employed in the MW\dots
-            \end{enumerate}
+        In particular, we are interested in the role of the Galactic bar. Previous works have shown that the bar can induce chaotic orbits, causing stellar streams to ``fan out'' more than they otherwise would \citep{2016ApJ...824..104P,2020ApJ...889...70B}. Our preliminary investigation, based on the simulations of \citet{2023A&A...673A..44F}, revealed several intriguing effects. As noted by other authors \citep[see Fig.~9 of][]{2025NewAR.10001713B}, the bar can generate large underdensities along streams. Our own simulations suggest additional signatures beyond this.  
 
+        The total mass, orientation, and length of the bar have been constrained in previous studies, though significant uncertainties remain. Most notably, the bar pattern speed (its angular velocity) still has two plausible regimes: slow or fast rotation \citep{2015MNRAS.450.4050W,2016ARA&A..54..529B,2023MNRAS.520.4779L,2024MNRAS.528.3576V}.  
 
-            \begin{verbatim}
-                VIDEO: Pal5_longmurali_5000_monte_carlo_002_white_bg.mp4
-            \end{verbatim}
+        We are conducting new experiments to explore whether stellar streams can help break some of these degeneracies. As an example, Fig.~\ref{fig:pal5_with_bar} shows simulations of the Palomar~5 stream for a range of bar pattern speeds. In some cases, the bar splits the stream and creates prominent gaps; in others, it shifts part of the stream off its typical track; in yet others, it suppresses the stream’s growth entirely, keeping debris bound near the progenitor cluster.  
 
-            \begin{figure}
-                \centering
-                \begin{tabular}{ccc}
-                    \includegraphics[width=.32\linewidth]{images/frame_0002.png}&
-                    \includegraphics[width=.32\linewidth]{images/frame_0004.png}&
-                    \includegraphics[width=.32\linewidth]{images/frame_0008.png}\\
-                    
-                    \includegraphics[width=.32\linewidth]{images/frame_0016.png}&
-                    \includegraphics[width=.32\linewidth]{images/frame_0019.png}&
-                    \includegraphics[width=.32\linewidth]{images/frame_0023.png}\\
-                    
-                    \includegraphics[width=.32\linewidth]{images/frame_0038.png}&
-                    \includegraphics[width=.32\linewidth]{images/frame_0048.png}&
-                    \includegraphics[width=.32\linewidth]{images/frame_0062.png}\\
-                    
-                    \includegraphics[width=.32\linewidth]{images/frame_0065.png}&
-                    \includegraphics[width=.32\linewidth]{images/frame_0066.png}&
-                    \includegraphics[width=.32\linewidth]{images/frame_0104.png}\\
-                \end{tabular}
-                \caption[The presence of a stellar bar with different rotational speeds damaging the Palomar~5 stream]{Various simulations of producing the Palomar~5 stream using \texttt{tstrippy} with 5000 particles. The galaxy was modeled using \citet{2017A&A...598A..66P} and the bar was modeled with \citet{1997MNRAS.291..717M}, as describe in chapter~4. However, we vary the bar pattern speed. We run the simulation for the same initial conditions but with the different bar pattern speeds. We varied the bar pattern speed between 25-61~km/(s~kpc) with a 150 samples. There is an animated version of this graph availble on the online version of this thesis.}
-                \label{fig:pal5_with_bar}
-            \end{figure}
+        \begin{verbatim}
+            VIDEO: Pal5_longmurali_5000_monte_carlo_002_white_bg.mp4
+        \end{verbatim}
+
+        \begin{figure}
+            \centering
+            \begin{tabular}{ccc}
+                \includegraphics[width=.32\linewidth]{images/frame_0002.png}&
+                \includegraphics[width=.32\linewidth]{images/frame_0004.png}&
+                \includegraphics[width=.32\linewidth]{images/frame_0008.png}\\
+                
+                \includegraphics[width=.32\linewidth]{images/frame_0016.png}&
+                \includegraphics[width=.32\linewidth]{images/frame_0019.png}&
+                \includegraphics[width=.32\linewidth]{images/frame_0023.png}\\
+                
+                \includegraphics[width=.32\linewidth]{images/frame_0038.png}&
+                \includegraphics[width=.32\linewidth]{images/frame_0048.png}&
+                \includegraphics[width=.32\linewidth]{images/frame_0062.png}\\
+                
+                \includegraphics[width=.32\linewidth]{images/frame_0065.png}&
+                \includegraphics[width=.32\linewidth]{images/frame_0066.png}&
+                \includegraphics[width=.32\linewidth]{images/frame_0104.png}\\
+            \end{tabular}
+            \caption[The presence of a stellar bar with different rotational speeds affecting the Palomar~5 stream]{Simulations of the Palomar~5 stream using \texttt{tstrippy} with 5000 particles. The Galactic potential follows \citet{2017A&A...598A..66P} with a bar model from \citet{1997MNRAS.291..717M}, as described in Chapter~4. The initial conditions are identical in all runs, but the bar pattern speed is varied between 25 and 61~km\,s$^{-1}$\,kpc$^{-1}$ over 150 samples. The animated version of this figure is available in the online thesis.}
+            \label{fig:pal5_with_bar}
+        \end{figure}
+
+        The results in Fig.~\ref{fig:pal5_with_bar} raise several questions. There is room to understand the underlying mechanisms theoretically, and to identify whether any Milky Way globular clusters or streams occupy one of these ``special'' resonances. Such signatures could occur only for a restricted range of bar pattern speeds (or other bar parameters), making them valuable dynamical probes. This is especially important because most existing models of the Milky Way potential, such as that of \citet{2024ApJ...967...89I}, are static and axisymmetric, omitting the bar due to its complexity. If these resonances can be robustly identified in observed streams, they may offer a new route to constraining the Galactic bar.
 
     \subsection{Multiple-stellar populations, Stellar evolution, and globular cluster formation and internal dynamics, stellar populations}
 
@@ -114,25 +114,3 @@ In this chapter, I summarize the works undertaken in this thesis and reconnect i
         Fernández-Trincado, José G (2021) says that there are some metal rich cluster debris, which is interesting 
 
         Fernández-Trincado, J. G (2017) said they found 11 stars with the chemical abundance patterms of second general stars within globular cluster \dots 
-
-\section{Future modeling techinques}
-
-    I want to integrate these discussions in smoothly with the other scientific questions and not separate the modelling techinques. 
-
-    \subsection{N-body codes}
-    \citep{2012MNRAS.424..545N} showed the GPU's can replace GRAPE
-
-    \citet{2018ComAC...5....2V} talks about a series of papers between a larger collaboration of people who specialize in collisional dynamics and who have performed a series of workshops together. The introduction stated that the collaboration wants to tackle many open questions regarding stellar clusters and build the necessary codes to interprete the future large quantity of data that was destined to come. It has now come since the review was 2018. An interesting point was that in general globular clusters are approximated as being orderless, i.e. isotropic but order does present itself within these stelalr systems. Another large problem is no one knows what a good set of initial conditiosn is. Unresolved binaries pose a problem because you can overestiamte the total mass of the system. If I talk about this review, I should probably discuss some of the results from the papers that is builds on or at least their techinques.
-
-    The MODEST review led me to discover AMUSE, which is an framework for integrating various astrophysical codes for solving 4 types of problems: gravitational dynamics, radiative transfer, hydrodynamics, and stellar evolution. The codes are written by the community and are interfaced together with Amuse. The user end is python. I have spent some time reading the book, which is instructive and well written. Steve McMillian is one of the authors. The code has a large support on GitHub and is still being developped. I have had trouble trying to install the code. It seems as though their documentation is incoherrent. At one place, it said `pip' is the easiest way to install. It didn't work. In another place, I was instructed to install a zipped up tarball. The setup failed becuase it expected there to be a .git file in the directory. I successfully downloaded the code by cloneing the repository, despite the fact that this was not recommended. I can use some aspects of the code but not all of them. For instance, my memory tells me that about 80\% of the test suite passed, thus many scripts failed. This was when I only installed the frame-work, which was advised since installing the whole package is huge and unnecessary since I am not solving all astrophysical problems. However, I wasn't able to use one of the gravity solvers that was presented in the textbook `AstrophysicalRecipes The art of AMUSE'. The install still has some codes that failed for instance: amuse-adaptb, amuse-hermite-grx, amuse-mi6. However, I'm hoping that this isn't necessary. I want to educate myself and make some examples. 
-
-    Installing other codes and figuring out their functionalities to me has never been trivial. This is similar to galpy when I tried to figure out particle spray method and got less than good results. Agama also confused me a bit. The main point is that for each package, at the end of the day I decided that it was easier and better if I solved the problem myself with my own code. Because, even with the other packages, I know that they can be used to solve other astrophysical problems and it wasn't clear to me how to make the codes solve my specific set of of the restricted three body problems in a potential with other perturbers flying around. 
-
-    In this search, I also discovered another review called \textit{Computational methods for collisional stellar systems} by Spurzem and Kamlah 2023. It is also interesting and instructive. I found it insightful when they called NBody an industry. I think the story of GRAPE and Makino is really interesting, how he build dedicated hardware for the nbody problem which were great for 10 years but were quickly replaced by GPU technology. 
-
-
-
-
-
-
-
