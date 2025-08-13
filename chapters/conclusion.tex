@@ -20,27 +20,45 @@ In this chapter, I summarize the works undertaken in this thesis and reconnect i
 
     The ubiquity and sensitivity of stellar streams really do make them amazing for inferring properties of various distributions. There are thus various avenues of investigation that can be taken on next. Some phenomena still needs to be explored with numerical forward modeling. Either for understanding physical mecanisms, or for obtaining predictions on how often something should be observed. On the otherhand, where the phenomena is well understood we can turn to observations to begin actually perform the inference. 
 
-
     \subsection{Dark Matter}
 
-        \textit{forward modelling}
-            \citet{2025arXiv250207781L} just did what I proposed to do for Strasbourg. But not exactly as I would do it. I need to read it better. It looks like an amazing work\dots \citet{2024arXiv241213144A} used the press-schecter foramlism to analyze about how many impacts we can expect to see on the stream. 
+        \begin{enumerate}
+            \item doing the forward modeling to understand how many gaps we should see per stream. \citet{2025arXiv250207781L} just did what I proposed to do for Strasbourg. But not exactly as I would do it. I need to read it better. It looks like an amazing work\dots
+            \item \citet{2024arXiv241213144A} used the press-schecter foramlism to analyze about how many impacts we can expect to see on the stream. 
+            \item we are also posed to model this problem in a similar way. We want to use a hydrodynamical DM only simulation to go down to lower mass limits that could provoke the gaps. 
+            \item There also exists the work to couple the DM sub-halos with other dynamic properties of the MW. For example, does a bar erase gap signatures? What about the number of false positives
+            \item Then there is the inference problem. This is a problem bayesian hierarchical models. We want to know a universal distribution function for a dark matter sub-halo population. Can we use one instantiation of gaps within MW streams to set constraints on that universal function? Also, we would like to quantify how many would be needed. The parameters that create a gap, such as time of impact, mass of the perturber, relative velocity, etc, are all degenerate and a single gap would be tough. However, if we had multiple of these gaps, perhaps we can start saying something. How many gaps do we need? This is a far lower mass regieme then ever known before and can constrain the particle phyiscs nature of dark matter. 
+            \item Also, I would like to highlight the modelling chalenges. Do the little story about GRAPE and GPU's. NBody is still expensive. My simulations aren't that cheap either, especially if we need to explore a large parameter space for dark matter subhaloes, with lots of streams, we could easily be running hundreds of thousands to millions of simulations. 
+            \item this is where I will highlight some particle spray codes with semi-analytical methods. Perhaps I can switch to this or be more smart, like how Adams only simulated the orbits at first, but then simulated the streams once there was a close encounter. 
+        \end{enumerate}
 
-            
 
-        \textit{inference}
-            What about the inference aspect? Can we reliably transalte a distribution of gaps into an understanding of the Dark Matter Distribution Function? Hierarchical Baesian modeling\dots
+        \citet{2012MNRAS.420.2700K} created the ``streak-line'' method, which in essence approximates streams as having the same orbital parameters as the progenitor. \citet{2014ApJ...795...94B} continued this and used it to quickly generate streams in a monte-carlo code to find the best halo parameters to reproduced observed streams to recover a galaxy's mass. They generate orbits on the fly giving the star particles the same parameters as the progenitor but offset. 
 
-    \subsection{The gravitational field of the MW}
-            We wanted to investigate more stuff like spiral arms, the large and small magallenic clouds. 
+        The ``streak-line'' method is limited and ignores the dispersion in orbital parameters of the escaped stars. \citet{2011MNRAS.413.1852E} presented streams in action-angle variables. As stated by \citet{2015MNRAS.452..301F}, this is the most elegant description of stellar streams. Each stream star has an offset from the progenitor's hamiltonian which can be expressed with a second order taylor expansion. 
 
-            \citet{2023A&A...673A.152I} showed that within the last 5~gyr the potential was stable enough where the orbital solutions are pretty stable. 
+        \citet{2015MNRAS.452..301F} prescriptive stream generation model could be much faster than my simulations. Yes, this model is prescriptive but it the escape rate is tied to orbital properties, as is mine. It can operate at the on the dynamical time of the galaxy and not the dynamical time of the internal dynamics, which could greatly speed up simulations. \citet{2014ApJ...795...95B} did a good job of developing this in terms of the actions and angles. However, \citet{2015MNRAS.452..301F} provides an escape rate that is more motivated by the orbit of the progenitor, which is good since we know more particles escape at peri-center due to the scaling of tidal forces with $r^{-3}$. So the Fardal is pretty great. Perhaps adopting one of these methods for certain problems could be great. 
 
-            Ibata 2024 made a good model. However it's still axis symmetric. A Malhan article showed that the structure of the MW can twist a stream. I see that too in my simulations. This mecanism needs to be understood theoretically better and also employed in the MW\dots
+        The advantage of my method is that it is not prescriptive, so if we explore a region of the parameter space where the assumptions behind the prescriptions break down, we may be led astray. \dots but it's so fast \dots 
 
-            Yaaquib (2025) is showing that we can use streams to get at how the gravitational field changes due the LMC infall\dots maybe in the conclusion 
+        \begin{figure}
+            \includegraphics[width=\linewidth]{images/mollweide-density-with-haloes.png}
+            \caption[Plausible $\Lambda$CDM Dark matter subhalo population as seen from the Sun]{Plausible $\Lambda$CDM Dark matter subhalo population as seen from the Sun. The subhaloes are modelled as Plummer sphere's and their light was integrated over the line of sight from the sun. Their ``luminosity'' was scaled as to the total halo's total mass. They are also overlain the integrated surface light density profile of Milky Way's stellar disk, as modeled with a Miyamoto-Nagai that models the Milky Way potential.}
+            \label{fig:mollweide-density-with-haloes.png}
+        \end{figure}
 
-            The bar 
+
+    \subsection{The bulk gravitational field of the MW}
+
+            \begin{enumerate}
+                \item we wanted to explore many aspects of the MW that are time-dependent and see what features they leave on streams. 
+                \item there are many of these and many studies that have investigated this stuff, as spoke about in Bonaca conroy review such as caotic orbits, the stellar bar, spiral arms, etc,. 
+                \item however, we have run more simulations with the galactic bar and recognize that there is more theoretical understanding to be made about how the bars effect the stellar stream that what is yet reported in the literature. 
+                \item Prelim result shown in Fig.~\ref{fig:pal5_with_bar}. Indeed, we know that the bar can create long streams, and that it can deflect them. But we have seen the bar stund the growth before\dots Malhan showed one of the twisting streams 
+                \item Ibata 2024 made a good model. However it's still axis symmetric. A Malhan article showed that the structure of the MW can twist a stream. I see that too in my simulations. This mecanism needs to be understood theoretically better and also employed in the MW\dots
+            \end{enumerate}
+
+
             \begin{verbatim}
                 VIDEO: Pal5_longmurali_5000_monte_carlo_002_white_bg.mp4
             \end{verbatim}
@@ -64,19 +82,9 @@ In this chapter, I summarize the works undertaken in this thesis and reconnect i
                     \includegraphics[width=.32\linewidth]{images/frame_0066.png}&
                     \includegraphics[width=.32\linewidth]{images/frame_0104.png}\\
                 \end{tabular}
-                \caption[The presence of a stellar bar with different rotational speeds damaging the Palomar~5 stream]{Various simulations of producing the Palomar~5 stream using \texttt{tstrippy} with 5000 particles. The galaxy was modeled using \citet{2017A&A...598A..66P} and the bar was modeled with \citet{1997MNRAS.291..717M}, as describe in chapter~4. However, we vary the bar pattern speed. We run the simulation for the same initial conditions but with the different bar pattern speeds. We varied the bar pattern speed between 25-61~km/(s~kpc) with a150  }
+                \caption[The presence of a stellar bar with different rotational speeds damaging the Palomar~5 stream]{Various simulations of producing the Palomar~5 stream using \texttt{tstrippy} with 5000 particles. The galaxy was modeled using \citet{2017A&A...598A..66P} and the bar was modeled with \citet{1997MNRAS.291..717M}, as describe in chapter~4. However, we vary the bar pattern speed. We run the simulation for the same initial conditions but with the different bar pattern speeds. We varied the bar pattern speed between 25-61~km/(s~kpc) with a 150 samples. There is an animated version of this graph availble on the online version of this thesis.}
                 \label{fig:pal5_with_bar}
             \end{figure}
-
-    
-
-            \begin{figure}
-                \includegraphics[width=\linewidth]{images/mollweide-density-with-haloes.png}
-                \caption[Plausible $\Lambda$CDM Dark matter subhalo population as seen from the Sun]{Plausible $\Lambda$CDM Dark matter subhalo population as seen from the Sun. The subhaloes are modelled as Plummer sphere's and their light was integrated over the line of sight from the sun. Their ``luminosity'' was scaled as to the total halo's total mass. They are also overlain the integrated surface light density profile of Milky Way's stellar disk, as modeled with a Miyamoto-Nagai that models the Milky Way potential.}
-                \label{fig:mollweide-density-with-haloes.png}
-            \end{figure}
-
-
 
     \subsection{Multiple-stellar populations, Stellar evolution, and globular cluster formation and internal dynamics, stellar populations}
 
@@ -102,18 +110,7 @@ In this chapter, I summarize the works undertaken in this thesis and reconnect i
 
         \citet{2004AJ....127.2753D} presented a great work on Palomar~5 and found the parameters of a king model that best reproduce Palomar~5. Perhaps I can take form this study to have the best description of the tidal tails that corresponds to Palomar~5, and iterate over this to have the best description of of the tails as possible. 
 
-
-
-
-
-
-
-
-
-
-    
         \citet{2006ARA&A..44..193B} made a review on extra galactic globular clusters. They discuss things like the observation evidence, the globular cluster mass function (all clusters), and find it to have an equal power spectrum, but the issue is that you don't know where to truncate the power law. maybe at lower end you can argue $10^4 M_\odot$ from two body relaxation and a tidal field. However, the upper limit is hard since you already don't expect that many, and the inclusion of a couple more high mass members can significantly alter the ``mean'' mass GC. They also note how a lot of cluster properties match the galactic properties. They talk about a bi-modal distribution. It really isn't that bimodal, there's a ton of overlap. There's a bluer one and a redder one. One of them might form during the collisions between galaxies while the other could be formed deeped in the potential wells. They also said that as of 2014 there is evidence that GCs are still forming. They also discuss the chemical abundance patterns within the clusters. It's complicated stuff, I wish I was better at stellar physics and knowing all the different sequences\dots
-
 
         Something about the chemical abundance patterns of the halo stars that can be consistent with the globular clusters \dots
 
@@ -124,7 +121,6 @@ In this chapter, I summarize the works undertaken in this thesis and reconnect i
         Fernández-Trincado, J. G (2017) said they found 11 stars with the chemical abundance patterms of second general stars within globular cluster \dots 
 
 \section{Future modeling techinques}
-
 
     I want to integrate these discussions in smoothly with the other scientific questions and not separate the modelling techinques. 
 
@@ -138,18 +134,6 @@ In this chapter, I summarize the works undertaken in this thesis and reconnect i
     Installing other codes and figuring out their functionalities to me has never been trivial. This is similar to galpy when I tried to figure out particle spray method and got less than good results. Agama also confused me a bit. The main point is that for each package, at the end of the day I decided that it was easier and better if I solved the problem myself with my own code. Because, even with the other packages, I know that they can be used to solve other astrophysical problems and it wasn't clear to me how to make the codes solve my specific set of of the restricted three body problems in a potential with other perturbers flying around. 
 
     In this search, I also discovered another review called \textit{Computational methods for collisional stellar systems} by Spurzem and Kamlah 2023. It is also interesting and instructive. I found it insightful when they called NBody an industry. I think the story of GRAPE and Makino is really interesting, how he build dedicated hardware for the nbody problem which were great for 10 years but were quickly replaced by GPU technology. 
-
-    \section{particle-spray methods}
-
-    this could be really important if I want to come up with something \textit{fast} particularly if using 
-
-    \citet{2012MNRAS.420.2700K} created the ``streak-line'' method, which in essence approximates streams as having the same orbital parameters as the progenitor. \citet{2014ApJ...795...94B} continued this and used it to quickly generate streams in a monte-carlo code to find the best halo parameters to reproduced observed streams to recover a galaxy's mass. They generate orbits on the fly giving the star particles the same parameters as the progenitor but offset. 
-
-    The ``streak-line'' method is limited and ignores the dispersion in orbital parameters of the escaped stars. \citet{2011MNRAS.413.1852E} presented streams in action-angle variables. As stated by \citet{2015MNRAS.452..301F}, this is the most elegant description of stellar streams. Each stream star has an offset from the progenitor's hamiltonian which can be expressed with a second order taylor expansion. 
-
-    \citet{2015MNRAS.452..301F} prescriptive stream generation model could be much faster than my simulations. Yes, this model is prescriptive but it the escape rate is tied to orbital properties, as is mine. It can operate at the on the dynamical time of the galaxy and not the dynamical time of the internal dynamics, which could greatly speed up simulations. \citet{2014ApJ...795...95B} did a good job of developing this in terms of the actions and angles. However, \citet{2015MNRAS.452..301F} provides an escape rate that is more motivated by the orbit of the progenitor, which is good since we know more particles escape at peri-center due to the scaling of tidal forces with $r^{-3}$. So the Fardal is pretty great. Perhaps adopting one of these methods for certain problems could be great. 
-
-    The advantage of my method is that it is not prescriptive, so if we explore a region of the parameter space where the assumptions behind the prescriptions break down, we may be led astray. \dots but it's so fast \dots 
 
 
 
