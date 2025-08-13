@@ -1,6 +1,5 @@
 \citet{2022A&A...664A..31C} Laia's paper that used the first version of the code.
 
-
 In this chapter, I summarize the works undertaken in this thesis and reconnect it to the broader literature with proposing more avenues for investigation. 
 
 \section{Summary}
@@ -15,20 +14,29 @@ In this chapter, I summarize the works undertaken in this thesis and reconnect i
     In Chapter 5, I present \citet{2025A&A...699A.289F}, where we investigated how the Palomar~5 stellar stream responds to the granularity of the Milky Way's gravitational field—specifically, the presence of other globular clusters. We showed that the internal dynamics of globular clusters can strongly influence the morphology of their stellar streams. In particular, gap formation from the fly-by of a massive perturber requires very specific stream conditions: regions close to the progenitor, where the morphology is still dominated by epicyclic overdensities, are unfavorable for gap formation, as different stellar packets respond differently to the perturbation and subsequently drift out of phase. This is a new contribution, as previous studies primarily considered the effects of random motions, such as velocity dispersion.
 
 \section{Prospectives}
-
     I think the good thing here is that we really focus on Milky Way streams and globular clusters. Idealized toy models and set ups are good for investigating new ideas and various types of theoretical phenomena \dots However, \dots by focusing on the Milky Way, we can truly \dots know how much of these we can expect to see, with what significance, and always tie back around to the observations \dots
 
     The ubiquity and sensitivity of stellar streams really do make them amazing for inferring properties of various distributions. There are thus various avenues of investigation that can be taken on next. Some phenomena still needs to be explored with numerical forward modeling. Either for understanding physical mecanisms, or for obtaining predictions on how often something should be observed. On the otherhand, where the phenomena is well understood we can turn to observations to begin actually perform the inference. 
 
     \subsection{Dark Matter}
+        The question of inferring the presence of dark matter on lower-mass scales than from the extra-galactic context excites us. We aim to perform a similar study to Chapter~5, but in addition to only using the populating og galactic globular clusters, we would like to use a $\Lambda$CDM motivated population of dark matter subhalos (Boldrini et al. In prep). See Fig.~\ref{fig:mollweide-density-with-haloes.png} in which a population of dark matter sub-haloes from a cosmological simulation in a Milky Way analog is displayed. \citet{2024arXiv241213144A} recently performed a similar work for just the GD-1 stream. They found, that the GD-1 stream in the last few billion years has on average, one gap from the passage of a dark matter sub-halo. \citet{2025arXiv250207781L} used the average of $1$ gap per stream to discuss the observability about 50 known Milky Way streams. 
+
+        \begin{figure}
+            \includegraphics[width=\linewidth]{images/mollweide-density-with-haloes.png}
+            \caption[Plausible $\Lambda$CDM Dark matter subhalo population as seen from the Sun]{Plausible $\Lambda$CDM Dark matter subhalo population as seen from the Sun. The subhaloes are modelled as Plummer sphere's and their light was integrated over the line of sight from the sun. Their ``luminosity'' was scaled as to the total halo's total mass. They are also overlain the integrated surface light density profile of Milky Way's stellar disk, as modeled with a Miyamoto-Nagai that models the Milky Way potential.}
+            \label{fig:mollweide-density-with-haloes.png}
+        \end{figure}
+
+        There also exists more modeling to understand the phenomenon of gap formation in the Milky Way stellar streams. Yes, we want to do some theoretical predictions to know how many we should expect. However, it must be in a more realisitic Milky Way with other known time-dependent and non axis-symmetric features. Until now, studies have only considered subhaloes impacting streams in isolation \citep{2013ApJ...775...90C,2015MNRAS.450.1136E,2016MNRAS.463..102E,2016MNRAS.457.3817S,2024arXiv241213144A,2025arXiv250207781L}. Or just the effects of the galactic bar on individual streams in isolation \citep{2016MNRAS.460..497H,2016ApJ...824..104P,2017NatAs...1..633P,2023A&A...678A.180T}. However, it is known that perturbations of stream from ordinary matter gap explain gap signals that some attribute to the passage of dark matter halos \citep{2020ApJ...891..161I}. In order to properly set up the inference problem, the false positive rate must be known and calibrated. 
+
+        Then, overall, fully inverting the problem is an example problem of bayesian hierarchical models \citep{2020sdmm.book.....I}. Interestingly, each gap detection is under-determined \citep{2015MNRAS.450.1136E}. Even in the absence of uncertainties, the presence of a gap cannot uniquiely and simultaneously determine the perturber mass, perturber size, time of impact, and relative velocity \citep{2015MNRAS.450.1136E}. However, with enough gaps and posterior distributions of each encounter, we can eventual build a statistic on the types of DM sub-halos.  
+
+        This problem is tricky tricky. To solve it we need to understand other important physical processes that can erase signatures or contribute to false positives and in what quantity, and build a hierarchical model to complete the inference--let alone to apply this to the Milky Way have very high data quality. Quality that may be available with LSST and the final Gaia data releases.
+
+        However, as highlighted in Chapter~5, the coherence within the stream is important for gap persistence and we must make sure they are modeled correctly or else we may have too many gaps. Of course, full $N$-body simulations maybe tempting to properly capture the internal dynamics of the cluster in order to propely map them to the streams. As discussed in \citet{2018ComAC...5....2V,2023LRCA....9....3S} there are many N body modeling techniques and the field is an active area of research. It is often at the avant-garde of hard-ware soft-ware synergy to create the fastest codes with the highest accuracy. For example, GRAPE, was hardware specifically used for this problem and was used until replaced by GPU \citep{2012MNRAS.424..545N,2015MNRAS.450.4070W}. Despite the advancements in both fields, they remain too expensive for the statistics that we require. Indeed, in order to properly theoretically calibrate our expectations for inferring dark matter sbhalos. we may need to run over a parameter space including different various models for the Galaxy's gravitational field, internal dynamics of the cluster, orbial initial conditions, dark matter-subhalo populations, various streams, etc. We can design an experiment in which we must compute tens of thousands of streams. 
+
 
         \begin{enumerate}
-            \item doing the forward modeling to understand how many gaps we should see per stream. \citet{2025arXiv250207781L} just did what I proposed to do for Strasbourg. But not exactly as I would do it. I need to read it better. It looks like an amazing work\dots
-            \item \citet{2024arXiv241213144A} used the press-schecter foramlism to analyze about how many impacts we can expect to see on the stream. 
-            \item we are also posed to model this problem in a similar way. We want to use a hydrodynamical DM only simulation to go down to lower mass limits that could provoke the gaps. 
-            \item There also exists the work to couple the DM sub-halos with other dynamic properties of the MW. For example, does a bar erase gap signatures? What about the number of false positives
-            \item Then there is the inference problem. This is a problem bayesian hierarchical models. We want to know a universal distribution function for a dark matter sub-halo population. Can we use one instantiation of gaps within MW streams to set constraints on that universal function? Also, we would like to quantify how many would be needed. The parameters that create a gap, such as time of impact, mass of the perturber, relative velocity, etc, are all degenerate and a single gap would be tough. However, if we had multiple of these gaps, perhaps we can start saying something. How many gaps do we need? This is a far lower mass regieme then ever known before and can constrain the particle phyiscs nature of dark matter. 
-            \item Also, I would like to highlight the modelling chalenges. Do the little story about GRAPE and GPU's. NBody is still expensive. My simulations aren't that cheap either, especially if we need to explore a large parameter space for dark matter subhaloes, with lots of streams, we could easily be running hundreds of thousands to millions of simulations. 
             \item this is where I will highlight some particle spray codes with semi-analytical methods. Perhaps I can switch to this or be more smart, like how Adams only simulated the orbits at first, but then simulated the streams once there was a close encounter. 
         \end{enumerate}
 
@@ -39,13 +47,8 @@ In this chapter, I summarize the works undertaken in this thesis and reconnect i
 
         \citet{2015MNRAS.452..301F} prescriptive stream generation model could be much faster than my simulations. Yes, this model is prescriptive but it the escape rate is tied to orbital properties, as is mine. It can operate at the on the dynamical time of the galaxy and not the dynamical time of the internal dynamics, which could greatly speed up simulations. \citet{2014ApJ...795...95B} did a good job of developing this in terms of the actions and angles. However, \citet{2015MNRAS.452..301F} provides an escape rate that is more motivated by the orbit of the progenitor, which is good since we know more particles escape at peri-center due to the scaling of tidal forces with $r^{-3}$. So the Fardal is pretty great. Perhaps adopting one of these methods for certain problems could be great. 
 
-        The advantage of my method is that it is not prescriptive, so if we explore a region of the parameter space where the assumptions behind the prescriptions break down, we may be led astray. \dots but it's so fast \dots 
 
-        \begin{figure}
-            \includegraphics[width=\linewidth]{images/mollweide-density-with-haloes.png}
-            \caption[Plausible $\Lambda$CDM Dark matter subhalo population as seen from the Sun]{Plausible $\Lambda$CDM Dark matter subhalo population as seen from the Sun. The subhaloes are modelled as Plummer sphere's and their light was integrated over the line of sight from the sun. Their ``luminosity'' was scaled as to the total halo's total mass. They are also overlain the integrated surface light density profile of Milky Way's stellar disk, as modeled with a Miyamoto-Nagai that models the Milky Way potential.}
-            \label{fig:mollweide-density-with-haloes.png}
-        \end{figure}
+
 
 
     \subsection{The bulk gravitational field of the MW}
