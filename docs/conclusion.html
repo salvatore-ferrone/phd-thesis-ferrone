@@ -265,133 +265,132 @@ Either for understanding physical mecanisms, or for obtaining
 predictions on how often something should be observed. On the otherhand,
 where the phenomena is well understood we can turn to observations to
 begin actually perform the inference.</p>
-<h2 id="dark-matter">Dark Matter</h2>
-<p>The question of inferring the presence of dark matter on lower-mass
-scales than from the extra-galactic context excites us. We aim to
-perform a similar study to Chapter 5, but in addition to only using the
-populating og galactic globular clusters, we would like to use a <span
-class="math inline">\(\Lambda\)</span>CDM motivated population of dark
-matter subhalos (Boldrini et al. In prep). See Fig. <a
+<h2 id="dark-matter-subhalos">Dark Matter Subhalos</h2>
+<p>The prospect of detecting dark matter (DM) on scales smaller than
+those accessible in the extragalactic context is particularly
+compelling. Our goal is to perform a study similar to that in Chapter 5,
+but rather than limiting ourselves to a population of Galactic globular
+clusters, we will also include a <span
+class="math inline">\(\Lambda\)</span>CDM-motivated population of dark
+matter subhalos (Boldrini et al., in prep). Figure <a
 href="#fig:mollweide-density-with-haloes.png" data-reference-type="ref"
-data-reference="fig:mollweide-density-with-haloes.png">1</a> in which a
-population of dark matter sub-haloes from a cosmological simulation in a
-Milky Way analog is displayed. <span class="citation"
+data-reference="fig:mollweide-density-with-haloes.png">1</a> shows an
+example of such a population from a cosmological simulation of a Milky
+Way analogue. <span class="citation"
 data-cites="2024arXiv241213144A">Adams et al. (2024)</span> recently
-performed a similar work for just the GD-1 stream. They found, that the
-GD-1 stream in the last few billion years has on average, one gap from
-the passage of a dark matter sub-halo. <span class="citation"
-data-cites="2025arXiv250207781L">Lu et al. (2025)</span> used the
-average of <span class="math inline">\(1\)</span> gap per stream to
-discuss the observability about 50 known Milky Way streams.</p>
+carried out a similar analysis for the GD-1 stream and found that, over
+the last few billion years, GD-1 has on average one detectable gap from
+a DM subhalo encounter. <span class="citation"
+data-cites="2025arXiv250207781L">Lu et al. (2025)</span> adopted this
+rate of <span class="math inline">\(\sim1\)</span> gap per stream to
+discuss the detectability of gaps in <span class="math inline">\(\sim
+50\)</span> known Milky Way streams.</p>
 <figure id="fig:mollweide-density-with-haloes.png">
 <img src="images/mollweide-density-with-haloes.png" />
 <figcaption>Plausible <span class="math inline">\(\Lambda\)</span>CDM
-Dark matter subhalo population as seen from the Sun. The subhaloes are
-modelled as Plummer sphere’s and their light was integrated over the
-line of sight from the sun. Their “luminosity” was scaled as to the
-total halo’s total mass. They are also overlain the integrated surface
-light density profile of Milky Way’s stellar disk, as modeled with a
-Miyamoto-Nagai that models the Milky Way potential.</figcaption>
+dark matter subhalo population as seen from the Sun. The subhalos are
+modelled as Plummer spheres, with their light integrated along the line
+of sight from the Sun and scaled according to the total halo mass.
+Overlaid is the integrated surface light density profile of the Milky
+Way’s stellar disk, modelled with a Miyamoto–Nagai
+potential.</figcaption>
 </figure>
-<p>There also exists more modeling to understand the phenomenon of gap
-formation in the Milky Way stellar streams. Yes, we want to do some
-theoretical predictions to know how many we should expect. However, it
-must be in a more realisitic Milky Way with other known time-dependent
-and non axis-symmetric features. Until now, studies have only considered
-subhaloes impacting streams in isolation <span class="citation"
+<p>There is considerable modelling work on gap formation in stellar
+streams. While we aim to make theoretical predictions for the expected
+number of gaps, these must be set in the context of a realistic Milky
+Way potential that includes known time-dependent and non-axisymmetric
+features. To date, most studies have examined either subhalo encounters
+in isolation <span class="citation"
 data-cites="2013ApJ...775...90C 2015MNRAS.450.1136E 2016MNRAS.463..102E 2016MNRAS.457.3817S 2024arXiv241213144A 2025arXiv250207781L">(Carlberg
 2013; Erkal and Belokurov 2015; Erkal et al. 2016; Sanders, Bovy, and
-Erkal 2016; Adams et al. 2024; Lu et al. 2025)</span>. Or just the
-effects of the galactic bar on individual streams in isolation <span
-class="citation"
+Erkal 2016; Adams et al. 2024; Lu et al. 2025)</span> or the effect of
+the Galactic bar alone <span class="citation"
 data-cites="2016MNRAS.460..497H 2016ApJ...824..104P 2017NatAs...1..633P 2023A&amp;A...678A.180T">(Hattori,
 Erkal, and Sanders 2016; Price-Whelan et al. 2016; Pearson,
 Price-Whelan, and Johnston 2017; Thomas et al. 2023)</span>. However, it
-is known that perturbations of stream from ordinary matter gap explain
-gap signals that some attribute to the passage of dark matter halos
-<span class="citation" data-cites="2020ApJ...891..161I">(Ibata et al.
-2020)</span>. In order to properly set up the inference problem, the
-false positive rate must be known and calibrated.</p>
-<p>Then, overall, fully inverting the problem is an example problem of
-bayesian hierarchical models <span class="citation"
-data-cites="2020sdmm.book.....I">(Ivezić et al. 2020)</span>.
-Interestingly, each gap detection is under-determined <span
-class="citation" data-cites="2015MNRAS.450.1136E">(Erkal and Belokurov
-2015)</span>. Even in the absence of uncertainties, the presence of a
-gap cannot uniquiely and simultaneously determine the perturber mass,
-perturber size, time of impact, and relative velocity <span
-class="citation" data-cites="2015MNRAS.450.1136E">(Erkal and Belokurov
-2015)</span>. However, with enough gaps and posterior distributions of
-each encounter, we can eventual build a statistic on the types of DM
-sub-halos.</p>
-<p>This problem is tricky tricky. To solve it we need to understand
-other important physical processes that can erase signatures or
-contribute to false positives and in what quantity, and build a
-hierarchical model to complete the inference–let alone to apply this to
-the Milky Way have very high data quality. Quality that may be available
-with LSST and the final Gaia data releases.</p>
-<p>However, as highlighted in Chapter 5, the coherence within the stream
-is important for gap persistence and we must make sure they are modeled
-correctly or else we may have too many gaps. Of course, full <span
-class="math inline">\(N\)</span>-body simulations maybe tempting to
-properly capture the internal dynamics of the cluster in order to
-propely map them to the streams. As discussed in <span class="citation"
-data-cites="2018ComAC...5....2V 2023LRCA....9....3S">Varri et al. (2018;
-Spurzem and Kamlah 2023)</span> there are many N body modeling
-techniques and the field is an active area of research. It is often at
-the avant-garde of hard-ware soft-ware synergy to create the fastest
-codes with the highest accuracy. For example, GRAPE, was hardware
-specifically used for this problem and was used until replaced by GPU
-<span class="citation"
+is known that perturbations from baryonic structures can also generate
+gap-like signals, potentially mimicking the effects of DM subhalos <span
+class="citation" data-cites="2020ApJ...891..161I">(Ibata et al.
+2020)</span>. To correctly frame the inference problem, the false
+positive rate must therefore be quantified and calibrated.</p>
+<p>Ultimately, the inversion of this problem is a case study in Bayesian
+hierarchical modelling <span class="citation"
+data-cites="2020sdmm.book.....I">(Ivezić et al. 2020)</span>. Each gap
+detection is underdetermined <span class="citation"
+data-cites="2015MNRAS.450.1136E">(Erkal and Belokurov 2015)</span>: even
+in the absence of measurement uncertainties, a single gap cannot
+uniquely constrain the perturber’s mass, size, time of impact, and
+relative velocity simultaneously. Nevertheless, with a sufficiently
+large sample of gaps and posterior distributions for each encounter, we
+can begin to infer statistical properties of the DM subhalo
+population.</p>
+<p>This is a challenging problem. We must account for other
+astrophysical processes that can erase gap signatures or create false
+positives, quantify their rates, and embed them in a hierarchical
+inference framework. The application of such an analysis to the Milky
+Way will require extremely high-quality data, which may be achievable
+with future LSST observations and the final Gaia data releases.</p>
+<p>As highlighted in Chapter 5, the coherence of a stream is crucial for
+gap survival, and this must be modelled accurately to avoid
+overestimating gap counts. While full <span
+class="math inline">\(N\)</span>-body simulations would be the most
+physically accurate way to model internal cluster dynamics and their
+mapping into streams, they are computationally prohibitive for the
+parameter space we must explore. Capturing variations in the Galaxy’s
+potential, cluster internal dynamics, orbital initial conditions, DM
+subhalo populations, and the properties of multiple streams could
+require computing tens of thousands of stream realisations. Despite
+advances in high-performance computing—including specialised hardware
+such as GRAPE systems, now largely replaced by GPUs <span
+class="citation"
 data-cites="2012MNRAS.424..545N 2015MNRAS.450.4070W">(Nitadori and
-Aarseth 2012; L. Wang et al. 2015)</span>. Despite the advancements in
-both fields, they remain too expensive for the statistics that we
-require. Indeed, in order to properly theoretically calibrate our
-expectations for inferring dark matter sbhalos. we may need to run over
-a parameter space including different various models for the Galaxy’s
-gravitational field, internal dynamics of the cluster, orbial initial
-conditions, dark matter-subhalo populations, various streams, etc. We
-can design an experiment in which we must compute tens of thousands of
-streams.</p>
-<ol>
-<li><p>this is where I will highlight some particle spray codes with
-semi-analytical methods. Perhaps I can switch to this or be more smart,
-like how Adams only simulated the orbits at first, but then simulated
-the streams once there was a close encounter.</p></li>
-</ol>
-<p><span class="citation" data-cites="2012MNRAS.420.2700K">Küpper, Lane,
-and Heggie (2012)</span> created the “streak-line” method, which in
-essence approximates streams as having the same orbital parameters as
-the progenitor. <span class="citation"
-data-cites="2014ApJ...795...94B">Bonaca et al. (2014)</span> continued
-this and used it to quickly generate streams in a monte-carlo code to
-find the best halo parameters to reproduced observed streams to recover
-a galaxy’s mass. They generate orbits on the fly giving the star
-particles the same parameters as the progenitor but offset.</p>
-<p>The “streak-line” method is limited and ignores the dispersion in
-orbital parameters of the escaped stars. <span class="citation"
-data-cites="2011MNRAS.413.1852E">Eyre and Binney (2011)</span> presented
-streams in action-angle variables. As stated by <span class="citation"
+Aarseth 2012; L. Wang et al. 2015)</span>—this remains expensive for our
+purposes.</p>
+<p>Several methods have been developed to avoid the need for full <span
+class="math inline">\(N\)</span>-body modelling. The “streak-line”
+method <span class="citation" data-cites="2012MNRAS.420.2700K">(Küpper,
+Lane, and Heggie 2012)</span> approximates streams as having the same
+orbital parameters as their progenitor. <span class="citation"
+data-cites="2014ApJ...795...94B">Bonaca et al. (2014)</span> implemented
+this in a Monte Carlo framework, rapidly generating streams by assigning
+progenitor-like parameters with small offsets to star particles. This
+approach is fast but neglects the spread in orbital parameters of
+escaped stars.</p>
+<p>The action–angle formalism of <span class="citation"
+data-cites="2011MNRAS.413.1852E">Eyre and Binney (2011)</span> describes
+each stream star as having a small offset from the progenitor’s
+Hamiltonian, expressible via a second-order Taylor expansion. <span
+class="citation" data-cites="2014ApJ...795...95B">Bovy (2014)</span>
+used this to develop the “particle-spray” method, which improves upon
+the streak-line model by introducing velocity dispersion into the
+streams. As noted by <span class="citation"
 data-cites="2015MNRAS.452..301F">Fardal, Huang, and Weinberg
-(2015)</span>, this is the most elegant description of stellar streams.
-Each stream star has an offset from the progenitor’s hamiltonian which
-can be expressed with a second order taylor expansion.</p>
+(2015)</span>, this is one of the most elegant stream modelling
+approaches to date.</p>
 <p><span class="citation" data-cites="2015MNRAS.452..301F">Fardal,
-Huang, and Weinberg (2015)</span> prescriptive stream generation model
-could be much faster than my simulations. Yes, this model is
-prescriptive but it the escape rate is tied to orbital properties, as is
-mine. It can operate at the on the dynamical time of the galaxy and not
-the dynamical time of the internal dynamics, which could greatly speed
-up simulations. <span class="citation"
-data-cites="2014ApJ...795...95B">Bovy (2014)</span> did a good job of
-developing this in terms of the actions and angles. However, <span
-class="citation" data-cites="2015MNRAS.452..301F">Fardal, Huang, and
-Weinberg (2015)</span> provides an escape rate that is more motivated by
-the orbit of the progenitor, which is good since we know more particles
-escape at peri-center due to the scaling of tidal forces with <span
-class="math inline">\(r^{-3}\)</span>. So the Fardal is pretty great.
-Perhaps adopting one of these methods for certain problems could be
-great.</p>
+Huang, and Weinberg (2015)</span> also developed a prescriptive
+stream-generative model, fitting analytic functions to escape rates
+measured from <span class="math inline">\(N\)</span>-body simulations.
+This method operates on the dynamical timescale of the Galaxy rather
+than the cluster’s internal timescale, greatly speeding up
+computations.</p>
+<p>The internal dynamics of globular clusters involve a rich range of
+processes <span class="citation"
+data-cites="1997A&amp;ARv...8....1M">(Meylan and Heggie 1997)</span>.
+While particle-spray and semi-analytic methods can be extremely
+efficient, extrapolating beyond the regime covered by their <span
+class="math inline">\(N\)</span>-body calibrations can be risky.
+However, machine learning techniques <span class="citation"
+data-cites="2023ApJ...959...99T">(Tenachi, Ibata, and Diakogiannis
+2023)</span> offer a promising way to emulate <span
+class="math inline">\(N\)</span>-body simulations without assuming a
+specific parametric form, providing both flexibility and speed.</p>
+<p>In summary, with upcoming improvements in both data quality and
+modelling techniques, there is strong potential to make significant
+progress in this field. Depending on computational constraints, I may
+either adopt an existing stream simulation method in place of
+<code>tstrippy</code> or implement a particle-spray approach within
+it.</p>
 <h2 id="the-bulk-gravitational-field-of-the-mw">The bulk gravitational
 field of the MW</h2>
 <ol>
@@ -778,6 +777,11 @@ in Milky Way stellar streams</span>.”</span> <em>arXiv e-Prints</em>,
 February, arXiv:2502.07781. <a
 href="https://doi.org/10.48550/arXiv.2502.07781">https://doi.org/10.48550/arXiv.2502.07781</a>.
 </div>
+<div id="ref-1997A&amp;ARv...8....1M" class="csl-entry" role="listitem">
+Meylan, G., and D. C. Heggie. 1997. <span>“<span class="nocase">Internal
+dynamics of globular clusters</span>”</span> 8 (January):1–143. <a
+href="https://doi.org/10.1007/s001590050008">https://doi.org/10.1007/s001590050008</a>.
+</div>
 <div id="ref-1997MNRAS.291..717M" class="csl-entry" role="listitem">
 Murali, Chigurupati, and Martin D. Weinberg. 1997. <span>“<span
 class="nocase">Evolution of the Galactic globular cluster
@@ -823,12 +827,12 @@ Schneider, R., A. Ferrara, P. Natarajan, and K. Omukai. 2002.
 Metals</span>”</span> 571 (1): 30–39. <a
 href="https://doi.org/10.1086/339917">https://doi.org/10.1086/339917</a>.
 </div>
-<div id="ref-2023LRCA....9....3S" class="csl-entry" role="listitem">
-Spurzem, Rainer, and Albrecht Kamlah. 2023. <span>“<span
-class="nocase">Computational methods for collisional stellar
-systems</span>.”</span> <em>Living Reviews in Computational
-Astrophysics</em> 9 (1): 3. <a
-href="https://doi.org/10.1007/s41115-023-00018-w">https://doi.org/10.1007/s41115-023-00018-w</a>.
+<div id="ref-2023ApJ...959...99T" class="csl-entry" role="listitem">
+Tenachi, Wassim, Rodrigo Ibata, and Foivos I. Diakogiannis. 2023.
+<span>“<span class="nocase">Deep Symbolic Regression for Physics Guided
+by Units Constraints: Toward the Automated Discovery of Physical
+Laws</span>”</span> 959 (2): 99. <a
+href="https://doi.org/10.3847/1538-4357/ad014c">https://doi.org/10.3847/1538-4357/ad014c</a>.
 </div>
 <div id="ref-2023A&amp;A...678A.180T" class="csl-entry" role="listitem">
 Thomas, Guillaume F., Benoit Famaey, Giacomo Monari, Chervin F. P.
