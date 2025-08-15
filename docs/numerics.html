@@ -739,7 +739,7 @@ Baumgardt 2021)</span>.</p>
 <p>To test the integrator, we integrated the whole globular cluster
 system for 5 Gyr, and then integrated it back to the initial conditions.
 We used four timesteps: <span
-class="math inline">\(10^4,10^5,10^6,10^7\)</span> years which
+class="math inline">\(10^4,10^5,10^6,10^7\)</span> years which
 corresponds to <span
 class="math inline">\(\left[500,5000,50000,500000\right]\)</span>
 integration steps, respectively. In general, the timestep should scale
@@ -786,30 +786,30 @@ testament to the quality of the Leapfrog integration scheme, which is
 designed to conserve the Hamiltonian accurately.</p>
 <p>Fig. <a href="#fig:numericalErrorReverseIntegration"
 data-reference-type="ref"
-data-reference="fig:numericalErrorReverseIntegration">2</a> presents the
-<em>time reversibility</em>, or the integrator’s ability to retrace its
-own steps. For each given timestep, I report the difference between the
-initial integration and the retrace normalized to the mean of the two
-position’s. I perform the same computation for the velocities. <strong>I
-take the current kinematics of each cluster and integrate them forward
-in time for five billion years, saving their positions and velocities at
-each step. Once the final position is reached, I re-integrate the system
-backward, again recording the position and velocity of each cluster at
-every step. At each corresponding time stamp, <span
-class="math inline">\(t_i\)</span>, I compute the vector distance
-between positions and velocities, normalizing it to the mean position
-(center of mass).</strong> The timestep of <span
-class="math inline">\(10^7\)</span> yr saturates only after 2 Gyr. The
-distances do not continue to grow because the orbital energy only
-differs by one part in ten, so at later timesteps, the cluster is still
-within the same region of phase-space, but the retrace is at a
-completely different location than the initial integration. The errors
-in the timestep of <span class="math inline">\(10^6\)</span> yr become
-significant, though by the end of the integration period of 5 Gyr they
-are still only one part in ten thousand. The timesteps of <span
-class="math inline">\(10^5\)</span> and <span
-class="math inline">\(10^4\)</span> yr have excellent retraceability and
-on average, only differ by one part in <span
+data-reference="fig:numericalErrorReverseIntegration">2</a> illustrates
+the <em>time reversibility</em> of the integrator, i.e., its ability to
+retrace its own steps. For each timestep, I compute the difference
+between the forward integration and the backward retrace, normalizing to
+the mean of the two positions. The same computation is performed for the
+velocities. Specifically, I take the current kinematics of each cluster
+and integrate them forward in time for five billion years, storing
+positions and velocities at each step. Starting from the final state, I
+then integrate backward for the same duration, again recording positions
+and velocities at every step. At each corresponding time stamp <span
+class="math inline">\(t_i\)</span>, I calculate the vector differences
+in position and velocity, normalizing the positional error to the mean
+position of the forward and backward steps.</p>
+<p>The timestep of <span class="math inline">\(10^7\)</span> yr
+saturates only after 2 Gyr. The distances do not continue to grow
+because the orbital energy only differs by one part in ten, so at later
+timesteps, the cluster is still within the same region of phase-space,
+but the retrace is at a completely different location than the initial
+integration. The errors in the timestep of <span
+class="math inline">\(10^6\)</span> yr become significant, though by the
+end of the integration period of 5 Gyr they are still only one part in
+ten thousand. The timesteps of <span class="math inline">\(10^5\)</span>
+and <span class="math inline">\(10^4\)</span> yr have excellent
+retraceability and on average, only differ by one part in <span
 class="math inline">\(10^{-14}\)</span>, and are thus only limited by
 round off error from the use of double precision floating point
 numbers.</p>
@@ -822,9 +822,7 @@ class="math inline">\(10^4\)</span> yr and <span
 class="math inline">\(10^7\)</span> yr to avoid clutter. The clusters
 are color-coded to their initial orbital energy just as Fig. <a
 href="#fig:numericalErrorLeapfrogVanilla" data-reference-type="ref"
-data-reference="fig:numericalErrorLeapfrogVanilla">1</a> <strong>THIS
-SHOULD GO FROM -5 GYR TO 0. NO ERROR at -5 since that’s when we turn
-around. Must fix</strong> </figcaption>
+data-reference="fig:numericalErrorLeapfrogVanilla">1</a></figcaption>
 </figure>
 <p>Computation time is quite important. Fig. <a
 href="#fig:numericalErrorGlobularClustersComputationTime"
@@ -858,10 +856,10 @@ an Apple M2 processor. </figcaption>
 implemented and is reported in Fig. <a
 href="#fig:numericalErrorRuthForest" data-reference-type="ref"
 data-reference="fig:numericalErrorRuthForest">4</a>. Here, as expected,
-we see that the percision greatly increases when decreasing the
-timestep. However, since there are four force evaluations for the for a
-single timestep, this method is naturally slower per step than Leapfrog.
-How do the two methods compare over all?</p>
+we see that the precision greatly increases when decreasing the
+timestep. However, since there are four force evaluations for a single
+timestep, this method is naturally slower per step than Leapfrog. How do
+the two methods compare over all?</p>
 <figure id="fig:numericalErrorRuthForest">
 <img src="images/numericalErrorRuthForest.png" />
 <figcaption>The conservation of energy error for the Ruth-Forest
@@ -879,12 +877,12 @@ object is as well.</figcaption>
 data-reference-type="ref"
 data-reference="fig:numericalErrorMeanEnergyErrorRuthForestLeapfrog">5</a>
 compares the numerical error for again the total number of steps (which
-is inversely propertial to the timestep). It is clear that for a given
-step size, the Ruth-forest outperforms the Leapfrog, but is it actually
-better? To answer this question, I fit the two curves with their own
-trend lines to find the number of steps required to have a relative
-error of <span class="math inline">\(10^{-8}\)</span>. With this
-requirement, The Leapfrog sceme requires 262,641 steps while the
+is inversely proportional to the timestep). It is clear that, for a
+given step size, the Ruth-forest outperforms the Leapfrog, but is it
+actually better? To answer this question, I fit the two curves with
+their own trend lines to find the number of steps required to have a
+relative error of <span class="math inline">\(10^{-8}\)</span>. With
+this requirement, The Leapfrog sceme requires 262,641 steps while the
 Ruth-Forest scheme requires 102,773 steps. However, given the difference
 in computation time per step, on average, the Forest-Ruth scheme takes
 <span class="math inline">\(\sim 1.5\)</span>x more time for the same
@@ -1229,11 +1227,11 @@ with the number of integration steps.</p>
 href="#fig:NumericalErrorComputationTimeScalingForStreams"
 data-reference-type="ref"
 data-reference="fig:NumericalErrorComputationTimeScalingForStreams">12</a>
-presents an the results from an experiment with all the globular
-clusters, integrating them each for 1 Gyr. I choose the timestep to be
-at most 1/20 of each internal dynamical time, thus since each cluster
-has a different dynamical time, it will require a different number of
-steps. For each of these tests I use <span
+presents the results from an experiment with all the globular clusters,
+integrating them each for 1 Gyr. I choose the timestep to be at most
+1/20 of each internal dynamical time, thus since each cluster has a
+different dynamical time, it will require a different number of steps.
+For each of these tests I use <span
 class="math inline">\(10^1,~10^2,~10^2,~10^3\)</span> particles and
 launched them on cluster at the paris observatory. Then, I fit a scaling
 law of <span class="math inline">\(C(N_p,N_s) = \langle C\rangle N_p^a
@@ -1267,14 +1265,14 @@ data-reference="fig:NumericalErrorStreamRetraceEnergyConservation">11</a>
 and Fig. <a href="#fig:NumericalErrorComputationTimeScalingForStreams"
 data-reference-type="ref"
 data-reference="fig:NumericalErrorComputationTimeScalingForStreams">12</a>
-together, we get can estimate for how long it completes to run these
+together, we may estimate for how long it completes to run these
 simulations. If we want all simualtions to have error better relative
 error on the retraced conservation of energy than about 10<span
 class="math inline">\(^{-3}\)</span>, then we must pick timesteps that
 are smaller than about 1/20 of the dynamical time. With this criteria
 selected, we can compute the number of timesteps necessary for each
-globular cluster, which is a function of it’s internal dynamical time.
-By doing so, I find that the fastest cluster can be computed in <span
+globular cluster, which is a function of its internal dynamical time. By
+doing so, I find that the fastest cluster can be computed in <span
 class="math inline">\(\sim\)</span> 30 minutes. The median computation
 time is <span class="math inline">\(\sim\)</span>17 hours. The largest
 computation time was <span class="math inline">\(\sim\)</span> 5 days.
@@ -1563,12 +1561,13 @@ when rerunning code cells.</p>
 <h2 id="reflection-on-developing-tstrippy">Reflection on developing
 <code>tstrippy</code></h2>
 <p>The earliest version of this code began as a simple Fortran script
-built to integrate test particles in specific gravitational potential
-models. Since I was already familiar with Fortran and had working
-routines, I chose to build on that foundation, gradually transforming
-the script into a modular and more reusable package. Rather than
-switching to C++ or a Python-only solution, I continued using Fortran in
-combination with <code>f2py</code>.</p>
+that was interfaced to python via <code>f2py</code> and was built to
+integrate test particles in specific gravitational potential models.
+Since I was already familiar with Fortran and had working routines, I
+chose to build on that foundation, gradually transforming the script
+into a modular and more reusable package. Rather than switching to C++
+or a Python-only solution, I continued using Fortran in combination with
+<code>f2py</code>.</p>
 <p>One of the primary motivations for writing my own code was
 flexibility. When I attempted to implement a particle spray method in
 <em>Galpy</em>, I found that performance degraded significantly when
