@@ -684,13 +684,14 @@ to date <span class="citation"
 data-cites="2023A&amp;A...674A...1G">(Gaia Collaboration, Vallenari, et
 al. 2023)</span>, providing photometric and astrometric data for over
 two billion stars and radial velocities for tens of millions <span
-class="citation" data-cites="2018A&amp;A...616A..11G">(Gaia
-Collaboration, Katz, et al. 2018)</span>. However, this still represents
-only a small fraction of the total stellar population. The stellar mass
-of the Milky Way is estimated to be approximately <span
-class="math inline">\(6\times10^{10} \mathrm{M}_\odot\)</span> <span
-class="citation" data-cites="2015ApJ...806...96L">(Licquia and Newman
-2015)</span>, corresponding to roughly one hundred billion stars <span
+class="citation"
+data-cites="2018A&amp;A...616A..11G">(<strong>2018A&amp;A...616A..11G?</strong>)</span>.
+However, this still represents only a small fraction of the total
+stellar population. The stellar mass of the Milky Way is estimated to be
+approximately <span class="math inline">\(6\times10^{10}
+\mathrm{M}_\odot\)</span> <span class="citation"
+data-cites="2015ApJ...806...96L">(Licquia and Newman 2015)</span>,
+corresponding to roughly one hundred billion stars <span
 class="citation" data-cites="2017MNRAS.465...76M">(see also McMillan
 2017)</span>. Thus, Gaia provides 5D phase-space information for only
 about 1-2% of all stars, and full 6D information for just a fraction of
@@ -821,15 +822,15 @@ does.</p>
 class="citation"
 data-cites="2018ApJS..239...31B 2021ApJS..254...42B">Brandt (2018,
 2021)</span> created a cross-catalog between Hipparcos and Gaia DR2
-<span class="citation" data-cites="2018A&amp;A...616A...1G">(Gaia
-Collaboration, Brown, et al. 2018)</span> and later EDR3. This provided
-a baseline of over 25 years, long enough to detect accelerations for
-some stars. However, the Hipparcos catalog only contains around 100,000
-stars, and the typical acceleration of a field star in the Galaxy is
-extremely small. Consequently, the cross-matched catalog is currently
-being used to study stars with unusually high accelerations. These stars
-are typically in binary systems or have massive planets <span
-class="citation"
+<span class="citation"
+data-cites="2018A&amp;A...616A...1G">(<strong>2018A&amp;A...616A...1G?</strong>)</span>
+and later EDR3. This provided a baseline of over 25 years, long enough
+to detect accelerations for some stars. However, the Hipparcos catalog
+only contains around 100,000 stars, and the typical acceleration of a
+field star in the Galaxy is extremely small. Consequently, the
+cross-matched catalog is currently being used to study stars with
+unusually high accelerations. These stars are typically in binary
+systems or have massive planets <span class="citation"
 data-cites="2023MNRAS.521.5232W 2025AJ....170...52G">(Waisberg, Klein,
 and Katz 2023; Giovinazzi et al. 2025)</span>, and their detectable
 accelerations are not due to the Galactic gravitational field.</p>
@@ -1001,54 +1002,45 @@ force at each position, corresponding to <span
 class="math inline">\(\vec{g} = -\nabla\Phi\)</span>. Equipotential
 contour lines are overlaid to guide the eye.</figcaption>
 </figure>
-<p>In Chapter 4, and in some preliminary results in the Chapter 6, we
-use a bar for the interior region of the galaxy. The model was first
-presented in <span class="citation"
-data-cites="1992ApJ...397...44L">Long and Murali (1992)</span>, who was
-motivated to create a simple analytical model with interpretable
-parameters. The model was created by first describing the bar as a
-“needle”, with constant density along the needle and zero elsewhere. The
-authors then convolve this with a plummer sphere, ensuring in the limit
-that the bar’s lenght is much smaller than it’s thickness, a plummer
-potential is recovered, in the limit of the length being much larger
-than the thickness, a needle is recovered. The authors continued, to
-create a tri-axial bar model. Instead of convolving with a Plummer
-sphere, they connvolved the needle lying along the x-axis with a
-Miyamoto-Nagai disk flattened along the z-axis. The potential is given
-by: <span
-class="math display">\[\Phi(x,y,z|M,a,b,c)=\frac{GM}{2a}\ln\left(
-\frac{x-a+T_{-}}{x+a+T_{+}}   \right),\]</span> with <span
-class="math inline">\(T_{\pm}=\left[ (a\pm x)^2+ y^2 +  (b+
-\sqrt{c^2+z^2})^2 \right]^{1/2}\)</span>. With this parameterization,
-<span class="math inline">\(M\)</span> is the total mass of the bar,
-<span class="math inline">\(a\)</span> is the bar’s length. <span
+<p>In Chapters 4 and 6 (preliminary results), we model the inner Galaxy
+using the triaxial bar potential of <span class="citation"
+data-cites="1992ApJ...397...44L">Long and Murali (1992)</span>. The
+model is constructed by representing the bar as a uniform-density
+“needle” aligned with the <span class="math inline">\(x\)</span>-axis
+and convolving it with a Miyamoto-Nagai disk flattened along the <span
+class="math inline">\(z\)</span>-axis. The resulting potential is: <span
+class="math display">\[\Phi(x,y,z\,|\,M,a,b,c) = \frac{GM}{2a} \ln\left(
+\frac{x-a+T_{-}}{x+a+T_{+}} \right),\]</span> with <span
+class="math display">\[T_{\pm} = \left[ (a \pm x)^2 + y^2 + \left( b +
+\sqrt{c^2 + z^2} \right)^2 \right]^{1/2}.\]</span> Here <span
+class="math inline">\(M\)</span> is the total mass of the bar, <span
+class="math inline">\(a\)</span> is the semi-major axis, and <span
 class="math inline">\(b\)</span> and <span
-class="math inline">\(c\)</span> control if the bar is a flat needle or
-an axis-symmetric prolate bar. If <span
-class="math inline">\(c/b\rightarrow \infty\)</span>, the bar becomes
-prolate. If <span class="math inline">\(c/b \rightarrow 0\)</span>, then
-a flat-planar bar is recovered. <span
-class="math inline">\(a/\mathrm{max}(b,c)\)</span> sets the elongation
-of the bar, where <span
-class="math inline">\(a/\mathrm{max}(b,c)\rightarrow \infty\)</span>
-recovers the needle potential.</p>
-<p>One of the models of <span class="citation"
+class="math inline">\(c\)</span> are the intermediate- and short-axis
+scales, respectively. The axis ratio <span
+class="math inline">\(c/b\)</span> controls the vertical thickness:
+<span class="math inline">\(c/b \to \infty\)</span> corresponds to a
+prolate bar, while <span class="math inline">\(c/b \to 0\)</span> yields
+a flat, planar bar.</p>
+<p>While the bar can account for much of the inner Galaxy’s mass
+distribution, some models include an additional, centrally concentrated
+component conventionally referred to as the <em>bulge</em>. In the mass
+model of <span class="citation"
 data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
-(2017)</span> includes a buldge and models it using a Plummer sphere
-<span class="citation" data-cites="1911MNRAS..71..460P">(Plummer
-1911)</span>. This model has two parameters—the total mass and a scale
-length—and takes the form <span
-class="math display">\[\label{eq:plummer}
+(2017)</span>, the bulge is represented by a Plummer sphere <span
+class="citation" data-cites="1911MNRAS..71..460P">(Plummer 1911)</span>,
+an analytic potential with two parameters—the total mass and a scale
+length—given by <span class="math display">\[\label{eq:plummer}
             \Phi(r \mid M, b) = -\frac{G M}{\sqrt{r^2 + b^2}},\]</span>
 where <span class="math inline">\(M\)</span> is the total mass and <span
 class="math inline">\(b\)</span> is the scale length. In the limit <span
 class="math inline">\(a \rightarrow 0\)</span>, the Miyamoto-Nagai
-potential reduces to a Plummer sphere. This model has a minimum
-potential at the center, recovers the potential of a point mass at large
-distances (<span class="math inline">\(r &gt;&gt; b\)</span>), and
-yields a density profile that decays as <span class="math inline">\(\rho
-\propto r^{-5}\)</span> at large radii. Lastly, the Plummer sphere is
-also the analytical model we use for the globular clusters.</p>
+potential reduces to the Plummer form. The Plummer sphere has a finite
+central potential, asymptotically approaches the potential of a point
+mass for <span class="math inline">\(r &gt;&gt; b\)</span>, and produces
+a density profile that falls off as <span class="math inline">\(\rho
+\propto r^{-5}\)</span> at large radii. We also adopt the Plummer sphere
+as the analytic model for the globular clusters.</p>
 <p>How important is the choice of potential model when modeling the
 orbits of globular clusters? It depends on the specific cluster. Take,
 for instance, Fig. <a href="#fig:vasiliev_2021_EDR3_GCS_FIG_10"
@@ -1568,21 +1560,24 @@ of physics, approximations typically emerge from Taylor expansions,
 basis function decompositions, or limits where the governing equations
 simplify.</p>
 <p>At conferences, we have been asked whether we have ever observed
-<em>recapture</em>—that is, a star particle leaving a globular cluster
-and eventually returning . If the system were as simple as the circular
-restricted three-body problem, recapture could occur for star particles
-with energies in the range <span class="math inline">\(E_1 &lt; E &lt;
-E_2\)</span> or <span class="math inline">\(E_2 &lt; E &lt;
-E_3\)</span>. In such cases, depending on initial conditions, a particle
-might orbit the secondary, escape, and later return. However, in our
-simulations, the galaxy and globular clusters are not treated as point
-masses, and the clusters follow eccentric, inclined, and non-closed
-orbits. This means the topology of the forbidden region evolves over
-time. For a particle with a given energy <span
-class="math inline">\(E\)</span>, it may be unbound at one moment but
-later find itself within the Hill sphere again, as the potential
-landscape changes dynamically. Indeed, we have observed such behavior in
-our simulations.</p>
+<em>recapture</em>—that is, a star becoming bound to globular cluster.
+Capture is a fascinating phenomenon, particularly in the case of dark
+matter sub-haloes that could in theory capture field stars that were not
+formed within them <span class="citation"
+data-cites="2024MNRAS.533.3263P">(Peñarrubia et al. 2024)</span>. If the
+system were as simple as the circular restricted three-body problem,
+recapture could occur for star particles with energies in the range
+<span class="math inline">\(E_1 &lt; E &lt; E_2\)</span> or <span
+class="math inline">\(E_2 &lt; E &lt; E_3\)</span>. In such cases,
+depending on initial conditions, a particle might orbit the secondary,
+escape, and later return. However, in our simulations, the galaxy and
+globular clusters are not treated as point masses, and the clusters
+follow eccentric, inclined, and non-closed orbits. This means the
+topology of the forbidden region evolves over time. For a particle with
+a given energy <span class="math inline">\(E\)</span>, it may be unbound
+at one moment but later find itself within the Hill sphere again, as the
+potential landscape changes dynamically. Indeed, we have observed such
+behavior in our simulations.</p>
 <p>The Lagrange points, forbidden regions, and Jacobi energy are
 powerful concepts which, while they do not rigorously apply in our more
 complex setup, still offer valuable qualitative insights. In our regime,
@@ -1623,14 +1618,17 @@ where <span class="math inline">\(\Delta \vec{x} = \vec{x}_s -
 potential: <span class="math inline">\(\partial^2 \Phi/\partial x_i
 \partial x_j\)</span>.</p>
 <p>The second expression can be derived by linearizing the gravitational
-force in a non-inertial frame co-moving with the secondary . Let us
-write Newton’s second law for the star-particle and the secondary in an
+force in a non-inertial frame co-moving with the secondary. Let us write
+Newton’s second law for the star-particle and the secondary in an
 inertial frame: <span class="math display">\[\begin{aligned}
             \vec{F}_s &amp;= \nabla \Phi_c\left(\Delta \vec{x}\right) +
 \nabla \Phi_g\left(\vec{x}_s\right),\\
-            \vec{F}_c &amp;= \nabla \Phi_g\left(\vec{x}_c\right).
+            \vec{F}_c &amp;= \nabla \Phi_g\left(\vec{x}_c\right),
         
-\end{aligned}\]</span> Then the relative acceleration of the star in the
+\end{aligned}\]</span> where <span
+class="math inline">\(\vec{F}_s\)</span> is the force on the secondary
+and <span class="math inline">\(\vec{F}_c\)</span> is the force on the
+secondary. Then the relative acceleration of the star in the
 non-inertial frame is: <span class="math display">\[\begin{aligned}
             \vec{f}_s &amp;= \vec{F}_s - \vec{F}_c +
 \vec{F}_\mathrm{fictitious} \\
@@ -1704,7 +1702,7 @@ Keplerian potential: <span class="math display">\[\mathcal{T}=
 <span class="math inline">\(2\frac{GM}{r^3}\)</span>, <span
 class="math inline">\(-\frac{GM}{r^3}\)</span>, and <span
 class="math inline">\(-\frac{GM}{r^3}\)</span>, with corresponding
-eigenvectors : <span class="math display">\[\vec{v}_0 =
+eigenvectors: <span class="math display">\[\vec{v}_0 =
 \dfrac{1}{r}\begin{bmatrix} x \\ y \\ z \end{bmatrix},\quad
                 \vec{v}_1 = \dfrac{1}{\sqrt{x^2 + y^2}} \begin{bmatrix}
 -y \\ x \\ 0 \end{bmatrix},\quad
@@ -1808,10 +1806,10 @@ morphological diversity of observed tidal tails.</p>
 <p>We can construct the tidal tensor for the Miyamoto-Nagai potential.
 First, it is convenient to non-dimensionalize the potential. Below, we
 normalize the potential by the total mass and gravitational constant,
-<span class="math inline">\(\Phi\prime = \Phi / (GM)\)</span>, and each
+<span class="math inline">\(\Phi^\prime = \Phi / (GM)\)</span>, and each
 distance by the characteristic length of the disk, <span
-class="math inline">\(x\prime = x/a\)</span>, <span
-class="math inline">\(b\prime = b/a\)</span> . For clarity, we omit the
+class="math inline">\(x^\prime = x/a\)</span>, <span
+class="math inline">\(b^\prime = b/a\)</span>. For clarity, we omit the
 prime notation in what follows. The dimensionless potential then
 becomes: <span class="math display">\[\begin{aligned}
                 \Phi   &amp;= \frac{1}{D},\\
@@ -1826,21 +1824,24 @@ class="math display">\[\mathcal{T}=-\frac{1}{D^3}\left(\begin{matrix}
 \beta&#39;}{D^2} \\
                     \dots &amp; \dots &amp; \beta&#39;^2 + \beta
 \beta&#39;&#39; -\frac{3\left(\beta\beta&#39;\right)^2}{D^2}
-                \end{matrix}\right).\]</span> We immediately notice
-that, due to the cylindrical symmetry, the eigenvectors are not as
-simple as in the spherical case. As long as <span
-class="math display">\[\beta&#39;^2 + \beta \beta&#39;&#39; -
-\frac{3\left(\beta \beta&#39;\right)^2}{D^2} \neq 1 -
-\frac{3z^2}{D^2},\]</span> (1) the stretching axis is no longer parallel
-to the position vector, and (2) the compression axes do not necessarily
-lie in the same plane—they may instead be fixed in orientation and
-differ in magnitude. The exact orientation of all three eigenvectors
-depends on the cluster’s position in the galaxy. Note that if <span
-class="math inline">\(z = 0\)</span>, we recover the case where the
-stretching eigenvector is parallel to the position vector, although the
-compression axes remain unequal in magnitude and fixed in orientation.
-If instead <span class="math inline">\(b = 0\)</span>, then we recover
-spherical symmetry, and the compression eigenvalues become equal.</p>
+                \end{matrix}\right),\]</span> where <span
+class="math inline">\(\beta^\prime = \frac{d \beta}{dz}\)</span> and
+<span class="math inline">\(\beta^{\prime\prime} =  \frac{d^2
+\beta}{dz^2}\)</span>. We immediately notice that, due to the
+cylindrical symmetry, the eigenvectors are not as simple as in the
+spherical case. As long as <span class="math display">\[\beta&#39;^2 +
+\beta \beta&#39;&#39; - \frac{3\left(\beta \beta&#39;\right)^2}{D^2}
+\neq 1 - \frac{3z^2}{D^2},\]</span> (1) the stretching axis is no longer
+parallel to the position vector, and (2) the compression axes do not
+necessarily lie in the same plane—they may instead be fixed in
+orientation and differ in magnitude. The exact orientation of all three
+eigenvectors depends on the cluster’s position in the galaxy. Note that
+if <span class="math inline">\(z = 0\)</span>, we recover the case where
+the stretching eigenvector is parallel to the position vector, although
+the compression axes remain unequal in magnitude and fixed in
+orientation. If instead <span class="math inline">\(b = 0\)</span>, then
+we recover spherical symmetry, and the compression eigenvalues become
+equal.</p>
   <div class="video-container">
     <video controls style="max-width: 100%;">
       <source src="videos/tidal_deformation_ellipsoid.mp4" type="video/mp4">
@@ -2341,8 +2342,8 @@ an accreted dwarf galaxy <span class="citation"
 data-cites="2000LIACo..35..619M 2010ApJ...722.1373J">(S. R. Majewski et
 al. 2000; Johnson and Pilachowski 2010)</span>. Our simulations in
 Chapter 4 predict that <span
-class="math inline">\(\omega\)</span> Centauri’s debris should be fully
-phase-mixed and fail the “streaminess” criterion . Yet,
+class="math inline">\(\omega\)</span> Centaur’s debris should be fully
+phase-mixed and fail the “streaminess” criterion. Yet,
 <em>Fimbulthul</em> aligns precisely with the cluster’s predicted orbit
 and matches <span class="math inline">\(N\)</span>-body expectations
 <span class="citation" data-cites="2021ApJ...914..123I">(Ibata et al.
@@ -2352,43 +2353,39 @@ and mixed, the underlying orbital coherence can still enable its
 detection as a stellar stream.</p>
 <h2 id="massive-objects-colliding-with-stellar-streams">Massive objects
 colliding with stellar streams</h2>
-<p>Previous we described how they escape the globular clusters. Then we
-described how the escaped stars can redistribute themselves in the
-galaxy following a nice evolutionary flow in the gravitational field
-from normal hamiltonian evolution. However, other things can happen to
-the stream. Notably, other massive objects in the Galactic field can
-fly-by and perturb the orbits of some of these stars. Here, I would ike
-to summarize this.</p>
-<p>Collisions are essential in this thesis for two reasons. Firstly, one
-of the main research questions is how the passage of a subhalo perturbs
-a stellar stream. This interaction can be treated as a gravitational
-collision.</p>
-<p>In general, we are interested in how much the momentum of a particle
-changes before and after the encounter. We can simplify the scenario by
-assuming that the target particle is initially at rest, and that the
-perturber (the subhalo) flies by with a minimum distance of approach
-<span class="math inline">\(b\)</span>—the <em>impact
-parameter</em>.</p>
+<p>Previously, we described how stars escape from globular clusters, and
+how the escaped stars can redistribute themselves within the Galaxy
+under the influence of its smooth gravitational field. However, other
+processes can affect the stream. Notably, massive objects in the
+Galactic field can pass nearby and perturb the orbits of some of these
+stars.</p>
+<p>For such an interaction, we may compute the change in a
+star-particle’s momentum between before and after the encounter. We can
+simplify the scenario by assuming that the star-particle is initially at
+rest, and that the perturber (the subhalo) passes by with a minimum
+distance of approach <span class="math inline">\(b\)</span>—the
+<em>impact parameter</em>.</p>
 <p>Since both objects exert gravitational forces on each other, the
-target will gain energy and begin to move, while the perturber will be
-slightly deflected and slow down. However, to simplify the calculation,
-we assume the perturber is unperturbed by the target—i.e., it moves on a
-straight-line trajectory with constant speed <span
-class="math inline">\(v\)</span>.</p>
-<p>In this approximation, we compute the momentum change of the target
-by integrating the gravitational force over time. Gravity is always
-attractive: the perturber pulls the target particle to the left before
-the closest approach and to the right afterward. If the trajectory is
-symmetric and unperturbed, the components of the force parallel to the
-motion cancel out. Thus, the net momentum transfer is perpendicular to
-the motion of the perturber.</p>
+star-particle will gain energy and begin to move, while the perturber
+will be slightly deflected and slow down. However, to simplify the
+calculation, we assume the perturber is unperturbed by the
+star-particle—i.e., it moves on a straight-line trajectory with constant
+speed <span class="math inline">\(v\)</span>.</p>
+<p>In this <em>impulse</em>-approximation, we compute the
+star-particles’s change in momentum change by integrating the
+gravitational force over time of the interaction. Gravity is always
+attractive: the perturber pulls the star-particles particle to the left
+before the closest approach and to the right afterward. If the
+trajectory is symmetric and unperturbed, the components of the force
+parallel to the motion cancel out. Thus, the net momentum transfer is
+perpendicular to the motion of the perturber.</p>
 <p>Assume the perturber moves along the <span
 class="math inline">\(x\)</span>-axis with impact parameter <span
-class="math inline">\(b\)</span>, and the target lies at the origin.
-Then the net force acts in the <span class="math inline">\(+y\)</span>
-direction. The gravitational force scales as <span
-class="math inline">\(1/d^2\)</span>, so for distances <span
-class="math inline">\(d &gt;&gt; b\)</span>, the force becomes
+class="math inline">\(b\)</span>, and the star-particles lies at the
+origin. Then the net force acts in the <span
+class="math inline">\(+y\)</span> direction. The gravitational force
+scales as <span class="math inline">\(1/d^2\)</span>, so for distances
+<span class="math inline">\(d &gt;&gt; b\)</span>, the force becomes
 negligible. We can then approximate the force as roughly constant over a
 short time interval during the closest approach.</p>
 <p>We estimate the duration of the interaction as the time it takes the
@@ -2517,32 +2514,32 @@ linearly in time, as stars move apart under their velocity
 differences.</p></li>
 <li><p><strong>Caustic phase</strong> – Eventually, stars bunch up at
 different locations at the edges of the gap, creating sharp overdensity
-features (“caustics”). Additionally, the gap’s growth to is slowed to a
+features (“caustics”). Additionally, the gap’s growth is slowed to a
 sublinear rate, scaling roughly as <span class="math inline">\(\propto
 \sqrt{t}\)</span>.</p></li>
 </ol>
 <p>The authors make an important realization. Even in a scenario where
-the Galactic potential and the stream’s orbit are known, with just the
-gap’s density profile there are still seven parameters that describe its
-shape : <span
-class="math inline">\(M,r_s,b,w_\perp,w_\parallel,\alpha,t\)</span>. The
-authors state that the gap’s profile provides two more piece of
-information and, with a constraint on the perturber’s density, we would
-still be left with four degrees of freedom. The problem is thus
+the Galactic potential and the stream’s orbit are perfectly known, there
+are still seven parameters that describe the shape of the gap’s density
+profile: <span
+class="math inline">\(M,r_s,b,w_\perp,w_\parallel,\alpha,t_\mathrm{impact}\)</span>.
+The authors state that the gap’s profile provides two additional pieces
+of information and, with a constraint on the perturber’s density, we
+would still be left with four degrees of freedom. The problem is thus
 underdetermined and it is thus impossible to uniquely determine the
 properties of the perturber. A large statistical sample of gaps would be
 required to constrain a population of dark matter subhalos. With the
 ever increasing data quality, perhaps this could be possible
 someday.</p>
 <p>While powerful, the authors describe how the limiting assumptions
-impact the interpretations of this work. First, the framework is limited
-to circular orbits which poses a significant constraint especially for
-globular clusters which often have inclined and eccentric trajectories.
-Indeed, as they discussed in their work, streams do not have uniform
-densities. Stars that populate the streams come from tidally disrupting
-stellar systems. As they leave the cluster and enter the stream, they
-come with a range of energies and angular momenta that in essence
-eliminate any caustic features.</p>
+impact the interpretations of their? work. First, the framework is
+limited to circular orbits which poses a significant constraint
+especially for globular clusters which often have inclined and eccentric
+trajectories. Indeed, as they discussed in their work, streams do not
+have uniform densities. Stars that populate the streams come from
+tidally disrupting stellar systems. As they leave the cluster and enter
+the stream, they come with a range of energies and angular momenta that
+in essence eliminate any caustic features.</p>
 <p><span class="citation" data-cites="2016MNRAS.457.3817S">Sanders,
 Bovy, and Erkal (2016)</span> expanded on this foundation and provided a
 truly exchaustive and comprehensive exploration of stream-subhalo
@@ -2692,11 +2689,6 @@ class="math inline">\(\sigma_v\)</span>. Shown are the particle density,
 local mean velocity, and local velocity dispersion, all normalized.
 </figcaption>
 </figure>
-<p><em>Note:</em> I would love to explore this more rigorously in the
-context of time-dependent or eccentric mass loss, where the source term
-becomes periodic. I did begin studying such a model using a
-time-dependent Gaussian source, but at some point the “simple approach”
-becomes as complex as full numerical simulations.</p>
 <h1 id="sec:ignoredphysics">The Ignored Physics</h1>
 <p>This section could, in principle, be extremely large, since much of
 physics is irrelevant to our specific problem—neither Schrödinger’s
@@ -2838,14 +2830,15 @@ class="citation" data-cites="2008gady.book.....B">(Binney and Tremaine
 using their catalog values. Take the median crossing time per star as
 <span class="math display">\[t_\mathrm{cross} =
 \sqrt{\frac{r_{1/2}^3}{GM}},\]</span> assuming an average stellar mass
-of 0.8 <span class="math inline">\(M_\odot\)</span> [citation needed].
-With this, only a handful of clusters have relaxation times greater than
-the 5 Gyr integration time used in our simulations. These include:</p>
-<p><em>NGC 2419, NGC 5139, Pal 14, Pal 15, FSR1758, Ter 8,
-Sagittarius II.</em></p>
-<p>Across the catalog, the average relaxation time is 1.5 Gyr, the
-median is 0.8 Gyr, the maximum is 21 Gyr, and the minimum is 0.03
-Gyr.</p>
+of 0.41 <span class="math inline">\(M_\odot\)</span> <span
+class="citation" data-cites="1998A&amp;A...330..480B">(Baumgardt
+1998)</span>. With this, only a handful of clusters have relaxation
+times greater than the 5 Gyr integration time used in our simulations.
+In ascending order, these include: <em>NGC6356, NGC5897, NGC6715, Pal4,
+AM1, Arp2, NGC5053, Crater, NGC5024, Pal5, NGC6101, IC4499, Pyxis, Pal3,
+Ter8, Pal15, Pal14, FSR1758, SagittariusII, NGC5139, NGC2419</em>.
+Across the catalog, the average relaxation time is 1.5 Gyr, the median
+is 0.8 Gyr, the maximum is 21 Gyr, and the minimum is 0.03 Gyr.</p>
 <h3 id="beyond-two-body-relaxation">Beyond Two-Body Relaxation</h3>
 <p>Our modeling of globular cluster dissolution via the restricted
 three-body problem neglects internal dynamics such as two-body
@@ -2988,10 +2981,15 @@ class="nocase">The devil is in the tails: the role of globular cluster
 mass evolution on stream properties</span>”</span> 474 (2): 2479–92. <a
 href="https://doi.org/10.1093/mnras/stx2708">https://doi.org/10.1093/mnras/stx2708</a>.
 </div>
+<div id="ref-1998A&amp;A...330..480B" class="csl-entry" role="listitem">
+Baumgardt, H. 1998. <span>“<span class="nocase">The initial distribution
+and evolution of globular cluster systems</span>”</span> 330
+(February):480–91.
+</div>
 <div id="ref-2017MNRAS.464.2174B" class="csl-entry" role="listitem">
-Baumgardt, H. 2017. <span>“<span class="nocase">N -body modelling of
-globular clusters: masses, mass-to-light ratios and intermediate-mass
-black holes</span>”</span> 464 (2): 2174–2202. <a
+———. 2017. <span>“<span class="nocase">N -body modelling of globular
+clusters: masses, mass-to-light ratios and intermediate-mass black
+holes</span>”</span> 464 (2): 2174–2202. <a
 href="https://doi.org/10.1093/mnras/stw2488">https://doi.org/10.1093/mnras/stw2488</a>.
 </div>
 <div id="ref-2018MNRAS.478.1520B" class="csl-entry" role="listitem">
@@ -3163,20 +3161,6 @@ Progress Report</em> 42-196 (February):1–81.
 Freeman, K. C. 1970. <span>“<span class="nocase">On the Disks of Spiral
 and S0 Galaxies</span>”</span> 160 (June):811. <a
 href="https://doi.org/10.1086/150474">https://doi.org/10.1086/150474</a>.
-</div>
-<div id="ref-2018A&amp;A...616A...1G" class="csl-entry" role="listitem">
-Gaia Collaboration, A. G. A. Brown, A. Vallenari, T. Prusti, J. H. J. de
-Bruijne, C. Babusiaux, C. A. L. Bailer-Jones, et al. 2018. <span>“<span
-class="nocase">Gaia Data Release 2. Summary of the contents and survey
-properties</span>”</span> 616 (August):A1. <a
-href="https://doi.org/10.1051/0004-6361/201833051">https://doi.org/10.1051/0004-6361/201833051</a>.
-</div>
-<div id="ref-2018A&amp;A...616A..11G" class="csl-entry" role="listitem">
-Gaia Collaboration, D. Katz, T. Antoja, M. Romero-Gómez, R. Drimmel, C.
-Reylé, G. M. Seabroke, et al. 2018. <span>“<span class="nocase">Gaia
-Data Release 2. Mapping the Milky Way disc kinematics</span>”</span> 616
-(August):A11. <a
-href="https://doi.org/10.1051/0004-6361/201832865">https://doi.org/10.1051/0004-6361/201832865</a>.
 </div>
 <div id="ref-2023A&amp;A...674A..38G" class="csl-entry" role="listitem">
 Gaia Collaboration, A. Recio-Blanco, G. Kordopatis, P. de Laverny, P. A.
@@ -3457,6 +3441,12 @@ Pearson, Sarah, Ana Bonaca, Yingtian Chen, and Oleg Y. Gnedin. 2024.
 Cluster Streams in Milky Way<span></span>type Galaxies</span>”</span>
 976 (1): 54. <a
 href="https://doi.org/10.3847/1538-4357/ad8348">https://doi.org/10.3847/1538-4357/ad8348</a>.
+</div>
+<div id="ref-2024MNRAS.533.3263P" class="csl-entry" role="listitem">
+Peñarrubia, Jorge, Raphaël Errani, Matthew G. Walker, Mark Gieles, and
+Tjarda C. N. Boekholt. 2024. <span>“<span class="nocase">Capture of
+field stars by dark substructures</span>”</span> 533 (3): 3263–82. <a
+href="https://doi.org/10.1093/mnras/stae1961">https://doi.org/10.1093/mnras/stae1961</a>.
 </div>
 <div id="ref-1997A&amp;A...323L..49P" class="csl-entry" role="listitem">
 Perryman, M. A. C., L. Lindegren, J. Kovalevsky, E. Hoeg, U. Bastian, P.
