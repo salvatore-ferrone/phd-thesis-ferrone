@@ -195,10 +195,10 @@
 <h1 class="title">Introduction</h1>
 </header>
 <p>This thesis investigates stellar streams originating from globular
-clusters in the Milky Way. Stellar streams are long, thin structures
-composed of stars that have escaped their host stellar system, forming
-coherent tails that can span large regions of the sky (Fig. <a
-href="#fig:S5MilkywayStreams" data-reference-type="ref"
+clusters (GCs) in the Milky Way. Stellar streams are long, thin
+structures composed of stars that have escaped their host stellar
+system, forming coherent tails that can span large regions of the sky
+(Fig. <a href="#fig:S5MilkywayStreams" data-reference-type="ref"
 data-reference="fig:S5MilkywayStreams">1</a>). Globular clusters were
 first systematically cataloged by Charles Messier in the late 1700s–not
 for their scientific interest at the time, but to help comet hunters
@@ -236,9 +236,8 @@ gaps.</p>
 <figcaption>The Messier catalog containing “nebulae-like” objects:
 planetary nebulae, diffuse nebulae, supernovae remenants, open clusters,
 globular clusters, and foreign galaxies. By Michael A. Phillips, an
-amateur astronomer. - http://astromaphilli14.blogspot.com.br/p/m.html
-official blog, CC BY 4.0,
-https://commons.wikimedia.org/w/index.php?curid=38121043</figcaption>
+amateur astronomer.<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></figcaption>
 </figure>
 <p>The structure of the thesis is as follows. The remainder of the
 introduction provides background on stellar streams, globular clusters,
@@ -247,25 +246,31 @@ state of the field. Chapter 2 outlines the physical framework used to
 model stream formation and interpret their morphology. Chapter 3
 describes the numerical methods employed in the simulations, including
 convergence tests and estimates of computational cost. Chapters 4 and 5
-present two published studies , with the final chapter discussing these
-results in the broader context of the literature and highlighting future
-directions.</p>
+present two published studies <span class="citation"
+data-cites="2023A&amp;A...676A...5F 2025A&amp;A...699A.289F">(S. Ferrone
+et al. 2023; Salvatore Ferrone et al. 2025)</span>, with the final
+chapter discussing these results in the broader context of the
+literature and highlighting future directions. The appendicies presents
+additional studies I have contributed to during this thesis, concerning
+either the study of stellar streams or the population of asteroids in
+the solar system – another field of research that I have explored over
+the years.</p>
 <h1 id="general-context">General context</h1>
 <p>Before explaining why Milky Way globular clusters and stellar streams
 are scientifically interesting, it is important to first set the scene.
 This thesis fits neatly within the field of galactic astronomy, which,
 at its core, studies the current state of our galaxy and the processes
 that shaped its formation within the broader context of the
-universe.</p>
+Universe.</p>
 <p>If we start this narrative from the beginning and place stellar
 streams and globular clusters in the timeline of cosmic history, their
 importance becomes clear. The story begins best at the very start. The
 Lambda Cold Dark Matter (<span
 class="math inline">\(\Lambda\)</span>CDM) cosmological model is
-currently the leading theory of the universe, successfully unifying a
+currently the leading theory of the Universe, successfully unifying a
 variety of observational evidence from the Cosmic Microwave Background
 Radiation and the large-scale distribution of galaxies to the
-accelerating expansion of the universe, etc. <span class="citation"
+accelerating expansion of the Universe, etc. <span class="citation"
 data-cites="2001LRR.....4....1C 2022NewAR..9501659P">(Carroll 2001;
 Perivolaropoulos and Skara 2022)</span>.</p>
 <p>Shortly after the Big Bang, conditions allowed protons, neutrons, and
@@ -273,24 +278,24 @@ electrons to form and interact. For a few minutes, these particles
 collided and fused into heavier elements in a process known as Big Bang
 Nucleosynthesis <span class="citation"
 data-cites="2007ARNPS..57..463S">(Steigman 2007)</span>. When this phase
-ended, the universe’s composition was mostly hydrogen, deuterium (<span
+ended, the Universe’s composition was mostly hydrogen, deuterium (<span
 class="math inline">\(^2\)</span>H), helium-4 (<span
 class="math inline">\(^4\)</span>He), and trace amounts of helium-3
 (<span class="math inline">\(^3\)</span>He) and lithium-7 (<span
 class="math inline">\(^7\)</span>Li). By mass, hydrogen made up roughly
-75%, and helium about 25% of the primordial universe <span
+75%, and helium about 25% of the primordial Universe <span
 class="citation"
 data-cites="1966ApJ...146..542P 2016RvMP...88a5004C">(Peebles 1966;
 Cyburt et al. 2016)</span>.</p>
-<p><span class="math inline">\(\Lambda\)</span>CDM positis the existence
-of Dark matter and that it has about five times more mass than ordinary
+<p><span class="math inline">\(\Lambda\)</span>CDM posits the existence
+of dark matter and that it has about five times more mass than ordinary
 matter <span class="citation"
 data-cites="2020A&amp;A...641A...6P">(Planck Collaboration et al.
-2020)</span>. Dark plays a critical role in galaxy formation. In the
-early universe, dark matter was distributed nearly uniformly. Over dense
-regions caused it to collapse into a cosmic web of filaments and nodes.
-These massive nodes created deep gravitational wells that attracted
-ordinary matter <span class="citation"
+2020)</span>. Dark matter plays a critical role in galaxy formation. In
+the early Universe, dark matter was distributed nearly uniformly. Over
+dense regions caused it to collapse into a cosmic web of filaments and
+nodes. These massive nodes created deep gravitational wells that
+attracted ordinary matter <span class="citation"
 data-cites="1974ApJ...187..425P">(Press and Schechter 1974)</span>. The
 infalling gas subsequently cooled and formed stars. The resulting
 complex of stars, gas, and dark matter constitutes a galaxy <span
@@ -299,14 +304,14 @@ data-cites="2008LNP...740.....P 2010gfe..book.....M">(Plionis,
 López-Cruz, and Hughes 2008; Mo, van den Bosch, and White
 2010)</span>.</p>
 <p>Galaxies contain stars that are born, fuse hydrogen and helium into
-heavier elements, and eventually die, often as supernovae , enriching
+heavier elements, and eventually die, at times as supernovae, enriching
 the interstellar medium with these heavier elements <span
 class="citation" data-cites="2019A&amp;ARv..27....3M">(Maiolino and
 Mannucci 2019)</span>. The stellar formation process is a strong
-function of cosmic time as the chemical evolution of the universe
+function of cosmic time as the chemical evolution of the Universe
 becomes more metal rich. For example, the first generation of stars,
-known as Population III (Pop III) stars<a href="#fn1"
-class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>,
+known as Population III (Pop III) stars<a href="#fn2"
+class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>,
 formed in a very different environment, one devoid of metals <span
 class="citation"
 data-cites="2002Sci...295...93A 2005SSRv..117..445G 2013RPPh...76k2901B">(Abel,
@@ -318,7 +323,7 @@ massive stars <span class="citation"
 data-cites="2002ApJ...571...30S 2006MNRAS.369..825S">(R. Schneider et
 al. 2002; Raffaella Schneider et al. 2006)</span>. In contrast, even
 small amounts of metals introduced into the gas can dramatically shift
-the IMF toward the favoring the formation of lighter stars <span
+the IMF toward favoring the formation of lighter stars <span
 class="citation" data-cites="2021MNRAS.508.4175C">(Chon, Omukai, and
 Schneider 2021)</span>.</p>
 <p>Globular clusters are, to first approximation, single-stellar
@@ -399,10 +404,10 @@ progenitor galaxy during intense star-formation episodes, whereas
 metal-poor GCs were predominantly accreted from lower-mass satellites.
 The persistence of this bimodality across a wide range of galaxies
 suggests that hierarchical accretion has been a fundamental process
-shaping GC systems .</p>
-<p>From the perspective of galaxy formation, the hierarchical model of
-structure growth posits that galaxies assemble through repeated mergers
-and accretion of smaller systems <span class="citation"
+shaping GC systems, and thus galaxies themselves.</p>
+<p>Indeed, from the perspective of galaxy formation, the hierarchical
+model of structure growth posits that galaxies assemble through repeated
+mergers and accretion of smaller systems <span class="citation"
 data-cites="2015ARA&amp;A..53...51S">(Somerville and Davé 2015)</span>.
 In this framework, GCs can form in situ within the main progenitor or be
 accreted from satellite galaxies <span class="citation"
@@ -417,7 +422,7 @@ the build-up of their host galaxies.</p>
 <p>In essence, globular clusters are involved in many astrophysical
 processes such as the hierarchical formation of galaxies, formation of
 intermediate black holes, and being products of barely enriched gas in
-the early states of the universe <span class="citation"
+the early states of the Universe <span class="citation"
 data-cites="2016ApJ...823...52K 2025arXiv250116438K">(Kimm et al. 2016;
 Kruijssen 2025)</span>. Fully understanding their formation and
 evolution ties neatly into a variety of astrophysical problems.</p>
@@ -431,7 +436,7 @@ keep the ejected material along more or less the same trajectory,
 creating the stellar streams.</p>
 <p>These streams are particularly valuable astrophysical tools. Their
 discovery and theoretical explanation date back to the 1990s (see the
-introductions to Chapters 4 and 5 ), after which both observational and
+introductions to Chapters 4 and 5, after which both observational and
 theoretical work accelerated rapidly. For example, <span
 class="citation" data-cites="2002MNRAS.332..915I">R. A. Ibata et al.
 (2002)</span> proposed that stellar streams could be sensitive probes of
@@ -454,57 +459,51 @@ class="citation" data-cites="2010ApJ...718.1128L">Law and Majewski
 using the Sagittarius stream.</p>
 <p>These pioneering studies demonstrated the potential of stellar
 streams as astrophysical probes, but they represented only the
-beginning. With the advent of the <em>Gaia</em> mission , the volume and
-precision of available data have transformed what is possible.</p>
+beginning. With the advent of the <em>Gaia</em> mission <span
+class="citation" data-cites="2001A&amp;A...369..339P">(Perryman et al.
+2001)</span>, the volume and precision of available data have
+transformed what is possible.</p>
 <h1 id="the-state-of-the-art">The state of the art</h1>
 <p>The current era of Galactic astronomy is undoubtedly defined by the
-<em>Gaia</em> space mission <span class="citation"
+Gaia space mission <span class="citation"
 data-cites="2016A&amp;A...595A...1G 2016A&amp;A...595A...2G 2018A&amp;A...616A...1G 2021A&amp;A...650C...3G 2023A&amp;A...674A...1G">(Gaia
 Collaboration, Prusti, et al. 2016; Gaia Collaboration, Brown, et al.
 2016; Gaia Collaboration et al. 2018, 2021, 2023)</span>. The European
-Space Agency’s space-based observatory has been conducting continuous
-observations of the sky to perform precise astrometric measurements.
-Operating since 2014, Gaia improves its data volume and quality each
-year through repeated parallax measurements. As of Data Release 3, the
-mission has provided distances and proper motions for nearly two billion
-stars in the Galaxy, along with millions of radial velocity measurements
-<span class="citation" data-cites="2023A&amp;A...674A...1G">(Gaia
-Collaboration et al. 2023)</span>. This yields five-dimensional
-phase-space information (positions and on-sky velocities) for about 1-2%
-of the Galactic stellar population. Although the radial velocities are
-limited to relatively bright stars, the resulting dataset is still
-unprecedented in scope.</p>
-<p>When additional measurements are required, <em>Gaia</em> data are
-often complemented with observations from other facilities. For example,
-<em>Gaia</em> struggles to determine parallaxes in the crowded interiors
-of globular clusters, where high stellar densities pose challenges for
-its instruments <span class="citation"
+Space Agency’s space-based observatory conducted continuous observations
+of the sky to perform precise astrometric measurements. Operating since
+2014, Gaia improves its data volume and quality each year through
+repeated parallax measurements. As of Data Release 3, the mission has
+provided distances and proper motions for nearly two billion stars in
+the Galaxy, along with more than thirty-three million of radial velocity
+measurements <span class="citation"
+data-cites="2023A&amp;A...674A...1G">(Gaia Collaboration et al.
+2023)</span>. This yields five-dimensional phase-space information
+(positions and on-sky velocities) for about 1-2% of the Galactic stellar
+population. Although the radial velocities are limited to relatively
+bright stars, the resulting dataset is still unprecedented in scope.</p>
+<p>When additional measurements are required, Gaia data are often
+complemented with observations from other facilities. For example, Gaia
+struggles to determine parallaxes in the crowded interiors of globular
+clusters, where high stellar densities pose challenges for its
+instruments <span class="citation"
 data-cites="2017MNRAS.467..412P">(Pancino et al. 2017)</span>. To
 address this, <span class="citation"
 data-cites="2021MNRAS.505.5957B">Baumgardt and Vasiliev (2021)</span>
-combined <em>Gaia</em> EDR3 astrometry with <em>Hubble Space
-Telescope</em> observations, enabling precise distance measurements for
-162 globular clusters.</p>
-<p>Several ground-based spectroscopic surveys aid in extending
-<em>Gaia</em>’s radial velocity measurements to fainter magnitudes .
-Examples include the Apache Point Observatory Galactic Evolution
-Experiment (APOGEE; <span class="citation"
-data-cites="2017AJ....154...94M">(Majewski et al. 2017)</span>), the
-Gaia-ESO Survey <span class="citation"
-data-cites="2023A&amp;A...676A.129H">(Hourihane et al. 2023)</span>, and
-upcoming wide-field facilities such as 4MOST <span class="citation"
-data-cites="2019Msngr.175....3D">(de Jong et al. 2019)</span> and WEAVE
-<span class="citation" data-cites="2014SPIE.9147E..0LD">(Dalton et al.
-2014)</span>. Other large surveys primarily focus on providing detailed
-chemical abundances for a wide range of stellar populations, including
-GALAH <span class="citation" data-cites="2012ASPC..458..421Z">(Zucker et
-al. 2012)</span>, the Gaia-ESO Survey <span class="citation"
-data-cites="2023A&amp;A...676A.129H">(Hourihane et al. 2023)</span>,
-PAN-STARRS <span class="citation"
-data-cites="2016arXiv161205560C">(Chambers et al. 2016)</span>, and
-APOGEE <span class="citation" data-cites="2017AJ....154...94M">(Majewski
-et al. 2017)</span>, often delivering both radial velocities and
-multi-element abundance measurements in the same observations.</p>
+combined Gaia EDR3 astrometry with <em>Hubble Space Telescope</em>
+observations, enabling precise distance measurements for 162 globular
+clusters.</p>
+<p>Several ground-based spectroscopic surveys aid in extending Gaia’s
+radial velocity measurements to fainter magnitudes and in providing
+detailed chemical abundances. Examples include the Apache Point
+Observatory Galactic Evolution Experiment (APOGEE; <span
+class="citation" data-cites="2017AJ....154...94M">(Majewski et al.
+2017)</span>), the Gaia-ESO Survey <span class="citation"
+data-cites="2022A&amp;A...666A.120G">(Gilmore et al. 2022)</span>, GALAH
+<span class="citation" data-cites="2012ASPC..458..421Z">(Zucker et al.
+2012)</span> and upcoming wide-field facilities such as 4MOST <span
+class="citation" data-cites="2019Msngr.175....3D">(de Jong et al.
+2019)</span> and WEAVE <span class="citation"
+data-cites="2014SPIE.9147E..0LD">(Dalton et al. 2014)</span>.</p>
 <p>These large data sets have led to a rapidly increasing number of
 stellar stream discoveries. With the advent of the
 <code>streamfinder</code> algorithm <span class="citation"
@@ -518,26 +517,25 @@ characteristics in light of the improved quality and quantity of the
 data <span class="citation"
 data-cites="2019NatAs...3..667I 2020ApJ...891..161I">(Rodrigo A. Ibata
 et al. 2019; R. Ibata et al. 2020)</span>.Encouraged by these initial
-successes, the method was scaled up to the full <em>Gaia</em> dataset,
-allowing for a systematic search across a much larger region of the sky.
-<span class="citation" data-cites="2021ApJ...914..123I">R. Ibata et al.
-(2021)</span> subsequently applied <code>streamfinder</code> to
-<em>Gaia</em> DR2 and EDR3, resulting in a major increase in the number
-of known stellar streams. This analysis improved the data quality for
-many previously known streams and led to several new detections, a
-selection of which is reproduced in Fig. <a href="#fig:ibata_2021_fig1"
+successes, the method was scaled up to the full Gaia dataset, allowing
+for a systematic search across a much larger region of the sky. <span
+class="citation" data-cites="2021ApJ...914..123I">R. Ibata et al.
+(2021)</span> subsequently applied <code>streamfinder</code> to Gaia DR2
+and EDR3, resulting in a major increase in the number of known stellar
+streams. This analysis improved the data quality for many previously
+known streams and led to several new detections, a selection of which is
+reproduced in Fig. <a href="#fig:ibata_2021_fig1"
 data-reference-type="ref" data-reference="fig:ibata_2021_fig1">3</a>.
 They reported nine new streams, bringing the total number of known
 Galactic stellar streams to about sixty.</p>
 <figure id="fig:ibata_2021_fig1">
 <img src="images/ibata-2021.jpeg" />
 <figcaption>Milky Way stellar streams discovered with
-<code>streamfinder</code> in <em>Gaia</em> DR2. Both plots are shown in
-Galactic coordinates. The top panel is color-coded by proper motion in
-longitude, while the bottom is color-coded by proper motion in latitude.
-This is Fig. 1 from <span class="citation"
-data-cites="2021ApJ...914..123I">R. Ibata et al.
-(2021)</span>.</figcaption>
+<code>streamfinder</code> in Gaia DR2. Both plots are shown in Galactic
+coordinates. The top panel is color-coded by proper motion in longitude,
+while the bottom is color-coded by proper motion in latitude. This is
+Fig. 1 from <span class="citation" data-cites="2021ApJ...914..123I">R.
+Ibata et al. (2021)</span>.</figcaption>
 </figure>
 <p>The work of <span class="citation"
 data-cites="2021ApJ...914..123I">R. Ibata et al. (2021)</span> was a
@@ -610,12 +608,8 @@ within the galactic disk <span class="citation"
 data-cites="2006ARA&amp;A..44..193B">(Brodie and Strader 2006)</span>.
 Peculiarly, some streams are even more metal poor than all the known
 globular clusters <span class="citation"
-data-cites="2020Natur.583..768W 2025A&amp;A...698A..82Y">(Wan et al.
-2020; Yuan et al. 2025)</span> . <span class="citation"
-data-cites="2022MNRAS.516.5331M">Martin et al. (2022)</span> suggested
-the stream maybe a fossil of a low-mass dwarft galaxy but nonetheless
-reflect a very ancient interstellar medium in which the stars were
-formed since there was so little iron enrichment.</p>
+data-cites="2020Natur.583..768W 2022MNRAS.516.5331M 2025A&amp;A...698A..82Y">(Wan
+et al. 2020; Martin et al. 2022; Yuan et al. 2025)</span>.</p>
 <p>Next, regarding the gravitational potential of the Milky Way, streams
 are being used to probe the granularity of the Milky Way’s gravitational
 field. A striking example is the GD-1 stream: <span class="citation"
@@ -762,13 +756,6 @@ Constant</span>.”</span> <em>Living Reviews in Relativity</em> 4 (1): 1.
 <a
 href="https://doi.org/10.12942/lrr-2001-1">https://doi.org/10.12942/lrr-2001-1</a>.
 </div>
-<div id="ref-2016arXiv161205560C" class="csl-entry" role="listitem">
-Chambers, K. C., E. A. Magnier, N. Metcalfe, H. A. Flewelling, M. E.
-Huber, C. Z. Waters, L. Denneau, et al. 2016. <span>“<span>The
-Pan-STARRS1 Surveys</span>.”</span> <em>arXiv e-Prints</em>, December,
-arXiv:1612.05560. <a
-href="https://doi.org/10.48550/arXiv.1612.05560">https://doi.org/10.48550/arXiv.1612.05560</a>.
-</div>
 <div id="ref-2021MNRAS.508.4175C" class="csl-entry" role="listitem">
 Chon, Sunmyon, Kazuyuki Omukai, and Raffaella Schneider. 2021.
 <span>“<span class="nocase">Transition of the initial mass function in
@@ -832,6 +819,21 @@ class="nocase">Merging time-scales of stellar subclumps in young
 star-forming regions</span>”</span> 397 (2): 954–62. <a
 href="https://doi.org/10.1111/j.1365-2966.2009.15009.x">https://doi.org/10.1111/j.1365-2966.2009.15009.x</a>.
 </div>
+<div id="ref-2025A&amp;A...699A.289F" class="csl-entry" role="listitem">
+Ferrone, Salvatore, Marco Montuori, Paola Di Matteo, Alessandra
+Mastrobuono-Battisti, Rodrigo Ibata, Paolo Bianchini, Sergey Khoperskov,
+et al. 2025. <span>“<span class="nocase">Gaps in stellar streams as a
+result of globular cluster flybys: The case of Palomar 5</span>”</span>
+699 (July):A289. <a
+href="https://doi.org/10.1051/0004-6361/202553923">https://doi.org/10.1051/0004-6361/202553923</a>.
+</div>
+<div id="ref-2023A&amp;A...676A...5F" class="csl-entry" role="listitem">
+Ferrone, S., M. Delbo, C. Avdellidou, R. Melikyan, A. Morbidelli, K.
+Walsh, and R. Deienno. 2023. <span>“<span class="nocase">Identification
+of a 4.3 billion year old asteroid family and planetesimal population in
+the Inner Main Belt</span>”</span> 676 (August):A5. <a
+href="https://doi.org/10.1051/0004-6361/202245594">https://doi.org/10.1051/0004-6361/202245594</a>.
+</div>
 <div id="ref-2018MNRAS.481.5592F" class="csl-entry" role="listitem">
 Forbes, Duncan A., Justin I. Read, Mark Gieles, and Michelle L. M.
 Collins. 2018. <span>“<span class="nocase">Extending the globular
@@ -888,6 +890,14 @@ cluster simulations - IV. A new scenario for intermediate mass black
 hole formation in globular clusters</span>”</span> 454 (3): 3150–65. <a
 href="https://doi.org/10.1093/mnras/stv2162">https://doi.org/10.1093/mnras/stv2162</a>.
 </div>
+<div id="ref-2022A&amp;A...666A.120G" class="csl-entry" role="listitem">
+Gilmore, G., S. Randich, C. C. Worley, A. Hourihane, A. Gonneau, G. G.
+Sacco, J. R. Lewis, et al. 2022. <span>“<span class="nocase">The
+Gaia-ESO Public Spectroscopic Survey: Motivation, implementation,
+GIRAFFE data processing, analysis, and final data
+products</span>”</span> 666 (October):A120. <a
+href="https://doi.org/10.1051/0004-6361/202243134">https://doi.org/10.1051/0004-6361/202243134</a>.
+</div>
 <div id="ref-2005SSRv..117..445G" class="csl-entry" role="listitem">
 Glover, Simon. 2005. <span>“<span>The Formation Of The First Stars In
 The Universe</span>”</span> 117 (3-4): 445–508. <a
@@ -924,13 +934,6 @@ Harris, William E., Gretchen L. Harris, and Michael J. Hudson. 2015.
 Cluster Populations. II. Metallicity and Morphology</span>”</span> 806
 (1): 36. <a
 href="https://doi.org/10.1088/0004-637X/806/1/36">https://doi.org/10.1088/0004-637X/806/1/36</a>.
-</div>
-<div id="ref-2023A&amp;A...676A.129H" class="csl-entry" role="listitem">
-Hourihane, A., P. François, C. C. Worley, L. Magrini, A. Gonneau, A. R.
-Casey, G. Gilmore, et al. 2023. <span>“<span class="nocase">The Gaia-ESO
-Survey: Homogenisation of stellar parameters and elemental
-abundances</span>”</span> 676 (August):A129. <a
-href="https://doi.org/10.1051/0004-6361/202345910">https://doi.org/10.1051/0004-6361/202345910</a>.
 </div>
 <div id="ref-1959MNRAS.119..124H" class="csl-entry" role="listitem">
 Hoyle, F. 1959. <span>“<span class="nocase">The ages of Type I and Type
@@ -1142,6 +1145,13 @@ class="math inline">\(\Lambda\)</span></span>CDM: An
 update</span>”</span> 95 (December):101659. <a
 href="https://doi.org/10.1016/j.newar.2022.101659">https://doi.org/10.1016/j.newar.2022.101659</a>.
 </div>
+<div id="ref-2001A&amp;A...369..339P" class="csl-entry" role="listitem">
+Perryman, M. A. C., K. S. de Boer, G. Gilmore, E. Høg, M. G. Lattanzi,
+L. Lindegren, X. Luri, F. Mignard, O. Pace, and P. T. de Zeeuw. 2001.
+<span>“<span class="nocase">GAIA: Composition, formation and evolution
+of the Galaxy</span>”</span> 369 (April):339–63. <a
+href="https://doi.org/10.1051/0004-6361:20010085">https://doi.org/10.1051/0004-6361:20010085</a>.
+</div>
 <div id="ref-2020A&amp;A...637L...2P" class="csl-entry" role="listitem">
 Piatti, Andrés E., and Julio A. Carballo-Bello. 2020. <span>“<span
 class="nocase">The tidal tails of Milky Way globular
@@ -1267,11 +1277,17 @@ Society of the Pacific Conference Series.
 role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Stellar populations are named in reverse order of
+<li id="fn1"><p><a
+href="http://astromaphilli14.blogspot.com.br/p/m.html official blog, CC BY 4.0, https://commons.wikimedia.org/w/index.php?curid=38121043"
+class="uri">http://astromaphilli14.blogspot.com.br/p/m.html official
+blog, CC BY 4.0,
+https://commons.wikimedia.org/w/index.php?curid=38121043</a><a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Stellar populations are named in reverse order of
 discovery. Population I stars are the youngest, metal-rich stars
 (including the Sun), Population II stars are older and metal-poor, and
 Population III stars are the very first, metal-free stars.<a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>
