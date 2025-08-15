@@ -338,7 +338,7 @@ setting <span class="math inline">\(G = 1\)</span>, the derived mass
 unit becomes: <span class="math display">\[\left[\mathrm{mass}\right] =
 \frac{l \cdot v^2}{G} = 232509~\mathrm{M}_\odot.\]</span> This approach
 was used in our first paper (see Chapter 4). The famous galactic
-dynamical python code, <code>Galpy</code> makes a different choice and
+dynamical python code, <code>Galpy</code>, makes a different choice and
 introduced <em>natural units</em> <span class="citation"
 data-cites="2015ApJS..216...29B">(Bovy 2015)</span>. More specifically,
 <span class="citation" data-cites="2015ApJS..216...29B">Bovy
@@ -453,12 +453,12 @@ Hamiltonian mechanics and are known as <em>symplectic integrators</em>.
 Before continuing, I would like to quote <span class="citation"
 data-cites="bovy_inprep">(Bovy 2025a)</span>:</p>
 <blockquote>
-<p>Hamiltonian integrators are often called symplectic. This name comes
-from the fact that these integrators are Hamiltonian maps, whose
+<p><em>Hamiltonian integrators are often called symplectic. This name
+comes from the fact that these integrators are Hamiltonian maps, whose
 mathematical structure is that of a vector flow on a symplectic
 manifold. Many fine dynamicists have made great contributions to the
 field without delving deeply into the meaning of the previous sentence
-and we do not discuss this further.</p>
+and we do not discuss this further.</em></p>
 </blockquote>
 <p>However, my curiosity about linguistics pushed me to delve further:
 What does <em>symplectic</em> mean? <span class="citation"
@@ -646,7 +646,7 @@ full timestep <span class="math inline">\(\Delta t\)</span>.</p>
 symplectic and time-reversible only for Hamiltonians that are both
 time-independent and separable—that is, where the Hamiltonian can be
 written as a sum of a kinetic term depending only on momenta, <span
-class="math inline">\(T(p)\)</span> and whose potential depends only on
+class="math inline">\(T(p)\)</span>, and whose potential depends only on
 position <span class="math inline">\(\Phi(q)\)</span>. These conditions
 are satisfied for systems in an inertial frame with conservative forces.
 This is true when integrating the motion for the center of mass of the
@@ -697,23 +697,25 @@ cluster is included: <span class="math inline">\(E_i = T(\textbf{v}_i) +
 \Phi_\mathrm{GC}\left(\textbf{x}_i -
 \textbf{x}_{\mathrm{GC}}\right)\)</span>, where <span
 class="math inline">\(\mathbf{x}_i\)</span> is the position relative to
-the Galactic center. The same approach holds when a galactic bar is
-included, the only difference being that the Galactic potential has a
-time-dependent element.</p>
+the Galactic center. The same approach holds when a bar is included, the
+only difference being that the Galactic potential has a time-dependent
+element.</p>
 <p>For potentials with the galactic bar, the total energy is not
 conserved but rather the Jacobi energy, and this is true only for the
-globular clusters. For the star-particles, the energy is not conserved
-in the simulations. However, we track the energy particularly when we
-perform the second check, which is time-reversability.</p>
+globular clusters since we treat them as point masses. For the
+star-particles, the energy is not conserved in the simulations, since
+they are subject to the force from the globular cluster. However, we
+track the energy particularly when we perform the second check, which is
+time-reversability.</p>
 <p>To check the time-reversability, we integrate a cluster back in time,
 and then change the sign of its velocity to subsequently integrate
 forward in time. If the integration is correct, the cluster should
 remain on the same trajectory retracing its steps. We investigate this
 for the following scenarios and show the results below:</p>
 <ul>
-<li><p>The globular cluster population orbiting with a static Milky Way
-potential;</p></li>
-<li><p>Star-particles orbiting with a stationary and isolated globular
+<li><p>The globular cluster population orbiting within a static Milky
+Way potential;</p></li>
+<li><p>Star-particles orbiting within a stationary and isolated globular
 cluster;</p></li>
 <li><p>Full stream generation, i.e., star particles orbiting within a
 globular cluster that orbits the Galaxy.</p></li>
@@ -721,9 +723,9 @@ globular cluster that orbits the Galaxy.</p></li>
 <p>At this stage, I did not have time to perform a full quality check of
 orbits within the barred potential. However, I refer the reader to the
 <code>tstrippy</code> documentation, where I demonstrate the
-time-reversibility of cluster orbits in the barred potential: <a
-href="https://tstrippy.readthedocs.io/en/latest/reverse_integrability_bar.html"
-class="uri">https://tstrippy.readthedocs.io/en/latest/reverse_integrability_bar.html</a>.</p>
+time-reversibility of cluster orbits in the barred potential. <a
+href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p>
 <h2 id="globular-cluster-orbits-in-a-static-galaxy">Globular Cluster
 Orbits in a Static Galaxy</h2>
 <p>The initial conditions for the globular cluster system (positions and
@@ -731,8 +733,9 @@ velocities) were taken from <span class="citation"
 data-cites="2018MNRAS.478.1520B">Baumgardt and Hilker (2018)</span>’s
 online globular cluster catalog whose data derived from Gaia Early Data
 Release 3 among other sources <span class="citation"
-data-cites="2021MNRAS.505.5957B 2021A&amp;A...649A...1G 2023A&amp;A...674A...1G">(Baumgardt
-and Vasiliev 2021; Gaia Collaboration et al. 2021, 2023)</span>.</p>
+data-cites="2021MNRAS.505.5957B 2021A&amp;A...649A...1G 2021MNRAS.505.5978V 2023A&amp;A...674A...1G">(Baumgardt
+and Vasiliev 2021; Gaia Collaboration et al. 2021, 2023; Vasiliev and
+Baumgardt 2021)</span>.</p>
 <p>To test the integrator, we integrated the whole globular cluster
 system for 5 Gyr, and then integrated it back to the initial conditions.
 We used four timesteps: <span
@@ -742,8 +745,8 @@ class="math inline">\(\left[500,5000,50000,500000\right]\)</span>
 integration steps, respectively. In general, the timestep should scale
 with the dynamical time of the orbit. In other words, the timestep
 should be inversely proportional to the orbital energy. The further the
-system is from the center, a larger timestep can be used to obtain a
-given numerical error.</p>
+system is from the galactic center, a larger timestep can be used to
+obtain a given numerical error.</p>
 <p>Of course, the timestep does not just simply scale with a body’s
 orbital energy, it should scale with the maximum acceleration
 experienced in the system. A highly eccentric orbit requires a smaller
@@ -758,8 +761,8 @@ once with the largest timestep: <span
 class="math inline">\(10^7\)</span> years.</p>
 <figure id="fig:numericalErrorLeapfrogVanilla">
 <img src="images/numericalErrorLeapfrogVanilla.png" />
-<figcaption>Error in orbital energy for the whole globular cluster
-system with two different timesteps, dt = <span
+<figcaption>Relative error in orbital energy for the whole globular
+cluster system with two different timesteps, dt = <span
 class="math inline">\(10^{7}\)</span> and <span
 class="math inline">\(10^{4}\)</span> years. Each cluster’s is colored
 by its initial orbital energy. The average of the whole system for a
@@ -777,29 +780,36 @@ far too large, however, interestingly enough, for some of the farthest
 globular clusters, a timestep of 10 million years resolves their orbits
 to an error of <span class="math inline">\(\langle \Delta E / E_0
 \rangle \sim 10^{-5}\)</span>, which is still far less than the
-uncertainties in the energy due to both modeling and observational
-uncertainties. Note that in both cases, the errors neither accumulate
-nor grow with time. This is a testament to the quality of the Leapfrog
-integration scheme, which is designed to conserve the Hamiltonian
-accurately.</p>
+uncertainties due to observational uncertainties. Note that in both
+cases, the errors neither accumulate nor grow with time. This is a
+testament to the quality of the Leapfrog integration scheme, which is
+designed to conserve the Hamiltonian accurately.</p>
 <p>Fig. <a href="#fig:numericalErrorReverseIntegration"
 data-reference-type="ref"
 data-reference="fig:numericalErrorReverseIntegration">2</a> presents the
 <em>time reversibility</em>, or the integrator’s ability to retrace its
 own steps. For each given timestep, I report the difference between the
 initial integration and the retrace normalized to the mean of the two
-position’s. I perform the same computation for the velocities. The
-timestep of <span class="math inline">\(10^7\)</span> yr saturates only
-after 2 Gyr. The distances do not continue to grow becuase the orbital
-energy only differs by one part in ten, so at later timesteps, the
-cluster is still within the same region of phase-space, but the retrace
-is at a completely different location than the initial integration. The
-errors in the timestep of <span
-class="math inline">\(10^6\)</span> yrbecome significant, though by the
-end of the integration period of 5 Gyr they are still only one part in
-ten thousand. The timesteps of <span class="math inline">\(10^5\)</span>
-and <span class="math inline">\(10^4\)</span> yr have excellent
-retraceability and on average, only differ by one part in <span
+position’s. I perform the same computation for the velocities. <strong>I
+take the current kinematics of each cluster and integrate them forward
+in time for five billion years, saving their positions and velocities at
+each step. Once the final position is reached, I re-integrate the system
+backward, again recording the position and velocity of each cluster at
+every step. At each corresponding time stamp, <span
+class="math inline">\(t_i\)</span>, I compute the vector distance
+between positions and velocities, normalizing it to the mean position
+(center of mass).</strong> The timestep of <span
+class="math inline">\(10^7\)</span> yr saturates only after 2 Gyr. The
+distances do not continue to grow because the orbital energy only
+differs by one part in ten, so at later timesteps, the cluster is still
+within the same region of phase-space, but the retrace is at a
+completely different location than the initial integration. The errors
+in the timestep of <span class="math inline">\(10^6\)</span> yr become
+significant, though by the end of the integration period of 5 Gyr they
+are still only one part in ten thousand. The timesteps of <span
+class="math inline">\(10^5\)</span> and <span
+class="math inline">\(10^4\)</span> yr have excellent retraceability and
+on average, only differ by one part in <span
 class="math inline">\(10^{-14}\)</span>, and are thus only limited by
 round off error from the use of double precision floating point
 numbers.</p>
@@ -812,7 +822,9 @@ class="math inline">\(10^4\)</span> yr and <span
 class="math inline">\(10^7\)</span> yr to avoid clutter. The clusters
 are color-coded to their initial orbital energy just as Fig. <a
 href="#fig:numericalErrorLeapfrogVanilla" data-reference-type="ref"
-data-reference="fig:numericalErrorLeapfrogVanilla">1</a></figcaption>
+data-reference="fig:numericalErrorLeapfrogVanilla">1</a> <strong>THIS
+SHOULD GO FROM -5 GYR TO 0. NO ERROR at -5 since that’s when we turn
+around. Must fix</strong> </figcaption>
 </figure>
 <p>Computation time is quite important. Fig. <a
 href="#fig:numericalErrorGlobularClustersComputationTime"
@@ -1163,10 +1175,7 @@ characteristic potential is roughly <span class="math inline">\(\Phi
 0.005\)</span> kpc, giving <span class="math inline">\(\Phi \sim
 10^2~\mathrm{km}^2\,\mathrm{s}^{-2}\)</span>. Meanwhile, the typical
 orbital energy of a globular cluster is around <span
-class="math inline">\(10^5~\mathrm{km}^2\,\mathrm{s}^{-2}\)</span> (see
-Fig. <a href="#fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu"
-data-reference-type="ref"
-data-reference="fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu">[fig:energy_sensitivity_analysis_MWGCS_to_distance_RV_mu]</a>).</p>
+class="math inline">\(10^5~\mathrm{km}^2\,\mathrm{s}^{-2}\)</span>.</p>
 <p>This three-order-of-magnitude difference implies that the intrinsic
 energy spread from the Plummer sampling is about <span
 class="math inline">\(10^{-3}\)</span> of the total orbital energy,
@@ -1297,11 +1306,10 @@ impact, we can compare Figs. <a
 href="#fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420"
 data-reference-type="ref"
 data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">13</a>
-and <a
-href="#fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311"
+and <a href="#fig:NumericalErrorStreamRetrace_EnergyErrors"
 data-reference-type="ref"
-data-reference="fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311">[fig:NumericalErrorStreamRetrace_NGC6171_Nsteps_1048576_stepsPerTau_311]</a>.
-In Fig. <a
+data-reference="fig:NumericalErrorStreamRetrace_EnergyErrors">10</a>. In
+Fig. <a
 href="#fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420"
 data-reference-type="ref"
 data-reference="fig:NumericalErrorStreamRetrace_Pal5_Nsteps_32768_stepsPerTau_420">13</a>,
@@ -1415,16 +1423,15 @@ programming were available in Fortran, both this module and
 class. This module only uses the positions, masses, and characteristic
 radii of the other perturbers. The velocities are not imported.</p></li>
 <li><p><code>galacticbar</code>: This module stores parameters for the
-Galactic bar, including the polynomial coefficients for its angular
-displacement as a function of time: <span
-class="math display">\[\theta(t) = \theta_0 + \omega t + \dot{\omega}
-t^2 + \ddot{\omega} t^3 + \dots\]</span> If a user wants a bar with a
-constant rotation speed, then they may pass two coefficients. If they
-want a bar that accelerates for decelerates, they may mass more
-coefficients for the higher order terms. The module performs
-transformations into the rotating bar frame, computes the forces in that
-frame, and then transforms the forces back to the Galactocentric
-reference frame.</p></li>
+bar, including the polynomial coefficients for its angular displacement
+as a function of time: <span class="math display">\[\theta(t) = \theta_0
++ \omega t + \dot{\omega} t^2 + \ddot{\omega} t^3 + \dots\]</span> If a
+user wants a bar with a constant rotation speed, then they may pass two
+coefficients. If they want a bar that accelerates for decelerates, they
+may mass more coefficients for the higher order terms. The module
+performs transformations into the rotating bar frame, computes the
+forces in that frame, and then transforms the forces back to the
+Galactocentric reference frame.</p></li>
 </ul>
 <p>This modular structure makes it straightforward to extend the code by
 adding new physics in the form of additional modules.</p>
@@ -1435,11 +1442,11 @@ how to create a Python package using <code>setuptools</code>—the
 standard build system in the Python ecosystem. However, compatibility
 between <code>setuptools</code> and <code>f2py</code> was broken
 starting with NumPy <span class="math inline">\(&gt;\)</span> 1.22
-(released June 22, 2022<a href="#fn1" class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a>) and Python <span
+(released June 22, 2022<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>) and Python <span
 class="math inline">\(&gt;\)</span> 3.9.18 (released June 24, 2024<a
-href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a>). This meant that Fortran extensions
+href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a>). This meant that Fortran extensions
 could only be compiled using deprecated versions of both. These older
 versions of NumPy were also not compatible with Apple’s ARM-based M1 and
 M2 processors, rendering the code unusable on modern Mac systems.</p>
@@ -1457,11 +1464,11 @@ compiling Fortran, C, and Python extensions across architectures. This
 eliminated compatibility problems and made the build process
 architecture-independent. The build system now automatically detects the
 system architecture and compiles accordingly.</p>
-<p>The code is fully open source and available on GitHub.<a href="#fn3"
-class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> To
+<p>The code is fully open source and available on GitHub.<a href="#fn4"
+class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> To
 support users, I created documentation hosted on
-<code>readthedocs.io</code><a href="#fn4" class="footnote-ref"
-id="fnref4" role="doc-noteref"><sup>4</sup></a>, which includes working
+<code>readthedocs.io</code><a href="#fn5" class="footnote-ref"
+id="fnref5" role="doc-noteref"><sup>5</sup></a>, which includes working
 examples and basic usage guides. A minimal test suite, written using
 <code>pytest</code>, is also included. While not exhaustive, the tests
 ensure that core functionality remains intact as the code evolves. In
@@ -1494,7 +1501,7 @@ same unit system.</p>
 <p>The integrator must then be initialized. All parameters are passed
 via lists that are unpacked at the function call. Here is an example of
 initializing the integrator for a stellar stream in a potential that
-includes a rotating galactic bar:</p>
+includes a rotating bar:</p>
 <ul>
 <li><p><code>setstaticgalaxy</code> specifies the static potential model
 and passes its parameters.</p></li>
@@ -1791,6 +1798,12 @@ documentation</span>.”</span> <em>arXiv e-Prints</em>, February,
 arXiv:1802.08255. <a
 href="https://doi.org/10.48550/arXiv.1802.08255">https://doi.org/10.48550/arXiv.1802.08255</a>.
 </div>
+<div id="ref-2021MNRAS.505.5978V" class="csl-entry" role="listitem">
+Vasiliev, Eugene, and Holger Baumgardt. 2021. <span>“<span
+class="nocase">Gaia EDR3 view on galactic globular
+clusters</span>”</span> 505 (4): 5978–6002. <a
+href="https://doi.org/10.1093/mnras/stab1475">https://doi.org/10.1093/mnras/stab1475</a>.
+</div>
 <div id="ref-2015MNRAS.450.4070W" class="csl-entry" role="listitem">
 Wang, Long, Rainer Spurzem, Sverre Aarseth, Keigo Nitadori, Peter
 Berczik, M. B. N. Kouwenhoven, and Thorsten Naab. 2015. <span>“<span
@@ -1808,18 +1821,22 @@ role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1"><p><a
+href="https://tstrippy.readthedocs.io/en/latest/reverse_integrability_bar.html"
+class="uri">https://tstrippy.readthedocs.io/en/latest/reverse_integrability_bar.html</a>.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a
 href="https://github.com/numpy/numpy/releases/tag/v1.22.0"
 class="uri">https://github.com/numpy/numpy/releases/tag/v1.22.0</a><a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p><a href="https://www.python.org/downloads/release/"
-class="uri">https://www.python.org/downloads/release/</a><a
 href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p><a href="https://github.com/salvatore-ferrone/tstrippy"
-class="uri">https://github.com/salvatore-ferrone/tstrippy</a><a
+<li id="fn3"><p><a href="https://www.python.org/downloads/release/"
+class="uri">https://www.python.org/downloads/release/</a><a
 href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p><a href="https://tstrippy.readthedocs.io/en/latest/"
-class="uri">https://tstrippy.readthedocs.io/en/latest/</a><a
+<li id="fn4"><p><a href="https://github.com/salvatore-ferrone/tstrippy"
+class="uri">https://github.com/salvatore-ferrone/tstrippy</a><a
 href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://tstrippy.readthedocs.io/en/latest/"
+class="uri">https://tstrippy.readthedocs.io/en/latest/</a><a
+href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>

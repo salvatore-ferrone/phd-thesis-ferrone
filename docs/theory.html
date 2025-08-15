@@ -214,7 +214,7 @@ equations that underpin our models;</p></li>
 <li><p><strong>Implicit physics</strong>: Often, while the governing
 equations can be written exactly, they are too terse to provide
 intuition. This section interprets simplified versions of the equations
-to explain qualitatively what’s happening in the simulations;</p></li>
+to explain qualitatively what is happening in the simulations;</p></li>
 <li><p><strong>Ignored physics</strong>: Here I highlight physical
 effects excluded from our models, many of which appear in the broader
 literature. I discuss why we excluded them and how that limits our
@@ -232,7 +232,7 @@ continuous density distributions. This strategy would allow the
 construction of the Galactic gravitational field, potentially through a
 combination of hydrodynamical simulations for the gas and <span
 class="math inline">\(N\)</span>-body simulations for the stars and dark
-matter. However, the feasibility of such an approach must be carefully
+matter . However, the feasibility of such an approach must be carefully
 considered.</p>
 <p>The scaling of computation time is often analyzed using Big-O
 notation. For direct <span class="math inline">\(N\)</span>-body
@@ -248,8 +248,8 @@ time step.</p>
 operates at approximately one exaflop, or <span
 class="math inline">\(10^{18}\)</span> FLOPS (Floating Point Operations
 Per Second) <span class="citation"
-data-cites="atchley2023frontier">(Atchley et al. 2023)</span>.
-Assuming—conservatively—that each pairwise computation requires a single
+data-cites="atchley2023frontier">(Atchley et al. 2023)</span>. Assuming
+– conservatively – that each pairwise computation requires a single
 FLOP, a full <span class="math inline">\(N\)</span>-body computation of
 the Galaxy at one time step would still require several hours. While
 this may seem manageable, a single time step is insufficient for
@@ -267,16 +267,17 @@ data-cites="ECB_USD_EUR_2025">(European Central Bank 2025)</span>. This
 is nearly twice the annual salary of a PhD student in France <span
 class="citation" data-cites="MESR_financement_doctoral">(Ministere de
 l’Enseignement superieur et de la Recherche 2025)</span>.</p>
-<p>Throughout this thesis, I have access to the Pairs observatoy’s super
-computer <span class="citation" data-cites="DIO_OBSPM">(l’Observatoire
-de Paris 2025, tycho)</span>, which currently has about 85 nodes.
-However, as a humorous aside, consider attempting this computation on a
-personal research laptop, such as a MacBook Air with an M2 processor.
-Its estimated speed of <span class="math inline">\(\sim\)</span>0.1
-TFLOPS (i.e., <span class="math inline">\(10^{11}\)</span> FLOPS) <span
-class="citation" data-cites="hubner2025apple">(Hübner et al.
-2025)</span> is approximately 10 million times slower than Frontier. A
-single time step would thus take over 1,500 years.</p>
+<p>Throughout this thesis, I have access to the Paris observatory’s
+super computer <span class="citation"
+data-cites="DIO_OBSPM">(l’Observatoire de Paris 2025, tycho)</span>,
+which currently has about 85 nodes. However, as a humorous aside,
+consider attempting this computation on a personal research laptop, such
+as a MacBook Air with an M2 processor. Its estimated speed of <span
+class="math inline">\(\sim\)</span>0.1 TFLOPS (i.e., <span
+class="math inline">\(10^{11}\)</span> FLOPS) <span class="citation"
+data-cites="hubner2025apple">(Hübner et al. 2025)</span> is
+approximately 10 million times slower than Frontier. A single time step
+would thus take over 1,500 years.</p>
 <p>Clearly, we require a more tractable modeling approach for studying
 the evolution of globular clusters and the formation of stellar streams.
 Fortunately, it is well justified to approximate all the stars in the
@@ -289,7 +290,7 @@ This is known as two-body relaxation. This process compares two
 hypothetical orbits for the same star. One within a smooth medium, and a
 second within a medium composed of point masses. The two-body relaxation
 time is how long it takes for these two trajectories to deviate
-significantly. We revist this in Section <a
+significantly. We revisit this in Section <a
 href="#sec:twoBodyRelaxation" data-reference-type="ref"
 data-reference="sec:twoBodyRelaxation">3.1.1</a>.</p>
 <p>In globular clusters, where stars are densely packed into a
@@ -300,7 +301,7 @@ within globular clusters is typically <span
 class="math inline">\(\sim1\)</span> Gyr. To contextualize this, we must
 consider the orbital period of a typical star within a cluster, and the
 age of a cluster. First, the characteristic time for a star to traverse
-the system—is roughly 1 Myr <span class="citation"
+the system is roughly 1 Myr <span class="citation"
 data-cites="2018MNRAS.478.1520B">(which can be estimated as the size of
 a system divided by its internal velocity dispersion Baumgardt and
 Hilker 2018)</span>. Secondly, globular clusters are old systems, with
@@ -328,16 +329,17 @@ a simplification that limits the generality of our results. Nonetheless,
 our goal is to accurately model the stellar streams, and the internal
 dynamics of the globular clusters are beyond the scope of this work.</p>
 <p>To make the problem computationally tractable, we model the stars as
-test particles—massless bodies that feel the gravitational potential but
-do not contribute to it. The Galaxy and the globular cluster are each
-represented as smooth, time-independent density distributions. In this
-approximation, the stars do not interact with one another or with the
-cluster, and their trajectories are determined solely by the external
-potentials. This setup is a version of the <em>restricted three-body
-problem</em>, in which the Galaxy acts as the primary body (fixed at the
-origin), the globular cluster as the secondary (modeled by its center of
-mass), and the star as the tertiary object. This is shown in Fig. <a
-href="#fig:restricted_three_body_set_up" data-reference-type="ref"
+test particles – massless bodies that feel the gravitational potential
+but do not contribute to it. The Galaxy and the globular cluster are
+each represented as smooth, time-independent density distributions. In
+this approximation, the stars do not interact with one another or with
+the cluster, and their trajectories are determined solely by the
+external potentials. This setup is a version of the <em>restricted
+three-body problem</em>, in which the Galaxy acts as the primary body
+(fixed at the origin), the globular cluster as the secondary (modeled by
+its center of mass), and the star as the tertiary object. This is shown
+in Fig. <a href="#fig:restricted_three_body_set_up"
+data-reference-type="ref"
 data-reference="fig:restricted_three_body_set_up">1</a>.</p>
 <figure id="fig:restricted_three_body_set_up">
 <img src="images/restricted_three_body_set_up.png" />
@@ -365,7 +367,7 @@ minimal.</p>
 <p>In the remainder of this section, I present the theoretical framework
 underlying the simulations. At their core, the simulations involve
 solving <span class="math inline">\(N\)</span> sets of six coupled
-ordinary differential equations—one set for each star particle.
+ordinary differential equations – one set for each star particle.
 Section <a href="#subsec:myEquationsOfMotion" data-reference-type="ref"
 data-reference="subsec:myEquationsOfMotion">1.1</a> introduces the
 equations of motion. Section <a href="#subsec:gravfield"
@@ -408,7 +410,7 @@ gc}).\]</span> <span class="math inline">\(M_{\mathrm{gc}}\)</span> is
 the mass of the globular cluster, <span class="math inline">\(m\)</span>
 is the mass of a star, <span
 class="math inline">\(\mathbf{R}_{\mathrm{gc}}\)</span> is the
-galacto-centric position of the globular clusterm <span
+galacto-centric position of the globular cluster, <span
 class="math inline">\(r\)</span> is the galacto-centric position of the
 star, <span class="math inline">\(\Phi_{\rm gal}\)</span> is the
 potential of the galaxy and <span
@@ -451,14 +453,14 @@ cluster, which occurs when: <span class="math inline">\(|\mathbf{r} -
 \mathbf{R}_\mathrm{GC}| &lt; \sqrt{\frac{M_{\mathrm{gc}}}{M_{\mathrm{
 gal}}}} |\mathbf{r}|.\)</span> In other words, the cluster’s
 gravitational field dominates over the galaxy’s on sufficiently small
-scales around the cluster — as expected. For a quick sanity check: a
+scales around the cluster – as expected. For a quick sanity check: a
 typical globular cluster may have a mass of <span
 class="math inline">\(10^5\, M_\odot\)</span>, while the Milky Way may
 be around <span class="math inline">\(10^{12}\, M_\odot\)</span> <span
 class="citation" data-cites="2025NewAR.10001721H">(Hunt and Vasiliev
 2025)</span>. If the cluster is a few kiloparsecs from the galactic
 center, then the cluster’s influence dominates within a region of order
-a few parsecs — which checks out. A better limit is the tidal radius and
+a few parsecs – which checks out. A better limit is the tidal radius and
 is presented in the next section.</p>
 <p>Next, working in the Hamiltonian formalism often provides deeper
 insight into the physics of the system. Additionally, Hamiltonian
@@ -472,35 +474,34 @@ class="math inline">\(\mathcal{H} = \sum p_i \dot{q}_i -
 generic position coordinate, <span class="math inline">\(p\)</span> is
 its conjugate momentum, while <span class="math inline">\(i\)</span>
 indicates the coordinate of interest. If we use the <em>specific</em>
-Lagrangian—normalized by the mass of the body of interest—then, in
+Lagrangian – normalized by the mass of the body of interest – then, in
 Cartesian coordinates, the conjugate momenta reduce to the velocities:
 <span class="math inline">\(p_i=\frac{\partial \mathcal{L}}{\partial q}
 \rightarrow p_i = v_i\)</span>. Another useful result comes from
 Noether’s theorem: if a coordinate does not explicitly appear in the
 Lagrangian, its conjugate momentum is conserved. Most of the galactic
 potentials considered in our simulation are axis-symmetric meaning they
-have cylindrical symmetry, except for case of a rotating stelalr bar.
+have cylindrical symmetry, except for case of a rotating stellar bar.
 Since the Lagrangian does not depend on the azimuthal angle <span
 class="math inline">\(\theta\)</span> in the <span
 class="math inline">\(x\text{-}y\)</span> plane for the cluster’s
-motion, the conservation of the <span
-class="math inline">\(z\)</span>-component of angular momentum is
-conserved: <span class="math inline">\(p_\theta = L_z = \frac{\partial
-\mathcal{L}}{\partial \dot{\theta}} = R^2 \dot{\theta} =
+motion, the <span class="math inline">\(z\)</span>-component of angular
+momentum is conserved: <span class="math inline">\(p_\theta = L_z =
+\frac{\partial \mathcal{L}}{\partial \dot{\theta}} = R^2 \dot{\theta} =
 \mathrm{constant.}\)</span></p>
 <p>If we consider a star within an isolated globular cluster with
 spherical symmetry, its total angular momentum vector is conserved.
-whole angular momentum vector is conserved. However, if we consider the
-Eq. <a href="#eq:starParticleLagrangian" data-reference-type="ref"
+However, if we consider the Eq. <a href="#eq:starParticleLagrangian"
+data-reference-type="ref"
 data-reference="eq:starParticleLagrangian">[eq:starParticleLagrangian]</a>,
 then no quantities are conserved. There are no symmetries, and due to
 the explicit time dependence, energy is not conserved either. On the
 other hand, if a star-particle is sufficiently far from the globular
 cluster, such that its motion is governed solely by the galactic
 potential, then conservation of <span class="math inline">\(L_z\)</span>
-is recovered.</p>
+is recovered .</p>
 <p>Hamilton’s equations thus provide the time evolution of the momenta
-and the positions. In cartesian coordaintes, the equations of motion for
+and the positions. In cartesian coordinates, the equations of motion for
 the cluster are: <span
 class="math display">\[\label{eq:equations_of_motion_cluster}
             \begin{aligned}
@@ -582,7 +583,7 @@ that in <span class="math inline">\(\Phi_{\mathrm{gc}}\)</span>, I
 explicitly write <span class="math inline">\(M_j,b_j\)</span> to
 indicate the mass and scale length of the <span
 class="math inline">\(j^{\mathrm{th}}\)</span> cluster. Each cluster has
-it’s own scale-length, which were computed from the half-mass radii
+its own scale-length, which were computed from the half-mass radii
 reported in <span class="citation"
 data-cites="2018MNRAS.478.1520B">Baumgardt and Hilker (2018)</span>.
 Since each cluster is modeled with a distinct scale radius, Newton’s
@@ -591,12 +592,9 @@ class="math inline">\(\dot{\mathbf{p}}_{ij} \neq
 -\dot{\mathbf{p}}_{ji}\)</span><a href="#fn2" class="footnote-ref"
 id="fnref2" role="doc-noteref"><sup>2</sup></a>. This violation is not
 dynamically significant in practice. Since each cluster is modeled as a
-Plummer sphere (see Section <a href="#sec:plummer_model"
-data-reference-type="ref"
-data-reference="sec:plummer_model">[sec:plummer_model]</a>), the force
-profile converges to that of a point mass at distances much greater than
-the scale radius. As a result, the approximation remains valid for most
-inter-cluster separations.</p>
+Plummer sphere, the force profile converges to that of a point mass at
+distances much greater than the scale radius. As a result, the
+approximation remains valid for most inter-cluster separations.</p>
 <p>Lastly, in terms of the stream generation for Chapter 5, equation <a
 href="#eq:equations_of_motion_stream" data-reference-type="ref"
 data-reference="eq:equations_of_motion_stream">[eq:equations_of_motion_stream]</a>
@@ -636,7 +634,7 @@ distribution, some simpler questions were addressed. For example, <span
 class="citation" data-cites="1927BAN.....4...91O">Oort (1927)</span>
 studied the motion of stars in the local solar neighborhood and showed
 that the Galaxy not only has net rotation, but also differential
-rotation—as opposed to solid-body rotation.</p>
+rotation – as opposed to solid-body rotation.</p>
 <p>The field has come a long way since then, and today we possess a
 number of viable models for the Galactic gravitational field. Much of
 our understanding owes to the fact that Poisson’s equation is linear:
@@ -677,9 +675,9 @@ dynamically mixed. This interdependence implies that the potential
 cannot be cleanly partitioned into independent contributions, and even
 with a complete dataset, degeneracies would persist. Their review
 illustrates this point by listing 37 parameter groups required to
-characterize the Galaxy—including the local standard of rest, Galactic
+characterize the Galaxy – including the local standard of rest, Galactic
 reference frame, and the geometric and density properties of various
-components—underscoring the system’s complexity.</p>
+components – underscoring the system’s complexity.</p>
 <p>The challenge is compounded by limitations in the available data. The
 Gaia mission has delivered the most comprehensive survey of the Galaxy
 to date <span class="citation"
@@ -717,11 +715,11 @@ et al. (2023)</span>.</figcaption>
 </figure>
 <p>In summary, while we now possess sophisticated models and rich
 datasets, constructing a comprehensive and precise model of the Milky
-Way’s gravitational field is still inherently difficult—constrained both
-by observational incompleteness and the physical complexity of a system
-in which all components are tightly coupled. Given these challenges, the
-construction of a Galactic model depends on the scientific question
-being asked.</p>
+Way’s gravitational field is still inherently difficult – constrained
+both by observational incompleteness and the physical complexity of a
+system in which all components are tightly coupled. Given these
+challenges, the construction of a Galactic model depends on the
+scientific question being asked.</p>
 <p>Consider <code>TRILEGAL</code> <span class="citation"
 data-cites="2005A&amp;A...436..895G">(Girardi et al. 2005)</span>. This
 model aims to answer the question: if I observe the sky from a given
@@ -835,8 +833,8 @@ and Katz 2023; Giovinazzi et al. 2025)</span>, and their detectable
 accelerations are not due to the Galactic gravitational field.</p>
 <p>As stated in the motivation for undertaking this thesis, stellar
 streams are particularly useful for recovering information about the
-galactic gravitational field. The stars within a stream are on similar
-orbits (but shifted in phase), and their orientation and curvtature
+Galactic gravitational field. The stars within a stream are on similar
+orbits (but shifted in phase), and their orientation and curvature
 encodes detailed information about the Galactic gravitational field.
 <span class="citation" data-cites="2024ApJ...967...89I">Ibata et al.
 (2024)</span> is the first study to use an ensemble of stellar streams
@@ -844,7 +842,7 @@ to directly fit a gravitational potential model of the Milky Way <span
 class="citation"
 data-cites="2010AAS...21532103L 2016ApJ...833...31B">(see also Law,
 Majewski, and Johnston 2010; Bovy et al. 2016, who also used streams to
-infer galactic potential parameters)</span>. Even in that case, <span
+infer Galactic potential parameters)</span>. Even in that case, <span
 class="citation" data-cites="2024ApJ...967...89I">Ibata et al.
 (2024)</span> needed to fix some of the model parameters. For example,
 they adopted the same bulge model as <span class="citation"
@@ -903,8 +901,8 @@ class="math inline">\(z_d\)</span>. <span class="citation"
 data-cites="2006A&amp;A...454..759P">Pohlen and Trujillo (2006)</span>
 continued this analysis and showed that a single exponential often
 cannot capture the true decay, and in many galaxies there is a
-transition radius where the profile can significantly change.</p>
-<p>A drawback of this model in equation <a href="#eq:exponentialDisk"
+transition radius where the profile can significantly change. A drawback
+of this model in equation <a href="#eq:exponentialDisk"
 data-reference-type="ref"
 data-reference="eq:exponentialDisk">[eq:exponentialDisk]</a> is that it
 cannot be integrated analytically to obtain the potential, since the
@@ -1053,7 +1051,7 @@ of Galactic models, especially when no single model is clearly
 preferred.</p>
 <h2 id="subsec:initialconditions">Generating a Globular Cluster</h2>
 <p>Now that the equations of motion established, and we have an accurate
-model for computing the gravitational force at each point in the galaxy,
+model for computing the gravitational force at each point in the Galaxy,
 what are the initial conditions? First, the initial conditions for the
 kinematics, mass, and size, of the globular clusters are taken
 observationally from <span class="citation"
@@ -1063,10 +1061,10 @@ data-cites="2017MNRAS.464.2174B 2019MNRAS.482.5138B 2020PASA...37...46B 2021MNRA
 catalog was assembled across a series of works, see also Baumgardt 2017;
 Baumgardt et al. 2019; Baumgardt, Sollima, and Hilker 2020; Baumgardt
 and Vasiliev 2021)</span><a href="#fn3" class="footnote-ref" id="fnref3"
-role="doc-noteref"><sup>3</sup></a>. Specifically, their estiamted total
+role="doc-noteref"><sup>3</sup></a>. Specifically, their estimated total
 masses, half-mass radii, as well as their on-sky ICRS coordinates, that
 we then convert to galacto-centric coordinates (see Chapters 4 and 5).
-What about intidial conditions for the stars within the cluster?</p>
+What about initial conditions for the stars within the cluster?</p>
 <p>We have chosen the gravitational potential of each cluster to follow
 a Plummer sphere, as given in Eq. <a href="#eq:plummer"
 data-reference-type="ref" data-reference="eq:plummer">[eq:plummer]</a>.
@@ -1171,7 +1169,7 @@ preferentially radial or circular. This is quantified by the anisotropy
 parameter: <span class="math inline">\(\beta = 1 - \frac{\sigma^2_\theta
 + \sigma^2_\phi}{\sigma^2_r}\)</span>, where <span
 class="math inline">\(\sigma\)</span> is the velocity dispersion with
-each spherical coordainte, latitude, longitude, and radius: <span
+each spherical coordinate, latitude, longitude, and radius: <span
 class="math inline">\(\theta\)</span>, <span
 class="math inline">\(\phi\)</span>, <span
 class="math inline">\(r\)</span>, respectively. In the simulations
