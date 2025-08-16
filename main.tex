@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{book}
+\documentclass[a4paper,12pt,twoside]{book}
 \input{config/parameters.tex}
 \input{config/macro.tex}
 \input{config/journals.tex}
@@ -28,6 +28,7 @@
 \addbibresource{mybib.bib}
 
 \begin{document}
+\selectlanguage{english}
 \pslcover{}
 \input{config/sapienza-cover.tex}
 \frontmatter
@@ -35,9 +36,9 @@
 
 \begin{singlespace} % réduction de l'interligne pour condenser
 % Utiliser \adjustmtc si un décalage apparaît dans les petites tables des matières
-\phantomsection \addcontentsline{toc}{chapter}{Table des matières}\adjustmtc
+\phantomsection \addcontentsline{toc}{chapter}{Table of contents}\adjustmtc
 \tableofcontents\newpage
-\renewcommand{\listfigurename}{Liste des figures}
+\renewcommand{\listfigurename}{List of Figures}
 \phantomsection\listoffigures\adjustmtc % Liste des figures
 \phantomsection\listoftables\adjustmtc % Liste des tableaux
 % {\printglossary[type=\acronymtype,title=Acronymes et anglicismes]}\adjustmtc
@@ -46,7 +47,7 @@
 \mainmatter
 \setcounter{page}{1}
 \chapter{Introduction}
-% \input{chapters/introduction}
+\input{chapters/introduction}
 
 \chapter{Theory}
 % \input{chapters/theory}
@@ -55,7 +56,7 @@
 % \input{chapters/numerics}
 
 \chapter{Tidal}
-\input{chapters/tidal}
+% \input{chapters/tidal}
 
 \chapter{Gapology}
 % \input{chapters/gapology}

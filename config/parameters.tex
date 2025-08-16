@@ -170,15 +170,18 @@
              date=year,
              backend=biber,
              url=false,
-             doi=false,
+             doi=true,
              isbn=false,%
              minbibnames=6, % nb min authors in biblio
              maxbibnames=6, % nb max authors in biblio
              maxcitenames=2,
              mincitenames=1, % nb min authors as textual
              maxalphanames=2, %nb author ref
-             style=alphabetic,%authoryear, numeric ,  alphabetic
+             style=authoryear,%authoryear, numeric ,  alphabetic
+             giveninits=true,
              sorting=nyt]{biblatex}
+
+\renewcommand*{\finalnamedelim}{\addspace\&\space}
 
 \renewcommand*{\bibfont}{\footnotesize}
 \setlength\bibitemsep{\itemsep}
