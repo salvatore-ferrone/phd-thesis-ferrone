@@ -447,11 +447,12 @@ correctness.</p></li>
 <p>For example, we can exploit the properties of Hamiltonain systems to
 design integrators. In this thesis, we implemented the Leapfrog
 integrator and the Forest-Ruth scheme <span class="citation"
-data-cites="bovy_inprep 1990PhyD...43..105F">(Bovy 2025a; Forest and
-Ruth 1990)</span>. These schemes are derived from the structure of
-Hamiltonian mechanics and are known as <em>symplectic integrators</em>.
-Before continuing, I would like to quote <span class="citation"
-data-cites="bovy_inprep">(Bovy 2025a)</span>:</p>
+data-cites="bovy_inprep 1990PhyD...43..105F">(<strong>bovy_inprep?</strong>;
+Forest and Ruth 1990)</span>. These schemes are derived from the
+structure of Hamiltonian mechanics and are known as <em>symplectic
+integrators</em>. Before continuing, I would like to quote <span
+class="citation"
+data-cites="bovy_inprep">(<strong>bovy_inprep?</strong>)</span>:</p>
 <blockquote>
 <p><em>Hamiltonian integrators are often called symplectic. This name
 comes from the fact that these integrators are Hamiltonian maps, whose
@@ -462,14 +463,14 @@ and we do not discuss this further.</em></p>
 </blockquote>
 <p>However, my curiosity about linguistics pushed me to delve further:
 What does <em>symplectic</em> mean? <span class="citation"
-data-cites="weyl1946classical">Weyl (1946)</span> coined the term
-because <em>complex</em> was already taken. The prefix latin
-<em>com</em>- refers to <em>together</em>, and <em>plexus</em> comes
-from greek meaning “woven” or “braided”. Symplectic translates exactly
-the same way: <em>sym</em>- is a Greek prefix for “together.” The idea
-remains the same: in Hamiltonian dynamics, the evolution of position and
-momentum are interdependent. This becomes clearer in matrix form: <span
-class="math display">\[\begin{bmatrix}
+data-cites="weyl1946classical">(<strong>weyl1946classical?</strong>)</span>
+coined the term because <em>complex</em> was already taken. The prefix
+latin <em>com</em>- refers to <em>together</em>, and <em>plexus</em>
+comes from greek meaning “woven” or “braided”. Symplectic translates
+exactly the same way: <em>sym</em>- is a Greek prefix for “together.”
+The idea remains the same: in Hamiltonian dynamics, the evolution of
+position and momentum are interdependent. This becomes clearer in matrix
+form: <span class="math display">\[\begin{bmatrix}
             \dot{\bf{q}}\\
             \dot{\bf{p}}
         \end{bmatrix}
@@ -1375,10 +1376,11 @@ faster execution for numerically intensive tasks, while
 Python—especially within Jupyter notebooks—offers a convenient
 environment for development, experimentation, and visualization.
 <code>F2py</code> stands for <em>Fortran to Python</em> <span
-class="citation" data-cites="peterson2009f2py">(Peterson 2009)</span>,
+class="citation"
+data-cites="peterson2009f2py">(<strong>peterson2009f2py?</strong>)</span>,
 and it is included as a module within NumPy <span class="citation"
-data-cites="numpy_f2py_manual 2020Natur.585..357H">(NumPy Developers
-2025; Harris et al. 2020)</span>. The name of the project,
+data-cites="numpy_f2py_manual 2020Natur.585..357H">(<strong>numpy_f2py_manual?</strong>;
+Harris et al. 2020)</span>. The name of the project,
 <code>tstrippy</code>, stands for <code>T</code>idal
 <code>Strip</code>ping in <code>Py</code>thon.</p>
 <p><code>F2py</code> supports Fortran 77, 90, and 95 standards, so we
@@ -1435,12 +1437,13 @@ Galactocentric reference frame.</p></li>
 adding new physics in the form of additional modules.</p>
 <p>To make the package installable and easy to distribute, I initially
 followed the guide by <span class="citation"
-data-cites="pythonpackagingguide">Bovy (2025b)</span>, which describes
-how to create a Python package using <code>setuptools</code>—the
-standard build system in the Python ecosystem. However, compatibility
-between <code>setuptools</code> and <code>f2py</code> was broken
-starting with NumPy <span class="math inline">\(&gt;\)</span> 1.22
-(released June 22, 2022<a href="#fn2" class="footnote-ref" id="fnref2"
+data-cites="pythonpackagingguide">(<strong>pythonpackagingguide?</strong>)</span>,
+which describes how to create a Python package using
+<code>setuptools</code>—the standard build system in the Python
+ecosystem. However, compatibility between <code>setuptools</code> and
+<code>f2py</code> was broken starting with NumPy <span
+class="math inline">\(&gt;\)</span> 1.22 (released June 22, 2022<a
+href="#fn2" class="footnote-ref" id="fnref2"
 role="doc-noteref"><sup>2</sup></a>) and Python <span
 class="math inline">\(&gt;\)</span> 3.9.18 (released June 24, 2024<a
 href="#fn3" class="footnote-ref" id="fnref3"
@@ -1454,7 +1457,7 @@ integration of Fortran code in NumPy-based packages. As of NumPy 1.23
 and later, <code>numpy.distutils</code> was deprecated, and with
 NumPy 2.0, it was removed entirely. The NumPy developers recommended
 migrating to <code>meson</code> <span class="citation"
-data-cites="meson_manual">(Meson Developers 2025)</span> or
+data-cites="meson_manual">(<strong>meson_manual?</strong>)</span> or
 <code>Cmake</code>.</p>
 <p>To address these issues, I migrated the build process to
 <code>meson</code>, a language-agnostic build system capable of
@@ -1685,15 +1688,6 @@ Bovy, Jo. 2015. <span>“<span class="nocase">galpy: A python Library for
 Galactic Dynamics</span>”</span> 216 (2): 29. <a
 href="https://doi.org/10.1088/0067-0049/216/2/29">https://doi.org/10.1088/0067-0049/216/2/29</a>.
 </div>
-<div id="ref-bovy_inprep" class="csl-entry" role="listitem">
-———. 2025a. <em>Dynamics and Astrophysics of Galaxies</em>. Princeton,
-NJ: Princeton University Press.
-</div>
-<div id="ref-pythonpackagingguide" class="csl-entry" role="listitem">
-———. 2025b. <span>“Python Packaging User Guide.”</span> <a
-href="https://pythonpackaging.info/"
-class="uri">https://pythonpackaging.info/</a>.
-</div>
 <div id="ref-1914PhRv....4..345B" class="csl-entry" role="listitem">
 Buckingham, E. 1914. <span>“<span class="nocase">On Physically Similar
 Systems; Illustrations of the Use of Dimensional
@@ -1749,28 +1743,11 @@ class="nocase">Analytical Potentials for Barred Galaxies</span>”</span>
 397 (September):44. <a
 href="https://doi.org/10.1086/171764">https://doi.org/10.1086/171764</a>.
 </div>
-<div id="ref-meson_manual" class="csl-entry" role="listitem">
-Meson Developers. 2025. <span>“The Meson Build System: Manual and
-Reference Documentation.”</span> <a
-href="https://mesonbuild.com/index.html"
-class="uri">https://mesonbuild.com/index.html</a>.
-</div>
-<div id="ref-numpy_f2py_manual" class="csl-entry" role="listitem">
-NumPy Developers. 2025. <span>“F2PY User Guide and Reference
-Manual.”</span> <a href="https://numpy.org/doc/stable/f2py/"
-class="uri">https://numpy.org/doc/stable/f2py/</a>.
-</div>
 <div id="ref-2013A&amp;A...557A..84P" class="csl-entry" role="listitem">
 Pelupessy, F. I., A. van Elteren, N. de Vries, S. L. W. McMillan, N.
 Drost, and S. F. Portegies Zwart. 2013. <span>“<span>The Astrophysical
 Multipurpose Software Environment</span>”</span> 557 (September):A84. <a
 href="https://doi.org/10.1051/0004-6361/201321252">https://doi.org/10.1051/0004-6361/201321252</a>.
-</div>
-<div id="ref-peterson2009f2py" class="csl-entry" role="listitem">
-Peterson, Pearu. 2009. <span>“F2PY: A Tool for Connecting Fortran and
-Python Programs.”</span> <em>International Journal of Computational
-Science and Engineering</em> 4 (4): 296–305. <a
-href="https://doi.org/10.1504/IJCSE.2009.029165">https://doi.org/10.1504/IJCSE.2009.029165</a>.
 </div>
 <div id="ref-2017A&amp;A...598A..66P" class="csl-entry" role="listitem">
 Pouliasis, E., P. Di Matteo, and M. Haywood. 2017. <span>“<span
@@ -1808,10 +1785,6 @@ Berczik, M. B. N. Kouwenhoven, and Thorsten Naab. 2015. <span>“<span
 class="nocase">NBODY6++GPU: ready for the gravitational million-body
 problem</span>”</span> 450 (4): 4070–80. <a
 href="https://doi.org/10.1093/mnras/stv817">https://doi.org/10.1093/mnras/stv817</a>.
-</div>
-<div id="ref-weyl1946classical" class="csl-entry" role="listitem">
-Weyl, Hermann. 1946. <em>The Classical Groups: Their Invariants and
-Representations</em>. Vol. 1. Princeton university press.
 </div>
 </div>
 <section id="footnotes" class="footnotes footnotes-end-of-document"

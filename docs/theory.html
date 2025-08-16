@@ -248,25 +248,25 @@ time step.</p>
 operates at approximately one exaflop, or <span
 class="math inline">\(10^{18}\)</span> FLOPS (Floating Point Operations
 Per Second) <span class="citation"
-data-cites="atchley2023frontier">(Atchley et al. 2023)</span>. Assuming
-– conservatively – that each pairwise computation requires a single
-FLOP, a full <span class="math inline">\(N\)</span>-body computation of
-the Galaxy at one time step would still require several hours. While
-this may seem manageable, a single time step is insufficient for
-modeling the long-term evolution of the system, which could require
-millions of steps or more. Dedicating an entire exascale machine to such
-a task is therefore a considerable demand.</p>
+data-cites="atchley2023frontier">(<strong>atchley2023frontier?</strong>)</span>.
+Assuming – conservatively – that each pairwise computation requires a
+single FLOP, a full <span class="math inline">\(N\)</span>-body
+computation of the Galaxy at one time step would still require several
+hours. While this may seem manageable, a single time step is
+insufficient for modeling the long-term evolution of the system, which
+could require millions of steps or more. Dedicating an entire exascale
+machine to such a task is therefore a considerable demand.</p>
 <p>Moreover, the cost of power is non-negligible. At an estimated rate
 of <span class="math inline">\(\sim
 0.10~\mathrm{USD}/\mathrm{kWh}\)</span> <span class="citation"
-data-cites="table20245">(Table 2024)</span>, and with Frontier consuming
-roughly 21 MW, a single 6-hour computation would cost approximately
-12,600 USD. Running the system for a full day would amount to about
-50,000 USD, or  42,000 EUR <span class="citation"
-data-cites="ECB_USD_EUR_2025">(European Central Bank 2025)</span>. This
-is nearly twice the annual salary of a PhD student in France <span
-class="citation" data-cites="MESR_financement_doctoral">(Ministere de
-l’Enseignement superieur et de la Recherche 2025)</span>.</p>
+data-cites="table20245">(<strong>table20245?</strong>)</span>, and with
+Frontier consuming roughly 21 MW, a single 6-hour computation would cost
+approximately 12,600 USD. Running the system for a full day would amount
+to about 50,000 USD, or  42,000 EUR <span class="citation"
+data-cites="ECB_USD_EUR_2025">(<strong>ECB_USD_EUR_2025?</strong>)</span>.
+This is nearly twice the annual salary of a PhD student in France <span
+class="citation"
+data-cites="MESR_financement_doctoral">(<strong>MESR_financement_doctoral?</strong>)</span>.</p>
 <p>Throughout this thesis, I have access to the Paris observatory’s
 super computer<a href="#fn1" class="footnote-ref" id="fnref1"
 role="doc-noteref"><sup>1</sup></a>, which currently has about 85 nodes.
@@ -274,9 +274,10 @@ However, as a humorous aside, consider attempting this computation on a
 personal research laptop, such as a MacBook Air with an M2 processor.
 Its estimated speed of <span class="math inline">\(\sim\)</span>0.1
 TFLOPS (i.e., <span class="math inline">\(10^{11}\)</span> FLOPS) <span
-class="citation" data-cites="hubner2025apple">(Hübner et al.
-2025)</span> is approximately 10 million times slower than Frontier. A
-single time step would thus take over 1,500 years.</p>
+class="citation"
+data-cites="hubner2025apple">(<strong>hubner2025apple?</strong>)</span>
+is approximately 10 million times slower than Frontier. A single time
+step would thus take over 1,500 years.</p>
 <p>Clearly, we require a more tractable modeling approach for studying
 the evolution of globular clusters and the formation of stellar streams.
 Fortunately, it is well justified to approximate all the stars in the
@@ -295,8 +296,8 @@ data-reference="sec:twoBodyRelaxation">3.1.1</a>.</p>
 <p>In globular clusters, where stars are densely packed into a
 relatively small volume, stellar encounters become significant over the
 system’s lifetime. According to Chapter 5.1 of <span class="citation"
-data-cites="bovy_inprep">Bovy (2025)</span>, the relaxation timescale
-within globular clusters is typically <span
+data-cites="bovy_inprep">(<strong>bovy_inprep?</strong>)</span>, the
+relaxation timescale within globular clusters is typically <span
 class="math inline">\(\sim1\)</span> Gyr. To contextualize this, we must
 consider the orbital period of a typical star within a cluster, and the
 age of a cluster. First, the characteristic time for a star to traverse
@@ -388,11 +389,12 @@ class="math inline">\(\Phi\)</span> is the gravitational potential. We
 use Newtonian mechanics throughout this work because <span
 class="math inline">\(\Phi &lt;&lt; c^2\)</span> in all relevant
 regimes, meaning General Relativity is not required <span
-class="citation" data-cites="bovy_inprep">(see Appendix C of Bovy
-2025)</span>. Poisson’s equation assumes Newton’s postulate that
-gravitational forces act instantaneously and that masses attract each
-other along the line connecting them. <a href="#fn2"
-class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+class="citation" data-cites="bovy_inprep">(see Appendix C of
+<strong>bovy_inprep?</strong>)</span>. Poisson’s equation assumes
+Newton’s postulate that gravitational forces act instantaneously and
+that masses attract each other along the line connecting them. <a
+href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a></p>
 <p>Instead of writing down the gravitational forces through Newton’s
 second law, I will write down Hamilton’s equations derived from the
 variational principle of Lagrangian mechanics. The full interacting
@@ -1211,8 +1213,9 @@ to reconstruct <span class="math inline">\(f(E)\)</span> from a known
 <span class="math inline">\(\rho(r)\)</span>. This technique is
 presented in <span class="citation"
 data-cites="2008gady.book.....B">Binney and Tremaine (2008)</span> and
-<span class="citation" data-cites="bovy_inprep">Bovy (2025)</span>. At
-this point, one can obtain a complete analytic expression for the
+<span class="citation"
+data-cites="bovy_inprep">(<strong>bovy_inprep?</strong>)</span>. At this
+point, one can obtain a complete analytic expression for the
 distribution function. For a Plummer sphere, this distribution function
 is <span class="math inline">\(f = C (-E)^{7/2}\)</span>, where <span
 class="math inline">\(C\)</span> is a constant that ensures <span
@@ -1375,25 +1378,26 @@ data-reference="sec:thePlanarCircularRestrictedThreeBodyProblem">2.1</a>,
 I present the circular restricted three-body problem, the simplest
 formalism for understanding the types of motion a massless body can
 undergo when influenced by two significantly more massive ones,
-following <span class="citation" data-cites="koon2000dynamical">Koon et
-al. (2000)</span>. In Section <a href="#sec:tidalForce"
-data-reference-type="ref" data-reference="sec:tidalForce">2.2</a>, I
-introduce the tidal tensor, which explains how and why the Galactic
-field eventually strips stars from their host clusters. This section is
-largely inspired by the works of <span class="citation"
-data-cites="2004AJ....127.2753D">Dehnen et al. (2004)</span> and <span
-class="citation" data-cites="bovy_inprep">Bovy (2025)</span>. In
+following <span class="citation"
+data-cites="koon2000dynamical">(<strong>koon2000dynamical?</strong>)</span>.
+In Section <a href="#sec:tidalForce" data-reference-type="ref"
+data-reference="sec:tidalForce">2.2</a>, I introduce the tidal tensor,
+which explains how and why the Galactic field eventually strips stars
+from their host clusters. This section is largely inspired by the works
+of <span class="citation" data-cites="2004AJ....127.2753D">Dehnen et al.
+(2004)</span> and <span class="citation"
+data-cites="bovy_inprep">(<strong>bovy_inprep?</strong>)</span>. In
 Section <a href="#sec:phaseMixing" data-reference-type="ref"
 data-reference="sec:phaseMixing">2.3</a>, I discuss phase mixing, which
 describes the evolution of escaped stars and how they come to form
 coherent stellar streams. This treatment is also primarily based on
-<span class="citation" data-cites="bovy_inprep">(see chatper 19.4 of
-Bovy; 2025)</span>, although I present the phenomenon in terms of
-orbital energy. Finally, I introduce the study of <em>gaps</em>—how
-perturbations can affect a stream and generate observable gaps within
-it. This topic is not yet formalized in textbooks and remains an active
-area of research. I primarily synthesize the works of <span
-class="citation"
+<span class="citation" data-cites="bovy_inprep">(see chatper 19.4 of ;
+<strong>bovy_inprep?</strong>)</span>, although I present the phenomenon
+in terms of orbital energy. Finally, I introduce the study of
+<em>gaps</em>—how perturbations can affect a stream and generate
+observable gaps within it. This topic is not yet formalized in textbooks
+and remains an active area of research. I primarily synthesize the works
+of <span class="citation"
 data-cites="2012ApJ...748...20C 2013ApJ...775...90C">Carlberg (2012,
 2013)</span>, <span class="citation"
 data-cites="2015MNRAS.450.1136E">Erkal and Belokurov (2015)</span>,
@@ -1528,17 +1532,18 @@ src="images/CR3BP_forbidden_region_2.png" alt="image" /></p>
 <p><img src="images/CR3BP_forbidden_region_3.png" alt="image" /> <img
 src="images/CR3BP_forbidden_region_4.png" alt="image" /></p>
 <figcaption>A reproduction of Fig. 2.4.2 from <span class="citation"
-data-cites="koon2000dynamical">Koon et al. (2000)</span>. Each plot is
-shown in the non-inertial reference frame rotating with the orbital
-frequency of the primary and secondary about their common center of
-mass. In this example, the mass ratio is <span class="math inline">\(m_1
-= 10 m_2\)</span>. The gray regions represent areas inaccessible to the
-test particle for a given energy. In the first case, where <span
-class="math inline">\(E &lt; E_1\)</span>, the particle remains confined
-to orbit either around the primary or the secondary, depending on its
-initial position. As the particle’s energy increases, more of the <span
-class="math inline">\(xy\)</span>-plane becomes accessible. The narrow
-passage between <span class="math inline">\(m_1\)</span> and <span
+data-cites="koon2000dynamical">(<strong>koon2000dynamical?</strong>)</span>.
+Each plot is shown in the non-inertial reference frame rotating with the
+orbital frequency of the primary and secondary about their common center
+of mass. In this example, the mass ratio is <span
+class="math inline">\(m_1 = 10 m_2\)</span>. The gray regions represent
+areas inaccessible to the test particle for a given energy. In the first
+case, where <span class="math inline">\(E &lt; E_1\)</span>, the
+particle remains confined to orbit either around the primary or the
+secondary, depending on its initial position. As the particle’s energy
+increases, more of the <span class="math inline">\(xy\)</span>-plane
+becomes accessible. The narrow passage between <span
+class="math inline">\(m_1\)</span> and <span
 class="math inline">\(m_2\)</span> corresponds to the <span
 class="math inline">\(L_1\)</span> Lagrange point, while the choke point
 allowing escape to the exterior when <span class="math inline">\(E &gt;
@@ -2983,13 +2988,6 @@ Cunningham, Andrew Wetzel, and Nicolás Garavito-Camargo. 2022.
 Space</span>”</span> 939 (1): 2. <a
 href="https://doi.org/10.3847/1538-4357/ac93fb">https://doi.org/10.3847/1538-4357/ac93fb</a>.
 </div>
-<div id="ref-atchley2023frontier" class="csl-entry" role="listitem">
-Atchley, Scott, Christopher Zimmer, John Lange, David Bernholdt,
-Veronica Melesse Vergara, Thomas Beck, Michael Brim, et al. 2023.
-<span>“Frontier: Exploring Exascale.”</span> In <em>Proceedings of the
-International Conference for High Performance Computing, Networking,
-Storage and Analysis</em>, 1–16.
-</div>
 <div id="ref-2018MNRAS.474.2479B" class="csl-entry" role="listitem">
 Balbinot, Eduardo, and Mark Gieles. 2018. <span>“<span
 class="nocase">The devil is in the tails: the role of globular cluster
@@ -3077,10 +3075,6 @@ Dark-Matter Halos with Stellar Streams</span>”</span> 116 (12): 121301.
 <a
 href="https://doi.org/10.1103/PhysRevLett.116.121301">https://doi.org/10.1103/PhysRevLett.116.121301</a>.
 </div>
-<div id="ref-bovy_inprep" class="csl-entry" role="listitem">
-———. 2025. <em>Dynamics and Astrophysics of Galaxies</em>. Princeton,
-NJ: Princeton University Press.
-</div>
 <div id="ref-2016ApJ...833...31B" class="csl-entry" role="listitem">
 Bovy, Jo, Anita Bahmanyar, Tobias K. Fritz, and Nitya Kallivayalil.
 2016. <span>“<span class="nocase">The Shape of the Inner Milky Way Halo
@@ -3160,11 +3154,6 @@ Erkal, Denis, and Vasily Belokurov. 2015. <span>“<span
 class="nocase">Forensics of subhalo-stream encounters: the three phases
 of gap growth</span>”</span> 450 (1): 1136–49. <a
 href="https://doi.org/10.1093/mnras/stv655">https://doi.org/10.1093/mnras/stv655</a>.
-</div>
-<div id="ref-ECB_USD_EUR_2025" class="csl-entry" role="listitem">
-European Central Bank. 2025. <span>“<span class="nocase">Euro foreign
-exchange reference rate US dollar: 1 EUR = 1.1726 USD</span>.”</span>
-Retrieved from ECB website.
 </div>
 <div id="ref-2014IPNPR.196C...1F" class="csl-entry" role="listitem">
 Folkner, W. M., J. G. Williams, D. H. Boggs, R. S. Park, and P.
@@ -3258,12 +3247,6 @@ Hubble, E. P. 1926. <span>“<span class="nocase">Extragalactic
 nebulae.</span>”</span> 64 (December):321–69. <a
 href="https://doi.org/10.1086/143018">https://doi.org/10.1086/143018</a>.
 </div>
-<div id="ref-hubner2025apple" class="csl-entry" role="listitem">
-Hübner, Paul, Andong Hu, Ivy Peng, and Stefano Markidis. 2025.
-<span>“Apple Vs. Oranges: Evaluating the Apple Silicon m-Series SoCs for
-HPC Performance and Efficiency.”</span> <em>arXiv Preprint
-arXiv:2502.05317</em>.
-</div>
 <div id="ref-2025NewAR.10001721H" class="csl-entry" role="listitem">
 Hunt, Jason A. S., and Eugene Vasiliev. 2025. <span>“<span
 class="nocase">Milky Way dynamics in light of Gaia</span>”</span> 100
@@ -3312,12 +3295,6 @@ Allison Chevis. 2025. <span>“<span class="nocase">SYNTHPOP: A New
 Framework for Synthetic Milky Way Population Generation</span>”</span>
 169 (6): 317. <a
 href="https://doi.org/10.3847/1538-3881/adcd7a">https://doi.org/10.3847/1538-3881/adcd7a</a>.
-</div>
-<div id="ref-koon2000dynamical" class="csl-entry" role="listitem">
-Koon, Wang Sang, Martin W Lo, Jerrold E Marsden, and Shane D Ross. 2000.
-<span>“Dynamical Systems, the Three-Body Problem and Space Mission
-Design.”</span> In <em>Equadiff 99: (In 2 Volumes)</em>, 1167–81. World
-Scientific.
 </div>
 <div id="ref-2001MNRAS.322..231K" class="csl-entry" role="listitem">
 Kroupa, Pavel. 2001. <span>“<span class="nocase">On the variation of the
@@ -3440,12 +3417,6 @@ Meylan, G., and D. C. Heggie. 1997. <span>“<span class="nocase">Internal
 dynamics of globular clusters</span>”</span> 8 (January):1–143. <a
 href="https://doi.org/10.1007/s001590050008">https://doi.org/10.1007/s001590050008</a>.
 </div>
-<div id="ref-MESR_financement_doctoral" class="csl-entry"
-role="listitem">
-Ministere de l’Enseignement superieur et de la Recherche. 2025.
-<span>“Le Financement Doctoral.”</span> <a
-href="https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-46472">https://www.enseignementsup-recherche.gouv.fr/fr/le-financement-doctoral-46472</a>.
-</div>
 <div id="ref-1975PASJ...27..533M" class="csl-entry" role="listitem">
 Miyamoto, M., and R. Nagai. 1975. <span>“<span
 class="nocase">Three-dimensional models for the distribution of mass in
@@ -3544,17 +3515,12 @@ formation history of the Milky Way disc(s) from chemical
 abundances</span>”</span> 578 (June):A87. <a
 href="https://doi.org/10.1051/0004-6361/201424281">https://doi.org/10.1051/0004-6361/201424281</a>.
 </div>
-<div id="ref-table20245" class="csl-entry" role="listitem">
-Table, EIA. 2024. <span>“5.6. A. Average Price of Electricity to
-Ultimate Customers by End-Use Sector.”</span> <em>US Energy Information
-Administration</em>.
-</div>
 <div id="ref-2013ApJ...775..134V" class="csl-entry" role="listitem">
 VandenBerg, Don A., K. Brogaard, R. Leaman, and L. Casagrande. 2013.
 <span>“<span class="nocase">The Ages of 55 Globular Clusters as
-Determined Using an Improved Method along with Color-Magnitude Diagram
-Constraints, and Their Implications for Broader Issues</span>”</span>
-775 (2): 134. <a
+Determined Using an Improved VĤB_TO Method along with Color-Magnitude
+Diagram Constraints, and Their Implications for Broader
+Issues</span>”</span> 775 (2): 134. <a
 href="https://doi.org/10.1088/0004-637X/775/2/134">https://doi.org/10.1088/0004-637X/775/2/134</a>.
 </div>
 <div id="ref-2021MNRAS.505.5978V" class="csl-entry" role="listitem">

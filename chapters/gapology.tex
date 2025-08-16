@@ -1,6 +1,6 @@
-\reference{Ferrone, Salvatore, Marco Montuori, Paola Di Matteo, Alessandra Mastrobuono-Battisti, Rodrigo Ibata, Paolo Bianchini, Sergey Khoperskov, et al. 2025. ``Gaps in stellar streams as a result of globular cluster flybys: The case of Palomar 5'' 699 (July):A289. https://doi.org/10.1051/0004-6361/202553923.}
+\reference{Ferrone, Salvatore, Marco Montuori, Paola Di Matteo, Alessandra Mastrobuono-Battisti, Rodrigo Ibata, Paolo Bianchini, Sergey Khoperskov, et al. 2025. ``Gaps in stellar streams as a result of globular cluster flybys: The case of Palomar 5'' 699 (July):A289. \url{https://doi.org/10.1051/0004-6361/202553923}.}
 
-In this work, we investigated the possibility of globular clusters creating gaps in the Palomar~5 stellar stream. 
+In this work, we investigated the possibility that globular clusters can create gaps in the Palomar~5 stellar stream. This project began during the development phase of our code, when we first introduced perturbers. Initially, we intended these perturbers to represent dark matter subhalos or giant molecular clouds. However, before generating a new dataset, we tested the code using the catalog of globular clusters. To our surprise, we found that several clusters produced clear gaps in the Palomar~5 stream, which motivated us to carry out a detailed analysis. Here, we report the frequency of interactions that generate significant gaps, and identify the clusters responsible for these perturbations. Finally, in the supplementary material, we discuss the persistence of these gaps in light of the velocity distribution within the stream.
 
 \section{Introduction}
     Stellar streams are several-kiloparsecs-long structures formed by the tidal disruption of globular clusters or dwarf galaxies orbiting a host galaxy. These tidal forces arise due to differential gravitational pulls across extended objects, causing stars farther from the galactic center to lag behind, while those closer to the center speed up. This stretching creates two tidal tails that trace the cluster's orbit unless in the closest vicinity to the object \citep{2007ApJ...659.1212M}. 
@@ -30,7 +30,7 @@ In this work, we investigated the possibility of globular clusters creating gaps
     \begin{figure*}
         \centering
         \includegraphics[width=\linewidth]{images/stream_on_sky_Pal5_monte-carlo-009_pouliasis2017pii-GCNBody_pouliasis2017pii.png}
-        \caption{Simulated Palomar~5 stream created by modeling the host cluster as a Plummer sphere disrupting within an axis-symmetric Galactic potential plus the gravitational effect of 164 other Galactic globular clusters. The top panel shows the distribution of star particles that escaped the cluster due to tidal forces. The bottom panel shows the 1D density profile marginalized over longitude. The gray fill shows a reference simulation that uses the same conditions to produce the stream but does not include the other globular clusters. The large central peak in density is composed of particles still bound to Palomar~5. $\ell_0,b_0$ are located Palomar~5's cluster's center of mass. Two large gaps are present due to the passage of two globular clusters. $N_p$ indicates the number of particles in a bin, while $N$ is the total number of particles, which is 100,000.}
+        \caption[Simulated Gap in the Palomar~5 stream from two Globular Clusters]{Simulated Palomar~5 stream created by modeling the host cluster as a Plummer sphere disrupting within an axis-symmetric Galactic potential plus the gravitational effect of 164 other Galactic globular clusters. The top panel shows the distribution of star particles that escaped the cluster due to tidal forces. The bottom panel shows the 1D density profile marginalized over longitude. The gray fill shows a reference simulation that uses the same conditions to produce the stream but does not include the other globular clusters. The large central peak in density is composed of particles still bound to Palomar~5. $\ell_0,b_0$ are located Palomar~5's cluster's center of mass. Two large gaps are present due to the passage of two globular clusters. $N_p$ indicates the number of particles in a bin, while $N$ is the total number of particles, which is 100,000.}
         \label{fig:stream_on_sky}
     \end{figure*}
 
@@ -72,7 +72,7 @@ In this work, we investigated the possibility of globular clusters creating gaps
             \begin{center}
                 \begin{table}[h]
                     \centering
-                    \caption{Parameters determining the data volume. $N_p$  is the number of particles, $N_{\mathrm{ts}}$ is the number of time-steps saved, $N_{\mathrm{phase}}$ is the number of phase space coordinates, and $N_{\mathrm{sampling}}$ is the number of Monte-Carlo samplings of the initial conditions.}
+                    \caption[]{Parameters determining the data volume. $N_p$  is the number of particles, $N_{\mathrm{ts}}$ is the number of time-steps saved, $N_{\mathrm{phase}}$ is the number of phase space coordinates, and $N_{\mathrm{sampling}}$ is the number of Monte-Carlo samplings of the initial conditions.}
                     \label{tab:data_volume}
                     \begin{tabular}{|c|c|c|c|}
                         \hline
@@ -114,14 +114,14 @@ In this work, we investigated the possibility of globular clusters creating gaps
         \begin{figure*}
             \centering
             \includegraphics[width=\linewidth]{images/decomposition-monte-carlo-009-with-3-gaps-domidpoint-shift.png}
-            \caption{Density maps of Palomar~5's stream in the tail coordinate system, where $x\prime$ is the integrated arc length along the cluster's orbit and $y\prime$ is the distance within the orbital plane. The color scale represents normalized particle counts (total: 100,000). The top panel shows the \texttt{full} simulation with three gaps on the stream's right-hand side. The next three panels depict simulations with identical initial conditions but exclude the gravitational influence of all clusters except those forming a given gap. The \texttt{Reference} simulation omits the influence from other globular clusters. The bottom panel compares Palomar~5's observed stream length to the \texttt{Reference} simulation, using the same Monte-Carlo realization as Fig.~\ref{fig:stream_on_sky} and \texttt{Sampling~009} (as seen in the \href{https://doi.org/10.5281/zenodo.15528089}{online appendix}).}
+            \caption[Decomposition of the gaps by the various perturbers]{Density maps of Palomar~5's stream in the tail coordinate system, where $x\prime$ is the integrated arc length along the cluster's orbit and $y\prime$ is the distance within the orbital plane. The color scale represents normalized particle counts (total: 100,000). The top panel shows the \texttt{full} simulation with three gaps on the stream's right-hand side. The next three panels depict simulations with identical initial conditions but exclude the gravitational influence of all clusters except those forming a given gap. The \texttt{Reference} simulation omits the influence from other globular clusters. The bottom panel compares Palomar~5's observed stream length to the \texttt{Reference} simulation, using the same Monte-Carlo realization as Fig.~\ref{fig:stream_on_sky} and \texttt{Sampling~009} (as seen in the \href{https://doi.org/10.5281/zenodo.15528089}{online appendix}).}
             \label{fig:decomposition}
         \end{figure*} 
     
         \begin{figure*}
             \centering
             \includegraphics[width=\linewidth]{images/histogram_impact_time.png}
-            \caption{Simulation time when the impacts occurred for all gap-causing flybys summed over all 50 simulations. Each perturbing cluster is labeled and color-consistent. We report the time axis in simulation units, with 1~s~kpc~km~$^{-1}$ corresponding to roughly 1~Gyr. We note that the plot breaks the y-axis to accommodate the large number of encounters from NGC~2808 without overshadowing the other interactions.}
+            \caption[Simulation time when the impacts occurred for all gap-causing flybys]{Simulation time when the impacts occurred for all gap-causing flybys summed over all 50 simulations. Each perturbing cluster is labeled and color-consistent. We report the time axis in simulation units, with 1~s~kpc~km~$^{-1}$ corresponding to roughly 1~Gyr. We note that the plot breaks the y-axis to accommodate the large number of encounters from NGC~2808 without overshadowing the other interactions.}
             \label{fig:histogram_impact_time}
         \end{figure*}
 
@@ -148,7 +148,7 @@ In this work, we investigated the possibility of globular clusters creating gaps
         By applying the methodology described above to the whole set of simulations, we can reconstruct the history of close passages of Galactic globular clusters to Palomar~5's stream in the last 5~Gyr, which -- we remind the reader -- is the time interval investigated in our simulations.  Fig.~\ref{fig:histogram_impact_time} and Table~\ref{tab:gaps_per_perturber} present results of this analysis. NGC~2808 impacted Palomar~5's stream about 200 Myr ago in 44 out of 50 simulations, creating a small gap at a similar position to the one reported in Fig.~\ref{fig:decomposition} in each case. Since this interaction occurred less than one orbital period ago, despite the uncertainties, the orbital solutions remain similar and thus produce consistent results across all simulations. However, as we continue to turn back time further, the uncertainties in the initial conditions allow the various orbital solutions to diverge from one another. Thus, in one configuration, a cluster can impact the stream at a given time, and yet at the same moment, in a different set of initial conditions, it could be on the other side of the Galaxy. We will discuss the necessary conditions for creating a gap in Supplemental Material~\ref{sec:gaps_vs_gcmass}. 
         \begin{table}[h]
             \centering
-            \caption{Number of gaps created by each perturber across all 50 simulations. These data are color-coded and illustrated in Fig.~\ref{fig:histogram_impact_time}.}
+            \caption[Number of gaps created by each perturber across all 50 simulations]{Number of gaps created by each perturber across all 50 simulations. These data are color-coded and illustrated in Fig.~\ref{fig:histogram_impact_time}.}
             \label{tab:gaps_per_perturber}
             \begin{tabular}{|ll|ll|ll|}
             \hline
@@ -166,7 +166,7 @@ In this work, we investigated the possibility of globular clusters creating gaps
 
         \begin{table}[h]
             \centering
-            \caption{Occurrence of gaps in Palomar~5 streams, in our simulations. More specifically, the table reports the number of simulations (second row) for a given number of gaps (first row).}\label{table:gap_distribution}
+            \caption[Occurrence of gaps in Palomar~5 streams, in our simulations]{Occurrence of gaps in Palomar~5 streams, in our simulations. More specifically, the table reports the number of simulations (second row) for a given number of gaps (first row).}\label{table:gap_distribution}
             \begin{tabular}{|l|c|c|c|c|c|}
                 \hline
                 Number of Gaps & 0 & 1 & 2 & 3 & 4 \\
@@ -184,7 +184,7 @@ In this work, we investigated the possibility of globular clusters creating gaps
         \begin{figure}
             \centering
             \includegraphics[width=.7\linewidth]{images/gap_creation_rate.png}
-            \caption{Distribution of the number of gaps normalized over the total integration time and unit stream length as described by Eq.~\ref{eq:gap_creation_rate} for the whole set of 50 \texttt{full} simulations. }
+            \caption[Normalized distribution of the number of gaps]{Distribution of the number of gaps normalized over the total integration time and unit stream length as described by Eq.~\ref{eq:gap_creation_rate} for the whole set of 50 \texttt{full} simulations. }
             \label{fig:gapcreationrate}
         \end{figure}
 
@@ -195,7 +195,7 @@ In this work, we investigated the possibility of globular clusters creating gaps
         \begin{figure*}
             \centering
             \includegraphics[width=\linewidth]{images/impact_geometry_statistics.png}
-            \caption{Distribution and relationship between the impact variables from Eq.~\ref{eq:change_in_momentum} for all close flybys considered. The colors indicate the encounters that cause gaps and are the same as Fig.~\ref{fig:histogram_impact_time}, with white edges for visibility and binned in red for the histograms. The black histogram shows the close encounters that did not lead to gaps. Indeed, no obvious trend has emerged that delimits these planes into gap-producing or non-gap-producing ones.}
+            \caption[Distribution and relationship between the impact variables for all close flybys]{Distribution and relationship between the impact variables from Eq.~\ref{eq:change_in_momentum} for all close flybys considered. The colors indicate the encounters that cause gaps and are the same as Fig.~\ref{fig:histogram_impact_time}, with white edges for visibility and binned in red for the histograms. The black histogram shows the close encounters that did not lead to gaps. Indeed, no obvious trend has emerged that delimits these planes into gap-producing or non-gap-producing ones.}
             \label{fig:impact_geometry_statistics}    
         \end{figure*}    
 
@@ -217,7 +217,7 @@ In this work, we investigated the possibility of globular clusters creating gaps
         \begin{figure}
             \centering
             \includegraphics[width=.7\linewidth]{images/impact_geometry_statistics_deltaP.png}
-            \caption{Distribution of imparted change in momentum (per unit mass) from a cluster flyby given by Eq.~\ref{eq:change_in_momentum}. The data set includes the top 5 strongest flybys from each simulation. Those that cause gaps are colored, stacked, and overlaid atop those that do not — this is the gray distribution. We note the meaning of the colors is the same as in Fig.~\ref{fig:histogram_impact_time}.}
+            \caption[Distribution of imparted change in momentum for all close encounters]{Distribution of imparted change in momentum (per unit mass) from a cluster flyby given by Eq.~\ref{eq:change_in_momentum}. The data set includes the top 5 strongest flybys from each simulation. Those that cause gaps are colored, stacked, and overlaid atop those that do not — this is the gray distribution. We note the meaning of the colors is the same as in Fig.~\ref{fig:histogram_impact_time}.}
             \label{fig:deltap}
         \end{figure}
 
@@ -227,7 +227,7 @@ In this work, we investigated the possibility of globular clusters creating gaps
             \includegraphics[width=0.45\linewidth]{images/mass_size_plane.png}
             \includegraphics[width=0.45\linewidth]{images/impact_stats_phase_space_xy.png}
             \includegraphics[width=0.45\linewidth]{images/impact_stats_phase_space.png}
-            \caption{\textit{Top left:} Energy-angular momentum space of the globular clusters in the simulations, with 50~$\times$~165 data points representing all sampled initial conditions. Clusters impacting Palomar~5 are shown with colored markers, large for the samplings that induce a gap and small for those that do not. The small gray dots represent the non-gap-causing clusters. The 50 white dots indicate Palomar~5's sampled initial conditions for the current day position. The light-pink dashed curve shows the circular velocity curve. \textit{Top right:} Mass-size plane of the globular clusters in the simulations, with uncertainties on the masses indicated as vertical lines. We remind the reader that the globular cluster catalog currently does not provide uncertainties for the characteristic radii of clusters. \textit{Bottom left:} Palomar~5's orbit in the Galactocentric xy plane. The gray scale represents all 50 stacked orbits, with $\mathcal{P}$ indicating the probability of Palomar~5's position, normalized to $\mathcal{P}_\mathrm{max}=1$. The colored markers indicate the position of the perturber when it impacted the stream and \textit{not} its present-day position. \textit{Bottom right:} Same as the bottom left but in the meridional plane. In all panels, the colors of the markers and histogram bars correspond to specific perturbers as specified in Fig.~\ref{fig:histogram_impact_time}.}
+            \caption[Dynamical and internal characteristics of the perturbers]{\textit{Top left:} Energy-angular momentum space of the globular clusters in the simulations, with 50~$\times$~165 data points representing all sampled initial conditions. Clusters impacting Palomar~5 are shown with colored markers, large for the samplings that induce a gap and small for those that do not. The small gray dots represent the non-gap-causing clusters. The 50 white dots indicate Palomar~5's sampled initial conditions for the current day position. The light-pink dashed curve shows the circular velocity curve. \textit{Top right:} Mass-size plane of the globular clusters in the simulations, with uncertainties on the masses indicated as vertical lines. We remind the reader that the globular cluster catalog currently does not provide uncertainties for the characteristic radii of clusters. \textit{Bottom left:} Palomar~5's orbit in the Galactocentric xy plane. The gray scale represents all 50 stacked orbits, with $\mathcal{P}$ indicating the probability of Palomar~5's position, normalized to $\mathcal{P}_\mathrm{max}=1$. The colored markers indicate the position of the perturber when it impacted the stream and \textit{not} its present-day position. \textit{Bottom right:} Same as the bottom left but in the meridional plane. In all panels, the colors of the markers and histogram bars correspond to specific perturbers as specified in Fig.~\ref{fig:histogram_impact_time}.}
             \label{fig:mass_size_plane}
         \end{figure*}        
       
@@ -243,7 +243,7 @@ In this work, we investigated the possibility of globular clusters creating gaps
         \begin{figure}
             \centering
             \includegraphics[width=\linewidth]{images/GapWithinSight.png}
-            \caption{Distribution of gaps as a function of absolute distance from the center of mass of Palomar 5's globular cluster. We count the number of gaps within the observable range on an individual track basis, with track lengths determined by the minimum and maximum $x'$-coordinates from the bottom panel of Fig.~\ref{fig:decomposition}. The ranges for \citet{2019AJ....158..223P}, \citet{2020MNRAS.495.2222S}, and \citet{2021ApJ...914..123I} are shown for their respective dimensions, and the number of gaps within these ranges is indicated in the figure. Vertical bars mark the $x' > 0$ limit of the stream--we only show the right-hand side instead of both for clarity, as most gaps are located on the right-hand side of the stream in any case. }
+            \caption[Observability of gaps]{Distribution of gaps as a function of absolute distance from the center of mass of Palomar 5's globular cluster. We count the number of gaps within the observable range on an individual track basis, with track lengths determined by the minimum and maximum $x'$-coordinates from the bottom panel of Fig.~\ref{fig:decomposition}. The ranges for \citet{2019AJ....158..223P}, \citet{2020MNRAS.495.2222S}, and \citet{2021ApJ...914..123I} are shown for their respective dimensions, and the number of gaps within these ranges is indicated in the figure. Vertical bars mark the $x' > 0$ limit of the stream--we only show the right-hand side instead of both for clarity, as most gaps are located on the right-hand side of the stream in any case. }
             \label{fig:GapsWithinSight}
         \end{figure}
 
@@ -289,14 +289,14 @@ In this work, we investigated the possibility of globular clusters creating gaps
         \begin{figure}
             \centering
             \includegraphics[width=\linewidth]{images/tailcoordinates.png}
-            \caption{Demonstration of the transformation from Galactocentric coordinates to tail coordinates. The black dot represents the globular cluster, while the thick black line shows a segment of its orbit. The star symbol indicates a star particle. The red vector points from the nearest point on the cluster's orbit to the star particle. The Galactocentric position vector is the $y'$-axis. The local orbital plane, the cross-product between the orbit's local position and velocity vector, defines the $z'$-axis. We project the red vector on each of these axes. We measure the x' coordinate as the path length along the orbit from the cluster to the nearest point. Positive $x'$, $y'$, $z'$ indicate that a star is ahead of the cluster, farther from the Galactic center, and above the orbital plane, respectively.}
+            \caption[Transform from Galactocentric coordinates to tail coordinates]{Demonstration of the transformation from Galactocentric coordinates to tail coordinates. The black dot represents the globular cluster, while the thick black line shows a segment of its orbit. The star symbol indicates a star particle. The red vector points from the nearest point on the cluster's orbit to the star particle. The Galactocentric position vector is the $y'$-axis. The local orbital plane, the cross-product between the orbit's local position and velocity vector, defines the $z'$-axis. We project the red vector on each of these axes. We measure the x' coordinate as the path length along the orbit from the cluster to the nearest point. Positive $x'$, $y'$, $z'$ indicate that a star is ahead of the cluster, farther from the Galactic center, and above the orbital plane, respectively.}
             \label{fig:TailCoordinates}
         \end{figure}
   
         \begin{figure*}
             \centering
             \includegraphics[width=\linewidth, trim=20 0 15 0]{images/monte-carlo-009-pouliasis2017pii-GCNBody-2000-milisigma-5-noisefactor-20-boxcarindexlength-shifted-0.png}
-            \caption{Comparison between the density maps and profiles of the \texttt{full} and \texttt{reference} simulations is presented. The blue vertical bars highlight the locations where the \texttt{full} simulation is less dense than the \texttt{reference} simulation by 2-$\sigma$. We do not consider bins below the noise threshold when measuring the differences between the two 1D profiles. We smoothed the 1D profiles with a median box-car filter.}
+            \caption[Comparison between the density maps and profiles of the \texttt{full} and \texttt{reference} simulations]{Comparison between the density maps and profiles of the \texttt{full} and \texttt{reference} simulations is presented. The blue vertical bars highlight the locations where the \texttt{full} simulation is less dense than the \texttt{reference} simulation by 2-$\sigma$. We do not consider bins below the noise threshold when measuring the differences between the two 1D profiles. We smoothed the 1D profiles with a median box-car filter.}
             \label{fig:profiles}
         \end{figure*}
 
@@ -324,7 +324,7 @@ In this work, we investigated the possibility of globular clusters creating gaps
         \begin{figure*}
             \centering
             \includegraphics[width=\linewidth]{images/force_on_orbit-monte-carlo-009.png}
-            \caption{Demonstration of how we determined which globular clusters were responsible for the gaps. The y-axis is $\tau$, a coordinate in units of time that indicates how far ahead or behind it is from a globular cluster. The x-axis is the simulation time, $t$, where 0~s km~kpc$^{-1}$ indicates the present time. The bottom plot showcases the evolution of the stream density over simulation time. We used the density to determine a suitable stream length. Subsequently, we used this length to extract a piece of Palomar~5's orbit. This orbital segment approximates the stream. Then, we compute the gravitational force from all other stream stand-in clusters, shown in the top plot. The gravitational force is measured in acceleration and is given in integration units: km$^2$~kpc$^{-1}$~s$^{-2}$. Moments of high acceleration indicate the passage of another cluster. The red circles indicate the top 5 strongest passages, as well as the names of the clusters. The example shown in this plot is the same simulation as Fig.~\ref{fig:stream_on_sky}.}
+            \caption[Demonstration of tagging perturbers from significant flybys]{Demonstration of how we determined which globular clusters were responsible for the gaps. The y-axis is $\tau$, a coordinate in units of time that indicates how far ahead or behind it is from a globular cluster. The x-axis is the simulation time, $t$, where 0~s km~kpc$^{-1}$ indicates the present time. The bottom plot showcases the evolution of the stream density over simulation time. We used the density to determine a suitable stream length. Subsequently, we used this length to extract a piece of Palomar~5's orbit. This orbital segment approximates the stream. Then, we compute the gravitational force from all other stream stand-in clusters, shown in the top plot. The gravitational force is measured in acceleration and is given in integration units: km$^2$~kpc$^{-1}$~s$^{-2}$. Moments of high acceleration indicate the passage of another cluster. The red circles indicate the top 5 strongest passages, as well as the names of the clusters. The example shown in this plot is the same simulation as Fig.~\ref{fig:stream_on_sky}.}
             \label{fig:force-on-orbit}
         \end{figure*}          
         
@@ -391,15 +391,17 @@ In this work, we investigated the possibility of globular clusters creating gaps
     \subsection{Survival of gaps in streams emerging from more massive globular clusters}\label{sec:gaps_vs_gcmass}
 
         \begin{figure}
-           \includegraphics[width=0.7\linewidth]{images/decoherence_shocked_outflow.png}
-            \caption{We dissect the one-dimensional density of the stream from the bottom panel of Fig.~\ref{fig:gap_no_more}. We divide the stars into two categories: the multiple groups that are shocked out at different pericenter passages, or those that leak out of the cluster continuously. The bottom panel shows the leaked population in blue, and each group that was shocked out at each pericenter passage is color-coded by the escape time. The sum of the leaked and shocked outflow gives the total profile density, which is shown in black. The top four panels display the first shocked groups from different pericenter passages, shown individually. Each group shows the gap resulting from the impact of NGC~7078 $\sim$2.5~Gyr ago, yet they are progressively offset as explained in the text.}
+            \begin{center}
+            \includegraphics[width=0.7\linewidth]{images/decoherence_shocked_outflow.png}
+            \end{center}
+            \caption[Gap decoherence in streams with epicyclic mass-loss]{We dissect the one-dimensional density of the stream from the bottom panel of Fig.~\ref{fig:gap_no_more}. We divide the stars into two categories: the multiple groups that are shocked out at different pericenter passages, or those that leak out of the cluster continuously. The bottom panel shows the leaked population in blue, and each group that was shocked out at each pericenter passage is color-coded by the escape time. The sum of the leaked and shocked outflow gives the total profile density, which is shown in black. The top four panels display the first shocked groups from different pericenter passages, shown individually. Each group shows the gap resulting from the impact of NGC~7078 $\sim$2.5~Gyr ago, yet they are progressively offset as explained in the text.}
             \label{fig:decoherence_shocked_outflow}
         \end{figure}
 
         \begin{figure*}
             \centering
             \includegraphics[width=\linewidth]{images/gap_no_more.png}
-            \caption{Both simulations use identical orbital conditions for the globular clusters, with a half-mass radius of 27~pc. In the lower panel, Pal~5's mass is increased relative to the upper one. Although both streams are perturbed by NGC~7078 approximately 2.5~Gyr ago, the resulting gap is attenuated in the more massive model.}
+            \caption[Demonstration of how the internal dynamics can influence gap persistence]{Both simulations use identical orbital conditions for the globular clusters, with a half-mass radius of 27~pc. In the lower panel, Pal~5's mass is increased relative to the upper one. Although both streams are perturbed by NGC~7078 approximately 2.5~Gyr ago, the resulting gap is attenuated in the more massive model.}
             \label{fig:gap_no_more}
         \end{figure*}
 
