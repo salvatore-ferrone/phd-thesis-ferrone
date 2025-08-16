@@ -464,7 +464,8 @@ This chapter documents how we solve the equations of motion numerically, how we 
         \small
         \begin{lstlisting}[language=python]
             xp,yp,zp,vxp,vyp,vzp=\
-            tstrippy.ergodic.isotropicplummer(G,massHost,halfmassradius,NP)
+            tstrippy.ergodic.isotropicplummer(\
+                G,massHost,halfmassradius,NP)
         \end{lstlisting}
         Here, \texttt{NP} is the number of particles, \texttt{halfmassradius} is the system's half-mass radius, \texttt{massHost} is the total mass of the Plummer sphere, and \texttt{G} is the gravitational constant. All values must be in the same unit system.
 
@@ -472,8 +473,10 @@ This chapter documents how we solve the equations of motion numerically, how we 
         \small
         \begin{lstlisting}[language=python]
             tstrippy.integrator.setstaticgalaxy(*staticgalaxy)
-            tstrippy.integrator.setinitialkinematics(*initialkinematics)
-            tstrippy.integrator.setintegrationparameters(*integrationparameters)
+            tstrippy.integrator.setinitialkinematics(\
+                *initialkinematics)
+            tstrippy.integrator.setintegrationparameters(\
+                *integrationparameters)
             tstrippy.integrator.inithostperturber(*hostperturber)
             tstrippy.integrator.initgalacticbar(*galacticbar)
             tstrippy.integrator.setbackwardorbit()
@@ -490,8 +493,10 @@ This chapter documents how we solve the equations of motion numerically, how we 
         \end{itemize}
         The user can choose between two output modes during integration:
         \begin{lstlisting}
-            tstrippy.integrator.initwriteparticleorbits(nskip,myoutname,myoutdir)
-            tstrippy.integrator.initwritestream(nskip,myoutname,myoutdir)
+            tstrippy.integrator.initwriteparticleorbits(\
+                nskip,myoutname,myoutdir)
+            tstrippy.integrator.initwritestream(\
+                nskip,myoutname,myoutdir)
         \end{lstlisting}
         Conceptually, these represent two output paradigms:
         \begin{itemize}
