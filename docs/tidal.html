@@ -194,7 +194,14 @@
 <header id="title-block-header">
 <h1 class="title">Tidal</h1>
 </header>
-<h1 id="general-intro">General intro</h1>
+<p>This chapter presents the material published in <span
+class="citation" data-cites="2023A&amp;A...676A...5F">Ferrone et al.
+(2023)</span>. The scopes of this work to make the first prediction of
+the expected tidal debris from all Milky Way globular clusters and
+characterize said distribution. In this work, we used a predecessor of
+<code>tstrippy</code>, GCsTT, which has the same philosphy of using
+test-particles for the stars that experience the gravitational but not
+contribute to it.</p>
 <h1 id="introduction">Introduction</h1>
 <p>Globular clusters are the oldest gravitationally bound stellar
 systems in the Galaxy <span class="citation"
@@ -337,13 +344,13 @@ features in the data; (4) to offer the community a repository of all
 these models to be compared to other theoretical and numerical
 predictions, which adopt different Galactic potentials and/or gravity
 laws.</p>
-<h1 id="methods">Numerical method</h1>
+<h1 id="methods"><strong><span>Numerical method</span></strong></h1>
 <p>To model the formation and evolution of extra-tidal features around
 Galactic globular clusters, we use a set of codes, called Globular
 Clusters’ Tidal Tails (GCsTT) developed by our group. It comprises two
 python codes, for the backward and forward integration of a stellar
 system, made of N test-particles (see Sect. <a href="#numerical"
-data-reference-type="ref" data-reference="numerical">3.1</a>). These
+data-reference-type="ref" data-reference="numerical">2.1</a>). These
 codes are separated for data organization and management, while the
 (computationally) most expensive part, namely, the calculation of the
 accelerations acting on the N particles and the orbits integration, is
@@ -363,12 +370,12 @@ class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and
 distances. In the following, we describe the two main steps of the
 procedure used by GCsTT to simulate the tidal stripping process
 (Sect. <a href="#numerical" data-reference-type="ref"
-data-reference="numerical">3.1</a>), the initial conditions adopted for
+data-reference="numerical">2.1</a>), the initial conditions adopted for
 the clusters’ parameters and their mass distribution (Sect. <a
 href="#initialconds" data-reference-type="ref"
-data-reference="initialconds">3.2</a>), as well as the Galactic
+data-reference="initialconds">2.2</a>), as well as the Galactic
 potentials (Sect. <a href="#galmod" data-reference-type="ref"
-data-reference="galmod">3.3</a>).</p>
+data-reference="galmod">2.3</a>).</p>
 <h2 id="numerical">Simulations of the tidal stripping process: Two-step
 procedure</h2>
 <p>To model the formation and evolution of extra-tidal features around
@@ -379,7 +386,7 @@ orbit over the last 5 Gyr</em>: First, for each Galactic globular
 cluster for which the distances from the Sun, proper motions,
 line-of-sight velocities, and structural parameters are available (see
 Sect. <a href="#initialconds" data-reference-type="ref"
-data-reference="initialconds">3.2</a>), we determine their current
+data-reference="initialconds">2.2</a>), we determine their current
 positions and velocities in a Galactocentric reference frame, in which
 the Sun is at <span class="math inline">\((x_\odot, y_\odot, z_\odot) =
 (-8.34, 0., 0.027)\)</span> kpc <span class="citation"
@@ -395,7 +402,7 @@ data-cites="2010MNRAS.403.1829S">(Schönrich, Binney, and Dehnen
 representing the cluster barycenter, backwards in time for 5 Gyr, and in
 this way, we retrieve its position and velocity at that time in the
 chosen Galactic potential (see Sect. <a href="#galmod"
-data-reference-type="ref" data-reference="galmod">3.3</a>). We notice
+data-reference-type="ref" data-reference="galmod">2.3</a>). We notice
 that other choices for the Sun’s position or velocity with respect to
 the Galactocentric frame would have been possible. For example, <span
 class="citation" data-cites="2021MNRAS.505.3033P">Piatti (2021)</span>
@@ -407,7 +414,7 @@ work, see GRAVITY Collaboration et al. 2018)</span>. The difference in
 the adopted position of the Sun is, however, generally smaller than the
 uncertainties affecting our knowledge of the distance of Galactic
 globular clusters to the Sun. For this reason, we do not to explore the
-dependency of the results presented in this chapter with regard to these
+dependency of the results presented in this paper with regard to these
 choices.</p>
 <p><em>Step ii: Forward integration. Test-particle streams from the past
 to the present day</em>: Once the positions and velocities of the
@@ -416,7 +423,7 @@ the corresponding <span class="math inline">\(N\)</span>-body system,
 with N = 100 000 particles. The phase-space coordinates of these
 particles are generated following a Plummer distribution, with the total
 mass and half-mass radius as described in Sect. <a href="#initialconds"
-data-reference-type="ref" data-reference="initialconds">3.2</a>. The
+data-reference-type="ref" data-reference="initialconds">2.2</a>. The
 barycenter of this <span class="math inline">\(N\)</span>-body cluster
 is then assigned initial positions and velocities in the Galactic model,
 as those retrieved at step <span class="math inline">\((i),\)</span> and
@@ -425,9 +432,9 @@ Particles in this <span class="math inline">\(N\)</span>-body system are
 modeled as test-particles, that is, they experience the gravitational
 field exerted by the globular cluster itself (see Sect. <a
 href="#initialconds" data-reference-type="ref"
-data-reference="initialconds">3.2</a>) and by the Galaxy (see Sect. <a
+data-reference="initialconds">2.2</a>) and by the Galaxy (see Sect. <a
 href="#galmod" data-reference-type="ref"
-data-reference="galmod">3.3</a>), but do not generate any gravitational
+data-reference="galmod">2.3</a>), but do not generate any gravitational
 field themselves. This allows us to maintain a computational time which
 scales as <span class="math inline">\(O(N)\)</span> and not as <span
 class="math inline">\(O(N^2)\)</span>, as would be the case for a direct
@@ -473,8 +480,8 @@ value of <span class="math inline">\(N_{steps}=50\,000\)</span>), while
 for the remaining clusters (50/159) a <span class="math inline">\(\Delta
 t = 10^4\)</span> yr (for a corresponding value of <span
 class="math inline">\(N_{steps}=500\,000\)</span>) was used. We refer to
-Appendix <a href="#deltat" data-reference-type="ref"
-data-reference="deltat">6.1</a> (and in particular to Table <a
+Supplemental Material <a href="#deltat" data-reference-type="ref"
+data-reference="deltat">5.1</a> (and in particular to Table <a
 href="#tcross-energy" data-reference-type="ref"
 data-reference="tcross-energy">[tcross-energy]</a>) for additional
 details on the choice of <span class="math inline">\(\Delta t\)</span>
@@ -571,7 +578,7 @@ role="doc-noteref"><sup>4</sup></a> and reported in Table <a
 href="#TableIC" data-reference-type="ref"
 data-reference="TableIC">[TableIC]</a>. As anticipated at step <span
 class="math inline">\((ii)\)</span> in Sect. <a href="#numerical"
-data-reference-type="ref" data-reference="numerical">3.1</a>, the
+data-reference-type="ref" data-reference="numerical">2.1</a>, the
 phase-space coordinates of each <span
 class="math inline">\(N\)</span>-body cluster are generated by assuming
 a Plummer distribution of total mass, <span
@@ -623,7 +630,7 @@ clusters (total mass and half-mass radius), their astrometric quantities
 of relevance for this study and the line-of-sight velocities are
 publicly available<a href="#fn5" class="footnote-ref" id="fnref5"
 role="doc-noteref"><sup>5</sup></a>. We have made use of these tables
-for our work and we report them in a unique table in our chapter for the
+for our work and we report them in a unique table in our paper for the
 sake of the completeness and self-consistency of the data used (see
 Table <a href="#TableIC" data-reference-type="ref"
 data-reference="TableIC">[TableIC]</a>).</p>
@@ -853,7 +860,7 @@ where the stellar mass distribution has been shown to be asymmetric.</p>
 <h3 id="model-ii-with-a-massive-slowly-rotating-stellar-bar">Model II
 with a massive, slowly rotating stellar bar</h3>
 <p>The third mass model (abbreviated name: PII-0.3-SLOW) that we use in
-this chapter is a version of PII by <span class="citation"
+this paper is a version of PII by <span class="citation"
 data-cites="2017A&amp;A...598A..66P">Pouliasis, Di Matteo, and Haywood
 (2017)</span> modified to include a rotating stellar bar, whose mass has
 been assigned to be 30% of the (thin+thick) disk mass of PII. We assume
@@ -888,7 +895,7 @@ particles in the rotating, non-inertial reference frame of the bar,
 computed the corresponding accelerations on each particle, and then
 transformed these accelerations back in the inertial reference frame
 described in Sect. <a href="#numerical" data-reference-type="ref"
-data-reference="numerical">3.1</a>. In this way, the accelerations due
+data-reference="numerical">2.1</a>. In this way, the accelerations due
 to the bar are added to those generated by the other terms of the
 Galactic mass distribution.</p>
 <p>We emphasize that we do not consider this model as the best possible
@@ -901,7 +908,7 @@ center.</p>
 still subject to debate <span class="citation"
 data-cites="2016ARA&amp;A..54..529B">(see, e.g., Bland-Hawthorn and
 Gerhard 2016)</span>, it is important to explore how varying the
-parameters adopted in this chapter, such as the pattern speed, the mass,
+parameters adopted in this paper, such as the pattern speed, the mass,
 or the length of the bar, can affect the characteristics of the whole
 set of streams. More complex shapes for the bar can also be explored,
 for example, by substituting the inner parts of the triaxial bar with a
@@ -909,7 +916,7 @@ boxy-peanut-shaped morphology, which has been shown to characterize the
 inner Milky Way <span class="citation"
 data-cites="2013MNRAS.435.1874W 2015MNRAS.450.4050W">(see, e.g., Wegg
 and Gerhard 2013; Wegg, Gerhard, and Portail 2015)</span>. These topics
-are, however, beyond the scope of the present chapter. In sum, given the
+are, however, beyond the scope of the present paper. In sum, given the
 uncertainties on the bar’s physical extent and how it can change over
 the time span investigated here, its affect on the streams presented
 here are purely indicative.</p>
@@ -927,17 +934,17 @@ src="images/PII_ensemble_LB_density_mass.pdf" /></p>
 <h4 id="a-few-basic-premises">A few basic premises:</h4>
 <p>Given the large number of simulations carried out and the wealth of
 information contained in them, it is not possible to exhaust all
-possible applications of this simulation database in this chapter. We
-have therefore chosen to proceed as follows.</p>
+possible applications of this simulation database in this paper. We have
+therefore chosen to proceed as follows.</p>
 <p>In Section <a href="#results1" data-reference-type="ref"
-data-reference="results1">4.1</a>, we present an overview of the
+data-reference="results1">3.1</a>, we present an overview of the
 distribution of all streams in Galactic coordinates. This coordinate
 space will be the one used in the remainder of the entire article. This
 first section allows us to show qualitatively how the global
 distribution of streams varies, depending on the Galactic potential
 used.</p>
 <p>We then move on (Section <a href="#streamvsD"
-data-reference-type="ref" data-reference="streamvsD">4.2</a>) to present
+data-reference-type="ref" data-reference="streamvsD">3.2</a>) to present
 the global system of streams as a function of their distance from the
 Sun. In this section, we also show the kinematic properties of the
 streams, such as proper motions and line-of-sight velocities, that can
@@ -945,7 +952,7 @@ be directly compared to Gaia data or other astrometric and spectroscopic
 surveys. This section also allows us to show the variety of morphologies
 that the stars which escaped from globular clusters can take. In
 Section <a href="#sec:morphologies" data-reference-type="ref"
-data-reference="sec:morphologies">4.3</a>, we explore this issue in more
+data-reference="sec:morphologies">3.3</a>, we explore this issue in more
 detail, showing how these morphologies depend primarily on the orbital
 characteristics of the clusters and their distance from the Galactic
 center. For the most interesting cases, we compare the tidal structures
@@ -957,16 +964,17 @@ a unique and public database summarizing angular positions, distances,
 proper motions, and line-of-sight velocity tracks for nearly a hundred
 Galactic stellar streams. Any stream that is not included in this
 library is not be compared to our simulations in the context of this
-chapter.</p>
+paper.</p>
 <p>We note that the tidal features associated with each of the 159
-simulated clusters are presented in Appendix <a href="#allstreams"
-data-reference-type="ref" data-reference="allstreams">6.2</a>. To avoid
-making this appendix too long, the tidal features above are presented
-only in the case of the potential PII. However, all the data will be
-made available to the community at a dedicated site<a href="#fn6"
-class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>
-where it is possible to the way the characteristics of these streams
-change, for any cluster, in the three chosen potentials.</p>
+simulated clusters are presented in Supplemental Material <a
+href="#allstreams" data-reference-type="ref"
+data-reference="allstreams">5.2</a>. To avoid making this Supplemental
+Material too long, the tidal features above are presented only in the
+case of the potential PII. However, all the data are available on a
+dedicated site<a href="#fn6" class="footnote-ref" id="fnref6"
+role="doc-noteref"><sup>6</sup></a> where it is possible to the way the
+characteristics of these streams change, for any cluster, in the three
+chosen potentials.</p>
 <h2 id="results1">A sky full of streams</h2>
 <p>Figure <a href="#galleryLB" data-reference-type="ref"
 data-reference="galleryLB">[galleryLB]</a> shows the number and mass
@@ -1000,28 +1008,28 @@ some cases, they can also contribute to a more diffuse density
 distribution.</p>
 <p>Because of the large number of simulated clusters, we have chosen not
 to present the corresponding extra-tidal features one-by-one in the main
-part of this chapter, but we have rather decided to describe these
+part of this paper, but we have rather decided to describe these
 extra-tidal features with a global approach, by first adopting a
 criterion based on the distance of these features to the Sun (see
 Sect. <a href="#streamvsD" data-reference-type="ref"
-data-reference="streamvsD">4.2</a>) and then discussing the types of
+data-reference="streamvsD">3.2</a>) and then discussing the types of
 distributions tidal debris can have and how these depend on the cluster
 orbital parameters (see Sect. <a href="#sec:morphologies"
-data-reference-type="ref" data-reference="sec:morphologies">4.3</a>).
+data-reference-type="ref" data-reference="sec:morphologies">3.3</a>).
 All the extra-tidal structures generated by the 159 globular clusters
-simulated in this chapter, and their corresponding uncertainties, are
-reported in Appendix <a href="#allstreams" data-reference-type="ref"
-data-reference="allstreams">6.2</a>. Among them, we include clusters
-with thin and elongated tails, such as IC 4499, NGC 3201, NGC 4590,
-NGC 5024, NGC 5053, Pal 5, to cite a few, as well as clusters such as
-AM 1, Pal 14, Pal 4, and Pal 15, whose extra-tidal material shows a
-halo-like configuration, and clusters such as NGC 1261, NGC 4147,
-NGC 6356, and UKS 1, whose stripped stars show a remarkable diffuse
-distribution in the field.</p>
+simulated in this paper, and their corresponding uncertainties, are
+reported in Supplemental Material <a href="#allstreams"
+data-reference-type="ref" data-reference="allstreams">5.2</a>. Among
+them, we include clusters with thin and elongated tails, such as
+IC 4499, NGC 3201, NGC 4590, NGC 5024, NGC 5053, Pal 5, to cite a few,
+as well as clusters such as AM 1, Pal 14, Pal 4, and Pal 15, whose
+extra-tidal material shows a halo-like configuration, and clusters such
+as NGC 1261, NGC 4147, NGC 6356, and UKS 1, whose stripped stars show a
+remarkable diffuse distribution in the field.</p>
 <p>Finally, even when our models are not tailored to accurately
 reproduce the mass loss from globular clusters, since (as described in
 Sect. <a href="#initialconds" data-reference-type="ref"
-data-reference="initialconds">3.2</a>) we have adopted a test-particle
+data-reference="initialconds">2.2</a>) we have adopted a test-particle
 approach with a time-constant globular cluster potential, it is however
 tempting to estimate, to a first order, the total mass associated with
 the tidally stripped population and compare it to the current mass. By
@@ -1233,7 +1241,8 @@ class="math inline">\(^{-1}\)</span>, which shows a slight co-rotation
 of the system of streams with the disk though there is much dispersion
 about this value – as shown in bottom right panel of Fig. <a
 href="#orbparam" data-reference-type="ref"
-data-reference="orbparam">[orbparam]</a> in the Appendix.</p>
+data-reference="orbparam">[orbparam]</a> in the Supplemental
+Material.</p>
 <h4 id="the-510-kpc-distance-range">The [5–10] kpc distance range: </h4>
 <p>The [5–10] kpc distance range, which includes the Galactic center,
 contains much more material. A total of 79 clusters are found in this
@@ -1555,11 +1564,11 @@ some others fill nearly the entire sky.</p>
 morphology of the extra-tidal features surrounding Galactic globular
 clusters, we can group the latter on the basis of their orbital
 parameters<a href="#fn8" class="footnote-ref" id="fnref8"
-role="doc-noteref"><sup>8</sup></a>(see Appendix <a href="#class"
-data-reference-type="ref" data-reference="class">[class]</a> for more
-details), as follows: <em>Disk clusters</em>: A cluster is classified as
-a disk cluster if arctan(<span
-class="math inline">\(z_{max}/R_{max}\)</span>) <span
+role="doc-noteref"><sup>8</sup></a>(see Supplemental Material <a
+href="#class" data-reference-type="ref"
+data-reference="class">[class]</a> for more details), as follows:
+<em>Disk clusters</em>: A cluster is classified as a disk cluster if
+arctan(<span class="math inline">\(z_{max}/R_{max}\)</span>) <span
 class="math inline">\(\le 10^\circ\)</span>, where <span
 class="math inline">\(z_{max}\)</span> and <span
 class="math inline">\(R_{max}\)</span> are, respectively, the maximum
@@ -1582,8 +1591,8 @@ inner clusters must be restricted in longitude and latitude. With these
 definitions, 21 clusters are disk clusters, 71 are inner clusters, and
 67 are outer clusters (see Table <a href="#classification"
 data-reference-type="ref"
-data-reference="classification">[classification]</a> in Appendix <a
-href="#class" data-reference-type="ref"
+data-reference="classification">[classification]</a> in Supplemental
+Material <a href="#class" data-reference-type="ref"
 data-reference="class">[class]</a>). We emphasize that this
 classification does not aim to suggest any specific origin for these
 systems <span class="citation"
@@ -1617,9 +1626,10 @@ them are found at <span class="math inline">\(|b| \le 30^\circ\)</span>,
 while for Pal 2 and Pal 10, their extra-tidal stars have a very limited
 latitudinal extension and appear as ribbons in the sky. In the
 following, we discuss some of the structures associated with NGC 6121,
-Pal 2, and Pal 10. We refer to Appendix <a href="#allstreams"
-data-reference-type="ref" data-reference="allstreams">6.2</a> for the
-tidal structures generated by the whole set of disk clusters.</p>
+Pal 2, and Pal 10. We refer to Supplemental Material <a
+href="#allstreams" data-reference-type="ref"
+data-reference="allstreams">5.2</a> for the tidal structures generated
+by the whole set of disk clusters.</p>
 <figure id="ngc6121_stream">
 <div class="center">
 <embed src="images/PII_individual_NGC6121_NGC6121orbitRZXY.pdf" />
@@ -1826,12 +1836,12 @@ which are associated with the Sagittarius dwarf galaxy. As a caution, we
 add that for these clusters the elongation and shape of the streams may
 be severely modified if the gravitational potential generated by the
 Sagittarius dwarf galaxy itself was included in the model. For
-completeness, we decided to include these streams in the chapter, and to
-report them in Appendix <a href="#allstreams" data-reference-type="ref"
-data-reference="allstreams">6.2</a>. In future works, we plan to
-investigate how the inclusion of the Sagittarius dwarf may alter these
-streams and possibly affect also those of other clusters that are not
-necessarily associated with this dwarf galaxy.<br />
+completeness, we decided to include these streams in the paper, and to
+report them in Supplemental Material <a href="#allstreams"
+data-reference-type="ref" data-reference="allstreams">5.2</a>. In future
+works, we plan to investigate how the inclusion of the Sagittarius dwarf
+may alter these streams and possibly affect also those of other clusters
+that are not necessarily associated with this dwarf galaxy.<br />
 Among the extra-tidal structures emanating from outer globular clusters,
 we find some of the most beautiful and elongated tidal tails, of which
 those associated with Pal 5 were the first to be discovered <span
@@ -1853,7 +1863,7 @@ predicted by our models, is larger. Of these observed streams, many
 tracks are available in the <em>galstreams</em> <span class="citation"
 data-cites="2023MNRAS.520.5225M">(Mateu 2023)</span> library. In the
 following, we compare our model predictions to some of these tracks in
-the three different Galactic potentials adopted in this chapter. More
+the three different Galactic potentials adopted in this paper. More
 specifically, we compare the projected density distribution of the
 simulated stream to observations in the <span
 class="math inline">\((\ell, b)\)</span>, <span
@@ -1957,7 +1967,7 @@ tracks available in <em>galstreams</em> is shown in Fig. <a
 href="#NGC4590_comp" data-reference-type="ref"
 data-reference="NGC4590_comp">[NGC4590_comp]</a>. Interestingly (and
 differently from the case of NGC 3201), not all the Galactic potentials
-adopted in this chapter seem to represent the stream distribution in the
+adopted in this paper seem to represent the stream distribution in the
 sky equally well. While the axisymmetric models PI and PII predict
 generally a good match – with model PI describing the stream at positive
 longitudes even more accurately than model PII – the model PII-0.3-SLOW
@@ -2043,8 +2053,8 @@ data-cites="2006ApJ...639L..17G">C. J. Grillmair and Johnson
 (2006)</span> and <span class="citation"
 data-cites="2021ApJ...914..123I">R. Ibata et al. (2021)</span>. The
 comparison is excellent for all the Galactic potentials used in this
-chapter. We note that there is a slight offset between the modeled
-streams and the track by <span class="citation"
+paper. We note that there is a slight offset between the modeled streams
+and the track by <span class="citation"
 data-cites="2021ApJ...914..123I">R. Ibata et al. (2021)</span> in the
 (<span class="math inline">\(\ell-D\)</span>) plane (of about 1 kpc at a
 fixed longitude) – which is maybe less evident for the case of the
@@ -2197,18 +2207,18 @@ discoveries, supporting the search for new extra-tidal features in the
 data, and offering the community a repository of all these models to be
 compared to other theoretical and numerical predictions, which employ
 different Galactic potentials and/or gravity laws.</p>
-<p>In this first chapter, we have presented the distribution in the
-<span class="math inline">\((\ell, b)\)</span> plane of all the
-simulated extra-tidal features. A striking result is the variety of
-extra-tidal shapes that globular clusters can give rise to. The
-canonical tidal tails à la Palomar 5 are only some of the multiple
-morphologies these structures can have. Ribbons, bow-ties, padlocks, and
-halo-shapes are also common. This variety of shapes that these stripped
-stars can show in the sky depends on the characteristics of the cluster
-orbit, on its current position in the orbit itself, and on the distance
-of the extra-tidal material from the Sun. Any search for the left-overs
-of globular clusters in the field should take into account this richness
-of distributions and morphologies.</p>
+<p>In this first paper, we have presented the distribution in the <span
+class="math inline">\((\ell, b)\)</span> plane of all the simulated
+extra-tidal features. A striking result is the variety of extra-tidal
+shapes that globular clusters can give rise to. The canonical tidal
+tails à la Palomar 5 are only some of the multiple morphologies these
+structures can have. Ribbons, bow-ties, padlocks, and halo-shapes are
+also common. This variety of shapes that these stripped stars can show
+in the sky depends on the characteristics of the cluster orbit, on its
+current position in the orbit itself, and on the distance of the
+extra-tidal material from the Sun. Any search for the left-overs of
+globular clusters in the field should take into account this richness of
+distributions and morphologies.</p>
 <p>These simulations have also allowed us to derive an estimate of the
 expected mass of stars that have escaped from the clusters in the last
 5 Gyr and now in the field. Although these are approximations, given the
@@ -2223,7 +2233,7 @@ Galactic potentials, including the perturbations induced by close dwarf
 satellites (Sagittarius and the Large and Small Magellanic Clouds), as
 well as more complex and time-varying distributions for the dark matter
 component.</p>
-<h1 id="appendix">Appendix</h1>
+<h1 id="supplementary-material">Supplementary material</h1>
 <h2 id="deltat">Choice of the time-step for orbit integration</h2>
 <div class="table*">
 <div class="center">
@@ -3226,7 +3236,7 @@ finding associated extra-tidal features in the sky, by calculating the
 present, meaning that all 100,000 particles originating each of the 50
 Monte-Carlo realizations are included, plus the case with the best
 values (see Sect. <a href="#numerical" data-reference-type="ref"
-data-reference="numerical">3.1</a>). Thus, each map is a 500x500
+data-reference="numerical">2.1</a>). Thus, each map is a 500x500
 histogram that bins 5.1<span class="math inline">\(\times10^6\)</span>
 particles. The retrieved cumulative 2D histogram is then normalized to
 its maximum value and plotted in the following figures in logarithmic
@@ -3438,6 +3448,13 @@ Fall, S. Michael, and Qing Zhang. 2001. <span>“<span
 class="nocase">Dynamical Evolution of the Mass Function of Globular Star
 Clusters</span>”</span> 561 (2): 751–65. <a
 href="https://doi.org/10.1086/323358">https://doi.org/10.1086/323358</a>.
+</div>
+<div id="ref-2023A&amp;A...676A...5F" class="csl-entry" role="listitem">
+Ferrone, S., M. Delbo, C. Avdellidou, R. Melikyan, A. Morbidelli, K.
+Walsh, and R. Deienno. 2023. <span>“<span class="nocase">Identification
+of a 4.3 billion year old asteroid family and planetesimal population in
+the Inner Main Belt</span>”</span> 676 (August):A5. <a
+href="https://doi.org/10.1051/0004-6361/202245594">https://doi.org/10.1051/0004-6361/202245594</a>.
 </div>
 <div id="ref-2015ApJ...811..123F" class="csl-entry" role="listitem">
 Fritz, T. K., and N. Kallivayalil. 2015. <span>“<span class="nocase">The
@@ -4226,9 +4243,9 @@ role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1"><p>Note: the term “line-of-sight velocities” adopted in
-this chapter corresponds to the term “radial velocities” often used in
-the literature, as well as in the Gaia catalogues. We prefer the use of
-the first term, since the second is usually used also to indicate the
+this paper corresponds to the term “radial velocities” often used in the
+literature, as well as in the Gaia catalogues. We prefer the use of the
+first term, since the second is usually used also to indicate the
 (Galactocentric) radial velocities and can introduce some ambiguity,
 especially when different coordinate systems are used. We emphasize that
 the choice to use the term “line-of-sight velocity” is not new <span
@@ -4272,7 +4289,7 @@ parameters of the clusters, as found when their orbits are integrated in
 model PII. This classification may slightly change if model PI or model
 PII-0.3-SLOW were adopted.<a href="#fnref8" class="footnote-back"
 role="doc-backlink">↩︎</a></p></li>
-<li id="fn9"><p>All data will be available on a dedicated website (<a
+<li id="fn9"><p>All data are available on a dedicated website (<a
 href="http://etidal-project.obspm.fr/"
 class="uri">http://etidal-project.obspm.fr/</a>)<a href="#fnref9"
 class="footnote-back" role="doc-backlink">↩︎</a></p></li>
