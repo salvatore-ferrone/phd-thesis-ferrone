@@ -1,5 +1,6 @@
-\section{General introduction}
+\reference{Ferrone, Salvatore, Marco Montuori, Paola Di Matteo, Alessandra Mastrobuono-Battisti, Rodrigo Ibata, Paolo Bianchini, Sergey Khoperskov, et al. 2025. ``Gaps in stellar streams as a result of globular cluster flybys: The case of Palomar 5'' 699 (July):A289. https://doi.org/10.1051/0004-6361/202553923.}
 
+In this work, we investigated the possibility of globular clusters creating gaps in the Palomar~5 stellar stream. 
 
 \section{Introduction}
     Stellar streams are several-kiloparsecs-long structures formed by the tidal disruption of globular clusters or dwarf galaxies orbiting a host galaxy. These tidal forces arise due to differential gravitational pulls across extended objects, causing stars farther from the galactic center to lag behind, while those closer to the center speed up. This stretching creates two tidal tails that trace the cluster's orbit unless in the closest vicinity to the object \citep{2007ApJ...659.1212M}. 
@@ -128,23 +129,23 @@
 
         Regarding the shape of the density distribution, the central peak corresponds to the still-intact globular cluster whose stars have not yet escaped. The stream's density peaks are of the same order as the cluster itself, which is inconsistent with reality; the cluster's peak density should be higher than that of the stream. Of course, this discrepancy is a result of our modeling choices. Since we use the present-day mass and radius for Palomar~5 for the whole simulation duration, the system is less dense than it should have been. In turn, our simulations have a strong initial mass loss, which adds to the amplitudes of the profile density peaks of Fig.~\ref{fig:stream_on_sky}. This inaccuracy is acceptable for the scope of this work. First, Palomar~5's tails indeed have more mass than the cluster itself. \citet{2017ApJ...842..120I} reports that there could be three times as much mass in Palomar~5's tails as the cluster itself. Secondly, the exact form of the density distribution is less important than having a population of particles present that can probe a cluster flyby event.
     
-        To compare the \texttt{reference} and \texttt{full} simulations more quantitatively, we work in the tail coordinate system, in which the stream's central axis aligns with the cluster's orbit. We based this coordinate system on the work of \citet{2004AJ....127.2753D} and present it in Fig.~\ref{fig:TailCoordinates}. Briefly, in this system, the $x_{\mathrm{tail}}$ coordinate represents the position of a particle along the orbit relative to the globular cluster. Positive values of $x_{\mathrm{tail}}$ are ahead of the cluster, while negative $x_{\mathrm{tail}}$ is behind the cluster. The $y_{\mathrm{tail}}$ coordinate measures the particle's distance within the orbital plane, where positive values indicate that the particle is farther from the Galactic center and negative values indicate that it is closer. Fig.~\ref{fig:decomposition} shows a comparison between one of the 50 realizations of the Palomar~5 stream, taking into account the gravitational interactions with all other globular clusters in the Galaxy (top panel) and omitting them (bottom panel). This comparison clearly shows the presence of two wide ($\sim$100~pc and $\sim$1~kpc) gaps in the leading tail and of a more subtle underdensity at $x_{\mathrm{tail}}\sim 5$~kpc (we refer the reader to Appendix~\ref{sec:gap_detection} for a detailed description of the underdensities and gaps detection method). 
+        To compare the \texttt{reference} and \texttt{full} simulations more quantitatively, we work in the tail coordinate system, in which the stream's central axis aligns with the cluster's orbit. We based this coordinate system on the work of \citet{2004AJ....127.2753D} and present it in Fig.~\ref{fig:TailCoordinates}. Briefly, in this system, the $x_{\mathrm{tail}}$ coordinate represents the position of a particle along the orbit relative to the globular cluster. Positive values of $x_{\mathrm{tail}}$ are ahead of the cluster, while negative $x_{\mathrm{tail}}$ is behind the cluster. The $y_{\mathrm{tail}}$ coordinate measures the particle's distance within the orbital plane, where positive values indicate that the particle is farther from the Galactic center and negative values indicate that it is closer. Fig.~\ref{fig:decomposition} shows a comparison between one of the 50 realizations of the Palomar~5 stream, taking into account the gravitational interactions with all other globular clusters in the Galaxy (top panel) and omitting them (bottom panel). This comparison clearly shows the presence of two wide ($\sim$100~pc and $\sim$1~kpc) gaps in the leading tail and of a more subtle underdensity at $x_{\mathrm{tail}}\sim 5$~kpc (we refer the reader to Supplemental Material~\ref{sec:gap_detection} for a detailed description of the underdensities and gaps detection method). 
     
         To determine which globular clusters were responsible for creating these gaps and when close passages occurred, we estimated the gravitational acceleration along the orbit of Palomar~5. We represented it in the ($t$, $\tau$) space. $t$ is the simulation time, and $\tau$ indicates how long it will take for Palomar~5 to reach a given point in its orbit or how long ago it passed. The use of $\tau$ is advantageous because the growth of the stream is approximately linear in $\tau$. 
     
-        On the other hand, streams in physical space are modulated by their orbital eccentricity with periodic expansion and contraction depending on the orbital phase \citep[see the top panel of Fig.~5.][for an example]{2016MNRAS.457.3817S}. Adopting this time-space and reporting the gravitational acceleration along the Palomar~5 orbit in this space, identifying the globular clusters that produced the perturbation and the time at which it occurred becomes straightforward. We refer the reader to Appendix~\ref{sec:Perturber_Identification} for a detailed description of the procedure. In this way, we can identify that the clusters responsible for creating gaps in the simulation of the Palomar~5 stream, as reported in Fig.~\ref{fig:decomposition}, are NGC~2808, NGC~7078, and NGC~104. Their close passages occurred 200~Myr, -1.9, and -2.1~Gyr ago, respectively. 
+        On the other hand, streams in physical space are modulated by their orbital eccentricity with periodic expansion and contraction depending on the orbital phase \citep[see the top panel of Fig.~5.][for an example]{2016MNRAS.457.3817S}. Adopting this time-space and reporting the gravitational acceleration along the Palomar~5 orbit in this space, identifying the globular clusters that produced the perturbation and the time at which it occurred becomes straightforward. We refer the reader to Supplemental Material~\ref{sec:Perturber_Identification} for a detailed description of the procedure. In this way, we can identify that the clusters responsible for creating gaps in the simulation of the Palomar~5 stream, as reported in Fig.~\ref{fig:decomposition}, are NGC~2808, NGC~7078, and NGC~104. Their close passages occurred 200~Myr, -1.9, and -2.1~Gyr ago, respectively. 
     
         To further investigate whether the three clusters above are responsible for producing the gaps observed in this simulation, we conducted additional experiments by including only the perturbation of each cluster at a time, while neglecting the gravitational perturbations of all the other clusters in the Galaxy.
     
         To verify that the three suspected clusters are responsible for producing the gaps, we conducted experiments by including one perturbed at a time and excluding all others. We present these results in the middle panels of Fig.~\ref{fig:decomposition} and clearly show that NGC~2808, NGC~7078, and NGC~104 are the clusters responsible for creating the underdense regions observed in the leading tails of Palomar~5. It is worth noting that the times at which the passages of these clusters occurred, according to our analysis, are in agreement with the observed width of the corresponding gaps: the encounter with NGC~2808 being very recent (only 200~Myr ago), its induced gap is still very thin, because it takes time for a perturbation to grow into an extended gap, as it is the case for those induced by the passages of  NGC~7078 and NGC~104, which occurred in earlier times. It is also interesting to emphasize that gaps as thin as those generated by the passage of NGC~2808, 200~Myr ago, can be detected by working in the tail coordinate system and by making a comparative analysis (\texttt{full} versus \texttt{reference} simulations): they are so thin that they cannot be directly identified in Galactic coordinates (see Fig.~\ref{fig:stream_on_sky}).\\
 
-        The analysis presented in Fig.~\ref{fig:decomposition} has been repeated for the whole set of simulations, and \href{https://doi.org/10.5281/zenodo.15528089}{online appendix} reports all of them for completeness. For all the streams, morphologically speaking, the only changes appear to be the existence of gaps or their absence. We do not observe a thickening of the streams due to an increased velocity dispersion. 
+        The analysis presented in Fig.~\ref{fig:decomposition} has been repeated for the whole set of simulations, and \href{https://doi.org/10.5281/zenodo.15528089}{online appendix}\paola{anziche' mettere il liunk all'appendix online, aggiungi una sezione di Supplementary material con le figure} reports all of them for completeness. For all the streams, morphologically speaking, the only changes appear to be the existence of gaps or their absence. We do not observe a thickening of the streams due to an increased velocity dispersion. 
     
         From this analysis, we can derive a statistical view of (1) the number of gaps generated on the Palomar~5 stream by the system of Galactic globular clusters, (2) the clusters that generated these gaps, and the time history of these perturbations. From this, we can then quantify (3) the properties of the perturbers (their masses, sizes, and orbital parameters) as well as (4) the impact geometry of the encounters, which allows us to understand which encounters are more favorable for generating gaps in the Palomar~5 stream. In the following, we will present the results of this analysis, addressing points (1) and (2).
 
 
     \subsection{The history and statistics of gap creations in the Palomar~5 stream}\label{sect:history}
-        By applying the methodology described above to the whole set of simulations, we can reconstruct the history of close passages of Galactic globular clusters to Palomar~5's stream in the last 5~Gyr, which -- we remind the reader -- is the time interval investigated in our simulations.  Fig.~\ref{fig:histogram_impact_time} and Table~\ref{tab:gaps_per_perturber} present results of this analysis. NGC~2808 impacted Palomar~5's stream about 200 Myr ago in 44 out of 50 simulations, creating a small gap at a similar position to the one reported in Fig.~\ref{fig:decomposition} in each case. Since this interaction occurred less than one orbital period ago, despite the uncertainties, the orbital solutions remain similar and thus produce consistent results across all simulations. However, as we continue to turn back time further, the uncertainties in the initial conditions allow the various orbital solutions to diverge from one another. Thus, in one configuration, a cluster can impact the stream at a given time, and yet at the same moment, in a different set of initial conditions, it could be on the other side of the Galaxy. We will discuss the necessary conditions for creating a gap in Appendix~\ref{sec:gaps_vs_gcmass}. 
+        By applying the methodology described above to the whole set of simulations, we can reconstruct the history of close passages of Galactic globular clusters to Palomar~5's stream in the last 5~Gyr, which -- we remind the reader -- is the time interval investigated in our simulations.  Fig.~\ref{fig:histogram_impact_time} and Table~\ref{tab:gaps_per_perturber} present results of this analysis. NGC~2808 impacted Palomar~5's stream about 200 Myr ago in 44 out of 50 simulations, creating a small gap at a similar position to the one reported in Fig.~\ref{fig:decomposition} in each case. Since this interaction occurred less than one orbital period ago, despite the uncertainties, the orbital solutions remain similar and thus produce consistent results across all simulations. However, as we continue to turn back time further, the uncertainties in the initial conditions allow the various orbital solutions to diverge from one another. Thus, in one configuration, a cluster can impact the stream at a given time, and yet at the same moment, in a different set of initial conditions, it could be on the other side of the Galaxy. We will discuss the necessary conditions for creating a gap in Supplemental Material~\ref{sec:gaps_vs_gcmass}. 
         \begin{table}[h]
             \centering
             \caption{Number of gaps created by each perturber across all 50 simulations. These data are color-coded and illustrated in Fig.~\ref{fig:histogram_impact_time}.}
@@ -182,7 +183,7 @@
 
         \begin{figure}
             \centering
-            \includegraphics[width=\linewidth]{images/gap_creation_rate.png}
+            \includegraphics[width=.7\linewidth]{images/gap_creation_rate.png}
             \caption{Distribution of the number of gaps normalized over the total integration time and unit stream length as described by Eq.~\ref{eq:gap_creation_rate} for the whole set of 50 \texttt{full} simulations. }
             \label{fig:gapcreationrate}
         \end{figure}
@@ -205,7 +206,7 @@
 
         This equation asserts that a more massive perturber, passing closer to the particle and moving more slowly, will have a greater impact. It is important to note that the momentum change is inversely proportional to the velocity of the perturber. Note that this contrasts with the intuition from elastic collisions, such as those between billiard balls, where higher velocities result in greater impacts.
 
-        \citet{2015MNRAS.450.1136E} extended this impact theory from one point mass impacting another to studying how an extended body impacts a stream by quantifying the change in momentum of a given particle as a function of its distance from the point of greatest impact along the stream. \citet{2015MNRAS.450.1136E} models their perturber as a Plummer sphere, like in our simulations. Since a stream is not a point but has length and an orientation in space, one needs to consider the parallel and perpendicular components of the velocity to describe the impact fully. Consequently, five parameters determine the change in velocity of a given stream particle: $M$, $r_p$, $b$, $W_\parallel$, and $W_\perp$, which are the mass of the perturber, size of the perturber, impact parameter, parallel and perpendicular components of the relative velocity. As detailed in Appendix~\ref{sec:reconstruction}, we calculated these parameters for all our \texttt{full} simulations by selecting -- for each of them --  the strongest five flybys of a perturber with the Palomar~5 stream. Thus, we compute 250 impacts and flag those that give way to gaps. 
+        \citet{2015MNRAS.450.1136E} extended this impact theory from one point mass impacting another to studying how an extended body impacts a stream by quantifying the change in momentum of a given particle as a function of its distance from the point of greatest impact along the stream. \citet{2015MNRAS.450.1136E} models their perturber as a Plummer sphere, like in our simulations. Since a stream is not a point but has length and an orientation in space, one needs to consider the parallel and perpendicular components of the velocity to describe the impact fully. Consequently, five parameters determine the change in velocity of a given stream particle: $M$, $r_p$, $b$, $W_\parallel$, and $W_\perp$, which are the mass of the perturber, size of the perturber, impact parameter, parallel and perpendicular components of the relative velocity. As detailed in Supplemental Material~\ref{sec:reconstruction}, we calculated these parameters for all our \texttt{full} simulations by selecting -- for each of them --  the strongest five flybys of a perturber with the Palomar~5 stream. Thus, we compute 250 impacts and flag those that give way to gaps. 
 
         Visual inspection of the five key impact parameters ($M$, $r_p$, $b$, $W_\parallel$, and $W_\perp$) did not reveal a clear distinction between flybys that create gaps and those that do not. Therefore, we only present the quantities from Eq.~\ref{eq:change_in_momentum} in Fig.~\ref{fig:impact_geometry_statistics}. 
     
@@ -215,7 +216,7 @@
 
         \begin{figure}
             \centering
-            \includegraphics[width=1\linewidth]{images/impact_geometry_statistics_deltaP.png}
+            \includegraphics[width=.7\linewidth]{images/impact_geometry_statistics_deltaP.png}
             \caption{Distribution of imparted change in momentum (per unit mass) from a cluster flyby given by Eq.~\ref{eq:change_in_momentum}. The data set includes the top 5 strongest flybys from each simulation. Those that cause gaps are colored, stacked, and overlaid atop those that do not — this is the gray distribution. We note the meaning of the colors is the same as in Fig.~\ref{fig:histogram_impact_time}.}
             \label{fig:deltap}
         \end{figure}
@@ -280,7 +281,7 @@
 
     Future work should involve a systematic comparison of gap creation rates across various Galactic potentials and extend the scope to a wider range of streams and globular clusters. Such a work could disentangle regimes where baryonic and dark matter-induced substructures can dominate gap creation, shedding light on the elusive influence of dark matter subhalos on stellar streams. Additionally, we can continue to add realistic physics to the Galactic environment, such as the merger of the Sagittarius dwarf galaxy, the passages of the Large and Small Magellanic clouds, as well as a time-evolving globular cluster population that compensates for the clusters' mass loss, evaporation, and similarly add members from the current incomplete census.
 
-\section{Appendix}
+\section{Supplementary Material}
 
     \subsection{Gap detection} \label{sec:gap_detection}
 
@@ -350,7 +351,7 @@
             \end{aligned}
             \right.
         \end{equation}
-        where $x$, $y$, and $z$ represent the parametric line describing the stream in Galactocentric coordinates, $\tau$ is the stream coordinate in time as described in the Appendix~\ref{sec:Perturber_Identification}, and is used as the independent variable to parameterize the position along the stream. The coefficients $a_i$, $b_i$, and $c_i$ are the polynomial coefficients. We found that a second-order polynomial was insufficient to capture the curvature along the full length of the stream, with divergence at the ends of the tails. A third-order polynomial was sufficient and desirable, as the lowest order adequately captures the stream's path over the entire length under consideration.
+        where $x$, $y$, and $z$ represent the parametric line describing the stream in Galactocentric coordinates, $\tau$ is the stream coordinate in time as described in the Supplemental Material~\ref{sec:Perturber_Identification}, and is used as the independent variable to parameterize the position along the stream. The coefficients $a_i$, $b_i$, and $c_i$ are the polynomial coefficients. We found that a second-order polynomial was insufficient to capture the curvature along the full length of the stream, with divergence at the ends of the tails. A third-order polynomial was sufficient and desirable, as the lowest order adequately captures the stream's path over the entire length under consideration.
 
         In this analysis, we only consider one side of the stream. For instance, if the impact candidate was in the leading tail, only the star particles with $\tau > 0$ are used to constrain the stream track. The polynomial coefficients were determined through a minimization method using the Nelder-Mead algorithm from \texttt{scipy}'s optimization package.
 
@@ -390,7 +391,7 @@
     \subsection{Survival of gaps in streams emerging from more massive globular clusters}\label{sec:gaps_vs_gcmass}
 
         \begin{figure}
-            \includegraphics[width=\linewidth]{images/decoherence_shocked_outflow.png}
+           \includegraphics[width=0.7\linewidth]{images/decoherence_shocked_outflow.png}
             \caption{We dissect the one-dimensional density of the stream from the bottom panel of Fig.~\ref{fig:gap_no_more}. We divide the stars into two categories: the multiple groups that are shocked out at different pericenter passages, or those that leak out of the cluster continuously. The bottom panel shows the leaked population in blue, and each group that was shocked out at each pericenter passage is color-coded by the escape time. The sum of the leaked and shocked outflow gives the total profile density, which is shown in black. The top four panels display the first shocked groups from different pericenter passages, shown individually. Each group shows the gap resulting from the impact of NGC~7078 $\sim$2.5~Gyr ago, yet they are progressively offset as explained in the text.}
             \label{fig:decoherence_shocked_outflow}
         \end{figure}
@@ -410,29 +411,29 @@
 
 
 
-\section{Velocity distribution within the stream}
+% \section{Velocity distribution within the stream}
 
-    \subsection{Self-Segregation and Stream Chilling}
+%     \subsection{Self-Segregation and Stream Chilling}
+% \paola{Salvatore, questa sezione mi pare incompleta. O la termini, o la togli.. Se la togli, puoi dire alla fine della sezione precedente che la fig 5.12 mostra che gaps che si formano in popolazioni perse a temoi diversi, si trovano in posizioni diverse e che questo e' un punto su cui stiamo lavorando.}
+%     The classic collisionless boltzmann equation:
+%     \begin{equation}
+%         \frac{df}{dt} = 0 = \frac{\partial f}{\partial x} \frac{dx}{dt} + \frac{\partial f}{\partial v} \frac{dv}{dt}+ \frac{\partial f}{\partial t} 
+%     \end{equation}
 
-    The classic collisionless boltzmann equation:
-    \begin{equation}
-        \frac{df}{dt} = 0 = \frac{\partial f}{\partial x} \frac{dx}{dt} + \frac{\partial f}{\partial v} \frac{dv}{dt}+ \frac{\partial f}{\partial t} 
-    \end{equation}
-
-    we are saying that the pusles drift with the same velocities thus $\frac{dv}{dt}=0$. I impart more assumptions, namely that: $\rho(x,t=0)=\delta(x)$ and that velocity is defined as a normal distribution that does not change over time. This means that I can write the initial distribution function as:
+%     we are saying that the pusles drift with the same velocities thus $\frac{dv}{dt}=0$. I impart more assumptions, namely that: $\rho(x,t=0)=\delta(x)$ and that velocity is defined as a normal distribution that does not change over time. This means that I can write the initial distribution function as:
     
-    \begin{equation}
-        f(x,v,t=0) = \delta(x)\frac{1}{\sigma\sqrt{2\pi}}\mathrm{exp}\left(-\frac{1}{2}\left(\frac{v-\langle v \rangle}{\sigma}\right)^2\right)
-    \end{equation}    
+%     \begin{equation}
+%         f(x,v,t=0) = \delta(x)\frac{1}{\sigma\sqrt{2\pi}}\mathrm{exp}\left(-\frac{1}{2}\left(\frac{v-\langle v \rangle}{\sigma}\right)^2\right)
+%     \end{equation}    
 
-    the solution to the evolution of the density is $\rho = \int f dv$, and you also need to perform this variable substitution $f(x,v,t) = f(x-vt,v,0)$
+%     the solution to the evolution of the density is $\rho = \int f dv$, and you also need to perform this variable substitution $f(x,v,t) = f(x-vt,v,0)$
 
-    \begin{equation}
-        \rho(x,t) = \frac{1}{\sigma t \sqrt{2\pi} }\mathrm{exp}\left(-\frac{1}{2}\left(\frac{x-\langle v \rangle t}{\sigma_v t}\right)^2\right)
-    \end{equation}
+%     \begin{equation}
+%         \rho(x,t) = \frac{1}{\sigma t \sqrt{2\pi} }\mathrm{exp}\left(-\frac{1}{2}\left(\frac{x-\langle v \rangle t}{\sigma_v t}\right)^2\right)
+%     \end{equation}
 
-    it's also useful to know the relative velocity of the impact site between one group and another. These things drift apart. How much faster does one group go ahead of another? 
-    \begin{equation}
-        \delta v_{ij} = \frac{x\prime}{t-iT} - \frac{x\prime}{t-jT}
-    \end{equation}
-    where $i,j$ are the indexes for the packet. Note that this only works for $t > nT$ where $T$ is the orbital period, or spacing between the impacts, $n$ is the number of pericenter passages. $t$ is the total simulation time. $x\prime$ is the position of the impact. It makes sense that the velocity of the particle is the position where the impact occured, divided by the time since it left the origin. 
+%     it's also useful to know the relative velocity of the impact site between one group and another. These things drift apart. How much faster does one group go ahead of another? 
+%     \begin{equation}
+%         \delta v_{ij} = \frac{x\prime}{t-iT} - \frac{x\prime}{t-jT}
+%     \end{equation}
+%     where $i,j$ are the indexes for the packet. Note that this only works for $t > nT$ where $T$ is the orbital period, or spacing between the impacts, $n$ is the number of pericenter passages. $t$ is the total simulation time. $x\prime$ is the position of the impact. It makes sense that the velocity of the particle is the position where the impact occured, divided by the time since it left the origin. 
