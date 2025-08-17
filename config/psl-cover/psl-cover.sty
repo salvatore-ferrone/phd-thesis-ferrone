@@ -375,11 +375,11 @@
 
 \newcommand{\pslbacknode}[4]{
   \begin{minipage}[h]{.8\paperwidth}
+    \setstretch{.8} % <-- Add this line for single spacing
     {\color{pslblue}\fontsize{12}{15}\selectfont #1}\unskip\strut\par
     \vspace{-2.5mm}
     \tikz{\draw[pslblue, line width=.5mm] (0, 0) -- (16.8, 0);}
-
-    \vspace{1mm} %old 3 mm
+    \vspace{1mm}
     {\color{black}\fontsize{#3}{#4}\selectfont #2}\unskip\strut\par
   \end{minipage}
 }
