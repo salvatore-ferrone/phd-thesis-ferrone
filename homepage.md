@@ -19,8 +19,8 @@ L'avènement de l'astrométrie \textit{Gaia} a permis des études à grande éch
 
 - [Introduction](introduction.html)
 - [Theory](theory.html)
-- [Numerics](numerics.html)
-- [tidal](tidal.html)
-- [Gapology](Gapology.html)
-- [Conclusion](Conclusion.html)
+- [Numerical Methods](numerics.html)
+- [Tidal debris from all Milky Way Globular Clusters](tidal.html)
+- [Gaps in Stellar Streams from Globular Cluster Flybys](gapology.html)
+- [Conclusion](conclusion.html)
 
