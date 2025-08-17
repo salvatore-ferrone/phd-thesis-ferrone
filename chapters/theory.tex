@@ -513,9 +513,9 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \end{equation}
             where $r_\oplus$ is the Earth's position relative to the Sun, $\vec{r}$ is the Moon's position relative to Earth, $M_\odot$ is the mass of the Sun, and $M_\oplus$ is the mass of the Earth. The coordinates $x, y, z$ refer to the components of Earth's heliocentric position.
 
-            \begin{verbatim}
-            VIDEO: moon_tidal_simulation.mp4
-            \end{verbatim}
+            % \begin{verbatim}
+            % VIDEO: moon_tidal_simulation.mp4
+            % \end{verbatim}
 
             \begin{figure}
                 \centering
@@ -549,9 +549,9 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
             \beta'^2 + \beta \beta'' - \frac{3\left(\beta \beta'\right)^2}{D^2} \neq 1 - \frac{3z^2}{D^2},
             \]
             (1) the stretching axis is no longer parallel to the position vector, and (2) the compression axes do not necessarily lie in the same plane—they may instead be fixed in orientation and differ in magnitude. The exact orientation of all three eigenvectors depends on the cluster's position in the galaxy. Note that if $z = 0$, we recover the case where the stretching eigenvector is parallel to the position vector, although the compression axes remain unequal in magnitude and fixed in orientation. If instead $b = 0$, then we recover spherical symmetry, and the compression eigenvalues become equal.
-            \begin{verbatim}
-            VIDEO: tidal_deformation_ellipsoid.mp4
-            \end{verbatim}
+            % \begin{verbatim}
+            % VIDEO: tidal_deformation_ellipsoid.mp4
+            % \end{verbatim}
             I have prepared Figs.~\ref{fig:miyamoto_disc_shocks_circular_inclined_orbit}-\ref{fig:miyamoto_disc_shocks_weak_shocks} to illustrate the diversity of tidal forces experienced by clusters on various orbits within a Miyamoto-Nagai disk potential. I generate initial conditions with prescribed pseudo-eccentricities and inclinations. Each initial condition is set at apocenter, specified by a radial distance and an inclination from the disk plane. The initial velocity vector is oriented perpendicular to both the z-axis and the position vector. The circular speed at the initial position is computed as $v_\mathrm{circ} = \sqrt{|\mathbf{r}| \cdot |\nabla\Phi(\mathbf{r})|}$. The pseudo-eccentricity is applied via $v_0 =  v_\mathrm{circ} \sqrt{\frac{1 - e}{1 + e}}$.
 
             Fig.~\ref{fig:miyamoto_disc_shocks_circular_inclined_orbit} shows a cluster on an inclined, non-eccentric orbit. In contrast, Fig.~\ref{fig:miyamoto_disc_shocks_planar_eccentric_orbit} presents a planar but eccentric orbit. The former experiences repeated disk shocks, while the latter undergoes enhanced tidal forces primarily near pericenter passages.
