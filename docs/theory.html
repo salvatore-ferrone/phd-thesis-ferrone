@@ -1688,7 +1688,7 @@ rotation. This offset results in a torque that transfers angular
 momentum from the Earth’s rotation to the Moon’s orbit. As a
 consequence, Earth’s rotation gradually slows while the Moon slowly
 recedes from Earth.</p>
-<p>All of the above phenomena requires using the tidal tensor for a
+<p>All of the above phenomena require using the tidal tensor for a
 Keplerian potential: <span class="math display">\[\mathcal{T}=
 -\frac{GM}{r^3}\left(\begin{matrix}
                     1-\frac{3x^2}{r^2} &amp; -\frac{3xy}{r^2} &amp;
@@ -1707,10 +1707,22 @@ eigenvectors: <span class="math display">\[\vec{v}_0 =
 -y \\ x \\ 0 \end{bmatrix},\quad
                 \vec{v}_2 = \dfrac{1}{r\sqrt{x^2 + y^2}} \begin{bmatrix}
 -xz \\ -yz \\ x^2 + y^2 \end{bmatrix}.\]</span> Notably, the first
-eigenvalue is positive and corresponds to a stretching deformation along
-the position vector. The other two are negative, representing
-compression in directions perpendicular to the stretching axis. These
-directions define a plane orthogonal to the Earth-Moon line.</p>
+eigenvalue is positive and corresponds to stretching along the position
+vector <span class="math inline">\(\vec{r}\)</span>. The other two
+eigenvalues are equal and negative, representing compression in the
+plane perpendicular to <span class="math inline">\(\vec{r}\)</span>. Any
+orthonormal pair of vectors spanning this plane forms valid
+eigenvectors, so the choice is not unique. In this work, we illustrate
+this by choosing <span class="math inline">\(\vec{v}_1\)</span>
+perpendicular to both <span class="math inline">\(\vec{r}\)</span> and
+the <span class="math inline">\(z\)</span>-axis, i.e., effectively
+projecting along <span class="math inline">\([0,0,1]\)</span>, and
+taking the cross product to define <span
+class="math inline">\(\vec{v}_2\)</span>. This choice leads to a
+singularity when <span class="math inline">\(\vec{r}\)</span> is aligned
+with the <span class="math inline">\(z\)</span>-axis; in that case, any
+other reference axis can be chosen to define the perpendicular
+plane.</p>
 <p>From this, several tidal effects become evident. For instance, the
 Earth’s oceans stretch along the Earth-Moon axis due to the Moon’s tidal
 forces. While the Sun also exerts tidal forces on Earth, their magnitude
@@ -3552,9 +3564,9 @@ Administration</em>.
 <div id="ref-2013ApJ...775..134V" class="csl-entry" role="listitem">
 VandenBerg, Don A., K. Brogaard, R. Leaman, and L. Casagrande. 2013.
 <span>“<span class="nocase">The Ages of 55 Globular Clusters as
-Determined Using an Improved VĤB_TO Method along with Color-Magnitude
-Diagram Constraints, and Their Implications for Broader
-Issues</span>”</span> 775 (2): 134. <a
+Determined Using an Improved Method along with Color-Magnitude Diagram
+Constraints, and Their Implications for Broader Issues</span>”</span>
+775 (2): 134. <a
 href="https://doi.org/10.1088/0004-637X/775/2/134">https://doi.org/10.1088/0004-637X/775/2/134</a>.
 </div>
 <div id="ref-2021MNRAS.505.5978V" class="csl-entry" role="listitem">

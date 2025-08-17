@@ -478,7 +478,7 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
 
             A particularly insightful illustration is the angular offset between the Earth's tidal bulge and the Moon's position, caused by the Earth's rotation. This offset results in a torque that transfers angular momentum from the Earth's rotation to the Moon's orbit. As a consequence, Earth's rotation gradually slows while the Moon slowly recedes from Earth. 
             
-            All of the above phenomena requires using the tidal tensor for a Keplerian potential:
+            All of the above phenomena require using the tidal tensor for a Keplerian potential:
             \begin{equation}
                 \mathcal{T}= -\frac{GM}{r^3}\left(\begin{matrix}
                     1-\frac{3x^2}{r^2} & -\frac{3xy}{r^2} & -\frac{3xz}{r^2} \\
@@ -492,7 +492,7 @@ I aimed to write the chapter, if handed to myself in 2022, would have jumped-sta
                 \vec{v}_1 = \dfrac{1}{\sqrt{x^2 + y^2}} \begin{bmatrix} -y \\ x \\ 0 \end{bmatrix},\quad
                 \vec{v}_2 = \dfrac{1}{r\sqrt{x^2 + y^2}} \begin{bmatrix} -xz \\ -yz \\ x^2 + y^2 \end{bmatrix}.
             \end{equation}
-            Notably, the first eigenvalue is positive and corresponds to a stretching deformation along the position vector. The other two are negative, representing compression in directions perpendicular to the stretching axis. These directions define a plane orthogonal to the Earth-Moon line. 
+            Notably, the first eigenvalue is positive and corresponds to stretching along the position vector $\vec{r}$. The other two eigenvalues are equal and negative, representing compression in the plane perpendicular to $\vec{r}$. Any orthonormal pair of vectors spanning this plane forms valid eigenvectors, so the choice is not unique. In this work, we illustrate this by choosing $\vec{v}_1$ perpendicular to both $\vec{r}$ and the $z$-axis, i.e., effectively projecting along $[0,0,1]$, and taking the cross product to define $\vec{v}_2$. This choice leads to a singularity when $\vec{r}$ is aligned with the $z$-axis; in that case, any other reference axis can be chosen to define the perpendicular plane.
             
             From this, several tidal effects become evident. For instance, the Earth's oceans stretch along the Earth-Moon axis due to the Moon's tidal forces. While the Sun also exerts tidal forces on Earth, their magnitude is weaker due to the $r^{-3}$ scaling with distance. When the Moon is either full or new, the Sun and Moon's tidal forces act constructively, leading to spring tides. At first and third quarters, they interfere destructively, causing neap tides. Additionally, Earth's tidal influence distorts the Moon from spherical symmetry into an ellipsoid. The Moon's most stable orientation is one where its longest axis aligns with the Earth-Moon line—resulting in tidal locking.
 
