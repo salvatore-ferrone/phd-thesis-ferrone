@@ -267,12 +267,12 @@ inference.</p>
 <h2 id="dark-matter-subhalos">Dark Matter Subhalos</h2>
 <p>The prospect of detecting dark matter (DM) on scales smaller than
 those accessible in the extragalactic context is particularly
-compelling. Our goal is to perform a study similar to that in Chapter 5,
-but rather than limiting ourselves to a population of Galactic globular
-clusters, we will also include a <span
+compelling. One of my current interests consists in performing a study
+similar to that in Chapter 5, but rather than limiting ourselves to a
+population of Galactic globular clusters, we will also include a <span
 class="math inline">\(\Lambda\)</span>CDM-motivated population of dark
-matter subhalos (Boldrini et al., in prep). Figure <a
-href="#fig:mollweide-density-with-haloes.png" data-reference-type="ref"
+matter subhalos. Figure <a href="#fig:mollweide-density-with-haloes.png"
+data-reference-type="ref"
 data-reference="fig:mollweide-density-with-haloes.png">1</a> shows an
 example of such a population from a cosmological simulation of a Milky
 Way analogue. <span class="citation"
@@ -287,12 +287,12 @@ discuss the detectability of gaps in <span class="math inline">\(\sim
 <figure id="fig:mollweide-density-with-haloes.png">
 <img src="images/mollweide-density-with-haloes.png" />
 <figcaption>Plausible <span class="math inline">\(\Lambda\)</span>CDM
-dark matter subhalo population as “seen” from the Sun (Boldrini et al,
-in prep). The subhalos are modeled as Plummer spheres, with their light
-integrated along the line of sight from the Sun and scaled according to
-the total halo mass. Overlaid is the integrated surface light density
-profile of the Milky Way’s stellar disk, modeled with a Miyamoto-Nagai
-potential. </figcaption>
+dark matter subhalo population as “seen” from the Sun. The subhalos are
+modeled as Plummer spheres, with their light integrated along the line
+of sight from the Sun and scaled according to the total halo mass.
+Overlaid is the integrated surface light density profile of the Milky
+Way’s stellar disk, modeled with a Miyamoto-Nagai potential. DM
+simulation from Boldrini et al. (in prep). </figcaption>
 </figure>
 <p>There is considerable modeling work on gap formation in stellar
 streams. While we aim to make theoretical predictions for the expected
@@ -393,16 +393,14 @@ class="math inline">\(N\)</span>-body simulations without assuming a
 specific parametric form, providing both flexibility and speed.</p>
 <p>In summary, with upcoming improvements in both data quality and
 modeling techniques, there is strong potential to make significant
-progress in this field. Depending on computational constraints, I may
-either adopt an existing stream simulation method in place of
-<code>tstrippy</code> or implement a particle-spray approach within
-it.</p>
+progress in this field.</p>
 <h2 id="the-bulk-gravitational-field-of-the-mw">The bulk gravitational
 field of the MW</h2>
 <p>At the onset of this thesis, our aim was to investigate large-scale
 features of the Milky Way such as spiral arms, the Galactic bar, giant
-molecular clouds, and satellite galaxies. Each of these components
-represents a potential avenue for further study.</p>
+molecular clouds, and satellite galaxies and their effect of globular
+cluster streams. Each of these components represents a potential avenue
+for further study.</p>
 <p>In particular, we are interested in the role of the Galactic bar.
 Previous works have shown that the bar can induce chaotic orbits,
 causing stellar streams to “fan out” more than they otherwise would
@@ -488,9 +486,8 @@ described in Chapter 4. Palomar 5’s initial conditions are identical in
 all runs, but the bar pattern speed is varied between 25 and
 61 km s<span class="math inline">\(^{-1}\)</span> kpc<span
 class="math inline">\(^{-1}\)</span> over 150 samples. The animated
-version of this figure is available in the online thesis.<a href="#fn1"
-class="footnote-ref" id="fnref1"
-role="doc-noteref"><sup>1</sup></a></figcaption>
+version of this figure is available in the online thesis (Many thanks to
+Raif Moibi who helped launch and analyze these simulations)</figcaption>
 </figure>
 <p>The results in Fig. <a href="#fig:pal5_with_bar"
 data-reference-type="ref" data-reference="fig:pal5_with_bar">2</a> raise
@@ -516,11 +513,9 @@ compared to typical Galactic field stars <span class="citation"
 data-cites="2012A&amp;ARv..20...50G 2018ARA&amp;A..56...83B 2019A&amp;ARv..27....8G">(R.
 G. Gratton, Carretta, and Bragaglia 2012; Bastian and Lardo 2018; R.
 Gratton et al. 2019)</span>. Many globular clusters host multiple
-stellar populations, often interpreted as successive generations of star
-formation. In some clusters, the majority of stars are thought to be
-second-generation, implying that the original system was much more
-massive at formation. However, no single formation and evolution
-scenario fully reproduces the observed abundance patterns.</p>
+stellar populations, often interpreted as different generations of star
+formation. However, no single formation and evolution scenario fully
+reproduces the observed abundance patterns.</p>
 <p>Some studies have explored dynamical pathways for producing a second
 generation. For example, <span class="citation"
 data-cites="2024A&amp;A...681A..45L">Lacchin et al. (2024)</span>
@@ -535,12 +530,24 @@ observational studies are beginning to provide kinematic evidence for
 multiple populations. For instance, <span class="citation"
 data-cites="2025MNRAS.537.2342C">Cordoni et al. (2025)</span> measured
 kinematic differences between two stellar generations in 47 Tuc.</p>
-<p>The chemical composition of globular cluster stars also provides
-important clues to the Milky Way’s assembly history. Globular clusters
-have unique chemical abundance patterns, particularly compared to the
-predominantly disk field stars of the Galaxy. Many halo stars share
-similar chemical patterns with clusters, suggesting that globular
-clusters may have contributed to the stellar halo <span class="citation"
+<p>Stars with the peculiar chemistry of globular clusters start to be
+found in all Galactic components, from the halo and bulge <span
+class="citation"
+data-cites="2016ApJ...825..146M 2017MNRAS.465..501S">(Martell et al.
+2016; Schiavon et al. 2017)</span> to the disk, where - for example -
+<span class="citation" data-cites="2017ApJ...846L...2F">J. G.
+Fernández-Trincado et al. (2017)</span> stars with the characteristic
+signatures of second-generation cluster members, and <span
+class="citation" data-cites="2021ApJ...918L..37F">José G.
+Fernández-Trincado et al. (2021)</span> identified relatively metal-rich
+cluster debris (still below solar metallicity). This is further evidence
+that globular cluster mass loss contributed to the Galactic field
+populations, in an amount which is still difficult to estimate <span
+class="citation" data-cites="2016ApJ...825..146M">(see, for example
+Martell et al. 2016)</span>.</p>
+<p>Many halo stars share similar chemical patterns with clusters,
+suggesting that globular clusters may have contributed to the stellar
+halo <span class="citation"
 data-cites="2016ApJ...825..146M 2017MNRAS.465..501S">(Martell et al.
 2016; Schiavon et al. 2017)</span>. There are, however, notable
 exceptions: <span class="citation" data-cites="2017ApJ...846L...2F">J.
@@ -565,6 +572,9 @@ available for more stars in tidal tails, it may be possible to map the
 spatial distribution of first- and second-generation stars within
 streams. Their relative kinematics could provide a direct probe of the
 progenitor cluster’s internal dynamical evolution.</p>
+<p>The models I have presented in this thesis can be enriched by these
+observations to provide initial constraints on the mass loss history of
+these clusters.</p>
 <div id="refs" class="references csl-bib-body hanging-indent"
 data-entry-spacing="0" role="list">
 <div id="ref-2024arXiv241213144A" class="csl-entry" role="listitem">
@@ -890,14 +900,5 @@ the bulge</span>”</span> 450 (4): 4050–69. <a
 href="https://doi.org/10.1093/mnras/stv745">https://doi.org/10.1093/mnras/stv745</a>.
 </div>
 </div>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1"><p>Many thanks to Raif Moibi who helped launch and analyze
-these simulations<a href="#fnref1" class="footnote-back"
-role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 </body>
 </html>
