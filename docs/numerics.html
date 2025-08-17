@@ -416,7 +416,7 @@ approximately the number of steps times the average error per step:
 \frac{T}{\Delta t} \cdot \Delta t^2 \langle y&#39;&#39; \rangle =
 \mathcal{O}(\Delta t).\]</span> This means that halving the timestep
 roughly halves the global error.</p>
-<p>It is important to note that using a taylor series to estimate the
+<p>It is important to note that using a Taylor series to estimate the
 error is not mathematically rigorous and not always generalizable. The
 actual error behavior depends strongly on the properties of the function
 being integrated. For instance:</p>
@@ -444,7 +444,7 @@ validate the result. These include:</p>
 <li><p>Leveraging any known properties of the solution to verify
 correctness.</p></li>
 </ul>
-<p>For example, we can exploit the properties of Hamiltonain systems to
+<p>For example, we can exploit the properties of Hamiltonian systems to
 design integrators. In this thesis, we implemented the Leapfrog
 integrator and the Forest-Ruth scheme <span class="citation"
 data-cites="bovy_inprep 1990PhyD...43..105F">(Bovy 2025a; Forest and
@@ -463,9 +463,9 @@ and we do not discuss this further.</em></p>
 <p>However, my curiosity about linguistics pushed me to delve further:
 What does <em>symplectic</em> mean? <span class="citation"
 data-cites="weyl1946classical">Weyl (1946)</span> coined the term
-because <em>complex</em> was already taken. The prefix latin
+because <em>complex</em> was already taken. The prefix Latin
 <em>com</em>- refers to <em>together</em>, and <em>plexus</em> comes
-from greek meaning “woven” or “braided”. Symplectic translates exactly
+from Greek meaning “woven” or “braided”. Symplectic translates exactly
 the same way: <em>sym</em>- is a Greek prefix for “together.” The idea
 remains the same: in Hamiltonian dynamics, the evolution of position and
 momentum are interdependent. This becomes clearer in matrix form: <span
@@ -517,7 +517,7 @@ class="math display">\[\mathrm{det}\left(J\right) = 1 - \Delta t^2
 class="math inline">\(\frac{\partial^2 \mathcal{H}}{\partial
 q^2}\)</span> or <span class="math inline">\(\frac{\partial^2
 \mathcal{H}}{\partial p^2}\)</span> are zero. There is a quick fix to
-this dilema, namely, only stepping in <span
+this dilemma, namely, only stepping in <span
 class="math inline">\(q\)</span> or <span
 class="math inline">\(p\)</span> while holding the other constant. In
 turn, the transformation of a single step will have a Jacobian whose
@@ -562,10 +562,10 @@ local points about the position and momenta to evolve them. Other
 schemes can use more points to have more accurate estimations for the
 local derivatives.</p>
 <p><span class="citation" data-cites="1990PhyD...43..105F">Forest and
-Ruth (1990)</span> proposed one such method for symplectic integrations.
+Ruth (1990)</span> proposed one such method for symplectic integration.
 The method involves finding roots of high order polynomials which
 determine the distances about the local point for finding the best
-estimate of the derivative for evoling the system. The method involves
+estimate of the derivative for evolving the system. The method involves
 solving a cubic polynomial to determine the optimal coefficients. While
 the derivation is mathematically involved, the final scheme is
 straightforward to implement. I implemented this method and tested its
@@ -689,7 +689,7 @@ class="math inline">\(E = T(\mathbf{v}_{\mathrm{GC}}) +
 \Phi_{\mathrm{MW}}\left(\mathbf{x}_{\mathrm{GC}}\right)\)</span>, where
 <span class="math inline">\(\mathbf{x}_{\mathrm{GC}}\)</span> and <span
 class="math inline">\(\mathbf{v}_{\mathrm{GC}}\)</span> are the
-cartesian galactocentric position and velocity of the globular cluster.
+Cartesian galactocentric position and velocity of the globular cluster.
 For the case of the <span class="math inline">\(i\)</span>-th
 star-particle within a globular cluster, the potential energy of the
 cluster is included: <span class="math inline">\(E_i = T(\textbf{v}_i) +
@@ -706,8 +706,8 @@ globular clusters since we treat them as point masses. For the
 star-particles, the energy is not conserved in the simulations, since
 they are subject to the force from the globular cluster. However, we
 track the energy particularly when we perform the second check, which is
-time-reversability.</p>
-<p>To check the time-reversability, we integrate a cluster back in time,
+time-reversibility.</p>
+<p>To check the time-reversibility, we integrate a cluster back in time,
 and then change the sign of its velocity to subsequently integrate
 forward in time. If the integration is correct, the cluster should
 remain on the same trajectory retracing its steps. We investigate this
@@ -815,7 +815,7 @@ round off error from the use of double precision floating point
 numbers.</p>
 <figure id="fig:numericalErrorReverseIntegration">
 <img src="images/numericalErrorReverseIntegration.png" />
-<figcaption>The <em>time-reversability</em> of the Leapfrog scheme for
+<figcaption>The <em>time-reversibility</em> of the Leapfrog scheme for
 the 165 Galactic globular cluster’s for four different timesteps
 indicated in the legend. The whole system is only shown for <span
 class="math inline">\(10^4\)</span> yr and <span
@@ -867,7 +867,7 @@ integration scheme for the globular cluster system. This plot is similar
 to Fig. <a href="#fig:numericalErrorLeapfrogVanilla"
 data-reference-type="ref"
 data-reference="fig:numericalErrorLeapfrogVanilla">1</a>, but does not
-preesnt on the whole globular cluster system, just the average error in
+present on the whole globular cluster system, just the average error in
 energy for the whole system with a given timestep. The timestep and
 time-average numerical error for the whole system is presented next to
 each curve. The average computation time per integration step per single
@@ -882,7 +882,7 @@ given step size, the Ruth-forest outperforms the Leapfrog, but is it
 actually better? To answer this question, I fit the two curves with
 their own trend lines to find the number of steps required to have a
 relative error of <span class="math inline">\(10^{-8}\)</span>. With
-this requirement, The Leapfrog sceme requires 262,641 steps while the
+this requirement, The Leapfrog scheme requires 262,641 steps while the
 Ruth-Forest scheme requires 102,773 steps. However, given the difference
 in computation time per step, on average, the Forest-Ruth scheme takes
 <span class="math inline">\(\sim 1.5\)</span>x more time for the same
@@ -895,7 +895,7 @@ precision is not worth the pay off of longer computation times.</p>
 <img src="images/numericalErrorMeanEnergyErrorRuthForestLeapfrog.png" />
 <figcaption>The time averaged error in the conservation of energy for
 the entire globular cluster system for four different timesteps, for two
-different integration techinques: the Leapfrog against the Ruth-Forest.
+different integration techniques: the Leapfrog against the Ruth-Forest.
 Their respective trend lines are shown.</figcaption>
 </figure>
 <h2 id="star-particles-in-a-static-globular-cluster">Star-particles in a
@@ -1041,7 +1041,7 @@ values of <span class="math inline">\(\alpha \in [10^{-4}, 10^{-3},
 10^{-2}, 10^{-1}, 1, 2]\)</span>. This experiment shows that values of
 <span class="math inline">\(\alpha &lt; 10^{-2}\)</span> yield excellent
 energy conservation. In this section, we do not consider the
-time-reversability as the previous section has shown the integrations
+time-reversibility as the previous section has shown the integration’s
 robustness with regard to this metric. However, this is our main metric
 for the next section.</p>
 <figure id="fig:numericalErrorStaticPlummerSphereEnergyError">
@@ -1194,11 +1194,11 @@ for the entire catalog? Fig. <a
 href="#fig:NumericalErrorStreamRetraceEnergyConservation"
 data-reference-type="ref"
 data-reference="fig:NumericalErrorStreamRetraceEnergyConservation">11</a>
-presents the realtive error in the conservation of energy for retracing
+presents the relative error in the conservation of energy for retracing
 the orbit of each individual star particle per globular cluster for each
 cluster in the catalog. Each data point reports the mean error in the
 conservation of energy. Each cluster was integrated for 5 Gyr. The upper
-limits for the timesteps were sampeld logarithmically between <span
+limits for the timesteps were sampled logarithmically between <span
 class="math inline">\(10^{0}\)</span> and <span
 class="math inline">\(10^{-2}\)</span>, the exact timesteps are based on
 the criterion from Eq. <a href="#eq:binary_time_step_criterion"
@@ -1233,7 +1233,7 @@ integrating them each for 1 Gyr. I choose the timestep to be at most
 different dynamical time, it will require a different number of steps.
 For each of these tests I use <span
 class="math inline">\(10^1,~10^2,~10^2,~10^3\)</span> particles and
-launched them on cluster at the paris observatory. Then, I fit a scaling
+launched them on cluster at the Paris observatory. Then, I fit a scaling
 law of <span class="math inline">\(C(N_p,N_s) = \langle C\rangle N_p^a
 N_s^b\)</span>. If the code scales linearly, then each exponent, <span
 class="math inline">\(a,~b\)</span>, should be 1 and <span
@@ -1266,7 +1266,7 @@ and Fig. <a href="#fig:NumericalErrorComputationTimeScalingForStreams"
 data-reference-type="ref"
 data-reference="fig:NumericalErrorComputationTimeScalingForStreams">12</a>
 together, we may estimate for how long it completes to run these
-simulations. If we want all simualtions to have error better relative
+simulations. If we want all simulations to have error better relative
 error on the retraced conservation of energy than about 10<span
 class="math inline">\(^{-3}\)</span>, then we must pick timesteps that
 are smaller than about 1/20 of the dynamical time. With this criteria
@@ -1577,7 +1577,7 @@ model, which is not natively supported. I followed the documentation and
 implemented a class for it. However, custom potentials bypass
 <code>Galpy</code>’s optimized C++ backend, resulting in slow
 computations and rendering actions uncomputable (or at least with the
-functions I tried). This pushed me to continue developping
+functions I tried). This pushed me to continue developing
 <code>tstrippy</code>. I had a similar experience with
 <code>Amuse</code>.</p>
 <p>This choice, however, came with challenges. At one point, I tried
@@ -1586,7 +1586,7 @@ do not admit closed-form solutions for the potential. I attempted to
 work in elliptical coordinates, motivated by the idea that the potential
 would depend only on the “distance” from the center along the
 equipotential surfaces. While I successfully implemented simple
-potential models in elliptical coordinates, I naïvely overlooked that
+potential models in elliptical coordinates, I naively overlooked that
 this changes the equations of motion entirely due to the underlying
 geometry. I found that my orbits always diverged (except in special
 cases). It was only later that I realized I would need to account for
